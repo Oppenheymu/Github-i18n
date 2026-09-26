@@ -53,6 +53,8 @@ const SECURITY_NODES: readonly string[] = [
 	"at least 8 characters",
 	"including a number",
 	"and a lowercase letter",
+	// 强度指示条的档位文案（实机采集到的是最低档）
+	"Less secure",
 	"Hide",
 	"Show",
 	// —— 通行密钥 ——

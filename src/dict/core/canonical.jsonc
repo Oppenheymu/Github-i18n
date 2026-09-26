@@ -206,6 +206,8 @@
 				"including a number",
 				"and a lowercase letter",
 				"Learn more about strong passwords",
+				// 密码强度指示条的档位文案（实机采集到的是最低档；更高档位本次未出现，未命中即保留英文）
+				"Less secure",
 				// 密码输入框右侧的显示 / 隐藏切换（实机是两个节点的按钮文案）
 				"Hide",
 				"Show",

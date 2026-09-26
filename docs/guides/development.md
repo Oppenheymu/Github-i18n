@@ -216,7 +216,123 @@ site|security|team|events|about|contact)(?:/|$))[^/]+
 - 路由属于模块定义，改了必然动 `check:view` 的命中序列快照——用 `bun run check:view --update` 重生成并说明原因；
 - 判断某路径是否被越界覆盖的快速办法：`bun run check:view` 的输出会逐条打印「路径 → 命中的模块 + 词条数」，词条数突然变大往往就是注入了不该命的模块。
 
-### 加一条静态词条
+## 逐页补翻译的标准作业流程
+
+**这一节是给「新会话 / 没有上下文的人或 AI」的检查清单**：每次补一个页面的漏翻，都按下面的顺序走，不要重新摸索采集方式，也不要凭截图直接登记键。全流程的强制约束（归档纪律、防循环、门禁）见 `AGENTS.md` 与本文件其他小节。
+
+### 一、前置事实（先读这三条，能省掉整轮试错）
+
+1. **实机文本只能由维护者在浏览器里采集**。本机（2026-09 实测）没有可用的自动采集路径：`web_fetch` 抓 `github.com` 会被解析安全策略挡下（报「解析到非公网地址」）、复制一份 Edge 配置副本拿不到登录态（运行中的 Edge 独占 `Cookies` 库，GitHub 用的是设备绑定会话）、运行中的 Edge 既不监听 CDP 端口也不是「CDP JSON 端点」。**不要在会话里再试这三条**，直接请维护者用下面两种方式之一采集。
+2. **采集必须在「未加载本扩展」的原始英文页面上做**。装了扩展再复制 HTML，拿到的是中英混杂的渲染结果——那会把「已是中文的节点」和「仍是英文的待补节点」混在一起，极易登记错键。要么先用无扩展的窗口打开该页，要么以「仍是英文的模板文案」为待补项、把中文节点当既有词条（本次 `/settings/emails` 会话就是这么做的，可行但更费眼）。
+3. **PowerShell 偶发 `SetNamedSecurityInfoW … grantWrite` 初始化失败时，连续重试无用**：那是沙箱初始化问题，不是命令问题。直接向用户说明，改用文件读写工具（read / write / edit / glob / grep）继续推进；用户放权（danger-full-access）后 shell 会自行恢复，届时再跑门禁。
+
+### 二、标准路径
+
+先说两条**具体操作上的坑**（本次会话都踩到过）：
+
+- **登记键与译文时，改完一个文件就立刻跑一次 `bun run check:dict`**。用 edit 工具改 `core/canonical.jsonc` 时，若替换片段里漏掉数组 / 对象的收尾括号，JSONC 会直接变成语法错误（整个词典编译不过）；早跑一次门禁能把问题钉在刚改的那一处，而不是留到后面几十条键一起排查。
+- **决定收录某个泛化短词（品牌名、导航短标签）之前，先 `grep` 全仓既有译文与测试**：同一个词可能已被别的模块收录，或已被某份节点边界测试写成**反例断言**（例：`Copilot` 在账单页 / 许可页 / 通知页三份测试里都被断言「必须保持英文」）。先查再收，能省掉一轮「门禁全绿但既有测试红了」的返工。
+
+| 步骤 | 动作 | 产出 / 校验 |
+| --- | --- | --- |
+| 1 | 定模块与路由 | 该页命中哪个 `core/modules.jsonc` 模块（多半是 `pages/settings` 这类**同模块多页**，键直接追加进去，不新建模块） |
+| 2 | 采集实机节点 | 途径 A / B（见下），拿到**逐字**文本节点与可翻译属性 |
+| 3 | 登记键 | `core/canonical.jsonc` 对应模块的 `keys` 末尾追加，**顺序与页面出现顺序一致**，并写清节点边界的注释；改完立刻跑 `bun run check:dict` |
+| 4 | 补译文 | `locales/zh-CN/<模块>.jsonc` 同步追加键值对（ja 缺译是正常状态，不强制） |
+| 5 | 写节点边界回归 | `src/content/__tests__/<页名>.test.ts`：节点原文清单 + 拆分处 `renderNodes` 拼接断言 + **反例**（用户内容 / 纯专名必须保持英文） |
+| 6 | `bun run format` 再 `bun run check` | 格式由 Biome 唯一权威，先格式化再跑全量，否则会为纯格式问题白跑一轮 |
+| 7 | 快照变了就 `bun run check:view --update` | 只在**有意改动**时更新（新增跨模块同键异译、模块顺序变化），并在提交信息里说明原因 |
+| 8 | `bun run build` → 提交 | 提交前 `bun run check` 必须全绿；提交信息写清「哪一页、为什么、快照为何变」 |
+
+### 三、采集途径
+
+**途径 A（首选）：popup 的开发者模式。** 开启后正常浏览目标页，等落盘（每 5 秒 / 页面隐藏时），回 popup 点「复制」得到 `github-zh-misses/1` JSON，直接粘进会话。优点是自带 `path` 与 `count`（出现次数多的先补）。**注意它只含「未命中」的文本与属性**，所以「哪些节点被拆开了」要靠途径 B 补。
+
+**途径 B（节点边界）：Console 采集片段。** 在目标页按 F12 → Console → 先执行一次 `allow pasting`（Edge / Chrome 的粘贴保护）→ 粘贴下面整段。它一次性打出该页**全部文本节点**（含真实空白与父元素，便于识别 `sr-only` / 组件结构）、**六个可翻译属性**、以及**扩展自身的排除判定**（`script` / `style` / `noscript` / `textarea` 等，见了直接忽略）。
+
+```js
+// 采集片段（整段粘进目标页 Console；不依赖扩展、不发任何网络请求）
+var dump = [];
+dump.push("URL " + location.href);
+// ① 全部文本节点（含真实空白；父元素 class 用于识别 sr-only / 组件结构）
+(function () {
+	var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+	var n;
+	while ((n = w.nextNode())) {
+		if (!n.nodeValue || !n.nodeValue.trim()) continue;
+		var el = n.parentElement;
+		if (!el) continue;
+		dump.push("TEXT " + JSON.stringify(n.nodeValue) + " ||| <" + el.tagName.toLowerCase() +
+			' class="' + (typeof el.className === "string" ? el.className : "") + '">');
+	}
+})();
+// ② 六个可翻译属性（属性只走精确命中，不走规则）
+(function () {
+	var attrs = ["title", "aria-label", "placeholder", "alt", "value", "data-disable-with"];
+	for (var i = 0; i < attrs.length; i++) {
+		var els = document.querySelectorAll("[" + attrs[i] + "]");
+		for (var j = 0; j < els.length; j++) {
+			var v = els[j].getAttribute(attrs[i]);
+			if (!v || !v.trim()) continue;
+			dump.push("ATTR " + attrs[i] + " " + JSON.stringify(v));
+		}
+	}
+})();
+// ③ 扩展自身的排除容器：这里的文本引擎不会翻译，不要在词典里为它们收键
+(function () {
+	var sel = "code,pre,kbd,samp,textarea,script,style,noscript,template,.highlight,.blob-code,.diff-table,.js-file-line,.react-code-lines,.CodeMirror,.cm-editor,.markdown-body";
+	var els = document.querySelectorAll(sel);
+	for (var i = 0; i < els.length; i++) {
+		if (els[i].textContent && els[i].textContent.trim()) {
+			dump.push("EXCLUDED <" + els[i].tagName.toLowerCase() + "> " + JSON.stringify(els[i].textContent.trim().slice(0, 120)));
+		}
+	}
+})();
+dump.join("\n");
+```
+
+粘完回车会直接打出全部内容（输出被折叠时点左侧箭头展开）。想复制到剪贴板再执行 `copy(dump)`；**粘贴回会话时务必带上剪贴板内容本身**，只贴那句「已生成 N 行」的返回值等于没采集。
+
+### 四、采集结果怎么读
+
+**入口形态与处理方式：**
+
+| 拿到的形态 | 特征 | 处理 |
+| --- | --- | --- |
+| 途径 A 导出 JSON（`{"schema":"github-zh-misses/1",…}`） | 只有 `text` / `kind` / `path` / `count` | 这是**未命中清单**，逐条登记；不能据此判断拆分 |
+| 途径 B Console 输出 | `TEXT "…" \|\|\| <tag class="…">` / `ATTR …` / `EXCLUDED …` | 节点边界与真实空白以此为准；`EXCLUDED` 直接跳过 |
+| 整页 HTML（DevTools 复制 outerHTML） | 结构完整 | 可据 `<strong>` / `<a>` / `<div class="note">` 的嵌套判断拆分点 |
+| 截图 | 只有视觉 | **不能作为登记键的唯一依据**（换行、缩进、纯符号节点的存在与否都看不出来），只用于核对数量与语义 |
+
+**判定规则（判错就白干）：**
+
+1. **键 = 整个文本节点** `trim()` 后**把连续空白折叠成单个空格**的形态（引擎的 `normalizeKey`），键里**永不写换行或缩进**；
+2. **标签不拆句**：`<strong>` / `<a>` / `<code>` 会把一句话切成多个文本节点，**每个节点各是一条键**。链接文本单独成条；链接前的片段单独成条；被 `<strong>` 包住的用户内容（@用户名、noreply 地址、邮箱）**不收录**；
+3. **纯符号 / 纯数字节点翻不了**（`.`、`*`、`↑`、`1.2`），**不要为它们收键**——收了是永不命中的死键；
+4. **`sr-only` 文本照常翻译**：`<tool-tip class="sr-only">`、`<span class="sr-only">` 里的无障碍文案也是正常词条（例：`Manage email`、`Select email to become primary`）；
+5. **用户内容与纯专名不收录**：邮箱、@用户名、头像 `alt`、仓库名、文件名、`GitHub` / `Copilot` / `Git` / `CLI` 这类专名与缩写。译文必须含中文字系，硬收专名只会让门禁报「译文与键同形」；未命中即保留英文，这是正确行为而不是漏译；
+6. **同一句话被拆开时，译文要能直接拼起来**：`renderNodes` 断言会把节点串起来看结果。原文节点里的前导空格由引擎保留，**译文不要自带首尾空格**（需要空格时说明为什么，例如片段末尾接纯文本邮箱的场景）。
+
+### 五、每次收工前的清单
+
+1. `bun run check:dict` —— 键在 canonical 里、译文含中文字系、没有与键同形；
+2. `bun run check:view` —— 新增 / 改动同键异译会被点名，确认是有意的再 `--update`；
+3. 回归测试覆盖三类断言：**每一条实机节点命中**、**拆分处的拼接结果**、**反例保持英文**；
+4. `bun run format` → `bun run check` 全绿 → `bun run build`；
+5. 把该页加进上文的「实机节点边界测试」表格（漏了就等于这页没有长期保护）；
+6. 提交；提交信息里写清页面、判定依据（哪种采集途径）、快照为何变化。
+
+### 六、已验证走不通的路（别再试）
+
+| 路 | 结果 |
+| --- | --- |
+| `web_fetch` / 直接 HTTP 抓 github.com | 报「URL hostname resolves to a non-public IP address」（本机 DNS / 代理环境所致） |
+| 复制 Edge `User Data` 副本后用无头 Edge 取登录态 | 副本里没有 `Cookies`（被运行中的 Edge 独占）；且 GitHub 是设备绑定会话，即便拿到也未必可用 |
+| 读运行中 Edge 的 CDP（`/json/list`、`/json/new`） | 没有开放调试端口；本机 9012-9014 那几个端口是别的本地服务，返回 200 空体，不是 CDP |
+| 让扩展自己去盘 leveldb 读 `missLog` | 不必要：popup 的「复制」已经给出等价 JSON，别去解析二进制存储 |
+| 连续重试报沙箱初始化失败的 shell 命令 | 无意义，见前置事实 3 |
+
+### 加一条静态或动态词条 / 规则
 
 1. 在 GitHub 实机用 DevTools 确认渲染的精确原文（看文本节点，而不是 DOM 里的源码——见下方「采集实机渲染文本」）；
 2. 决定归属模块：全站通用进 `global`，仅特定页面出现的进对应 `pages/<页名>`（模块路由见 `core/modules.jsonc`）；需要新模块时同时改 `core/modules.jsonc` 与 `core/canonical.jsonc`（同名同序，门禁强制）；
@@ -225,7 +341,7 @@ site|security|team|events|about|contact)(?:/|$))[^/]+
 5. 若该页已有 `src/content/__tests__/<页名>.test.ts` 的实机节点回归，把新节点（以及拼接结果）补进去——没有就在同一 PR 里建一份：**页面上的节点边界只有测试能长期锁住**；
 6. `bun run check` → `bun run build` → 浏览器重载扩展验证。
 
-### 采集实机渲染文本（每个页面会话的固定起手式）
+### 采集实机渲染文本
 
 引擎按**单个文本节点**精确匹配，而 GitHub 的长说明句普遍被拆成多个节点（链接拆开、`<kbd>` 夹在中间、无障碍文本放进 `<span class="sr-only">`），因此「整句键」在实机上永远不会命中——**任何页面开工前都应先把真实节点文本抓下来**，不要照着视觉上看到的一整句登记键。做法（在目标页面打开 DevTools → Console）：
 
@@ -259,6 +375,7 @@ for (const p of probes) {
 | `settings-appearance.test.ts` | `/settings/appearance` | 外观设置页（下拉 / 分段控件的当前值本身是节点） |
 | `settings-accessibility.test.ts` | `/settings/accessibility` | 辅助功能设置页（按键名 + `kbd` + `sr-only` 拼接） |
 | `settings-notifications.test.ts` | `/settings/notifications` | 通知设置页（四处拼接必须成立） |
+| `settings-emails.test.ts` | `/settings/emails` | 电子邮件设置页（`<strong>` / `<a>` 把说明段切成三段、弹窗里邮箱是纯文本节点） |
 | `settings-emails.test.ts` | `/settings/emails` | 电子邮件设置页（`<strong>` / `<a>` 把说明段切成三段、弹窗里邮箱是纯文本节点） |
 | `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分） |

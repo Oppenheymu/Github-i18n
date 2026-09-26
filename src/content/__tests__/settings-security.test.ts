@@ -199,6 +199,20 @@ describe("账号安全页的实机节点边界", () => {
 		}
 	});
 
+	it("falls back to pages/settings for the shared settings sidebar", () => {
+		// 本模块路由（^/settings/security）与 pages/settings 重叠：本页没登记的通用词条
+		// 必须由后者兜底，否则 /settings/security 的侧栏会整体保留英文
+		// （同一份词条只在 pages/settings 登记一次，不在本模块重复）
+		for (const node of [
+			"Public profile",
+			"Emails",
+			"Developer settings",
+			"Packages",
+		]) {
+			expect(translateText(node, view)).not.toBeNull();
+		}
+	});
+
 	it("keeps user content and brand names in English", () => {
 		for (const node of MUST_STAY_ENGLISH) {
 			for (const variant of withWhitespace(node)) {

@@ -60,7 +60,7 @@ bun run pack                    # dist/ 打 zip（Chrome Web Store / Edge Add-on
 - **GitHub 正在渐进迁移 React 重写页面**：类名 / 结构变动导致漏翻或排除失灵属常态，修词条前先修对应排除选择器。
 - **防翻译循环现在是三件事**：脚本守卫（文本含非拉丁字母即视为已译文，语言无关，见 `src/content/filters.ts`）负责收敛，结构门禁（译文不得等于任何键、替换产物不得再命中规则）负责让循环的第二条件不可能成立，**引擎侧「同值不写入」守卫**（`src/content/walker.ts`：`next === value` 时直接返回）负责让自我触发在物理上不可能。**拉丁语系目标语言只能靠后两者**——它与源语言同字系，脚本守卫结构上失效。
 - **译文绝不能与键同形（`"X": "X"`），且白名单不是出路**：DOM 规范规定 `node.nodeValue = 同值` 也会产生 characterData 变更记录，观察器会把它再入队，于是「命中 → 写入 → 再命中」在微任务队列无限自转，页面**不报错但卡死**（2026-09 真实事故：`"ORCID iD": "ORCID iD"` 让 `/settings/profile` 卡死，只有含该标签的页面命中）。想保留英文原文的正确做法是**不收录该词条**——未命中即保留英文。门禁 `tooling/checks/dict.ts` 无白名单，`validateNoIdentity` 会直接报错。
-- **`core/canonical.jsonc` 不进 content 包**：它只被 `tooling/checks/dict.ts` import；一旦 `src/**` 也 import 它，全部规范键就会进包（当前 2086 个槽位 / 2019 个唯一键，紧凑 JSON 约 74 KB；数字随词典增长，以 `bun run check:dict` 输出为准）。
+- **`core/canonical.jsonc` 不进 content 包**：它只被 `tooling/checks/dict.ts` import；一旦 `src/**` 也 import 它，全部规范键就会进包（当前 2207 个槽位 / 2134 个唯一键，紧凑 JSON 约 80 KB；数字随词典增长，以 `bun run check:dict` 输出为准）。
 - **规则模板按 id 对齐 pattern**：`core/rules.jsonc` 里改 pattern 是 O(1) 的（各语言模板不用动），但**改 id 必须同步所有语言的 `rules.jsonc`**；模板引用的 `$1` / `$<name>` 由门禁对着 pattern 校验。
 - **`<relative-time>` 等自定义元素会自行重渲染英文**：靠观察器再翻一遍收敛，勿试图一次性翻译。
 - **词典误伤权衡**：静态词典按「整节点精确匹配」工作，任何词条都可能命中同名的用户内容（仓库名 / 文件名），高风险短词靠不收录来回避（见硬性约束 3）。

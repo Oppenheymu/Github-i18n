@@ -27,6 +27,18 @@
 		// 这里只精确覆盖 /account/billing 而不是整个 /account：未迁移的设置路径实测是 404，
 		// 放宽会为不存在的页面注入整包设置词条。GitHub 后续若继续迁移，改这里并同步
 		// tooling/checks/view.ts 的 PROBE_PATHS 与 tooling/fixtures 快照。
+		// 账号安全页（/settings/security）：密码、通行密钥、双因素认证。
+		// 为什么单独成模块而不是并进 pages/settings：本页有一批**只能靠规则**覆盖的动态文本
+		// （每条通行密钥的「添加于 <日期> | 上次使用 <相对时间>」、2FA 强制要求的截止日长句），
+		// 月份与相对时间都无法用捕获组映射成中文，只能逐组合全展开（见 core/rules.jsonc）。
+		// 挂在 pages/settings 下会让 /settings 的其余几条探针各自背上一百多条永不使用的规则，
+		// 把视图骨架快照淹掉。本模块在前、pages/settings 在后，两者都对 /settings/security 命中
+		// ——词条逐键「先到先得」，故侧栏与通用设置词条仍由 pages/settings 兜底，
+		// 本模块只放本页专属词条（不与 pages/settings 重复登记同一个键）。
+		{
+			"name": "pages/settings-security",
+			"route": "^/settings/security"
+		},
 		{
 			"name": "pages/settings",
 			"route": "^/(?:settings|account/billing)"

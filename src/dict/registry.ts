@@ -53,6 +53,7 @@ import zhRepoSettingsRaw from "./locales/zh-CN/pages/repo-settings.jsonc";
 import zhSearchRaw from "./locales/zh-CN/pages/search.jsonc";
 import zhSettingsRaw from "./locales/zh-CN/pages/settings.jsonc";
 import zhSettingsBillingRaw from "./locales/zh-CN/pages/settings-billing.jsonc";
+import zhSettingsSecurityRaw from "./locales/zh-CN/pages/settings-security.jsonc";
 import zhWikiRaw from "./locales/zh-CN/pages/wiki.jsonc";
 import zhRulesRaw from "./locales/zh-CN/rules.jsonc";
 import type { LocaleId } from "./locales.ts";
@@ -87,6 +88,8 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 			["pages/pulls", zhPullsRaw],
 			["pages/settings", zhSettingsRaw],
 			["pages/settings-billing", zhSettingsBillingRaw],
+			// 账号安全页单独成模块（路由重叠，词条逐键先到先得）：理由见 core/modules.jsonc
+			["pages/settings-security", zhSettingsSecurityRaw],
 			["pages/repo-settings", zhRepoSettingsRaw],
 			["pages/actions", zhActionsRaw],
 			["pages/agents", zhAgentsRaw],

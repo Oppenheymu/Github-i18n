@@ -169,6 +169,120 @@
 			]
 		},
 		{
+			"name": "pages/settings-security",
+			"keys": [
+				// —— 账号安全页（/settings/security）——
+				// 键逐字抄自开发者模式导出的漏翻清单（2026-09-26 该页会话，schema
+				// github-zh-misses/1，path 全为 /settings/security，共 102 条）。
+				// 该清单同时给出**节点原文**，因此下面每条的形态就是实机形态：
+				// 长说明句多数是**单个带源码缩进的文本节点**（归一空白后等于本表的键），
+				// 少数被 `<a>` / `<strong>` 切开（如「部分 GitHub 用户现在必须启用…」三段）。
+				// 节点边界与拼接断言见 src/content/__tests__/settings-security.test.ts。
+				//
+				// 刻意**不收录**（同测试里的反例断言）：用户内容（`CanoKey Main` / `CanoKey
+				// Backup` 这类用户自命名的通行密钥、`M. Oppenheymu` / `(Oppenheymu)` /
+				// `@Oppenheymu`）与纯专名（`GitHub` / `Copilot` / `Apple` / `Google` /
+				// `GitHub Mobile`——截图页与通知页的测试已反向断言它们保持英文）。
+				// 含这些专名但整句可译的文案照收（如 `Show GitHub Mobile`）。
+				//
+				// 本页**动态文本**（通行密钥的「添加于 <日期> [|] 上次使用 <相对时间>」、
+				// 每行末尾的计数、删除确认弹窗里的密钥名、2FA 强制要求的截止日）不进本表，
+				// 一律走 core/rules.jsonc 的 pages/settings-security 规则（月份与相对时间
+				// 无法用捕获组映射成中文，只能逐组合全展开）。
+				// —— 密码 ——
+				"Change password",
+				"Old password",
+				"New password",
+				"Confirm new password",
+				"Update password",
+				"I forgot my password",
+				// 密码强度提示被 `<strong>` 切成六段；实机原文（含节点间空白）拼起来是
+				// `Make sure it's at least 15 characters OR at least 8 characters
+				// including a number and a lowercase letter.`，故译文必须能逐段拼通
+				"Make sure it's",
+				"at least 15 characters",
+				"OR",
+				"at least 8 characters",
+				"including a number",
+				"and a lowercase letter",
+				"Learn more about strong passwords",
+				// 密码输入框右侧的显示 / 隐藏切换（实机是两个节点的按钮文案）
+				"Hide",
+				"Show",
+				// —— 通行密钥 ——
+				"Passkeys",
+				"Add passkey",
+				"Passkey nickname",
+				"Nickname:",
+				"Edit passkey nickname",
+				// 昵称编辑框两侧按钮的无障碍文案（aria-label，属性只走精确命中）
+				"Cancel changes to passkey nickname",
+				"Save changes to passkey nickname",
+				"An error occurred while renaming your passkey.",
+				"Seen from this browser",
+				"Delete passkey?",
+				"Note: You may continue to see this passkey as an option during sign-in until you also delete it from your browser, device or associated account's password management settings.",
+				"You will no longer be able to use it to sign-in to your account.",
+				"Passkeys should be used primarily for standalone, password-less authentication.",
+				// 2FA 方法行的状态徽标与行末按钮
+				"Configured",
+				"Manage",
+				// —— 双因素认证 ——
+				"Two-factor authentication adds an additional layer of security to your account by requiring more than just a password to sign in.",
+				"Are you sure you want to disable two-factor authentication?",
+				"GitHub highly recommends that you keep two-factor authentication enabled on your account. If you need to change your configuration, or generate new recovery codes, you can do that in the settings below.",
+				"Disable",
+				"Two-factor methods",
+				"Authenticator app",
+				"Edit Authenticator app",
+				"Use an authentication app or browser extension to get two-factor authentication codes when prompted.",
+				"Viewed",
+				"SMS/Text message",
+				"Add SMS/Text message",
+				"Get one-time codes sent to your phone via SMS to complete authentication requests. We strongly advise against using SMS because it is susceptible to interception, does not provide resistance against phishing attacks, and deliverability can be unreliable. It is recommended to use an Authenticator app instead of SMS.",
+				"Security keys",
+				"Edit Security keys",
+				"Register new security key",
+				"Security keys are webauthn credentials that can only be used as a second factor of authentication.",
+				"Security key registration failed.",
+				"This security key has already been registered.",
+				"This browser doesn't support security keys yet.",
+				"Try again",
+				"Waiting for input from browser interaction...",
+				// 安全密钥昵称输入框的 aria-label 与 placeholder（同一个值，词条只需一条）
+				"Enter a nickname for this security key",
+				"Show GitHub Mobile",
+				"GitHub Mobile can be used for two-factor authentication by installing the GitHub Mobile app and signing in to your account.",
+				"Add account",
+				"Connect",
+				"View",
+				"Recovery codes",
+				"View Recovery codes",
+				"Recovery codes can be used to access your account in the event you lose access to your device and cannot receive two-factor authentication codes.",
+				"Recovery options",
+				// —— 首选 2FA 方式 ——
+				"Preferred 2FA method",
+				"Set your preferred method to use for two-factor authentication when signing into GitHub.",
+				"Learn more about two-factor authentication",
+				"Learn more about our two-factor authentication initiative",
+				// —— 登录方式（社交账号登录）——
+				"Sign in methods",
+				"Sign in with your Apple account",
+				"Google sign in method dropdown",
+				// —— 强制启用 2FA 的提示横幅 ——
+				// 实机节点边界：整段被 `<a>now required</a>` 切成三段——
+				//   `Some GitHub users are` | <a> | ` to enable two-factor authentication as an
+				//   additional security measure. … before April 30, 2026, … on that date.`
+				// 第三段是**单个跨行节点且含动态截止日**，故只有它走规则
+				// （settings/two-factor-deadline-*），前两段是静态词条
+				"Because of your contributions on GitHub, two-factor authentication is required for your account. Thank you for helping keep the ecosystem safe!",
+				"Some GitHub users are",
+				"now required",
+				// 页面级标题（左侧栏上方的当前页名）
+				"Account security"
+			]
+		},
+		{
 			"name": "pages/settings",
 			"keys": [
 				"Public profile",
@@ -2283,6 +2397,10 @@
 				"Open menu",
 				"Open user navigation menu",
 				"You have no unread notifications",
+				// 通知铃铛的两态：无未读时是上面那条，有未读时是这两条
+				// （图标按钮的 sr-only 文案 + 文本节点头部链接）
+				"You have unread notifications",
+				"Open unread notifications",
 				"Switch repository",
 				"All repositories",
 				"All issues",

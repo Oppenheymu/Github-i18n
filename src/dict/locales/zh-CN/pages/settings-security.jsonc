@@ -1,0 +1,98 @@
+// 账号安全页（/settings/security）：密码、通行密钥、双因素认证与登录方式
+// 简体中文 · 模块 pages/settings-security（路由与拆分理由见 core/modules.jsonc，
+// 键的分组注释与节点边界见 core/canonical.jsonc）
+//
+// 侧栏与通用设置词条不在本文件：本模块只提供本页专属词条，
+// 其余由顺序在后的 pages/settings 兜底（buildView 逐键「先到先得」）。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		// —— 密码 ——
+		"Change password": "更改密码",
+		"Old password": "旧密码",
+		"New password": "新密码",
+		"Confirm new password": "确认新密码",
+		"Update password": "更新密码",
+		"I forgot my password": "我忘记了密码",
+		// 强度提示的六段必须能直接拼起来读通（节点之间的空格由原文保留）：
+		// 请确保密码 至少 15 个字符 或 至少 8 个字符 包含数字 和小写字母。
+		// 末段承接「包含数字」，故译作「和小写字母」而不是「以及小写字母」
+		"Make sure it's": "请确保密码",
+		"at least 15 characters": "至少 15 个字符",
+		"OR": "或",
+		"at least 8 characters": "至少 8 个字符",
+		"including a number": "包含数字",
+		"and a lowercase letter": "和小写字母",
+		"Learn more about strong passwords": "详细了解强密码",
+		"Hide": "隐藏",
+		"Show": "显示",
+		// —— 通行密钥 ——
+		"Passkeys": "通行密钥",
+		"Add passkey": "添加通行密钥",
+		"Passkey nickname": "通行密钥昵称",
+		"Nickname:": "昵称：",
+		"Edit passkey nickname": "编辑通行密钥昵称",
+		"Cancel changes to passkey nickname": "取消修改通行密钥昵称",
+		"Save changes to passkey nickname": "保存通行密钥昵称的修改",
+		"An error occurred while renaming your passkey.": "重命名通行密钥时出错。",
+		"Seen from this browser": "来自此浏览器",
+		"Delete passkey?": "删除通行密钥？",
+		"Note: You may continue to see this passkey as an option during sign-in until you also delete it from your browser, device or associated account's password management settings.": "注意：在你同时从浏览器、设备或关联账户的密码管理设置中删除此通行密钥之前，登录时它可能仍会作为一个选项出现。",
+		"You will no longer be able to use it to sign-in to your account.": "你将无法再使用它登录你的账户。",
+		"Passkeys should be used primarily for standalone, password-less authentication.": "通行密钥主要应用于独立的免密码身份验证。",
+		// 方法行的状态徽标与行末按钮（同键在 pages/repo-settings 也有一条「管理」，
+		// 但两边路由互斥，不存在同路径碰撞）
+		"Configured": "已配置",
+		"Manage": "管理",
+		// —— 双因素认证 ——
+		"Two-factor authentication adds an additional layer of security to your account by requiring more than just a password to sign in.": "双因素认证要求登录时不仅提供密码，从而为你的账户增加一层安全保障。",
+		"Are you sure you want to disable two-factor authentication?": "确定要禁用双因素认证吗？",
+		"GitHub highly recommends that you keep two-factor authentication enabled on your account. If you need to change your configuration, or generate new recovery codes, you can do that in the settings below.": "GitHub 强烈建议你在账户上保持启用双因素认证。如果你需要更改配置或生成新的恢复代码，可以在下方设置中完成。",
+		"Disable": "禁用",
+		"Two-factor methods": "双因素认证方式",
+		"Authenticator app": "身份验证器应用",
+		"Edit Authenticator app": "编辑身份验证器应用",
+		"Use an authentication app or browser extension to get two-factor authentication codes when prompted.": "使用身份验证应用或浏览器扩展，在需要时获取双因素认证代码。",
+		"Viewed": "已查看",
+		"SMS/Text message": "短信/文本消息",
+		"Add SMS/Text message": "添加短信/文本消息",
+		"Get one-time codes sent to your phone via SMS to complete authentication requests. We strongly advise against using SMS because it is susceptible to interception, does not provide resistance against phishing attacks, and deliverability can be unreliable. It is recommended to use an Authenticator app instead of SMS.": "通过短信把一次性代码发送到你的手机，以完成身份验证请求。我们强烈建议不要使用短信，因为它容易被截获、无法抵御网络钓鱼攻击，送达率也可能不可靠。建议使用身份验证器应用来代替短信。",
+		"Security keys": "安全密钥",
+		"Edit Security keys": "编辑安全密钥",
+		"Register new security key": "注册新的安全密钥",
+		"Security keys are webauthn credentials that can only be used as a second factor of authentication.": "安全密钥是 WebAuthn 凭证，只能用作第二重身份验证因素。",
+		"Security key registration failed.": "安全密钥注册失败。",
+		"This security key has already been registered.": "此安全密钥已经注册过了。",
+		"This browser doesn't support security keys yet.": "此浏览器尚不支持安全密钥。",
+		"Try again": "重试",
+		"Waiting for input from browser interaction...": "正在等待浏览器交互输入…",
+		"Enter a nickname for this security key": "为此安全密钥输入昵称",
+		// GitHub Mobile 是产品名，沿用仓库既有约定保留英文（见 pages/repo-settings 的同名词条）
+		"Show GitHub Mobile": "显示 GitHub Mobile",
+		"GitHub Mobile can be used for two-factor authentication by installing the GitHub Mobile app and signing in to your account.": "安装 GitHub Mobile 应用并登录你的账户后，即可用它完成双因素认证。",
+		"Add account": "添加账户",
+		"Connect": "连接",
+		"View": "查看",
+		"Recovery codes": "恢复代码",
+		"View Recovery codes": "查看恢复代码",
+		"Recovery codes can be used to access your account in the event you lose access to your device and cannot receive two-factor authentication codes.": "如果你失去对设备的访问权限、无法接收双因素认证代码，可以用恢复代码访问你的账户。",
+		"Recovery options": "恢复选项",
+		// —— 首选 2FA 方式 ——
+		"Preferred 2FA method": "首选双因素认证方式",
+		"Set your preferred method to use for two-factor authentication when signing into GitHub.": "设置你在登录 GitHub 时用于双因素认证的首选方式。",
+		"Learn more about two-factor authentication": "详细了解双因素认证",
+		"Learn more about our two-factor authentication initiative": "详细了解我们的双因素认证计划",
+		// —— 登录方式 ——
+		"Sign in methods": "登录方式",
+		"Sign in with your Apple account": "使用你的 Apple 账户登录",
+		"Google sign in method dropdown": "Google 登录方式下拉菜单",
+		// —— 强制启用 2FA 的提示横幅 ——
+		"Because of your contributions on GitHub, two-factor authentication is required for your account. Thank you for helping keep the ecosystem safe!": "由于你在 GitHub 上的贡献，你的账户被要求启用双因素认证。感谢你帮助维护生态安全！",
+		// 三段拼接：部分 GitHub 用户 ｜ 现在必须 ｜ 启用双因素认证……
+		// 第三段含动态截止日，走 settings/two-factor-deadline-* 规则
+		"Some GitHub users are": "部分 GitHub 用户",
+		"now required": "现在必须",
+		// —— 页面标题 ——
+		"Account security": "账户安全"
+	}
+}

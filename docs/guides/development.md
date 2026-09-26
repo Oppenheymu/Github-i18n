@@ -376,7 +376,8 @@ for (const p of probes) {
 | `settings-accessibility.test.ts` | `/settings/accessibility` | 辅助功能设置页（按键名 + `kbd` + `sr-only` 拼接） |
 | `settings-notifications.test.ts` | `/settings/notifications` | 通知设置页（四处拼接必须成立） |
 | `settings-emails.test.ts` | `/settings/emails` | 电子邮件设置页（`<strong>` / `<a>` 把说明段切成三段、弹窗里邮箱是纯文本节点） |
-| `settings-emails.test.ts` | `/settings/emails` | 电子邮件设置页（`<strong>` / `<a>` 把说明段切成三段、弹窗里邮箱是纯文本节点） |
+| `settings-education.test.ts` | `/settings/education/benefits` | 教育权益页（H2 与说明段都是**带源码缩进的单个节点**，归一空白后才等于键） |
+| `settings-security.test.ts` | `/settings/security` | 账号安全页（通行密钥行的动态日期整句、2FA 横幅三段拼接、密码强度六段拼接；**独立模块** `pages/settings-security`） |
 | `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |
@@ -450,6 +451,22 @@ for (const p of probes) {
   同形（`May` 就是 `May`），原先两条 pattern 逐字符相同，后一条永不生效——已删除死规则
   `settings/usage-range-short-same-month-may`，并由词典门禁的「同模块 pattern 唯一」断言接管；
 - 用量页原先的实机译文对照图**已随该页改造删除**（`71ba590` 删掉了那张图与整个图片目录，仓库里不再有该资产、也没有任何页面引用它）；需要对照时按「实机节点边界测试」一节的方法自己抓一轮，或用 popup 的开发者模式看漏翻。
+
+### 为什么账号安全页单独成模块（`pages/settings-security`）
+
+`/settings/security` 有一批**只能靠规则**覆盖的动态文本，大头是每条通行密钥的元信息行（实机是**含源码换行的单个文本节点**）：
+
+```
+Added on Mar 6, 2026
+              | Last used
+                6 days ago
+```
+
+两句都含动态值，而引擎的替换模板不支持函数映射：月份（`Mar`）与相对时间（`6 days ago`）都无法经捕获组变成中文，只能逐组合全展开——12 个月份缩写 × 10 种相对时间形态 = 120 条，另加 12 条「强制启用 2FA」横幅里的截止日长句（`before April 30, 2026`），共 132 条。
+
+- 这批规则若挂在 `pages/settings` 下，`/settings/profile`、`/settings/accessibility`、`/settings/notifications`、`/settings/billing` 四条探针会各自背上一百多条永不使用的规则 id，把视图骨架快照淹掉；因此本页单独成模块，只有它自己的探针 `/settings/security` 承担这批 id；
+- 本模块路由 `^/settings/security` 与 `pages/settings` 的 `^/(?:settings|account/billing)` **重叠**，`buildView` 逐键「先到先得」：本页专属词条放前一个模块，侧栏与通用设置词条由 `pages/settings` 兜底——**不要在两个模块里登记同一个键**，否则前者胜出、后者是看不见的死数据；
+- 未枚举的相对时间形态（`last week`、绝对日期等）整节点保留英文：规则两端以 `^…$` 锚定、不做部分替换，所以不会产出中英残句，这与「宁可漏翻也不产出残句」的既有取舍一致；上游若把相对时间改成 `<relative-time>` 元素渲染，整句会被拆成多节点、这 120 条规则自然失效，届时按实机节点重收碎片词条。
 
 ### 上游改版时怎么办
 
@@ -526,8 +543,8 @@ popup 底部的「开发者模式」开关**默认关闭**，用于系统性发�
 ## 包体与分发
 
 - content script 必须内联全部词典（现在是同步注入、天然无闪烁），所以数据是产物的大头。口径与实测（2026-09）：
-  - **content.js 约 291 KiB**（`minify: false`，即不压缩、便于在浏览器里排查漏翻）——复核：`bun run build` 之后取 `(Get-Item dist/content.js).Length`（快照时是 297,717 字节）；
-  - **词典数据本身**（编译后模块词典 + 规则模板的紧凑 JSON）约 **132 KiB**：zh-CN 约 130 KiB（17 个模块槽 / 2086 条词条 / 446 条规则）+ ja 样例约 2 KiB。这个口径不含引擎、调度与收集器代码，也不是磁盘上的某个文件；
+  - **content.js 约 351 KiB**（`minify: false`，即不压缩、便于在浏览器里排查漏翻）——复核：`bun run build` 之后取 `(Get-Item dist/content.js).Length`（快照时是 358,969 字节）；
+  - **词典数据本身**（编译后模块词典 + 规则模板的紧凑 JSON）约 **197 KiB**：zh-CN 约 198 KiB（18 个模块槽 / 2207 条词条 / 589 条规则）+ ja 样例约 3 KiB。复核办法：`JSON.stringify(dictForLocale("zh-CN"))` 的 UTF-8 字节数（2026-09 实测 203,161 字节）。这个口径不含引擎、调度与收集器代码，也不是磁盘上的某个文件。规则条数对体积敏感：`/settings/security` 那 132 条日期规则（见「为什么账号安全页单独成模块」）在紧凑 JSON 口径下就占约 15 KiB；
   - **规则与键的条数别再手抄**：随词典增长，一律看 `bun run check:dict` 的输出（「N 模块 / N 规范键 / N 条共享规则 / N 条译文」，口径见「稀疏覆盖」一节）。
   上面两个体积同样随词典增长，改动词典后如需引用数字请重新测量；
 - 因此 N 种语言**全量打包**在 N=2 时仍是最优解（无闪烁、零风险）；待到 N≥4 再考虑按 locale 分发（`chrome.scripting.registerContentScripts` 按语言注册是唯一能保持同步注入、无闪烁的方案，代价是引入 background service worker 与 `scripting` 权限）；

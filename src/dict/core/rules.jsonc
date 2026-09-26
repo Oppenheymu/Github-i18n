@@ -66,6 +66,597 @@
 			]
 		},
 		{
+			"name": "pages/settings-security",
+			"rules": [
+				// —— 通行密钥（/settings/security）——
+				// 密钥名是用户自命名的动态值（实机形如 `CanoKey Main`），含它的整句只能靠规则。
+				// 反引号是 GitHub 文案自带的字符（不是 <code> 元素：实机里整句是单个文本节点；
+				// 若哪天改成 <code> 包裹，整句会被拆成多节点、这些规则自然失效，届时按节点重收）。
+				// 单捕获组按约定用 $1（命名组约定见 docs/guides/development.md）。
+				{
+					"id": "settings/passkey-delete-confirm",
+					"pattern": "^Are you sure you want to delete your `(.+)` passkey\\?$"
+				},
+				{
+					"id": "settings/passkey-delete-cancel",
+					"pattern": "^Cancel `(.+)` passkey delete$"
+				},
+				{
+					"id": "settings/passkey-delete-confirm-button",
+					"pattern": "^Confirm delete `(.+)` passkey$"
+				},
+				{
+					"id": "settings/passkey-delete-confirm-of",
+					"pattern": "^Confirm delete of `(.+)` passkey$"
+				},
+				{
+					"id": "settings/passkey-delete-label",
+					"pattern": "^Delete `(.+)` passkey$"
+				},
+				// —— 通行密钥 / 邮箱 / 账户 / 设备的计数（各区块的摘要行）——
+				// 单捕获组按约定用 $1，不命名。
+				{
+					"id": "settings/passkeys-configured-count",
+					"pattern": "^(\\d+) passkeys? configured$"
+				},
+				{
+					"id": "settings/verified-emails-configured-count",
+					"pattern": "^(\\d+) verified emails? configured$"
+				},
+				{
+					"id": "settings/connected-accounts-count",
+					"pattern": "^(\\d+) accounts? connected$"
+				},
+				{
+					"id": "settings/devices-count",
+					"pattern": "^(\\d+) devices?$"
+				},
+				// —— 通行密钥行的「添加于 <日期> | 上次使用 <相对时间>」——
+				// 实机是**单个文本节点**，形如
+				//   "Added on Mar 6, 2026\n        | Last used\n        6 days ago"
+				// （自带源码换行与缩进，引擎先折叠空白再匹配，故 pattern 里是单空格）。
+				// 两句都含动态值，而**月份与相对时间都无法用捕获组映射成中文**（模板引用捕获组
+				// 只会渲染出英文 Mar / 6 days ago），因此只能按月 × 相对时间形态全展开：
+				// 12 个月份缩写 × 10 种相对时间 = 120 条。未覆盖的形态（last week、绝对日期等）
+				// 整节点保留英文——规则以 ^…$ 锚定、不做部分替换，故不会产出中英残句。
+				// 这批规则也正是本页单独成模块的原因（挂在 pages/settings 下会让 /settings 的
+				// 其余探针各自背上一百多条永不使用的 id，见 core/modules.jsonc）。
+				// 形态之间互不重叠，故组内顺序不影响结果；分组只为可读性。
+				{
+					"id": "settings/passkey-added-last-used-jan-now",
+					"pattern": "^Added on Jan (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used just now$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jan-lt-minute",
+					"pattern": "^Added on Jan (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than a minute ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jan-minutes",
+					"pattern": "^Added on Jan (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) minutes? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jan-lt-hour",
+					"pattern": "^Added on Jan (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than an hour ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jan-hours",
+					"pattern": "^Added on Jan (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jan-yesterday",
+					"pattern": "^Added on Jan (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used yesterday$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jan-days",
+					"pattern": "^Added on Jan (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) days? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jan-weeks",
+					"pattern": "^Added on Jan (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) weeks? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jan-months",
+					"pattern": "^Added on Jan (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) months? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jan-years",
+					"pattern": "^Added on Jan (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) years? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-feb-now",
+					"pattern": "^Added on Feb (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used just now$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-feb-lt-minute",
+					"pattern": "^Added on Feb (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than a minute ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-feb-minutes",
+					"pattern": "^Added on Feb (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) minutes? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-feb-lt-hour",
+					"pattern": "^Added on Feb (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than an hour ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-feb-hours",
+					"pattern": "^Added on Feb (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-feb-yesterday",
+					"pattern": "^Added on Feb (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used yesterday$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-feb-days",
+					"pattern": "^Added on Feb (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) days? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-feb-weeks",
+					"pattern": "^Added on Feb (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) weeks? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-feb-months",
+					"pattern": "^Added on Feb (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) months? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-feb-years",
+					"pattern": "^Added on Feb (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) years? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-mar-now",
+					"pattern": "^Added on Mar (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used just now$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-mar-lt-minute",
+					"pattern": "^Added on Mar (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than a minute ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-mar-minutes",
+					"pattern": "^Added on Mar (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) minutes? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-mar-lt-hour",
+					"pattern": "^Added on Mar (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than an hour ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-mar-hours",
+					"pattern": "^Added on Mar (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-mar-yesterday",
+					"pattern": "^Added on Mar (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used yesterday$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-mar-days",
+					"pattern": "^Added on Mar (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) days? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-mar-weeks",
+					"pattern": "^Added on Mar (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) weeks? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-mar-months",
+					"pattern": "^Added on Mar (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) months? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-mar-years",
+					"pattern": "^Added on Mar (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) years? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-apr-now",
+					"pattern": "^Added on Apr (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used just now$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-apr-lt-minute",
+					"pattern": "^Added on Apr (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than a minute ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-apr-minutes",
+					"pattern": "^Added on Apr (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) minutes? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-apr-lt-hour",
+					"pattern": "^Added on Apr (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than an hour ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-apr-hours",
+					"pattern": "^Added on Apr (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-apr-yesterday",
+					"pattern": "^Added on Apr (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used yesterday$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-apr-days",
+					"pattern": "^Added on Apr (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) days? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-apr-weeks",
+					"pattern": "^Added on Apr (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) weeks? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-apr-months",
+					"pattern": "^Added on Apr (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) months? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-apr-years",
+					"pattern": "^Added on Apr (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) years? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-may-now",
+					"pattern": "^Added on May (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used just now$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-may-lt-minute",
+					"pattern": "^Added on May (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than a minute ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-may-minutes",
+					"pattern": "^Added on May (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) minutes? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-may-lt-hour",
+					"pattern": "^Added on May (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than an hour ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-may-hours",
+					"pattern": "^Added on May (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-may-yesterday",
+					"pattern": "^Added on May (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used yesterday$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-may-days",
+					"pattern": "^Added on May (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) days? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-may-weeks",
+					"pattern": "^Added on May (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) weeks? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-may-months",
+					"pattern": "^Added on May (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) months? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-may-years",
+					"pattern": "^Added on May (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) years? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jun-now",
+					"pattern": "^Added on Jun (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used just now$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jun-lt-minute",
+					"pattern": "^Added on Jun (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than a minute ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jun-minutes",
+					"pattern": "^Added on Jun (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) minutes? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jun-lt-hour",
+					"pattern": "^Added on Jun (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than an hour ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jun-hours",
+					"pattern": "^Added on Jun (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jun-yesterday",
+					"pattern": "^Added on Jun (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used yesterday$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jun-days",
+					"pattern": "^Added on Jun (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) days? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jun-weeks",
+					"pattern": "^Added on Jun (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) weeks? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jun-months",
+					"pattern": "^Added on Jun (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) months? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jun-years",
+					"pattern": "^Added on Jun (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) years? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jul-now",
+					"pattern": "^Added on Jul (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used just now$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jul-lt-minute",
+					"pattern": "^Added on Jul (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than a minute ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jul-minutes",
+					"pattern": "^Added on Jul (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) minutes? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jul-lt-hour",
+					"pattern": "^Added on Jul (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than an hour ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jul-hours",
+					"pattern": "^Added on Jul (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jul-yesterday",
+					"pattern": "^Added on Jul (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used yesterday$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jul-days",
+					"pattern": "^Added on Jul (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) days? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jul-weeks",
+					"pattern": "^Added on Jul (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) weeks? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jul-months",
+					"pattern": "^Added on Jul (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) months? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-jul-years",
+					"pattern": "^Added on Jul (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) years? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-aug-now",
+					"pattern": "^Added on Aug (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used just now$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-aug-lt-minute",
+					"pattern": "^Added on Aug (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than a minute ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-aug-minutes",
+					"pattern": "^Added on Aug (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) minutes? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-aug-lt-hour",
+					"pattern": "^Added on Aug (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than an hour ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-aug-hours",
+					"pattern": "^Added on Aug (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-aug-yesterday",
+					"pattern": "^Added on Aug (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used yesterday$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-aug-days",
+					"pattern": "^Added on Aug (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) days? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-aug-weeks",
+					"pattern": "^Added on Aug (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) weeks? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-aug-months",
+					"pattern": "^Added on Aug (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) months? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-aug-years",
+					"pattern": "^Added on Aug (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) years? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-sep-now",
+					"pattern": "^Added on Sep (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used just now$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-sep-lt-minute",
+					"pattern": "^Added on Sep (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than a minute ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-sep-minutes",
+					"pattern": "^Added on Sep (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) minutes? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-sep-lt-hour",
+					"pattern": "^Added on Sep (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than an hour ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-sep-hours",
+					"pattern": "^Added on Sep (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-sep-yesterday",
+					"pattern": "^Added on Sep (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used yesterday$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-sep-days",
+					"pattern": "^Added on Sep (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) days? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-sep-weeks",
+					"pattern": "^Added on Sep (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) weeks? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-sep-months",
+					"pattern": "^Added on Sep (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) months? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-sep-years",
+					"pattern": "^Added on Sep (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) years? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-oct-now",
+					"pattern": "^Added on Oct (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used just now$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-oct-lt-minute",
+					"pattern": "^Added on Oct (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than a minute ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-oct-minutes",
+					"pattern": "^Added on Oct (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) minutes? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-oct-lt-hour",
+					"pattern": "^Added on Oct (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than an hour ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-oct-hours",
+					"pattern": "^Added on Oct (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-oct-yesterday",
+					"pattern": "^Added on Oct (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used yesterday$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-oct-days",
+					"pattern": "^Added on Oct (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) days? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-oct-weeks",
+					"pattern": "^Added on Oct (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) weeks? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-oct-months",
+					"pattern": "^Added on Oct (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) months? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-oct-years",
+					"pattern": "^Added on Oct (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) years? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-nov-now",
+					"pattern": "^Added on Nov (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used just now$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-nov-lt-minute",
+					"pattern": "^Added on Nov (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than a minute ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-nov-minutes",
+					"pattern": "^Added on Nov (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) minutes? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-nov-lt-hour",
+					"pattern": "^Added on Nov (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than an hour ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-nov-hours",
+					"pattern": "^Added on Nov (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-nov-yesterday",
+					"pattern": "^Added on Nov (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used yesterday$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-nov-days",
+					"pattern": "^Added on Nov (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) days? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-nov-weeks",
+					"pattern": "^Added on Nov (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) weeks? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-nov-months",
+					"pattern": "^Added on Nov (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) months? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-nov-years",
+					"pattern": "^Added on Nov (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) years? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-dec-now",
+					"pattern": "^Added on Dec (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used just now$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-dec-lt-minute",
+					"pattern": "^Added on Dec (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than a minute ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-dec-minutes",
+					"pattern": "^Added on Dec (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) minutes? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-dec-lt-hour",
+					"pattern": "^Added on Dec (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used less than an hour ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-dec-hours",
+					"pattern": "^Added on Dec (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-dec-yesterday",
+					"pattern": "^Added on Dec (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used yesterday$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-dec-days",
+					"pattern": "^Added on Dec (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) days? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-dec-weeks",
+					"pattern": "^Added on Dec (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) weeks? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-dec-months",
+					"pattern": "^Added on Dec (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) months? ago$"
+				},
+				{
+					"id": "settings/passkey-added-last-used-dec-years",
+					"pattern": "^Added on Dec (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) years? ago$"
+				},
+				// —— 强制启用 2FA 的提示横幅（第三段含动态截止日）——
+				// 实机节点边界：`Some GitHub users are` + <a>now required</a> +
+				// ` to enable two-factor authentication … before April 30, 2026, otherwise … on that date.`
+				// 前两段是静态词条，第三段跨两行且含动态截止日，故按月全称全展开 12 条。
+				{
+					"id": "settings/two-factor-deadline-january",
+					"pattern": "^to enable two-factor authentication as an additional security measure\\. Your activity on GitHub includes you in this requirement\\. You will need to re-enable two-factor authentication on your account before January (?<day>\\d{1,2}), (?<year>\\d{4}), otherwise your account will be restricted on that date\\.$"
+				},
+				{
+					"id": "settings/two-factor-deadline-february",
+					"pattern": "^to enable two-factor authentication as an additional security measure\\. Your activity on GitHub includes you in this requirement\\. You will need to re-enable two-factor authentication on your account before February (?<day>\\d{1,2}), (?<year>\\d{4}), otherwise your account will be restricted on that date\\.$"
+				},
+				{
+					"id": "settings/two-factor-deadline-march",
+					"pattern": "^to enable two-factor authentication as an additional security measure\\. Your activity on GitHub includes you in this requirement\\. You will need to re-enable two-factor authentication on your account before March (?<day>\\d{1,2}), (?<year>\\d{4}), otherwise your account will be restricted on that date\\.$"
+				},
+				{
+					"id": "settings/two-factor-deadline-april",
+					"pattern": "^to enable two-factor authentication as an additional security measure\\. Your activity on GitHub includes you in this requirement\\. You will need to re-enable two-factor authentication on your account before April (?<day>\\d{1,2}), (?<year>\\d{4}), otherwise your account will be restricted on that date\\.$"
+				},
+				{
+					"id": "settings/two-factor-deadline-may",
+					"pattern": "^to enable two-factor authentication as an additional security measure\\. Your activity on GitHub includes you in this requirement\\. You will need to re-enable two-factor authentication on your account before May (?<day>\\d{1,2}), (?<year>\\d{4}), otherwise your account will be restricted on that date\\.$"
+				},
+				{
+					"id": "settings/two-factor-deadline-june",
+					"pattern": "^to enable two-factor authentication as an additional security measure\\. Your activity on GitHub includes you in this requirement\\. You will need to re-enable two-factor authentication on your account before June (?<day>\\d{1,2}), (?<year>\\d{4}), otherwise your account will be restricted on that date\\.$"
+				},
+				{
+					"id": "settings/two-factor-deadline-july",
+					"pattern": "^to enable two-factor authentication as an additional security measure\\. Your activity on GitHub includes you in this requirement\\. You will need to re-enable two-factor authentication on your account before July (?<day>\\d{1,2}), (?<year>\\d{4}), otherwise your account will be restricted on that date\\.$"
+				},
+				{
+					"id": "settings/two-factor-deadline-august",
+					"pattern": "^to enable two-factor authentication as an additional security measure\\. Your activity on GitHub includes you in this requirement\\. You will need to re-enable two-factor authentication on your account before August (?<day>\\d{1,2}), (?<year>\\d{4}), otherwise your account will be restricted on that date\\.$"
+				},
+				{
+					"id": "settings/two-factor-deadline-september",
+					"pattern": "^to enable two-factor authentication as an additional security measure\\. Your activity on GitHub includes you in this requirement\\. You will need to re-enable two-factor authentication on your account before September (?<day>\\d{1,2}), (?<year>\\d{4}), otherwise your account will be restricted on that date\\.$"
+				},
+				{
+					"id": "settings/two-factor-deadline-october",
+					"pattern": "^to enable two-factor authentication as an additional security measure\\. Your activity on GitHub includes you in this requirement\\. You will need to re-enable two-factor authentication on your account before October (?<day>\\d{1,2}), (?<year>\\d{4}), otherwise your account will be restricted on that date\\.$"
+				},
+				{
+					"id": "settings/two-factor-deadline-november",
+					"pattern": "^to enable two-factor authentication as an additional security measure\\. Your activity on GitHub includes you in this requirement\\. You will need to re-enable two-factor authentication on your account before November (?<day>\\d{1,2}), (?<year>\\d{4}), otherwise your account will be restricted on that date\\.$"
+				},
+				{
+					"id": "settings/two-factor-deadline-december",
+					"pattern": "^to enable two-factor authentication as an additional security measure\\. Your activity on GitHub includes you in this requirement\\. You will need to re-enable two-factor authentication on your account before December (?<day>\\d{1,2}), (?<year>\\d{4}), otherwise your account will be restricted on that date\\.$"
+				}
+			]
+		},
+		{
 			"name": "pages/settings",
 			"rules": [
 				// 导出数据的可用天数。实机节点边界：句号属于用户名链接节点，

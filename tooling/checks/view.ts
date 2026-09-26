@@ -51,6 +51,10 @@ export const PROBE_PATHS: readonly string[] = [
 	"/settings/profile",
 	"/settings/accessibility",
 	"/settings/notifications",
+	// 账号安全页单独成模块（pages/settings-security，路由与 pages/settings 重叠）：
+	// 它自带一百多条「通行密钥行 / 2FA 截止日」的日期规则，必须单独一条探针，
+	// 否则「规则加了却没生效」在这条路径上完全不可见（见 core/modules.jsonc）
+	"/settings/security",
 	"/settings/billing",
 	// 个人账单已于 2026-09 迁到 /account/billing/**（/settings/billing 实测 404，仅
 	// /settings/billing/licensing 尚存），两条路由按「新路径为主、旧路径兼容」写在一起。

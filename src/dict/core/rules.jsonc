@@ -1875,6 +1875,17 @@
 					"id": "repo-settings/entity-access",
 					"pattern": "^entit(y|ies) (?:has|have) access to this repository\\.?$"
 				},
+				// 同一句的第三种切法（实测 2026-09-27）：`<strong>2 entities</strong>
+				// have access to this repository.` —— 数量与名词被 <strong> 框在一起，
+				// 动词短语单独成节点，上面两条整串规则都命中不了，故各补一条碎片规则
+				{
+					"id": "repo-settings/entity-count",
+					"pattern": "^([\\d,]+) entit(?:y|ies)$"
+				},
+				{
+					"id": "repo-settings/entity-access-tail",
+					"pattern": "^(?:has|have) access to this repository\\.?$"
+				},
 				{
 					"id": "repo-settings/user-team-access-count",
 					"pattern": "^(?<users>[\\d,]+) users? and (?<teams>[\\d,]+) teams? can access this repository through the organization\\.?$"

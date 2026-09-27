@@ -379,6 +379,8 @@
 		"repo-settings/verification-code": "验证码已发送至 $1，如果几分钟内仍未收到，请检查垃圾邮件文件夹。",
 		"repo-settings/entity-access-count": "$1 个实体可访问此仓库。",
 		"repo-settings/entity-access": "个实体可访问此仓库。",
+		"repo-settings/entity-count": "$1 个实体",
+		"repo-settings/entity-access-tail": "可访问此仓库。",
 		"repo-settings/user-team-access-count": "$1 个用户和 $2 个团队可通过该组织访问此仓库。",
 		"repo-settings/team-access": "个团队可通过该组织访问此仓库。",
 		"repo-settings/access-through-org": "可通过该组织访问此仓库。",

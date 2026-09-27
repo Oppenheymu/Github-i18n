@@ -959,6 +959,13 @@
 		"For pull requests only": "仅限拉取请求",
 		"The ruleset will be enforced on command line changes and the selected actor(s) will be prompted to bypass only in a pull request": "规则集将在命令行更改上强制执行，所选操作者仅在拉取请求中会被提示绕过",
 		"This ruleset will not be enforced": "此规则集不会被强制执行",
+		// 执行状态下拉（Enforcement status 菜单）的三个选项。
+		// 证据：维护者 2026-09-27 贴出的该菜单实机 HTML——「启用 / 禁用」两个标签与
+		// 「此规则集不会被强制执行」已是中文，下面三项仍是英文残留（漏翻）。
+		// Evaluate 是泛化短词，但本模块路由限死在 /owner/repo/settings/**，风险不扩散。
+		"This ruleset will be enforced": "此规则集将被强制执行",
+		"Evaluate": "评估",
+		"Evaluate this ruleset to trial rules and view insights": "评估此规则集以试用规则并查看洞察",
 		// —— 代理建议子页（/owner/repo/settings/suggestions）——
 		// 证据：维护者 2026-09-27 提供的实机 outerHTML。正文之外只有这 11 个英文文本节点
 		// （标题「Agent suggestions for issues」与保存 / 取消按钮早已由本模块与 global 覆盖）。

@@ -857,3 +857,71 @@ describe("仓库设置页的 Require merge queue 展开面板", () => {
 		);
 	});
 });
+
+describe("仓库设置页的执行状态下拉与实体计数摘要", () => {
+	it("translates the three enforcement options", () => {
+		// 证据：维护者 2026-09-27 贴出的该菜单实机 HTML——「启用 / 禁用」两个标签
+		// 与「此规则集不会被强制执行」已是中文，下面三项是英文残留
+		expect(
+			translateText(
+				"This ruleset will be enforced",
+				newView,
+			),
+		).toBe("此规则集将被强制执行");
+		// Evaluate 是选项标签（后面跟「企业版」徽标）
+		expect(translateText("Evaluate", newView)).toBe("评估");
+		expect(
+			translateText(
+				"Evaluate this ruleset to trial rules and view insights",
+				newView,
+			),
+		).toBe("评估此规则集以试用规则并查看洞察");
+	});
+
+	it("translates the entity count in its third node layout", () => {
+		// 实机是 `<strong>2 entities</strong> have access to this repository.`：
+		// 数量与名词被 <strong> 框住、动词短语单独成节点，整串规则命中不了，
+		// 故两条碎片规则各锁一种形态（单复数与句点都要覆盖）
+		expect(translateText("2 entities", newView)).toBe(
+			"2 个实体",
+		);
+		expect(translateText("1 entity", newView)).toBe(
+			"1 个实体",
+		);
+		expect(
+			translateText(
+				"have access to this repository.",
+				newView,
+			),
+		).toBe("可访问此仓库。");
+		expect(
+			translateText(
+				"has access to this repository.",
+				newView,
+			),
+		).toBe("可访问此仓库。");
+		// 两段拼接要读得通
+		expect(
+			[
+				translateText("2 entities", newView),
+				translateText(
+					"have access to this repository.",
+					newView,
+				),
+			].join(" "),
+		).toBe("2 个实体 可访问此仓库。");
+		// 未拆节点的整串形态仍由既有规则兜底
+		expect(
+			translateText(
+				"2 entities have access to this repository.",
+				newView,
+			),
+		).toBe("2 个实体可访问此仓库。");
+		expect(
+			translateText(
+				"entities have access to this repository.",
+				newView,
+			),
+		).toBe("个实体可访问此仓库。");
+	});
+});

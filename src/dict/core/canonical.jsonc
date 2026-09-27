@@ -2491,6 +2491,12 @@
 				"For pull requests only",
 				"The ruleset will be enforced on command line changes and the selected actor(s) will be prompted to bypass only in a pull request",
 				"This ruleset will not be enforced",
+				// —— 执行状态下拉（Enforcement status 菜单）——
+				// 证据：维护者 2026-09-27 贴出的该菜单实机 HTML（启用 / 禁用两个标签
+				// 与「此规则集不会被强制执行」已是中文，其余三项为英文残留）
+				"This ruleset will be enforced",
+				"Evaluate",
+				"Evaluate this ruleset to trial rules and view insights",
 				// —— 分支页（/owner/repo/settings/branches）——
 				// 证据：维护者 2026-09-27 贴的实机 HTML（页面顶部的经典分支保护横幅）。
 				// 该说明句被两个链接切成五段，逐段成键：前段 / `repository rules` /

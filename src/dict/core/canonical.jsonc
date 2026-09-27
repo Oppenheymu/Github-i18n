@@ -2095,6 +2095,14 @@
 				"No users can bypass the open pull request limit",
 				"items",
 				"General settings",
+				// —— 代码审查限制子页（/owner/repo/settings/code_review_limits）——
+				// 证据：维护者 2026-09-27 贴的实机三节点（标题 + 说明 + 开关与它的解释段）。
+				// 措辞是 this repository（单数），与账户级 pages/settings 的
+				// your public repositories / each repository（复数）互斥，故本模块各收一份；
+				// 与 `Enable interaction limits for:` 同理，两个模块的译文必须一致。
+				"Restrict users who are permitted to approve or request changes on pull requests in this repository.",
+				"Limit to users explicitly granted read or higher access",
+				"When enabled, only users explicitly granted access to this repository will be able to submit pull request reviews that \"approve\" or \"request changes\". All users able to submit comment pull request reviews will continue to be able to do so.",
 				"Find people",
 				"Search by username, full name, or email",
 				"selection",

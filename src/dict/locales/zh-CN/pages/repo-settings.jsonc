@@ -281,6 +281,14 @@
 		"No users can bypass the open pull request limit": "没有用户可以绕过拉取请求上限",
 		"items": "项",
 		"General settings": "常规设置",
+		// —— 代码审查限制子页（/owner/repo/settings/code_review_limits）——
+		// 证据：维护者 2026-09-27 贴的实机三节点。措辞是 this repository（单数），
+		// 与账户级 /settings/code_review_limits 的 your public repositories / each repository
+		// （复数，见 pages/settings）互斥，故本页三条各自成键；译文用词与账户级保持一致，
+		// 免得同一功能在两页显示不同说法。
+		"Restrict users who are permitted to approve or request changes on pull requests in this repository.": "限制哪些用户可以在仓库中对拉取请求进行批准或请求更改。",
+		"Limit to users explicitly granted read or higher access": "限制为明确获得读取或更高权限的用户",
+		"When enabled, only users explicitly granted access to this repository will be able to submit pull request reviews that \"approve\" or \"request changes\". All users able to submit comment pull request reviews will continue to be able to do so.": "启用后，只有明确获得此仓库访问权限的用户才能提交「批准」或「请求更改」的拉取请求审查。所有能够提交评论式拉取请求审查的用户仍可继续这样做。",
 		"Search by username, full name, or email": "按用户名、全名或电子邮箱搜索",
 		"selection": "已选",
 		"results": "个结果",

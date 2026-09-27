@@ -690,3 +690,34 @@ describe("仓库设置页的规则集新建页（/settings/rules/new）", () => 
 		).toBe("设置 · 规则集 · Github-i18n");
 	});
 });
+
+describe("仓库设置页的 Restrict code coverage 展开面板", () => {
+	it("translates the two number inputs and their captions", () => {
+		// 证据：维护者 2026-09-27 贴出的该面板原始英文 HTML（两个数字输入框，各带标签与说明句）
+		expect(
+			translateText(
+				"Minimum line coverage percentage",
+				newView,
+			),
+		).toBe("最低行覆盖率百分比");
+		expect(
+			translateText(
+				"The absolute minimum line coverage percentage required. Pull requests with line coverage below this threshold will be blocked.",
+				newView,
+			),
+		).toBe(
+			"要求的最低行覆盖率绝对百分比。行覆盖率低于此阈值的拉取请求将被阻止。",
+		);
+		expect(
+			translateText("Maximum line coverage drop", newView),
+		).toBe("最大行覆盖率降幅");
+		expect(
+			translateText(
+				"The maximum percentage points that line coverage may drop relative to the default branch. Pull requests that reduce line coverage by more than this amount will be blocked.",
+				newView,
+			),
+		).toBe(
+			"行覆盖率相对默认分支允许下降的最大百分点数。下降幅度超过此数值的拉取请求将被阻止。",
+		);
+	});
+});

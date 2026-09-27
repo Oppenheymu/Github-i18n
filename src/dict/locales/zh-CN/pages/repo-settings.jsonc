@@ -518,6 +518,12 @@
 		"The lowest severity level at which code quality reviews need to be resolved before commits can be merged.": "在提交可以合并之前，代码质量审查需要解决的最低严重级别。",
 		"Restrict code coverage": "限制代码覆盖率",
 		"Enforce minimum line coverage thresholds on pull requests. When configured, uploaded coverage data must meet the specified criteria before changes can be merged.": "对拉取请求强制执行最低行覆盖率阈值。配置后，上传的覆盖率数据必须满足指定条件，更改才能合并。",
+		// Restrict code coverage 的展开面板（两个数字输入框：标签 + 说明句）。
+		// 证据：维护者 2026-09-27 贴出的该面板原始英文 HTML
+		"Minimum line coverage percentage": "最低行覆盖率百分比",
+		"The absolute minimum line coverage percentage required. Pull requests with line coverage below this threshold will be blocked.": "要求的最低行覆盖率绝对百分比。行覆盖率低于此阈值的拉取请求将被阻止。",
+		"Maximum line coverage drop": "最大行覆盖率降幅",
+		"The maximum percentage points that line coverage may drop relative to the default branch. Pull requests that reduce line coverage by more than this amount will be blocked.": "行覆盖率相对默认分支允许下降的最大百分点数。下降幅度超过此数值的拉取请求将被阻止。",
 		"Restrict creations": "限制创建",
 		"Only allow users with bypass permission to create matching refs.": "仅允许具有绕过权限的用户创建匹配的引用。",
 		"Restrict updates": "限制更新",

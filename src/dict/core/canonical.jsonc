@@ -2338,6 +2338,11 @@
 				"The lowest severity level at which code quality reviews need to be resolved before commits can be merged.",
 				"Restrict code coverage",
 				"Enforce minimum line coverage thresholds on pull requests. When configured, uploaded coverage data must meet the specified criteria before changes can be merged.",
+				// Restrict code coverage 展开面板（两个数字输入框的标签与说明句）
+				"Minimum line coverage percentage",
+				"The absolute minimum line coverage percentage required. Pull requests with line coverage below this threshold will be blocked.",
+				"Maximum line coverage drop",
+				"The maximum percentage points that line coverage may drop relative to the default branch. Pull requests that reduce line coverage by more than this amount will be blocked.",
 				"Restrict creations",
 				"Only allow users with bypass permission to create matching refs.",
 				"Restrict updates",

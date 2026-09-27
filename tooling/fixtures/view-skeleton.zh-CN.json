@@ -839,6 +839,7 @@
 				"settings/leave-organization-confirm",
 				"settings/selected-repositories-count",
 				"settings/no-recoverable-packages",
+				"settings/copilot-usage-percent",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -951,6 +952,7 @@
 				"settings/leave-organization-confirm",
 				"settings/selected-repositories-count",
 				"settings/no-recoverable-packages",
+				"settings/copilot-usage-percent",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -1063,6 +1065,7 @@
 				"settings/leave-organization-confirm",
 				"settings/selected-repositories-count",
 				"settings/no-recoverable-packages",
+				"settings/copilot-usage-percent",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -1320,6 +1323,7 @@
 				"settings/leave-organization-confirm",
 				"settings/selected-repositories-count",
 				"settings/no-recoverable-packages",
+				"settings/copilot-usage-percent",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -1432,6 +1436,7 @@
 				"settings/leave-organization-confirm",
 				"settings/selected-repositories-count",
 				"settings/no-recoverable-packages",
+				"settings/copilot-usage-percent",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -1523,6 +1528,10 @@
 				},
 				{ "key": "Appearance", "module": "pages/settings" },
 				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
 				{ "key": "Packages", "module": "pages/settings" }
 			],
 			"rules": [
@@ -1549,6 +1558,7 @@
 				"settings/leave-organization-confirm",
 				"settings/selected-repositories-count",
 				"settings/no-recoverable-packages",
+				"settings/copilot-usage-percent",
 				"settings/usage-range-same-month-jan",
 				"settings/usage-range-same-month-feb",
 				"settings/usage-range-same-month-mar",
@@ -1854,6 +1864,10 @@
 				},
 				{ "key": "Appearance", "module": "pages/settings" },
 				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
 				{ "key": "Packages", "module": "pages/settings" }
 			],
 			"rules": [
@@ -1880,6 +1894,7 @@
 				"settings/leave-organization-confirm",
 				"settings/selected-repositories-count",
 				"settings/no-recoverable-packages",
+				"settings/copilot-usage-percent",
 				"settings/usage-range-same-month-jan",
 				"settings/usage-range-same-month-feb",
 				"settings/usage-range-same-month-mar",
@@ -2185,6 +2200,10 @@
 				},
 				{ "key": "Appearance", "module": "pages/settings" },
 				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
 				{ "key": "Packages", "module": "pages/settings" }
 			],
 			"rules": [
@@ -2211,6 +2230,7 @@
 				"settings/leave-organization-confirm",
 				"settings/selected-repositories-count",
 				"settings/no-recoverable-packages",
+				"settings/copilot-usage-percent",
 				"settings/usage-range-same-month-jan",
 				"settings/usage-range-same-month-feb",
 				"settings/usage-range-same-month-mar",
@@ -2516,6 +2536,10 @@
 				},
 				{ "key": "Appearance", "module": "pages/settings" },
 				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
 				{ "key": "Packages", "module": "pages/settings" }
 			],
 			"rules": [
@@ -2542,6 +2566,7 @@
 				"settings/leave-organization-confirm",
 				"settings/selected-repositories-count",
 				"settings/no-recoverable-packages",
+				"settings/copilot-usage-percent",
 				"settings/usage-range-same-month-jan",
 				"settings/usage-range-same-month-feb",
 				"settings/usage-range-same-month-mar",
@@ -2847,6 +2872,10 @@
 				},
 				{ "key": "Appearance", "module": "pages/settings" },
 				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
 				{ "key": "Packages", "module": "pages/settings" }
 			],
 			"rules": [
@@ -2873,6 +2902,7 @@
 				"settings/leave-organization-confirm",
 				"settings/selected-repositories-count",
 				"settings/no-recoverable-packages",
+				"settings/copilot-usage-percent",
 				"settings/usage-range-same-month-jan",
 				"settings/usage-range-same-month-feb",
 				"settings/usage-range-same-month-mar",

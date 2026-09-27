@@ -1165,7 +1165,103 @@
 				"Deleted Packages",
 				"These are packages that have been previously deleted belonging to you. You can restore a package deleted within the last 30 days.",
 				// 搜索框的 aria-label 与 placeholder 是同一个串（一条键覆盖两处）
-				"Search deleted packages"
+				"Search deleted packages",
+				// —— /settings/copilot/features（Copilot 功能设置）——
+				// 证据强度：**途径 A 实证**（popup 开发者模式导出的漏翻清单，schema
+				// github-zh-misses/1，2026-09-27 维护者导出，path 全为 /settings/copilot/features）。
+				// 含源码换行的长条目按 normalizeKey 折叠空白后的形态写。
+				// 刻意**不收录**：
+				//   1. 纯专名 / 产品名：`Copilot`、`GitHub`（title）、`GitHub Copilot`、
+				//      `Copilot CLI`、`Copilot Spaces`（译文必须含中文字系，硬收只会与键同形）；
+				//   2. 组织名与用户名等用户内容；
+				//   3. 属性里的动态值：`Buy Copilot Business for <组织名>`（aria-label）
+				//      ——属性只走精确命中、不适用规则，收键必是死键。
+				// 动态值走 core/rules.jsonc 本模块组的 settings/copilot-usage-percent 规则。
+				// 同键跨模块：`Copilot cloud agent` 与 `Included credits` 在 pages/repo-settings /
+				// pages/settings-billing 已有词条，但两条路由都不命中本页，故各收一份（路径互斥）。
+				// —— 套餐与用量 ——
+				"Get Copilot from an organization",
+				"Organizations can provide their members (including you) and their teams access to GitHub Copilot.",
+				"Buy Copilot Business",
+				"Upgrade plan",
+				"Upgrade your Copilot plan for higher usage limits, premium models, AI reviews and more.",
+				// 与 pages/settings-billing 的同键译文保持一致（「所含点数」）
+				"Included credits",
+				// 用量摘要的百分比走规则，这两个是导出里的实例
+				// —— 可见性与入口 ——
+				"Visibility",
+				"Show Copilot",
+				"Enable Copilot for all GitHub features, including navigation bar, search, and dashboard.",
+				"When disabled, Copilot will be hidden and unavailable. This setting does not apply to Copilot search on GitHub Docs.",
+				"Dashboard Entry Point",
+				"Allows instant chatting when landing on GitHub.com",
+				"Copilot Chat in GitHub.com",
+				"You can use Copilot Chat in GitHub.com. Preview features are only available for paid licenses.",
+				"Learn more about Copilot in GitHub.com",
+				// —— 各功能开关的状态徽标与说明 ——
+				"Allowed",
+				"Blocked",
+				"Coming soon",
+				"You will have access to the feature",
+				"You won't have access to the feature",
+				// —— 云端代理 / 应用 / CLI ——
+				"Copilot cloud agent",
+				"Delegate tasks to Copilot cloud agent in repositories where it is enabled",
+				"GitHub Copilot app",
+				"It can take up to 30 minutes for the changes to take effect. Restart your code editor for the changes to take effect immediately.",
+				"GitHub Copilot for assistance in terminal",
+				// —— 提交信息与内联建议 ——
+				"Copilot-generated commit messages",
+				"Allow Copilot to suggest commit messages when you make changes on GitHub.com.",
+				"Learn more about Copilot-generated commit messages.",
+				"Inline suggestions",
+				"Suggestions matching public code",
+				"Copilot can allow or block suggestions matching public code. Learn more about",
+				"GitHub Copilot will show suggestions matching public code.",
+				"GitHub Copilot won't show suggestions matching public code.",
+				// —— 联网搜索 ——
+				"Copilot can search the web",
+				"Copilot can answer questions about new trends and give improved answers, via Bing. See",
+				// —— MCP ——
+				"MCP servers in Copilot",
+				// 实机节点含源码换行（"…in\n                all Copilot editors…"），键按折叠空白后的形态写
+				"Connect MCP servers to Copilot in all Copilot editors and Copilot cloud agent.",
+				// —— 自动模型选择（说明句被两个链接切成四段）——
+				"Copilot Auto model selection",
+				"Evaluation models in Copilot auto model selection",
+				"If enabled, you may be served",
+				"evaluation models",
+				"through",
+				// —— Copilot Spaces（三组「启用 / 禁用」说明）——
+				"Copilot Spaces Individual Access",
+				"Copilot Spaces Individual Sharing",
+				"If enabled, you can view and create",
+				"If enabled, you can create individually owned",
+				"If enabled, you can share individually owned",
+				". When disabled, you cannot view or create any Copilot Spaces.",
+				". When disabled, you cannot create individual spaces.",
+				". When disabled, you cannot share individual spaces.",
+				// —— 内联代码建议 ——
+				"If enabled you can use",
+				"code suggestions",
+				// —— 非 GitHub 仓库的语义索引 ——
+				"Semantic indexing for Non-GitHub Repositories",
+				"You can use the",
+				"to index your non-GitHub repositories in VSCode.",
+				"You can use",
+				// —— 数据使用与隐私 ——
+				"Allow GitHub to use my data for AI model training",
+				"Allow GitHub to collect and use my Inputs, Outputs, and associated context to train and improve AI models. Read more in the",
+				"GitHub's Privacy Statement",
+				"Microsoft Privacy Statement",
+				"Privacy Statement",
+				"For more information about the data your organization receives regarding your use of GitHub Copilot, please review",
+				"Learn more.",
+				// —— 云端访问策略与新版本说明 ——
+				"Enables access to Copilot in the cloud, including GitHub.com and GitHub Mobile. This policy replaces previous Copilot Chat and Copilot cloud agent policies.",
+				". Enforcement begins July 27th, 2026 in version 1.1 of the GitHub Copilot app. The Copilot CLI policy continues to govern the GitHub Copilot App until version 1.1",
+				"GitHub Copilot for assistance in GitHub Desktop",
+				"Copilot in GitHub Desktop"
 			]
 		},
 		{

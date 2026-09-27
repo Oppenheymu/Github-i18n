@@ -760,6 +760,94 @@
 		"Deleted Packages": "已删除的软件包",
 		"These are packages that have been previously deleted belonging to you. You can restore a package deleted within the last 30 days.": "这些是你此前删除的、属于你的软件包。你可以恢复在过去 30 天内删除的软件包。",
 		// aria-label 与 placeholder 共用一条键
-		"Search deleted packages": "搜索已删除的软件包"
+		"Search deleted packages": "搜索已删除的软件包",
+		// —— /settings/copilot/features（Copilot 功能设置）——
+		// 键来自开发者模式导出的漏翻清单；节点边界与碎片拼接见
+		// src/content/__tests__/settings-copilot-features.test.ts
+		// —— 套餐与用量 ——
+		"Get Copilot from an organization": "从组织获取 Copilot",
+		"Organizations can provide their members (including you) and their teams access to GitHub Copilot.": "组织可以为其成员（包括你）及其团队提供 GitHub Copilot 访问权限。",
+		"Buy Copilot Business": "购买 Copilot Business",
+		"Upgrade plan": "升级方案",
+		"Upgrade your Copilot plan for higher usage limits, premium models, AI reviews and more.": "升级你的 Copilot 方案，以获得更高的用量限额、高级模型、AI 审查等。",
+		// 与 pages/settings-billing 的同键译文保持一致
+		"Included credits": "所含点数",
+		// —— 可见性与入口 ——
+		"Visibility": "可见性",
+		"Show Copilot": "显示 Copilot",
+		"Enable Copilot for all GitHub features, including navigation bar, search, and dashboard.": "为所有 GitHub 功能启用 Copilot，包括导航栏、搜索和仪表板。",
+		"When disabled, Copilot will be hidden and unavailable. This setting does not apply to Copilot search on GitHub Docs.": "禁用后，Copilot 将被隐藏且不可用。此设置不适用于 GitHub Docs 上的 Copilot 搜索。",
+		"Dashboard Entry Point": "仪表板入口",
+		"Allows instant chatting when landing on GitHub.com": "在进入 GitHub.com 时即可立即聊天",
+		"Copilot Chat in GitHub.com": "GitHub.com 中的 Copilot Chat",
+		"You can use Copilot Chat in GitHub.com. Preview features are only available for paid licenses.": "你可以在 GitHub.com 中使用 Copilot Chat。预览功能仅对付费许可证开放。",
+		"Learn more about Copilot in GitHub.com": "详细了解 GitHub.com 中的 Copilot",
+		// —— 各功能的状态徽标 ——
+		"Allowed": "已允许",
+		"Blocked": "已阻止",
+		"Coming soon": "即将推出",
+		"You will have access to the feature": "你将有权使用该功能",
+		"You won't have access to the feature": "你将无权使用该功能",
+		// —— 云端代理 / 应用 / CLI ——
+		"Copilot cloud agent": "Copilot 云端代理",
+		"Delegate tasks to Copilot cloud agent in repositories where it is enabled": "在已启用 Copilot 云端代理的仓库中向其委派任务",
+		"GitHub Copilot app": "GitHub Copilot 应用",
+		"It can take up to 30 minutes for the changes to take effect. Restart your code editor for the changes to take effect immediately.": "更改最多可能需要 30 分钟才能生效。重启代码编辑器可让更改立即生效。",
+		"GitHub Copilot for assistance in terminal": "在终端中提供协助的 GitHub Copilot",
+		"GitHub Copilot for assistance in GitHub Desktop": "在 GitHub Desktop 中提供协助的 GitHub Copilot",
+		"Copilot in GitHub Desktop": "GitHub Desktop 中的 Copilot",
+		// —— 提交信息与内联建议 ——
+		"Copilot-generated commit messages": "Copilot 生成的提交信息",
+		"Allow Copilot to suggest commit messages when you make changes on GitHub.com.": "允许 Copilot 在你在 GitHub.com 上进行更改时建议提交信息。",
+		"Learn more about Copilot-generated commit messages.": "详细了解 Copilot 生成的提交信息。",
+		"Inline suggestions": "内联建议",
+		"Suggestions matching public code": "与公开代码匹配的建议",
+		// 说明句在链接处断开，链接文本见下一组词条
+		"Copilot can allow or block suggestions matching public code. Learn more about": "Copilot 可以允许或阻止与公开代码匹配的建议。详细了解",
+		"GitHub Copilot will show suggestions matching public code.": "GitHub Copilot 将显示与公开代码匹配的建议。",
+		"GitHub Copilot won't show suggestions matching public code.": "GitHub Copilot 不会显示与公开代码匹配的建议。",
+		// —— 联网搜索 ——
+		"Copilot can search the web": "Copilot 可以搜索网络",
+		"Copilot can answer questions about new trends and give improved answers, via Bing. See": "Copilot 可以通过 Bing 回答有关新趋势的问题并给出更好的回答。请参阅",
+		// —— MCP ——
+		"MCP servers in Copilot": "Copilot 中的 MCP 服务器",
+		"Connect MCP servers to Copilot in all Copilot editors and Copilot cloud agent.": "在所有 Copilot 编辑器和 Copilot 云端代理中将 MCP 服务器连接到 Copilot。",
+		// —— 自动模型选择（四段拼接）——
+		"Copilot Auto model selection": "Copilot 自动模型选择",
+		"Evaluation models in Copilot auto model selection": "Copilot 自动模型选择中的评估模型",
+		"If enabled, you may be served": "启用后，你可能会获得",
+		"evaluation models": "评估模型",
+		// 拼接后为「…获得 评估模型 ，来自 Copilot 自动模型选择」
+		"through": "，来自",
+		// —— Copilot Spaces（启用 / 禁用成对说明）——
+		"Copilot Spaces Individual Access": "Copilot Spaces 个人访问",
+		"Copilot Spaces Individual Sharing": "Copilot Spaces 个人共享",
+		"If enabled, you can view and create": "启用后，你可以查看和创建",
+		"If enabled, you can create individually owned": "启用后，你可以创建个人拥有的",
+		"If enabled, you can share individually owned": "启用后，你可以共享个人拥有的",
+		// 三段拼接后为「…Copilot Spaces。禁用后，…」
+		". When disabled, you cannot view or create any Copilot Spaces.": "。禁用后，你无法查看或创建任何 Copilot Spaces。",
+		". When disabled, you cannot create individual spaces.": "。禁用后，你无法创建个人空间。",
+		". When disabled, you cannot share individual spaces.": "。禁用后，你无法共享个人空间。",
+		// —— 内联代码建议 ——
+		"If enabled you can use": "启用后，你可以使用",
+		"code suggestions": "代码建议",
+		// —— 非 GitHub 仓库的语义索引 ——
+		"Semantic indexing for Non-GitHub Repositories": "为非 GitHub 仓库建立语义索引",
+		"You can use the": "你可以使用",
+		"to index your non-GitHub repositories in VSCode.": "在 VSCode 中为你的非 GitHub 仓库建立索引。",
+		"You can use": "你可以使用",
+		// —— 数据使用与隐私 ——
+		"Allow GitHub to use my data for AI model training": "允许 GitHub 使用我的数据训练 AI 模型",
+		"Allow GitHub to collect and use my Inputs, Outputs, and associated context to train and improve AI models. Read more in the": "允许 GitHub 收集并使用我的输入、输出及相关上下文来训练和改进 AI 模型。详见",
+		"GitHub's Privacy Statement": "GitHub 隐私声明",
+		"Microsoft Privacy Statement": "Microsoft 隐私声明",
+		"Privacy Statement": "隐私声明",
+		"For more information about the data your organization receives regarding your use of GitHub Copilot, please review": "有关你的组织收到的、与你的 GitHub Copilot 使用情况相关的数据的更多信息，请查阅",
+		"Learn more.": "了解更多。",
+		// —— 云端访问策略与新版本说明 ——
+		"Enables access to Copilot in the cloud, including GitHub.com and GitHub Mobile. This policy replaces previous Copilot Chat and Copilot cloud agent policies.": "允许在云端（包括 GitHub.com 和 GitHub Mobile）使用 Copilot。此策略将取代此前的 Copilot Chat 和 Copilot 云端代理策略。",
+		// 实机节点以 ". " 起头（前一句的句号属于该节点）
+		". Enforcement begins July 27th, 2026 in version 1.1 of the GitHub Copilot app. The Copilot CLI policy continues to govern the GitHub Copilot App until version 1.1": "。该强制执行自 2026 年 7 月 27 日起在 GitHub Copilot 应用 1.1 版中生效。在 1.1 版之前，Copilot CLI 策略继续管辖 GitHub Copilot 应用"
 	}
 }

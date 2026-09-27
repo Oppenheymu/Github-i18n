@@ -788,6 +788,12 @@
 				{
 					"id": "settings/no-recoverable-packages",
 					"pattern": "^No recoverable packages were found for (.+)\\.$"
+				},
+				// Copilot 功能设置页（/settings/copilot/features）的用量摘要：实机形如 "14% used"
+				// （百分比动态），单捕获组用 $1。
+				{
+					"id": "settings/copilot-usage-percent",
+					"pattern": "^(\\d+)% used$"
 				}
 			]
 		},

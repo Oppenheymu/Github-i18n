@@ -595,6 +595,14 @@
 		"Merge, Rebase, Squash, Allowed merge methods": "合并、变基、压缩合并，允许的合并方式",
 		"Rebase, Squash, Merge, Allowed merge methods": "变基、压缩合并、合并，允许的合并方式",
 		"Rebase, Merge, Squash, Allowed merge methods": "变基、合并、压缩合并，允许的合并方式",
+		// —— 分支页（/owner/repo/settings/branches）——
+		// 说明句的两个链接各成节点，前段以 about 结尾（尾部空格的保留由 walker 负责）
+		"Classic branch protections have not been configured": "尚未配置经典分支保护",
+		"Define branch rules to disable force pushing, prevent branches from being deleted, or require pull requests before merging. Learn more about": "定义分支规则以禁止强制推送、防止分支被删除，或要求合并前先创建拉取请求。进一步了解",
+		"repository rules": "仓库规则",
+		"protected branches": "受保护的分支",
+		"Add branch ruleset": "添加分支规则集",
+		"Add classic branch protection rule": "添加经典分支保护规则",
 		"When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled.": "合并拉取请求时，你可以允许合并提交、压缩合并、变基的任意组合。至少必须启用一项。",
 		// 绕过模式菜单（Select bypass mode）——
 		"Always": "始终",

@@ -2439,7 +2439,19 @@
 				"The ruleset will not be evaluated and no bypass prompt will be shown",
 				"For pull requests only",
 				"The ruleset will be enforced on command line changes and the selected actor(s) will be prompted to bypass only in a pull request",
-				"This ruleset will not be enforced"
+				"This ruleset will not be enforced",
+				// —— 分支页（/owner/repo/settings/branches）——
+				// 证据：维护者 2026-09-27 贴的实机 HTML（页面顶部的经典分支保护横幅）。
+				// 该说明句被两个链接切成五段，逐段成键：前段 / `repository rules` /
+				// 连词 ` and `（已由本模块既有的 "and" 覆盖）/ `protected branches` / 纯符号句点（不收）。
+				// 注意采集时页面已装扩展，故节点里那句「与」是既有的 and 词条产出的，
+				// 不是上游原文——上游原文是 and
+				"Classic branch protections have not been configured",
+				"Define branch rules to disable force pushing, prevent branches from being deleted, or require pull requests before merging. Learn more about",
+				"repository rules",
+				"protected branches",
+				"Add branch ruleset",
+				"Add classic branch protection rule"
 			]
 		},
 		{

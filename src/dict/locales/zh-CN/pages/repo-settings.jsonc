@@ -1118,6 +1118,48 @@
 		"Indefinitely": "无限期",
 		"Open a pull request to resolve alerts": "打开拉取请求以解决警报",
 		"Dependabot will always try to open a pull request to resolve open alerts when security updates are enabled.": "启用安全更新后，Dependabot 会始终尝试打开拉取请求来解决未解决的警报。",
-		"Create rule": "创建规则"
+		"Create rule": "创建规则",
+		// —— 部署密钥页（/owner/repo/settings/keys）——
+		// 证据：维护者 2026-09-27 提供的实机 outerHTML（页面带着本扩展渲染，故链接文本
+		// 「部署密钥」「GitHub 应用」是既有词条的产物）。两处说明被链接切开，逐段登记：
+		//   顶部横幅：我们建议改用 + GitHub 应用 + ，以便更精细地控制仓库并获得 + 更强的安全性 + .
+		//   页头说明：部署密钥 + 长句 + GitHub 应用 + 来替代。
+		"We recommend using": "我们建议改用",
+		"instead for fine grained control over repositories and": "，以便更精细地控制仓库并获得",
+		"enhanced security": "更强的安全性",
+		"Add deploy key": "添加部署密钥",
+		"use an SSH key to grant readonly or write access to a single repository. They are not protected by a passphrase and can be a security risk if your server is compromised. If you have a complex project or want more fine-grain control over permissions, consider using": "使用 SSH 密钥授予对单个仓库的只读或写入权限。它们不受口令保护，如果你的服务器被入侵，可能会带来安全风险。如果你有复杂的项目，或希望对权限进行更细粒度的控制，可以考虑使用",
+		"instead.": "来替代。",
+		"There are no deploy keys for this repository": "此仓库没有部署密钥",
+		"Check out our": "查看我们的",
+		"guide on deploy keys": "部署密钥指南",
+		// 与 pages/marketing 的同键译文一致（路径互斥）
+		"to learn more.": "以了解更多。",
+		// —— Actions 机密与变量页（settings/secrets/actions 与 settings/variables/actions）——
+		// 证据：维护者 2026-09-27 提供的实机 outerHTML。`Secrets` 与账户级 pages/settings
+		// 的同键同译（「机密」）；`Variables` 是本模块新收的页签标签。
+		// 页头说明段逐段译：机密与变量让你可以管理可复用的配置数据。机密经过 + 加密 +
+		// ，用于敏感数据。 + 进一步了解加密机密 + 。变量以纯文本显示，用于 + 非敏感 + 数据。
+		"Actions secrets and variables": "Actions 机密与变量",
+		"Secrets and variables allow you to manage reusable configuration data. Secrets are": "机密与变量让你可以管理可复用的配置数据。机密经过",
+		"encrypted": "加密",
+		"and are used for sensitive data.": "，用于敏感数据。",
+		"Learn more about encrypted secrets": "进一步了解加密机密",
+		". Variables are shown as plain text and are used for": "。变量以纯文本显示，用于",
+		"non-sensitive": "非敏感",
+		"data.": "数据。",
+		"Learn more about variables": "进一步了解变量",
+		"Anyone with collaborator access to this repository can use these secrets and variables for actions. They are not passed to workflows that are triggered by a pull request from a fork.": "任何对此仓库有协作者访问权限的人都可以将这些机密与变量用于 Actions。它们不会被传递给由复刻发起的拉取请求所触发的工作流。",
+		// nav 的 aria-label（属性只走精确命中）
+		"Secrets or variables tab": "机密或变量标签页",
+		"Secrets": "机密",
+		"Variables": "变量",
+		// 两个 React 区块（环境机密 / 仓库机密）的表头、空态与按钮
+		"Environment secrets": "环境机密",
+		"This environment has no secrets.": "此环境没有机密。",
+		"Manage environment secrets": "管理环境机密",
+		"Repository secrets": "仓库机密",
+		"This repository has no secrets.": "此仓库没有机密。",
+		"New repository secret": "新建仓库机密"
 	}
 }

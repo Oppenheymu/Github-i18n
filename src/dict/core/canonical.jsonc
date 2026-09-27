@@ -2992,7 +2992,51 @@
 				"Indefinitely",
 				"Open a pull request to resolve alerts",
 				"Dependabot will always try to open a pull request to resolve open alerts when security updates are enabled.",
-				"Create rule"
+				"Create rule",
+				// —— 部署密钥页（/owner/repo/settings/keys）——
+				// 依据：维护者 2026-09-27 提供的实机 outerHTML（页面已加载扩展，故链接文本
+				// 「部署密钥」「GitHub 应用」是既有词条的渲染结果，不算新键）。
+				// 节点边界：顶部推荐横幅与页头说明句都被链接切成「前缀 + 链接 + 尾段」，
+				// 尾段 `instead.` 单独成条（`. The …` 之类把句点并进下一段的节点同理）。
+				"We recommend using",
+				"instead for fine grained control over repositories and",
+				"enhanced security",
+				"Add deploy key",
+				"use an SSH key to grant readonly or write access to a single repository. They are not protected by a passphrase and can be a security risk if your server is compromised. If you have a complex project or want more fine-grain control over permissions, consider using",
+				"instead.",
+				"There are no deploy keys for this repository",
+				"Check out our",
+				"guide on deploy keys",
+				"to learn more.",
+				// —— Actions 机密与变量页（/owner/repo/settings/secrets/actions 与
+				//    /owner/repo/settings/variables/actions 共用同一套页头与页签）——
+				// 依据：维护者 2026-09-27 提供的实机 outerHTML。两个 React partial（环境机密 /
+				// 仓库机密）的表头、空态与按钮都是渲染后的普通文本节点；嵌在
+				// `<script type="application/json">` 里的 props（Manage environment secrets 等）
+				// 由排除选择器挡掉，不进词典。
+				// 节点边界：页头说明段被 `<strong>` 与链接切成七段（`Secrets and variables allow
+				// you to manage reusable configuration data. Secrets are` / `encrypted` /
+				// `and are used for sensitive data.` / 链接 / `. Variables are shown as plain text
+				// and are used for` / `non-sensitive` / `data.`），逐段登记后拼接可读。
+				"Actions secrets and variables",
+				"Secrets and variables allow you to manage reusable configuration data. Secrets are",
+				"encrypted",
+				"and are used for sensitive data.",
+				"Learn more about encrypted secrets",
+				". Variables are shown as plain text and are used for",
+				"non-sensitive",
+				"data.",
+				"Learn more about variables",
+				"Anyone with collaborator access to this repository can use these secrets and variables for actions. They are not passed to workflows that are triggered by a pull request from a fork.",
+				"Secrets or variables tab",
+				"Secrets",
+				"Variables",
+				"Environment secrets",
+				"This environment has no secrets.",
+				"Manage environment secrets",
+				"Repository secrets",
+				"This repository has no secrets.",
+				"New repository secret"
 			]
 		},
 		{

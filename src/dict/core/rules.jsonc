@@ -1951,6 +1951,31 @@
 				{
 					"id": "repo-settings/ruleset-delete-include",
 					"pattern": "^Delete include of (.+)$"
+				},
+				// —— Actions 设置页（/owner/repo/settings/actions）——
+				// 含组织名 / 仓库名的四条文案（组织名是动态值，实机形如 `Allow Oppenheymu …`）。
+				// 「Allow <org>, and select non-<org>, …」必须排在「Allow <org> …」之前：
+				// 后者的 (.+) 是贪婪的，会把前者的整段描述吞进去，首条命中生效的顺序决定成败
+				{
+					"id": "repo-settings/actions-allow-org-selective",
+					"pattern": "^Allow (.+), and select non-.+, actions and reusable workflows$"
+				},
+				{
+					"id": "repo-settings/actions-allow-org",
+					"pattern": "^Allow (.+) actions and reusable workflows$"
+				},
+				{
+					"id": "repo-settings/actions-org-workflow",
+					"pattern": "^Any action or reusable workflow defined in a repository within (.+) can be used\\.$"
+				},
+				{
+					"id": "repo-settings/actions-org-criteria",
+					"pattern": "^Any action or reusable workflow that matches the specified criteria, plus those defined in a repository within (.+), can be used\\.$"
+				},
+				// 文档标题：`Actions settings · <owner>/<repo>`，仓库名保留原文
+				{
+					"id": "repo-settings/actions-settings-title",
+					"pattern": "^Actions settings [\\u2022\\u00B7] (.+)$"
 				}
 			]
 		},

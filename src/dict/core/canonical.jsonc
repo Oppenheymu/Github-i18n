@@ -2465,7 +2465,78 @@
 				// 页面标题与空状态（一句整体保留成两条不同的键）
 				"Protected tags",
 				"Protected tags have been deprecated",
-				"Go to rulesets to create new tag rules"
+				"Go to rulesets to create new tag rules",
+				// —— Actions 设置页（/owner/repo/settings/actions）——
+				// 证据：维护者 2026-09-27 用途径 A 导出的漏翻清单（path 全为本页）。
+				// 不收录（未命中即保留英文）：仓库名 Github-i18n、用户名 Oppenheymu /
+				// M. Oppenheymu / @Oppenheymu、产品名 GitHub / Copilot / Dependabot / OIDC、
+				// 以及快捷键提示 alt shift r。
+				// 含组织名的四条文案（Allow <org> … / Any action … within <org> …）与面包屑标题
+				// 见 core/rules.jsonc 的 repo-settings/actions-* 规则。
+				// 权限（Actions permissions）——
+				"Actions permissions",
+				"Allow all actions and reusable workflows",
+				"Any action or reusable workflow can be used, regardless of who authored it or where it is defined.",
+				"Disable actions",
+				"The Actions tab is hidden and no workflows can run.",
+				"Allow actions created by GitHub",
+				"Allow actions by Marketplace",
+				// 实机里 Marketplace 那一行被图标切成两个文本节点，后段单独成键
+				"verified creators",
+				"Allow or block specified actions and reusable workflows",
+				"Learn more about allowing specific actions and reusable workflows to run.",
+				"Require actions to be pinned to a full-length commit SHA",
+				// 允许列表输入框的示例提示
+				"Action examples:",
+				"Entire organization or repository examples:",
+				"Reusable workflow examples:",
+				// 说明段与校验提示：`!` 与 `*` 各自被 <code> 包住（排除容器内的文本引擎不翻），
+				// 故整段在实机上就是这些碎片节点
+				"Wildcards, tags, and SHAs are allowed. Use",
+				"prefix to block.",
+				". By default, only allowed patterns specified in the list can be used. To allow all actions and reusable workflows except those that are explicitly blocked, add a",
+				"wildcard pattern.",
+				"Your list contains a",
+				"wildcard pattern, which will",
+				"allow all actions and reusable workflows",
+				"except those that are explicitly blocked.",
+				"Your list contains",
+				"only blocked patterns",
+				// 复刻拉取请求工作流（Fork pull request workflows）——
+				"Approval for running fork pull request workflows from contributors",
+				// 实机是含源码换行的单节点，键按 normalizeKey 折叠空白后的形态写
+				"Choose which subset of users will require approval before running workflows on their pull requests. Both the pull request author and the actor of the pull request event triggering the workflow will be checked to determine if approval is required. If approval is required, a user with write access to the repository must",
+				"approve the pull request workflow to be run.",
+				"Require approval for all external contributors",
+				"All users that are not a member or owner of this repository will require approval to run workflows.",
+				"Require approval for first-time contributors who are new to GitHub",
+				"Only users who are both new on GitHub and who have never had a commit or pull request merged into this repository will require approval to run workflows.",
+				"Require approval for first-time contributors",
+				"Only users who have never had a commit or pull request merged into this repository will require approval to run workflows.",
+				"Save fork pull request workflows setting",
+				// 工作流权限（Workflow permissions）——
+				"Workflow permissions",
+				"Choose the default permissions granted to the GITHUB_TOKEN when running workflows in this repository. You can specify more granular permissions in the workflow using YAML.",
+				"Read and write permissions",
+				"Workflows have read and write permissions in the repository for all scopes.",
+				"Read repository contents and packages permissions",
+				"Workflows have read permissions in the repository for the contents and packages scopes only.",
+				"Allow GitHub Actions to create and approve pull requests",
+				"Choose whether GitHub Actions can create pull requests or submit approving pull request reviews.",
+				"Learn more about managing permissions.",
+				"Save workflow permissions settings",
+				// 构件与日志保留期（Artifact and log retention）——
+				"Artifact and log retention",
+				"Choose the repository settings for artifacts and logs.",
+				"Learn more about the artifact and log retention policy.",
+				// 上限提示被数字节点切成三段：前段 / 上限天数（数字节点翻不了也不收）/ days.
+				"There is a maximum limit of",
+				"days.",
+				// 输入框右侧的单位标签与两处校验文案
+				"days",
+				"Duration must be 1 or more.",
+				"Duration must be 90 or less",
+				"Save artifact and log retention setting"
 			]
 		},
 		{

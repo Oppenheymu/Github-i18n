@@ -396,6 +396,12 @@
 		"repo-settings/ruleset-actor-category": "应用 · $1",
 		"repo-settings/ruleset-delete-include-default": "删除默认分支的包含项",
 		"repo-settings/ruleset-delete-include": "删除 $1 的包含项",
+		// —— Actions 设置页（/owner/repo/settings/actions）——
+		"repo-settings/actions-allow-org-selective": "允许 $1 的操作和可复用工作流，并可选择非 $1 的操作和可复用工作流",
+		"repo-settings/actions-allow-org": "允许 $1 的操作和可复用工作流",
+		"repo-settings/actions-org-workflow": "$1 内仓库中定义的任何操作或可复用工作流都可以使用。",
+		"repo-settings/actions-org-criteria": "符合指定条件的任何操作或可复用工作流，加上 $1 内仓库中定义的那些，都可以使用。",
+		"repo-settings/actions-settings-title": "Actions 设置 · $1",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

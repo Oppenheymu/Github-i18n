@@ -49,7 +49,15 @@
 		},
 		{
 			"name": "pages/repo-settings",
-			"route": "^/[^/]+/[^/]+/settings"
+			// 仓库设置有**两支**路由（实测 2026-09-27）：
+			//   /owner/repo/settings/**       绝大多数设置页
+			//   /owner/repo/reported_content  举报内容页——GitHub 把它挂在**仓库根**上，
+			//                                 不含 settings 前缀。漏掉这一支时整包设置词条
+			//                                 都不加载，只剩 pages/repo + global 的通用词条，
+			//                                 实机表现为「一进这个页面翻译就消失」：
+			//                                 侧栏 General / Webhooks / Moderation 与正文
+			//                                 全部保留英文，只有「保存」这类 global 词条是中文。
+			"route": "^/[^/]+/[^/]+/(?:settings|reported_content)"
 		},
 		{
 			"name": "pages/actions",

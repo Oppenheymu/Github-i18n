@@ -52,6 +52,10 @@ export const PROBE_PATHS: readonly string[] = [
 	// 但它是另一页：自带一组只在该页生效的规则（repo-settings/ruleset-*），
 	// 故单独列一条探针——否则「规则加了却没生效」在这条路径上完全不可见
 	"/microsoft/vscode/settings/rules",
+	// 举报内容页（/owner/repo/reported_content）不在 settings 前缀下，是 pages/repo-settings
+	// 的第二支路由：它同时命中 pages/repo，两支的词条「先到先得」谁胜出、规则序列如何，
+	// 只有单独一条探针能钉住（2026-09-27 实机发现漏路由后补）
+	"/microsoft/vscode/reported_content",
 	"/settings/profile",
 	"/settings/accessibility",
 	"/settings/notifications",

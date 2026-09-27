@@ -2101,7 +2101,14 @@
 				// your public repositories / each repository（复数）互斥，故本模块各收一份；
 				// 与 `Enable interaction limits for:` 同理，两个模块的译文必须一致。
 				"Restrict users who are permitted to approve or request changes on pull requests in this repository.",
+				// 开关标签实机被 <strong>read</strong> 切成**三个**文本节点
+				// （`Limit to users explicitly granted ` / `read` / ` or higher access`），
+				// 故整句键在上面保留兜底的同时，这里按**片段**各收一条；
+				// `read` 是小写形态（Access 页的角色名是大写 `Read`，两者是不同的键）。
 				"Limit to users explicitly granted read or higher access",
+				"Limit to users explicitly granted",
+				"read",
+				"or higher access",
 				"When enabled, only users explicitly granted access to this repository will be able to submit pull request reviews that \"approve\" or \"request changes\". All users able to submit comment pull request reviews will continue to be able to do so.",
 				"Find people",
 				"Search by username, full name, or email",

@@ -287,7 +287,13 @@
 		// （复数，见 pages/settings）互斥，故本页三条各自成键；译文用词与账户级保持一致，
 		// 免得同一功能在两页显示不同说法。
 		"Restrict users who are permitted to approve or request changes on pull requests in this repository.": "限制哪些用户可以在仓库中对拉取请求进行批准或请求更改。",
+		// 开关标签被 <strong>read</strong> 切成三个节点：整句键保留兜底，
+		// 三条片段各收一份；片段拼接后读作「限制为明确获得读取或更高权限的用户」
+		// （片段之间由实机节点自带的前导空格分隔，中文里会显示成一个空格，浏览器再折叠）
 		"Limit to users explicitly granted read or higher access": "限制为明确获得读取或更高权限的用户",
+		"Limit to users explicitly granted": "限制为明确获得",
+		"read": "读取",
+		"or higher access": "或更高权限的用户",
 		"When enabled, only users explicitly granted access to this repository will be able to submit pull request reviews that \"approve\" or \"request changes\". All users able to submit comment pull request reviews will continue to be able to do so.": "启用后，只有明确获得此仓库访问权限的用户才能提交「批准」或「请求更改」的拉取请求审查。所有能够提交评论式拉取请求审查的用户仍可继续这样做。",
 		"Search by username, full name, or email": "按用户名、全名或电子邮箱搜索",
 		"selection": "已选",

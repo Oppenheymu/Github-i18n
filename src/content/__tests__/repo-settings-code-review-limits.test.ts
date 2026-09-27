@@ -77,6 +77,58 @@ describe("仓库设置页的代码审查限制子页的实机节点边界", () =
 		).toBeNull();
 	});
 
+	it("translates the switch label split by its <strong>read</strong>", () => {
+		// 实机结构（维护者 2026-09-27 贴的 HTML）：
+		//   Limit to users explicitly granted <strong>read</strong> or higher access
+		// 它在 DOM 里是**三个**文本节点，故整句键在实机上永不命中——
+		// 三条片段键必须各自命中，拼起来还要读得通。
+		expect(
+			translateText(
+				"Limit to users explicitly granted ",
+				view,
+			),
+		).toBe("限制为明确获得");
+		// <strong>read</strong> 的节点原文含源码换行缩进
+		expect(
+			translateText("\n            read\n", view),
+		).toBe("读取");
+		expect(
+			translateText(" or higher access\n        ", view),
+		).toBe("或更高权限的用户");
+		// 拼接结果：实机里片段的首尾空白**由 walker 保留**（applyTextNode 把 lead / trail
+		// 留在节点上），故两处空格来自节点本身——渲染出来是「明确获得 读取 或更高权限的用户」。
+		// 这里显式复刻 walker 的保留语义，而不是直接拼 translateText 的返回值（后者已 trim）
+		const renderWithWhitespace = (
+			nodes: readonly string[],
+		) =>
+			nodes
+				.map((node) => {
+					const translated = translateText(node, view);
+					if (translated === null) return node;
+					const lead = node.slice(
+						0,
+						node.length - node.trimStart().length,
+					);
+					const trail = node.slice(node.trimEnd().length);
+					return `${lead}${translated}${trail}`;
+				})
+				.join("");
+		expect(
+			renderWithWhitespace([
+				"Limit to users explicitly granted ",
+				"read",
+				" or higher access",
+			]),
+		).toBe("限制为明确获得 读取 或更高权限的用户");
+	});
+
+	it("keeps the lowercase permission word apart from the capitalised role name", () => {
+		// Access 页的角色名是大写 `Read`（→ 读取），开关标签里的是小写 `read`
+		// ——两条不同的键，译文相同；大小写混用会被这条用例挡住
+		expect(translateText("Read", view)).toBe("读取");
+		expect(translateText("read", view)).toBe("读取");
+	});
+
 	it("keeps the repository owner and name in english", () => {
 		expect(translateText("Oppenheymu", view)).toBeNull();
 		expect(translateText("Github-i18n", view)).toBeNull();

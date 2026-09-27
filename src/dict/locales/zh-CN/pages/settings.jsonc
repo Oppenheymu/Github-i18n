@@ -749,6 +749,17 @@
 		"New secret": "新建机密",
 		"Submit": "提交",
 		"Development environment secrets are environment variables that are encrypted. They are available to any codespace you create using repositories with access to that secret.": "开发环境机密是经过加密的环境变量。使用有权访问该机密的仓库创建的任何代码空间都可以使用它们。",
-		"There are no Codespace secrets.": "没有代码空间机密。"
+		"There are no Codespace secrets.": "没有代码空间机密。",
+		// —— /settings/packages（软件包个人设置）——
+		// 键来自开发者模式导出的漏翻清单；节点边界与反例见
+		// src/content/__tests__/settings-packages.test.ts
+		"Packages permissions": "软件包权限",
+		"Inherit access from source repository": "从源仓库继承访问权限",
+		"Default Package Setting": "默认软件包设置",
+		"This setting will be applied to new Container, npm, rubygems and NuGet packages.": "此设置将应用于新建的 Container、npm、rubygems 和 NuGet 软件包。",
+		"Deleted Packages": "已删除的软件包",
+		"These are packages that have been previously deleted belonging to you. You can restore a package deleted within the last 30 days.": "这些是你此前删除的、属于你的软件包。你可以恢复在过去 30 天内删除的软件包。",
+		// aria-label 与 placeholder 共用一条键
+		"Search deleted packages": "搜索已删除的软件包"
 	}
 }

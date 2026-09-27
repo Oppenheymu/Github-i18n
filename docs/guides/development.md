@@ -384,6 +384,7 @@ for (const p of probes) {
 | `settings-limits.test.ts` | `/settings/blocked_users`、`/settings/interaction_limits`、`/settings/code_review_limits`、`/settings/organizations`、`/settings/enterprises` | 限制与组织页（备注剩余字数的规则、交互限制提示的三段拼接、离开组织确认句的动态规则；企业空状态按**实机 HTML** 收录；组织名与 `Settings for <组织名>` 保留英文） |
 | `settings-repositories.test.ts` | `/settings/repositories` | 仓库默认设置页（两段说明都在链接处断开；下拉按 appearance 页实测的「标签含冒号 + 当前值」两节点形态收录，其拼好的 `aria-label` 保留英文） |
 | `settings-codespaces.test.ts` | `/settings/codespaces` | 代码空间个人设置页（三段拼接的编辑器选项、说明段末尾的独立纯数字节点 + 单位句、区域下拉、仓库选择器计数规则；产品名保留英文） |
+| `settings-packages.test.ts` | `/settings/packages` | 软件包个人设置页（搜索框的 aria-label 与 placeholder 同串一条键；已删除软件包空状态含动态用户名，走规则） |
 | `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |

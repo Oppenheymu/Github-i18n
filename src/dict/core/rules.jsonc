@@ -782,6 +782,12 @@
 				{
 					"id": "settings/selected-repositories-count",
 					"pattern": "^Selected (\\d+) repositor(?:y|ies)\\.$"
+				},
+				// 软件包设置页（/settings/packages）已删除软件包区块的空状态：整句含动态用户名
+				// （实机是单个文本节点），用户名按原样带回；单捕获组用 $1。
+				{
+					"id": "settings/no-recoverable-packages",
+					"pattern": "^No recoverable packages were found for (.+)\\.$"
 				}
 			]
 		},

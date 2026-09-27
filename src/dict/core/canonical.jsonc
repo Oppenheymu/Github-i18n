@@ -1148,7 +1148,24 @@
 				"New secret",
 				"Submit",
 				"Development environment secrets are environment variables that are encrypted. They are available to any codespace you create using repositories with access to that secret.",
-				"There are no Codespace secrets."
+				"There are no Codespace secrets.",
+				// —— /settings/packages（软件包个人设置）——
+				// 证据强度：**途径 A 实证**（popup 开发者模式导出的漏翻清单，schema
+				// github-zh-misses/1，2026-09-27 维护者导出，path 全为 /settings/packages）。
+				// 刻意**不收录**：`Copilot`、`GitHub`（title）与用户名、头像 alt 等用户内容；
+				// 空状态里的用户名是动态值，整句走 core/rules.jsonc 本模块组的
+				// settings/no-recoverable-packages 规则。
+				// 注意本页的「包」一律用既有译法**软件包**（pages/settings 侧栏的 "Packages"
+				// 已是「软件包」，此处保持一致）。
+				"Packages permissions",
+				// 权限继承的两个选项之一（另一个是仓库侧已有的选项，不在本次导出里）
+				"Inherit access from source repository",
+				"Default Package Setting",
+				"This setting will be applied to new Container, npm, rubygems and NuGet packages.",
+				"Deleted Packages",
+				"These are packages that have been previously deleted belonging to you. You can restore a package deleted within the last 30 days.",
+				// 搜索框的 aria-label 与 placeholder 是同一个串（一条键覆盖两处）
+				"Search deleted packages"
 			]
 		},
 		{

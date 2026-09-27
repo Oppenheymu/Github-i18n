@@ -188,6 +188,8 @@
 		"settings/leave-organization-confirm": "你确定要离开 $1 吗？你将失去对所有仓库和团队的访问权限。",
 		// 代码空间设置页的仓库选择器计数（数字按原样带回）
 		"settings/selected-repositories-count": "已选择 $1 个仓库。",
+		// 软件包设置页的空状态（用户名按原样带回）
+		"settings/no-recoverable-packages": "未找到 $1 的可恢复软件包。",
 		// —— 账单页（/account/billing）的动态用量说明 ——
 		// 区间按月全展开（与 insights/range-long-* 同一形态）：pattern 里写死英文月份
 		// 全称，模板里写死对应中文月份。之所以逐组合展开、而不是用捕获组，是因为

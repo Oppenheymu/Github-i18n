@@ -133,6 +133,11 @@
 		"Select a verified email to display": "选择要公开展示的已验证邮箱",
 		"No Preference": "无偏好",
 		"Connect your ORCID iD": "连接你的 ORCID iD",
+		// —— ORCID 区块（连接之后才渲染的三条；证据是实机截图）——
+		// 「You have a connected ORCID iD …for the account …」两个值都是动态的，走规则
+		"Display your ORCID iD on your GitHub profile": "在你的 GitHub 个人资料中显示你的 ORCID iD",
+		"Disconnecting your ORCID iD may affect areas of your profile where your ORCID iD is displayed.": "断开你的 ORCID iD 可能会影响你个人资料中显示 ORCID iD 的区域。",
+		"Disconnect your ORCID iD": "断开你的 ORCID iD",
 		"Trending Repositories": "趋势仓库",
 		// —— 说明句被链接拆开后单独成节点的片段 ——
 		"email settings": "电子邮件设置",

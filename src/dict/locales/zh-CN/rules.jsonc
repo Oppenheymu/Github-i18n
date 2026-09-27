@@ -204,6 +204,8 @@
 		"settings/application-api-revoke-notice": "$1 将无法再访问 GitHub API。此操作无法撤销。",
 		// 安全日志页的事件行 2（应用名按原样带回）
 		"settings/audit-removed-oauth-authorization": "已移除对 OAuth 应用（$1）的授权",
+		// /settings/profile 的 ORCID 已连接提示（标识符与账户按原样带回）
+		"settings/orcid-connected-notice": "你已连接 ORCID iD $<id>，对应账户为 $<account>。",
 		// —— 账单页（/account/billing）的动态用量说明 ——
 		// 区间按月全展开（与 insights/range-long-* 同一形态）：pattern 里写死英文月份
 		// 全称，模板里写死对应中文月份。之所以逐组合展开、而不是用捕获组，是因为

@@ -414,6 +414,17 @@
 				"Select a verified email to display",
 				"No Preference",
 				"Connect your ORCID iD",
+				// —— /settings/profile 的 ORCID 区块（**连接之后**才渲染的那部分）——
+				// 证据强度：**实机截图**（2026-09-27 维护者连接 ORCID 后提供）。
+				// 该区块的上半部分（H2 `ORCID iD`、`Connect your ORCID iD` 与那句说明）
+				// 早已有词条，这里只补连接成功后新增的三条键。
+				// 「You have a connected ORCID iD <标识符> for the account <账户>.」里两个值都是动态的，
+				// 走 core/rules.jsonc 的 settings/orcid-connected-notice 规则（两个命名组）；
+				// 截图里标识符与 @账户都是普通灰色文本（不是链接），故按单节点整句处理——
+				// 若日后 HTML 证明它们被元素包住，改为「碎片键 + 中段规则」即可（同 security-log 的先例）。
+				"Display your ORCID iD on your GitHub profile",
+				"Disconnecting your ORCID iD may affect areas of your profile where your ORCID iD is displayed.",
+				"Disconnect your ORCID iD",
 				"Trending Repositories",
 				// —— 说明句被链接拆开后单独成节点的片段（摘录自实机文本节点清单）——
 				"email settings",

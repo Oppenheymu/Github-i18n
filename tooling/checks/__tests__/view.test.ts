@@ -9,6 +9,7 @@ import {
 	PROBE_PATHS,
 	pathCounts,
 	probeName,
+	ruleIdMap,
 	serializeSkeleton,
 	type ViewSkeleton,
 } from "../view.ts";
@@ -31,11 +32,21 @@ function moduleDict(input: {
 	};
 }
 
-/** 合成规则 id 表：pattern 源串 → id */
+/**
+ * 合成规则 id 表：**模块名 + \0 + pattern 源串** → id。
+ * 键的形态必须与 view.ts 的 ruleIdMap 一致（只按 pattern 建键会让两个模块的同形规则
+ * 互相覆盖，那正是下面那条回归用例挡住的缺陷），故这里显式拼出复合键。
+ */
 function ruleIds(
+	module: string,
 	entries: readonly (readonly [string, string])[],
 ): ReadonlyMap<string, string> {
-	return new Map(entries);
+	return new Map(
+		entries.map(([pattern, id]) => [
+			`${module}\u0000${pattern}`,
+			id,
+		]),
+	);
 }
 
 const CORE_MODULES = [
@@ -70,10 +81,12 @@ function syntheticModules(): ModuleDict[] {
 	];
 }
 
-const IDS = ruleIds([
-	["^now$", "repo/now"],
-	["^(\\d+) stars?$", "repo/stars"],
-	["^soon$", "global/soon"],
+const IDS = new Map([
+	...ruleIds("pages/repo", [
+		["^now$", "repo/now"],
+		["^(\\d+) stars?$", "repo/stars"],
+	]),
+	...ruleIds("global", [["^soon$", "global/soon"]]),
 ]);
 
 describe("buildSkeleton", () => {
@@ -188,6 +201,63 @@ describe("buildSkeleton", () => {
 		expect(() =>
 			buildSkeleton(["global"], modules, new Map()),
 		).toThrow(/未声明的规则/);
+	});
+
+	it("keeps same-pattern rules of different modules apart", () => {
+		// 两个模块可以各有一条 pattern 完全相同的规则（合法，门禁只查同模块内唯一）。
+		// 若 ruleIdMap 只按 pattern 建键，后声明的那条会覆盖前一条，
+		// /search 的规则序列就会被记成 profile 的 id——快照「变了」而运行时毫无变化。
+		const modules = [
+			moduleDict({
+				name: "pages/profile",
+				route: /^\/octocat$/,
+				entries: {},
+				rules: [
+					{
+						pattern: /^([\d,]+) results?$/,
+						replacement: "$1 个结果",
+					},
+				],
+			}),
+			moduleDict({
+				name: "pages/search",
+				route: /^\/search$/,
+				entries: {},
+				rules: [
+					{
+						pattern: /^([\d,]+) results?$/,
+						replacement: "$1 个结果",
+					},
+				],
+			}),
+		];
+		const ids = ruleIdMap([
+			{
+				module: "pages/profile",
+				id: "profile/repo-results-count",
+				pattern: /^([\d,]+) results?$/,
+			},
+			{
+				module: "pages/search",
+				id: "search/results-count",
+				pattern: /^([\d,]+) results?$/,
+			},
+		]);
+		const skeleton = buildSkeleton(
+			["pages/profile", "pages/search"],
+			modules,
+			ids,
+		);
+		expect(
+			skeleton.probes.find(
+				(probe) => probe.path === "/octocat",
+			)?.rules,
+		).toEqual(["profile/repo-results-count"]);
+		expect(
+			skeleton.probes.find(
+				(probe) => probe.path === "/search",
+			)?.rules,
+		).toEqual(["search/results-count"]);
 	});
 });
 

@@ -2376,6 +2376,21 @@
 					"id": "profile/showing-of-repos",
 					"pattern": "^Showing (?<count>\\d+) of (?<total>[\\d,]+) repositor(?:y|ies)$"
 				},
+				// 结果摘要的计数节点（`5` 被 <strong> 单独包住，故数字自成一个节点）
+				{
+					"id": "profile/repo-results-count",
+					"pattern": "^([\\d,]+) results?$"
+				},
+				// 摘要里数字之后的那半句；带类型筛选时它被 <strong> 截断，只剩到 "for" 为止
+				{
+					"id": "profile/repo-results-filtered",
+					"pattern": "^results? for$"
+				},
+				// 被截断的后半句（筛选类型嵌在中间：`source` 是独立节点）
+				{
+					"id": "profile/repo-results-repos",
+					"pattern": "^repositor(?:y|ies) sorted by$"
+				},
 				// 贡献日历标题：计数与年份在同一节点（「2,546 contributions in 2026」）
 				{
 					"id": "profile/contributions-in-year",

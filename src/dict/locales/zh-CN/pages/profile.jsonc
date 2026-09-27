@@ -95,6 +95,15 @@
 		"Select type": "选择类型",
 		"Select order": "选择排序",
 		"Last updated": "最近更新",
+		// —— 仓库列表的结果摘要（五个节点，加粗的三段各被 <strong> 包住）——
+		// 实机节点形态：`5` / `results for` / `source` / `repositories sorted by` / `last updated`。
+		// 片段接起来读作「5 个结果，source 个仓库，按上次更新。」（类型名与菜单标识保留英文，
+		// 计数与中间片段由 profile/repo-results-* 三条规则拼装；片段间的换行缩进由浏览器折叠空白）
+		"results for": "个结果，",
+		"repositories sorted by": "个仓库，按",
+		// 末段是独立节点（小写 "last updated"，与菜单项 "Last updated" 大小写不同、互不影响）
+		"last updated": "上次更新。",
+		"Clear filter": "清除筛选",
 		// —— 仓库卡片元信息与徽标 ——
 		"Apache-2.0": "Apache-2.0 许可证",
 		"Forked from": "复刻自",

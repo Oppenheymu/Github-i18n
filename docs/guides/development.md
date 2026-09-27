@@ -157,6 +157,7 @@ content script 以 `run_at: document_start` 注入：
 - 锁住四件事：模块顺序（`core/modules.jsonc` 的顺序即优先级）与 `global` 兜底必须在最后、每条探针路径命中的模块名序列、**赢家覆盖**（同一键被 ≥2 个命中模块提供时最终胜出来源——这是「有意同键异译」的回归保护）、每条路径生效的规则 **id** 序列；
 - 另记 `notTranslated`：该路径 `core` 声明了、本语言还没给模板的规则 id。「往 `core/rules.jsonc` 加一条规则、忘了给模板」在视图里完全不可见（缺模板 = 规则不生效），只有它能把这种回归暴露出来；
 - **记 id 不记 pattern 源串**：只改 pattern（例如给已有规则加命名组）不会动快照，与「上游改文案」解耦；
+- **反查 id 的键必须是「模块名 + pattern」而不是单 pattern**：跨模块的同形 pattern 是合法的（见上面 `validateRulePatternUniqueness`），而 `ruleIdMap` 早期只按 pattern 建键，后声明的那条会静默覆盖前一条——2026-09 实测：给 `pages/profile` 加一条与 `pages/search` 逐字符相同的 `^([\d,]+) results?$` 后，`/search`、`/topics` 的规则序列被记成 `profile/repo-results-count`，同时账单页那 12 条 `settings/month-year-*` 被记成 `insights/month-year-*`（`insights` 的模板先被读到），`check:view` 报「规则序列变了」而运行时行为毫无变化。这类假报警只能靠复合键消除，回归用例见 `tooling/checks/__tests__/view.test.ts` 的「keeps same-pattern rules of different modules apart」；
 - 快照按语言逐份：同键异译是分语言的事实（某语言少译了被压过的那个键，跨模块同键就不成立）；
 - 失败时只报首处差异 + 差异条数（一条路径的规则序列可达上百项，整表打印会淹掉真正的信息）；
 - 改动确实有意时用 `bun run check:view --update` 重生成快照，并在提交信息里说明原因；
@@ -394,6 +395,7 @@ for (const p of probes) {
 | `settings-profile.test.ts` | `/settings/profile`（ORCID 区块） | 连接 ORCID 后才渲染的段落（**实机 HTML 实证**：标识符与 @账户都被 `<strong>` 包住，故已连接提示收成 `You have a connected ORCID iD` + `for the account` 两段碎片键；另用一条断言钉住 `ORCID iD` 的译文不得与键同形——2026-09 卡死事故） |
 | `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分） |
+| `profile.test.ts` | `/<用户名>?tab=repositories` | 个人 / 组织主页的仓库列表（Type 下拉九项按**整节点相等**断言；结果摘要行是五个节点——`5` / `results for` / `source` / `repositories sorted by` / `last updated`，加粗的三段各被 `<strong>` 单独包住，靠三条 `profile/repo-results-*` 规则 + `results for` / `last updated` 两条片段词条拼装；`Clear filter` 与 Type 菜单里上游未本地化的 `Can be sponsored` / `Templates` 一并锁住） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |
 | `pulls.test.ts` | `/owner/repo/pulls` | 拉取请求列表页 |
 | `global.test.ts` | 任意路径 | 全站外壳与动态时间文本 |

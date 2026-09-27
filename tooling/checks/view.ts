@@ -135,17 +135,43 @@ export function probeName(pathname: string): string {
 }
 
 /**
- * 纯函数：core 的规则定义 → 「pattern 源串 → 规则 id」。
+ * 纯函数：core 的规则定义 → 「模块名 + pattern 源串 → 规则 id」。
  *
  * 运行时的规则是「pattern + 模板」，不带 id（id 只活在语言无关的 core/rules.jsonc 里，
  * 用来让各语言对齐模板）。骨架要记 id 而不记 pattern 源串，故按同一份 core 反查。
+ *
+ * **必须带上模块名**：pattern 完全相同的两条规则可以分属两个模块（合法，见
+ * validateRulePatternUniqueness 只查同模块内），例如 `^([\\d,]+) results?$` 同时是
+ * pages/search 与 pages/profile 的规则。只按 pattern 反查会让后声明的那条覆盖前一条，
+ * 于是 /search 的规则序列被记成 profile 的 id——骨架看着「变了」，实际运行时毫无变化
+ * （2026-09 实测）。键里的 \0 是分隔符，模块名与 pattern 都不可能含它。
  */
 export function ruleIdMap(
 	defs: readonly RuleDef[],
 ): ReadonlyMap<string, string> {
 	return new Map(
-		defs.map((def) => [def.pattern.source, def.id]),
+		defs.map((def) => [
+			`${def.module}\u0000${def.pattern.source}`,
+			def.id,
+		]),
 	);
+}
+
+/** 视图里出现的规则必须能在 core/rules.jsonc 里反查到 id，否则结构已错，响亮失败 */
+function lookupRuleId(
+	ruleIds: ReadonlyMap<string, string>,
+	moduleName: string,
+	rule: { readonly pattern: RegExp },
+): string {
+	const id = ruleIds.get(
+		`${moduleName}\u0000${rule.pattern.source}`,
+	);
+	if (id === undefined) {
+		throw new Error(
+			`视图里出现了 core/rules.jsonc 未声明的规则（模块 ${JSON.stringify(moduleName)}，pattern ${JSON.stringify(rule.pattern.source)}）：无法记入骨架`,
+		);
+	}
+	return id;
 }
 
 /**
@@ -195,7 +221,7 @@ export function buildSkeleton(
 			collisions,
 			rules: matched.flatMap((module) =>
 				module.rules.map((rule) =>
-					lookupRuleId(ruleIds, rule),
+					lookupRuleId(ruleIds, module.name, rule),
 				),
 			),
 			// 顺序与 rules 一致：模块顺序、组内保持 core 的声明顺序
@@ -231,20 +257,6 @@ export function pendingRuleIds(
 		else list.push(def.id);
 	}
 	return pending;
-}
-
-/** 视图里出现的规则必须能在 core/rules.jsonc 里反查到 id，否则结构已错，响亮失败 */
-function lookupRuleId(
-	ruleIds: ReadonlyMap<string, string>,
-	rule: { readonly pattern: RegExp },
-): string {
-	const id = ruleIds.get(rule.pattern.source);
-	if (id === undefined) {
-		throw new Error(
-			`视图里出现了 core/rules.jsonc 未声明的规则（pattern ${JSON.stringify(rule.pattern.source)}）：无法记入骨架`,
-		);
-	}
-	return id;
 }
 
 function compareText(left: string, right: string): number {

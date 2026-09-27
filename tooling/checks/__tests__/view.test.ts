@@ -299,6 +299,41 @@ describe("serializeSkeleton", () => {
 		serializeSkeleton(skeleton);
 		expect(JSON.stringify(skeleton)).toBe(before);
 	});
+
+	it("counts the trailing comma when measuring a collision line", () => {
+		// 边界回归（2026-09-27）：`{ "key": …, "module": … }` 内联后正好 60 列，
+		// 但**非末位**元素末尾还有逗号，Biome 量的是含逗号的行宽（61 列）故必须竖排；
+		// 末位元素没有逗号，同一内容内联才对。旧实现漏算逗号，于是
+		// `bun run check:view --update` 的产物过不了 `biome check`——
+		// 这个缺陷长期没暴露，是因为在此之前没有任何探针产生过非空 collisions
+		const collision = (key: string) => ({
+			key,
+			module: "pages/repo-settings",
+		});
+		const skeleton: ViewSkeleton = {
+			modules: ["global"],
+			probes: [
+				{
+					name: "/",
+					path: "/",
+					matched: ["global"],
+					collisions: [
+						collision("Issues"),
+						collision("Labels"),
+					],
+					rules: [],
+					notTranslated: [],
+				},
+			],
+		};
+		const text = serializeSkeleton(skeleton);
+		expect(text).toContain(
+			'\t\t\t\t{\n\t\t\t\t\t"key": "Issues",\n\t\t\t\t\t"module": "pages/repo-settings"\n\t\t\t\t},',
+		);
+		expect(text).toContain(
+			'\t\t\t\t{ "key": "Labels", "module": "pages/repo-settings" }',
+		);
+	});
 });
 
 describe("pathCounts", () => {

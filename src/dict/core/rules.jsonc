@@ -1997,27 +1997,14 @@
 					"id": "repo-settings/insights-title",
 					"pattern": "^Settings [\\u2022\\u00B7] Insights [\\u2022\\u00B7] (.+)$"
 				},
-				// —— 网络钩子页（/owner/repo/settings/hooks 与 …/hooks/new）——
-				// 两句长说明只拿到截图（不是实机 HTML / 漏翻清单），两处不确定都用规则兜住：
-				//   1. `we'll` / `you'd` 的撇号是直是弯——用字符类同时覆盖；
-				//   2. 新建页那句里的 `x-www-form-urlencoded` 是否被 <code> 包住——若包住，
-				//      链接前的那一段会再被切成「…receive (JSON,」+「, etc). More information…」，
-				//      故 code 拆分形态单独收两条（与不拆分的整段互斥，多收不会互相干扰）
+				// —— 网络钩子页（/owner/repo/settings/hooks）——
+				// 列表页那句说明的撇号在实机是直是弯尚未拿到 HTML 证实（新建页实测是直撇号
+				// `We'll`，列表页大概率相同），故用字符类同时覆盖两种写法。
+				// 新建页那句原本也靠规则兜底，2026-09-27 拿到**未装扩展**的实机 HTML 后
+				// 已确认节点边界（两个 <code> 把句子切开五项），改为五条静态键，规则已删
 				{
 					"id": "repo-settings/webhooks-intro",
 					"pattern": "^Webhooks allow external services to be notified when certain events happen\\. When the specified events happen, we['\\u2019]ll send a POST request to each of the URLs you provide\\. Learn more in our$"
-				},
-				{
-					"id": "repo-settings/webhooks-new-intro",
-					"pattern": "^We['\\u2019]ll send a POST request to the URL below with details of any subscribed events\\. You can also specify which data format you['\\u2019]d like to receive \\(JSON, x-www-form-urlencoded, etc\\)\\. More information can be found in$"
-				},
-				{
-					"id": "repo-settings/webhooks-new-intro-code",
-					"pattern": "^We['\\u2019]ll send a POST request to the URL below with details of any subscribed events\\. You can also specify which data format you['\\u2019]d like to receive \\(JSON,$"
-				},
-				{
-					"id": "repo-settings/webhooks-new-intro-code-tail",
-					"pattern": "^, etc\\)\\. More information can be found in$"
 				}
 			]
 		},

@@ -410,9 +410,6 @@
 		"repo-settings/insights-title": "设置 · 洞察 · $1",
 		// —— 网络钩子页（/owner/repo/settings/hooks）——
 		"repo-settings/webhooks-intro": "网络钩子让外部服务能在特定事件发生时收到通知。当指定的事件发生时，我们会向你提供的每个 URL 发送 POST 请求。进一步了解我们的",
-		"repo-settings/webhooks-new-intro": "我们会向你下方提供的 URL 发送包含所订阅事件详情的 POST 请求。你还可以指定希望接收的数据格式（JSON、x-www-form-urlencoded、等等）。更多信息可在我们的",
-		"repo-settings/webhooks-new-intro-code": "我们会向你下方提供的 URL 发送包含所订阅事件详情的 POST 请求。你还可以指定希望接收的数据格式（JSON、",
-		"repo-settings/webhooks-new-intro-code-tail": "、等等）。更多信息可在我们的",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

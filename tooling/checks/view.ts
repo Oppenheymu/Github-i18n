@@ -336,11 +336,15 @@ function formatContainer(
 		const inner = `${indent}${SNAPSHOT_INDENT}`;
 		return {
 			head: "[",
-			// 逗号由容器加在**每个元素的最后一行**末尾（元素本身可能是多行）
-			body: value.map(
-				(item, index) =>
-					`${inner}${formatValue(item, inner)}${index < value.length - 1 ? "," : ""}`,
-			),
+			// 逗号由容器加在**每个元素的最后一行**末尾（元素本身可能是多行）。
+			// 行宽判定也必须把它算进去：Biome 量的是含逗号的行宽，漏算会让
+			// 「内联后正好 60 列 + 逗号 = 61 列」的元素被误判成内联，
+			// 于是 `bun run check:view --update` 的产物过不了 `biome check`
+			//（2026-09-27 实测：collisions 里第一次出现 `{ "key": …, "module": … }` 就踩到了）
+			body: value.map((item, index) => {
+				const comma = index < value.length - 1 ? "," : "";
+				return `${inner}${formatValue(item, inner, comma)}${comma}`;
+			}),
 			close: "]",
 			isContainer: true,
 		};
@@ -437,11 +441,12 @@ function formatMember(
 function formatValue(
 	value: unknown,
 	indent: string,
+	comma = "",
 ): string {
 	const inline = inlineText(value);
 	if (
 		!isContainer(value) ||
-		fitsInline(indent, "", inline, "")
+		fitsInline(indent, "", inline, comma)
 	) {
 		return inline;
 	}

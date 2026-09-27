@@ -2950,7 +2950,49 @@
 				"Push protection",
 				"Block commits that contain",
 				"supported secrets",
-				"Disable push protection"
+				"Disable push protection",
+				// —— Dependabot 规则列表页（/owner/repo/settings/dependabot_rules）——
+				// 依据：维护者 2026-09-27 提供的实机 outerHTML。面包屑与页头（Advanced Security /
+				// Dependabot rules）与 Enabled / Disabled 都已在上面的安全分析分组里登记过，此处不重复。
+				// `New rule` 有三处（桌面按钮文本、两处 aria-label、窄屏按钮），窄屏按钮的实机文本
+				// 带一个 GitHub 自己的 " sm" 后缀，按实机串单独成条。
+				// 节点边界：`<br>` 把第二条预设的说明切成两段（`This rule auto-dismisses alerts for`
+				// + 链接 + 尾段），逐段登记；`Matches malware:` 后面的 `package` 是匹配语法
+				// （malware:package），属技术 token，不收录。
+				"New rule",
+				"New rule sm",
+				"You can create up to 10 rules in this repository.",
+				"GitHub presets",
+				"Managed by GitHub",
+				"Dismiss low-impact alerts for development-scoped dependencies",
+				"In a developer (non-production or runtime) environment, these alerts are unlikely to be exploitable or have limited effect like slow builds or long-running tests.",
+				"Learn more about this methodology.",
+				"Edit rule",
+				"Dismiss package malware alerts",
+				"Matches malware:",
+				"This rule auto-dismisses alerts for",
+				"false positives from private packages",
+				"as well as public packages where all versions are flagged as malicious.",
+				// —— Dependabot 规则新建页（/owner/repo/settings/dependabot_rules/new）——
+				// 边界强度：**截图 + 维护者抄录的可视文本**（2026-09-27；该页的表单元数据在
+				// DevTools 里刷满屏幕，维护者无法复制 outerHTML，故没有节点边界的 HTML 实证）。
+				// 因此这里只登记**确定是独立节点**的短标签 / placeholder / 说明句；
+				// `Target alerts` 在抄录里出现两次（区块标签与图例），按同一键处理。
+				// 假如下次拿到实机 HTML 发现某句被链接切开，按拆分点补碎片键即可。
+				"Rule name",
+				"Add a rule name",
+				"State",
+				"Target alerts",
+				"Add rule metadata",
+				"Rules will be applied for alerts matching all included metadata.",
+				"Select one or more rules to apply to matching alerts.",
+				"Dismiss alerts",
+				"Dependabot will automatically close or reopen alerts based on selected criteria.",
+				"Until patch is available",
+				"Indefinitely",
+				"Open a pull request to resolve alerts",
+				"Dependabot will always try to open a pull request to resolve open alerts when security updates are enabled.",
+				"Create rule"
 			]
 		},
 		{

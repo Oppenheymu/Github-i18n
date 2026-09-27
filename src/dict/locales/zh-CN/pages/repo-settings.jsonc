@@ -1080,6 +1080,44 @@
 		"Push protection": "推送保护",
 		"Block commits that contain": "阻止包含",
 		"supported secrets": "受支持的机密",
-		"Disable push protection": "禁用推送保护"
+		"Disable push protection": "禁用推送保护",
+		// —— Dependabot 规则列表页（/owner/repo/settings/dependabot_rules）——
+		// 证据：维护者 2026-09-27 提供的实机 outerHTML。面包屑与页头复用本模块已有的
+		// 「Advanced Security」「Dependabot rules」，状态标签复用「启用 / 禁用」。
+		// 窄屏按钮的实机原文是 `New rule sm`（GitHub 自己带的 " sm" 后缀），译文与桌面按钮一致。
+		"New rule": "新建规则",
+		"New rule sm": "新建规则",
+		"You can create up to 10 rules in this repository.": "你在此仓库中最多可以创建 10 条规则。",
+		"GitHub presets": "GitHub 预设",
+		"Managed by GitHub": "由 GitHub 管理",
+		"Dismiss low-impact alerts for development-scoped dependencies": "忽略开发环境依赖项的低影响警报",
+		"In a developer (non-production or runtime) environment, these alerts are unlikely to be exploitable or have limited effect like slow builds or long-running tests.": "在开发者环境（非生产或运行时）中，这些警报不太可能被利用，或者影响有限，例如导致构建变慢或测试运行时间过长。",
+		"Learn more about this methodology.": "进一步了解此方法。",
+		"Edit rule": "编辑规则",
+		"Dismiss package malware alerts": "忽略包恶意软件警报",
+		// `Matches malware:package` 是匹配语法，`package` 是独立节点且不译，
+		// 故这里只译前缀，实机显示为「匹配恶意软件：package」
+		"Matches malware:": "匹配恶意软件：",
+		// 说明句被 <br> 切成两段：前缀 + 链接 + 尾段
+		"This rule auto-dismisses alerts for": "此规则会自动忽略以下情况的警报：",
+		"false positives from private packages": "私有包的误报",
+		"as well as public packages where all versions are flagged as malicious.": "以及所有版本都被标记为恶意的公开包。",
+		// —— Dependabot 规则新建页（/owner/repo/settings/dependabot_rules/new）——
+		// 证据是维护者抄录的可视文本 + 一张截图（该页控制台输出过大，拿不到 outerHTML），
+		// 故这里只收录确定的整节点短标签、placeholder 与说明句。
+		"Rule name": "规则名称",
+		"Add a rule name": "添加规则名称",
+		"State": "状态",
+		"Target alerts": "目标警报",
+		"Add rule metadata": "添加规则元数据",
+		"Rules will be applied for alerts matching all included metadata.": "规则将应用于与所有包含元数据都匹配的警报。",
+		"Select one or more rules to apply to matching alerts.": "选择一条或多条要应用于匹配警报的规则。",
+		"Dismiss alerts": "忽略警报",
+		"Dependabot will automatically close or reopen alerts based on selected criteria.": "Dependabot 会根据所选条件自动关闭或重新打开警报。",
+		"Until patch is available": "直到有可用补丁",
+		"Indefinitely": "无限期",
+		"Open a pull request to resolve alerts": "打开拉取请求以解决警报",
+		"Dependabot will always try to open a pull request to resolve open alerts when security updates are enabled.": "启用安全更新后，Dependabot 会始终尝试打开拉取请求来解决未解决的警报。",
+		"Create rule": "创建规则"
 	}
 }

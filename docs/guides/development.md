@@ -379,6 +379,7 @@ for (const p of probes) {
 | `settings-education.test.ts` | `/settings/education/benefits` | 教育权益页（H2 与说明段都是**带源码缩进的单个节点**，归一空白后才等于键） |
 | `settings-security.test.ts` | `/settings/security` | 账号安全页（通行密钥行的动态日期整句、2FA 横幅三段拼接、密码强度六段拼接；**独立模块** `pages/settings-security`） |
 | `settings-sessions.test.ts` | `/settings/sessions` | 会话页（Web / GitHub Mobile 两张卡；动态国家码走 `settings/session-seen-in` 规则，带城市与日期的 `aria-label` 结构上翻不了） |
+| `settings-keys.test.ts` | `/settings/keys` | SSH / GPG 密钥页（说明句被两个链接切成四段；`This action cannot be undone.` 三段拼接；`Added <日期>` 是标签 + 日期两个节点） |
 | `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |

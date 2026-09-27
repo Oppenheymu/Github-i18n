@@ -759,7 +759,61 @@
 				"Registered -",
 				"Last accessed -",
 				"Last used for authentication -",
-				"Never used"
+				"Never used",
+				// —— SSH / GPG 密钥页（/settings/keys）——
+				// 证据强度：**途径 A 实证**（popup 开发者模式导出的漏翻清单，schema
+				// github-zh-misses/1，2026-09-27 维护者导出，path 全为 /settings/keys）
+				// + 无扩展的原始英文截图核对；与上一页同一形态，故按「导出条目本身就是一个
+				// 文本节点」登记，含内部换行的长条目按 normalizeKey 形态写（空白折叠成单空格）。
+				// 刻意**不收录**（详见 settings-keys.test.ts 的反例断言）：
+				//   1. 用户内容：邮箱、`CanoKey Main` / `CanoKey Backup`（密钥名）、
+				//      Key ID 与 Subkeys 的值；
+				//   2. 纯专名 / 纯缩写：`GitHub`、`Copilot`、行内徽标 `GPG`（译文必须含中文字系，
+				//      纯缩写收不了；未命中即保留英文）；
+				//   3. 属性里的动态值：`Delete <密钥名>`（aria-label）与
+				//      `Mar 29, 2026, 16:02 GMT+8`（title 的绝对时间戳）——属性只走精确命中、
+				//      不适用正则规则，收键必是永不命中的死键。
+				// 说明行里的「Added」是独立节点、其后的日期节点由 global/short-date-* 规则译出，
+				// 故键只写 "Added"（详见测试里的拼接断言；`<relative-time>` 自渲染英文的那一轮
+				// 由观察器再翻一遍收敛）。
+				// —— SSH keys 区块 ——
+				"SSH keys",
+				"New SSH key",
+				"There are no SSH keys associated with your account.",
+				// 说明句被两个链接切成四段，各段单独成键（句末的 "." 是纯符号节点，不收）
+				"Check out our guide to",
+				"connecting to GitHub using SSH keys",
+				"or troubleshoot",
+				"common SSH problems",
+				// —— GPG keys 区块 ——
+				"GPG keys",
+				"New GPG key",
+				"This is a list of GPG keys associated with your account. Remove any keys that you do not recognize.",
+				// 密钥行左侧的字段标签（冒号是文案自带字符）
+				"Email address:",
+				"Key ID:",
+				"Subkeys:",
+				"Added",
+				// 列表下方的说明行同样被链接切段
+				"Learn how to",
+				"generate a GPG key and add it to your account",
+				// —— GPG 密钥删除确认弹窗 ——
+				// 后端句子被 <strong>cannot</strong> 切成三段，译文必须能直接拼起来
+				"Are you sure you want to delete this GPG key?",
+				"This action",
+				"cannot",
+				"be undone. This will permanently delete the GPG key, and if you’d like to use it in the future, you will need to upload it again.",
+				"I understand, delete this GPG key",
+				"Commits you signed with this key may become unverified after removing it.",
+				"Learn more about persistent commit signature verification.",
+				// —— Vigilant mode 区块 ——
+				"Vigilant mode",
+				"Flag unsigned commits as unverified",
+				// 复选框的无障碍文案（属性）
+				"Enable Vigilant mode",
+				"This will include any commit attributed to your account but not signed with your GPG or S/MIME key.",
+				"Note that this will include your existing unsigned commits.",
+				"Learn about vigilant mode"
 			]
 		},
 		{

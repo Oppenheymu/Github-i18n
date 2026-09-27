@@ -110,6 +110,56 @@ const BILLING_NODES: readonly string[] = [
 ];
 
 /**
+ * 订阅卡片（SubscriptionsContainer → PlanCard）的实机文本节点。
+ *
+ * 边界是**实机 HTML 实证**（维护者 2026-09 从 /settings/billing 提供，节点原文逐字照抄）：
+ *
+ * ```html
+ * <p class="PlanCard-module__cardHeading__UIO8J">GitHub Free</p>
+ * <span class="PlanCard-module__perPeriod__G4_YG">per month</span>
+ * ```
+ *
+ * 三条必须记住的事实：
+ *   1.「per month」是**一个完整节点**（不是 per + month 两个节点，也不带首尾空白），
+ *      故按短语收静态键；它原来由规则 settings/per-month（`^/month$`）覆盖，上游把后缀
+ *      从「/month」改成文字形态后规则失配——这正是当时漏翻的根因；
+ *   2. 同一张卡片上有两处「per month」（当前方案卡 + Copilot 卡），故下面按原文收两条；
+ *   3.「GitHub Free」是方案名，与同模块「Copilot Free」→「Copilot 免费版」统一口径，
+ *      改译「GitHub 免费版」（旧约定是保持英文，2026-09 起改为译出）。
+ */
+const PLAN_CARD_NODES: readonly string[] = [
+	"GitHub Free",
+	"per month",
+	"per month",
+];
+
+describe("订阅卡片（PlanCard）的实机节点边界", () => {
+	it("translates the plan name and the billing period suffix GitHub actually renders", () => {
+		for (const node of PLAN_CARD_NODES) {
+			for (const variant of withWhitespace(node)) {
+				const translated = translateText(variant, view);
+				expect(
+					translated,
+					`未命中：${JSON.stringify(variant)}`,
+				).not.toBeNull();
+				expect(translated ?? "").toMatch(/[\u4e00-\u9fff]/);
+			}
+		}
+		// 两处必须各自译成页面上的那个词，而不是「收录了但值不对」
+		expect(translateText("per month", view)).toBe("每月");
+		expect(translateText("GitHub Free", view)).toBe(
+			"GitHub 免费版",
+		);
+	});
+
+	it("keeps the bare words per / month as-is", () => {
+		// 收的是整短语「per month」；单词形态仍不收录，避免误伤用量页的零散节点
+		expect(translateText("per", view)).toBeNull();
+		expect(translateText("month", view)).toBeNull();
+	});
+});
+
+/**
  * 用户内容与纯专名 / 泛化短词：字面上含拉丁字母，会通过「可翻译判定」，
  * 但**必须**保持英文——收录它们要么让译文与键同形（自触发循环，门禁也会拒），
  * 要么把用户名 / 仓库名 / 产品名当成 UI 文案改坏。
@@ -267,6 +317,9 @@ describe("账单页的实机节点边界", () => {
 	});
 
 	it("translates the billing period suffix", () => {
+		// 规则形态（`^/month$`）保留作旧形态兜底：2026-09 的实机证据显示订阅卡片
+		// 已改用文字形态「per month」（由 PLAN_CARD_NODES 的静态键覆盖），这里的
+		// `/month` 不再代表当下的实机渲染——若上游回退或别处仍用斜杠形态，它仍生效
 		expect(translateText("/month", view)).toBe("每月");
 		expect(translateText("/year", view)).toBe("每年");
 		expect(translateText("/day", view)).toBe("每天");
@@ -890,10 +943,10 @@ describe("许可页的实机节点边界", () => {
 
 	it("keeps the product names and the docs link as-is", () => {
 		// 纯专名与域名式链接词条不收录：收录只会让译文与键同形（门禁也拒）。
-		//「GitHub Free」是方案名（界面里就叫 GitHub Free），同样不收录
+		//「GitHub Free」是唯一的例外——它是方案名，2026-09 起与「Copilot 免费版」
+		// 统一口径改译「GitHub 免费版」（见 PLAN_CARD_NODES），故不在下面这张表里
 		for (const raw of [
 			"GitHub Copilot",
-			"GitHub Free",
 			"GitHub",
 			"Copilot",
 			"documentation",
@@ -903,6 +956,10 @@ describe("许可页的实机节点边界", () => {
 				`不应被翻译：${JSON.stringify(raw)}`,
 			).toBeNull();
 		}
+		// 本页的基础方案标题同样译出（与计费卡同一个键、同一个模块）
+		expect(
+			translateText("GitHub Free", licensingView),
+		).toBe("GitHub 免费版");
 	});
 
 	it("rewrites the plan quota lines with their numbers", () => {

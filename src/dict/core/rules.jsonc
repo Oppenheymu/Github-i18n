@@ -1266,8 +1266,13 @@
 					"id": "settings/usage-range-cross-dec-nov",
 					"pattern": "^December (?<startDay>\\d{1,2}) - November (?<endDay>\\d{1,2}), (?<year>\\d{4})(?:\\.)?$"
 				},
-				// 计费周期后缀（账单卡片的「/month」「/year」单价）。锚定收尾，避免误伤
-				// 含「/month」的其它文案
+				// 计费周期后缀的**斜杠形态**兜底（账单卡片曾渲染「/month」「/year」）。
+				// 锚定收尾，避免误伤含「/month」的其它文案。
+				// 2026-09 实机证据：订阅卡片（/settings/billing 的 PlanCard）已把后缀改成
+				// 文字形态「per month」，且是**整节点**——那两处由 pages/settings-billing 的
+				// 静态键「per month」覆盖（规则形态对不上它）。这三条规则因此暂时不命中任何
+				// 已知页面，保留作旧形态 / 回退兜底；确认上游彻底弃用后可删除（同时删各语言
+				// 模板并 bun run check:view --update）
 				{
 					"id": "settings/per-month",
 					"pattern": "^/month$"

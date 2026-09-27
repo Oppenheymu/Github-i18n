@@ -738,8 +738,20 @@
 				// 纯泛化短词（per / month / items / usage）与用户内容（仓库名、@用户名、
 				// 头像 alt）**一律不收录**：前者的译文必然与键同形（自触发循环，门禁直接拒），
 				// 后者会导致误伤，未命中即保留英文，这是正确做法而不是漏译。
+				// 上面「per / month」指的是**单词**形态：它们各自单独成节点时不收录。
+				// 例外是订阅卡片上的两个**整节点**（2026-09 实机 HTML，节点边界见
+				// src/content/__tests__/settings-billing.test.ts 的 PLAN_CARD_NODES）：
+				//   · 「per month」——上游把计费周期后缀从「/month」改成了文字形态
+				//     「per month」（原规则 settings/per-month 的 ^/month$ 因此失配，
+				//     计划卡上两处都露英文）。整个短语是**独立文本节点**，不是 per + month
+				//     两个节点，故按短语收键；「month」单独出现时仍不收录。
+				//   · 「GitHub Free」——方案名（计费卡与许可页的基础方案都叫这个名字）。
+				//     既有约定只译「Copilot 免费版」而让它保持英文，同一张卡片上两种口径
+				//     并列很别扭，故改为同译「GitHub 免费版」；译文不等于键，不会自触发。
 				"Billing Overview",
 				"Manage subscriptions",
+				"GitHub Free",
+				"per month",
 				"Next payment due",
 				"Current metered usage",
 				"Current included usage",

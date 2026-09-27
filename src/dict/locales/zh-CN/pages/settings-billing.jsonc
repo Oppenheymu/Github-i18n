@@ -20,6 +20,15 @@
 		// —— 账单总览 ——
 		"Billing Overview": "账单概览",
 		"Manage subscriptions": "管理订阅",
+		// 订阅卡片（SubscriptionsContainer 里的 PlanCard）的两个整节点，2026-09 实机 HTML：
+		//   <p class="PlanCard-module__cardHeading__UIO8J">GitHub Free</p>
+		//   <span class="PlanCard-module__perPeriod__G4_YG">per month</span>
+		// 「per month」原来由规则 settings/per-month（^/month$）覆盖，上游把它从「/month」
+		// 改成文字形态后规则失配，故按整节点收静态键；节点边界见
+		// src/content/__tests__/settings-billing.test.ts 的 PLAN_CARD_NODES。
+		// 「GitHub 免费版」与同模块「Copilot Free」→「Copilot 免费版」保持同一口径
+		"GitHub Free": "GitHub 免费版",
+		"per month": "每月",
 		"Next payment due": "下次付款到期日",
 		"Current metered usage": "当前按量计费用量",
 		"Current included usage": "当前所含用量",
@@ -163,9 +172,10 @@
 		// —— 许可页（/account/billing/licensing）——
 		// 键来自 2026-09 的实机截图逐行誊录（页面需登录，未进开发者模式导出），
 		// 节点边界见 src/content/__tests__/settings-billing.test.ts 的 LICENSING_NODES。
-		// 页面标题「Licensing」沿用 pages/settings 的「许可」；「GitHub Copilot」「GitHub Free」
-		// 这类纯专名与「Copilot」一样不收录（未命中即保留英文）；「Community support」等
-		// 功能清单文案由 pages/marketing 提供，不在此重复登记。
+		// 页面标题「Licensing」沿用 pages/settings 的「许可」；「GitHub Copilot」这类纯专名
+		// 与「Copilot」一样不收录（未命中即保留英文）；「GitHub Free」见上方账单总览处的
+		// 说明——它已改为同译「GitHub 免费版」，本页的基础方案标题因此也一并译出；
+		// 「Community support」等功能清单文案由 pages/marketing 提供，不在此重复登记。
 		// Copilot 区块
 		"Upgrade Individual Plan": "升级个人方案",
 		"Upgrade to Business": "升级到商业版",

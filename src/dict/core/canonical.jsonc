@@ -2451,7 +2451,21 @@
 				"repository rules",
 				"protected branches",
 				"Add branch ruleset",
-				"Add classic branch protection rule"
+				"Add classic branch protection rule",
+				// —— 标签保护页（/owner/repo/settings/tag_protection）——
+				// 证据：维护者 2026-09-27 贴的整页截图。横幅说明句里的 `changelog` 是链接，
+				// 故整句键（截图文字形态，兜底）与三个片段键各收一条：链接会把一句切成
+				// 「前段 / changelog / 后段」三个文本节点，整句键在实机上永不命中。
+				// 日期 `August 30th` 目前在固定文案里，若上游把它做成动态值，这几条会一起失效
+				"Level up your tag protections with Repository Rules",
+				"Protected tags are being deprecated. To continue protecting tags, please migrate to a tag ruleset by August 30th. You can learn more about the sunset in our changelog and can get started now by migrating to rulesets.",
+				"Protected tags are being deprecated. To continue protecting tags, please migrate to a tag ruleset by August 30th. You can learn more about the sunset in our",
+				"changelog",
+				"and can get started now by migrating to rulesets.",
+				// 页面标题与空状态（一句整体保留成两条不同的键）
+				"Protected tags",
+				"Protected tags have been deprecated",
+				"Go to rulesets to create new tag rules"
 			]
 		},
 		{

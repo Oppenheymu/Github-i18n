@@ -734,6 +734,27 @@
 		"Use immutable subject claim": "使用不可变主题声明",
 		"Use this prefix when configuring trust policies in your cloud provider.": "在你的云提供商中配置信任策略时使用此前缀。",
 		"When selected, use upstream template for the subject claim. Unselect to set a custom template.": "选中时，主题声明使用上游模板；取消选中即可设置自定义模板。",
+		// —— 网络钩子页（/owner/repo/settings/hooks 与 …/hooks/new）——
+		// 两句长说明走 repo-settings/webhooks-* 规则（撇号与 <code> 拆分都不确定）
+		"Add webhook": "添加网络钩子",
+		"Webhooks Guide": "网络钩子指南",
+		// 必填标记 `*` 可能独立成节点，带星号与不带星号的形态都收
+		"Payload URL": "负载 URL",
+		"Payload URL *": "负载 URL *",
+		"Content type": "内容类型",
+		"Content type *": "内容类型 *",
+		"Secret": "机密",
+		"SSL verification": "SSL 验证",
+		"By default, we verify SSL certificates when delivering payloads.": "默认情况下，我们在投递负载时会验证 SSL 证书。",
+		"Enable SSL verification": "启用 SSL 验证",
+		"Disable (not recommended)": "禁用（不推荐）",
+		"Which events would you like to trigger this webhook?": "你希望哪些事件触发此网络钩子？",
+		"Just the push event.": "仅推送事件。",
+		"Send me everything.": "发送所有事件。",
+		"Let me select individual events.": "让我选择单个事件。",
+		"We will deliver event details when this hook is triggered.": "此钩子触发时，我们将投递事件详情。",
+		// 链接文本：前段已以「更多信息可在我们的」结尾，这里只译「开发者文档」，免得重复
+		"our developer documentation": "开发者文档",
 		"When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled.": "合并拉取请求时，你可以允许合并提交、压缩合并、变基的任意组合。至少必须启用一项。",
 		// 绕过模式菜单（Select bypass mode）——
 		"Always": "始终",

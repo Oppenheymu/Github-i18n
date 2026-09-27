@@ -2607,7 +2607,31 @@
 				"Use default template",
 				"Use immutable subject claim",
 				"Use this prefix when configuring trust policies in your cloud provider.",
-				"When selected, use upstream template for the subject claim. Unselect to set a custom template."
+				"When selected, use upstream template for the subject claim. Unselect to set a custom template.",
+				// —— 网络钩子页（/owner/repo/settings/hooks 与 …/hooks/new）——
+				// 证据：维护者 2026-09-27 贴的两张截图（列表页与新建页）。截图看不出节点边界，
+				// 故两句长说明**走规则**（撇号直弯不定、`x-www-form-urlencoded` 是否在 <code> 里
+				// 也不确定，见 core/rules.jsonc 的 repo-settings/webhooks-*），
+				// 这里只收截图里明确独立成元素的串（按钮 / 链接文本 / 表单标签 / 单选标签）。
+				// 不收录：仓库名、用户名、产品名与快捷键提示。
+				"Add webhook",
+				"Webhooks Guide",
+				// 必填标记 `*` 在实机可能独立成节点，故带星号与不带星号两种形态都收
+				"Payload URL",
+				"Payload URL *",
+				"Content type",
+				"Content type *",
+				"Secret",
+				"SSL verification",
+				"By default, we verify SSL certificates when delivering payloads.",
+				"Enable SSL verification",
+				"Disable (not recommended)",
+				"Which events would you like to trigger this webhook?",
+				"Just the push event.",
+				"Send me everything.",
+				"Let me select individual events.",
+				"We will deliver event details when this hook is triggered.",
+				"our developer documentation"
 			]
 		},
 		{

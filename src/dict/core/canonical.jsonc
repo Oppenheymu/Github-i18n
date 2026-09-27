@@ -3036,7 +3036,15 @@
 				"Manage environment secrets",
 				"Repository secrets",
 				"This repository has no secrets.",
-				"New repository secret"
+				"New repository secret",
+				// 变量页（/owner/repo/settings/variables/actions）的对应节点：机密页那三条
+				// 一一对应，共用同一套 React 区块组件（表头 / 空态 / 按钮）
+				"Environment variables",
+				"This environment has no variables.",
+				"Manage environment variables",
+				"Repository variables",
+				"This repository has no variables.",
+				"New repository variable"
 			]
 		},
 		{

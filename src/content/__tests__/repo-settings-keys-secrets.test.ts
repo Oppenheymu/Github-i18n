@@ -115,6 +115,26 @@ const SECRETS_NODES: readonly (readonly [
 	["New repository secret", "新建仓库机密"],
 ];
 
+/**
+ * 变量页（/settings/variables/actions）两个 React 区块的节点。
+ * 它们与机密页成对（secrets → variables）：2026-09-27 维护者实机复查时发现这一套漏了，
+ * 根因是只按一个页签的 HTML 登记，故两套串都要有回归。
+ */
+const VARIABLES_NODES: readonly (readonly [
+	string,
+	string,
+])[] = [
+	["Environment variables", "环境变量"],
+	[
+		"This environment has no variables.",
+		"此环境没有变量。",
+	],
+	["Manage environment variables", "管理环境变量"],
+	["Repository variables", "仓库变量"],
+	["This repository has no variables.", "此仓库没有变量。"],
+	["New repository variable", "新建仓库变量"],
+];
+
 /** 协议名、产品名与用户内容：整节点不收录，必须保持英文 */
 const MUST_STAY_ENGLISH: readonly string[] = [
 	"SSH",
@@ -241,7 +261,7 @@ describe("仓库设置页的 Actions 机密与变量页的实机节点边界", (
 		);
 	});
 
-	it("covers the Variables tab as well, since both tabs share one header", () => {
+	it("covers the Variables tab, whose sections mirror the Secrets ones", () => {
 		// 两个页签是同一模块的两条路径，共用页头词条
 		expect(translateText("Variables", variablesView)).toBe(
 			"变量",
@@ -252,12 +272,14 @@ describe("仓库设置页的 Actions 机密与变量页的实机节点边界", (
 				variablesView,
 			),
 		).toBe("Actions 机密与变量");
-		// 页签之外的正文词条只在机密页出现，不该在变量页被误判为「已翻译」
-		expect(
-			translateText(
-				"This repository has no secrets.",
-				variablesView,
-			),
-		).toBe("此仓库没有机密。");
+		// React 区块用的是另一套串（secrets → variables），两套都必须在
+		for (const [node, expected] of VARIABLES_NODES) {
+			for (const variant of withWhitespace(node)) {
+				expect(
+					translateText(variant, variablesView),
+					`节点 ${JSON.stringify(variant)}`,
+				).toBe(expected);
+			}
+		}
 	});
 });

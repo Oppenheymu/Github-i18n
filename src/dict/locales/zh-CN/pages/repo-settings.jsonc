@@ -1160,6 +1160,15 @@
 		"Manage environment secrets": "管理环境机密",
 		"Repository secrets": "仓库机密",
 		"This repository has no secrets.": "此仓库没有机密。",
-		"New repository secret": "新建仓库机密"
+		"New repository secret": "新建仓库机密",
+		// 变量页（/owner/repo/settings/variables/actions）的对应节点。2026-09-27 维护者实机
+		// 复查时发现这六条漏了——上次只按机密页的实机 HTML 登记，而变量页的 React 区块用的是
+		// 另一套串（secrets → variables）。两个页签的区块成对出现，改一处要同步另一处。
+		"Environment variables": "环境变量",
+		"This environment has no variables.": "此环境没有变量。",
+		"Manage environment variables": "管理环境变量",
+		"Repository variables": "仓库变量",
+		"This repository has no variables.": "此仓库没有变量。",
+		"New repository variable": "新建仓库变量"
 	}
 }

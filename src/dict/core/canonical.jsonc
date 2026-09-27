@@ -2406,6 +2406,13 @@
 				"The number of approving reviews that are required before a pull request can be merged.",
 				"Dismiss stale pull request approvals when new commits are pushed",
 				"New, reviewable commits pushed will dismiss previous pull request review approvals.",
+				// 「限制谁可以忽略拉取请求审查」面板（勾选框 + 空的 actors 名单）
+				"Restrict who can dismiss pull request reviews",
+				"Specify people, teams, or apps allowed to dismiss pull request reviews.",
+				"People, teams, or apps that can dismiss reviews",
+				// 按钮文本与 aria-label 同串
+				"Add actors",
+				"No actors have been added.",
 				"Require review from specific teams",
 				"A collection of reviewers and associated file patterns. Each reviewer has a list of file patterns which determine the files that reviewer is required to review.",
 				"Require review from Code Owners",

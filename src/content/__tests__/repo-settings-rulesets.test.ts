@@ -721,3 +721,36 @@ describe("仓库设置页的 Restrict code coverage 展开面板", () => {
 		);
 	});
 });
+
+describe("仓库设置页的「限制谁可以忽略拉取请求审查」面板", () => {
+	it("translates the checkbox row and the empty actor list", () => {
+		// 证据：维护者 2026-09-27 贴出的该面板原始英文 HTML
+		// （Require a pull request before merging 的展开项，勾选态 + 空名单）
+		expect(
+			translateText(
+				"Restrict who can dismiss pull request reviews",
+				newView,
+			),
+		).toBe("限制谁可以忽略拉取请求审查");
+		expect(
+			translateText(
+				"Specify people, teams, or apps allowed to dismiss pull request reviews.",
+				newView,
+			),
+		).toBe("指定允许忽略拉取请求审查的人员、团队或应用。");
+		expect(
+			translateText(
+				"People, teams, or apps that can dismiss reviews",
+				newView,
+			),
+		).toBe("可以忽略审查的人员、团队或应用");
+		// 按钮文本与 aria-label 同串，一条键覆盖两处
+		expect(translateText("Add actors", newView)).toBe(
+			"添加操作者",
+		);
+		// 空态标题带句点，与 `No checks have been added` 不是同串
+		expect(
+			translateText("No actors have been added.", newView),
+		).toBe("尚未添加任何操作者。");
+	});
+});

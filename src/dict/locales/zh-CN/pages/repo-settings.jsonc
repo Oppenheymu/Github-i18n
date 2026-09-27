@@ -586,6 +586,15 @@
 		"The number of approving reviews that are required before a pull request can be merged.": "拉取请求可以合并之前所需的批准审查数量。",
 		"Dismiss stale pull request approvals when new commits are pushed": "推送新提交时忽略过期的拉取请求批准",
 		"New, reviewable commits pushed will dismiss previous pull request review approvals.": "推送新的可审查提交将忽略之前的拉取请求审查批准。",
+		// 「限制谁可以忽略拉取请求审查」（Require a pull request before merging 的展开项）。
+		// 证据：维护者 2026-09-27 贴出的该面板原始英文 HTML（勾选态 + 空的 actors 名单）。
+		// dismiss 沿用本页既有译法「忽略」（见上面的 Dismiss stale … / dismiss previous …），
+		// Actors 沿用「操作者」；Add actors 的按钮文本与 aria-label 同串，一条键覆盖两处。
+		"Restrict who can dismiss pull request reviews": "限制谁可以忽略拉取请求审查",
+		"Specify people, teams, or apps allowed to dismiss pull request reviews.": "指定允许忽略拉取请求审查的人员、团队或应用。",
+		"People, teams, or apps that can dismiss reviews": "可以忽略审查的人员、团队或应用",
+		"Add actors": "添加操作者",
+		"No actors have been added.": "尚未添加任何操作者。",
 		"Require review from specific teams": "要求特定团队审查",
 		"A collection of reviewers and associated file patterns. Each reviewer has a list of file patterns which determine the files that reviewer is required to review.": "一组审查者及其关联的文件模式。每个审查者都有一份文件模式列表，用于确定该审查者必须审查哪些文件。",
 		"Require review from Code Owners": "要求代码所有者审查",

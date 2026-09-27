@@ -405,6 +405,9 @@
 		// —— 运行器页（/owner/repo/settings/actions/runners）——
 		"repo-settings/runners-title": "运行器 · $1",
 		"repo-settings/runners-new-title": "添加新的自托管运行器 · $1",
+		// —— Actions 策略与策略洞察页 ——
+		"repo-settings/actions-policies-title": "设置 · Actions 策略 · $1",
+		"repo-settings/insights-title": "设置 · 洞察 · $1",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

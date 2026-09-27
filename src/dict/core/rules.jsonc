@@ -1986,6 +1986,16 @@
 				{
 					"id": "repo-settings/runners-new-title",
 					"pattern": "^Add new self-hosted runner [\\u2022\\u00B7] (.+)$"
+				},
+				// Actions 策略与策略洞察两支的面包屑标题（仓库名保留原文）。
+				// 与既有的 repo-settings/settings-title（`^Settings: (.+)$`，带冒号）互不干扰
+				{
+					"id": "repo-settings/actions-policies-title",
+					"pattern": "^Settings [\\u2022\\u00B7] Actions policies [\\u2022\\u00B7] (.+)$"
+				},
+				{
+					"id": "repo-settings/insights-title",
+					"pattern": "^Settings [\\u2022\\u00B7] Insights [\\u2022\\u00B7] (.+)$"
 				}
 			]
 		},

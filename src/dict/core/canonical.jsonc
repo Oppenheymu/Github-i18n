@@ -2394,8 +2394,25 @@
 				// 合并方式：下拉标签 + 当前值（同时是按钮的 aria-label）+ 说明段。
 				// 说明段比仓库设置 General 页的同名段少了最后一句，是**另一条键**
 				"Allowed merge methods",
+				// 选择器的显示值是「已选合并方式」按 **Squash → Merge → Rebase** 的固定顺序连缀
+				// （实证 2026-09-27：只选 Squash 时是 `Squash`，Squash + Merge 时是 `Squash, Merge`）。
+				// 值域是这三个布尔的多选，故按固定顺序穷举七种组合；同一串又是按钮的
+				// aria-label（属性不走正则规则），故带 `, Allowed merge methods` 后缀的七个组合串
+				// 也各收一条。若哪天顺序变成「勾选顺序」，漏掉的只是显示，不会误译
 				"Squash, Allowed merge methods",
 				"Squash",
+				"Merge",
+				"Rebase",
+				"Squash, Merge",
+				"Squash, Rebase",
+				"Merge, Rebase",
+				"Squash, Merge, Rebase",
+				"Merge, Allowed merge methods",
+				"Rebase, Allowed merge methods",
+				"Squash, Merge, Allowed merge methods",
+				"Squash, Rebase, Allowed merge methods",
+				"Merge, Rebase, Allowed merge methods",
+				"Squash, Merge, Rebase, Allowed merge methods",
 				"When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled.",
 				// —— 绕过模式菜单（Select bypass mode）——
 				"Always",

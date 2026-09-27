@@ -311,7 +311,34 @@ const NODES: readonly (readonly [string, string])[] = [
 		"Squash, Allowed merge methods",
 		"压缩合并，允许的合并方式",
 	],
+	// 显示值与 aria-label 都是「已选合并方式」的连缀。顺序实证：只选 Squash 时是
+	// `Squash`，Squash + Merge 时是 `Squash, Merge`（维护者 2026-09-27 贴的按钮 HTML），
+	// 故按 Squash → Merge → Rebase 的固定顺序穷举七种组合
 	["Squash", "压缩合并"],
+	["Merge", "合并"],
+	["Rebase", "变基"],
+	["Squash, Merge", "压缩合并、合并"],
+	["Squash, Rebase", "压缩合并、变基"],
+	["Merge, Rebase", "合并、变基"],
+	["Squash, Merge, Rebase", "压缩合并、合并、变基"],
+	["Merge, Allowed merge methods", "合并，允许的合并方式"],
+	["Rebase, Allowed merge methods", "变基，允许的合并方式"],
+	[
+		"Squash, Merge, Allowed merge methods",
+		"压缩合并、合并，允许的合并方式",
+	],
+	[
+		"Squash, Rebase, Allowed merge methods",
+		"压缩合并、变基，允许的合并方式",
+	],
+	[
+		"Merge, Rebase, Allowed merge methods",
+		"合并、变基，允许的合并方式",
+	],
+	[
+		"Squash, Merge, Rebase, Allowed merge methods",
+		"压缩合并、合并、变基，允许的合并方式",
+	],
 	[
 		"When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled.",
 		"合并拉取请求时，你可以允许合并提交、压缩合并、变基的任意组合。至少必须启用一项。",

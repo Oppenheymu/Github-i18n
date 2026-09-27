@@ -1395,7 +1395,64 @@
 				"You're about to enable grouped security updates on all your repositories. Grouped security updates require the dependency graph, Dependabot alerts, Dependabot security updates and Dependabot security updates, so we'll also turn that on for all repositories.",
 				"You're about to disable grouped security updates on all your repositories.",
 				"You're about to enable dependabot self-hosted on all your repositories. Dependabot self-hosted depends on Dependabot on Actions so we'll also turn that on for all repositories.",
-				"You're about to disable dependabot self-hosted on all your repositories."
+				"You're about to disable dependabot self-hosted on all your repositories.",
+				// —— /settings/installations（已安装的 GitHub Apps）——
+				// 证据强度：**途径 A 实证**（导出的 path 为 /settings/installations）。
+				// 不收录 `GitHub`（title）。
+				"Installed GitHub Apps",
+				"My GitHub Apps",
+				"Visit Marketplace",
+				"No installed GitHub Apps",
+				"You have no GitHub Apps installed on this account.",
+				// —— /settings/applications（已授权的 OAuth 应用）——
+				// 证据强度：**途径 A 实证**（导出的 path 为 /settings/applications）。
+				// 刻意**不收录**：第三方应用名（`ChatGPT Verification` / `Cloudflare` /
+				// `Git Visual Studio Code` / `gitee.com` …）与应用所有者（`github` /
+				// `openai` …）都是用户内容；含应用名的那几条整句走 core/rules.jsonc 的
+				// settings/report-application、settings/revoke-application、
+				// settings/reporting-application-abuse、settings/application-*-revoke-notice 规则。
+				"More options",
+				"Show more options",
+				// 同键在 pages/profile 已有词条（「举报滥用」），那条路由不命中 /settings 子树
+				"Report abuse",
+				"Report Abuse",
+				"Revoking will deny future access to your account",
+				"Any SSH keys created on your behalf by applications will also be deleted.",
+				"Are you sure you want to revoke access for all applications?",
+				// 应用行下方的「从未使用 / 最近使用 · 所有者：」——所有者名在下一节点，
+				// 故这三条是静态串（只有实证过的三种档位，未见证的形态不猜键）
+				"Never used · Owned by",
+				"Last used within the last week · Owned by",
+				"Last used within the last 2 weeks · Owned by",
+				// 确认弹窗：三段拼接（"This will revoke access for" + "all third-party" +
+				// "OAuth applications. This action cannot be undone."）；计数行走
+				// settings/applications-count 规则
+				"This will revoke access for",
+				"all third-party",
+				"OAuth applications. This action cannot be undone.",
+				"Type your username to confirm.",
+				// —— /settings/apps/authorizations（已授权的 GitHub Apps）——
+				// 证据强度：**途径 A 实证**（导出的 path 为 /settings/apps/authorizations）。
+				// 不收录应用名（`Codecov` / `Copilot Chat App` / `npm account link` …）。
+				"Authorized OAuth Apps",
+				"Application settings",
+				"Alphabetical",
+				"Least recently used",
+				"Recently used",
+				"GitHub Help",
+				"Read more about connecting with third-party applications at",
+				// 「You have granted <n 个应用> access to your account.」
+				"You have granted",
+				"access to your account.",
+				"Revoke all",
+				"I understand, revoke access",
+				"I understand, revoke access for everything",
+				"Are you sure you want to revoke authorization?",
+				"Are you sure you want to revoke access for all GitHub Apps?",
+				"Type your username to confirm",
+				// 确认弹窗的三段拼接里，这一条与「all」配合使用
+				"all",
+				"GitHub Apps. This action cannot be undone."
 			]
 		},
 		{

@@ -195,6 +195,13 @@
 		// 安全与分析页的私密漏洞报告确认句（账户名按原样带回）
 		"settings/enable-private-vulnerability-reporting-all": "你即将在 $1 的所有公开仓库中启用私密漏洞报告。",
 		"settings/disable-private-vulnerability-reporting-all": "你即将在 $1 的所有公开仓库中禁用私密漏洞报告。",
+		// 已授权应用列表（应用名按原样带回）
+		"settings/applications-count": "$1 个应用",
+		"settings/report-application": "举报 $1",
+		"settings/revoke-application": "撤销 $1",
+		"settings/reporting-application-abuse": "举报 $1 将就应用上的滥用行为联系支持团队。",
+		"settings/application-account-revoke-notice": "$1 将无法再访问你的 GitHub 账户。此操作无法撤销。",
+		"settings/application-api-revoke-notice": "$1 将无法再访问 GitHub API。此操作无法撤销。",
 		// —— 账单页（/account/billing）的动态用量说明 ——
 		// 区间按月全展开（与 insights/range-long-* 同一形态）：pattern 里写死英文月份
 		// 全称，模板里写死对应中文月份。之所以逐组合展开、而不是用捕获组，是因为

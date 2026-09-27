@@ -956,6 +956,50 @@
 		"You're about to enable grouped security updates on all your repositories. Grouped security updates require the dependency graph, Dependabot alerts, Dependabot security updates and Dependabot security updates, so we'll also turn that on for all repositories.": "你即将在你所有的仓库中启用分组安全更新。分组安全更新需要依赖项关系图、Dependabot 警报、Dependabot 安全更新和 Dependabot 安全更新，因此我们也会为所有仓库开启它们。",
 		"You're about to disable grouped security updates on all your repositories.": "你即将在你所有的仓库中禁用分组安全更新。",
 		"You're about to enable dependabot self-hosted on all your repositories. Dependabot self-hosted depends on Dependabot on Actions so we'll also turn that on for all repositories.": "你即将在你所有的仓库中启用 Dependabot 自托管。Dependabot 自托管依赖 Actions 上的 Dependabot，因此我们也会为所有仓库开启它。",
-		"You're about to disable dependabot self-hosted on all your repositories.": "你即将在你所有的仓库中禁用 Dependabot 自托管。"
+		"You're about to disable dependabot self-hosted on all your repositories.": "你即将在你所有的仓库中禁用 Dependabot 自托管。",
+		// —— /settings/installations（已安装的 GitHub Apps）——
+		"Installed GitHub Apps": "已安装的 GitHub 应用",
+		"My GitHub Apps": "我的 GitHub 应用",
+		"Visit Marketplace": "访问 Marketplace",
+		"No installed GitHub Apps": "没有已安装的 GitHub 应用",
+		"You have no GitHub Apps installed on this account.": "此账户上没有安装任何 GitHub 应用。",
+		// —— /settings/applications（已授权的 OAuth 应用）——
+		// 含应用名的整句走规则，见 zh-CN/rules.jsonc 的 settings/report-application 等
+		"More options": "更多选项",
+		"Show more options": "显示更多选项",
+		// 与 pages/profile 的同键译文保持一致（路径互斥）
+		"Report abuse": "举报滥用",
+		"Report Abuse": "举报滥用",
+		"Revoking will deny future access to your account": "撤销后将拒绝其今后访问你的账户",
+		"Any SSH keys created on your behalf by applications will also be deleted.": "由应用代表你创建的任何 SSH 密钥也会被删除。",
+		"Are you sure you want to revoke access for all applications?": "你确定要撤销所有应用的访问权限吗？",
+		// 「从未使用 / 最近使用 · 所有者：」——所有者名由下一个节点提供
+		"Never used · Owned by": "从未使用 · 所有者：",
+		"Last used within the last week · Owned by": "最近一周内使用过 · 所有者：",
+		"Last used within the last 2 weeks · Owned by": "最近 2 周内使用过 · 所有者：",
+		// 三段拼接：这将撤销 + 所有第三方 + OAuth 应用的访问权限。此操作无法撤销。
+		"This will revoke access for": "这将撤销",
+		"all third-party": "所有第三方",
+		"OAuth applications. This action cannot be undone.": "OAuth 应用的访问权限。此操作无法撤销。",
+		"Type your username to confirm.": "输入你的用户名以确认。",
+		// —— /settings/apps/authorizations（已授权的 GitHub Apps）——
+		"Authorized OAuth Apps": "已授权的 OAuth 应用",
+		"Application settings": "应用设置",
+		"Alphabetical": "按字母顺序",
+		"Least recently used": "最近最少使用",
+		"Recently used": "最近使用",
+		"GitHub Help": "GitHub 帮助",
+		"Read more about connecting with third-party applications at": "详细了解如何连接第三方应用，请访问",
+		"You have granted": "你已授予",
+		"access to your account.": "访问你账户的权限。",
+		"Revoke all": "全部撤销",
+		"I understand, revoke access": "我明白，撤销访问权限",
+		"I understand, revoke access for everything": "我明白，撤销所有访问权限",
+		"Are you sure you want to revoke authorization?": "你确定要撤销授权吗？",
+		"Are you sure you want to revoke access for all GitHub Apps?": "你确定要撤销所有 GitHub Apps 的访问权限吗？",
+		"Type your username to confirm": "输入你的用户名以确认",
+		// 三段拼接：这将撤销 + 所有 + GitHub Apps 的访问权限。此操作无法撤销。
+		"all": "所有",
+		"GitHub Apps. This action cannot be undone.": "GitHub Apps 的访问权限。此操作无法撤销。"
 	}
 }

@@ -806,6 +806,36 @@
 				{
 					"id": "settings/disable-private-vulnerability-reporting-all",
 					"pattern": "^You're about to disable private vulnerability reporting on all public repositories in (.+)\\.$"
+				},
+				// —— /settings/applications 与 /settings/apps/authorizations ——
+				// 已授权应用列表：应用名是用户内容（`Cloudflare` / `gitee.com` / `npm account link` …），
+				// 含它的整句只能靠规则、名字按原样带回（单捕获组用 $1）。
+				// 注意词典先于规则命中，所以 `Report abuse` / `Revoke all` 这类**同前缀的静态文案**
+				// 已在词条里收好，不会被这两条规则截走。
+				{
+					"id": "settings/applications-count",
+					"pattern": "^(\\d+) applications?$"
+				},
+				{
+					"id": "settings/report-application",
+					"pattern": "^Report (.+)$"
+				},
+				{
+					"id": "settings/revoke-application",
+					"pattern": "^Revoke (.+)$"
+				},
+				{
+					"id": "settings/reporting-application-abuse",
+					"pattern": "^Reporting (.+) will contact Support about abuse on the application\\.$"
+				},
+				// 撤销确认句：OAuth 应用走「访问你的 GitHub 账户」，GitHub App 走「访问 GitHub API」
+				{
+					"id": "settings/application-account-revoke-notice",
+					"pattern": "^(.+) will no longer be able to access your GitHub account\\. You cannot undo this action\\.$"
+				},
+				{
+					"id": "settings/application-api-revoke-notice",
+					"pattern": "^(.+) will no longer be able to access the GitHub API\\. You cannot undo this action\\.$"
 				}
 			]
 		},

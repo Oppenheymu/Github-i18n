@@ -2782,7 +2782,53 @@
 				"Balanced",
 				"Routine, clear-cut changes are applied automatically. Anything with ambiguity is held for review.",
 				"Full automation",
-				"Every change is applied automatically. The agent only holds a change back if it's flagged as uncertain."
+				"Every change is applied automatically. The agent only holds a change back if it's flagged as uncertain.",
+				// —— 环境子页（/owner/repo/settings/environments）——
+				// 依据：维护者 2026-09-27 提供的实机 outerHTML。页头「环境」已在侧边栏登记过，
+				// 这里只补操作按钮与空态的两个节点（h2 与 p 各自成条）。
+				"New environment",
+				"There are no environments for this repository",
+				"Environments are used by your workflows for deployments.",
+				// —— 代码空间子页（/owner/repo/settings/codespaces）的预构建区块 ——
+				// 同一按钮「Set up prebuild」在页头与空态里各出现一次，一条键覆盖两处。
+				"Prebuild configuration",
+				"Set up prebuild",
+				"There are no prebuilds configured for this repository",
+				"Prebuild configurations speed up Codespace creations significantly by pre-executing all the tasks required to build your development environment.",
+				"Learn more about setting up prebuilds",
+				// —— Pages 子页（/owner/repo/settings/pages）——
+				// 节点边界（链接把句子切开，逐段登记）：
+				//   ① 开头说明句被 <a>GitHub Pages</a> 切成「链接 + 后半句」，只收后半句；
+				//   ②「当前已禁用」那段是整句 + 链接 + 纯符号尾节点「.」（不收）；
+				//   ③「Use a suggested workflow, <a>…</a>, or <a>…</a>.」被拆成四段；
+				//   ④ 部署后提示是「整句 + View workflow runs. 链接」两段。
+				// 「Visibility」与「Start free for 30 days」在账户级 pages/settings 里已有同译，
+				// 但那条路由（^/(?:settings|account/billing)）不覆盖 /owner/repo/settings/**，
+				// 故本模块必须各登记一份同译文，否则本页只翻译一半。
+				"is designed to host your personal, organization, or project pages from a GitHub repository.",
+				"Build and deployment",
+				"Source",
+				"Deploy from a branch",
+				"Best for using frameworks and customizing your build process",
+				"Classic Pages experience",
+				"Page source has been saved",
+				"GitHub Pages is currently disabled. Select a source below to enable GitHub Pages for this repository.",
+				"Learn more about configuring the publishing source for your site",
+				"Select branch",
+				"Select branch options",
+				"Select folder",
+				"Select folder options",
+				"/ (root)",
+				"Use a suggested workflow,",
+				"browse all workflows",
+				", or",
+				"create your own",
+				"Workflow details will appear here once your site has been deployed.",
+				"View workflow runs.",
+				"Visibility",
+				"With a GitHub Enterprise account, you can restrict access to your GitHub Pages site by publishing it privately. You can use privately published sites to share your internal documentation or knowledge base with members of your enterprise. You can try GitHub Enterprise risk-free for 30 days.",
+				"Learn more about the visibility of your GitHub Pages site.",
+				"Start free for 30 days"
 			]
 		},
 		{

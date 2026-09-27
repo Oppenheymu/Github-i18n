@@ -162,6 +162,8 @@
 		"settings/two-factor-deadline-december": "启用双因素认证作为额外的安全措施。你在 GitHub 上的活动使你被纳入此要求。你需要在 $<year> 年 12 月 $<day> 日前重新为你的账户启用双因素认证，否则你的账户将在该日期受到限制。",
 		"settings/export-available": "导出数据将在 $1 天内可用。",
 		"settings/owner-organizations": "你的账户目前是以下组织的所有者：$1",
+		// 会话卡「曾出现地区」：国家码是动态值，按原样带回
+		"settings/session-seen-in": "曾出现于 $1",
 		// —— 账单页（/account/billing）的动态用量说明 ——
 		// 区间按月全展开（与 insights/range-long-* 同一形态）：pattern 里写死英文月份
 		// 全称，模板里写死对应中文月份。之所以逐组合展开、而不是用捕获组，是因为

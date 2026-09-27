@@ -724,7 +724,42 @@
 				// 本模块在前且在 /settings 子树胜出（有意同键异译，已进视图骨架快照）。
 				// 同区右侧的「Copilot」**不收录**：纯专名不译是既有约定（pages/settings-billing
 				// 与 pages/settings 的教育页测试都反向断言它保持英文），未命中即保留英文。
-				"Packages"
+				"Packages",
+				// —— 会话页（/settings/sessions）——
+				// 证据强度：**只有途径 A**（popup 开发者模式导出的漏翻清单，schema
+				// github-zh-misses/1，2026-09-27 维护者导出，path 全为 /settings/sessions；
+				// 该页无扩展时的原始英文截图用于核对数量与语义）。没有 Console 的逐节点采集，
+				// 故下面每条都按「导出的 text 就是一个完整文本节点」登记——导出里出现整句
+				// 说明它在实机里确实是一个节点（被拆开的句子只会以碎片形式出现）。
+				// 刻意**不收录**的三类（详见 settings-sessions.test.ts 的反例断言）：
+				//   1. 城市与 IP 是会话卡上的动态地理数据（导出条目只有 "San Francisco"，
+				//      IP 因不含拉丁字母本来就不进漏翻清单）：城市集合无界，收一条只覆盖
+				//      一个城市，与「不收用户内容」同一取舍；
+				//   2. 带动态值的 aria-label 结构上翻不了（`View details of session from
+				//      <城市> last accessed <日期>`）——属性只走精确命中、不适用正则规则
+				//      （walker 的 TRANSLATABLE_ATTRS），不收永不命中的死键；同区的
+				//      `Microsoft Edge on Windows` 是**定值**属性，按实证收一条，其余
+				//      「浏览器 on 操作系统」组合无实证、不猜键（保留英文）；
+				//   3. 设备名（`Ace 6T, PLR110`，实机带 emoji 前缀）是用户内容。
+				// `Seen in US, KR, CN` 的国家码是动态值，整句交给 core/rules.jsonc 本模块组
+				// 内的 settings/session-seen-in 规则。
+				"Web sessions",
+				"This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.",
+				"active",
+				"Your current session",
+				"Microsoft Edge on Windows",
+				"GitHub Mobile sessions",
+				// 移动端说明段被链接拆成三段："…or you can" + <a>revoke</a> + 其余
+				"This is a list of devices that have logged into your account via the GitHub Mobile app. Revoke any session that you do not recognize or you can",
+				"revoke",
+				"your GitHub Mobile app authorization to sign out of all your devices.",
+				"Revoke",
+				// 移动端会话行的元信息：标签本身是独立文本节点，
+				// 其后的日期节点由 global 的长日期规则译出，故键里只有标签加连字符
+				"Registered -",
+				"Last accessed -",
+				"Last used for authentication -",
+				"Never used"
 			]
 		},
 		{

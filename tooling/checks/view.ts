@@ -55,6 +55,10 @@ export const PROBE_PATHS: readonly string[] = [
 	// 它自带一百多条「通行密钥行 / 2FA 截止日」的日期规则，必须单独一条探针，
 	// 否则「规则加了却没生效」在这条路径上完全不可见（见 core/modules.jsonc）
 	"/settings/security",
+	// 会话页（/settings/sessions）：与账号安全页同属「页面词条挂在 pages/settings、
+	// 动态值靠规则」的形态，但它自带 settings/session-seen-in 规则与一整组会话卡词条，
+	// 故单独列一条探针——否则这页的命中序列与赢家覆盖没有任何回归保护
+	"/settings/sessions",
 	"/settings/billing",
 	// 个人账单已于 2026-09 迁到 /account/billing/**（/settings/billing 实测 404，仅
 	// /settings/billing/licensing 尚存），两条路由按「新路径为主、旧路径兼容」写在一起。

@@ -378,6 +378,7 @@ for (const p of probes) {
 | `settings-emails.test.ts` | `/settings/emails` | 电子邮件设置页（`<strong>` / `<a>` 把说明段切成三段、弹窗里邮箱是纯文本节点） |
 | `settings-education.test.ts` | `/settings/education/benefits` | 教育权益页（H2 与说明段都是**带源码缩进的单个节点**，归一空白后才等于键） |
 | `settings-security.test.ts` | `/settings/security` | 账号安全页（通行密钥行的动态日期整句、2FA 横幅三段拼接、密码强度六段拼接；**独立模块** `pages/settings-security`） |
+| `settings-sessions.test.ts` | `/settings/sessions` | 会话页（Web / GitHub Mobile 两张卡；动态国家码走 `settings/session-seen-in` 规则，带城市与日期的 `aria-label` 结构上翻不了） |
 | `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |
@@ -467,6 +468,7 @@ Added on Mar 6, 2026
 - 这批规则若挂在 `pages/settings` 下，`/settings/profile`、`/settings/accessibility`、`/settings/notifications`、`/settings/billing` 四条探针会各自背上一百多条永不使用的规则 id，把视图骨架快照淹掉；因此本页单独成模块，只有它自己的探针 `/settings/security` 承担这批 id；
 - 本模块路由 `^/settings/security` 与 `pages/settings` 的 `^/(?:settings|account/billing)` **重叠**，`buildView` 逐键「先到先得」：本页专属词条放前一个模块，侧栏与通用设置词条由 `pages/settings` 兜底——**不要在两个模块里登记同一个键**，否则前者胜出、后者是看不见的死数据；
 - 未枚举的相对时间形态（`last week`、绝对日期等）整节点保留英文：规则两端以 `^…$` 锚定、不做部分替换，所以不会产出中英残句，这与「宁可漏翻也不产出残句」的既有取舍一致；上游若把相对时间改成 `<relative-time>` 元素渲染，整句会被拆成多节点、这 120 条规则自然失效，届时按实机节点重收碎片词条。
+- **2026-09 补丁：`about` 前缀**。GitHub 把小时档的相对时间渲染成 `about 1 hour ago`（漏翻导出在 `/settings/security` 抓到 `Added on Mar 6, 2026 | Last used about 1 hour ago`），原先的 `(?<count>\d+) hours? ago` 匹配不到，故 12 条 hours 形态的 pattern 统一放宽为 `(?:about )?(?<count>\d+) hours? ago`——**只改 pattern，各语言模板不动**（模板只引用 `$<count>`）。分钟 / 天等档位没有 `about` 形态的实证，保持原样；抓到时按同一手法放宽。
 
 ### 上游改版时怎么办
 

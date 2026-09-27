@@ -119,6 +119,12 @@
 				// 只会渲染出英文 Mar / 6 days ago），因此只能按月 × 相对时间形态全展开：
 				// 12 个月份缩写 × 10 种相对时间 = 120 条。未覆盖的形态（last week、绝对日期等）
 				// 整节点保留英文——规则以 ^…$ 锚定、不做部分替换，故不会产出中英残句。
+				// **「about」前缀**（2026-09 补丁）：GitHub 小时档的相对时间渲染成
+				// "about 1 hour ago"（漏翻导出在 /settings/security 抓到
+				// "Added on Mar 6, 2026 | Last used about 1 hour ago"），故 hours 形态的
+				// pattern 统一放宽为 `(?:about )?(?<count>\\d+) hours? ago`——只改 pattern、
+				// 各语言模板不动（模板只引用 $<count>）。分钟 / 天等档位没有 about 形态的
+				// 实证，保持原样；若哪天抓到，按同一手法放宽对应档位即可。
 				// 这批规则也正是本页单独成模块的原因（挂在 pages/settings 下会让 /settings 的
 				// 其余探针各自背上一百多条永不使用的 id，见 core/modules.jsonc）。
 				// 形态之间互不重叠，故组内顺序不影响结果；分组只为可读性。
@@ -140,7 +146,7 @@
 				},
 				{
 					"id": "settings/passkey-added-last-used-jan-hours",
-					"pattern": "^Added on Jan (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+					"pattern": "^Added on Jan (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?:about )?(?<count>\\d+) hours? ago$"
 				},
 				{
 					"id": "settings/passkey-added-last-used-jan-yesterday",
@@ -180,7 +186,7 @@
 				},
 				{
 					"id": "settings/passkey-added-last-used-feb-hours",
-					"pattern": "^Added on Feb (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+					"pattern": "^Added on Feb (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?:about )?(?<count>\\d+) hours? ago$"
 				},
 				{
 					"id": "settings/passkey-added-last-used-feb-yesterday",
@@ -220,7 +226,7 @@
 				},
 				{
 					"id": "settings/passkey-added-last-used-mar-hours",
-					"pattern": "^Added on Mar (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+					"pattern": "^Added on Mar (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?:about )?(?<count>\\d+) hours? ago$"
 				},
 				{
 					"id": "settings/passkey-added-last-used-mar-yesterday",
@@ -260,7 +266,7 @@
 				},
 				{
 					"id": "settings/passkey-added-last-used-apr-hours",
-					"pattern": "^Added on Apr (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+					"pattern": "^Added on Apr (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?:about )?(?<count>\\d+) hours? ago$"
 				},
 				{
 					"id": "settings/passkey-added-last-used-apr-yesterday",
@@ -300,7 +306,7 @@
 				},
 				{
 					"id": "settings/passkey-added-last-used-may-hours",
-					"pattern": "^Added on May (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+					"pattern": "^Added on May (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?:about )?(?<count>\\d+) hours? ago$"
 				},
 				{
 					"id": "settings/passkey-added-last-used-may-yesterday",
@@ -340,7 +346,7 @@
 				},
 				{
 					"id": "settings/passkey-added-last-used-jun-hours",
-					"pattern": "^Added on Jun (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+					"pattern": "^Added on Jun (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?:about )?(?<count>\\d+) hours? ago$"
 				},
 				{
 					"id": "settings/passkey-added-last-used-jun-yesterday",
@@ -380,7 +386,7 @@
 				},
 				{
 					"id": "settings/passkey-added-last-used-jul-hours",
-					"pattern": "^Added on Jul (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+					"pattern": "^Added on Jul (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?:about )?(?<count>\\d+) hours? ago$"
 				},
 				{
 					"id": "settings/passkey-added-last-used-jul-yesterday",
@@ -420,7 +426,7 @@
 				},
 				{
 					"id": "settings/passkey-added-last-used-aug-hours",
-					"pattern": "^Added on Aug (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+					"pattern": "^Added on Aug (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?:about )?(?<count>\\d+) hours? ago$"
 				},
 				{
 					"id": "settings/passkey-added-last-used-aug-yesterday",
@@ -460,7 +466,7 @@
 				},
 				{
 					"id": "settings/passkey-added-last-used-sep-hours",
-					"pattern": "^Added on Sep (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+					"pattern": "^Added on Sep (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?:about )?(?<count>\\d+) hours? ago$"
 				},
 				{
 					"id": "settings/passkey-added-last-used-sep-yesterday",
@@ -500,7 +506,7 @@
 				},
 				{
 					"id": "settings/passkey-added-last-used-oct-hours",
-					"pattern": "^Added on Oct (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+					"pattern": "^Added on Oct (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?:about )?(?<count>\\d+) hours? ago$"
 				},
 				{
 					"id": "settings/passkey-added-last-used-oct-yesterday",
@@ -540,7 +546,7 @@
 				},
 				{
 					"id": "settings/passkey-added-last-used-nov-hours",
-					"pattern": "^Added on Nov (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+					"pattern": "^Added on Nov (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?:about )?(?<count>\\d+) hours? ago$"
 				},
 				{
 					"id": "settings/passkey-added-last-used-nov-yesterday",
@@ -580,7 +586,7 @@
 				},
 				{
 					"id": "settings/passkey-added-last-used-dec-hours",
-					"pattern": "^Added on Dec (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?<count>\\d+) hours? ago$"
+					"pattern": "^Added on Dec (?<day>\\d{1,2}), (?<year>\\d{4}) [|] Last used (?:about )?(?<count>\\d+) hours? ago$"
 				},
 				{
 					"id": "settings/passkey-added-last-used-dec-yesterday",
@@ -671,6 +677,14 @@
 				{
 					"id": "settings/owner-organizations",
 					"pattern": "^Your account is currently an owner in these organizations:(?: (.+))?$"
+				},
+				// 会话页（/settings/sessions）会话卡的「曾出现地区」：实机是**单个文本节点**，
+				// 形如 "Seen in US, KR, CN"——国家码是动态值（条数不定），静态键只能覆盖
+				// 见过的组合，故整句交给规则，国家码按原样带回（单捕获组用 $1，不命名）。
+				// pattern 以 ^…$ 锚定：不含 "Seen in " 前缀的节点一律不动，不会产出残句。
+				{
+					"id": "settings/session-seen-in",
+					"pattern": "^Seen in (.+)$"
 				}
 			]
 		},

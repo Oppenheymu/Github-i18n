@@ -256,6 +256,24 @@ describe("账号安全页的实机节点边界", () => {
 		);
 	});
 
+	it("translates the relative time GitHub renders with an 'about' prefix", () => {
+		// 2026-09 实测补丁：小时档的相对时间渲染成 "about 1 hour ago"（漏翻导出在
+		// /settings/security 抓到），原先的 pattern 匹配不到；现放宽为 (?:about )?，
+		// 只改 pattern、模板不动（模板只引用 $<count>）
+		expect(
+			translateText(
+				"Added on Mar 6, 2026\n                                | Last used\n                                  about 1 hour ago",
+				view,
+			),
+		).toBe("添加于 2026 年 3 月 6 日 | 上次使用 1 小时前");
+		expect(
+			translateText(
+				"Added on Mar 6, 2026 | Last used about 2 hours ago",
+				view,
+			),
+		).toBe("添加于 2026 年 3 月 6 日 | 上次使用 2 小时前");
+	});
+
 	it("keeps the passkey name inside the translated sentence", () => {
 		expect(
 			translateText(

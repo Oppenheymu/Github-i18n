@@ -423,6 +423,26 @@
 		// 设置侧栏里长期保留英文的「Packages」：同键在其他模块译作「软件包」，
 		// 本模块在前且在 /settings 子树胜出（有意同键异译）。
 		// 同区的「Copilot」不收录（纯专名不译是既有约定，未命中即保留英文）
-		"Packages": "软件包"
+		"Packages": "软件包",
+		// —— 会话页（/settings/sessions）——
+		// 键来自开发者模式导出的漏翻清单 + 无扩展的原始英文截图核对；
+		// 节点边界、拼接结果与反例见 src/content/__tests__/settings-sessions.test.ts
+		"Web sessions": "Web 会话",
+		"This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.": "这是一系列已登录你账号的设备。请撤销任何你无法识别的会话。",
+		"active": "活跃",
+		"Your current session": "你的当前会话",
+		"Microsoft Edge on Windows": "Windows 上的 Microsoft Edge",
+		"GitHub Mobile sessions": "GitHub Mobile 会话",
+		// 说明段第一段以 "or you can" 收尾，译文同样以「或者你可以」收尾，
+		// 与链接节点「撤销」和第三段拼起来是完整一句
+		"This is a list of devices that have logged into your account via the GitHub Mobile app. Revoke any session that you do not recognize or you can": "这是一系列通过 GitHub Mobile 应用登录过你账号的设备。撤销任何你无法识别的会话，或者你可以",
+		"revoke": "撤销",
+		"your GitHub Mobile app authorization to sign out of all your devices.": "你的 GitHub Mobile 应用授权，以退出所有设备上的登录。",
+		"Revoke": "撤销",
+		// 标签与日期之间原有空格由 walker 保留，译文不自带首尾空格
+		"Registered -": "注册时间 -",
+		"Last accessed -": "上次访问时间 -",
+		"Last used for authentication -": "上次用于身份验证 -",
+		"Never used": "从未使用"
 	}
 }

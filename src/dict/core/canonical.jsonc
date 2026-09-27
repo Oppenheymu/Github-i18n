@@ -2762,7 +2762,27 @@
 				"Workflow jobs",
 				"Workflow job queued, waiting, in progress, or completed on a repository.",
 				"Workflow runs",
-				"Workflow run requested or completed on a repository."
+				"Workflow run requested or completed on a repository.",
+				// —— 代理建议子页（/owner/repo/settings/suggestions）——
+				// 依据：维护者 2026-09-27 提供的实机 outerHTML（React 版设置页）。
+				// 节点边界：说明句是单个 <p class="mb-0">；legend 内的标题与 caption 各是一个
+				// <span>；四个单选项的 <label> 与 <span class="FormControl-Caption"> 各自成节点，
+				// 故下面 11 条键分别对应 11 个文本节点，**不要**把标签与说明合并成一条。
+				// radio 的 value 属性（ALWAYS_SUGGEST / HIGH / MEDIUM / LOW）是内部枚举值，不收录。
+				// 取舍：Full control / Cautious / Balanced / Full automation 是四个泛化短标签，
+				// 全仓此前无同串译文；收它们是因为此页离开这四条就只剩正文可译。若日后实机
+				// 发现别页同串需要另一种译法，再加模块级覆盖而不是改这里。
+				"An agent analyzes incoming issues and recommends labels, priority, assignees, and other metadata.",
+				"Automation level",
+				"Set how much control the agent has to apply changes",
+				"Full control",
+				"Every suggestion is held for your review. Nothing is applied automatically.",
+				"Cautious",
+				"Only high confidence changes are applied automatically. Everything else is held for your review.",
+				"Balanced",
+				"Routine, clear-cut changes are applied automatically. Anything with ambiguity is held for review.",
+				"Full automation",
+				"Every change is applied automatically. The agent only holds a change back if it's flagged as uncertain."
 			]
 		},
 		{

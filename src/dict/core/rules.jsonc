@@ -1932,10 +1932,15 @@
 					"id": "repo-settings/ruleset-target-count",
 					"pattern": "^(\\d+) targets?$"
 				},
-				// 文档标题（面包屑）：`Settings · Rulesets · <仓库名>`，仓库名保留原文
+				// 文档标题（面包屑）：`Settings · Ruleset · <仓库名>` 与
+				// `Settings · Rulesets · <仓库名>`，仓库名保留原文。
+				// 实测 2026-09-27：新建页与详情页的 payload title 是**单数** Ruleset
+				// （原始英文页 /Koishi-CE/koishi/settings/rules/new 的 title 即
+				// `Settings · Ruleset · koishi`），列表页才是复数 Rulesets，
+				// 故用 Rulesets? 同时覆盖两种形态
 				{
 					"id": "repo-settings/ruleset-breadcrumb",
-					"pattern": "^Settings [\\u2022\\u00B7] Rulesets [\\u2022\\u00B7] (.+)$"
+					"pattern": "^Settings [\\u2022\\u00B7] Rulesets? [\\u2022\\u00B7] (.+)$"
 				},
 				// 绕过名单的类别筛选器：`Apps • <应用名>`，应用名是动态值
 				{

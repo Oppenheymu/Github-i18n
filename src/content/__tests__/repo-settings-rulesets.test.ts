@@ -674,4 +674,19 @@ describe("仓库设置页的规则集新建页（/settings/rules/new）", () => 
 			"企业版",
 		);
 	});
+
+	it("translates the page title in both singular and plural form", () => {
+		// 实测：新建页与详情页的 payload title 是**单数** Ruleset
+		// （原始英文页的 title 即 `Settings · Ruleset · koishi`），列表页才是复数；
+		// pattern 用 Rulesets? 覆盖两种形态，仓库名保留原文
+		expect(
+			translateText("Settings · Ruleset · koishi", newView),
+		).toBe("设置 · 规则集 · koishi");
+		expect(
+			translateText(
+				"Settings · Rulesets · Github-i18n",
+				newView,
+			),
+		).toBe("设置 · 规则集 · Github-i18n");
+	});
 });

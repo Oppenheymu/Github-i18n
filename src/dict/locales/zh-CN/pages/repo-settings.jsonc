@@ -436,6 +436,8 @@
 		"Enforcement status": "执行状态",
 		"Active": "启用",
 		"Active, Enforcement status": "启用，执行状态",
+		// 新建页（settings/rules/new）默认是「禁用」态，组合串与上面的 Active 版成对
+		"Disabled, Enforcement status": "禁用，执行状态",
 		// 目标分支（Branch targeting criteria）——
 		"Branch targeting criteria": "分支目标条件",
 		"Target branches": "目标分支",
@@ -447,6 +449,8 @@
 		"Exclude by pattern": "按模式排除",
 		"Add target": "添加目标",
 		"Applies to": "适用于",
+		// 新建页的目标分支区块空态标题（译文与「分支」页的 Classic branch protections… 对齐）
+		"Branch targeting has not been configured": "尚未配置分支目标",
 		// 绕过名单（Bypass list）——
 		"Bypass actor actions": "绕过操作者操作",
 		"Select bypass mode": "选择绕过模式",
@@ -475,6 +479,8 @@
 		"No roles in bypass list": "绕过名单中没有角色",
 		"No teams in bypass list": "绕过名单中没有团队",
 		"No other actors in bypass list": "绕过名单中没有其他操作者",
+		// 新建页整块空态：与上面「No … in bypass list」不是同串，是 Blankslate 的标题
+		"Bypass list is empty": "绕过名单为空",
 		// 规则列表（Which rules should be applied?）——
 		"Which rules should be applied?": "应应用哪些规则？",
 		"Rules": "规则",
@@ -534,6 +540,10 @@
 		"Revert": "还原",
 		"Revert changes": "还原更改",
 		"Save changes": "保存更改",
+		// 新建规则集页底部的提交按钮：可见文本与 aria-label 同串，一条键覆盖两处。
+		// Create 是泛化短词，但本模块只作用于 /owner/repo/settings/**，
+		// 误伤面被路由限死在仓库设置页内（未命中即保留英文，故不收别处）。
+		"Create": "创建",
 		// 规则项展开面板（RuleRow）——
 		"Hide additional settings": "隐藏其他设置",
 		// 状态检查规则 ——

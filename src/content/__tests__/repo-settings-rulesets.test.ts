@@ -4,7 +4,9 @@
 // 证据：维护者 2026-09-27 导出的漏翻清单（`github-zh-misses/1`，path 全为
 // /Oppenheymu/Github-i18n/settings/rules/24064311）＋ 两张实机截图（列表页与
 // 「New ruleset」下拉）＋ 随后贴出的两段实机 HTML（状态检查与「合并前需要拉取请求」
-// 两个规则的展开面板、绕过模式菜单）。本页此前**没有任何**词条，属整页新增。
+// 两个规则的展开面板、绕过模式菜单）＋ 新建页（/settings/rules/new）的实机 HTML
+// （2026-09-27 补：两条 Blankslate 空态标题、禁用态的执行状态 aria-label、提交按钮 Create）。
+// 本页此前**没有任何**词条，属整页新增。
 //
 // 本页最重要的三个边界事实：
 //   1. 规则名（Protect Default Branch）、仓库名、用户名、分支名与产品名一律保持英文
@@ -24,6 +26,13 @@ import { translateText } from "../walker.ts";
 /** /Oppenheymu/Github-i18n/settings/rules/24064311 命中的模块视图 */
 const view = buildView(
 	"/Oppenheymu/Github-i18n/settings/rules/24064311",
+	dictForLocale("zh-CN"),
+	new Map(Object.entries(dictCore.aliases)),
+);
+
+/** /Oppenheymu/Github-i18n/settings/rules/new 的视图（与详情页命中同一模块） */
+const newView = buildView(
+	"/Oppenheymu/Github-i18n/settings/rules/new",
 	dictForLocale("zh-CN"),
 	new Map(Object.entries(dictCore.aliases)),
 );
@@ -542,5 +551,39 @@ describe("仓库设置页的规则集列表页空态（无规则集时）", () =
 		).toBeNull();
 		expect(translateText("Github-i18n", view)).toBeNull();
 		expect(translateText("Oppenheymu", view)).toBeNull();
+	});
+});
+
+describe("仓库设置页的规则集新建页（/settings/rules/new）", () => {
+	it("translates the two blankslate headings", () => {
+		// 两块空态的 Blankslate 标题：绕过名单整块为空、目标分支尚未配置。
+		// 它们与列表页/详情页的 `No … in bypass list`、`Classic branch protections …`
+		// 都不是同串，故必须单独登记。
+		expect(
+			translateText("Bypass list is empty", newView),
+		).toBe("绕过名单为空");
+		expect(
+			translateText(
+				"Branch targeting has not been configured",
+				newView,
+			),
+		).toBe("尚未配置分支目标");
+	});
+
+	it("translates the disabled form of the enforcement-status aria-label", () => {
+		// 新建页默认「禁用」态：状态值与组合串都是**属性**（属性不走正则规则，
+		// 见 src/content/walker.ts），只能逐条精确命中
+		expect(translateText("Disabled", newView)).toBe("禁用");
+		expect(
+			translateText(
+				"Disabled, Enforcement status",
+				newView,
+			),
+		).toBe("禁用，执行状态");
+	});
+
+	it("translates the submit button label and its aria-label", () => {
+		// 底部提交按钮：可见文本与 aria-label 同串，一条键覆盖两处
+		expect(translateText("Create", newView)).toBe("创建");
 	});
 });

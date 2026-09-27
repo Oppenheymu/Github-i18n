@@ -2260,6 +2260,7 @@
 				// 属性不走正则规则（见 src/content/walker.ts），故组合串也各收一条
 				"Active",
 				"Active, Enforcement status",
+				"Disabled, Enforcement status",
 				// —— 目标分支（Branch targeting criteria）——
 				"Branch targeting criteria",
 				"Target branches",
@@ -2271,6 +2272,7 @@
 				"Exclude by pattern",
 				"Add target",
 				"Applies to",
+				"Branch targeting has not been configured",
 				// 计数（`1 target`）见 core/rules.jsonc 的 ruleset-target-count
 				// —— 绕过名单（Bypass list）——
 				"Bypass actor actions",
@@ -2302,6 +2304,7 @@
 				"No roles in bypass list",
 				"No teams in bypass list",
 				"No other actors in bypass list",
+				"Bypass list is empty",
 				// —— 规则列表（Which rules should be applied?）——
 				"Which rules should be applied?",
 				"Rules",
@@ -2361,6 +2364,10 @@
 				"Revert",
 				"Revert changes",
 				"Save changes",
+				// 新建规则集页底部的提交按钮（可见文本与 aria-label 同串）。
+				// Create 是泛化短词，但本模块路由限死在 /owner/repo/settings/**，
+				// 风险面不扩散到别处；证据是维护者 2026-09-27 贴的 /settings/rules/new 实机 HTML
+				"Create",
 				// —— 规则项展开面板（RuleRow）——
 				// 证据：维护者 2026-09-27 贴的两段实机 HTML（state checks 与
 				// Require a pull request before merging 两个规则的展开面板）。

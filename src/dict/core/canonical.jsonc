@@ -912,7 +912,102 @@
 				"Delete packages from github package registry",
 				"Upload packages to github package registry",
 				"Delete repositories",
-				"Write org hosted compute network configurations"
+				"Write org hosted compute network configurations",
+				// —— 交互限制 / 代码审查限制 / 已屏蔽用户 / 组织（/settings/interaction_limits、
+				// code_review_limits、blocked_users、organizations）——
+				// 证据强度：**途径 A 实证**（popup 开发者模式导出的漏翻清单，schema
+				// github-zh-misses/1，2026-09-27 维护者导出）。四条路径都命中 pages/settings，
+				// 故键直接追加在这里。**/settings/enterprises 在导出里没有任何条目**，
+				// 说明该页当前没有漏翻（真的看到英文时按固定起手式重采一次即可）。
+				// 刻意**不收录**：
+				//   1. 用户内容：组织名（`Koishi-CE` / `Kuro-Bridge` / `NapukettoDev` /
+				//      `OppenApps` / `TextCraft-War`）、`M. Oppenheymu` / `(Oppenheymu)` /
+				//      `@Oppenheymu`、`GitHub`、`Copilot`；
+				//   2. 属性里的动态值 `Settings for <组织名>`（aria-label）——属性只走精确命中、
+				//      不适用正则规则，收键必是死键；离开确认弹窗那句话是**文本节点**，走规则。
+				// 动态值走 core/rules.jsonc 本模块组的规则：备注剩余字数
+				// （settings/characters-remaining）与离开组织确认句
+				// （settings/leave-organization-confirm）。
+				// 另有四条键（`Users` / `Contributors` / `Collaborators` / `Compare plans`）
+				// 在别的模块已有词条，但那几条路由都不命中 /settings 子树，故本模块各收一份
+				// ——路径互斥、不构成赢家冲突（有意跨模块同键，见 registry.ts 的说明）。
+				// —— /settings/blocked_users（已屏蔽用户）——
+				"Block a user",
+				// 按钮文案与它自己的 aria-label 是同一个串，一条键覆盖两处
+				"Block user",
+				"You can block a user to deny them access to repositories and more.",
+				"Learn more about blocking a user",
+				// 搜索框的 placeholder 与同文案的文本节点是同一个串（实机两处都渲染）
+				"Search by username, full name or email address",
+				// 屏蔽弹窗：标题、两条清单的条目与两个开关
+				"You are about to block:",
+				"Blocking a user prevents the following on all your repositories:",
+				"opening or commenting on issues or pull requests",
+				"adding or editing wiki pages",
+				"follow your account's public activity",
+				"starring, forking, or watching",
+				"send you notifications by @mentioning your username in public repositories",
+				"invite you as a collaborator to their repositories",
+				"Additionally, blocked users are not able to:",
+				"Close all open issues, pull requests, and discussions opened by this user",
+				"Add an optional note",
+				"Maximum 250 characters. Please don’t include any personal information such as legal names or email addresses. Markdown is supported. This note will only be visible to you.",
+				"Warn me when blocked users have contributed to a repository",
+				"We will show this warning each time you visit a repository where someone you blocked has committed code, unless you own the repository or have also contributed a commit. This warning does not restrict your access.",
+				// 下方「已屏蔽」区块（含另一条带牛津逗号的搜索串，与上面的不同串）
+				"Currently blocked",
+				"You have not blocked anyone.",
+				"Find blocked users",
+				"Search by username, full name, or public email",
+				"results",
+				// —— /settings/interaction_limits（临时交互限制）——
+				"Temporary interaction limits",
+				"Temporarily restrict which external users can interact with your repositories (comment, open issues, or create pull requests) for a configurable period of time.",
+				"Enable interaction limits for:",
+				// 三档限制对象：短标签 + 长说明各成节点
+				"Limit to existing users",
+				"Users that have recently created their account will be unable to interact with your repositories.",
+				"Limit to prior contributors",
+				"Users that have not previously committed to the default branch of one of your repositories will be unable to interact with that repository.",
+				"Limit to repository collaborators",
+				"Users that are not collaborators of one of your repositories will not be able to interact with that repository.",
+				// 三个单选/分段控件的短标签与五档时长选项（时长是固定枚举，故收静态键）
+				"New users",
+				"Users",
+				"Contributors",
+				"Collaborators",
+				"24 hours",
+				"3 days",
+				"1 week",
+				"1 month",
+				"6 months",
+				// 说明句与两条无障碍文案
+				"This may be used to force a \"cool-down\" period during heated discussions or prevent unwanted interactions.",
+				"Enable interaction limit to existing users",
+				"Enable interaction limit to prior contributors",
+				"Enable interaction limit to repository collaborators",
+				// 「你的账户的 <a>public repositories</a> 中可能已存在交互限制。…」：
+				// 链接后的节点以一个句号开头（句号属于该节点），故键以 ". " 起头
+				"Interaction limits may already exist in your account's",
+				"public repositories",
+				". Any changes here will override those limits.",
+				// —— /settings/code_review_limits（代码审查限制）——
+				"Restrict users who are permitted to approve or request changes on pull requests in your public repositories.",
+				// 两段说明在实机里都是**含源码换行的单个节点**，键按 normalizeKey 折叠空白后的形态写
+				"Code review limits are currently managed individually for all repositories. Enable limits to permit only users who have explicitly been granted access to each repository to submit reviews that \"approve\" or \"request changes\". Remove limits to allow all users to submit pull request reviews. All users able to submit comment pull request reviews will continue to be able to do so.",
+				"Limit reviews on all repositories",
+				"Remove review limits from all repositories",
+				"Code review limits may already be specified by individual repositories. Any changes here will override those limits until unset.",
+				// —— /settings/organizations（组织）——
+				// 个人账户无法转组织的长说明（同样含源码换行的单个节点）
+				"Your personal account cannot be converted to an organization. You must create a new organization and transfer your repositories and projects to it instead. You can then rename your personal account and the organization if you want your organization to have the same name that you are currently using for your personal account.",
+				"Move work to an organization",
+				"Move to an organization",
+				"Compare plans",
+				// 组织行：徽标、行尾按钮（按钮文案与它自己的 aria-label 同串）
+				"2FA required",
+				"Leave",
+				"Leave organization"
 			]
 		},
 		{

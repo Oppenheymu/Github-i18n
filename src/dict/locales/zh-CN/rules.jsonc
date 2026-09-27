@@ -183,6 +183,9 @@
 		"settings/expires-on-oct": "$<year> 年 10 月 $<day> 日",
 		"settings/expires-on-nov": "$<year> 年 11 月 $<day> 日",
 		"settings/expires-on-dec": "$<year> 年 12 月 $<day> 日",
+		// 屏蔽用户备注框的剩余字数与「离开组织」确认弹窗（组织名按原样带回）
+		"settings/characters-remaining": "剩余 $1 个字符。",
+		"settings/leave-organization-confirm": "你确定要离开 $1 吗？你将失去对所有仓库和团队的访问权限。",
 		// —— 账单页（/account/billing）的动态用量说明 ——
 		// 区间按月全展开（与 insights/range-long-* 同一形态）：pattern 里写死英文月份
 		// 全称，模板里写死对应中文月份。之所以逐组合展开、而不是用捕获组，是因为

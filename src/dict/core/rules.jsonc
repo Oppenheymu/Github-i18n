@@ -760,6 +760,20 @@
 				{
 					"id": "settings/expires-on-dec",
 					"pattern": "^on [A-Za-z]{3}, Dec +(?<day>\\d{1,2}) (?<year>\\d{4})$"
+				},
+				// —— 交互限制 / 已屏蔽用户 / 组织（同属本模块的四条路径）——
+				// 屏蔽用户的备注框下方会实时更新剩余字数，实机形如 "250 characters remaining."
+				// （数字动态，单数 / 复数同形），单捕获组用 $1。
+				{
+					"id": "settings/characters-remaining",
+					"pattern": "^(\\d+) characters? remaining\\.$"
+				},
+				// 组织列表的「离开组织」确认弹窗：整句含动态组织名（实机节点是单个文本节点），
+				// 组织名按原样带回。注意 `Settings for <组织名>` 那条是 **aria-label**——
+				// 属性不适用规则，故它只能保留英文（见 canonical 的同页注释）。
+				{
+					"id": "settings/leave-organization-confirm",
+					"pattern": "^Are you positive you want to leave (.+)\\? You will lose access to all repositories and teams\\.$"
 				}
 			]
 		},

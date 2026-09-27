@@ -1169,6 +1169,64 @@
 		"Manage environment variables": "管理环境变量",
 		"Repository variables": "仓库变量",
 		"This repository has no variables.": "此仓库没有变量。",
-		"New repository variable": "新建仓库变量"
+		"New repository variable": "新建仓库变量",
+		// —— 环境页的列表说明（/owner/repo/settings/environments 底部）——
+		"You can configure environments with protection rules, variables, and secrets.": "你可以为环境配置保护规则、变量和机密。",
+		"Learn more about configuring environments.": "进一步了解如何配置环境。",
+		// —— 新建环境页（/owner/repo/settings/environments/new）——
+		// 面包屑「环境 / Add」里的 `/ Add` 是链接后的独立节点；`Configure environment`
+		// 同时是按钮文本与 value / data-disable-with 属性值。
+		"/ Add": "/ 添加",
+		"Configure environment": "配置环境",
+		// —— 环境配置页（/owner/repo/settings/environments/<id>）——
+		// 面包屑同理；环境名（TEST）是用户内容，不译。
+		"/ Configure": "/ 配置",
+		"Deployment protection rules": "部署保护规则",
+		"Configure reviewers, timers, and custom rules that must pass before deployments to this environment can proceed.": "配置在部署到此环境之前必须通过的审查者、计时器和自定义规则。",
+		// Required reviewers / Remove / minutes 与其它模块同键同译（路径互斥）
+		"Required reviewers": "必需的审查者",
+		"Specify people or teams that may approve workflow runs when they access this environment.": "指定可以批准访问此环境的工作流运行的人员或团队。",
+		// 「Add up to 6 more reviewers」的四段：数字与 reviewers 都会被脚本改写，
+		// 故 reviewers / reviewer 两种词形都收（中文同形）
+		"Add up to": "最多再添加",
+		"more": "名",
+		"reviewers": "审查者",
+		"reviewer": "审查者",
+		"Search for people or teams...": "搜索人员或团队…",
+		"Remove": "移除",
+		"Prevent self-review": "防止自我审查",
+		"Require a different approver than the user who triggered the workflow run.": "要求审批人不同于触发该工作流运行的用户。",
+		// —— 等待计时器 ——
+		"Wait timer": "等待计时器",
+		"Set an amount of time to wait before allowing deployments to proceed.": "设置允许部署继续之前需要等待的时长。",
+		"Time to wait": "等待时间",
+		"minutes": "分钟",
+		"The time to wait must be an integer number between 1 and 43200": "等待时间必须是 1 到 43200 之间的整数",
+		// —— 自定义保护规则（预览）——
+		// 「预览」标签已由 global 的 Preview 覆盖
+		"Enable custom rules with GitHub Apps": "使用 GitHub Apps 启用自定义规则",
+		"Learn about existing apps": "了解现有应用",
+		"or": "或",
+		"create your own protection rules": "创建你自己的保护规则",
+		"so you can deploy with confidence.": "让你可以放心地部署。",
+		"Allow administrators to bypass configured protection rules": "允许管理员绕过已配置的保护规则",
+		"Save protection rules": "保存保护规则",
+		// —— 部署分支与标签 ——
+		"Deployment branches and tags": "部署分支与标签",
+		"Limit which branches and tags can deploy to this environment based on rules or naming patterns.": "根据规则或命名模式，限制哪些分支和标签可以部署到此环境。",
+		"No restriction": "无限制",
+		"No restriction to which branch or tag from this repository can deploy.": "不限制此仓库中的哪些分支或标签可以部署。",
+		"Protected branches only": "仅受保护的分支",
+		"Deployment limited to branches with protection rules.": "部署仅限于具有保护规则的分支。",
+		"Selected branches and tags": "选定的分支与标签",
+		"Specify a list of branches and tags using naming patterns.": "使用命名模式指定分支与标签列表。",
+		// —— 环境机密 / 环境变量两个 React 区块的说明句 ——
+		// 说明句被链接切成「整句 + 链接 + 纯符号尾节点 .（不收）」
+		"Secrets are encrypted environment variables. They are accessible only by GitHub Actions in the context of this environment by using the": "机密是加密的环境变量。只有 GitHub Actions 在此环境的上下文中通过",
+		"secret context": "机密上下文",
+		"Variables are used for non-sensitive configuration data. They are accessible only by GitHub Actions in the context of this environment by using the": "变量用于非敏感的配置数据。只有 GitHub Actions 在此环境的上下文中通过",
+		"variable context": "变量上下文",
+		"Add environment secret": "添加环境机密",
+		"Add environment variable": "添加环境变量"
 	}
 }

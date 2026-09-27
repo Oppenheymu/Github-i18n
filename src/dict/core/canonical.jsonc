@@ -3044,7 +3044,67 @@
 				"Manage environment variables",
 				"Repository variables",
 				"This repository has no variables.",
-				"New repository variable"
+				"New repository variable",
+				// —— 环境页的列表说明 + 新建页 + 配置页 ——
+				// （/owner/repo/settings/environments、…/environments/new、…/environments/<id>）
+				// 依据：维护者 2026-09-27 提供的实机 outerHTML（三处页面片段）。列表页的空态三句
+				// 早已登记，这里补的是页面底部的配置说明、新建页表单与配置页的四组保护规则。
+				// 节点边界：
+				//   ① 面包屑的「环境 / Add」「环境 / Configure」里，`/ Add`、`/ Configure` 是
+				//      链接之后的独立文本节点（环境名 TEST 是用户内容，不译）；
+				//   ②「Add up to 6 more reviewers」被 span 切成四段（数字与 `reviewers` 都有
+				//      data-target，会被脚本改写：剩 1 个名额时 `reviewers` → `reviewer`，
+				//      故两种词形都要收）；
+				//   ③「Enable custom rules with GitHub Apps」那段的说明被两个链接切成
+				//      「Learn about existing apps / or / create your own protection rules /
+				//      so you can deploy with confidence.」四段；
+				//   ④ 环境机密与环境变量两个 React 区块的说明句是「整句 + `secret context` /
+				//      `variable context` 链接 + 纯符号尾节点 `.`（不收）」。
+				// `Configure environment` 既是按钮文本，也是 value 与 data-disable-with 属性值，
+				// 一条键覆盖三处。
+				"You can configure environments with protection rules, variables, and secrets.",
+				"Learn more about configuring environments.",
+				"/ Add",
+				"Configure environment",
+				"/ Configure",
+				"Deployment protection rules",
+				"Configure reviewers, timers, and custom rules that must pass before deployments to this environment can proceed.",
+				"Required reviewers",
+				"Specify people or teams that may approve workflow runs when they access this environment.",
+				"Add up to",
+				"more",
+				"reviewers",
+				"reviewer",
+				"Search for people or teams...",
+				"Remove",
+				"Prevent self-review",
+				"Require a different approver than the user who triggered the workflow run.",
+				"Wait timer",
+				"Set an amount of time to wait before allowing deployments to proceed.",
+				"Time to wait",
+				"minutes",
+				"The time to wait must be an integer number between 1 and 43200",
+				"Enable custom rules with GitHub Apps",
+				"Learn about existing apps",
+				"or",
+				"create your own protection rules",
+				"so you can deploy with confidence.",
+				"Allow administrators to bypass configured protection rules",
+				"Save protection rules",
+				"Deployment branches and tags",
+				"Limit which branches and tags can deploy to this environment based on rules or naming patterns.",
+				"No restriction",
+				"No restriction to which branch or tag from this repository can deploy.",
+				"Protected branches only",
+				"Deployment limited to branches with protection rules.",
+				"Selected branches and tags",
+				"Specify a list of branches and tags using naming patterns.",
+				"Secrets are encrypted environment variables. They are accessible only by GitHub Actions in the context of this environment by using the",
+				"secret context",
+				"Variables are used for non-sensitive configuration data. They are accessible only by GitHub Actions in the context of this environment by using the",
+				"variable context",
+				"Add environment secret",
+				"Add environment variable"
 			]
 		},
 		{

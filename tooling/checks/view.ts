@@ -48,6 +48,10 @@ export const PROBE_PATHS: readonly string[] = [
 	"/microsoft/vscode/pull/1",
 	"/microsoft/vscode/pulls",
 	"/microsoft/vscode/settings",
+	// 规则集页（/owner/repo/settings/rules）与仓库设置总览同属 pages/repo-settings，
+	// 但它是另一页：自带一组只在该页生效的规则（repo-settings/ruleset-*），
+	// 故单独列一条探针——否则「规则加了却没生效」在这条路径上完全不可见
+	"/microsoft/vscode/settings/rules",
 	"/settings/profile",
 	"/settings/accessibility",
 	"/settings/notifications",

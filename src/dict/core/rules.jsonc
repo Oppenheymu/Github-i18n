@@ -1840,14 +1840,17 @@
 					"id": "repo-settings/watcher-count",
 					"pattern": "^([\\d,]+) watcher$"
 				},
-				// 带仓库名的动态标题（仅匹配 owner/repo 形态，避免泛化误伤）
+				// 带仓库名的动态标题（仅匹配 owner/repo 形态，避免泛化误伤）。
+				// owner/repo 不含空白，故作否定字符类里加上 \s：否则规则集页的
+				// `Delete include of <分支模式>` 会被它当成 owner/repo 抢先命中，
+				// 译出「删除 include of release/*」这种中英混杂的残句（实测 2026-09-27）
 				{
 					"id": "repo-settings/delete-repo",
-					"pattern": "^Delete ([^/]+\\/[^/]+)$"
+					"pattern": "^Delete ([^/\\s]+\\/[^/\\s]+)$"
 				},
 				{
 					"id": "repo-settings/make-private",
-					"pattern": "^Make ([^/]+\\/[^/]+) private$"
+					"pattern": "^Make ([^/\\s]+\\/[^/\\s]+) private$"
 				},
 				{
 					"id": "repo-settings/settings-title",
@@ -1913,6 +1916,41 @@
 				{
 					"id": "repo-settings/as-owner",
 					"pattern": "^as owner of the (.+) organization\\.?$"
+				},
+				// —— 规则集（/owner/repo/settings/rules 与 /settings/rules/<id>）——
+				// 证据：维护者 2026-09-27 的漏翻清单与列表页截图。规则集页的「含动态值」文案
+				// 全是文本节点（不含属性——属性不走规则，故组合型 aria-label 在词条侧各收一条）。
+				// 列表行计数：`8 branch rules • targeting 1 branch`。分隔符在实机是项目符号，
+				// 但 GitHub 的标题类文案用中点（见 pages/repo-settings 的 Settings · GitHub Copilot · …），
+				// 两种字形都收进字符类，免得改版时静默失效。
+				{
+					"id": "repo-settings/ruleset-branch-rules-count",
+					"pattern": "^(\\d+) branch rules? [\\u2022\\u00B7] targeting (\\d+) branch(?:es)?$"
+				},
+				// 目标分支的计数（`1 target`）
+				{
+					"id": "repo-settings/ruleset-target-count",
+					"pattern": "^(\\d+) targets?$"
+				},
+				// 文档标题（面包屑）：`Settings · Rulesets · <仓库名>`，仓库名保留原文
+				{
+					"id": "repo-settings/ruleset-breadcrumb",
+					"pattern": "^Settings [\\u2022\\u00B7] Rulesets [\\u2022\\u00B7] (.+)$"
+				},
+				// 绕过名单的类别筛选器：`Apps • <应用名>`，应用名是动态值
+				{
+					"id": "repo-settings/ruleset-actor-category",
+					"pattern": "^Apps [\\u2022\\u00B7] (.+)$"
+				},
+				// 目标分支条件的删除按钮（sr-only）：`Delete include of <分支模式>`。
+				// 默认分支那一条先命中，输出中文；自定义模式保留模式原文（模式是用户内容）
+				{
+					"id": "repo-settings/ruleset-delete-include-default",
+					"pattern": "^Delete include of Default$"
+				},
+				{
+					"id": "repo-settings/ruleset-delete-include",
+					"pattern": "^Delete include of (.+)$"
 				}
 			]
 		},

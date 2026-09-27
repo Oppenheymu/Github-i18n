@@ -389,6 +389,13 @@
 		"repo-settings/role-admin": "角色：管理员",
 		"repo-settings/admin-owner": "作为 $1 组织的所有者，拥有管理员权限。",
 		"repo-settings/as-owner": "，作为 $1 组织的所有者",
+		// —— 规则集（/owner/repo/settings/rules）——
+		"repo-settings/ruleset-branch-rules-count": "$1 条分支规则 · 目标 $2 个分支",
+		"repo-settings/ruleset-target-count": "$1 个目标",
+		"repo-settings/ruleset-breadcrumb": "设置 · 规则集 · $1",
+		"repo-settings/ruleset-actor-category": "应用 · $1",
+		"repo-settings/ruleset-delete-include-default": "删除默认分支的包含项",
+		"repo-settings/ruleset-delete-include": "删除 $1 的包含项",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

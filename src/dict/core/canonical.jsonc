@@ -2232,7 +2232,135 @@
 				"With MCP, you can extend the capabilities of Copilot cloud agent and Copilot code review by connecting them to other tools and services. The",
 				"You can configure your own MCP servers by adding JSON configuration below. MCP servers can optionally access secrets defined in the repository's",
 				"and",
-				"environment."
+				"environment.",
+				// —— 规则集（/owner/repo/settings/rules 与 /owner/repo/settings/rules/<id>）——
+				// 证据：维护者 2026-09-27 导出的漏翻清单（path 全为 /settings/rules/24064311）
+				// ＋ 两张实机截图（列表页与「New ruleset」下拉）。本模块此前**没有任何**规则集词条，
+				// 属整页新增，故清单里的条目都是新键。
+				// 不收录（未命中即保留英文，是正确行为而不是漏译）：规则名 Protect Default Branch
+				// （用户自命名）、仓库名 Github-i18n、用户名 Oppenheymu / M. Oppenheymu /
+				// @Oppenheymu、分支名 main、产品名 GitHub / CodeQL / Dependabot / Copilot / OIDC，
+				// 以及快捷键提示 alt shift r（按键名在各语言里都保持英文）。
+				// 清单里还有一条孤立的 changes（50 次）归属不明（见仓库文档的说明），不收：
+				// 它是泛化短词，收进来会命中用户内容，收益远小于风险。
+				// —— 列表页（/settings/rules）与溢出菜单 ——
+				"Export ruleset",
+				"Delete ruleset",
+				"New ruleset",
+				"New branch ruleset",
+				"New tag ruleset",
+				"Import a ruleset",
+				"Choose a JSON file to upload",
+				// —— 规则详情页：标题与执行状态 ——
+				"Ruleset",
+				"Branch rules",
+				"Enforcement status",
+				// 状态值来自固定枚举（Active / Disabled …），收静态键；
+				// 与 <状态>, Enforcement status 合成的 aria-label 是两处独立文本，
+				// 属性不走正则规则（见 src/content/walker.ts），故组合串也各收一条
+				"Active",
+				"Active, Enforcement status",
+				// —— 目标分支（Branch targeting criteria）——
+				"Branch targeting criteria",
+				"Target branches",
+				"Which branches should be matched?",
+				"Target by inclusion or exclusion pattern",
+				"Include all branches",
+				"Include default branch",
+				"Include by pattern",
+				"Exclude by pattern",
+				"Add target",
+				"Applies to",
+				// 计数（`1 target`）见 core/rules.jsonc 的 ruleset-target-count
+				// —— 绕过名单（Bypass list）——
+				"Bypass actor actions",
+				"Select bypass mode",
+				"Always allow",
+				"Add bypass",
+				"Actors",
+				"Roles",
+				"Teams",
+				"Apps",
+				"Others",
+				// 单数形态出现在筛选下拉里，与复数 Others 是两个不同的键
+				"Other",
+				"Repository admin",
+				"Filter actors by category",
+				"Filter actors",
+				// 类别页签的 aria-label 是「<类别>, Filter actors by category」合成串，
+				// 属性只走精确命中，故六个类别各收一条（All / Roles / Teams / Apps / Others / Users）
+				"All, Filter actors by category",
+				"Roles, Filter actors by category",
+				"Teams, Filter actors by category",
+				"Apps, Filter actors by category",
+				"Others, Filter actors by category",
+				"Users, Filter actors by category",
+				"Items will be filtered as you type",
+				"Choose which roles, teams, agents, apps, and users can bypass this ruleset",
+				"Exempt roles, teams, agents, apps, and users from this ruleset by adding them to the bypass list.",
+				"No apps in bypass list",
+				"No roles in bypass list",
+				"No teams in bypass list",
+				"No other actors in bypass list",
+				// —— 规则列表（Which rules should be applied?）——
+				"Which rules should be applied?",
+				"Rules",
+				"Show additional settings",
+				"Open additional options",
+				"Include:",
+				// 规则项标题 + 说明（规则列表里每条规则的固定文案）
+				"Require a pull request before merging",
+				"Require all commits be made to a non-target branch and submitted via a pull request before they can be merged.",
+				"Block force pushes",
+				"Prevent users with push access from force pushing to refs.",
+				"Require linear history",
+				"Prevent merge commits from being pushed to matching refs.",
+				"Require signed commits",
+				"Commits pushed to matching refs must have verified signatures.",
+				"Require deployments to succeed",
+				"Choose which environments must be successfully deployed to before refs can be pushed into a ref that matches this rule.",
+				"Require status checks to pass",
+				"Choose which status checks must pass before the ref is updated. When enabled, commits must first be pushed to another ref where the checks pass.",
+				"Require code scanning results",
+				"Choose which tools must provide code scanning results before the reference is updated. When configured, code scanning must be enabled and have results for both the commit and the reference being updated.",
+				"Require code quality results",
+				"Choose which severity levels of code quality results should block pull request merges. When configured, a code quality analysis must be done on the pull request before the changes can be merged.",
+				"The lowest severity level at which code quality reviews need to be resolved before commits can be merged.",
+				"Restrict code coverage",
+				"Enforce minimum line coverage thresholds on pull requests. When configured, uploaded coverage data must meet the specified criteria before changes can be merged.",
+				"Restrict creations",
+				"Only allow users with bypass permission to create matching refs.",
+				"Restrict updates",
+				"Only allow users with bypass permission to update matching refs.",
+				"Restrict deletions",
+				"Only allow users with bypass permissions to delete matching refs.",
+				"Automatically request Copilot code review",
+				"Request Copilot code review for new pull requests automatically if the author has access to Copilot code review and their premium requests quota has not reached the limit.",
+				// —— 代码扫描工具与严重性阈值（规则项的展开面板）——
+				"Required tools and alert thresholds",
+				"Code scanning tools",
+				"Tools that must provide code scanning results for this rule to pass.",
+				"Add tool",
+				"Delete tool",
+				"Tool name",
+				"Enter a tool name",
+				"Learn more about enabling code scanning.",
+				"Security alerts",
+				"Alerts",
+				"Severity",
+				"Select Severity",
+				"Default",
+				"Errors",
+				"Errors and Warnings",
+				"Warnings and higher",
+				"Notes and higher",
+				"High or higher",
+				"Medium or higher",
+				"Critical",
+				// —— 底部固定操作栏 ——
+				"Revert",
+				"Revert changes",
+				"Save changes"
 			]
 		},
 		{

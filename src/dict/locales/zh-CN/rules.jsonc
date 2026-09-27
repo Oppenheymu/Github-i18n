@@ -521,6 +521,10 @@
 		"repo/commits-count": "$1 次提交",
 		"repo/reactions-count": "$1 次回应",
 		"repo/people-reacted": "$1 人已回应",
+		// 仓库侧栏计数：与既有词条用词保持一致（星标 / 关注 / 复刻，见 global.jsonc 与 profile.jsonc）
+		"repo/stars-count": "$1 个星标",
+		"repo/watchers-count": "$1 人在关注",
+		"repo/forks-count": "$1 个复刻",
 		"global/now": "刚刚",
 		"global/yesterday": "昨天",
 		"global/seconds-ago": "$1 秒前",

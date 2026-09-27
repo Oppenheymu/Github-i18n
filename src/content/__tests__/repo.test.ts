@@ -150,4 +150,41 @@ describe("仓库页的实机节点边界", () => {
 			"星标",
 		);
 	});
+
+	it("translates the sidebar counts through the repo count rules", () => {
+		// 侧栏三个计数（星标 / 关注 / 复刻）是「数字 + 单位」的单个节点，
+		// 数字随仓库变化，故走规则而不是静态词条（静态词条只能解采集时的那一个值）。
+		// 2026-09 维护者按截图 + `<span> stars</span>` 片段确认了这三个节点的存在。
+		expect(translateText("5 stars", view)).toBe("5 个星标");
+		expect(translateText("1 star", view)).toBe("1 个星标");
+		expect(translateText("2 watching", view)).toBe(
+			"2 人在关注",
+		);
+		expect(translateText("1 fork", view)).toBe("1 个复刻");
+		expect(translateText("3 forks", view)).toBe("3 个复刻");
+		// 千位缩写与带逗号的计数同样命中（GitHub 会渲染成 4.1k / 1,234 这类形态）
+		expect(translateText("4.1k stars", view)).toBe(
+			"4.1k 个星标",
+		);
+		expect(translateText("1,234 stars", view)).toBe(
+			"1,234 个星标",
+		);
+	});
+
+	it("keeps repository names that contain count words untouched", () => {
+		// 规则锚定整节点且要求「数字 + 单位」形态，故仓库名 / 描述里的这些词不会被误伤
+		for (const raw of [
+			"stars",
+			"watching",
+			"5 stars and 2 forks",
+			"awesome-stars",
+			"star charts",
+			"fork it",
+		]) {
+			expect(
+				translateText(raw, view),
+				`不应被翻译：${JSON.stringify(raw)}`,
+			).toBeNull();
+		}
+	});
 });

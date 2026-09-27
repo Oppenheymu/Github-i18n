@@ -2528,6 +2528,20 @@
 				{
 					"id": "repo/people-reacted",
 					"pattern": "^([\\d,]+) people reacted$"
+				},
+				// 仓库侧栏的三个计数（星标 / 关注 / 复刻）：实机是「数字 + 单位」的单个节点，
+				// 数字会随仓库变化（也会出现 4.1k 这类缩写形态，故 `[\\d.,k]+` 一并收）
+				{
+					"id": "repo/stars-count",
+					"pattern": "^([\\d.,k]+) stars?$"
+				},
+				{
+					"id": "repo/watchers-count",
+					"pattern": "^([\\d.,k]+) watching$"
+				},
+				{
+					"id": "repo/forks-count",
+					"pattern": "^([\\d.,k]+) forks?$"
 				}
 			]
 		},

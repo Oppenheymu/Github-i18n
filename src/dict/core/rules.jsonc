@@ -685,6 +685,81 @@
 				{
 					"id": "settings/session-seen-in",
 					"pattern": "^Seen in (.+)$"
+				},
+				// —— 凭据 / 开发者设置一族（/settings/credentials、apps、developers、tokens、
+				// personal-access-tokens）——
+				// 凭据总览卡片的计数行：实机是**单个文本节点**（"0 keys" / "3 tokens" /
+				// "18 OAuth apps" / "4 GitHub Apps"），数字是动态值，故各形态一条规则；
+				// 单捕获组用 $1，不命名（命名组约定见 docs/guides/development.md）。
+				// 注意 "GitHub Apps" 的 A 在实机里是大写（产品名），"OAuth apps" 是小写 a。
+				{
+					"id": "settings/credentials-keys-count",
+					"pattern": "^(\\d+) keys?$"
+				},
+				{
+					"id": "settings/credentials-tokens-count",
+					"pattern": "^(\\d+) tokens?$"
+				},
+				{
+					"id": "settings/credentials-oauth-apps-count",
+					"pattern": "^(\\d+) OAuth apps?$"
+				},
+				{
+					"id": "settings/credentials-github-apps-count",
+					"pattern": "^(\\d+) GitHub Apps?$"
+				},
+				// 经典令牌行的过期日期：实机节点形如 "on Fri, Nov 27 2026" / "on Wed, Sep  2 2026"
+				// （周几缩写 + 月份缩写 + **空格补齐的日**，年份前无逗号）。月份无法经捕获组映射成
+				// 中文，故按 12 个月份全展开；周几用 [A-Za-z]{3} 吃掉、中文里不体现
+				// （「2026 年 11 月 27 日」已足够表达，且周几与日期绑定无歧义）。
+				// 日与月之间的多个空格用 + 容忍（实机 "Sep  2" 是两个空格）。
+				{
+					"id": "settings/expires-on-jan",
+					"pattern": "^on [A-Za-z]{3}, Jan +(?<day>\\d{1,2}) (?<year>\\d{4})$"
+				},
+				{
+					"id": "settings/expires-on-feb",
+					"pattern": "^on [A-Za-z]{3}, Feb +(?<day>\\d{1,2}) (?<year>\\d{4})$"
+				},
+				{
+					"id": "settings/expires-on-mar",
+					"pattern": "^on [A-Za-z]{3}, Mar +(?<day>\\d{1,2}) (?<year>\\d{4})$"
+				},
+				{
+					"id": "settings/expires-on-apr",
+					"pattern": "^on [A-Za-z]{3}, Apr +(?<day>\\d{1,2}) (?<year>\\d{4})$"
+				},
+				{
+					"id": "settings/expires-on-may",
+					"pattern": "^on [A-Za-z]{3}, May +(?<day>\\d{1,2}) (?<year>\\d{4})$"
+				},
+				{
+					"id": "settings/expires-on-jun",
+					"pattern": "^on [A-Za-z]{3}, Jun +(?<day>\\d{1,2}) (?<year>\\d{4})$"
+				},
+				{
+					"id": "settings/expires-on-jul",
+					"pattern": "^on [A-Za-z]{3}, Jul +(?<day>\\d{1,2}) (?<year>\\d{4})$"
+				},
+				{
+					"id": "settings/expires-on-aug",
+					"pattern": "^on [A-Za-z]{3}, Aug +(?<day>\\d{1,2}) (?<year>\\d{4})$"
+				},
+				{
+					"id": "settings/expires-on-sep",
+					"pattern": "^on [A-Za-z]{3}, Sep +(?<day>\\d{1,2}) (?<year>\\d{4})$"
+				},
+				{
+					"id": "settings/expires-on-oct",
+					"pattern": "^on [A-Za-z]{3}, Oct +(?<day>\\d{1,2}) (?<year>\\d{4})$"
+				},
+				{
+					"id": "settings/expires-on-nov",
+					"pattern": "^on [A-Za-z]{3}, Nov +(?<day>\\d{1,2}) (?<year>\\d{4})$"
+				},
+				{
+					"id": "settings/expires-on-dec",
+					"pattern": "^on [A-Za-z]{3}, Dec +(?<day>\\d{1,2}) (?<year>\\d{4})$"
 				}
 			]
 		},

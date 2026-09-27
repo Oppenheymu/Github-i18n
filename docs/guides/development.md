@@ -380,6 +380,7 @@ for (const p of probes) {
 | `settings-security.test.ts` | `/settings/security` | 账号安全页（通行密钥行的动态日期整句、2FA 横幅三段拼接、密码强度六段拼接；**独立模块** `pages/settings-security`） |
 | `settings-sessions.test.ts` | `/settings/sessions` | 会话页（Web / GitHub Mobile 两张卡；动态国家码走 `settings/session-seen-in` 规则，带城市与日期的 `aria-label` 结构上翻不了） |
 | `settings-keys.test.ts` | `/settings/keys` | SSH / GPG 密钥页（说明句被两个链接切成四段；`This action cannot be undone.` 三段拼接；`Added <日期>` 是标签 + 日期两个节点） |
+| `settings-credentials.test.ts` | `/settings/credentials`、`/settings/apps`、`/settings/developers`、`/settings/tokens`、`/settings/personal-access-tokens` | 凭据 / 开发者设置一族（五页共用一份回归：令牌说明句的链接拼接、卡片计数规则、12 个月份的过期日期规则；OAuth 权限范围标识符保留英文） |
 | `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |
@@ -470,6 +471,16 @@ Added on Mar 6, 2026
 - 本模块路由 `^/settings/security` 与 `pages/settings` 的 `^/(?:settings|account/billing)` **重叠**，`buildView` 逐键「先到先得」：本页专属词条放前一个模块，侧栏与通用设置词条由 `pages/settings` 兜底——**不要在两个模块里登记同一个键**，否则前者胜出、后者是看不见的死数据；
 - 未枚举的相对时间形态（`last week`、绝对日期等）整节点保留英文：规则两端以 `^…$` 锚定、不做部分替换，所以不会产出中英残句，这与「宁可漏翻也不产出残句」的既有取舍一致；上游若把相对时间改成 `<relative-time>` 元素渲染，整句会被拆成多节点、这 120 条规则自然失效，届时按实机节点重收碎片词条。
 - **2026-09 补丁：`about` 前缀**。GitHub 把小时档的相对时间渲染成 `about 1 hour ago`（漏翻导出在 `/settings/security` 抓到 `Added on Mar 6, 2026 | Last used about 1 hour ago`），原先的 `(?<count>\d+) hours? ago` 匹配不到，故 12 条 hours 形态的 pattern 统一放宽为 `(?:about )?(?<count>\d+) hours? ago`——**只改 pattern，各语言模板不动**（模板只引用 `$<count>`）。分钟 / 天等档位没有 `about` 形态的实证，保持原样；抓到时按同一手法放宽。
+
+### 凭据 / 开发者设置一族的三个取舍
+
+`/settings/credentials`、`/settings/apps`、`/settings/developers`、`/settings/tokens`、`/settings/personal-access-tokens` 五页共用 `pages/settings` 模块（路由 `^/(?:settings|account/billing)`），词条直接追加在那里，不新建模块——它们只带来 16 条规则，没有 `pages/settings-security` 那种「一百多条规则淹掉别的探针」的规模问题。三条需要记住的取舍：
+
+- **OAuth 权限范围标识符不译**（`repo` / `user` / `workflow` / `gist` / `notifications` / `project` / `copilot` / `codespace` / `audit_log` / `admin:*` / `read:*` / `write:*` / `delete:*`）：它们是 API 里的字面量，译了会与代码、文档、报错信息对不上，与 `GPG` / `CLI` 同属「纯标识符保留英文」。芯片的 `title` 是**人类可读说明**，那部分要译（已逐条收录，见 `settings-credentials.test.ts`）；
+- **令牌过期日期按 12 个月份全展开**（`settings/expires-on-*`）：实机节点形如 `on Fri, Nov 27 2026` / `on Wed, Sep  2 2026`——周几缩写 + 月份缩写 + **空格补齐的日**、年份前无逗号。月份无法经捕获组映射成中文（与 `global/short-date-*`、`settings/usage-range-*` 同一个原因），故写死月份；周几用 `[A-Za-z]{3}` 吃掉且**中文里不体现**（`2026 年 11 月 27 日` 已足够，且周几由日期唯一确定）。日与月之间的多个空格用 ` +` 容忍；
+- **`GitHub API` 保留英文**：纯专名加缩写，译文无法含中文字系（门禁要求含目标语言文字系统），未命中即保留英文是正确的；句子被链接切开时按碎片收录，拼接后仍读得通。
+
+`/settings/personal-access-tokens` 有一条**待复核**的漏翻：导出里是 `You can’t perform that action at this tim`（疑似被截断，正常文案应是 `… at this time.`）。**没有把握的原文不收**（收了就是永不命中的死键），下次采集时用 Console 片段确认后补。
 
 ### 上游改版时怎么办
 

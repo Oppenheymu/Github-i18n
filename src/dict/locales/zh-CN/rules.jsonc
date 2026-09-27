@@ -164,6 +164,25 @@
 		"settings/owner-organizations": "你的账户目前是以下组织的所有者：$1",
 		// 会话卡「曾出现地区」：国家码是动态值，按原样带回
 		"settings/session-seen-in": "曾出现于 $1",
+		// —— 凭据 / 开发者设置一族（/settings/credentials、tokens 等五页）——
+		// 卡片计数行：数字按原样带回，量词由模板给
+		"settings/credentials-keys-count": "$1 个密钥",
+		"settings/credentials-tokens-count": "$1 个令牌",
+		"settings/credentials-oauth-apps-count": "$1 个 OAuth 应用",
+		"settings/credentials-github-apps-count": "$1 个 GitHub 应用",
+		// 令牌过期日期（"on Fri, Nov 27 2026"）：周几按约定不体现，月份写死在模板里
+		"settings/expires-on-jan": "$<year> 年 1 月 $<day> 日",
+		"settings/expires-on-feb": "$<year> 年 2 月 $<day> 日",
+		"settings/expires-on-mar": "$<year> 年 3 月 $<day> 日",
+		"settings/expires-on-apr": "$<year> 年 4 月 $<day> 日",
+		"settings/expires-on-may": "$<year> 年 5 月 $<day> 日",
+		"settings/expires-on-jun": "$<year> 年 6 月 $<day> 日",
+		"settings/expires-on-jul": "$<year> 年 7 月 $<day> 日",
+		"settings/expires-on-aug": "$<year> 年 8 月 $<day> 日",
+		"settings/expires-on-sep": "$<year> 年 9 月 $<day> 日",
+		"settings/expires-on-oct": "$<year> 年 10 月 $<day> 日",
+		"settings/expires-on-nov": "$<year> 年 11 月 $<day> 日",
+		"settings/expires-on-dec": "$<year> 年 12 月 $<day> 日",
 		// —— 账单页（/account/billing）的动态用量说明 ——
 		// 区间按月全展开（与 insights/range-long-* 同一形态）：pattern 里写死英文月份
 		// 全称，模板里写死对应中文月份。之所以逐组合展开、而不是用捕获组，是因为

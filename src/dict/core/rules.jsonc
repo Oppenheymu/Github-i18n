@@ -2023,6 +2023,14 @@
 				{
 					"id": "repo-settings/languages-selected-count",
 					"pattern": "^(?<count>\\d+) of (?<total>\\d+) languages? selected$"
+				},
+				// 安全分析页（组织仓库）Used by counter 的包菜单：
+				// `NPM · 1 dependent repository` / `NPM · 4 dependent repositories`。
+				// 注册表名（NPM / Docker…）由捕获组带回模板、保持英文；分隔符在实机是中点，
+				// 但仍用字符类同时覆盖中点与项目符号（与既有规则同一处理方式）。
+				{
+					"id": "repo-settings/dependent-repositories-count",
+					"pattern": "^(?<registry>\\S+) [\\u00b7\\u2022] (?<count>[\\d,]+) dependent repositor(?:y|ies)$"
 				}
 			]
 		},

@@ -3114,7 +3114,45 @@
 				"You haven't created any rulesets",
 				"Define whether collaborators can delete or force push and set requirements for any pushes, such as passing status checks or a linear commit history.",
 				"rulesets.",
-				"Learn more about rulesets."
+				"Learn more about rulesets.",
+				// —— 安全分析页在**组织仓库**上的额外区块 ——
+				// 依据：维护者 2026-09-27 提供的 Koishi-CE/koishi 实机 outerHTML（已加载扩展）。
+				// 与个人仓库那一版相比，同一页多了四块东西：
+				//   ① Used by counter（包被引用次数 + 选择包的菜单）；
+				//   ② Dependabot 与 Code scanning 各有一个「Prevent direct alert dismissals」，
+				//      标题同串、说明句不同（后者更长），故两条说明各自成键；
+				//   ③ Code scanning 顶部的告警横幅（Code scanning: one or more analysis tools…）；
+				//   ④ 页尾的 Access to alerts（授权名单 + 上限提示 + 固定成员说明）。
+				// 另外按钮的 aria-label 在功能开启时是「Enable …」方向，与个人仓库版收的
+				// 「Disable … / Configure …」不是同一个串，需各自登记。
+				// 动态值：包菜单里的 `NPM · 1 dependent repository` 走规则（见 core/rules.jsonc）。
+				// 不收录：包名（@koishi-ce/…，用户内容）、Scorecard（工具名）、hidden 表单标签
+				// （Token scanning enabled）、`@{{ name }}` 之类的模板占位符。
+				"Used by counter",
+				"The used by counter displays the number of public references to a package that your repository owns. If you have multiple packages, choose which one to display.",
+				"Select package",
+				"Prevent direct alert dismissals",
+				"Actors must submit requests to dismiss an alert.",
+				"Enable delegated closures",
+				"Actors must submit requests to dismiss an alert. This can impact pull requests requiring code scanning dismissal to merge.",
+				"Protected direct alert dismissal enablement",
+				"Code scanning: one or more analysis tools are reporting problems",
+				"Scorecard is reporting warnings. Check the",
+				"status page",
+				"for help.",
+				"Access to alerts",
+				"Admins, users, and teams in the list below have permission to view and manage code scanning, Dependabot, or secret scanning alerts. These users may be notified when a new vulnerability is found in one of this repository's dependencies and when a secret or key is checked in. They will also see additional details when viewing Dependabot security updates. Individuals can manage how they receive these alerts in their",
+				"notification settings",
+				"Choose the people or teams you would like to grant access",
+				"Search for people or teams",
+				"You have reached the maximum number of people and teams you can add.",
+				"Remove one or more to continue adding others.",
+				"People and teams with access",
+				"Organization administrators, repository administrators, and teams with the security manager role",
+				"These members always see code scanning, Dependabot, and secret scanning alerts.",
+				"Enable malware alerts",
+				"Enable Dependabot version updates",
+				"Enable private vulnerability reporting"
 			]
 		},
 		{

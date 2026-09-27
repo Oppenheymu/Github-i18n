@@ -475,3 +475,182 @@ describe("仓库设置页的安全分析子页的实机节点边界", () => {
 		).toBeNull();
 	});
 });
+
+/**
+ * 组织仓库路径下的视图。同属 pages/repo-settings，合并结果与个人仓库版一致，
+ * 这里单独建一份只是为了让「这批键来自组织仓库实机」在测试里有明确坐标。
+ */
+const orgView = buildView(
+	"/Koishi-CE/koishi/settings/security_analysis",
+	dictForLocale("zh-CN"),
+	new Map(Object.entries(dictCore.aliases)),
+);
+
+/** 组织仓库版多出来的节点（原文 → 期望译文） */
+const ORG_NODES: readonly (readonly [string, string])[] = [
+	// —— Used by counter ——
+	["Used by counter", "使用次数计数器"],
+	[
+		"The used by counter displays the number of public references to a package that your repository owns. If you have multiple packages, choose which one to display.",
+		"“使用次数”计数器显示你的仓库所拥有的某个包被公开引用的次数。如果你有多个包，可以选择显示哪一个。",
+	],
+	["Select package", "选择包"],
+	// —— Prevent direct alert dismissals（Dependabot 版与 Code scanning 版）——
+	["Prevent direct alert dismissals", "防止直接忽略警报"],
+	[
+		"Actors must submit requests to dismiss an alert.",
+		"操作者必须提交请求才能忽略警报。",
+	],
+	["Enable delegated closures", "启用委托关闭"],
+	[
+		"Actors must submit requests to dismiss an alert. This can impact pull requests requiring code scanning dismissal to merge.",
+		"操作者必须提交请求才能忽略警报。这可能会影响那些需要先忽略代码扫描警报才能合并的拉取请求。",
+	],
+	[
+		"Protected direct alert dismissal enablement",
+		"受保护的直接忽略警报启用状态",
+	],
+	// —— Code scanning 顶部告警横幅 ——
+	[
+		"Code scanning: one or more analysis tools are reporting problems",
+		"代码扫描：一个或多个分析工具正在报告问题",
+	],
+	[
+		"Scorecard is reporting warnings. Check the",
+		"Scorecard 正在报告警告。请查看",
+	],
+	["status page", "状态页面"],
+	["for help.", "以获取帮助。"],
+	// —— Access to alerts ——
+	["Access to alerts", "警报访问权限"],
+	[
+		"Admins, users, and teams in the list below have permission to view and manage code scanning, Dependabot, or secret scanning alerts. These users may be notified when a new vulnerability is found in one of this repository's dependencies and when a secret or key is checked in. They will also see additional details when viewing Dependabot security updates. Individuals can manage how they receive these alerts in their",
+		"下面列表中的管理员、用户和团队有权查看和管理代码扫描、Dependabot 或机密扫描警报。当此仓库的某个依赖项中发现新漏洞，或有密钥、机密被签入时，这些用户可能会收到通知。他们在查看 Dependabot 安全更新时还会看到更多详情。个人可以自行管理接收这些警报的方式，请前往",
+	],
+	["notification settings", "通知设置"],
+	[
+		"Choose the people or teams you would like to grant access",
+		"选择你希望授予访问权限的人员或团队",
+	],
+	["Search for people or teams", "搜索人员或团队"],
+	[
+		"You have reached the maximum number of people and teams you can add.",
+		"你已达到可添加的人员和团队数量上限。",
+	],
+	[
+		"Remove one or more to continue adding others.",
+		"请移除一个或多个，以便继续添加其他项。",
+	],
+	["People and teams with access", "有权访问的人员和团队"],
+	[
+		"Organization administrators, repository administrators, and teams with the security manager role",
+		"组织管理员、仓库管理员以及具有安全管理员角色的团队",
+	],
+	[
+		"These members always see code scanning, Dependabot, and secret scanning alerts.",
+		"这些成员始终可以查看代码扫描、Dependabot 和机密扫描警报。",
+	],
+	// —— 功能处于「已启用」状态时的按钮 aria-label ——
+	["Enable malware alerts", "启用恶意软件警报"],
+	[
+		"Enable Dependabot version updates",
+		"启用 Dependabot 版本更新",
+	],
+	[
+		"Enable private vulnerability reporting",
+		"启用私密漏洞报告",
+	],
+];
+
+/** 按节点顺序拼接译文（未命中的节点保留原文），不补原文空白 */
+function renderOrg(nodes: readonly string[]): string {
+	return nodes
+		.map((node) => translateText(node, orgView) ?? node)
+		.join("");
+}
+
+describe("仓库设置页的安全分析子页在组织仓库上的额外区块", () => {
+	it("translates every org-only text node and translatable attribute", () => {
+		for (const [node, expected] of ORG_NODES) {
+			for (const variant of withWhitespace(node)) {
+				expect(
+					translateText(variant, orgView),
+					`节点 ${JSON.stringify(variant)}`,
+				).toBe(expected);
+			}
+		}
+	});
+
+	it("translates the dependent-repository counter through a rule", () => {
+		// 注册表名由捕获组带回，保持英文；单复数两种词形都要命中
+		expect(
+			translateText(
+				"NPM · 1 dependent repository",
+				orgView,
+			),
+		).toBe("NPM · 1 个依赖仓库");
+		expect(
+			translateText(
+				"NPM · 4 dependent repositories",
+				orgView,
+			),
+		).toBe("NPM · 4 个依赖仓库");
+		expect(
+			translateText(
+				"Docker · 12 dependent repositories",
+				orgView,
+			),
+		).toBe("Docker · 12 个依赖仓库");
+	});
+
+	it("keeps package names, tool names and hidden form labels in english", () => {
+		// 包名是用户内容
+		expect(
+			translateText("@koishi-ce/assets", orgView),
+		).toBeNull();
+		expect(translateText("koishi", orgView)).toBeNull();
+		expect(translateText("Koishi-CE", orgView)).toBeNull();
+		// Scorecard 是分析工具名（整句里的它保持英文，单独节点同样不译）
+		expect(translateText("Scorecard", orgView)).toBeNull();
+		// 隐藏的表单标签（hidden="hidden"）不收
+		expect(
+			translateText("Token scanning enabled", orgView),
+		).toBeNull();
+	});
+
+	it("reassembles the banner and the access-to-alerts paragraph", () => {
+		// 告警横幅：整句 + status page 链接 + 尾段
+		expect(
+			renderOrg([
+				"Scorecard is reporting warnings. Check the",
+				"status page",
+				"for help.",
+			]),
+		).toBe(
+			"Scorecard 正在报告警告。请查看状态页面以获取帮助。",
+		);
+		// Access to alerts 说明段：长句（末尾「请前往」）+ 链接 + 纯符号尾点（不收）
+		expect(
+			renderOrg([
+				"Admins, users, and teams in the list below have permission to view and manage code scanning, Dependabot, or secret scanning alerts. These users may be notified when a new vulnerability is found in one of this repository's dependencies and when a secret or key is checked in. They will also see additional details when viewing Dependabot security updates. Individuals can manage how they receive these alerts in their",
+				"notification settings",
+				".",
+			]),
+		).toBe(
+			"下面列表中的管理员、用户和团队有权查看和管理代码扫描、Dependabot 或机密扫描警报。当此仓库的某个依赖项中发现新漏洞，或有密钥、机密被签入时，这些用户可能会收到通知。他们在查看 Dependabot 安全更新时还会看到更多详情。个人可以自行管理接收这些警报的方式，请前往通知设置.",
+		);
+	});
+
+	it("keeps the two search placeholders apart", () => {
+		// 交互限制页的 placeholder 带省略号，本页不带：两个键都要在，且互不覆盖
+		expect(
+			translateText("Search for people or teams", orgView),
+		).toBe("搜索人员或团队");
+		expect(
+			translateText(
+				"Search for people or teams...",
+				orgView,
+			),
+		).toBe("搜索人员或团队…");
+	});
+});

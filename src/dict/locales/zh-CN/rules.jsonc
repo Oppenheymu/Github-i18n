@@ -414,6 +414,7 @@
 		"repo-settings/advanced-security-intro": "高级安全功能可帮助你的仓库保持安全与最新。启用这些功能即表示你授权我们对你的仓库执行只读分析。",
 		"repo-settings/dependabot-rules-enabled-count": "已启用 $<count> 条规则",
 		"repo-settings/languages-selected-count": "已选择 $<count>/$<total> 种语言",
+		"repo-settings/dependent-repositories-count": "$<registry> · $<count> 个依赖仓库",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

@@ -390,7 +390,7 @@ for (const p of probes) {
 | `settings-pages.test.ts` | `/settings/pages`、`/settings/copilot/coding_agent` | 已验证域名页 + Copilot 云端代理页（两页都很小，合并在一个文件里；说明段是含源码换行的单节点） |
 | `settings-security-analysis.test.ts` | `/settings/security_analysis` | 安全与分析页（每个功能一对「启用 / 禁用 / 全部启用 / 全部禁用 + 你即将…确认句」；私密漏洞报告那对确认句含动态账户名走规则；功能标识符 `dependency_graph` 等保留英文） |
 | `settings-installations.test.ts` | `/settings/installations`、`/settings/applications`、`/settings/apps/authorizations` | 已安装 / 已授权应用一族（应用名是用户内容，`Report <名>` / `Revoke <名>` / `Reporting <名> …` / `<名> will no longer be able to access …` 四条走规则；词典先于规则命中，`Report abuse`、`Revoke all` 仍走词条） |
-| `settings-logs.test.ts` | `/settings/reminders`、`/settings/security-log`、`/settings/sponsors-log`、`/settings/apps` | 定时提醒 / 安全日志 / 赞助记录 / 自建 GitHub Apps（apps 页证据是实机 HTML，其余三页是截图：事件行按链接切分、下拉按 select-menu 两节点形态、查询串与地理数据保留英文） |
+| `settings-logs.test.ts` | `/settings/reminders`、`/settings/security-log`、`/settings/sponsors-log`、`/settings/apps` | 定时提醒 / 安全日志 / 赞助记录 / 自建 GitHub Apps（apps 页与**安全日志的事件行**都有实机 HTML 实证：动态值各被 `<span class="context">` 包住、句号独立成节点，故收 `ending in`/`for the`/`OAuth app` 三个碎片键；提醒与赞助记录两页是截图） |
 | `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |

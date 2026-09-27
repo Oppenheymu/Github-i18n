@@ -1465,10 +1465,14 @@
 				"Reminders allow you to push certain events to authorized instances of Microsoft Teams or Slack.",
 				"Available organizations",
 				// —— /settings/security-log（安全日志）——
-				// 证据强度：**实机截图**。页面外壳（筛选 / 搜索 / 导出 / 分页 / 小贴士）都是
-				// 单节点，直接收；**事件行被链接切开**（截图里用户名与应用名都是链接），
-				// 故按「前缀键 + 中段规则 + 尾段键」拆开登记，边界是**按截图推断**的
-				// （推断依据写在注释里；若实机边界更细，规则不命中、该行保留英文，不会产出残句）。
+				// 证据强度：**实机截图 + 事件行的实机 HTML 实证**（2026-09-27 维护者提供）。
+				// 页面外壳（筛选 / 搜索 / 导出 / 分页 / 小贴士）都是单节点，直接收。
+				// 事件行的**真实节点边界**由 HTML 确证（原先按截图推断的「中段含令牌尾号」是错的）：
+				//   `Revoked a token for ` + <a>用户名</a> + ` ending in ` + <span>令牌尾号</span> +
+				//   ` for the ` + <span>应用名</span> + ` ` + <span>OAuth app</span> + `.`
+				// 即动态值各自被 `<span class="context">` 包住，句号也是独立节点——
+				// 所以这里收的是 `ending in` / `for the` / `OAuth app` 三个**碎片键**
+				// （归一化后不含首尾空格），中段的令牌尾号是用户内容、不收录。
 				"Filters",
 				"Search audit logs",
 				"Export",
@@ -1478,9 +1482,19 @@
 				// 同键在 pages/search 已有词条（「小贴士！」），那条路由不命中 /settings
 				"ProTip!",
 				"View all events created yesterday",
-				// 事件行 1：`Revoked a token for <用户名链接> ending in <令牌尾号> for the <应用名链接> OAuth app.`
+				// 事件行 1 的四个静态碎片（用户名 / 令牌尾号 / 应用名保留英文）
 				"Revoked a token for",
-				"OAuth app.",
+				"ending in",
+				"for the",
+				"OAuth app",
+				// 事件行里的无障碍文案：两个筛选提示（sr-only tooltip）与「展开详情」按钮
+				"Filter by Member",
+				"Filter by Action",
+				"Show more details",
+				// 事件行 2 的**前缀碎片**（应用名被 <span> 包住，故与后缀的 ")" 分属节点；
+				// 同页也存在整句形态，那条走 core/rules.jsonc 的
+				// settings/audit-removed-oauth-authorization 规则，两种形态都覆盖）
+				"Removed authorization for OAuth application (",
 				// —— /settings/sponsors-log（赞助记录）——
 				// 证据强度：**实机截图**。下拉的「Period: All-time」按本仓已实测的
 				// `<details><summary>` select-menu 形态拆成两个节点（同 repositories 页的

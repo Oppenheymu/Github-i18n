@@ -837,18 +837,14 @@
 					"id": "settings/application-api-revoke-notice",
 					"pattern": "^(.+) will no longer be able to access the GitHub API\\. You cannot undo this action\\.$"
 				},
-				// 安全日志页（/settings/security-log）的事件行：**边界按实机截图推断**——
-				// 行里的用户名与应用名都是链接，故被切成
-				//   "Revoked a token for " + 用户名 + " ending in <令牌尾号> for the " + 应用名 + " OAuth app."
-				// 中段含动态令牌尾号，只能靠规则；前后段是静态键（见 canonical）。
-				// 若实机边界比截图更细（例如令牌尾号单独成节点），本规则不命中、该行保留英文，
-				// 不会产出中英残句。
-				{
-					"id": "settings/audit-token-revoked-middle",
-					"pattern": "^ending in (.+) for the$"
-				},
-				// 同一页另一种事件行：`Removed authorization for OAuth application (<应用名>)`
-				// ——截图里应用名是普通文本（非链接），故按单个节点处理、应用名按原样带回。
+				// 安全日志页（/settings/security-log）的事件行 2：
+				// `Removed authorization for OAuth application (<应用名>)`——截图里这一行是整句
+				// （应用名不在链接里），故按单节点规则、应用名按原样带回。
+				// 实机 HTML 已确证**同一页的动态值会被 `<span class="context">` 包住**，
+				// 所以另一种可能的分段形态（前缀 "Removed authorization for OAuth application ("
+				// + 应用名 + ")"）也在 canonical 里收了前缀碎片键，两种形态都覆盖。
+				// 事件行 1（Revoked a token for …）原先推断的中段规则已删除：HTML 证明令牌尾号
+				// 在独立 <span> 里，那条规则永不命中（碎片键 ending in / for the / OAuth app 才是对的）。
 				{
 					"id": "settings/audit-removed-oauth-authorization",
 					"pattern": "^Removed authorization for OAuth application \\((.+)\\)$"

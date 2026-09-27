@@ -4,16 +4,22 @@
 //
 // 证据强度（逐页写清，因为这四页都没有途径 A 的漏翻导出）：
 //   - /settings/apps：**实机 HTML 实证**（维护者粘贴的 outerHTML）——blankslate 三段；
-//   - /settings/reminders、/settings/security-log、/settings/sponsors-log：**实机截图**。
+//   - /settings/security-log：页面外壳来自**实机截图**，事件行来自**维护者粘贴的 outerHTML**
+//     （这一点很关键：截图看不出边界，HTML 才确证了真实切分，见下）；
+//   - /settings/reminders、/settings/sponsors-log：**实机截图**。
 //
 // 因此本文件里凡是截图看不出边界的地方，都在注释里写明了推断依据：
-//   1. 安全日志的**事件行被链接切开**（截图里用户名与应用名都是链接且带下划线），
-//      故按「前缀键 + 中段规则 + 尾段键」登记；若实机边界更细，规则不命中、该行保留英文，
-//      不会产出中英残句（这正是「宁可漏翻」的取舍）；
+//   1. 安全日志**事件行 1 的真实边界**（HTML 实证）：
+//      `Revoked a token for ` + <a>用户名</a> + ` ending in ` + <span>令牌尾号</span> +
+//      ` for the ` + <span>应用名</span> + ` ` + <span>OAuth app</span> + `.`
+//      ——动态值各自被 `<span class="context">` 包住、句号也是独立节点，所以收的是
+//      `ending in` / `for the` / `OAuth app` 三个碎片键。上一轮按截图推断的
+//      「中段含令牌尾号」是错的，对应规则已删除（HTML 一到就换成了正确形态）；
 //   2. 赞助记录右上角的下拉按本仓已实测的 `<details><summary>` select-menu 形态拆成
 //      「Period:」+ 当前值两个节点（同 /settings/repositories 的 `Commit comments:` + 值）；
-//   3. 事件行里的令牌尾号、应用名、用户名、审计查询串（`created:2026-09-26`）与
-//      地理位置都是动态值或用户内容，一律保留英文。
+//   3. 事件行里的令牌尾号、应用名、用户名、审计查询串（`created:2026-09-26`）、
+//      明细表字段名（`@timestamp` / `hashed_token` …）与地理位置都是动态值、标识符或
+//      用户内容，一律保留英文。
 import { describe, expect, it } from "bun:test";
 import {
 	dictCore,
@@ -52,9 +58,17 @@ const SECURITY_LOG_NODES: readonly string[] = [
 	"Older",
 	"ProTip!",
 	"View all events created yesterday",
-	// 事件行 1 的前后两段（中段含动态令牌尾号，走规则）
+	// 事件行 1 的四个静态碎片（HTML 实证：动态值各自被 <span class="context"> 包住）
 	"Revoked a token for",
-	"OAuth app.",
+	"ending in",
+	"for the",
+	"OAuth app",
+	// 事件行里的无障碍文案（两个筛选 tooltip 与「展开详情」按钮）
+	"Filter by Member",
+	"Filter by Action",
+	"Show more details",
+	// 事件行 2 的前缀碎片（应用名与其后的 ")" 各是节点）
+	"Removed authorization for OAuth application (",
 ];
 
 /** /settings/sponsors-log 的实机文本节点 */
@@ -219,34 +233,62 @@ describe("安全日志页（/settings/security-log）的实机节点边界", () 
 		).toBe("查看昨天创建的所有事件");
 	});
 
-	it("renders the audit event rows across their link boundaries", () => {
-		// 事件行 1（截图里用户名与应用名都是链接，故是五段拼接）
+	it("renders the audit event rows with the boundaries the HTML proves", () => {
+		// 事件行 1：HTML 实证的分段（前缀 / <a>用户名</a> / " ending in " /
+		// <span>令牌尾号</span> / " for the " / <span>应用名</span> / " " /
+		// <span>OAuth app</span> / "."）——动态值与句号各自成节点
 		expect(
 			renderNodes(
 				[
-					"Revoked a token for",
-					" ",
+					"Revoked a token for ",
 					"Oppenheymu",
-					" ",
-					"ending in gL1WhQrR for the",
-					" ",
+					" ending in ",
+					"gL1WhQrR",
+					" for the ",
 					"Best Practices Badge",
 					" ",
-					"OAuth app.",
+					"OAuth app",
+					".",
 				],
 				securityLogView,
 			),
 		).toBe(
-			"已撤销以下用户的一个令牌： Oppenheymu （结尾为 gL1WhQrR），属于 Best Practices Badge OAuth 应用。",
+			"已撤销以下用户的一个令牌： Oppenheymu ，结尾为 gL1WhQrR ，属于 Best Practices Badge OAuth 应用.",
 		);
-		// 中段规则本身（令牌尾号动态、按原样带回）
+		// 三个碎片键单独也成立（translateText 返回的是归一化后的译文，
+		// 实机的前后空格由 renderNodes / walker 负责保留）
+		expect(
+			translateText(" ending in ", securityLogView),
+		).toBe("，结尾为");
+		expect(
+			translateText(" for the ", securityLogView),
+		).toBe("，属于");
+		expect(
+			translateText("OAuth app", securityLogView),
+		).toBe("OAuth 应用");
+		// 上一轮按截图推断的中段形态（含令牌尾号）实机并不存在，已随规则一起删除
 		expect(
 			translateText(
 				"ending in 1C3g1xqF for the",
 				securityLogView,
 			),
-		).toBe("（结尾为 1C3g1xqF），属于");
-		// 事件行 2（截图里应用名是普通文本，按单节点规则处理）
+		).toBeNull();
+	});
+
+	it("renders the audit event tooltips and the details expander", () => {
+		expect(
+			translateText("Filter by Member", securityLogView),
+		).toBe("按成员筛选");
+		expect(
+			translateText("Filter by Action", securityLogView),
+		).toBe("按操作筛选");
+		expect(
+			translateText("Show more details", securityLogView),
+		).toBe("显示更多详情");
+	});
+
+	it("covers both possible shapes of the second event row", () => {
+		// 整句形态（截图里应用名不在链接里）走规则
 		expect(
 			translateText(
 				"Removed authorization for OAuth application (Best Practices Badge)",
@@ -255,6 +297,18 @@ describe("安全日志页（/settings/security-log）的实机节点边界", () 
 		).toBe(
 			"已移除对 OAuth 应用（Best Practices Badge）的授权",
 		);
+		// 若实机把应用名包进 <span>（同页其它行就是这么渲染的），则前缀碎片键生效、
+		// 应用名与紧随的 ")" 原样保留
+		expect(
+			renderNodes(
+				[
+					"Removed authorization for OAuth application (",
+					"Best Practices Badge",
+					")",
+				],
+				securityLogView,
+			),
+		).toBe("已移除对 OAuth 应用（Best Practices Badge)");
 	});
 });
 

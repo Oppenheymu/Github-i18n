@@ -1018,10 +1018,18 @@
 		// 与 pages/search 的同键译文保持一致（路径互斥）
 		"ProTip!": "小贴士！",
 		"View all events created yesterday": "查看昨天创建的所有事件",
-		// 事件行 1 的三段：已撤销以下用户的一个令牌： + 用户名（链接）+ （结尾为 …），属于 +
-		// 应用名（链接）+ OAuth 应用。
+		// 事件行 1 的四段静态碎片（用户名 / 令牌尾号 / 应用名保留英文）：
+		// 「已撤销以下用户的一个令牌： <用户名> ，结尾为 <令牌尾号> ，属于 <应用名> OAuth 应用.」
 		"Revoked a token for": "已撤销以下用户的一个令牌：",
-		"OAuth app.": "OAuth 应用。",
+		"ending in": "，结尾为",
+		"for the": "，属于",
+		"OAuth app": "OAuth 应用",
+		// 事件行里的无障碍文案
+		"Filter by Member": "按成员筛选",
+		"Filter by Action": "按操作筛选",
+		"Show more details": "显示更多详情",
+		// 事件行 2 的前缀碎片（应用名与其后的 ")" 各是节点）
+		"Removed authorization for OAuth application (": "已移除对 OAuth 应用（",
 		// —— /settings/sponsors-log（赞助记录；证据是实机截图）——
 		// 下拉的标签与当前值是两个节点（同 repositories 页的 "Commit comments:" + 值）
 		"Period:": "时间段：",

@@ -505,6 +505,28 @@
 		// 合并队列（Enterprise；原始英文页实测它在规则列表 real 顺序里紧跟线性历史）
 		"Require merge queue": "要求合并队列",
 		"Merges must be performed via a merge queue.": "合并必须通过合并队列执行。",
+		// Require merge queue 的展开面板（勾选后才渲染）。
+		// 证据：维护者 2026-09-27 贴出的该面板实机 HTML——面板标题「隐藏其他设置」已是中文，
+		// 内容是英文残留，即漏翻点。
+		// 只收实证渲染出来的串：下拉的另外两个选项（Squash and merge / Rebase and merge）
+		// 本次没展开，故不登记；组合型 aria-label 同理只收实测到的这一种形态
+		// （属性不走正则规则，见 src/content/walker.ts）。
+		"Merge method": "合并方式",
+		"Method to use when merging changes from queued pull requests.": "合并队列中拉取请求的更改时使用的方式。",
+		"Merge commit": "合并提交",
+		"Merge commit, Select merge method": "合并提交，选择合并方式",
+		"Build concurrency": "构建并发数",
+		"Limit the number of queued pull requests requesting checks and workflow runs at the same time.": "限制同时请求检查与工作流运行的排队拉取请求数量。",
+		"Minimum group size": "最小分组规模",
+		"The minimum number of PRs that will be merged together in a group.": "同一分组中一起合并的 PR 最小数量。",
+		"Maximum group size": "最大分组规模",
+		"The maximum number of PRs that will be merged together in a group.": "同一分组中一起合并的 PR 最大数量。",
+		"Wait time to meet minimum group size (minutes)": "等待达到最小分组规模的时间（分钟）",
+		"The time merge queue should wait after the first PR is added to the queue for the minimum group size to be met. After this time has elapsed, the minimum group size will be ignored and a smaller group will be merged.": "合并队列在第一个 PR 加入队列后，为凑足最小分组规模应等待的时间。该时间过后，最小分组规模将被忽略，并会合并一个更小的分组。",
+		"Require all queue entries to pass required checks": "要求所有队列条目通过必需检查",
+		"When this setting is disabled, only the commit at the head of the merge group, i.e. the commit containing changes from all of the PRs in the group, must pass its required checks to merge.": "此设置禁用时，只有合并分组头部的提交（即包含组内所有 PR 更改的提交）必须通过其必需检查才能合并。",
+		"Status check timeout (minutes)": "状态检查超时时间（分钟）",
+		"Maximum time for a required status check to report a conclusion. After this much time has elapsed, checks that have not reported a conclusion will be assumed to have failed": "必需状态检查报告结论的最长时间。超过此时间后，仍未报告结论的检查将被视为失败。",
 		"Require signed commits": "要求签名提交",
 		"Commits pushed to matching refs must have verified signatures.": "推送到匹配引用的提交必须具有已验证的签名。",
 		"Require deployments to succeed": "要求部署成功",

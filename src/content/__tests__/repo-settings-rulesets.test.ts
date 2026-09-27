@@ -754,3 +754,106 @@ describe("仓库设置页的「限制谁可以忽略拉取请求审查」面板"
 		).toBe("尚未添加任何操作者。");
 	});
 });
+
+describe("仓库设置页的 Require merge queue 展开面板", () => {
+	it("translates the merge method row and its aria-label", () => {
+		// 证据：维护者 2026-09-27 贴出的该面板实机 HTML（面板标题已是中文，内容为英文残留）。
+		// 下拉的另外两个选项本次未展开，故只锁这一种显示值形态
+		expect(translateText("Merge method", newView)).toBe(
+			"合并方式",
+		);
+		expect(
+			translateText(
+				"Method to use when merging changes from queued pull requests.",
+				newView,
+			),
+		).toBe("合并队列中拉取请求的更改时使用的方式。");
+		expect(translateText("Merge commit", newView)).toBe(
+			"合并提交",
+		);
+		// 组合型 aria-label：属性不走正则规则，整串一条键
+		expect(
+			translateText(
+				"Merge commit, Select merge method",
+				newView,
+			),
+		).toBe("合并提交，选择合并方式");
+	});
+
+	it("translates the four numeric inputs and their captions", () => {
+		expect(
+			translateText("Build concurrency", newView),
+		).toBe("构建并发数");
+		expect(
+			translateText(
+				"Limit the number of queued pull requests requesting checks and workflow runs at the same time.",
+				newView,
+			),
+		).toBe(
+			"限制同时请求检查与工作流运行的排队拉取请求数量。",
+		);
+		expect(
+			translateText("Minimum group size", newView),
+		).toBe("最小分组规模");
+		expect(
+			translateText(
+				"The minimum number of PRs that will be merged together in a group.",
+				newView,
+			),
+		).toBe("同一分组中一起合并的 PR 最小数量。");
+		expect(
+			translateText("Maximum group size", newView),
+		).toBe("最大分组规模");
+		expect(
+			translateText(
+				"The maximum number of PRs that will be merged together in a group.",
+				newView,
+			),
+		).toBe("同一分组中一起合并的 PR 最大数量。");
+		expect(
+			translateText(
+				"Wait time to meet minimum group size (minutes)",
+				newView,
+			),
+		).toBe("等待达到最小分组规模的时间（分钟）");
+		expect(
+			translateText(
+				"The time merge queue should wait after the first PR is added to the queue for the minimum group size to be met. After this time has elapsed, the minimum group size will be ignored and a smaller group will be merged.",
+				newView,
+			),
+		).toBe(
+			"合并队列在第一个 PR 加入队列后，为凑足最小分组规模应等待的时间。该时间过后，最小分组规模将被忽略，并会合并一个更小的分组。",
+		);
+		expect(
+			translateText(
+				"Status check timeout (minutes)",
+				newView,
+			),
+		).toBe("状态检查超时时间（分钟）");
+		expect(
+			translateText(
+				"Maximum time for a required status check to report a conclusion. After this much time has elapsed, checks that have not reported a conclusion will be assumed to have failed",
+				newView,
+			),
+		).toBe(
+			"必需状态检查报告结论的最长时间。超过此时间后，仍未报告结论的检查将被视为失败。",
+		);
+	});
+
+	it("translates the queue entries checkbox and its caption", () => {
+		expect(
+			translateText(
+				"Require all queue entries to pass required checks",
+				newView,
+			),
+		).toBe("要求所有队列条目通过必需检查");
+		expect(
+			translateText(
+				"When this setting is disabled, only the commit at the head of the merge group, i.e. the commit containing changes from all of the PRs in the group, must pass its required checks to merge.",
+				newView,
+			),
+		).toBe(
+			"此设置禁用时，只有合并分组头部的提交（即包含组内所有 PR 更改的提交）必须通过其必需检查才能合并。",
+		);
+	});
+});

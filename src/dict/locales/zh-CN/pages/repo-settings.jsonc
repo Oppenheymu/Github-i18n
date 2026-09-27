@@ -1,4 +1,5 @@
-// 仓库设置模块：/owner/repo/settings 子树——设置侧边栏与 General 设置页词条
+// 仓库设置模块：/owner/repo/settings 子树 + /owner/repo/reported_content（举报内容页，
+// 唯一不含 settings 前缀的那一支）——设置侧边栏与各设置页词条
 // 覆盖：通用信息 / 发布 / 社交预览 / 功能开关 / 合并选项 / 提交 / 归档 / 推送 / 自动关闭议题 / 危险区域
 // / 协作者（Access）/ sudo 身份确认 / Copilot（云端代理、网络访问、MCP）
 // 注：路由也会命中 /orgs/<org>/settings，共享的侧边栏与危险区域文案同样适用；
@@ -32,6 +33,29 @@
 		"Interaction limits": "互动限制",
 		"Moderation": "审核",
 		"Code review limits": "代码审查限制",
+		// —— 举报内容页（/owner/repo/reported_content）——
+		// 证据：维护者 2026-09-27 贴出的该页实机 HTML（Rails 服务端渲染）。
+		// 该页此前是「路由漏网之鱼」（路径不含 settings 前缀，见 core/modules.jsonc），
+		// 路由补齐后这批词条才生效，故与侧栏词条同放一个文件。
+		// 边界：说明句被 Learn more 链接切成两段（句点自成纯符号节点，不翻），
+		// 故整句兜底 + 两段碎片都收；页标题与页签只差首字母大小写，是两条不同的键；
+		// `Report filter` 是 segmented-control 的 aria-label（属性只走精确命中）。
+		"Reported content": "举报内容",
+		"Users can report abusive or disruptive content for review and moderation.": "用户可以举报滥用性或破坏性内容，以供审查和审核。",
+		"Learn more about reported content": "进一步了解举报内容",
+		"Users can report abusive or disruptive content for review and moderation. Learn more about reported content.": "用户可以举报滥用性或破坏性内容，以供审查和审核。进一步了解举报内容。",
+		"Report content setting": "举报内容设置",
+		"Any user on GitHub is able to report content": "GitHub 上的任何用户都可以举报内容",
+		"Prior contributors and collaborators": "此前的贡献者与协作者",
+		"Only users who have previously contributed to the repository and collaborators will be able to report content": "只有此前向该仓库贡献过的用户与协作者才能举报内容",
+		"Disable content reporting": "禁用内容举报",
+		"Disable content reporting for all users": "为所有用户禁用内容举报",
+		"Abuse reports": "滥用举报",
+		"The following content has been reported by users:": "以下内容已被用户举报：",
+		"Report filter": "举报筛选器",
+		"Reported Content": "举报内容",
+		"Resolved": "已解决",
+		"There aren't any unresolved content reports for this repository.": "此仓库没有任何未解决的内容举报。",
 		"Agent suggestions for issues": "议题的代理建议",
 		"Cloud agent": "云端代理",
 		"Internet access": "网络访问",

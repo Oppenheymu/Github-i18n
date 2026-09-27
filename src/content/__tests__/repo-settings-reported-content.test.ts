@@ -8,9 +8,10 @@
 // pages/repo-settings 的整包词条没被加载（实测 matchModules 当时只返回
 // pages/repo + global，438 条 vs 1538 条）。
 //
-// 本文件锁两件事：① 该路径必须命中 pages/repo-settings，且排在 pages/repo 之前
-// （词条先到先得）；② 那批早就有译文的侧栏 / 正文词条在该路径上真的生效。
-// 该页专属词条（Abuse reports 等）待实机 HTML 到手后再补，别按截图猜节点边界。
+// 本文件锁三件事：① 该路径必须命中 pages/repo-settings，且排在 pages/repo 之前
+// （词条先到先得）；② 那批早就有译文的侧栏 / 正文词条在该路径上真的生效；
+// ③ 该页专属文案（页标题、举报设置三个单选项、Abuse reports 空态）按随后贴出的
+// 实机 HTML 逐节点登记后的回归。
 import { describe, expect, it } from "bun:test";
 import {
 	dictCore,
@@ -77,5 +78,107 @@ describe("举报内容页（/owner/repo/reported_content）的模块路由", () 
 	it("keeps the repository's own names in english", () => {
 		expect(translateText("Koishi-CE", view)).toBeNull();
 		expect(translateText("koishi", view)).toBeNull();
+	});
+});
+
+describe("举报内容页的专属文案（实机 HTML 逐节点登记）", () => {
+	it("translates the page heading and its split intro sentence", () => {
+		// 证据：维护者 2026-09-27 贴出的该页实机 HTML（Rails 服务端渲染，
+		// 按钮文案「保存」已是中文，其余为英文原文）
+		expect(translateText("Reported content", view)).toBe(
+			"举报内容",
+		);
+		// 说明句被 Learn more 链接切成两段：前段以句点结尾、后段是链接文本，
+		// 链接后的句点自成纯符号节点（引擎不翻）
+		expect(
+			translateText(
+				"Users can report abusive or disruptive content for review and moderation.",
+				view,
+			),
+		).toBe(
+			"用户可以举报滥用性或破坏性内容，以供审查和审核。",
+		);
+		expect(
+			translateText(
+				"Learn more about reported content",
+				view,
+			),
+		).toBe("进一步了解举报内容");
+		// 上游若改回单节点形态，整句兜底
+		expect(
+			translateText(
+				"Users can report abusive or disruptive content for review and moderation. Learn more about reported content.",
+				view,
+			),
+		).toBe(
+			"用户可以举报滥用性或破坏性内容，以供审查和审核。进一步了解举报内容。",
+		);
+	});
+
+	it("translates the three report-content radios", () => {
+		expect(
+			translateText("Report content setting", view),
+		).toBe("举报内容设置");
+		// All users 是既有词条（本页此前只是没加载模块）
+		expect(translateText("All users", view)).toBe(
+			"所有用户",
+		);
+		expect(
+			translateText(
+				"Any user on GitHub is able to report content",
+				view,
+			),
+		).toBe("GitHub 上的任何用户都可以举报内容");
+		expect(
+			translateText(
+				"Prior contributors and collaborators",
+				view,
+			),
+		).toBe("此前的贡献者与协作者");
+		expect(
+			translateText(
+				"Only users who have previously contributed to the repository and collaborators will be able to report content",
+				view,
+			),
+		).toBe(
+			"只有此前向该仓库贡献过的用户与协作者才能举报内容",
+		);
+		expect(
+			translateText("Disable content reporting", view),
+		).toBe("禁用内容举报");
+		expect(
+			translateText(
+				"Disable content reporting for all users",
+				view,
+			),
+		).toBe("为所有用户禁用内容举报");
+	});
+
+	it("translates the abuse reports section and its blankslate", () => {
+		expect(translateText("Abuse reports", view)).toBe(
+			"滥用举报",
+		);
+		expect(
+			translateText(
+				"The following content has been reported by users:",
+				view,
+			),
+		).toBe("以下内容已被用户举报：");
+		// segmented-control 的 aria-label（属性只走精确命中）
+		expect(translateText("Report filter", view)).toBe(
+			"举报筛选器",
+		);
+		// 两个页签：Reported Content 与页标题 Reported content 只差首字母大小写
+		expect(translateText("Reported Content", view)).toBe(
+			"举报内容",
+		);
+		expect(translateText("Resolved", view)).toBe("已解决");
+		// 空态标题在实机带前导空白与尾随换行，normalizeKey 会折叠
+		expect(
+			translateText(
+				"      There aren't any unresolved content reports for this repository.\n",
+				view,
+			),
+		).toBe("此仓库没有任何未解决的内容举报。");
 	});
 });

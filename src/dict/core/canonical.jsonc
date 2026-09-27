@@ -1838,6 +1838,27 @@
 				"Interaction limits",
 				"Moderation",
 				"Code review limits",
+				// —— 举报内容页（/owner/repo/reported_content）——
+				// 该页是 pages/repo-settings 的第二支路由（不含 settings 前缀）；
+				// 说明句被 Learn more 链接切成两段，整句兜底与两段碎片都收
+				"Reported content",
+				"Users can report abusive or disruptive content for review and moderation.",
+				"Learn more about reported content",
+				"Users can report abusive or disruptive content for review and moderation. Learn more about reported content.",
+				"Report content setting",
+				"Any user on GitHub is able to report content",
+				"Prior contributors and collaborators",
+				"Only users who have previously contributed to the repository and collaborators will be able to report content",
+				"Disable content reporting",
+				"Disable content reporting for all users",
+				"Abuse reports",
+				"The following content has been reported by users:",
+				// segmented-control 的 aria-label（属性只走精确命中）
+				"Report filter",
+				// 页签：与页标题 Reported content 只差首字母大小写，是两条不同的键
+				"Reported Content",
+				"Resolved",
+				"There aren't any unresolved content reports for this repository.",
 				"Agent suggestions for issues",
 				"Cloud agent",
 				"Internet access",

@@ -645,6 +645,22 @@
 		"You don't have any enterprises": "你还没有任何企业",
 		"Designed for businesses or teams who collaborate on GitHub.com": "专为在 GitHub.com 上协作的企业或团队打造",
 		"Start free for 30 days": "免费试用 30 天",
-		"Learn more about enterprises": "详细了解企业"
+		"Learn more about enterprises": "详细了解企业",
+		// —— /settings/repositories（仓库默认设置；证据是整页截图 + 同类组件的既有实测）——
+		"Repository default branch": "仓库默认分支",
+		// 段落被链接切开：前段译文以句号收尾，链接（含句号）单独成条
+		"Choose the default branch for your new personal repositories. You might want to change the default name due to different workflows, or because your integrations still require “master” as the default branch name. You can always change the default branch name on individual repositories.": "为你的新个人仓库选择默认分支。由于不同的工作流，或因为你的集成仍需要将 “master” 作为默认分支名，你可能想更改默认名称。你随时可以在单个仓库上更改默认分支名。",
+		"Learn more about default branches.": "详细了解默认分支。",
+		"Update": "更新",
+		"Commit comments": "提交评论",
+		// 三段拼接：选择是否 + 提交评论 + 在你拥有的仓库中默认启用或禁用。…
+		"Choose whether": "选择是否",
+		"commit comments": "提交评论",
+		"are enabled or disabled by default for repositories you own. Individual repositories can override this default. Existing commit comments are not affected by this setting and will remain viewable, editable, and deletable.": "在你拥有的仓库中默认启用或禁用。各个仓库可以覆盖此默认设置。现有的提交评论不受此设置影响，仍可查看、编辑和删除。",
+		// 下拉的标签（含冒号）与两个选项值：标签节点与值节点分开收录，
+		// 与 /settings/appearance 的 "Selected theme:" + 主题名同一形态
+		"Commit comments:": "提交评论：",
+		"Enabled by default": "默认启用",
+		"Disabled by default": "默认禁用"
 	}
 }

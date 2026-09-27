@@ -1019,7 +1019,34 @@
 				"You don't have any enterprises",
 				"Designed for businesses or teams who collaborate on GitHub.com",
 				"Start free for 30 days",
-				"Learn more about enterprises"
+				"Learn more about enterprises",
+				// —— /settings/repositories（仓库默认设置）——
+				// 证据强度：**实机截图 + 同类组件的既有实测**（2026-09-27 维护者提供的整页截图；
+				// 截图本身不足以定节点边界，故凡截图看不出边界的地方都按本仓已实测的同类形态
+				// 判断，判断依据写在各条上方）。两段说明都被链接切开，逐段收录。
+				// —— Repository default branch 区块 ——
+				"Repository default branch",
+				// 说明段末尾的「Learn more about default branches.」是链接 → 段落在链接处断开；
+				// 句号属于链接文本（截图里句号也是链接色）
+				"Choose the default branch for your new personal repositories. You might want to change the default name due to different workflows, or because your integrations still require “master” as the default branch name. You can always change the default branch name on individual repositories.",
+				"Learn more about default branches.",
+				// 默认分支名输入框右侧的提交按钮
+				"Update",
+				// —— Commit comments 区块 ——
+				"Commit comments",
+				// 说明段在链接「commit comments」处断成三段（截图里该词组是链接色）
+				"Choose whether",
+				// 同键在 pages/repo-settings 已有词条（「提交评论」），但那条路由
+				// （/[^/]+/[^/]+/settings）不命中 /settings 子树，故本模块各收一份
+				"commit comments",
+				"are enabled or disabled by default for repositories you own. Individual repositories can override this default. Existing commit comments are not affected by this setting and will remain viewable, editable, and deletable.",
+				// 下拉（Rails `<details><summary>` 的 select-menu）：按 /settings/appearance 已实测的
+				// 形态，**标签（含冒号）与当前值是两个文本节点**（那边是 "Selected theme:" + 主题名）。
+				// 该下拉的 aria-label 是拼好的整句（`Commit comments: Enabled by default`），
+				// 属**属性**、不适用规则，故只能保留英文。
+				"Commit comments:",
+				"Enabled by default",
+				"Disabled by default"
 			]
 		},
 		{

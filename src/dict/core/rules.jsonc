@@ -774,6 +774,14 @@
 				{
 					"id": "settings/leave-organization-confirm",
 					"pattern": "^Are you positive you want to leave (.+)\\? You will lose access to all repositories and teams\\.$"
+				},
+				// 代码空间设置页（/settings/codespaces）的仓库选择器：实机是**单个文本节点**，
+				// 形如 "Selected 0 repositories."（数量动态），单捕获组用 $1。
+				// 单复数必须写成 repositor(?:y|ies)：`repositories?` 只折叠末尾的 s，
+				// 匹配不到单数 "repository"（这是本次实测踩到的坑，用例已锁住两种形态）。
+				{
+					"id": "settings/selected-repositories-count",
+					"pattern": "^Selected (\\d+) repositor(?:y|ies)\\.$"
 				}
 			]
 		},

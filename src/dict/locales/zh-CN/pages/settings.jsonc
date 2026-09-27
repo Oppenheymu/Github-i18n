@@ -661,6 +661,94 @@
 		// 与 /settings/appearance 的 "Selected theme:" + 主题名同一形态
 		"Commit comments:": "提交评论：",
 		"Enabled by default": "默认启用",
-		"Disabled by default": "默认禁用"
+		"Disabled by default": "默认禁用",
+		// —— /settings/codespaces（代码空间个人设置）——
+		// 键来自开发者模式导出的漏翻清单；节点边界与反例见
+		// src/content/__tests__/settings-codespaces.test.ts
+		"GitHub Codespaces": "GitHub 代码空间",
+		// —— 编辑器偏好 ——
+		"Editor preference": "编辑器偏好",
+		// 三段拼接：…需要 + 产品名（保留英文）+ 并安装 + 产品名（保留英文）+ 扩展。
+		"Connect to the cloud from your local desktop client. Requires": "从本地桌面客户端连接到云端。需要",
+		"with the": "并安装",
+		"extension.": "扩展。",
+		"Edit and preview changes straight from the browser.": "直接在浏览器中编辑并预览更改。",
+		"Edit and run notebooks from the browser with JupyterLab.": "使用 JupyterLab 在浏览器中编辑并运行笔记本。",
+		"Deprecated": "已弃用",
+		// —— 主机映像版本偏好 ——
+		"Host image version preference": "主机映像版本偏好",
+		"Stable": "稳定版",
+		"Always use the latest stable configuration.": "始终使用最新的稳定配置。",
+		"Beta": "测试版",
+		"Use a beta image configuration when available. Otherwise, use the latest stable configuration.": "在有 Beta 映像配置时使用它，否则使用最新的稳定配置。",
+		"The host image defines the operating system in which development containers run. These images receive periodic upgrades for security, functionality, and performance. GitHub Codespaces offers early access to beta images to ensure compatibility with existing development container configurations. Any codespace created or resumed after changing this setting will use the specified image configuration.": "主机映像定义了开发容器运行所用的操作系统。这些映像会定期获得安全性、功能与性能方面的升级。GitHub 代码空间提供对 Beta 映像的早期访问，以确保与现有开发容器配置兼容。更改此设置后创建或恢复的任何代码空间都将使用指定的映像配置。",
+		"Learn more about host images": "详细了解主机映像",
+		// —— 默认空闲超时 ——
+		"Default idle timeout": "默认空闲超时",
+		"A codespace will suspend after a period of inactivity. You can specify a default idle timeout value, which will apply to all codespaces created after the default is changed. You will be charged for the entire time your codespace is running, even if it is idle. The maximum value is": "代码空间在闲置一段时间后会挂起。你可以指定默认的空闲超时值，它将应用于默认值更改后创建的所有代码空间。即使代码空间处于闲置状态，你也要为其整个运行时间付费。最大值为",
+		"minutes (4 hours).": "分钟（4 小时）。",
+		// 数字输入框右侧的单位标签
+		"minutes": "分钟",
+		"Timeout must be 5 minutes or more.": "超时时间必须不少于 5 分钟。",
+		"Timeout must be 240 minutes or less.": "超时时间必须不超过 240 分钟。",
+		// —— 默认保留期 ——
+		"Default retention period": "默认保留期",
+		"Inactive codespaces are automatically deleted 30 days after the last time they were stopped. A shorter retention period can be set, and will apply to all codespaces created going forward. The default and maximum value is": "闲置的代码空间会在最后一次停止后 30 天自动删除。可以设置更短的保留期，它将应用于此后创建的所有代码空间。默认值与最大值为",
+		"days.": "天。",
+		"days": "天",
+		"Retention period must be between 0 and 30 days.": "保留期必须在 0 到 30 天之间。",
+		"Retention period must be 30 days or less.": "保留期必须不超过 30 天。",
+		"Learn about retention setting": "了解保留期设置",
+		// —— 区域 ——
+		"Region": "区域",
+		"Choose your default region": "选择你的默认区域",
+		"Your default region will be used to designate compute resources to your codespaces. GitHub can set your region automatically based on your location, or you can set it yourself. Codespaces are deployed to a subset of Azure regions.": "你的默认区域将用于为代码空间分配计算资源。GitHub 可以根据你的位置自动设置区域，你也可以自行设置。代码空间部署在 Azure 区域的一个子集中。",
+		"Set automatically": "自动设置",
+		"Set manually": "手动设置",
+		"We will determine the closest available region based on your location (IP address) at codespace creation time.": "我们会在创建代码空间时根据你的位置（IP 地址）确定最近且可用的区域。",
+		"Australia": "澳大利亚",
+		"Europe West": "西欧",
+		"Southeast Asia": "东南亚",
+		"US East": "美国东部",
+		"US West": "美国西部",
+		// —— 访问与安全 ——
+		"Access and security": "访问与安全",
+		"Codespaces you create for your personal account can either be restricted to accessing the repository it was opened for, or granted read access to other repositories you own.": "你为个人账户创建的代码空间，可以限制为只能访问它为之打开的仓库，也可以授予对你拥有的其他仓库的读取权限。",
+		"Limit access of personal Codespaces to the repository they were opened for": "将个人代码空间的访问限制为其打开时所针对的仓库",
+		"All Codespaces can access other repositories I own": "所有代码空间都可以访问我拥有的其他仓库",
+		"Personal Codespaces created for specific repositories can access other repositories I own": "为特定仓库创建的个人代码空间可以访问我拥有的其他仓库",
+		// —— GPG 验证与设置同步 ——
+		"GPG verification": "GPG 验证",
+		"Codespaces can have GPG commit signing capabilities so that GitHub can verify that commits made in the codespace come from a trusted source. When enabled, this setting will be applied to your list of trusted repositories.": "代码空间可以具备 GPG 提交签名能力，以便 GitHub 验证在代码空间中创建的提交来自可信来源。启用后，此设置将应用于你的受信任仓库列表。",
+		"GPG signing will be available in Codespaces": "GPG 签名将在代码空间中可用",
+		"GPG signing and VS Code Settings Sync will be available for codespaces for all repositories": "GPG 签名和 VS Code 设置同步将可用于所有仓库的代码空间",
+		"GPG signing and VS Code Settings Sync will be available for codespaces from the selected repositories": "GPG 签名和 VS Code 设置同步将可用于所选仓库的代码空间",
+		"Settings Sync": "设置同步",
+		"By enabling, your codespaces will be able to pull from VS Code Settings Sync service and push only for the trusted repositories you specify. Only enable this for repositories that you trust.": "启用后，你的代码空间将可以从 VS Code 设置同步服务拉取，并且仅对你指定的受信任仓库推送。请只对你信任的仓库启用此设置。",
+		"VS Code Settings Sync will be available in Codespaces": "VS Code 设置同步将在代码空间中可用",
+		// —— 受信任的仓库（仓库选择器）——
+		"Trusted repositories": "受信任的仓库",
+		"The following repositories will be referenced by GPG verification and Settings Sync.": "以下仓库将被 GPG 验证与设置同步引用。",
+		"GPG and VS Code Settings Sync will be available for Codespaces from these repositories.": "GPG 与 VS Code 设置同步将可用于这些仓库中的代码空间。",
+		"Select repository": "选择仓库",
+		"Selected repositories": "已选仓库",
+		"No matching repositories.": "没有匹配的仓库。",
+		// —— 删除提醒 ——
+		"Warning notifications for codespace deletions will be enabled": "代码空间删除的警告通知将启用",
+		"When enabled, you will receive emails when your codespaces are nearing deletion due to inactivity.": "启用后，当你的代码空间因闲置而即将被删除时，你将收到电子邮件。",
+		// —— Dotfiles ——
+		// 标题是单个英文术语，按 global 里 "Gists": "Gist 代码片段" 的既有手法
+		// （英文术语 + 中文说明）处理
+		"Dotfiles": "dotfiles 配置",
+		"Automatically install dotfiles": "自动安装 dotfiles",
+		"Codespaces can automatically install your dotfiles into every codespace you create.": "代码空间可以自动把你的 dotfiles 安装到你创建的每个代码空间中。",
+		"Learn how to set up your dotfiles for Codespaces.": "了解如何为代码空间设置 dotfiles。",
+		// —— 机密 ——
+		"Secrets": "机密",
+		"Codespace user secrets": "代码空间用户机密",
+		"New secret": "新建机密",
+		"Submit": "提交",
+		"Development environment secrets are environment variables that are encrypted. They are available to any codespace you create using repositories with access to that secret.": "开发环境机密是经过加密的环境变量。使用有权访问该机密的仓库创建的任何代码空间都可以使用它们。",
+		"There are no Codespace secrets.": "没有代码空间机密。"
 	}
 }

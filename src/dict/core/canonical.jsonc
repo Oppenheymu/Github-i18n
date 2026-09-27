@@ -1046,7 +1046,109 @@
 				// 属**属性**、不适用规则，故只能保留英文。
 				"Commit comments:",
 				"Enabled by default",
-				"Disabled by default"
+				"Disabled by default",
+				// —— /settings/codespaces（代码空间个人设置）——
+				// 证据强度：**途径 A 实证**（popup 开发者模式导出的漏翻清单，schema
+				// github-zh-misses/1，2026-09-27 维护者导出，path 全为 /settings/codespaces）。
+				// 含源码换行的长条目按 normalizeKey 折叠空白后的形态写。
+				// 刻意**不收录**：
+				//   1. 纯专名 / 产品名：`Copilot`、`GitHub`、`Visual Studio Code`、
+				//      `Visual Studio Code for the Web`、`JupyterLab`（编辑器与产品名保留原文，
+				//      与 repo-settings / marketing 的既有取舍一致），用户内容（用户名、@用户名）；
+				//   2. 动态值走规则："Selected <n> repositories." 见 core/rules.jsonc 本模块组的
+				//      settings/selected-repositories-count。
+				// 注意 "GitHub Codespaces" 是**收**的（「代码空间」在本仓已有既定译法，
+				// 同键也用作说明句里的链接文本），而裸 "Codespaces" 由 global 覆盖。
+				"GitHub Codespaces",
+				// —— 编辑器偏好（Editor preference）：三项里只有说明句可收 ——
+				"Editor preference",
+				// 实机节点边界：`… Requires <a>Visual Studio Code</a> with the <a>GitHub Codespaces</a> extension.`
+				// —— 产品名两段保留英文，前后片段与连接词各自成键
+				"Connect to the cloud from your local desktop client. Requires",
+				"with the",
+				"extension.",
+				"Edit and preview changes straight from the browser.",
+				"Edit and run notebooks from the browser with JupyterLab.",
+				// JupyterLab 选项右上角的徽标
+				"Deprecated",
+				// —— 主机映像版本偏好 ——
+				"Host image version preference",
+				"Stable",
+				"Always use the latest stable configuration.",
+				"Beta",
+				"Use a beta image configuration when available. Otherwise, use the latest stable configuration.",
+				// 说明段是含源码换行的单个节点（跨三行）
+				"The host image defines the operating system in which development containers run. These images receive periodic upgrades for security, functionality, and performance. GitHub Codespaces offers early access to beta images to ensure compatibility with existing development container configurations. Any codespace created or resumed after changing this setting will use the specified image configuration.",
+				"Learn more about host images",
+				// —— 默认空闲超时 ——
+				"Default idle timeout",
+				// 说明段末尾接一个纯数字节点，再跟 "minutes (4 hours)."（数字与单位是两个节点）
+				"A codespace will suspend after a period of inactivity. You can specify a default idle timeout value, which will apply to all codespaces created after the default is changed. You will be charged for the entire time your codespace is running, even if it is idle. The maximum value is",
+				"minutes (4 hours).",
+				// 数字输入框右侧的单位标签（单独成节点）
+				"minutes",
+				"Timeout must be 5 minutes or more.",
+				"Timeout must be 240 minutes or less.",
+				// —— 默认保留期 ——
+				"Default retention period",
+				"Inactive codespaces are automatically deleted 30 days after the last time they were stopped. A shorter retention period can be set, and will apply to all codespaces created going forward. The default and maximum value is",
+				"days.",
+				"days",
+				"Retention period must be between 0 and 30 days.",
+				"Retention period must be 30 days or less.",
+				"Learn about retention setting",
+				// —— 区域 ——
+				"Region",
+				"Choose your default region",
+				"Your default region will be used to designate compute resources to your codespaces. GitHub can set your region automatically based on your location, or you can set it yourself. Codespaces are deployed to a subset of Azure regions.",
+				"Set automatically",
+				"Set manually",
+				"We will determine the closest available region based on your location (IP address) at codespace creation time.",
+				// 五个区域名（下拉选项；是地理描述而非 API 里的区域代码，故译）
+				"Australia",
+				"Europe West",
+				"Southeast Asia",
+				"US East",
+				"US West",
+				// —— 访问与安全 ——
+				"Access and security",
+				"Codespaces you create for your personal account can either be restricted to accessing the repository it was opened for, or granted read access to other repositories you own.",
+				"Limit access of personal Codespaces to the repository they were opened for",
+				"All Codespaces can access other repositories I own",
+				"Personal Codespaces created for specific repositories can access other repositories I own",
+				// —— GPG 验证与设置同步 ——
+				"GPG verification",
+				"Codespaces can have GPG commit signing capabilities so that GitHub can verify that commits made in the codespace come from a trusted source. When enabled, this setting will be applied to your list of trusted repositories.",
+				"GPG signing will be available in Codespaces",
+				"GPG signing and VS Code Settings Sync will be available for codespaces for all repositories",
+				"GPG signing and VS Code Settings Sync will be available for codespaces from the selected repositories",
+				"Settings Sync",
+				"By enabling, your codespaces will be able to pull from VS Code Settings Sync service and push only for the trusted repositories you specify. Only enable this for repositories that you trust.",
+				"VS Code Settings Sync will be available in Codespaces",
+				// —— 受信任的仓库（仓库选择器）——
+				"Trusted repositories",
+				"The following repositories will be referenced by GPG verification and Settings Sync.",
+				"GPG and VS Code Settings Sync will be available for Codespaces from these repositories.",
+				"Select repository",
+				"Selected repositories",
+				"No matching repositories.",
+				// —— 删除提醒 ——
+				"Warning notifications for codespace deletions will be enabled",
+				"When enabled, you will receive emails when your codespaces are nearing deletion due to inactivity.",
+				// —— Dotfiles ——
+				// 标题是单个英文词，按 global 里 "Gists": "Gist 代码片段" 的既有手法
+				// （英文术语 + 中文说明）处理，否则译文无法含中文字系
+				"Dotfiles",
+				"Automatically install dotfiles",
+				"Codespaces can automatically install your dotfiles into every codespace you create.",
+				"Learn how to set up your dotfiles for Codespaces.",
+				// —— 机密 ——
+				"Secrets",
+				"Codespace user secrets",
+				"New secret",
+				"Submit",
+				"Development environment secrets are environment variables that are encrypted. They are available to any codespace you create using repositories with access to that secret.",
+				"There are no Codespace secrets."
 			]
 		},
 		{

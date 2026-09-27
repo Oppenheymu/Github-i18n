@@ -383,6 +383,7 @@ for (const p of probes) {
 | `settings-credentials.test.ts` | `/settings/credentials`、`/settings/apps`、`/settings/developers`、`/settings/tokens`、`/settings/personal-access-tokens` | 凭据 / 开发者设置一族（五页共用一份回归：令牌说明句的链接拼接、卡片计数规则、12 个月份的过期日期规则；OAuth 权限范围标识符保留英文） |
 | `settings-limits.test.ts` | `/settings/blocked_users`、`/settings/interaction_limits`、`/settings/code_review_limits`、`/settings/organizations`、`/settings/enterprises` | 限制与组织页（备注剩余字数的规则、交互限制提示的三段拼接、离开组织确认句的动态规则；企业空状态按**实机 HTML** 收录；组织名与 `Settings for <组织名>` 保留英文） |
 | `settings-repositories.test.ts` | `/settings/repositories` | 仓库默认设置页（两段说明都在链接处断开；下拉按 appearance 页实测的「标签含冒号 + 当前值」两节点形态收录，其拼好的 `aria-label` 保留英文） |
+| `settings-codespaces.test.ts` | `/settings/codespaces` | 代码空间个人设置页（三段拼接的编辑器选项、说明段末尾的独立纯数字节点 + 单位句、区域下拉、仓库选择器计数规则；产品名保留英文） |
 | `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |
@@ -436,6 +437,7 @@ for (const p of probes) {
 5. 门禁会校验引用完整性（`$2` 超出组数、`$<month>` 未声明都会报错），`bun run check:dict` 通过后实机验证。
 6. **只改 pattern 不必动任何语言的模板**（O(1)）；反过来说，**改 id 必须同步所有语言的 `rules.jsonc`**。
    另外：视图骨架门禁记的是规则 **id**、不记 pattern 源串，所以给已有规则加命名组不会动快照。
+7. **单复数要整体折叠，别只给末尾加 `?`**：`repositor(?:y|ies)` 才对，写成 `repositories?` 只折叠末尾的 `s`、匹配不到单数 `repository`（2026-09 实测踩到：`Selected 1 repository.` 整条保留英文，而 `Selected 0 repositories.` 正常）；`keys?` / `tokens?` / `apps?` 这类「单数就是复数去掉 s」的词才可以直接加 `?`。加规则时把单数、复数两种形态都写进用例。
 
 ### 日期区间为什么逐组合展开（以账单页为例）
 

@@ -5,8 +5,8 @@
 // 边界强度：**途径 A 实证**（2026-09-27 维护者从 popup 开发者模式导出的漏翻清单，
 // schema github-zh-misses/1，四条 path 各一份），没有途径 B（Console 逐节点采集）的证据，
 // 故按「导出条目本身就是一个文本节点」登记；含内部换行的长条目按 normalizeKey 折叠空白
-// 后的形态写。**/settings/enterprises 在导出里没有任何条目**——该页当前没有漏翻，
-// 下方用一条断言把「它也命中 pages/settings」钉住。
+// 后的形态写。**/settings/enterprises 不在导出清单里**（当时没采集到），它的四条键来自
+// 维护者粘贴的**实机 HTML**（blankslate：H2 + 说明段 + 按钮 + 链接），是更强的证据形态。
 //
 // 这四页最关键的边界事实（都在下方断言里锁住）：
 //   1. 屏蔽弹窗的两条清单条目与两个开关都是独立文本节点；备注框的剩余字数动态变化
@@ -159,6 +159,18 @@ const MUST_STAY_ENGLISH: readonly string[] = [
 	"@Oppenheymu",
 	"GitHub",
 	"Copilot",
+];
+
+/**
+ * /settings/enterprises 的实机节点（证据是维护者粘贴的 outerHTML）。
+ * H2 与说明段在 HTML 里都带源码缩进与换行，这里按归一后的键录入，
+ * 另用 withWhitespace 覆盖带缩进的形态。
+ */
+const ENTERPRISES_NODES: readonly string[] = [
+	"You don't have any enterprises",
+	"Designed for businesses or teams who collaborate on GitHub.com",
+	"Start free for 30 days",
+	"Learn more about enterprises",
 ];
 
 /** 节点在实机里通常带源码缩进与换行；两种形态都必须命中 */
@@ -557,14 +569,48 @@ describe("组织设置页（/settings/organizations、/settings/enterprises）�
 		);
 	});
 
-	it("covers /settings/enterprises through the same module", () => {
-		// 该页在漏翻导出里没有任何条目（当前无漏翻），但它同样命中 pages/settings；
-		// 这里用两条共用词条钉住路由覆盖，避免哪天路由改动后静默失效
+	it("renders the /settings/enterprises blankslate from the pasted HTML", () => {
+		// 该页不在漏翻导出里，四条键来自维护者粘贴的 outerHTML（blankslate）。
+		// H2 与说明段在 HTML 里都带源码缩进与换行，两种形态都必须命中。
+		for (const node of ENTERPRISES_NODES) {
+			for (const variant of withWhitespace(node)) {
+				const translated = translateText(
+					variant,
+					enterprisesView,
+				);
+				expect(
+					translated,
+					`未命中：${JSON.stringify(variant)}`,
+				).not.toBeNull();
+				expect(translated ?? "").toMatch(/[\u4e00-\u9fff]/);
+			}
+		}
+		// 实机 HTML：`<h2 class="blankslate-heading">        You don't have any enterprises\n</h2>`
+		// ——注意是**直撇号**，与实机形态逐字一致
 		expect(
-			translateText("Leave organization", enterprisesView),
-		).toBe("离开组织");
+			translateText(
+				"        You don't have any enterprises\n",
+				enterprisesView,
+			),
+		).toBe("你还没有任何企业");
 		expect(
-			translateText("2FA required", enterprisesView),
-		).toBe("需要双因素认证");
+			translateText(
+				"          Designed for businesses or teams who collaborate on GitHub.com\n",
+				enterprisesView,
+			),
+		).toBe("专为在 GitHub.com 上协作的企业或团队打造");
+		// 两个动作：按钮（Button-label 的文本节点）与文档链接
+		expect(
+			translateText(
+				"\n    Start free for 30 days\n  ",
+				enterprisesView,
+			),
+		).toBe("免费试用 30 天");
+		expect(
+			translateText(
+				"Learn more about enterprises",
+				enterprisesView,
+			),
+		).toBe("详细了解企业");
 	});
 });

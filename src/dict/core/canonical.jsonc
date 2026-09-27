@@ -917,8 +917,9 @@
 				// code_review_limits、blocked_users、organizations）——
 				// 证据强度：**途径 A 实证**（popup 开发者模式导出的漏翻清单，schema
 				// github-zh-misses/1，2026-09-27 维护者导出）。四条路径都命中 pages/settings，
-				// 故键直接追加在这里。**/settings/enterprises 在导出里没有任何条目**，
-				// 说明该页当前没有漏翻（真的看到英文时按固定起手式重采一次即可）。
+				// 故键直接追加在这里。**/settings/enterprises 在导出里没有任何条目**
+				// （该页当时没采集到），它是一页 blankslate，词条见本块末尾那四条
+				// （证据是维护者粘贴的**实机 HTML**，不是导出清单）。
 				// 刻意**不收录**：
 				//   1. 用户内容：组织名（`Koishi-CE` / `Kuro-Bridge` / `NapukettoDev` /
 				//      `OppenApps` / `TextCraft-War`）、`M. Oppenheymu` / `(Oppenheymu)` /
@@ -1007,7 +1008,18 @@
 				// 组织行：徽标、行尾按钮（按钮文案与它自己的 aria-label 同串）
 				"2FA required",
 				"Leave",
-				"Leave organization"
+				"Leave organization",
+				// —— /settings/enterprises（企业）——
+				// 证据强度：**实机 HTML 实证**（2026-09-27 维护者从该页复制粘贴的
+				// DevTools outerHTML，未加载本扩展的原始英文渲染）。该页整体是一个
+				// blankslate：图标 + H2 + 说明段 + 「开始免费试用」按钮 + 「了解更多」链接，
+				// 故只有下面四条键；H2 与说明段在实机里都带源码缩进与换行（折叠空白后才等于键）。
+				// 撇号按实机 HTML 的形态写：**直撇号** `'`（与 pages/settings-billing 的
+				// "You don't have an active coupon." 同一形态，不是排版用的 `’`）。
+				"You don't have any enterprises",
+				"Designed for businesses or teams who collaborate on GitHub.com",
+				"Start free for 30 days",
+				"Learn more about enterprises"
 			]
 		},
 		{

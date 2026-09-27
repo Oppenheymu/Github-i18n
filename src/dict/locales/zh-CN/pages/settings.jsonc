@@ -639,6 +639,12 @@
 		"2FA required": "需要双因素认证",
 		// 按钮文案与它自己的 aria-label 同串；离开确认弹窗那句含组织名，走规则
 		"Leave": "离开",
-		"Leave organization": "离开组织"
+		"Leave organization": "离开组织",
+		// —— /settings/enterprises（企业空状态；证据是实机 HTML 原文）——
+		// 撇号是**直撇号**，键按实机形态写，别顺手改成中文排版用的 ’
+		"You don't have any enterprises": "你还没有任何企业",
+		"Designed for businesses or teams who collaborate on GitHub.com": "专为在 GitHub.com 上协作的企业或团队打造",
+		"Start free for 30 days": "免费试用 30 天",
+		"Learn more about enterprises": "详细了解企业"
 	}
 }

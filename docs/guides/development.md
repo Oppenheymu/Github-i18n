@@ -381,7 +381,7 @@ for (const p of probes) {
 | `settings-sessions.test.ts` | `/settings/sessions` | 会话页（Web / GitHub Mobile 两张卡；动态国家码走 `settings/session-seen-in` 规则，带城市与日期的 `aria-label` 结构上翻不了） |
 | `settings-keys.test.ts` | `/settings/keys` | SSH / GPG 密钥页（说明句被两个链接切成四段；`This action cannot be undone.` 三段拼接；`Added <日期>` 是标签 + 日期两个节点） |
 | `settings-credentials.test.ts` | `/settings/credentials`、`/settings/apps`、`/settings/developers`、`/settings/tokens`、`/settings/personal-access-tokens` | 凭据 / 开发者设置一族（五页共用一份回归：令牌说明句的链接拼接、卡片计数规则、12 个月份的过期日期规则；OAuth 权限范围标识符保留英文） |
-| `settings-limits.test.ts` | `/settings/blocked_users`、`/settings/interaction_limits`、`/settings/code_review_limits`、`/settings/organizations`、`/settings/enterprises` | 限制与组织页（备注剩余字数的规则、交互限制提示的三段拼接、离开组织确认句的动态规则；组织名与 `Settings for <组织名>` 保留英文） |
+| `settings-limits.test.ts` | `/settings/blocked_users`、`/settings/interaction_limits`、`/settings/code_review_limits`、`/settings/organizations`、`/settings/enterprises` | 限制与组织页（备注剩余字数的规则、交互限制提示的三段拼接、离开组织确认句的动态规则；企业空状态按**实机 HTML** 收录；组织名与 `Settings for <组织名>` 保留英文） |
 | `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |

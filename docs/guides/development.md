@@ -386,6 +386,8 @@ for (const p of probes) {
 | `settings-codespaces.test.ts` | `/settings/codespaces` | 代码空间个人设置页（三段拼接的编辑器选项、说明段末尾的独立纯数字节点 + 单位句、区域下拉、仓库选择器计数规则；产品名保留英文） |
 | `settings-packages.test.ts` | `/settings/packages` | 软件包个人设置页（搜索框的 aria-label 与 placeholder 同串一条键；已删除软件包空状态含动态用户名，走规则） |
 | `settings-copilot-features.test.ts` | `/settings/copilot/features` | Copilot 功能设置页（句号常落在后一节点故译文以「。」起头、`through` 等连接词单独成节点、Copilot Spaces 三段拼接、用量百分比规则；产品名保留英文） |
+| `settings-replies.test.ts` | `/settings/replies` | 已保存回复页（Markdown 工具栏与附件组件的文案在 `global`；附件类型说明是「链接 + `is supported`」两段；扩展名清单原样保留、`SavedReply` 是模型名） |
+| `settings-pages.test.ts` | `/settings/pages`、`/settings/copilot/coding_agent` | 已验证域名页 + Copilot 云端代理页（两页都很小，合并在一个文件里；说明段是含源码换行的单节点） |
 | `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |
@@ -576,5 +578,6 @@ popup 底部的「开发者模式」开关**默认关闭**，用于系统性发�
 - **拉丁语系目标语言**（西 / 法 / 德等）的「已翻译」判定在结构上不可靠（与源语言同字系），只能靠「译文不得等于任何键」的结构门禁防循环，且「译文必须含目标文字系统」这条校验对它无意义（`scripts: []`）；
 - **复数的语法分歧**（俄语 3 种、阿拉伯语 6 种）无法表达：一个 `pattern` 只能配一个模板，没有复数类别；
 - GitHub 正渐进迁移 React 重写页面，类名 / 结构变动导致的漏翻 / 误伤属常态：先修排除选择器，再修词条；
+- **评论编辑器的 Markdown 工具栏文案归 `global`**：`Bold` / `Italic` / `Quote` / `Heading` / `Code` / `Link` / `Mention` / `Reference` / `Numbered list` / `Unordered list` / `Task list` / `Add a table` / `Attach files` 与附件组件的错误提示都是**站点级组件**（议题 / PR 的评论框同样渲染），且同一组件的 `Write` / `Preview` 早已在 `global`——只挂 `pages/settings` 会造成「编辑侧中文、格式化侧英文」的中英混杂。`Markdown` 是链接文本、属纯专名不收录（它与 `is supported` 是两个节点，拼接后读作「Markdown 受支持」）；
 - `<relative-time>` 等自定义元素会自行重渲染英文，观察器会再翻一遍收敛，勿追求一次性翻译；
 - 上游删除的文案会在 `core/canonical.jsonc` 里留下死键（不报错）：靠 popup 的开发者模式定期采集漏翻、或按页面逐个核对时顺手清理。

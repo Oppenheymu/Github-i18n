@@ -1261,7 +1261,42 @@
 				"Enables access to Copilot in the cloud, including GitHub.com and GitHub Mobile. This policy replaces previous Copilot Chat and Copilot cloud agent policies.",
 				". Enforcement begins July 27th, 2026 in version 1.1 of the GitHub Copilot app. The Copilot CLI policy continues to govern the GitHub Copilot App until version 1.1",
 				"GitHub Copilot for assistance in GitHub Desktop",
-				"Copilot in GitHub Desktop"
+				"Copilot in GitHub Desktop",
+				// —— /settings/copilot/coding_agent（云端代理）——
+				// 证据强度：**途径 A 实证**（导出的 path 全为 /settings/copilot/coding_agent）。
+				// 不收录 `Copilot` / `GitHub`（title）与用户名、头像 alt 等用户内容。
+				// 「Repository access」在 pages/repo-settings 另有同键（那是仓库侧设置），
+				// 两条路由互斥，故本模块各收一份。
+				"Repository access",
+				"With Copilot cloud agent, you can delegate tasks to Copilot, freeing you to focus on the creative, complex, and high-impact work that matters most. Simply assign an issue to Copilot, wait for the agent to request your review, then leave feedback on the pull request to iterate.",
+				"Choose which repositories Copilot cloud agent should be enabled in. Copilot cloud agent will only be available where it is enabled for the repository and in the Copilot license policies.",
+				"You can enable Copilot cloud agent for other users, but you won't be able to assign tasks to Copilot because you don't have a Copilot Pro, Copilot Pro+, Copilot Business or Copilot Enterprise license.",
+				"Learn more in the docs.",
+				// —— /settings/pages（已验证域名）——
+				// 证据强度：**途径 A 实证**（导出 path 全为 /settings/pages）。只有四条键：
+				// 该页是「已验证域名」列表 + 空状态 + 添加域名的按钮与说明。
+				"Verified domains",
+				"There are no verified domains.",
+				"Verify domains to restrict who can publish GitHub Pages on them.",
+				"Add a domain",
+				// —— /settings/replies（已保存回复）——
+				// 证据强度：**途径 A 实证**（导出 path 为 /settings/replies）。
+				// 编辑器的 Markdown 工具栏与附件组件文案属站点级组件，已进 global；
+				// 这里只收本页专属的已保存回复文案。
+				"Add a saved reply",
+				"Add saved reply",
+				"Add your saved reply",
+				"Create a new saved reply",
+				"Select a reply",
+				"Saved reply title",
+				// 「添加简短标题」输入框的 placeholder（属性，精确命中）
+				"Add a short title to your reply",
+				// 实机是含源码换行的单个节点
+				"Saved replies are re-usable text snippets that you can use throughout GitHub comment fields. Saved replies can save you time if you’re often typing similar responses.",
+				"No saved replies yet.",
+				"Learn more about working with saved replies",
+				// 模型名 SavedReply 是代码里的类名，保留原文
+				"There was an error creating your SavedReply."
 			]
 		},
 		{
@@ -3264,7 +3299,48 @@
 				// —— 未登录对话页底部的注册引导 ——
 				"Sign up for free",
 				"to subscribe to this conversation on GitHub",
-				". Already have an account?"
+				". Already have an account?",
+				// —— 评论编辑器的 Markdown 工具栏与附件提示（站点级组件）——
+				// 证据强度：**途径 A 实证**（2026-09-27 维护者在 /settings/replies 的
+				// 已保存回复编辑器上导出；同一个 Rails 组件在议题 / PR 的评论框里也渲染）。
+				// 为什么进 global 而不是 pages/settings：本组件的 `Write` / `Preview`
+				// 两个切换标签**早已在 global**（见上面的通用短词区），工具栏与它们是同一块 UI；
+				// 只挂在 pages/settings 会让「编辑」一侧中文、「格式」一侧英文，中英混杂。
+				// 风险如实记在这里：`Code` / `Link` / `Quote` / `Bold` 这类单词与 global 里既有的
+				// `Edit` / `Save` / `Clear` / `Details` 属同一风险等级（仓库名 / 议题标题撞车属
+				// **条件性误伤**，见 docs/guides/development.md 的 M-02 说明），故按同一标准收录；
+				// 明显更长、更专用的短语优先（`Attach files` / `Numbered list` …）。
+				// `Markdown` 本身是纯专名，不收录。
+				"Bold",
+				"Italic",
+				"Quote",
+				"Heading",
+				"Code",
+				"Link",
+				"Mention",
+				"Reference",
+				"Numbered list",
+				"Unordered list",
+				"Task list",
+				"Add a table",
+				"Add collapsible content",
+				// —— 评论框与附件组件 ——
+				"Add a comment",
+				"Comment",
+				"Add files",
+				"Attach files",
+				"Paste, drop, or click to add files",
+				// 附件类型说明的后半句（前半句是链接文本 `Markdown`，纯专名不收录）
+				"is supported",
+				"Attaching documents requires write permission to this repository.",
+				// 附件组件的错误提示（全站同一批文案）
+				"Something went really wrong, and we can’t process that file.",
+				"This file is hidden.",
+				"Try again.",
+				"Try again with another file.",
+				"Try again with a file that’s not empty.",
+				"We don’t support that file type.",
+				"Try again with GIF, JPEG, JPG, MOV, MP4, PNG, SVG, WEBM, WEBP, BMP, C, COPILOTMD, CPP, CPUPROFILE, CS, CSS, CSV, DEBUG, DMP, DOC, DOCX, DRAWIO, EML, FODG, FODP, FODS, FODT, GZ, HTM, HTML, IPYNB, JAVA, JS, JSON, JSONC, LOG, MD, MP3, MSG, ODF, ODG, ODP, ODS, ODT, PATCH, PDB, PDF, PHP, PPTX, PY, RTF, SH, SQL, TGZ, TIF, TIFF, TS, TSV, TSX, TXT, WAV, XLS, XLSM, XLSX, XML, YAML, YML or ZIP."
 			]
 		}
 	]

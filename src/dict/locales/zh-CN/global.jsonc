@@ -350,6 +350,39 @@
 		// —— 未登录对话页底部的注册引导 ——
 		"Sign up for free": "免费注册",
 		"to subscribe to this conversation on GitHub": "以订阅 GitHub 上关于此对话的动态",
-		". Already have an account?": "。已有账户？"
+		". Already have an account?": "。已有账户？",
+		// —— 评论编辑器的 Markdown 工具栏（站点级组件）——
+		// 与上面的 "Write" / "Preview"（同一块 UI）同属 global；
+		// 键来自 /settings/replies 的已保存回复编辑器，同一组件在议题 / PR 评论框也渲染
+		"Bold": "粗体",
+		"Italic": "斜体",
+		"Quote": "引用",
+		"Heading": "标题",
+		"Code": "代码",
+		"Link": "链接",
+		"Mention": "提及",
+		"Reference": "引用他人",
+		"Numbered list": "编号列表",
+		"Unordered list": "无序列表",
+		"Task list": "任务列表",
+		"Add a table": "添加表格",
+		"Add collapsible content": "添加可折叠内容",
+		// —— 评论框与附件组件 ——
+		"Add a comment": "添加评论",
+		"Comment": "评论",
+		"Add files": "添加文件",
+		"Attach files": "附加文件",
+		"Paste, drop, or click to add files": "粘贴、拖放或点击以添加文件",
+		// 拼接后为「Markdown 受支持」（链接文本 Markdown 是纯专名、保留英文）
+		"is supported": "受支持",
+		"Attaching documents requires write permission to this repository.": "附加文档需要对此仓库的写入权限。",
+		"Something went really wrong, and we can’t process that file.": "出了严重问题，我们无法处理该文件。",
+		"This file is hidden.": "此文件已隐藏。",
+		"Try again.": "请重试。",
+		"Try again with another file.": "请改用其他文件重试。",
+		"Try again with a file that’s not empty.": "请改用非空文件重试。",
+		"We don’t support that file type.": "我们不支持该文件类型。",
+		// 扩展名清单按原样保留（它们是文件类型标识，不是文案）
+		"Try again with GIF, JPEG, JPG, MOV, MP4, PNG, SVG, WEBM, WEBP, BMP, C, COPILOTMD, CPP, CPUPROFILE, CS, CSS, CSV, DEBUG, DMP, DOC, DOCX, DRAWIO, EML, FODG, FODP, FODS, FODT, GZ, HTM, HTML, IPYNB, JAVA, JS, JSON, JSONC, LOG, MD, MP3, MSG, ODF, ODG, ODP, ODS, ODT, PATCH, PDB, PDF, PHP, PPTX, PY, RTF, SH, SQL, TGZ, TIF, TIFF, TS, TSV, TSX, TXT, WAV, XLS, XLSM, XLSX, XML, YAML, YML or ZIP.": "请改用 GIF、JPEG、JPG、MOV、MP4、PNG、SVG、WEBM、WEBP、BMP、C、COPILOTMD、CPP、CPUPROFILE、CS、CSS、CSV、DEBUG、DMP、DOC、DOCX、DRAWIO、EML、FODG、FODP、FODS、FODT、GZ、HTM、HTML、IPYNB、JAVA、JS、JSON、JSONC、LOG、MD、MP3、MSG、ODF、ODG、ODP、ODS、ODT、PATCH、PDB、PDF、PHP、PPTX、PY、RTF、SH、SQL、TGZ、TIF、TIFF、TS、TSV、TSX、TXT、WAV、XLS、XLSM、XLSX、XML、YAML、YML 或 ZIP 重试。"
 	}
 }

@@ -848,13 +848,6 @@
 				{
 					"id": "settings/audit-removed-oauth-authorization",
 					"pattern": "^Removed authorization for OAuth application \\((.+)\\)$"
-				},
-				// /settings/profile 的 ORCID 区块（连接成功后才渲染）：整句里**两个值都是动态的**
-				// （ORCID 标识符与 @账户），按 ≥2 组用命名组的约定写；截图里两个值都是普通文本
-				// （不是链接），故按单节点整句处理。
-				{
-					"id": "settings/orcid-connected-notice",
-					"pattern": "^You have a connected ORCID iD (?<id>.+) for the account (?<account>.+)\\.$"
 				}
 			]
 		},

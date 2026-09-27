@@ -1,13 +1,16 @@
 // 公开资料页（/settings/profile）的 ORCID 区块实机文本与属性回归。
 //
-// 边界强度：**实机截图**（2026-09-27 维护者连接 ORCID 后提供）。这一区块的**上半部分**
-// （H2 `ORCID iD`、`Connect your ORCID iD` 与那句 ORCID.org 说明）早已有词条，
-// 连接成功后**多出三条**：已连接提示、显示开关、断开说明与断开按钮——本文件锁住它们。
+// 边界强度：**实机截图 + 实机 HTML 实证**（2026-09-27 维护者连接 ORCID 后提供）。这一区块的
+// **上半部分**（H2 `ORCID iD`、`Connect your ORCID iD` 与那句 ORCID.org 说明）早已有词条，
+// 连接成功后**多出**：已连接提示、显示开关、断开说明与断开按钮——本文件锁住它们。
 //
 // 关键边界事实：
-//   1. `You have a connected ORCID iD <标识符> for the account <账户>.` 里**两个值都是动态的**，
-//      走 `settings/orcid-connected-notice` 规则（两个命名组、按原样带回）；截图里两个值都是
-//      普通灰色文本（不是链接），故按单节点整句处理；
+//   1. **已连接提示的真实边界**（HTML 确证：两个值都被 `<strong>` 包住）：
+//      `You have a connected ORCID iD` + <strong>标识符</strong> + `for the account` +
+//      <strong>@账户</strong> + `.`
+//      ——整句被切成四段以上、句号也独立成节点，故收的是两段碎片键。
+//      上一轮按截图推断的「整句单节点 + 双命名组规则」因此永不命中，已随本次修正删除
+//      （与 security-log 事件行同一种翻车方式：**截图看不出被元素包住的值**）；
 //   2. `ORCID iD` 这个键的译文**绝不能与键同形**——2026-09 的卡死事故就是
 //      `"ORCID iD": "ORCID iD"` 触发的「命中 → 写入 → 再命中」自转（见 docs/guides/development.md）；
 //      本文件用一条断言把它钉成「必须含中文」；
@@ -32,23 +35,47 @@ const ORCID_NODES: readonly string[] = [
 	// 连接前 / 连接后共有的标签与入口
 	"ORCID iD",
 	"Connect your ORCID iD",
-	// 连接成功后新增的四段
-	"You have a connected ORCID iD 0009-0003-4314-5082 for the account @Oppenheymu.",
+	// 已连接提示的两段碎片（两个值都在 <strong> 里，各自成节点）
+	"You have a connected ORCID iD",
+	"for the account",
+	// 显示开关、断开说明与断开按钮
 	"Display your ORCID iD on your GitHub profile",
 	"Disconnecting your ORCID iD may affect areas of your profile where your ORCID iD is displayed.",
 	"Disconnect your ORCID iD",
 ];
 
-/** 必须保持英文的实机节点：动态标识符与用户内容 */
+/** 必须保持英文的实机节点：动态标识符、用户内容与已删除的整句形态 */
 const MUST_STAY_ENGLISH: readonly string[] = [
 	"0009-0003-4314-5082",
 	"@Oppenheymu",
 	"Oppenheymu",
+	// 整句形态在实机并不存在（值被 <strong> 包住），对应的规则已删除：
+	// 它现在必须返回 null，防止那条死规则被谁重新加回来
+	"You have a connected ORCID iD 0009-0003-4314-5082 for the account @Oppenheymu.",
 ];
 
 /** 节点在实机里通常带源码缩进与换行；两种形态都必须命中 */
 function withWhitespace(node: string): readonly string[] {
 	return [node, `\n        ${node}\n      `];
+}
+
+/**
+ * 把一段实机节点序列按 walker 的语义过一遍：未命中的节点按原样保留，
+ * 命中的节点写回译文并保留其首尾空白，最后拼接成页面上真实看到的那一行。
+ */
+function renderNodes(nodes: readonly string[]): string {
+	return nodes
+		.map((node) => {
+			const translated = translateText(node, view);
+			if (translated === null) return node;
+			const lead = node.slice(
+				0,
+				node.length - node.trimStart().length,
+			);
+			const trail = node.slice(node.trimEnd().length);
+			return `${lead}${translated}${trail}`;
+		})
+		.join("");
 }
 
 describe("公开资料页 ORCID 区块的实机节点边界", () => {
@@ -85,23 +112,26 @@ describe("公开资料页 ORCID 区块的实机节点边界", () => {
 		);
 	});
 
-	it("renders the connected notice through the dynamic rule", () => {
+	it("renders the connected notice with the boundaries the HTML proves", () => {
+		// 实机：`<p class="note my-2">You have a connected ORCID iD <strong>…</strong>
+		// for the account <strong>@…</strong>.</p>`
 		expect(
-			translateText(
-				"You have a connected ORCID iD 0009-0003-4314-5082 for the account @Oppenheymu.",
-				view,
-			),
+			renderNodes([
+				"\n  You have a connected ORCID iD\n  ",
+				"0009-0003-4314-5082",
+				"\n  for the account\n  ",
+				"@Oppenheymu",
+				".",
+			]),
 		).toBe(
-			"你已连接 ORCID iD 0009-0003-4314-5082，对应账户为 @Oppenheymu。",
+			"\n  你已连接的 ORCID iD 为\n  0009-0003-4314-5082\n  ，对应账户为\n  @Oppenheymu.",
 		);
-		// 换一个标识符与账户同样成立
+		// 两段碎片键各自也成立
 		expect(
-			translateText(
-				"You have a connected ORCID iD 0000-0002-1825-0097 for the account @octocat.",
-				view,
-			),
-		).toBe(
-			"你已连接 ORCID iD 0000-0002-1825-0097，对应账户为 @octocat。",
+			translateText("You have a connected ORCID iD", view),
+		).toBe("你已连接的 ORCID iD 为");
+		expect(translateText("for the account", view)).toBe(
+			"，对应账户为",
 		);
 	});
 

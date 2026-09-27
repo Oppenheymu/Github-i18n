@@ -415,13 +415,17 @@
 				"No Preference",
 				"Connect your ORCID iD",
 				// —— /settings/profile 的 ORCID 区块（**连接之后**才渲染的那部分）——
-				// 证据强度：**实机截图**（2026-09-27 维护者连接 ORCID 后提供）。
+				// 证据强度：**实机截图 + 实机 HTML 实证**（2026-09-27 维护者提供）。
 				// 该区块的上半部分（H2 `ORCID iD`、`Connect your ORCID iD` 与那句说明）
-				// 早已有词条，这里只补连接成功后新增的三条键。
-				// 「You have a connected ORCID iD <标识符> for the account <账户>.」里两个值都是动态的，
-				// 走 core/rules.jsonc 的 settings/orcid-connected-notice 规则（两个命名组）；
-				// 截图里标识符与 @账户都是普通灰色文本（不是链接），故按单节点整句处理——
-				// 若日后 HTML 证明它们被元素包住，改为「碎片键 + 中段规则」即可（同 security-log 的先例）。
+				// 早已有词条，这里只补连接成功后新增的内容。
+				// **已连接提示的真实边界**（HTML 确证：两个值都被 `<strong>` 包住）：
+				//   `You have a connected ORCID iD` + <strong>标识符</strong> +
+				//   `for the account` + <strong>@账户</strong> + `.`
+				// 即整句被切成四段以上、句号也独立成节点；上一轮按截图推断的
+				// 「整句单节点」规则因此永不命中，已随这次修正删除（同 security-log 的先例）。
+				// 标识符与 @账户都是动态值 / 用户内容，不收录。
+				"You have a connected ORCID iD",
+				"for the account",
 				"Display your ORCID iD on your GitHub profile",
 				"Disconnecting your ORCID iD may affect areas of your profile where your ORCID iD is displayed.",
 				"Disconnect your ORCID iD",

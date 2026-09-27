@@ -2041,6 +2041,11 @@
 				"Temporary interaction restrictions",
 				"Temporarily restrict which external users can interact with your repository (comment, open issues, or create pull requests) for a configurable period of time.",
 				"This may be used to force a \"cool-down\" period during heated discussions or prevent unwanted interactions.",
+				// 下拉（SelectMenu）标题：与账户级 pages/settings 的同串同译文。
+				// 两个模块各登记一份是**有意**的跨模块同键——路由互斥
+				// （^/settings/** 与 ^/<owner>/<repo>/settings/** 永不共存），故译文相同、
+				// 谁先命中都一样；少登记一份就会像 2026-09-27 那样在本页留下一条漏翻。
+				"Enable interaction limits for:",
 				// 说明句被链接拆成三段。前段实机原文是带源码换行的单节点
 				// （`… across your account\n      in your`），键按 normalizeKey 折叠空白后的形态写
 				"You can restrict repository interactions across your account in your",

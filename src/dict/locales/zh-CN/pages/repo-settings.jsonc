@@ -225,6 +225,9 @@
 		// 账户级那套词条在 pages/settings 里，两边的短标签（Users / New users / 时长等）
 		// 译文保持一致，避免同一控件在两页显示不同说法。
 		"Temporary interaction restrictions": "临时交互限制",
+		// 下拉（SelectMenu）的标题：与账户级 pages/settings 的同串同译文，
+		// 该键在本模块此前没有译文（2026-09-27 维护者实机发现漏翻）
+		"Enable interaction limits for:": "为以下对象启用交互限制：",
 		"Temporarily restrict which external users can interact with your repository (comment, open issues, or create pull requests) for a configurable period of time.": "在可配置的一段时间内，临时限制哪些外部用户可与你的仓库交互（发表评论、打开议题或创建拉取请求）。",
 		"This may be used to force a \"cool-down\" period during heated discussions or prevent unwanted interactions.": "这可用于在激烈讨论期间强制设置「冷却」期，或防止不受欢迎的交互。",
 		// 说明句被链接拆成三段：前段 + `account settings` 链接 + 纯符号尾节点（不收）

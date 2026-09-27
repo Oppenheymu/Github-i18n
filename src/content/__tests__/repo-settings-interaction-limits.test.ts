@@ -46,6 +46,12 @@ const NODES: readonly (readonly [string, string])[] = [
 	["3 days", "3 天"],
 	["6 months", "6 个月"],
 	["New users", "新用户"],
+	// 下拉（SelectMenu）的标题（`<h3 class="SelectMenu-title">`）：键与账户级同串，
+	// 本模块此前漏译，2026-09-27 维护者在实机上发现
+	[
+		"Enable interaction limits for:",
+		"为以下对象启用交互限制：",
+	],
 	[
 		"Enable interaction limit to prior contributors",
 		"为之前的贡献者启用交互限制",

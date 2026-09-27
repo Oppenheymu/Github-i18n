@@ -2005,6 +2005,24 @@
 				{
 					"id": "repo-settings/webhooks-intro",
 					"pattern": "^Webhooks allow external services to be notified when certain events happen\\. When the specified events happen, we['\\u2019]ll send a POST request to each of the URLs you provide\\. Learn more in our$"
+				},
+				// —— 安全分析子页（/owner/repo/settings/security_analysis）——
+				// 页头说明句含 `you're`：实机是直撇号还是弯撇号尚无 HTML 逐字证实（粘贴文本
+				// 里的撇号形态不可靠），故用字符类同时覆盖两种写法——这条是 2026-09 网络钩子
+				// 那句的同一处理方式。
+				{
+					"id": "repo-settings/advanced-security-intro",
+					"pattern": "^Advanced Security features help keep your repository secure and updated\\. By enabling these features, you['\\u2019]re granting us permission to perform read-only analysis on your repository\\.$"
+				},
+				// Dependabot 规则区块的「N rule(s) enabled」：数字随启用条数变化
+				{
+					"id": "repo-settings/dependabot-rules-enabled-count",
+					"pattern": "^(?<count>[\\d,]+) rules? enabled$"
+				},
+				// CodeQL 默认配置弹层的「N of M languages selected」
+				{
+					"id": "repo-settings/languages-selected-count",
+					"pattern": "^(?<count>\\d+) of (?<total>\\d+) languages? selected$"
 				}
 			]
 		},

@@ -739,6 +739,10 @@
 					"module": "pages/repo-settings"
 				},
 				{
+					"key": "Languages",
+					"module": "pages/repo-settings"
+				},
+				{
 					"key": "Milestones",
 					"module": "pages/repo-settings"
 				},
@@ -807,6 +811,9 @@
 				"repo-settings/actions-policies-title",
 				"repo-settings/insights-title",
 				"repo-settings/webhooks-intro",
+				"repo-settings/advanced-security-intro",
+				"repo-settings/dependabot-rules-enabled-count",
+				"repo-settings/languages-selected-count",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
@@ -938,6 +945,10 @@
 					"module": "pages/repo-settings"
 				},
 				{
+					"key": "Languages",
+					"module": "pages/repo-settings"
+				},
+				{
 					"key": "Milestones",
 					"module": "pages/repo-settings"
 				},
@@ -1006,6 +1017,9 @@
 				"repo-settings/actions-policies-title",
 				"repo-settings/insights-title",
 				"repo-settings/webhooks-intro",
+				"repo-settings/advanced-security-intro",
+				"repo-settings/dependabot-rules-enabled-count",
+				"repo-settings/languages-selected-count",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",

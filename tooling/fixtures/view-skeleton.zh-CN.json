@@ -713,6 +713,10 @@
 					"module": "pages/repo-settings"
 				},
 				{
+					"key": "Contributors",
+					"module": "pages/repo-settings"
+				},
+				{
 					"key": "Discussions",
 					"module": "pages/repo-settings"
 				},

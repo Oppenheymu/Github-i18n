@@ -23,13 +23,14 @@
 //   "Write"        pages/repo-settings「写入」（权限级别）压 global「编写」
 //   "GitHub Apps"  pages/repo-settings「GitHub 应用」压 pages/marketing「GitHub 应用程序」
 //                 （marketing 路由 ^/(features|pricing) 与 repo-settings 永不共存，故顺序不影响结果）
+//   "Contributors" pages/repo-settings「贡献者」（交互限制下拉的档位）压 pages/repo「贡献者」
+//                 ——两个模块的**译文相同**，碰撞只是登记在两个模块里的结果，不影响实机显示
 // 这里只是常见几条的索引，**完整清单以 tooling/fixtures/view-skeleton.<语言>.json 为准**：
 // 视图骨架门禁会记录每条探针路径上所有「被 ≥2 个命中模块提供」的键及其胜出模块，
-// 顺序或词条一变就报错。当前口径（zh-CN 快照实测）：16 个碰撞键、37 条「探针 × 键」记录，
-// 其中**胜出模块随路径变化的只有 Pages 一个**（仓库设置页是 pages/repo-settings、wiki 页是 pages/wiki）。
-// 上面手写清单里的 Actions / Name / Write 属于「数据层同键异译」（zh-CN 数据层共 9 个键在不同模块
+// 顺序或词条一变就报错（键数与记录数随词典增长，别把这里的数字当成断言口径）。
+// 上面手写清单里的 Actions / Name / Write 属于「数据层同键异译」（zh-CN 数据层有若干键在不同模块
 // 译文不同），但它们大多不在同一条路径上共存，因此在实机视图里不构成碰撞——别把这份清单当成
-// 「有意异译」的完整枚举，也别因为有 9 个就以为快照里有 9 处碰撞。
+// 「有意异译」的完整枚举。
 
 import aliasesRaw from "./core/aliases.jsonc";
 import modulesRaw from "./core/modules.jsonc";

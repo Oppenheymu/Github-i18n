@@ -2026,6 +2026,70 @@
 				"Add",
 				"Add people",
 				"Add to repository",
+				// —— 交互限制子页（/owner/repo/settings/interaction_limits）——
+				// 证据强度：**途径 A 实证**（2026-09-27 维护者从 popup 开发者模式导出的
+				// github-zh-misses/1 漏翻清单，path 全为
+				// /Oppenheymu/Github-i18n/settings/interaction_limits）。
+				// 页面级别由措辞判定：这些条目一律说 **this repository**（单数），
+				// 与账户级 /settings/interaction_limits 的 your repositories（复数，见
+				// pages/settings 的交互限制块）互斥，故本页归 pages/repo-settings。
+				// 注意：`Temporary interaction restrictions` 与账户级的
+				// `Temporary interaction limits` 是两个不同的串，别合并。
+				// 刻意**不收录**：品牌与缩写（Dependabot / OIDC / Copilot / GitHub）、
+				// 快捷键文本（alt shift r）、用户内容（Oppenheymu / Github-i18n /
+				// M. Oppenheymu / @Oppenheymu）。
+				"Temporary interaction restrictions",
+				"Temporarily restrict which external users can interact with your repository (comment, open issues, or create pull requests) for a configurable period of time.",
+				"This may be used to force a \"cool-down\" period during heated discussions or prevent unwanted interactions.",
+				// 说明句被链接拆成三段。前段实机原文是带源码换行的单节点
+				// （`… across your account\n      in your`），键按 normalizeKey 折叠空白后的形态写
+				"You can restrict repository interactions across your account in your",
+				// 链接「account settings」单独成节点；同一句的尾段是纯符号节点（翻不了也不收）
+				"account settings",
+				// 三档限制对象：短标签 + 长说明各成节点（说明见下方 inject-limit 规则）
+				"Limit to existing users",
+				"Limit to prior contributors",
+				"Users that have recently created their account will be unable to interact with the repository.",
+				"Users that have not previously",
+				"committed",
+				"to the main branch of this repository will be unable to interact with the repository.",
+				"Limit to repository collaborators",
+				"Users that are not",
+				"collaborators",
+				"will not be able to interact with the repository.",
+				// 三条 aria-label 与同文案的可见文本是同一个串，各一条键覆盖两处
+				"Enable interaction limit to existing users",
+				"Enable interaction limit to prior contributors",
+				"Enable interaction limit to repository collaborators",
+				// 下拉（时长枚举与开关短标签）：All / New users / Users / Contributors / Collaborators
+				// （Collaborators 已在本模块的设置侧边栏登记过，此处不重复；All 由 global 覆盖）
+				"Enable",
+				"New users",
+				"Users",
+				"Contributors",
+				"24 hours",
+				"3 days",
+				"1 week",
+				"1 month",
+				"6 months",
+				// —— 拉取请求上限（同一子页的下半部分）——
+				"Pull request limits",
+				"Restrict how many pull requests users without write access can have open at one time and add specific users to a bypass list. These settings stay in effect until you change them.",
+				"Limit open pull requests from users without write access",
+				"Maximum open pull requests per user",
+				"Currently, users without write access can have up to",
+				"open pull request at a time.",
+				"Currently, users without write access can open an unlimited number of pull requests.",
+				"Enter a number from 1 to 1000",
+				"Enter a number from 1 to 1000. Users who have more open PRs than the above limit will not be able to create new PRs.",
+				// 绕过名单
+				"Bypass list",
+				"Add users to bypass list",
+				"Add users",
+				"Users listed here can open pull requests regardless of the configured limit.",
+				"No users can bypass the open pull request limit",
+				"items",
+				"General settings",
 				"Find people",
 				"Search by username, full name, or email",
 				"selection",

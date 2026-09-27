@@ -3104,7 +3104,17 @@
 				"Variables are used for non-sensitive configuration data. They are accessible only by GitHub Actions in the context of this environment by using the",
 				"variable context",
 				"Add environment secret",
-				"Add environment variable"
+				"Add environment variable",
+				// —— 规则集列表页的空态（/owner/repo/settings/rules，无规则集时）——
+				// 依据：维护者 2026-09-27 贴出的实机 HTML（页面已加载扩展）。
+				// **关键实证**：链接渲染成了「进一步了解 rulesets.」——中英混杂说明该链接的文本
+				// 被 React 拆成了两个文本节点：`Learn more about`（命中 global 的同名短键）
+				// 与 `rulesets.`（未命中，保留英文）。故这里必须收 `rulesets.` 这条碎片；
+				// 整句形态 `Learn more about rulesets.` 同时收一份，防止上游改回单节点。
+				"You haven't created any rulesets",
+				"Define whether collaborators can delete or force push and set requirements for any pushes, such as passing status checks or a linear commit history.",
+				"rulesets.",
+				"Learn more about rulesets."
 			]
 		},
 		{

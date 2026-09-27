@@ -495,3 +495,52 @@ describe("仓库设置页的规则集页实机节点边界", () => {
 		).toBeNull();
 	});
 });
+
+describe("仓库设置页的规则集列表页空态（无规则集时）", () => {
+	it("translates the empty-state heading and paragraph", () => {
+		expect(
+			translateText(
+				"You haven't created any rulesets",
+				view,
+			),
+		).toBe("你还没有创建任何规则集");
+		expect(
+			translateText(
+				"Define whether collaborators can delete or force push and set requirements for any pushes, such as passing status checks or a linear commit history.",
+				view,
+			),
+		).toBe(
+			"定义协作者是否可以删除或强制推送，并为任何推送设置要求，例如通过状态检查或线性提交历史。",
+		);
+	});
+
+	it("repairs the mixed-language docs link by translating its second node", () => {
+		// 实机渲染成「进一步了解 rulesets.」：链接文本被 React 拆成两段，
+		// 前段命中 global 的短键，后段此前未命中。这条断言锁住实证过的节点边界。
+		expect(translateText("Learn more about", view)).toBe(
+			"进一步了解",
+		);
+		expect(translateText("rulesets.", view)).toBe(
+			"规则集。",
+		);
+		// 两段拼接（空白由原文节点自带）要读得通
+		expect(
+			[
+				translateText("Learn more about", view),
+				translateText("rulesets.", view),
+			].join(" "),
+		).toBe("进一步了解 规则集。");
+		// 上游若改回单节点形态，整句键兜底
+		expect(
+			translateText("Learn more about rulesets.", view),
+		).toBe("进一步了解规则集。");
+	});
+
+	it("still keeps this page's user content in english", () => {
+		expect(
+			translateText("Protect Default Branch", view),
+		).toBeNull();
+		expect(translateText("Github-i18n", view)).toBeNull();
+		expect(translateText("Oppenheymu", view)).toBeNull();
+	});
+});

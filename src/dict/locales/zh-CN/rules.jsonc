@@ -192,6 +192,9 @@
 		"settings/no-recoverable-packages": "未找到 $1 的可恢复软件包。",
 		// Copilot 功能设置页的用量百分比
 		"settings/copilot-usage-percent": "已使用 $1%",
+		// 安全与分析页的私密漏洞报告确认句（账户名按原样带回）
+		"settings/enable-private-vulnerability-reporting-all": "你即将在 $1 的所有公开仓库中启用私密漏洞报告。",
+		"settings/disable-private-vulnerability-reporting-all": "你即将在 $1 的所有公开仓库中禁用私密漏洞报告。",
 		// —— 账单页（/account/billing）的动态用量说明 ——
 		// 区间按月全展开（与 insights/range-long-* 同一形态）：pattern 里写死英文月份
 		// 全称，模板里写死对应中文月份。之所以逐组合展开、而不是用捕获组，是因为

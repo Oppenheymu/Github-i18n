@@ -388,6 +388,7 @@ for (const p of probes) {
 | `settings-copilot-features.test.ts` | `/settings/copilot/features` | Copilot 功能设置页（句号常落在后一节点故译文以「。」起头、`through` 等连接词单独成节点、Copilot Spaces 三段拼接、用量百分比规则；产品名保留英文） |
 | `settings-replies.test.ts` | `/settings/replies` | 已保存回复页（Markdown 工具栏与附件组件的文案在 `global`；附件类型说明是「链接 + `is supported`」两段；扩展名清单原样保留、`SavedReply` 是模型名） |
 | `settings-pages.test.ts` | `/settings/pages`、`/settings/copilot/coding_agent` | 已验证域名页 + Copilot 云端代理页（两页都很小，合并在一个文件里；说明段是含源码换行的单节点） |
+| `settings-security-analysis.test.ts` | `/settings/security_analysis` | 安全与分析页（每个功能一对「启用 / 禁用 / 全部启用 / 全部禁用 + 你即将…确认句」；私密漏洞报告那对确认句含动态账户名走规则；功能标识符 `dependency_graph` 等保留英文） |
 | `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |

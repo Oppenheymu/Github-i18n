@@ -873,6 +873,89 @@
 		"No saved replies yet.": "还没有保存的回复。",
 		"Learn more about working with saved replies": "详细了解如何使用保存的回复",
 		// SavedReply 是代码里的模型名，按原样保留
-		"There was an error creating your SavedReply.": "创建你的 SavedReply 时出错。"
+		"There was an error creating your SavedReply.": "创建你的 SavedReply 时出错。",
+		// —— /settings/security_analysis（安全与分析）——
+		// 键来自开发者模式导出的漏翻清单；节点边界与反例见
+		// src/content/__tests__/settings-security-analysis.test.ts
+		"Security & analysis": "安全与分析",
+		// —— 页面级说明 ——
+		"Security and analysis features help keep your repositories secure and updated.": "安全与分析功能可帮助你的仓库保持安全与最新。",
+		"Security and analysis features help keep your repositories secure and updated. By enabling these features, you're granting us permission to perform read-only analysis on your repositories.": "安全与分析功能可帮助你的仓库保持安全与最新。启用这些功能即表示你授权我们对你的仓库执行只读分析。",
+		"Security and analysis features help keep you secure and updated, wherever you are.": "无论你身在何处，安全与分析功能都能帮你保持安全与最新。",
+		// —— 通用开关文案 ——
+		"Enable by default for new repositories": "默认对新仓库启用",
+		"Automatically enable for new repositories": "自动对新仓库启用",
+		"Enable by default for new private repositories": "默认对新私有仓库启用",
+		"Enable by default for new public repositories": "默认对新公开仓库启用",
+		"Automatically enable for new public repositories": "自动对新公开仓库启用",
+		"Enable all": "全部启用",
+		"Disable all": "全部禁用",
+		"User": "用户",
+		// —— 依赖项关系图 ——
+		"Dependency graph": "依赖项关系图",
+		"Understand your dependencies.": "了解你的依赖项。",
+		"Enable dependency graph": "启用依赖项关系图",
+		"Disable dependency graph": "禁用依赖项关系图",
+		"Enable all dependency graph": "启用所有依赖项关系图",
+		"Disable all dependency graph": "禁用所有依赖项关系图",
+		// —— Dependabot 警报与安全更新 ——
+		"Enable Dependabot alerts": "启用 Dependabot 警报",
+		"Disable Dependabot alerts": "禁用 Dependabot 警报",
+		"Enable all Dependabot alerts": "启用所有 Dependabot 警报",
+		"Disable all Dependabot alerts": "禁用所有 Dependabot 警报",
+		"Dependabot security updates": "Dependabot 安全更新",
+		"Enable Dependabot security updates": "启用 Dependabot 安全更新",
+		"Disable Dependabot security updates": "禁用 Dependabot 安全更新",
+		"Enable all Dependabot security updates": "启用所有 Dependabot 安全更新",
+		"Disable all Dependabot security updates": "禁用所有 Dependabot 安全更新",
+		"Keep your dependencies secure and up-to-date.": "让你的依赖项保持安全且最新。",
+		"Receive alerts for vulnerabilities that affect your dependencies and manually generate Dependabot pull requests to resolve these vulnerabilities.": "接收影响你依赖项的漏洞警报，并手动生成 Dependabot 拉取请求来修复这些漏洞。",
+		"Enabling this option will result in Dependabot automatically attempting to open pull requests to resolve every open Dependabot alert with an available patch.": "启用此选项后，Dependabot 会自动尝试为每个有可用补丁且尚未解决的 Dependabot 警报打开拉取请求。",
+		"Learn more about Dependabot": "详细了解 Dependabot",
+		"Configure alert notifications": "配置警报通知",
+		// —— 分组安全更新 ——
+		"Grouped security updates": "分组安全更新",
+		"Enable grouped security updates": "启用分组安全更新",
+		"Disable grouped security updates": "禁用分组安全更新",
+		"Enable all grouped security updates": "启用所有分组安全更新",
+		"Disable all grouped security updates": "禁用所有分组安全更新",
+		"Learn how to group updates.": "了解如何对更新进行分组。",
+		// ditto：原文以「 -」收尾，译文照写
+		"Groups all available updates that resolve a Dependabot alert into one pull request (per package manager and directory of requirement manifests). This option may be overridden by group rules specified in dependabot.yml -": "把解决某个 Dependabot 警报的所有可用更新分组为一个拉取请求（按包管理器与依赖清单所在目录分别处理）。此选项可能被 dependabot.yml 中指定的分组规则覆盖 -",
+		// —— Dependabot 自托管 ——
+		"Dependabot on self-hosted runners": "在自托管运行器上使用 Dependabot",
+		"Run Dependabot security and version updates on self-hosted Actions runners.": "在自托管的 Actions 运行器上运行 Dependabot 安全更新与版本更新。",
+		"Enable dependabot self-hosted": "启用 Dependabot 自托管",
+		"Disable dependabot self-hosted": "禁用 Dependabot 自托管",
+		"Enable all dependabot self-hosted": "启用所有 Dependabot 自托管",
+		"Disable all dependabot self-hosted": "禁用所有 Dependabot 自托管",
+		// —— 私密漏洞报告（与 pages/marketing 的同键译文一致）——
+		"Private vulnerability reporting": "私密漏洞报告",
+		"Allow your community to privately report potential security vulnerabilities to maintainers and repository owners.": "允许你的社区向维护者和仓库所有者私密报告潜在的安全漏洞。",
+		"Enable private vulnerability reporting": "启用私密漏洞报告",
+		"Disable private vulnerability reporting": "禁用私密漏洞报告",
+		"Enable all private vulnerability reporting": "启用所有私密漏洞报告",
+		"Disable all private vulnerability reporting": "禁用所有私密漏洞报告",
+		"Learn more about private vulnerability reporting": "详细了解私密漏洞报告",
+		// —— 推送保护（针对你个人）——
+		"Push protection for yourself": "针对你个人的推送保护",
+		// 三段拼接：阻止包含 + 受支持的机密 + 的提交（适用于 GitHub 上的所有公开仓库）。
+		"Block commits that contain": "阻止包含",
+		"supported secrets": "受支持的机密",
+		"across all public repositories on GitHub.": "的提交（适用于 GitHub 上的所有公开仓库）。",
+		"Disable push protection": "禁用推送保护",
+		"Disable push protection for yourself": "为你自己禁用推送保护",
+		"Pushes that contain secrets will not be blocked.": "包含机密的推送将不会被阻止。",
+		// —— 各功能「全部启用 / 全部禁用」的确认句 ——
+		"You're about to enable dependency graph on all your private repositories.": "你即将在你所有的私有仓库中启用依赖项关系图。",
+		"You're about to disable dependency graph on all your private repositories. This will also disable Dependabot alerts and Dependabot security updates on those repositories.": "你即将在你所有的私有仓库中禁用依赖项关系图。这同时会在这些仓库中禁用 Dependabot 警报与 Dependabot 安全更新。",
+		"You're about to enable Dependabot alerts on all your repositories. Alerts require the dependency graph, so we'll also turn that on for all repositories. No notifications will be sent while Dependabot alerts are being enabled.": "你即将在你所有的仓库中启用 Dependabot 警报。警报需要依赖项关系图，因此我们也会为所有仓库开启它。在启用 Dependabot 警报期间不会发送任何通知。",
+		"You're about to disable Dependabot alerts on all your repositories. This will also disable Dependabot security updates on those repositories.": "你即将在你所有的仓库中禁用 Dependabot 警报。这同时会在这些仓库中禁用 Dependabot 安全更新。",
+		"You're about to enable Dependabot security updates on all your repositories. Dependabot security updates require the dependency graph and Dependabot alerts, so we'll also turn that on for all repositories.": "你即将在你所有的仓库中启用 Dependabot 安全更新。Dependabot 安全更新需要依赖项关系图与 Dependabot 警报，因此我们也会为所有仓库开启它们。",
+		"You're about to disable Dependabot security updates on all your repositories.": "你即将在你所有的仓库中禁用 Dependabot 安全更新。",
+		"You're about to enable grouped security updates on all your repositories. Grouped security updates require the dependency graph, Dependabot alerts, Dependabot security updates and Dependabot security updates, so we'll also turn that on for all repositories.": "你即将在你所有的仓库中启用分组安全更新。分组安全更新需要依赖项关系图、Dependabot 警报、Dependabot 安全更新和 Dependabot 安全更新，因此我们也会为所有仓库开启它们。",
+		"You're about to disable grouped security updates on all your repositories.": "你即将在你所有的仓库中禁用分组安全更新。",
+		"You're about to enable dependabot self-hosted on all your repositories. Dependabot self-hosted depends on Dependabot on Actions so we'll also turn that on for all repositories.": "你即将在你所有的仓库中启用 Dependabot 自托管。Dependabot 自托管依赖 Actions 上的 Dependabot，因此我们也会为所有仓库开启它。",
+		"You're about to disable dependabot self-hosted on all your repositories.": "你即将在你所有的仓库中禁用 Dependabot 自托管。"
 	}
 }

@@ -794,6 +794,18 @@
 				{
 					"id": "settings/copilot-usage-percent",
 					"pattern": "^(\\d+)% used$"
+				},
+				// 安全与分析页（/settings/security_analysis）的「全部启用 / 全部禁用」确认句：
+				// 只有私密漏洞报告那一对含**动态账户名**（实机形如
+				// "…on all public repositories in Oppenheymu."），故整句走规则、账户名按原样带回。
+				// 动词不能做成捕获组（模板不支持值映射），因此启用 / 禁用各一条规则。
+				{
+					"id": "settings/enable-private-vulnerability-reporting-all",
+					"pattern": "^You're about to enable private vulnerability reporting on all public repositories in (.+)\\.$"
+				},
+				{
+					"id": "settings/disable-private-vulnerability-reporting-all",
+					"pattern": "^You're about to disable private vulnerability reporting on all public repositories in (.+)\\.$"
 				}
 			]
 		},

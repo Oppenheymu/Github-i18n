@@ -1296,7 +1296,106 @@
 				"No saved replies yet.",
 				"Learn more about working with saved replies",
 				// 模型名 SavedReply 是代码里的类名，保留原文
-				"There was an error creating your SavedReply."
+				"There was an error creating your SavedReply.",
+				// —— /settings/security_analysis（安全与分析）——
+				// 证据强度：**途径 A 实证**（popup 开发者模式导出的漏翻清单，schema
+				// github-zh-misses/1，2026-09-27 维护者导出，path 全为 /settings/security_analysis）。
+				// 含源码换行的长条目按 normalizeKey 折叠空白后的形态写。
+				// 刻意**不收录**：
+				//   1. 纯专名：`Dependabot`、`GitHub`（title）与用户名、头像 alt 等用户内容；
+				//   2. **功能标识符**（`security_alerts` / `dependency_graph` /
+				//      `private_vulnerability_reporting` / `dependabot_self_hosted` /
+				//      `vulnerability_updates` / `vulnerability_updates_grouping` /
+				//      `push_protection_user`）：它们是 DOM / 模板里的字面量键名，
+				//      与 OAuth 范围标识符同属「纯标识符不译」，译了反而对不上代码。
+				// 动态值走 core/rules.jsonc 本模块组的两条规则
+				// （settings/enable-、settings/disable-private-vulnerability-reporting-all）：
+				// 只有那一对确认句里含动态账户名，其余「你即将…」确认句都是静态串。
+				// 同键跨模块：`Private vulnerability reporting` 在 pages/marketing 已有词条
+				// （「私密漏洞报告」），但那条路由不命中 /settings 子树，故本模块各收一份、
+				// 译文与 marketing 保持一致。
+				"Security & analysis",
+				// —— 页面级说明 ——
+				"Security and analysis features help keep your repositories secure and updated.",
+				"Security and analysis features help keep your repositories secure and updated. By enabling these features, you're granting us permission to perform read-only analysis on your repositories.",
+				"Security and analysis features help keep you secure and updated, wherever you are.",
+				// —— 通用开关文案（每个功能卡片各一对）——
+				"Enable by default for new repositories",
+				"Automatically enable for new repositories",
+				"Enable by default for new private repositories",
+				"Enable by default for new public repositories",
+				"Automatically enable for new public repositories",
+				"Enable all",
+				"Disable all",
+				"User",
+				// —— 依赖项关系图 ——
+				"Dependency graph",
+				"Understand your dependencies.",
+				"Enable dependency graph",
+				"Disable dependency graph",
+				"Enable all dependency graph",
+				"Disable all dependency graph",
+				// —— Dependabot 警报与安全更新 ——
+				// 「Dependabot alerts」本模块已有既有词条，这里只收动作与说明句
+				"Enable Dependabot alerts",
+				"Disable Dependabot alerts",
+				"Enable all Dependabot alerts",
+				"Disable all Dependabot alerts",
+				"Dependabot security updates",
+				"Enable Dependabot security updates",
+				"Disable Dependabot security updates",
+				"Enable all Dependabot security updates",
+				"Disable all Dependabot security updates",
+				"Keep your dependencies secure and up-to-date.",
+				"Receive alerts for vulnerabilities that affect your dependencies and manually generate Dependabot pull requests to resolve these vulnerabilities.",
+				"Enabling this option will result in Dependabot automatically attempting to open pull requests to resolve every open Dependabot alert with an available patch.",
+				"Learn more about Dependabot",
+				"Configure alert notifications",
+				// —— 分组安全更新 ——
+				"Grouped security updates",
+				"Enable grouped security updates",
+				"Disable grouped security updates",
+				"Enable all grouped security updates",
+				"Disable all grouped security updates",
+				"Learn how to group updates.",
+				// 说明段以 " -" 收尾（上游原文如此），译文照写
+				"Groups all available updates that resolve a Dependabot alert into one pull request (per package manager and directory of requirement manifests). This option may be overridden by group rules specified in dependabot.yml -",
+				// —— Dependabot 自托管 ——
+				"Dependabot on self-hosted runners",
+				"Run Dependabot security and version updates on self-hosted Actions runners.",
+				"Enable dependabot self-hosted",
+				"Disable dependabot self-hosted",
+				"Enable all dependabot self-hosted",
+				"Disable all dependabot self-hosted",
+				// —— 私密漏洞报告 ——
+				"Private vulnerability reporting",
+				"Allow your community to privately report potential security vulnerabilities to maintainers and repository owners.",
+				"Enable private vulnerability reporting",
+				"Disable private vulnerability reporting",
+				"Enable all private vulnerability reporting",
+				"Disable all private vulnerability reporting",
+				"Learn more about private vulnerability reporting",
+				// —— 推送保护（针对你个人）——
+				"Push protection for yourself",
+				// 说明句被链接切成三段（截图 / 导出实证：链接文本是 `supported secrets`）：
+				// 「阻止包含 <a>受支持的机密</a> 的提交（适用于 GitHub 上的所有公开仓库）」
+				"Block commits that contain",
+				"supported secrets",
+				"across all public repositories on GitHub.",
+				"Disable push protection",
+				"Disable push protection for yourself",
+				"Pushes that contain secrets will not be blocked.",
+				// —— 各功能「全部启用 / 全部禁用」的确认句（静态串，逐条收录）——
+				"You're about to enable dependency graph on all your private repositories.",
+				"You're about to disable dependency graph on all your private repositories. This will also disable Dependabot alerts and Dependabot security updates on those repositories.",
+				"You're about to enable Dependabot alerts on all your repositories. Alerts require the dependency graph, so we'll also turn that on for all repositories. No notifications will be sent while Dependabot alerts are being enabled.",
+				"You're about to disable Dependabot alerts on all your repositories. This will also disable Dependabot security updates on those repositories.",
+				"You're about to enable Dependabot security updates on all your repositories. Dependabot security updates require the dependency graph and Dependabot alerts, so we'll also turn that on for all repositories.",
+				"You're about to disable Dependabot security updates on all your repositories.",
+				"You're about to enable grouped security updates on all your repositories. Grouped security updates require the dependency graph, Dependabot alerts, Dependabot security updates and Dependabot security updates, so we'll also turn that on for all repositories.",
+				"You're about to disable grouped security updates on all your repositories.",
+				"You're about to enable dependabot self-hosted on all your repositories. Dependabot self-hosted depends on Dependabot on Actions so we'll also turn that on for all repositories.",
+				"You're about to disable dependabot self-hosted on all your repositories."
 			]
 		},
 		{

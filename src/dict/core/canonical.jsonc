@@ -2980,9 +2980,16 @@
 				// 剩余可置顶数量：整句成节点时走规则，数字独立成节点时只剩这个词
 				"remaining",
 				// —— 仓库列表筛选（Type / Language / Order 下拉）——
+				// Type 菜单的选项（实机下拉顺序：全部 / 公开 / 私有 / 来源 / 复刻 / 已归档 /
+				// 可被赞助 / 镜像 / 模板）。只登记**本模块专属**的两条：菜单里的 All / Public /
+				// Private / Archived / Forks 已由 global 覆盖，Sources / Mirrors 本就登记在本模块，
+				// 这里再登记同形键就变成同键异译（译文本可相同，但会把 /octocat 的赢家覆盖
+				// 快照写成假冲突）。
 				"Find a repository…",
 				"Sources",
 				"Mirrors",
+				"Templates",
+				"Can be sponsored",
 				"Select language",
 				"Select type",
 				"Select order",

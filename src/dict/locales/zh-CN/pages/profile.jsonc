@@ -86,6 +86,11 @@
 		"Find a repository…": "查找仓库…",
 		"Sources": "来源",
 		"Mirrors": "镜像",
+		// Type 菜单里上游**未**本地化的两项（实机 2026-09 截图 + 仓库列表摘要 HTML 实证）：
+		// 其余选项 All / Public / Private / Archived / Forks 由 global 覆盖，此处不重复登记。
+		// Templates 与 pages/insights 的同名键同译（「模板」），但键分属两个模块、互不冲突。
+		"Templates": "模板",
+		"Can be sponsored": "可被赞助",
 		"Select language": "选择语言",
 		"Select type": "选择类型",
 		"Select order": "选择排序",

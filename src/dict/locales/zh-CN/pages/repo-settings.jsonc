@@ -422,6 +422,14 @@
 		// 规则名 Protect Default Branch、仓库名 Github-i18n、用户名 Oppenheymu / M. Oppenheymu /
 		// @Oppenheymu、分支名 main 与产品名 GitHub / CodeQL / Dependabot / Copilot / OIDC
 		// 一律不收录——未命中即保留英文。
+		// —— Upsell 横幅（新建页顶部，实测 2026-09-27：未加载扩展的原始英文页
+		// /Koishi-CE/koishi/settings/rules/new，组织仓库）——
+		// 说明句在实机被 Rulesets 链接切成两段：`Rulesets`（已有键）＋ `define whether …`，
+		// 故碎片键必须收；整句键用于上游改回单节点形态。它与列表页空态那句只差首字母
+		// 大小写，是**两条不同的键**，都留。
+		"Protect your most important branches": "保护你最重要的分支",
+		"define whether collaborators can delete or force push and set requirements for any pushes, such as passing status checks or a linear commit history.": "定义协作者是否可以删除或强制推送，并为任何推送设置要求，例如通过状态检查或线性提交历史。",
+		"Rulesets define whether collaborators can delete or force push and set requirements for any pushes, such as passing status checks or a linear commit history.": "规则集定义协作者是否可以删除或强制推送，并为任何推送设置要求，例如通过状态检查或线性提交历史。",
 		// 列表页（/settings/rules）与溢出菜单 ——
 		"Export ruleset": "导出规则集",
 		"Delete ruleset": "删除规则集",
@@ -494,6 +502,9 @@
 		"Prevent users with push access from force pushing to refs.": "防止有推送权限的用户强制推送到引用。",
 		"Require linear history": "要求线性历史",
 		"Prevent merge commits from being pushed to matching refs.": "防止合并提交被推送到匹配的引用。",
+		// 合并队列（Enterprise；原始英文页实测它在规则列表 real 顺序里紧跟线性历史）
+		"Require merge queue": "要求合并队列",
+		"Merges must be performed via a merge queue.": "合并必须通过合并队列执行。",
 		"Require signed commits": "要求签名提交",
 		"Commits pushed to matching refs must have verified signatures.": "推送到匹配引用的提交必须具有已验证的签名。",
 		"Require deployments to succeed": "要求部署成功",
@@ -536,6 +547,15 @@
 		"High or higher": "高或更高",
 		"Medium or higher": "中或更高",
 		"Critical": "严重",
+		// —— Restrictions 区块（Enterprise 功能；原始英文页实测）——
+		// 只收勾选列表上真的渲染出来的标题与说明：Restrict commit metadata 与
+		// Restrict branch names 的展开面板（Operator / Pattern / Negate 等）本次没有
+		// 展开态的实机文本，按 SOP 不猜——等实机 HTML 到手再登记。
+		// Restrict branch names 的标题与说明**同串**，一条键覆盖两处。
+		"Restrictions": "限制",
+		"Restrict commit metadata": "限制提交元数据",
+		"Restrict commit author email addresses, committer email addresses, commit message content, and other metadata": "限制提交作者邮箱地址、提交者邮箱地址、提交消息内容和其他元数据",
+		"Restrict branch names": "限制分支名称",
 		// 底部固定操作栏 ——
 		"Revert": "还原",
 		"Revert changes": "还原更改",

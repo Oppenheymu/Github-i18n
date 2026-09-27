@@ -4,8 +4,11 @@
 // 证据：维护者 2026-09-27 导出的漏翻清单（`github-zh-misses/1`，path 全为
 // /Oppenheymu/Github-i18n/settings/rules/24064311）＋ 两张实机截图（列表页与
 // 「New ruleset」下拉）＋ 随后贴出的两段实机 HTML（状态检查与「合并前需要拉取请求」
-// 两个规则的展开面板、绕过模式菜单）＋ 新建页（/settings/rules/new）的实机 HTML
-// （2026-09-27 补：两条 Blankslate 空态标题、禁用态的执行状态 aria-label、提交按钮 Create）。
+// 两个规则的展开面板、绕过模式菜单）＋ 两份新建页 HTML：加载扩展后的中文页
+// （/Oppenheymu/Github-i18n/settings/rules/new）与**未加载扩展的原始英文页**
+// （/Koishi-CE/koishi/settings/rules/new，组织仓库，2026-09-27）——后者补齐了 Upsell
+// 横幅、两条 Blankslate 空态标题、禁用态执行状态 aria-label、合并队列、Restrictions
+// 区块与提交按钮 Create。
 // 本页此前**没有任何**词条，属整页新增。
 //
 // 本页最重要的三个边界事实：
@@ -30,9 +33,13 @@ const view = buildView(
 	new Map(Object.entries(dictCore.aliases)),
 );
 
-/** /Oppenheymu/Github-i18n/settings/rules/new 的视图（与详情页命中同一模块） */
+/**
+ * 新建页视图：路径取维护者贴的**未加载扩展**原始英文页
+ * （/Koishi-CE/koishi/settings/rules/new），与详情页命中同一模块；
+ * 它同时落在 pages/repo 的路由里（`Name` 这类词条由后者提供）
+ */
 const newView = buildView(
-	"/Oppenheymu/Github-i18n/settings/rules/new",
+	"/Koishi-CE/koishi/settings/rules/new",
 	dictForLocale("zh-CN"),
 	new Map(Object.entries(dictCore.aliases)),
 );
@@ -585,5 +592,86 @@ describe("仓库设置页的规则集新建页（/settings/rules/new）", () => 
 	it("translates the submit button label and its aria-label", () => {
 		// 底部提交按钮：可见文本与 aria-label 同串，一条键覆盖两处
 		expect(translateText("Create", newView)).toBe("创建");
+	});
+
+	it("translates the upsell banner and repairs its split sentence", () => {
+		expect(
+			translateText(
+				"Protect your most important branches",
+				newView,
+			),
+		).toBe("保护你最重要的分支");
+		// 原始英文页里说明句被 Rulesets 链接切成两段：前段是已有短键，
+		// 后段以**小写** define 开头（列表页空态那句是大写 Define，两条不同的键）
+		expect(translateText("Rulesets", newView)).toBe(
+			"规则集",
+		);
+		expect(
+			translateText(
+				" define whether collaborators can delete or force push and set requirements for any pushes, such as passing status checks or a linear commit history.",
+				newView,
+			),
+		).toBe(
+			"定义协作者是否可以删除或强制推送，并为任何推送设置要求，例如通过状态检查或线性提交历史。",
+		);
+		// 上游若改回单节点形态，整句键兜底
+		expect(
+			translateText(
+				"Rulesets define whether collaborators can delete or force push and set requirements for any pushes, such as passing status checks or a linear commit history.",
+				newView,
+			),
+		).toBe(
+			"规则集定义协作者是否可以删除或强制推送，并为任何推送设置要求，例如通过状态检查或线性提交历史。",
+		);
+	});
+
+	it("splits the ruleset name label at the comment node", () => {
+		// `Ruleset<!-- --> Name`：注释节点把标签切成两个文本节点，
+		// 任一段不命中都会让标签中英混杂（walker 保留后段的前导空格 →「规则集 名称」）
+		expect(translateText("Ruleset", newView)).toBe(
+			"规则集",
+		);
+		expect(translateText(" Name", newView)).toBe("名称");
+	});
+
+	it("translates the merge queue and Restrictions rows", () => {
+		// 合并队列（Enterprise）：标题与说明
+		expect(
+			translateText("Require merge queue", newView),
+		).toBe("要求合并队列");
+		expect(
+			translateText(
+				"Merges must be performed via a merge queue.",
+				newView,
+			),
+		).toBe("合并必须通过合并队列执行。");
+		// Restrictions 区块（带 Enterprise 徽标）
+		expect(translateText("Restrictions", newView)).toBe(
+			"限制",
+		);
+		expect(
+			translateText("Restrict commit metadata", newView),
+		).toBe("限制提交元数据");
+		expect(
+			translateText(
+				"Restrict commit author email addresses, committer email addresses, commit message content, and other metadata",
+				newView,
+			),
+		).toBe(
+			"限制提交作者邮箱地址、提交者邮箱地址、提交消息内容和其他元数据",
+		);
+		// 标题与说明同串，一条键覆盖两处
+		expect(
+			translateText("Restrict branch names", newView),
+		).toBe("限制分支名称");
+	});
+
+	it("keeps this page's product and repository names in english", () => {
+		expect(translateText("Koishi-CE", newView)).toBeNull();
+		expect(translateText("koishi", newView)).toBeNull();
+		// Enterprise 徽标走 global 的既有键，不重复登记
+		expect(translateText("Enterprise", newView)).toBe(
+			"企业版",
+		);
 	});
 });

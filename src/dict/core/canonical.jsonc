@@ -2243,6 +2243,11 @@
 				// 以及快捷键提示 alt shift r（按键名在各语言里都保持英文）。
 				// 清单里还有一条孤立的 changes（50 次）归属不明（见仓库文档的说明），不收：
 				// 它是泛化短词，收进来会命中用户内容，收益远小于风险。
+				// —— Upsell 横幅（新建页顶部）——
+				// 说明句被 Rulesets 链接切成两段：碎片键 + 整句兜底键都收（2026-09-27 原始英文页实测）
+				"Protect your most important branches",
+				"define whether collaborators can delete or force push and set requirements for any pushes, such as passing status checks or a linear commit history.",
+				"Rulesets define whether collaborators can delete or force push and set requirements for any pushes, such as passing status checks or a linear commit history.",
 				// —— 列表页（/settings/rules）与溢出菜单 ——
 				"Export ruleset",
 				"Delete ruleset",
@@ -2318,6 +2323,8 @@
 				"Prevent users with push access from force pushing to refs.",
 				"Require linear history",
 				"Prevent merge commits from being pushed to matching refs.",
+				"Require merge queue",
+				"Merges must be performed via a merge queue.",
 				"Require signed commits",
 				"Commits pushed to matching refs must have verified signatures.",
 				"Require deployments to succeed",
@@ -2360,6 +2367,13 @@
 				"High or higher",
 				"Medium or higher",
 				"Critical",
+				// —— Restrictions 区块（Enterprise；勾选列表上可见的标题与说明）——
+				// 展开面板（Operator / Pattern / Negate…）尚无实机文本，未登记
+				"Restrictions",
+				"Restrict commit metadata",
+				"Restrict commit author email addresses, committer email addresses, commit message content, and other metadata",
+				// 标题与说明同串
+				"Restrict branch names",
 				// —— 底部固定操作栏 ——
 				"Revert",
 				"Revert changes",

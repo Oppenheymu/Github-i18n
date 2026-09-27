@@ -3460,6 +3460,45 @@
 				"Severity: critical",
 				"Learn more about advisories related to",
 				"in the",
+				// —— Security 概览页（/owner/repo/security 的新版概览）——
+				// 证据：维护者 2026-09-27 贴的实机 HTML。三条边界事实：
+				//   ① 顶部横幅（Code scanning: one or more analysis tools… / Scorecard is
+				//      reporting warnings…）与 pages/repo-settings 同串同译，只是那条路由
+				//      不命中本页，故在本模块各收一份，译文保持一致；
+				//   ② 七个功能行的标题与状态在实机是**两个**文本节点，但项目符号 `•` 落在
+				//      **标题节点内部**（`Security policy •`），所以裸标题键在本页永不命中
+				//      ——`Security policy` 已由 pages/repo 收录且在本页仍生效，带 ` •` 的
+				//      形态必须各收一条（`Enabled` / `Disabled` 同理：这两条只在本模块收录，
+				//      与 pages/settings、pages/repo-settings 的同键同译一致）；
+				//   ③ 短链接文本（View alerts）在源码里带换行缩进，键按 normalizeKey 折叠后的形态写。
+				// 不收录：仓库名 / 用户名（用户内容）、单独出现的工具名 Scorecard。
+				"Code scanning: one or more analysis tools are reporting problems",
+				"Scorecard is reporting warnings. Check the",
+				"status page",
+				"for help.",
+				"Security policy •",
+				"Enabled",
+				"View how to securely report security vulnerabilities for this repository",
+				"View security policy",
+				"Security advisories •",
+				"View or disclose security advisories for this repository",
+				"View security advisories",
+				"Private vulnerability reporting •",
+				"Allow users to privately report potential security vulnerabilities",
+				"See reported vulnerabilities",
+				"Dependabot alerts •",
+				"Get notified when one of your dependencies has a vulnerability",
+				"View Dependabot alerts",
+				"Code scanning alerts •",
+				"Automatically detect common vulnerability and coding errors",
+				"View alerts",
+				"Secret scanning alerts •",
+				"Get notified when a secret is pushed to this repository",
+				"View detected secrets",
+				"Code quality findings •",
+				"Disabled",
+				"Automatically detect code quality issues in your codebase",
+				"Enable code quality",
 				// —— Projects 项目 ——
 				"Templates",
 				"Repository projects",

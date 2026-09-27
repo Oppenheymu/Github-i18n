@@ -402,6 +402,9 @@
 		"repo-settings/actions-org-workflow": "$1 内仓库中定义的任何操作或可复用工作流都可以使用。",
 		"repo-settings/actions-org-criteria": "符合指定条件的任何操作或可复用工作流，加上 $1 内仓库中定义的那些，都可以使用。",
 		"repo-settings/actions-settings-title": "Actions 设置 · $1",
+		// —— 运行器页（/owner/repo/settings/actions/runners）——
+		"repo-settings/runners-title": "运行器 · $1",
+		"repo-settings/runners-new-title": "添加新的自托管运行器 · $1",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

@@ -1976,6 +1976,16 @@
 				{
 					"id": "repo-settings/actions-settings-title",
 					"pattern": "^Actions settings [\\u2022\\u00B7] (.+)$"
+				},
+				// 运行器两支的面包屑标题（仓库名保留原文）。侧栏那个单独的 `Runners`
+				// 是另一条静态词条，不会命中这两条（它们都要求分隔符与仓库名）
+				{
+					"id": "repo-settings/runners-title",
+					"pattern": "^Runners [\\u2022\\u00B7] (.+)$"
+				},
+				{
+					"id": "repo-settings/runners-new-title",
+					"pattern": "^Add new self-hosted runner [\\u2022\\u00B7] (.+)$"
 				}
 			]
 		},

@@ -675,6 +675,32 @@
 		"Duration must be 1 or more.": "时长必须为 1 或更大。",
 		"Duration must be 90 or less": "时长必须为 90 或更小",
 		"Save artifact and log retention setting": "保存构件与日志保留期设置",
+		// —— 运行器页（/owner/repo/settings/actions/runners 与 …/runners/new）——
+		// 列表页
+		"Host your own runners and customize the environment used to run jobs in your GitHub Actions workflows.": "托管你自己的运行器，并自定义在你的 GitHub Actions 工作流中运行作业所使用的环境。",
+		"Learn more about self-hosted runners": "进一步了解自托管运行器",
+		"New self-hosted runner": "新建自托管运行器",
+		"There are no runners configured": "没有配置任何运行器",
+		// 空状态第二句：前面是链接 Learn more about using runners
+		"to run actions on your own servers.": "在你自己的服务器上运行操作。",
+		"Learn more about using runners": "进一步了解如何使用运行器",
+		// 新建页
+		"Using self-hosted runners in public repositories is not recommended.": "不建议在公开仓库中使用自托管运行器。",
+		"Forks of your public repository can potentially run dangerous code on your self-hosted runner by creating a pull request.": "你公开仓库的复刻可能通过创建拉取请求，在你的自托管运行器上运行危险代码。",
+		"Learn more about security hardening for self-hosted runners": "进一步了解自托管运行器的安全加固",
+		"Adding a self-hosted runner requires that you download, configure, and execute the GitHub Actions Runner. If you do not already have an existing volume licensing agreement for your GitHub purchases, by downloading and configuring the GitHub Actions Runner, you agree to the": "添加自托管运行器需要你下载、配置并执行 GitHub Actions Runner。如果你目前没有针对 GitHub 购买项的批量许可协议，那么下载并配置 GitHub Actions Runner 即表示你同意",
+		"GitHub Customer Agreement": "GitHub 客户协议",
+		"Runner image": "运行器镜像",
+		"Architecture": "架构",
+		"Win-arm64 runners are currently in pre-release status and subject to change.": "Win-arm64 运行器目前处于预发布状态，可能发生变化。",
+		"Configure": "配置",
+		"We recommend configuring the runner under \"\\actions-runner\". This will help avoid issues related to service identity folder permissions and long path restrictions on Windows.": "建议将运行器配置在 \"\\actions-runner\" 下。这有助于避免与服务标识文件夹权限以及 Windows 长路径限制相关的问题。",
+		"Using your self-hosted runner": "使用你的自托管运行器",
+		// 尾句被 product docs 链接切成两段
+		"For additional details about configuring, running, or shutting down the runner, please check out our": "有关配置、运行或关闭运行器的更多详细信息，请查看我们的",
+		"product docs": "产品文档",
+		// 面包屑容器的无障碍标签
+		"Breadcrumb": "面包屑",
 		"When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled.": "合并拉取请求时，你可以允许合并提交、压缩合并、变基的任意组合。至少必须启用一项。",
 		// 绕过模式菜单（Select bypass mode）——
 		"Always": "始终",

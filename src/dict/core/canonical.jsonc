@@ -2536,7 +2536,42 @@
 				"days",
 				"Duration must be 1 or more.",
 				"Duration must be 90 or less",
-				"Save artifact and log retention setting"
+				"Save artifact and log retention setting",
+				// —— 运行器页（/owner/repo/settings/actions/runners 与 …/runners/new）——
+				// 证据：维护者 2026-09-27 用途径 A 导出的漏翻清单 + 一张列表页截图。
+				// 不收录（未命中即保留英文）：架构与平台名（x64 / ARM64 / ARM / Linux /
+				// Windows / macOS，含它们作 aria-label 的形态）、产品名（GitHub / Copilot /
+				// Dependabot / OIDC）、仓库名、用户名与快捷键提示 alt shift r。
+				// 两支的面包屑标题（Runners · <repo> / Add new self-hosted runner · <repo>）
+				// 见 core/rules.jsonc 的 repo-settings/runners-* 规则。
+				// 列表页 ——
+				"Host your own runners and customize the environment used to run jobs in your GitHub Actions workflows.",
+				"Learn more about self-hosted runners",
+				"New self-hosted runner",
+				"There are no runners configured",
+				// 空状态第二句：前一段是链接 `Learn more about using runners`
+				"to run actions on your own servers.",
+				"Learn more about using runners",
+				// 新建页 ——
+				"Using self-hosted runners in public repositories is not recommended.",
+				"Forks of your public repository can potentially run dangerous code on your self-hosted runner by creating a pull request.",
+				"Learn more about security hardening for self-hosted runners",
+				// 说明段是含源码换行的单节点，键按 normalizeKey 折叠空白后的形态写
+				"Adding a self-hosted runner requires that you download, configure, and execute the GitHub Actions Runner. If you do not already have an existing volume licensing agreement for your GitHub purchases, by downloading and configuring the GitHub Actions Runner, you agree to the",
+				"GitHub Customer Agreement",
+				// 平台选择的两个标签 + 架构提示
+				"Runner image",
+				"Architecture",
+				"Win-arm64 runners are currently in pre-release status and subject to change.",
+				"Configure",
+				// 实机原文里的路径带反斜杠（`"\actions-runner"`），键与译文都保留原文
+				"We recommend configuring the runner under \"\\actions-runner\". This will help avoid issues related to service identity folder permissions and long path restrictions on Windows.",
+				"Using your self-hosted runner",
+				// 尾句被 `product docs` 链接切开，三段各成键
+				"For additional details about configuring, running, or shutting down the runner, please check out our",
+				"product docs",
+				// 面包屑容器的无障碍标签
+				"Breadcrumb"
 			]
 		},
 		{

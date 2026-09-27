@@ -2360,7 +2360,51 @@
 				// —— 底部固定操作栏 ——
 				"Revert",
 				"Revert changes",
-				"Save changes"
+				"Save changes",
+				// —— 规则项展开面板（RuleRow）——
+				// 证据：维护者 2026-09-27 贴的两段实机 HTML（state checks 与
+				// Require a pull request before merging 两个规则的展开面板）。
+				// 面板标题是成对的收起 / 展开两种形态，两条都收
+				"Hide additional settings",
+				// 状态检查规则
+				"Require branches to be up to date before merging",
+				"Whether pull requests targeting a matching branch must be tested with the latest code. This setting will not take effect unless at least one status check is enabled.",
+				"Do not require status checks on creation",
+				"Allow repositories and branches to be created if a check would otherwise prohibit it.",
+				"No required checks",
+				"Add checks",
+				"No checks have been added",
+				"Learn more about status checks",
+				// 拉取请求规则
+				"Required approvals",
+				"The number of approving reviews that are required before a pull request can be merged.",
+				"Dismiss stale pull request approvals when new commits are pushed",
+				"New, reviewable commits pushed will dismiss previous pull request review approvals.",
+				"Require review from specific teams",
+				"A collection of reviewers and associated file patterns. Each reviewer has a list of file patterns which determine the files that reviewer is required to review.",
+				"Require review from Code Owners",
+				"Require an approving review in pull requests that modify files that have a designated code owner.",
+				"Require approval of the most recent reviewable push",
+				"Whether the most recent reviewable push must be approved by someone other than the person who pushed it.",
+				"Require conversation resolution before merging",
+				"All conversations on code must be resolved before a pull request can be merged.",
+				"Require an additional approval for unattributed Copilot pull requests",
+				// 实机原文尾随一个空格（React 模板拼接所致），键按 normalizeKey 折叠后的形态写
+				"When Copilot opens a pull request without a human collaborator, require one more approving review if a non-zero approval count is required.",
+				// 合并方式：下拉标签 + 当前值（同时是按钮的 aria-label）+ 说明段。
+				// 说明段比仓库设置 General 页的同名段少了最后一句，是**另一条键**
+				"Allowed merge methods",
+				"Squash, Allowed merge methods",
+				"Squash",
+				"When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled.",
+				// —— 绕过模式菜单（Select bypass mode）——
+				"Always",
+				"The ruleset will be evaluated and the selected actor(s) will be prompted to bypass",
+				"Exempt",
+				"The ruleset will not be evaluated and no bypass prompt will be shown",
+				"For pull requests only",
+				"The ruleset will be enforced on command line changes and the selected actor(s) will be prompted to bypass only in a pull request",
+				"This ruleset will not be enforced"
 			]
 		},
 		{

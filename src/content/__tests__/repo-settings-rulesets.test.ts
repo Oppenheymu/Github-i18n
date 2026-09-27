@@ -3,7 +3,8 @@
 //
 // 证据：维护者 2026-09-27 导出的漏翻清单（`github-zh-misses/1`，path 全为
 // /Oppenheymu/Github-i18n/settings/rules/24064311）＋ 两张实机截图（列表页与
-// 「New ruleset」下拉）。本页此前**没有任何**词条，属整页新增。
+// 「New ruleset」下拉）＋ 随后贴出的两段实机 HTML（状态检查与「合并前需要拉取请求」
+// 两个规则的展开面板、绕过模式菜单）。本页此前**没有任何**词条，属整页新增。
 //
 // 本页最重要的三个边界事实：
 //   1. 规则名（Protect Default Branch）、仓库名、用户名、分支名与产品名一律保持英文
@@ -232,6 +233,109 @@ const NODES: readonly (readonly [string, string])[] = [
 	["Revert", "还原"],
 	["Revert changes", "还原更改"],
 	["Save changes", "保存更改"],
+	// —— 规则项展开面板（维护者 2026-09-27 贴出的两段实机 HTML）——
+	["Hide additional settings", "隐藏其他设置"],
+	[
+		"Require branches to be up to date before merging",
+		"要求分支在合并前保持最新",
+	],
+	[
+		"Whether pull requests targeting a matching branch must be tested with the latest code. This setting will not take effect unless at least one status check is enabled.",
+		"针对匹配分支的拉取请求是否必须用最新代码进行测试。除非至少启用一项状态检查，否则此设置不会生效。",
+	],
+	[
+		"Do not require status checks on creation",
+		"创建时不要求状态检查",
+	],
+	[
+		"Allow repositories and branches to be created if a check would otherwise prohibit it.",
+		"如果某项检查本会阻止创建，仍允许创建仓库和分支。",
+	],
+	["No required checks", "没有必需的状态检查"],
+	["Add checks", "添加检查"],
+	["No checks have been added", "尚未添加任何检查"],
+	["Learn more about status checks", "进一步了解状态检查"],
+	["Required approvals", "必需的批准数"],
+	[
+		"The number of approving reviews that are required before a pull request can be merged.",
+		"拉取请求可以合并之前所需的批准审查数量。",
+	],
+	[
+		"Dismiss stale pull request approvals when new commits are pushed",
+		"推送新提交时忽略过期的拉取请求批准",
+	],
+	[
+		"New, reviewable commits pushed will dismiss previous pull request review approvals.",
+		"推送新的可审查提交将忽略之前的拉取请求审查批准。",
+	],
+	[
+		"Require review from specific teams",
+		"要求特定团队审查",
+	],
+	[
+		"A collection of reviewers and associated file patterns. Each reviewer has a list of file patterns which determine the files that reviewer is required to review.",
+		"一组审查者及其关联的文件模式。每个审查者都有一份文件模式列表，用于确定该审查者必须审查哪些文件。",
+	],
+	["Require review from Code Owners", "要求代码所有者审查"],
+	[
+		"Require an approving review in pull requests that modify files that have a designated code owner.",
+		"在修改了指定代码所有者文件的拉取请求中要求批准审查。",
+	],
+	[
+		"Require approval of the most recent reviewable push",
+		"要求批准最近一次可审查的推送",
+	],
+	[
+		"Whether the most recent reviewable push must be approved by someone other than the person who pushed it.",
+		"最近一次可审查的推送是否必须由推送者以外的人批准。",
+	],
+	[
+		"Require conversation resolution before merging",
+		"合并前要求解决所有对话",
+	],
+	[
+		"All conversations on code must be resolved before a pull request can be merged.",
+		"拉取请求合并前，代码上的所有对话都必须解决。",
+	],
+	[
+		"Require an additional approval for unattributed Copilot pull requests",
+		"对无归属的 Copilot 拉取请求要求额外批准",
+	],
+	// 实机原文尾随一个空格（React 模板拼接），normalizeKey 会折叠掉
+	[
+		"When Copilot opens a pull request without a human collaborator, require one more approving review if a non-zero approval count is required. ",
+		"当 Copilot 在没有人类协作者的情况下打开拉取请求时，如果要求的批准数不为零，则再要求一次批准审查。",
+	],
+	["Allowed merge methods", "允许的合并方式"],
+	[
+		"Squash, Allowed merge methods",
+		"压缩合并，允许的合并方式",
+	],
+	["Squash", "压缩合并"],
+	[
+		"When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled.",
+		"合并拉取请求时，你可以允许合并提交、压缩合并、变基的任意组合。至少必须启用一项。",
+	],
+	// —— 绕过模式菜单 ——
+	["Always", "始终"],
+	[
+		"The ruleset will be evaluated and the selected actor(s) will be prompted to bypass",
+		"规则集会被评估，所选操作者将被提示绕过",
+	],
+	["Exempt", "豁免"],
+	[
+		"The ruleset will not be evaluated and no bypass prompt will be shown",
+		"规则集不会被评估，也不会显示绕过提示",
+	],
+	["For pull requests only", "仅限拉取请求"],
+	[
+		"The ruleset will be enforced on command line changes and the selected actor(s) will be prompted to bypass only in a pull request",
+		"规则集将在命令行更改上强制执行，所选操作者仅在拉取请求中会被提示绕过",
+	],
+	[
+		"This ruleset will not be enforced",
+		"此规则集不会被强制执行",
+	],
 ];
 
 describe("仓库设置页的规则集页实机节点边界", () => {

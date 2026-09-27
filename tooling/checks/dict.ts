@@ -306,10 +306,12 @@ export function validateTemplate(
 	locale: LocaleMeta,
 ): string[] {
 	const errors: string[] = [];
-	if (template.trim().length === 0) {
-		errors.push(`${where}：模板不能为空`);
-		return errors;
-	}
+	// 空模板是合法语义：**该节点在目标语言里整个消失**（引擎会连同它的首尾空白一起
+	// 清空，见 src/content/walker.ts 的 applyTextNode）。首例是账单卡片计费周期后缀
+	// 被上游拆成 `per ` + `month` 两个节点，前者在中文里没有对应词（2026-09）。
+	// 空模板没有文本，故跳过下面的「必须含目标文字系统」校验（那里是防翻译循环的，
+	// 对空模板没有对象）；捕获组引用检查照常走。
+	if (template.length === 0) return errors;
 	if (
 		locale.scripts.length > 0 &&
 		!hasAnyScript(template, locale.scripts)

@@ -311,7 +311,14 @@
 		"settings/usage-range-cross-dec-sep": "$<year> 年 12 月 $<startDay> 日 – 9 月 $<endDay> 日",
 		"settings/usage-range-cross-dec-oct": "$<year> 年 12 月 $<startDay> 日 – 10 月 $<endDay> 日",
 		"settings/usage-range-cross-dec-nov": "$<year> 年 12 月 $<startDay> 日 – 11 月 $<endDay> 日",
-		// 账单卡片上的计费周期后缀（「$20 /month」→「$20 每月」）
+		// 账单卡片上的计费周期后缀。实机（2026-09 实录）把「per month」渲染成两个文本节点
+		// ——`per `（带尾随空格）+ `month`——故拆两条碎片规则：per-word 的模板是**空串**
+		// （「该节点在目标语言里整个消失」，引擎会连同它的首尾空白一起清空，不留空格），
+		// billing-period-word 把 `month` 译「每月」。净效果就是卡片上的「每月」。
+		// pattern 只能是 `^per$` / `^month$`：规则是对**归一化后**的文本匹配，尾随空白已被 trim
+		"settings/per-word": "",
+		"settings/billing-period-word": "每月",
+		// 旧斜杠形态（`$20 /month`）的兜底，实机已不用；确认上游弃用后可删
 		"settings/per-month": "每月",
 		"settings/per-year": "每年",
 		"settings/per-day": "每天",

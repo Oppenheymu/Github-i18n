@@ -304,6 +304,20 @@ describe("template references", () => {
 		expect(errors[0]).toContain("$3");
 		expect(errors[1]).toContain("$<month>");
 	});
+
+	it("accepts an empty template as the erase-the-node escape hatch", () => {
+		// 空模板 = **该节点在目标语言里整个消失**（引擎连它的首尾空白一起清空，
+		// 见 src/content/walker.ts 的 applyTextNode）。首例：账单卡片计费周期卡被上游
+		// 拆成 `per ` + `month` 两个节点，`per ` 在中文里没有对应词（2026-09）。
+		// 空模板没有文本，故「必须含目标文字系统」那条防循环校验对它不适用。
+		expect(validateTemplate("", def, "测试", ZH)).toEqual(
+			[],
+		);
+		// 纯空白模板仍按形态非法处理：它不是「消失」，而是会被原样写进节点
+		expect(
+			validateTemplate("   ", def, "测试", ZH).length,
+		).toBeGreaterThan(0);
+	});
 });
 
 describe("anti-loop gates", () => {

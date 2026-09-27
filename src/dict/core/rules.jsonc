@@ -1266,13 +1266,42 @@
 					"id": "settings/usage-range-cross-dec-nov",
 					"pattern": "^December (?<startDay>\\d{1,2}) - November (?<endDay>\\d{1,2}), (?<year>\\d{4})(?:\\.)?$"
 				},
-				// 计费周期后缀的**斜杠形态**兜底（账单卡片曾渲染「/month」「/year」）。
-				// 锚定收尾，避免误伤含「/month」的其它文案。
-				// 2026-09 实机证据：订阅卡片（/settings/billing 的 PlanCard）已把后缀改成
-				// 文字形态「per month」，且是**整节点**——那两处由 pages/settings-billing 的
-				// 静态键「per month」覆盖（规则形态对不上它）。这三条规则因此暂时不命中任何
-				// 已知页面，保留作旧形态 / 回退兜底；确认上游彻底弃用后可删除（同时删各语言
-				// 模板并 bun run check:view --update）
+				// 计费周期后缀。实机形态在 2026-09 期间变过两次，故这里按「由具体到泛化」排：
+				//
+				//   ① 现在（2026-09 实录，Console 取的节点原文）——PlanCard 把后缀渲染成
+				//      **两个文本节点**：`"per "`（码点 70 65 72 20，尾随空格在第一个节点里）
+				//      与 `"month"`。引擎逐节点整串精确匹配，所以「整短语 per month」这种键
+				//      在实机上永不命中（收集时 textContent 看着是 "per month"，childNodes
+				//      却是 2 个，正是这个陷阱）。
+				//      修法用两条碎片规则，其中 per-word 的模板是**空串**（表达「该节点在
+				//      目标语言里整个消失」，本项目的空模板语义就为此而设）：
+				//      per-word 把 `per ` 清空（归一化后是 `per`，故 pattern 写 `^per$`），
+				//      billing-period-word 把 `month` 译「每月」。两节点合起来就是卡片上的
+				//      「每月」——`"per "` 命中空串后由引擎整节点清空（见 walker.applyTextNode
+				//      的 erased 分支），不会留下孤零零的空格。
+				//
+				//      **pattern 只能写 `^per$`，不能写 `^per\s+$`**：pattern 是对
+				//      normalizeKey 之后的文本执行（trim + 折叠空白），尾随空白早就没了，
+				//      带 `\s+` 的 pattern 永不命中（与「词典键必须是归一化形态」同源的坑）。
+				//      代价：本模块路由内**孤立**的 `per` 节点也会被清空（`per developer`
+				//      若被拆成两个节点就会丢掉 per）。2026-09 实机只在计费周期卡上见到
+				//      该节点，故接受；真要区分得让引擎把原文空白带进规则匹配，那是引擎
+				//      语义改动，不在此处顺手做。
+				//
+				//   ② 更早——整短语单节点 `per month`（由 pages/settings-billing 的静态键
+				//      覆盖，不进规则）。
+				//
+				//   ③ 最早——斜杠形态 `/month`、`/year`、`/day`：2026-09 实测已不命中任何已知
+				//      页面，保留作旧形态 / 回退兜底；确认上游彻底弃用后可删（同时删各语言
+				//      模板并 bun run check:view --update）。
+				{
+					"id": "settings/per-word",
+					"pattern": "^per$"
+				},
+				{
+					"id": "settings/billing-period-word",
+					"pattern": "^month$"
+				},
 				{
 					"id": "settings/per-month",
 					"pattern": "^/month$"

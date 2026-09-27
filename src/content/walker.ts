@@ -81,7 +81,15 @@ export function translateText(
 	return null;
 }
 
-/** 替换单个文本节点，保留原文首尾空白；返回是否发生了替换 */
+/**
+ * 替换单个文本节点，保留原文首尾空白；返回是否发生了替换。
+ *
+ * 例外：**整节点被判空时不留空白**。规则模板允许是空串（见 check:dict 的
+ * validateTemplate），语义是「这个节点在目标语言里整个消失」——首例是计费周期卡
+ * 被上游拆出的 `per ` 节点（`per month` → `per ` + `month`，见 core/rules.jsonc 的
+ * settings/per-word）。若此时仍按「保留首尾空白」把 `per ` 的尾随空格拼回去，
+ * 就会留下孤零零一个空格（拼接后成「 每月」），故判空即连空白一起清空。
+ */
 function applyTextNode(
 	node: Text,
 	view: DictView,
@@ -94,11 +102,16 @@ function applyTextNode(
 		if (isTranslatableText(value)) recordText(value);
 		return false;
 	}
-	const lead = value.slice(
-		0,
-		value.length - value.trimStart().length,
-	);
-	const trail = value.slice(value.trimEnd().length);
+	const erased = translated.trim() === "";
+	const lead = erased
+		? ""
+		: value.slice(
+				0,
+				value.length - value.trimStart().length,
+			);
+	const trail = erased
+		? ""
+		: value.slice(value.trimEnd().length);
 	const next = `${lead}${translated}${trail}`;
 	// 写回同一个字符串也必须跳过：DOM 规范规定即使赋相同的值也会产生
 	// characterData 变更记录，观察器会把它再入队，于是「命中 → 写入 →

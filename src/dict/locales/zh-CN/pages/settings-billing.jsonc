@@ -20,15 +20,14 @@
 		// —— 账单总览 ——
 		"Billing Overview": "账单概览",
 		"Manage subscriptions": "管理订阅",
-		// 订阅卡片（SubscriptionsContainer 里的 PlanCard）的两个整节点，2026-09 实机 HTML：
+		// 订阅卡片（SubscriptionsContainer 里的 PlanCard）的方案名，2026-09 实机 HTML：
 		//   <p class="PlanCard-module__cardHeading__UIO8J">GitHub Free</p>
-		//   <span class="PlanCard-module__perPeriod__G4_YG">per month</span>
-		// 「per month」原来由规则 settings/per-month（^/month$）覆盖，上游把它从「/month」
-		// 改成文字形态后规则失配，故按整节点收静态键；节点边界见
-		// src/content/__tests__/settings-billing.test.ts 的 PLAN_CARD_NODES。
-		// 「GitHub 免费版」与同模块「Copilot Free」→「Copilot 免费版」保持同一口径
+		// 「GitHub 免费版」与同模块「Copilot Free」→「Copilot 免费版」保持同一口径。
+		// 同一张卡片的计费周期后缀「per month」**不在这里**：实机把它拆成两个文本节点
+		// （`per ` + `month`），整短语键永不命中，改由 core/rules.jsonc 的两条碎片规则
+		// 覆盖（per-word 用空模板让 per 节点消失，billing-period-word 把 month 译「每月」；
+		// 节点边界见 src/content/__tests__/settings-billing.test.ts 的 PLAN_CARD_NODES）
 		"GitHub Free": "GitHub 免费版",
-		"per month": "每月",
 		"Next payment due": "下次付款到期日",
 		"Current metered usage": "当前按量计费用量",
 		"Current included usage": "当前所含用量",

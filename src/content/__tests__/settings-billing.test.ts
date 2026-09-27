@@ -11,7 +11,8 @@
 //      **逐个文本节点的 trimmed 原文**——账单总览被拆成一堆卡片、下拉与说明句碎片，
 //      这是「不凭视觉整句登记键」的唯一依据，故把这份清单原样锁在这里；
 //   2. 本页有三类动态文本，只能靠 core/rules.jsonc 的规则覆盖，且规则顺序有语义：
-//      时间范围（同月 / 跨月）、计费周期后缀（/month）、额度摘要（N GB used / N included）。
+//      时间范围（同月 / 跨月）、计费周期后缀（实机是 `per ` + `month` 两个节点）、
+//      额度摘要（N GB used / N included）。
 //      裸日期区间必须排在 global 的 long-date-* 之前，否则「September 1 - September 30, 2026」
 //      会被 long-date-september 做**部分替换**，产出「2026 年 9 月 1 日 - September 30, 2026」
 //      这种中英混合的残句——下面有专门一条用例盯住它；
@@ -112,50 +113,77 @@ const BILLING_NODES: readonly string[] = [
 /**
  * 订阅卡片（SubscriptionsContainer → PlanCard）的实机文本节点。
  *
- * 边界是**实机 HTML 实证**（维护者 2026-09 从 /settings/billing 提供，节点原文逐字照抄）：
+ * 边界是**实机 Console 实证**（维护者 2026-09 从 /settings/billing 取的节点原文与码点）：
  *
  * ```html
  * <p class="PlanCard-module__cardHeading__UIO8J">GitHub Free</p>
  * <span class="PlanCard-module__perPeriod__G4_YG">per month</span>
  * ```
  *
- * 三条必须记住的事实：
- *   1.「per month」是**一个完整节点**（不是 per + month 两个节点，也不带首尾空白），
- *      故按短语收静态键；它原来由规则 settings/per-month（`^/month$`）覆盖，上游把后缀
- *      从「/month」改成文字形态后规则失配——这正是当时漏翻的根因；
- *   2. 同一张卡片上有两处「per month」（当前方案卡 + Copilot 卡），故下面按原文收两条；
- *   3.「GitHub Free」是方案名，与同模块「Copilot Free」→「Copilot 免费版」统一口径，
- *      改译「GitHub 免费版」（旧约定是保持英文，2026-09 起改为译出）。
+ * 四条必须记住的事实（前两条是踩过的坑）：
+ *   1. 那个 span 的 `textContent` 看起来是 `per month`，**但 `childNodes.length === 2`**：
+ *      两个文本节点 `"per "`（码点 70 65 72 20，尾随空格在**第一个**节点里）与 `"month"`
+ *      （6d 6f 6e 74 68）。引擎逐节点整串精确匹配，所以「整短语 `per month`」这种静态键
+ *      在实机上**永不命中**——2026-09 第一版修法正是这么收的键，于是页面上两处仍是英文；
+ *   2. 正确修法是**两条碎片规则**：`settings/per-word` 用**空模板**把 `per ` 清空
+ *      （空模板的语义是「该节点在目标语言里整个消失」，引擎会连同首尾空白一起清掉，
+ *      不留空格），`settings/billing-period-word` 把 `month` 译「每月」（规则见
+ *      core/rules.jsonc，空模板契约见 tooling/checks/dict.ts 的 validateTemplate）；
+ *   3. 同一张卡片上有两处「per month」（当前方案卡 + Copilot 卡），两处同构；
+ *   4.「GitHub Free」是**单节点**（`<p>` 里没别的子节点），故按静态键收，
+ *      与同模块「Copilot Free」→「Copilot 免费版」统一口径改译「GitHub 免费版」。
  */
 const PLAN_CARD_NODES: readonly string[] = [
 	"GitHub Free",
-	"per month",
-	"per month",
+	// 「per month」实机是这两个节点，顺序即渲染顺序
+	"per ",
+	"month",
 ];
 
 describe("订阅卡片（PlanCard）的实机节点边界", () => {
-	it("translates the plan name and the billing period suffix GitHub actually renders", () => {
-		for (const node of PLAN_CARD_NODES) {
-			for (const variant of withWhitespace(node)) {
-				const translated = translateText(variant, view);
-				expect(
-					translated,
-					`未命中：${JSON.stringify(variant)}`,
-				).not.toBeNull();
-				expect(translated ?? "").toMatch(/[\u4e00-\u9fff]/);
-			}
-		}
-		// 两处必须各自译成页面上的那个词，而不是「收录了但值不对」
-		expect(translateText("per month", view)).toBe("每月");
+	it("translates the plan name GitHub actually renders", () => {
 		expect(translateText("GitHub Free", view)).toBe(
 			"GitHub 免费版",
 		);
+		for (const variant of withWhitespace("GitHub Free")) {
+			expect(
+				translateText(variant, view),
+				`未命中：${JSON.stringify(variant)}`,
+			).toBe("GitHub 免费版");
+		}
 	});
 
-	it("keeps the bare words per / month as-is", () => {
-		// 收的是整短语「per month」；单词形态仍不收录，避免误伤用量页的零散节点
-		expect(translateText("per", view)).toBeNull();
-		expect(translateText("month", view)).toBeNull();
+	it("renders the split per / month nodes as 每月", () => {
+		// 清单里的每个节点都必须被覆盖（含空译文的那条），并保留源码缩进形态
+		for (const node of PLAN_CARD_NODES) {
+			const translated = translateText(node, view);
+			expect(
+				translated,
+				`未命中：${JSON.stringify(node)}`,
+			).not.toBeNull();
+			if ((translated ?? "").trim() === "") continue;
+			expect(translated ?? "").toMatch(/[\u4e00-\u9fff]/);
+			expect(translateText(`\n    ${node}\n  `, view)).toBe(
+				translated,
+			);
+		}
+		// 实机节点序列（两处同构，任一处都按此顺序过引擎）
+		expect(renderNodes(["per ", "month"])).toBe("每月");
+		// 逐节点语义：`per ` 归一化后就是 `per`，命中 ^per$ 且模板为空串 ——
+		// 引擎把该节点**连首尾空白一起清空**（不留孤零零的空格）；`month` 译「每月」
+		expect(translateText("per ", view)).toBe("");
+		expect(translateText("month", view)).toBe("每月");
+		// 注意规则 pattern **不能**写 `^per\s+$`：pattern 是对归一化后的文本执行，
+		// 尾随空白早被 trim 掉，那种写法永不命中（2026-09 实测踩过）
+	});
+
+	it("leaves the full phrase alone and discards the standalone per", () => {
+		// 单节点整短语形态（更早的实机）不登记静态键：实机已不再渲染它，
+		// 未命中即保留英文，收键只会虚高覆盖率分母
+		expect(translateText("per month", view)).toBeNull();
+		// `per` 本身被判空（^per$ → 空串），这是为计费周期卡的
+		// `per ` + `month` 两个节点服务的；整短语不受影响
+		expect(translateText("per", view)).toBe("");
 	});
 });
 
@@ -180,8 +208,10 @@ const MUST_STAY_ENGLISH: readonly string[] = [
 	"Spark",
 	"Git LFS",
 	"GitHub Models",
-	"per",
-	"month",
+	// 注意：`per` / `month` **不在**这张表里。它们在订阅卡片上合起来表示「每月」，实机把
+	// 它们渲染成 `per ` + `month` 两个节点：per 由 settings/per-word 以**空模板**清空
+	// （节点整个消失，见 PLAN_CARD_NODES），month 由 settings/billing-period-word 译「每月」，
+	// 合起来即卡片上的「每月」。
 	"items",
 	"usage",
 ];
@@ -205,13 +235,15 @@ function withWhitespace(node: string): readonly string[] {
 
 /**
  * 把一段实机节点序列按 walker 的语义过一遍：未命中的节点按原样保留，
- * 命中的节点写回译文并保留其首尾空白，最后拼接成页面上真实看到的那一行。
+ * 命中的节点写回译文并保留其首尾空白（**整节点被判空时不留空白**，与
+ * walker.applyTextNode 的 erased 语义一致），最后拼接成页面上真实看到的那一行。
  */
 function renderNodes(nodes: readonly string[]): string {
 	return nodes
 		.map((node) => {
 			const translated = translateText(node, view);
 			if (translated === null) return node;
+			if (translated.trim() === "") return translated;
 			const lead = node.slice(
 				0,
 				node.length - node.trimStart().length,
@@ -316,10 +348,11 @@ describe("账单页的实机节点边界", () => {
 		).toBe("2014 年 11 月 27 日 16:57");
 	});
 
-	it("translates the billing period suffix", () => {
-		// 规则形态（`^/month$`）保留作旧形态兜底：2026-09 的实机证据显示订阅卡片
-		// 已改用文字形态「per month」（由 PLAN_CARD_NODES 的静态键覆盖），这里的
-		// `/month` 不再代表当下的实机渲染——若上游回退或别处仍用斜杠形态，它仍生效
+	it("translates the legacy slash billing period suffix", () => {
+		// 这三条是**旧斜杠形态**的兜底；订阅卡片当下的实机形态是 `per ` + `month`
+		// 两个节点（由 PLAN_CARD_NODES 锁住）。`/month` 现在由
+		// settings/billing-period-word（^month$）覆盖，故这里只看 year / day 的兜底，
+		// 另锁一条「带斜杠的 month 仍然译出」防回退
 		expect(translateText("/month", view)).toBe("每月");
 		expect(translateText("/year", view)).toBe("每年");
 		expect(translateText("/day", view)).toBe("每天");

@@ -394,6 +394,7 @@ for (const p of probes) {
 | `settings-logs.test.ts` | `/settings/reminders`、`/settings/security-log`、`/settings/sponsors-log`、`/settings/apps` | 定时提醒 / 安全日志 / 赞助记录 / 自建 GitHub Apps（apps 页与**安全日志的事件行**都有实机 HTML 实证：动态值各被 `<span class="context">` 包住、句号独立成节点，故收 `ending in`/`for the`/`OAuth app` 三个碎片键；提醒与赞助记录两页是截图） |
 | `settings-profile.test.ts` | `/settings/profile`（ORCID 区块） | 连接 ORCID 后才渲染的段落（**实机 HTML 实证**：标识符与 @账户都被 `<strong>` 包住，故已连接提示收成 `You have a connected ORCID iD` + `for the account` 两段碎片键；另用一条断言钉住 `ORCID iD` 的译文不得与键同形——2026-09 卡死事故） |
 | `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
+| `settings-repo.test.ts` | `/owner/repo/settings` | 仓库设置页的「Creation allowed by」筛选按钮（**目前只覆盖这一处**：维护者给的 HTML 片段证明标签、当前值、菜单项是三个独立文本节点；整页尚未采集，其余词条仍只有词典门禁与视图骨架的保护） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分；侧栏星标 / 关注 / 复刻三个计数走 `repo/*-count` 规则，数字随仓库变化，另收 `4.1k` / `1,234` 这类缩写形态） |
 | `profile.test.ts` | `/<用户名>?tab=repositories` | 个人 / 组织主页的仓库列表（Type 下拉九项按**整节点相等**断言；结果摘要行是五个节点——`5` / `results for` / `source` / `repositories sorted by` / `last updated`，加粗的三段各被 `<strong>` 单独包住，靠三条 `profile/repo-results-*` 规则 + `results for` / `last updated` 两条片段词条拼装；`Clear filter` 与 Type 菜单里上游未本地化的 `Can be sponsored` / `Templates` 一并锁住） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |
@@ -402,7 +403,7 @@ for (const p of probes) {
 
 其余新增用例不再是「实机节点」而是纯逻辑回归：`pages.test.ts`（视图单槽缓存：缓存键写错会表现为「换页后一半英文」）、`src/shared/__tests__/storage.test.ts`（storage 脏数据收窄与开关 / 语言监听）、`src/dict/__tests__/locales.test.ts`（`resolveLocale` 对 `zh-Hans-CN` / `zh_TW` / `en-US` 的归属），另有门禁自身与构建脚本的测试（`tooling/checks/__tests__/`、`tooling/pipeline/build.test.ts`）。
 
-**已知空缺：`repo-settings`（`/owner/repo/settings`）需要登录，尚未采集**，所以仓库设置页没有实机节点回归——它的词条目前只有视图骨架层的保护（命中模块序列 + 碰撞赢家）。
+**已知空缺：`repo-settings`（`/owner/repo/settings`）整页尚未采集**（该页需要登录），所以仓库设置页没有**整页**的实机节点回归——目前它只有 `settings-repo.test.ts` 覆盖的「Creation allowed by」筛选按钮三节点，其余词条靠视图骨架层的保护（命中模块序列 + 碰撞赢家）与词典门禁。
 
 每个实机测试文件的结构都一样：文件头写明节点来源与日期，然后是一份**逐字录入的 `nodeValue` 清单**（带源码缩进 / 换行的按原样保留，因为实机里长句的节点自带缩进），用 `translateText(节点, 该路径的 buildView(...))` 断言命中与译文，另有一组**反例**断言用户内容（文件名、仓库名、`README.md`、小写常用词）**必须不被翻译**。
 

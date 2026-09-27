@@ -1956,6 +1956,12 @@
 				", and send us your",
 				"feedback",
 				"All users",
+				// 「Creation allowed by」筛选按钮的标签与其菜单项。按钮标签是**独立文本节点**
+				// （`<span class="color-fg-muted">Creation allowed by:</span>`），当前值
+				// （`All users` / `Collaborators only`）是同一个 `<span>` 里的另一个节点，
+				// 故三条键各自成条；All users 已在上面登记，这里补标签与协作者选项。
+				"Creation allowed by:",
+				"Collaborators only",
 				"Up to",
 				"branches and tags can be updated in a push",
 				// —— 自动关闭议题 ——

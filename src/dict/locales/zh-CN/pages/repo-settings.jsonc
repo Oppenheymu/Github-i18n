@@ -150,6 +150,10 @@
 		", and send us your": "，并向我们提交",
 		"feedback": "反馈",
 		"All users": "所有用户",
+		// 「Creation allowed by」筛选按钮：标签与菜单项是两个独立文本节点，
+		// 当前值（All users / Collaborators only）在同一按钮里各自成节点
+		"Creation allowed by:": "允许创建者：",
+		"Collaborators only": "仅协作者",
 		"Up to": "最多",
 		"branches and tags can be updated in a push": "个分支和标签可在一次推送中更新",
 		// —— 自动关闭议题 ——

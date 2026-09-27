@@ -1452,7 +1452,49 @@
 				"Type your username to confirm",
 				// 确认弹窗的三段拼接里，这一条与「all」配合使用
 				"all",
-				"GitHub Apps. This action cannot be undone."
+				"GitHub Apps. This action cannot be undone.",
+				// —— /settings/apps（自己开发的 GitHub Apps）——
+				// 证据强度：**实机 HTML 实证**（2026-09-27 维护者粘贴的 outerHTML，未加载本扩展）。
+				// 该页是 blankslate：H2 标题「GitHub 应用」已由既有词条覆盖（截图确认），
+				// 这里只收空状态标题、说明段与按钮；同页的「查看文档」链接也已被既有词条覆盖。
+				"No GitHub Apps",
+				"Want to build something that integrates with and extends GitHub? Register a new GitHub App to get started developing on the GitHub API.",
+				"New GitHub App",
+				// —— /settings/reminders（定时提醒）——
+				// 证据强度：**实机截图**（2026-09-27 维护者提供；H2「定时提醒」已由既有词条覆盖）。
+				"Reminders allow you to push certain events to authorized instances of Microsoft Teams or Slack.",
+				"Available organizations",
+				// —— /settings/security-log（安全日志）——
+				// 证据强度：**实机截图**。页面外壳（筛选 / 搜索 / 导出 / 分页 / 小贴士）都是
+				// 单节点，直接收；**事件行被链接切开**（截图里用户名与应用名都是链接），
+				// 故按「前缀键 + 中段规则 + 尾段键」拆开登记，边界是**按截图推断**的
+				// （推断依据写在注释里；若实机边界更细，规则不命中、该行保留英文，不会产出残句）。
+				"Filters",
+				"Search audit logs",
+				"Export",
+				"Recent events",
+				"Newer",
+				"Older",
+				// 同键在 pages/search 已有词条（「小贴士！」），那条路由不命中 /settings
+				"ProTip!",
+				"View all events created yesterday",
+				// 事件行 1：`Revoked a token for <用户名链接> ending in <令牌尾号> for the <应用名链接> OAuth app.`
+				"Revoked a token for",
+				"OAuth app.",
+				// —— /settings/sponsors-log（赞助记录）——
+				// 证据强度：**实机截图**。下拉的「Period: All-time」按本仓已实测的
+				// `<details><summary>` select-menu 形态拆成两个节点（同 repositories 页的
+				// 「Commit comments:」+ 值）；右侧浮层的标题与五个档位各成一条。
+				"Period:",
+				"New sponsorships, changes, and cancellations",
+				"Filter activity",
+				"Past day",
+				"Past week",
+				"Past month",
+				"Past year",
+				"All-time",
+				"No sponsorship activity in this time period",
+				"This is where you can review activity from your sponsorships."
 			]
 		},
 		{

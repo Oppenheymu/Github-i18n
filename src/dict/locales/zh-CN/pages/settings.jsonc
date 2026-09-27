@@ -1000,6 +1000,39 @@
 		"Type your username to confirm": "输入你的用户名以确认",
 		// 三段拼接：这将撤销 + 所有 + GitHub Apps 的访问权限。此操作无法撤销。
 		"all": "所有",
-		"GitHub Apps. This action cannot be undone.": "GitHub Apps 的访问权限。此操作无法撤销。"
+		"GitHub Apps. This action cannot be undone.": "GitHub Apps 的访问权限。此操作无法撤销。",
+		// —— /settings/apps（自己开发的 GitHub Apps；证据是实机 HTML）——
+		"No GitHub Apps": "没有 GitHub 应用",
+		"Want to build something that integrates with and extends GitHub? Register a new GitHub App to get started developing on the GitHub API.": "想构建能与 GitHub 集成并扩展 GitHub 的功能？注册一个新的 GitHub 应用，即可开始基于 GitHub API 进行开发。",
+		"New GitHub App": "新建 GitHub 应用",
+		// —— /settings/reminders（定时提醒；证据是实机截图）——
+		"Reminders allow you to push certain events to authorized instances of Microsoft Teams or Slack.": "提醒功能允许你把特定事件推送到已授权的 Microsoft Teams 或 Slack 实例。",
+		"Available organizations": "可用的组织",
+		// —— /settings/security-log（安全日志；证据是实机截图）——
+		"Filters": "筛选器",
+		"Search audit logs": "搜索审核日志",
+		"Export": "导出",
+		"Recent events": "最近事件",
+		"Newer": "较新",
+		"Older": "较旧",
+		// 与 pages/search 的同键译文保持一致（路径互斥）
+		"ProTip!": "小贴士！",
+		"View all events created yesterday": "查看昨天创建的所有事件",
+		// 事件行 1 的三段：已撤销以下用户的一个令牌： + 用户名（链接）+ （结尾为 …），属于 +
+		// 应用名（链接）+ OAuth 应用。
+		"Revoked a token for": "已撤销以下用户的一个令牌：",
+		"OAuth app.": "OAuth 应用。",
+		// —— /settings/sponsors-log（赞助记录；证据是实机截图）——
+		// 下拉的标签与当前值是两个节点（同 repositories 页的 "Commit comments:" + 值）
+		"Period:": "时间段：",
+		"New sponsorships, changes, and cancellations": "新的赞助、变更和取消",
+		"Filter activity": "筛选活动",
+		"Past day": "过去一天",
+		"Past week": "过去一周",
+		"Past month": "过去一个月",
+		"Past year": "过去一年",
+		"All-time": "全部时间",
+		"No sponsorship activity in this time period": "此时间段内没有赞助活动",
+		"This is where you can review activity from your sponsorships.": "你可以在这里查看你的赞助活动。"
 	}
 }

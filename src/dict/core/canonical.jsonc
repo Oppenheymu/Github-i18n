@@ -2394,25 +2394,43 @@
 				// 合并方式：下拉标签 + 当前值（同时是按钮的 aria-label）+ 说明段。
 				// 说明段比仓库设置 General 页的同名段少了最后一句，是**另一条键**
 				"Allowed merge methods",
-				// 选择器的显示值是「已选合并方式」按 **Squash → Merge → Rebase** 的固定顺序连缀
-				// （实证 2026-09-27：只选 Squash 时是 `Squash`，Squash + Merge 时是 `Squash, Merge`）。
-				// 值域是这三个布尔的多选，故按固定顺序穷举七种组合；同一串又是按钮的
-				// aria-label（属性不走正则规则），故带 `, Allowed merge methods` 后缀的七个组合串
-				// 也各收一条。若哪天顺序变成「勾选顺序」，漏掉的只是显示，不会误译
-				"Squash, Allowed merge methods",
+				// 选择器的显示值是「已选合并方式」按 **勾选顺序**连缀的串
+				// （实证 2026-09-27：只选 Squash 时是 `Squash`；先勾 Squash 再勾 Merge 是
+				// `Squash, Merge`，反过来勾就是 `Merge, Squash`——调整顺序确实会换串）。
+				// 值域是 Merge / Squash / Rebase 三个布尔的多选，故**所有非空排列**
+				// （3 个一元 + 6 个二元 + 6 个三元 = 15 种）穷举登记；同一串又是按钮的
+				// aria-label（属性不走正则规则、只能精确命中），故带 `, Allowed merge methods`
+				// 后缀的 15 个串也各收一条。这是确定的有限值域，不是猜测
 				"Squash",
 				"Merge",
 				"Rebase",
 				"Squash, Merge",
+				"Merge, Squash",
 				"Squash, Rebase",
+				"Rebase, Squash",
 				"Merge, Rebase",
+				"Rebase, Merge",
 				"Squash, Merge, Rebase",
+				"Squash, Rebase, Merge",
+				"Merge, Squash, Rebase",
+				"Merge, Rebase, Squash",
+				"Rebase, Squash, Merge",
+				"Rebase, Merge, Squash",
+				"Squash, Allowed merge methods",
 				"Merge, Allowed merge methods",
 				"Rebase, Allowed merge methods",
 				"Squash, Merge, Allowed merge methods",
+				"Merge, Squash, Allowed merge methods",
 				"Squash, Rebase, Allowed merge methods",
+				"Rebase, Squash, Allowed merge methods",
 				"Merge, Rebase, Allowed merge methods",
+				"Rebase, Merge, Allowed merge methods",
 				"Squash, Merge, Rebase, Allowed merge methods",
+				"Squash, Rebase, Merge, Allowed merge methods",
+				"Merge, Squash, Rebase, Allowed merge methods",
+				"Merge, Rebase, Squash, Allowed merge methods",
+				"Rebase, Squash, Merge, Allowed merge methods",
+				"Rebase, Merge, Squash, Allowed merge methods",
 				"When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled.",
 				// —— 绕过模式菜单（Select bypass mode）——
 				"Always",

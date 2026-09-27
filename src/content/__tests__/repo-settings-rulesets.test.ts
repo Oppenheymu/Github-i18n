@@ -307,20 +307,29 @@ const NODES: readonly (readonly [string, string])[] = [
 		"当 Copilot 在没有人类协作者的情况下打开拉取请求时，如果要求的批准数不为零，则再要求一次批准审查。",
 	],
 	["Allowed merge methods", "允许的合并方式"],
-	[
-		"Squash, Allowed merge methods",
-		"压缩合并，允许的合并方式",
-	],
-	// 显示值与 aria-label 都是「已选合并方式」的连缀。顺序实证：只选 Squash 时是
-	// `Squash`，Squash + Merge 时是 `Squash, Merge`（维护者 2026-09-27 贴的按钮 HTML），
-	// 故按 Squash → Merge → Rebase 的固定顺序穷举七种组合
+	// 显示值与 aria-label 都是「已选合并方式」按**勾选顺序**连缀的串。实证：只选 Squash
+	// 时是 `Squash`，先勾 Squash 后勾 Merge 是 `Squash, Merge`、反过来勾是 `Merge, Squash`
+	// （维护者 2026-09-27 先后贴出的按钮 HTML）。值域是三个布尔的多选，故把**所有非空排列**
+	// （3 + 6 + 6 = 15 种）连同带 `, Allowed merge methods` 后缀的 aria 串一起穷举
 	["Squash", "压缩合并"],
 	["Merge", "合并"],
 	["Rebase", "变基"],
 	["Squash, Merge", "压缩合并、合并"],
+	["Merge, Squash", "合并、压缩合并"],
 	["Squash, Rebase", "压缩合并、变基"],
+	["Rebase, Squash", "变基、压缩合并"],
 	["Merge, Rebase", "合并、变基"],
+	["Rebase, Merge", "变基、合并"],
 	["Squash, Merge, Rebase", "压缩合并、合并、变基"],
+	["Squash, Rebase, Merge", "压缩合并、变基、合并"],
+	["Merge, Squash, Rebase", "合并、压缩合并、变基"],
+	["Merge, Rebase, Squash", "合并、变基、压缩合并"],
+	["Rebase, Squash, Merge", "变基、压缩合并、合并"],
+	["Rebase, Merge, Squash", "变基、合并、压缩合并"],
+	[
+		"Squash, Allowed merge methods",
+		"压缩合并，允许的合并方式",
+	],
 	["Merge, Allowed merge methods", "合并，允许的合并方式"],
 	["Rebase, Allowed merge methods", "变基，允许的合并方式"],
 	[
@@ -328,16 +337,48 @@ const NODES: readonly (readonly [string, string])[] = [
 		"压缩合并、合并，允许的合并方式",
 	],
 	[
+		"Merge, Squash, Allowed merge methods",
+		"合并、压缩合并，允许的合并方式",
+	],
+	[
 		"Squash, Rebase, Allowed merge methods",
 		"压缩合并、变基，允许的合并方式",
+	],
+	[
+		"Rebase, Squash, Allowed merge methods",
+		"变基、压缩合并，允许的合并方式",
 	],
 	[
 		"Merge, Rebase, Allowed merge methods",
 		"合并、变基，允许的合并方式",
 	],
 	[
+		"Rebase, Merge, Allowed merge methods",
+		"变基、合并，允许的合并方式",
+	],
+	[
 		"Squash, Merge, Rebase, Allowed merge methods",
 		"压缩合并、合并、变基，允许的合并方式",
+	],
+	[
+		"Squash, Rebase, Merge, Allowed merge methods",
+		"压缩合并、变基、合并，允许的合并方式",
+	],
+	[
+		"Merge, Squash, Rebase, Allowed merge methods",
+		"合并、压缩合并、变基，允许的合并方式",
+	],
+	[
+		"Merge, Rebase, Squash, Allowed merge methods",
+		"合并、变基、压缩合并，允许的合并方式",
+	],
+	[
+		"Rebase, Squash, Merge, Allowed merge methods",
+		"变基、压缩合并、合并，允许的合并方式",
+	],
+	[
+		"Rebase, Merge, Squash, Allowed merge methods",
+		"变基、合并、压缩合并，允许的合并方式",
 	],
 	[
 		"When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled.",

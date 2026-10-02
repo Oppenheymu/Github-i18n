@@ -30,6 +30,24 @@ export const EXCLUDE_SELECTOR = [
 ].join(",");
 
 /**
+ * 表单控件选择器：这些标签进 EXCLUDE_SELECTOR 的理由是**它们的内容是用户输入**
+ * （`<textarea>` 的文本、`<input>` 的 value），而它们的 `placeholder` /
+ * `aria-label` / `title` 恰恰是上游 UI 文案——排除整棵子树会把两者一起埋掉。
+ *
+ * 实机案例（2026-10-02）：首页 Copilot 对话输入框是
+ * `<textarea id="copilot-chat-textarea" aria-label="Ask anything or type @ to add context with Copilot"
+ * placeholder="Ask anything or type @ to add context">`，两条文案都在属性上，
+ * 排除清单生效时它们结构上永远翻不了。故 walker 对**命中本选择器的排除元素**
+ * 仍翻译其属性（内容照旧整棵跳过）。不得把本选择器当成放宽排除的口子：
+ * 只允许列「属性是 UI 文案、内容是用户输入」的表单控件。
+ */
+export const FORM_CONTROL_SELECTOR = [
+	"textarea",
+	"input",
+	"select",
+].join(",");
+
+/**
  * 是否含**非拉丁字母**（语言无关的「已翻译 / 非英文」判定）。
  *
  * 刻意用 Unicode 脚本属性而不是硬编码汉字区间：日语译文可能全是假名

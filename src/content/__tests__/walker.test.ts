@@ -329,6 +329,79 @@ describe("translateTree 的同值写入守卫", () => {
 			"Not in the dictionary",
 		);
 	});
+
+	// —— 被排除的表单控件仍翻其属性（内容照旧保护）——
+	/** 首页 Copilot 对话输入框的两条文案（2026-10-02 实机 HTML 的逐字原文） */
+	const copilotView: DictView = {
+		entries: new Map([
+			[
+				"Ask anything or type @ to add context",
+				"问点什么，或输入 @ 用 Copilot 添加上下文",
+			],
+			[
+				"Ask anything or type @ to add context with Copilot",
+				"问点什么，或输入 @ 用 Copilot 添加上下文",
+			],
+		]),
+		aliases: new Map(),
+		rules: [],
+	};
+
+	it("translates placeholder and aria-label on an excluded textarea", () => {
+		const element = new StubElement("textarea");
+		element.setAttribute(
+			"placeholder",
+			"Ask anything or type @ to add context",
+		);
+		element.setAttribute(
+			"aria-label",
+			"Ask anything or type @ to add context with Copilot",
+		);
+		// textarea 的内容是**用户输入**：即便它是词条也必须保持原样
+		const typed = element.addText(
+			"Ask anything or type @ to add context",
+		);
+		translateTree(element as unknown as Node, copilotView);
+		expect(element.getAttribute("placeholder")).toBe(
+			"问点什么，或输入 @ 用 Copilot 添加上下文",
+		);
+		expect(element.getAttribute("aria-label")).toBe(
+			"问点什么，或输入 @ 用 Copilot 添加上下文",
+		);
+		expect(typed.nodeValue).toBe(
+			"Ask anything or type @ to add context",
+		);
+	});
+
+	it("still skips non-form excluded containers entirely", () => {
+		// 排除清单里除表单控件外的标签（code / pre / .markdown-body…）连属性都不碰：
+		// 那条口子只为「属性是 UI 文案、内容是用户输入」的表单控件开（见 filters.ts）
+		const code = new StubElement("code");
+		code.setAttribute(
+			"title",
+			"Ask anything or type @ to add context",
+		);
+		const root = new StubElement("div");
+		root.append(code);
+		translateTree(root as unknown as Node, copilotView);
+		expect(code.getAttribute("title")).toBe(
+			"Ask anything or type @ to add context",
+		);
+	});
+
+	it("handles an excluded textarea as the traversal root", () => {
+		// 属性变化会在引擎里把**元素本身**入队（childList 的 target 是父元素，
+		// 但 translateTree 也可能直接收到被排除的元素），此时属性同样要翻
+		const element = new StubElement("textarea");
+		element.setAttribute(
+			"placeholder",
+			"Ask anything or type @ to add context",
+		);
+		translateTree(element as unknown as Node, copilotView);
+		expect(element.getAttribute("placeholder")).toBe(
+			"问点什么，或输入 @ 用 Copilot 添加上下文",
+		);
+	});
 });
 
 describe("引擎的属性观察加固", () => {

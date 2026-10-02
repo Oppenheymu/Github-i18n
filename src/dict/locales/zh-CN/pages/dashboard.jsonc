@@ -36,6 +36,16 @@
 		"Agent": "智能代理",
 		"Create issue": "创建议题",
 		"Write code": "编写代码",
+		// —— Copilot 对话区的动作菜单与提示词库（与 core/canonical.jsonc 同序）——
+		"Create a profile README": "创建个人资料 README",
+		"Generate a simple calculator": "生成一个简单计算器",
+		"Make a Pong game": "做一个 Pong 游戏",
+		"Design a Mermaid architecture overview": "设计一个 Mermaid 架构概览",
+		"My open pull requests": "我打开的拉取请求",
+		"Summarize my latest PR": "总结我最新的 PR",
+		// —— /create-issue 命令列表的两条说明句（行首的 `/create-issue` 标签是另一个节点）——
+		"First, create a new draft issue. Then ask for additional information to fill out the issue.": "先创建一个草稿议题，然后补充信息把议题填完整。",
+		"First, create an issue with sub issues. Then ask for additional information to fill out these issues.": "先创建一个带子议题的议题，然后补充信息把这些议题填完整。",
 		// 「Git」启动器按 AGENTS.md 硬性约束 3 的做法**不收录**：它是纯专名
 		// （与 global 里的键同名同形），收录只会被门禁判为「译文与键同形」的循环风险。
 		// 未命中即保留英文，这是正确行为。

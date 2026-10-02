@@ -8,6 +8,7 @@ import type { DictView } from "../shared/types.ts";
 import { recordAttr, recordText } from "./collector.ts";
 import {
 	EXCLUDE_SELECTOR,
+	FORM_CONTROL_SELECTOR,
 	isTranslatableText,
 } from "./filters.ts";
 
@@ -163,6 +164,22 @@ function applyAttrs(
 }
 
 /**
+ * 排除元素的前置处理：返回 true 表示调用方**整棵子树直接跳过**。
+ *
+ * 例外只有一类：`<textarea>` / `<input>` 这类表单控件的内容是用户输入（必须保护），
+ * 属性里的 `placeholder` / `aria-label` 却是上游 UI 文案（必须翻译）。
+ * 实机案例见 filters.ts 的 FORM_CONTROL_SELECTOR；让它们先翻属性再跳过子树。
+ */
+function handleExcluded(
+	element: Element,
+	view: DictView,
+): boolean {
+	if (!element.closest(FORM_CONTROL_SELECTOR)) return true;
+	applyAttrs(element, view);
+	return true;
+}
+
+/**
  * 翻译以 root 为根的子树，返回替换次数（供调试与测试断言）。
  * 排除容器内的子树整棵跳过（closest 同时覆盖祖先，越界根也不误入）。
  */
@@ -180,8 +197,10 @@ export function translateTree(
 	if (
 		root instanceof Element &&
 		root.closest(EXCLUDE_SELECTOR)
-	)
+	) {
+		handleExcluded(root, view);
 		return 0;
+	}
 	const walker = document.createTreeWalker(
 		root,
 		NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,
@@ -197,6 +216,7 @@ export function translateTree(
 				}
 				const element = node as Element;
 				if (element.closest(EXCLUDE_SELECTOR)) {
+					handleExcluded(element, view);
 					return NodeFilter.FILTER_REJECT;
 				}
 				applyAttrs(element, view);

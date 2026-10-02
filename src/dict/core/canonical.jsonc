@@ -3370,6 +3370,22 @@
 				"Agent",
 				"Create issue",
 				"Write code",
+				// —— 首页 Copilot 对话区的**动作菜单**与**提示词库**（同一份实机 HTML）——
+				// 动作菜单是 ActionList 覆盖层：`My open pull requests` / `Summarize my latest PR`
+				// 各是一个菜单项；提示词库的四个建议（建资料 README、算器、Pong、Mermaid 图）
+				// 是 `ActionList.Item.Label` 里的 `<div>`。动作菜单与提示词库都是**整节点**，
+				// 逐条精确收录即可（无需规则）。
+				"Create a profile README",
+				"Generate a simple calculator",
+				"Make a Pong game",
+				"Design a Mermaid architecture overview",
+				"My open pull requests",
+				"Summarize my latest PR",
+				// —— Copilot 命令列表（`/create-issue`）里两条命令的说明句 ——
+				// 实机节点边界：行首的 `/create-issue` 是**另一个** `<span>`（不含空格，
+				// 形如斜杠命令，属代码形态），说明句自己是一个文本节点，故只有说明句收录。
+				"First, create a new draft issue. Then ask for additional information to fill out the issue.",
+				"First, create an issue with sub issues. Then ask for additional information to fill out these issues.",
 				// 「Git」启动器是纯专名，按 AGENTS.md 硬性约束 3 刻意**不收录**
 				// （global 里已有同名键；收录会被门禁判为「译文与键同形」）
 				// —— 首页顶部的 Copilot 应用宣传横幅 ——

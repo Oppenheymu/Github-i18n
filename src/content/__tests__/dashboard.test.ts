@@ -1,8 +1,9 @@
 // 首页（登录后）的实机节点回归。
 //
 // 证据来源：维护者 2026-10-02 贴出的**实机 HTML**（未加载扩展的原始英文页）：
-// Copilot 对话区（问候语 / 输入框 / 工具栏 / 启动器胶囊）、Copilot 应用宣传横幅、
-// 议题列表的「查看全部」链接。截图只用于核对语义与数量。
+// Copilot 对话区（问候语 / 输入框 / 工具栏 / 启动器胶囊 / 动作菜单 / 提示词库 /
+// `/create-issue` 命令列表）、Copilot 应用宣传横幅、议题列表的「查看全部」链接。
+// 截图只用于核对语义与数量。
 //
 // 关键边界事实（都在断言里锁住）：
 //   1. 首页有**两个地址**（`/` 与 `/dashboard`），两条都必须命中 pages/dashboard——
@@ -78,6 +79,26 @@ const STATIC_NODES: readonly (readonly [string, string])[] =
 		["Intelligence", "智能"],
 		["Prioritizes intelligence", "优先考虑智能"],
 		["Send now", "立即发送"],
+		// —— 对话区的动作菜单（ActionList 覆盖层，各是一个菜单项节点）——
+		["My open pull requests", "我打开的拉取请求"],
+		["Summarize my latest PR", "总结我最新的 PR"],
+		// —— 提示词库的四个建议（ActionList.Item.Label 里的 <div>）——
+		["Create a profile README", "创建个人资料 README"],
+		["Generate a simple calculator", "生成一个简单计算器"],
+		["Make a Pong game", "做一个 Pong 游戏"],
+		[
+			"Design a Mermaid architecture overview",
+			"设计一个 Mermaid 架构概览",
+		],
+		// —— `/create-issue` 命令的两条说明句（行首标签是另一个节点，见反例断言）——
+		[
+			"First, create a new draft issue. Then ask for additional information to fill out the issue.",
+			"先创建一个草稿议题，然后补充信息把议题填完整。",
+		],
+		[
+			"First, create an issue with sub issues. Then ask for additional information to fill out these issues.",
+			"先创建一个带子议题的议题，然后补充信息把这些议题填完整。",
+		],
 		// —— 启动器胶囊 ——
 		["Debug", "调试"],
 		["Agent", "智能代理"],
@@ -182,6 +203,12 @@ describe("pages/dashboard 的实机节点边界", () => {
 	it("keeps the Git starter and product names as upstream text", () => {
 		// 「Git」是纯专名，刻意不收录：未命中即保留英文，这是正确行为而非漏译
 		expect(translateText("Git", view)).toBeNull();
+	});
+
+	it("keeps slash-command tags in english", () => {
+		// 命令列表行首的 `/create-issue` 是**斜杠命令标识符**（与代码同类），
+		// 刻意不收录：译了反而与命令对不上。它自己是一个节点，说明句另走词条。
+		expect(translateText("/create-issue", view)).toBeNull();
 	});
 
 	it("keeps account names and owner names in english", () => {

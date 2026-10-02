@@ -213,3 +213,45 @@ describe("global 模块的实机节点边界", () => {
 		expect(translateText("vscode", view)).toBeNull();
 	});
 });
+
+/**
+ * 仓库名后的可见性标签（`Label Label--secondary`）。
+ *
+ * 实机证据：维护者 2026-10-02 在 `/Oppenheymu?tab=repositories` 贴的
+ * `<span class="Label Label--secondary v-align-middle ml-1 mb-1">Public template</span>`
+ * ——标签是**独立节点**，内容是「可见性 + 类型」拼成的固定短语。
+ * 这类标签在仓库页头部同样出现（`Public` / `Private` / `Public archive` 早已收在 global），
+ * 故整族都归 global，仓库页与个人主页共用。
+ */
+describe("global 模块的仓库可见性标签", () => {
+	const LABELS: readonly (readonly [string, string])[] = [
+		["Public", "公开"],
+		["Private", "私有"],
+		["Public template", "公开模板"],
+		["Private template", "私有模板"],
+		["Public archive", "公开归档"],
+		["Archived", "已归档"],
+	];
+
+	it("translates every visibility label GitHub renders next to a repository name", () => {
+		for (const [node, expected] of LABELS) {
+			for (const variant of withWhitespace(node)) {
+				expect(
+					translateText(variant, view),
+					`节点 ${JSON.stringify(variant)}`,
+				).toBe(expected);
+			}
+		}
+	});
+
+	it("leaves prose that merely contains those words alone", () => {
+		// 反例：整节点精确匹配，散文 / 用户内容不会被这种多词短语命中
+		for (const node of [
+			"public template repository",
+			"My public template",
+			"template",
+		]) {
+			expect(translateText(node, view), node).toBeNull();
+		}
+	});
+});

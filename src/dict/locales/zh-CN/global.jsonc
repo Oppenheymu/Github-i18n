@@ -189,6 +189,14 @@
 		"Public": "公开",
 		"Private": "私有",
 		"Public archive": "公开归档",
+		// 仓库名后的可见性标签（实机是独立节点：`<span class="Label Label--secondary
+		// v-align-middle ml-1 mb-1">Public template</span>`，维护者 2026-10-02 在
+		// /Oppenheymu?tab=repositories 采集）。短语是「可见性 + 类型」拼成的固定串、
+		// 多词且不含用户内容，故归 global：仓库页与个人主页共用同一批词条。
+		// `Public template` 有实机证据；`Private template` 是同族对称补全（多词、无撞车风险，
+		// 万一上游不是这个串也只是一条永不命中的死键）。
+		"Public template": "公开模板",
+		"Private template": "私有模板",
 		"Archived": "已归档",
 		// —— 人与关注 ——
 		"Author": "作者",

@@ -4628,6 +4628,12 @@
 				"Public",
 				"Private",
 				"Public archive",
+				// 仓库名后的可见性标签（「可见性 + 类型」固定短语）。实机证据是 2026-10-02
+				// 维护者在 /Oppenheymu?tab=repositories 贴的
+				// `<span class="Label Label--secondary v-align-middle ml-1 mb-1">Public template</span>`；
+				// Private template 是同族对称补全。
+				"Public template",
+				"Private template",
 				"Archived",
 				// —— 人与关注 ——
 				"Author",

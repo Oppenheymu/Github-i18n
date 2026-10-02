@@ -1,6 +1,10 @@
 import { describe, expect, it } from "bun:test";
 import type { DictView } from "../../shared/types.ts";
 import { translateText, translateTree } from "../walker.ts";
+import {
+	installDomStubs,
+	StubElement,
+} from "./stub-dom.ts";
 
 const view: DictView = {
 	entries: new Map([
@@ -143,124 +147,9 @@ describe("translateText", () => {
 });
 
 describe("translateTree 的同值写入守卫", () => {
-	/**
-	 * 桩 DOM：只实现 walker.ts 用到的 createTreeWalker / closest / nodeValue。
-	 * 每次给 nodeValue 赋值都记一笔「写入」，用来断言同值写入确实被跳过。
-	 */
-	class StubText {
-		readonly nodeType = 3;
-		readonly writes: string[] = [];
-		parentElement: {
-			closest(selector: string): unknown;
-		} | null = null;
-		#value: string;
-		constructor(value: string) {
-			this.#value = value;
-		}
-		get nodeValue(): string {
-			return this.#value;
-		}
-		set nodeValue(next: string) {
-			this.#value = next;
-			this.writes.push(next);
-		}
-	}
-
-	class StubElement {
-		readonly nodeType = 1;
-		readonly childNodes: (StubElement | StubText)[] = [];
-		readonly tagName: string;
-		readonly classes: Set<string> = new Set();
-		readonly attrs = new Map<string, string>();
-		parentElement: StubElement | null = null;
-		constructor(tag: string) {
-			this.tagName = tag.toUpperCase();
-		}
-		append(node: StubElement | StubText): void {
-			Object.defineProperty(node, "parentElement", {
-				value: this,
-				configurable: true,
-			});
-			this.childNodes.push(node);
-		}
-		addText(value: string): StubText {
-			const text = new StubText(value);
-			this.append(text);
-			return text;
-		}
-		getAttribute(name: string): string | null {
-			return this.attrs.get(name) ?? null;
-		}
-		setAttribute(name: string, value: string): void {
-			this.attrs.set(name, value);
-		}
-		closest(selector: string): StubElement | null {
-			const parts = selector
-				.split(",")
-				.map((part) => part.trim());
-			const matches = (element: StubElement): boolean =>
-				parts.some((part) =>
-					part.startsWith(".")
-						? element.classes.has(part.slice(1))
-						: element.tagName === part.toUpperCase(),
-				);
-			let current: StubElement | null = this;
-			while (current !== null) {
-				if (matches(current)) return current;
-				current = current.parentElement;
-			}
-			return null;
-		}
-	}
-
-	class StubTreeWalker {
-		readonly #queue: (StubElement | StubText)[] = [];
-		readonly #filter: { acceptNode(node: unknown): number };
-		constructor(
-			root: StubElement | StubText,
-			_filter: unknown,
-			filter: { acceptNode(node: unknown): number },
-		) {
-			this.#filter = filter;
-			this.#queue.push(root);
-		}
-		nextNode(): unknown {
-			while (this.#queue.length > 0) {
-				const node = this.#queue.shift();
-				if (node === undefined) return null;
-				if (this.#filter.acceptNode(node) === 2) continue;
-				if (node instanceof StubElement) {
-					this.#queue.push(...node.childNodes);
-				}
-				return node;
-			}
-			return null;
-		}
-	}
-
-	// 一次性装桩：Node / NodeFilter / Element / document 只被 walker 用到这四处
-	const globals = globalThis as unknown as Record<
-		string,
-		unknown
-	>;
-	globals["Node"] = { TEXT_NODE: 3 };
-	globals["Element"] = StubElement;
-	globals["NodeFilter"] = {
-		SHOW_ELEMENT: 1,
-		SHOW_TEXT: 4,
-		FILTER_ACCEPT: 1,
-		FILTER_REJECT: 2,
-		FILTER_SKIP: 3,
-	};
-	globals["document"] = {
-		createTreeWalker(
-			root: StubElement | StubText,
-			what: unknown,
-			filter: { acceptNode(node: unknown): number },
-		) {
-			return new StubTreeWalker(root, what, filter);
-		},
-	};
+	// DOM 桩与 engine 的测试共用一份（stub-dom.ts）：`root instanceof Element` 比的是
+	// 类身份，两个测试文件各装一份会互相顶掉（见该文件头部的说明）
+	installDomStubs();
 
 	/** 译文与原文同形：这正是让 /settings/profile 卡死的形态 */
 	const selfIdentical: DictView = {

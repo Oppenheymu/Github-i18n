@@ -34,37 +34,42 @@ const stub: {
 } = { data: new Map(), listeners: [] };
 
 function installChromeStub(): void {
-	const chromeStub = {
-		storage: {
-			local: {
-				async get(
-					key: string,
-				): Promise<Record<string, unknown>> {
-					return stub.data.has(key)
-						? { [key]: stub.data.get(key) }
-						: {};
-				},
-				async set(values: Record<string, unknown>) {
-					for (const [key, value] of Object.entries(
-						values,
-					)) {
-						stub.data.set(key, value);
-					}
-				},
-				async remove(key: string) {
-					stub.data.delete(key);
-				},
+	const globals = globalThis as unknown as Record<
+		string,
+		unknown
+	>;
+	// 只挂 storage 命名空间，**别整体替换 chrome**：bun test 的 globalThis 跨文件
+	// 共享，入口测试与 popup 测试在同一个进程里也挂 chrome.i18n / chrome.runtime，
+	// 整体替换会把它们的桩打掉（实测：storage 用例会成片失败）
+	const chromeStub = (globals["chrome"] ?? {}) as Record<
+		string,
+		unknown
+	>;
+	chromeStub["storage"] = {
+		local: {
+			async get(
+				key: string,
+			): Promise<Record<string, unknown>> {
+				return stub.data.has(key)
+					? { [key]: stub.data.get(key) }
+					: {};
 			},
-			onChanged: {
-				addListener(listener: ChangeListener) {
-					stub.listeners.push(listener);
-				},
+			async set(values: Record<string, unknown>) {
+				for (const [key, value] of Object.entries(values)) {
+					stub.data.set(key, value);
+				}
+			},
+			async remove(key: string) {
+				stub.data.delete(key);
+			},
+		},
+		onChanged: {
+			addListener(listener: ChangeListener) {
+				stub.listeners.push(listener);
 			},
 		},
 	};
-	(globalThis as unknown as Record<string, unknown>)[
-		"chrome"
-	] = chromeStub;
+	globals["chrome"] = chromeStub;
 }
 
 /** 模拟一次 storage.onChanged 通知 */

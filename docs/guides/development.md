@@ -415,6 +415,14 @@ for (const p of probes) {
 
 除上表外的用例都不再是「实机节点」而是纯逻辑回归：`src/content/__tests__/pages.test.ts`（视图单槽缓存：缓存键写错会表现为「换页后一半英文」）、`src/shared/__tests__/storage.test.ts`（storage 脏数据收窄与开关 / 语言监听）、`src/dict/__tests__/locales.test.ts`（`resolveLocale` 对 `zh-Hans-CN` / `zh_TW` / `en-US` 的归属），另有门禁自身与构建脚本的测试（`tooling/checks/__tests__/`、`tooling/pipeline/build.test.ts`）。
 
+新增的进程内测试补齐了三个**此前从未被任何测试加载**的模块：`src/content/__tests__/engine.test.ts`（观察器调度）、`src/content/__tests__/index.test.ts`（content 入口装配）、`src/popup/__tests__/popup.test.ts`（popup 全交互）、`src/shared/__tests__/identity.test.ts`（身份标记契约）。它们共用 `src/content/__tests__/stub-dom.ts` 的 DOM 桩，并受三条硬约束——`bun test` 的 `globalThis` 与模块注册表**跨测试文件共享**，违反任一条都会让**别的文件**的用例成片变红（2026-10-03 逐一踩过）：
+
+1. **不要用 `mock.module`**：它是进程级注册，会泄漏给同一进程里的其他测试文件（实测：入口测试 mock 掉 `collector` / `pages` 后，walker 与全部页面测试找不到真实导出）；
+2. **全局桩一律合并挂载**（`obj["k"] = v`），**禁止整体替换** `globalThis.chrome` / `document`——整体替换会删掉别的测试文件刚装好的命名空间（实测：入口测试的 chrome 桩只有 `i18n`，把 storage 测试的 `chrome.storage` 打掉，12 个用例失败）；
+3. **DOM 桩只能有一份**（`stub-dom.ts`）：`walker.ts` 用 `root instanceof Element` 判根节点类型，两处各内联一份桩会让先装的那份类身份失效。
+
+另注：content 入口与 popup 都有顶层副作用，**一个进程只会装配一次**，所以「`enabled` 关闭时不启动观察器」这条反向条件无法再开一个测试文件验证（第二个文件会复用第一次的装配结果，`?query` 也不产生新实例——Bun 实测不支持）。该闸门由 `engine.test.ts` 的「关闭时只清空队列不翻译」与 `readEnabled` 的默认值把守。
+
 **已知空缺：`repo-settings`（`/owner/repo/settings`）整页尚未采集**（该页需要登录），所以仓库设置页没有**整页**的实机节点回归——目前它只有两处：`settings-repo.test.ts` 覆盖的「Creation allowed by」筛选按钮三节点，与 `repo-settings-interaction-limits.test.ts` 覆盖的交互限制子页（途径 A 清单）；其余词条靠视图骨架层的保护（命中模块序列 + 碰撞赢家）与词典门禁。
 
 每个实机测试文件的结构都一样：文件头写明节点来源与日期，然后是一份**逐字录入的 `nodeValue` 清单**（带源码缩进 / 换行的按原样保留，因为实机里长句的节点自带缩进），用 `translateText(节点, 该路径的 buildView(...))` 断言命中与译文，另有一组**反例**断言用户内容（文件名、仓库名、`README.md`、小写常用词）**必须不被翻译**。

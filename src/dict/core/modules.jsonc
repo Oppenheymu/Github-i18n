@@ -68,8 +68,13 @@
 			"route": "^/[^/]+/[^/]+/agents"
 		},
 		{
+			// 登录后首页有**两个地址**：`/` 与 `/dashboard`（GitHub 的头像菜单与
+			// 顶栏「Home」都指向后者）。早期只登记了 `^/$`，于是维护者从 /dashboard
+			// 访问时整页 dashboard 词条都不加载——只吃 global 兜底，表现为「补了却没生效」。
+			// 两条地址渲染的是同一页，故并成一条路由；`/dashboard` 是 GitHub 的保留
+			// 顶层路径（已列在 pages/profile 与 pages/repo 的保留名单里），不会误注入别的页面。
 			"name": "pages/dashboard",
-			"route": "^/$"
+			"route": "^/(?:dashboard)?/?$"
 		},
 		{
 			"name": "pages/commits",

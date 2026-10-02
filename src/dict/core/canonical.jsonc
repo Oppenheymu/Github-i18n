@@ -3341,7 +3341,10 @@
 				"Ask anything or type @ to add context with Copilot",
 				"Ask",
 				"Select repositories to attach to conversation",
-				"All repositories",
+				// 仓库选择器的可见文案 `All repositories` 与 global 的同名键**同译**，
+				// 登记在这里只会把骨架快照写成一条「同键异译」的赢家记录（本模块在
+				// 模块顺序里更靠前，会胜出），渲染结果却与 global 那条完全一样，
+				// 故不重复登记——这是与 `Set status` / 小写 `merged` 同一类清理。
 				"Add files, and spaces",
 				"Auto",
 				// 「Auto」上面的 sr-only 前缀（`Model: ` 带尾随空格，归一化后即本键）

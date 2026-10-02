@@ -41,6 +41,10 @@ import { buildCore, buildLocaleData } from "./dict.ts";
  */
 export const PROBE_PATHS: readonly string[] = [
 	"/",
+	// 登录后首页的另一个地址：`/` 与 `/dashboard` 渲染同一页，但路由曾只覆盖前者，
+	// 于是「往 pages/dashboard 加了词条、从 /dashboard 访问却看不到」——
+	// 只保留 `/` 这条探针，这类回归在骨架里完全不可见（2026-10-02 修复后补）
+	"/dashboard",
 	"/octocat",
 	"/microsoft/vscode",
 	"/microsoft/vscode/issues",

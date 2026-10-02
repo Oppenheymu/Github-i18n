@@ -15,7 +15,7 @@
 		"Ask anything or type @ to add context with Copilot": "问点什么，或输入 @ 用 Copilot 添加上下文",
 		"Ask": "提问",
 		"Select repositories to attach to conversation": "选择要附加到对话的仓库",
-		"All repositories": "所有仓库",
+		// 「All repositories」由 global 覆盖（同名同译），此处不重复登记
 		"Add files, and spaces": "添加文件与空间",
 		"Auto": "自动",
 		"Model:": "模型：",

@@ -1,28 +1,39 @@
-// 首页（登录后 `/dashboard`，路由 `/`）的实机节点回归。
+// 首页（登录后）的实机节点回归。
 //
 // 证据来源：维护者 2026-10-02 贴出的**实机 HTML**（未加载扩展的原始英文页）：
 // Copilot 对话区（问候语 / 输入框 / 工具栏 / 启动器胶囊）、Copilot 应用宣传横幅、
 // 议题列表的「查看全部」链接。截图只用于核对语义与数量。
 //
 // 关键边界事实（都在断言里锁住）：
-//   1. 问候语 `Good afternoon, Oppenheymu!` 是**单个节点**，用户名随账户变化、
-//      时段随访问时间变化，只能靠 dashboard/greeting 规则，且要把中英语序换位；
-//   2. `View all` 与被 sr-only 包住的 ` issues` 是**两个**文本节点（后者带前导空格），
+//   1. 首页有**两个地址**（`/` 与 `/dashboard`），两条都必须命中 pages/dashboard——
+//      维护者 2026-10-02 反馈「补了却没生效」的根因就是路由只覆盖了 `^/$`；
+//   2. 问候语 `Good afternoon, Oppenheymu!` 是**单个节点**，用户名随账户变化、
+//      时段随访问时间变化，只能靠 dashboard/greeting-* 规则（三个时段各一条 pattern）；
+//   3. `View all` 与被 sr-only 包住的 ` issues` 是**两个**文本节点（后者带前导空格），
 //      整句键 `View all issues` 在实机永不命中；
-//   3. `Git` 启动器是纯专名，按硬性约束 3 **刻意不收录**（未命中即保留英文）；
-//   4. 输入框的 placeholder 与 aria-label 是**两条不同长度**的文案，各自成词条。
+//   4. `Git` 启动器是纯专名，按硬性约束 3 **刻意不收录**（未命中即保留英文）；
+//   5. 输入框的 placeholder 与 aria-label 是**两条不同长度**的文案，各自成词条。
 import { describe, expect, it } from "bun:test";
 import {
 	dictCore,
 	dictForLocale,
 } from "../../dict/index.ts";
-import { buildView } from "../view.ts";
+import { buildView, matchModules } from "../view.ts";
 import { translateText } from "../walker.ts";
+
+const zh = dictForLocale("zh-CN");
 
 /** `/` 命中的模块视图（pages/dashboard + global） */
 const view = buildView(
 	"/",
-	dictForLocale("zh-CN"),
+	zh,
+	new Map(Object.entries(dictCore.aliases)),
+);
+
+/** `/dashboard` 命中的模块视图（应与 `/` 完全一致） */
+const dashboardView = buildView(
+	"/dashboard",
+	zh,
 	new Map(Object.entries(dictCore.aliases)),
 );
 
@@ -77,6 +88,38 @@ const STATIC_NODES: readonly (readonly [string, string])[] =
 	];
 
 describe("pages/dashboard 的实机节点边界", () => {
+	it("matches both addresses of the signed-in home page", () => {
+		// `/` 与 `/dashboard` 渲染同一页，路由必须两条都命中 pages/dashboard。
+		// 只覆盖 `^/$` 时的实机表现是「往本模块加了词条，从 /dashboard 访问却全是英文」
+		// ——那正是维护者 2026-10-02 报的问题，故这里把两条地址都钉住。
+		for (const pathname of [
+			"/",
+			"/dashboard",
+			"/dashboard/",
+		]) {
+			expect(
+				matchModules(pathname, zh.modules).map(
+					(module) => module.name,
+				),
+				pathname,
+			).toEqual(["pages/dashboard", "global"]);
+		}
+		// `(?:dashboard)?/?$` 是整段锚定的：形如 /dashboard-archive 的**合法用户名**
+		// 不会被吞进来（它照旧由 pages/profile 接手）
+		expect(
+			matchModules("/dashboard-archive", zh.modules).map(
+				(module) => module.name,
+			),
+		).toEqual(["pages/profile", "global"]);
+	});
+
+	it("renders identically on both addresses", () => {
+		// 两个视图的词条映射必须逐键一致：地址不同不该产生不同译文
+		expect([...dashboardView.entries]).toEqual([
+			...view.entries,
+		]);
+	});
+
 	it("translates every node the dashboard HTML shows", () => {
 		for (const [node, expected] of STATIC_NODES) {
 			for (const variant of withWhitespace(node)) {

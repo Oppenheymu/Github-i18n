@@ -4217,16 +4217,17 @@
 				// 五个节点，加粗的三段（`5` / `source` / `last updated`）各自被 <strong> 单独包住。
 				// 故这里只收**纯片段**：计数由 profile/repo-results-count 规则接手，
 				// 恒定的 `results for` 与末段 `last updated` 走片段词条，
-				// 中间那段走 profile/repo-results-repos 规则（与「按」之间那点空白由浏览器折叠）。
+				// 中间那段走 profile/repo-results-repos 规则。
 				//
 				// 2026-10-02 维护者报「极其奇怪的翻译错乱」（实机渲染成
-				// 「5 个结果，source 个仓库，按 上次更新。」）后的重排结论：
-				// 每个节点单独翻译、译文按原文顺序落地，所以**以量词开头的片段必须自己带数字**
-				// （`results for` → 「结果，」，数字由 profile/repo-results-filtered 规则一起吃掉），
-				// 而以名词结尾的片段则把量词写在译文里（`repositories sorted by` → 「 个仓库，」）。
-				// 于是数字与它修饰的名词永远同处一条译文，不可能跨节点错位。
+				// 「5 个结果，source 个仓库，按 上次更新。」）→ 同日再报「没有翻译成功」后的定稿：
+				// 片段边界按两条硬规则画（详见 locales/zh-CN/pages/profile.jsonc）——
+				//   1. 量词只跟着它修饰的数字：`results for` → 「个结果，」（数字在它前一个节点里），
+				//      而「仓库」的计数并不存在，故 `repositories sorted by` → 「仓库，」；
+				//   2. 连接词落在它所连接的那一段之后：`sorted by` 在中文里要变成「按…排序」，
+				//      而末段之后就是容器末尾，故「按上次更新排序」整段归 `last updated`。
 				"results for",
-				// 摘要里承载「个仓库，」的片段。**不带 `last updated`**：实机 dump 显示
+				// 摘要里承载「仓库，」的片段。**不带 `last updated`**：实机 dump 显示
 				// `last updated` 是被 <strong> 单独包住的末节点（那一段前导空白由 walker 保留），
 				// 故未筛选时这句同样是两个节点（中间片段 + 末段），整句键会永不命中。
 				"repositories sorted by",

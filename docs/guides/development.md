@@ -312,7 +312,9 @@ dump.join("\n");
 3. **纯符号 / 纯数字节点翻不了**（`.`、`*`、`↑`、`1.2`），**不要为它们收键**——收了是永不命中的死键；
 4. **`sr-only` 文本照常翻译**：`<tool-tip class="sr-only">`、`<span class="sr-only">` 里的无障碍文案也是正常词条（例：`Manage email`、`Select email to become primary`）；
 5. **用户内容与纯专名不收录**：邮箱、@用户名、头像 `alt`、仓库名、文件名、`GitHub` / `Copilot` / `Git` / `CLI` 这类专名与缩写。译文必须含中文字系，硬收专名只会让门禁报「译文与键同形」；未命中即保留英文，这是正确行为而不是漏译；
-6. **同一句话被拆开时，译文要能直接拼起来**：`renderNodes` 断言会把节点串起来看结果。原文节点里的前导空格由引擎保留，**译文不要自带首尾空格**（需要空格时说明为什么，例如片段末尾接纯文本邮箱的场景）。
+6. **同一句话被拆开时，译文要能直接拼起来**：`renderNodes` 断言会把节点串起来看结果。原文节点里的前导空格由引擎保留，**译文不要自带首尾空格**（需要空格时说明为什么，例如片段末尾接纯文本邮箱的场景）。拆句里有两个反复踩到的坑（2026-10-02 在 `/<用户名>?tab=repositories` 的结果摘要上连踩两次，实机渲染成「5 个结果，source 个仓库，按 上次更新。」）：
+   - **量词只能写在它修饰的那个数字之后的片段里**。数字常常是独立节点（`<strong>5</strong>`）、且永不进词典，所以「个」属于**紧跟数字之后**的那条片段（`results for` → 「个结果，」）；反过来，**页面上没有数的名词不许带量词**——`repositories` 的计数并不存在，写「个仓库」就是凭空多出来的量词；
+   - **连接词要落在它所连接的那一段之后**。英文里挂在名词短语上的分词（`repositories sorted by`）在中文里必须说成「按…排序」（动词在宾语之后），若那个宾语在**后一个节点**（`last updated`），整段「按…排序」就都得归它，否则「按」会脱在空中。
 
 ### 五、每次收工前的清单
 
@@ -405,7 +407,7 @@ for (const p of probes) {
 | `settings-repo.test.ts` | `/owner/repo/settings` | 仓库设置页的「Creation allowed by」筛选按钮（**目前只覆盖这一处**：维护者给的 HTML 片段证明标签、当前值、菜单项是三个独立文本节点；整页尚未采集，其余词条仍只有词典门禁与视图骨架的保护） |
 | `repo-settings-rulesets.test.ts` | `/owner/repo/settings/rules`、`/owner/repo/settings/rules/<id>` | 规则集列表页与详情页（**证据是途径 A 导出的漏翻清单 + 两张实机截图 + 维护者贴的两段实机 HTML**（状态检查与「合并前需要拉取请求」两个规则的展开面板），2026-09-27：清单里除专名 / 用户内容外的节点、以及两段 HTML 里的全部节点都命中；本页此前**没有任何词条**，属整页新增。三条边界事实：规则名 `Protect Default Branch`、仓库名、用户名、分支名 `main` 与产品名保持英文；组合型 aria-label（`Active, Enforcement status`、`Roles, Filter actors by category`、`Squash, Allowed merge methods`）是**属性**、不走正则规则，故逐条收静态键；含动态值的文本（列表行计数、目标计数、面包屑、`Apps • <应用名>`、`Delete include of <分支模式>`）靠 6 条 `repo-settings/ruleset-*` 规则，分隔符用字符类同时覆盖 `•` 与 `·`。清单里孤立的 `changes` 来源不明，有意不收） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分；侧栏星标 / 关注 / 复刻三个计数走 `repo/*-count` 规则，数字随仓库变化，另收 `4.1k` / `1,234` 这类缩写形态） |
-| `profile.test.ts` | `/<用户名>?tab=repositories` | 个人 / 组织主页的仓库列表（Type 下拉九项按**整节点相等**断言；结果摘要行是五个节点——`5` / `results for` / `source` / `repositories sorted by` / `last updated`，加粗的三段各被 `<strong>` 单独包住，靠三条 `profile/repo-results-*` 规则 + `results for` / `last updated` 两条片段词条拼装；`Clear filter` 与 Type 菜单里上游未本地化的 `Can be sponsored` / `Templates` 一并锁住） |
+| `profile.test.ts` | `/<用户名>?tab=repositories` | 个人 / 组织主页的仓库列表（Type 下拉九项按**整节点相等**断言；结果摘要行是五个节点——`5` / `results for` / `source` / `repositories sorted by` / `last updated`，加粗的三段各被 `<strong>` 单独包住，靠三条 `profile/repo-results-*` 规则 + `results for` / `last updated` 两条片段词条拼装，整句渲染成「5 个结果， source 仓库， 按上次更新排序」（量词只跟数字、连接词落在宾语之后，见「四、采集结果怎么读」第 6 条）；`Clear filter` 与 Type 菜单里上游未本地化的 `Can be sponsored` / `Templates` 一并锁住） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |
 | `pulls.test.ts` | `/owner/repo/pulls` | 拉取请求列表页 |
 | `insights-security.test.ts` | `/owner/repo/security` | 仓库安全概览页（**证据是维护者 2026-09-27 贴的实机 HTML**：顶部 Scorecard / Code scanning 横幅被 `<a>status page</a>` 切成三段；七个功能行的标题与状态是两个节点，但**项目符号 `•` 落在标题节点内部**，故带 ` •` 的形态由本模块各收一条——裸标题 `Security policy` 仍由 pages/repo 提供，两条各自独立；`View alerts` 这类短链接在源码里带 16 空格缩进，键按 normalizeKey 折叠空白） |

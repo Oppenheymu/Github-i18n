@@ -60,6 +60,29 @@ function withWhitespace(node: string): readonly string[] {
 	return [node, `\n        ${node}\n      `];
 }
 
+/**
+ * 把一段实机节点序列按 walker 的语义过一遍：未命中的节点按原样保留，
+ * 命中的节点写回译文并保留其首尾空白（见 walker.ts 的 applyTextNode），
+ * 最后补上浏览器折叠空白的规则——这样得到的才是页面上真正看到的那一行。
+ * （这里的节点是逐字抄来的带缩进原文，故必须折叠；其余页的同类助手通常直接拼。）
+ */
+function renderNodes(nodes: readonly string[]): string {
+	return nodes
+		.map((node) => {
+			const translated = translateText(node, view);
+			if (translated === null) return node;
+			const lead = node.slice(
+				0,
+				node.length - node.trimStart().length,
+			);
+			const trail = node.slice(node.trimEnd().length);
+			return `${lead}${translated}${trail}`;
+		})
+		.join("")
+		.replace(/\s+/g, " ")
+		.trim();
+}
+
 describe("pages/profile 的仓库列表筛选菜单", () => {
 	it("translates every Type menu option to its rendered Chinese label", () => {
 		for (const [node, expected] of TYPE_MENU) {
@@ -109,27 +132,31 @@ describe("pages/profile 的仓库列表筛选菜单", () => {
  * 加粗的三段（`5` / `source` / `last updated`）在 dump 里各自是一个文本节点，
  * 说明 `<strong>` 确实把这一行切成了五个节点——整句键在实机上永不命中。
  *
- * 2026-10-02 维护者贴出的**实机渲染**是「5 个结果，source 个仓库，按 上次更新。」——
- * 量词落到了它修饰的数字之外。根因是每个节点单独翻译、译文按原文顺序落地：
- * 只要有一条译文以量词开头，而数字在另一个节点里，错位就必然发生。
- * 故片段的边界按「名词短语 + 量词同处一条译文」重排：数字与 `results for` 由
- * profile/repo-results-filtered 规则**一起吃下**（`$<count:>结果，`），
- * `repositories sorted by` 的译文自带量词（「 个仓库，」）。
- * 下面两条拼装断言就是这条不变量（数字必须紧挨着它修饰的名词）的回归网。
+ * 2026-10-02 维护者贴出的**实机渲染**（截图 + innerHTML）是
+ * 「5 个结果，source 个仓库，按 上次更新。」——「个仓库」是凭空多出来的量词
+ * （`5` 数的是结果，不是仓库），「按」还脱在它连接的那一段之外。
+ * 根因是每个节点单独翻译、译文按原文顺序落地，所以片段的边界必须按**中文语序**画：
+ *   1. 量词只跟着它修饰的数字：数字 `5` 是前一个节点（纯符号、不进词典），
+ *      故「个」属于数字之后紧邻的那条译文（`results for` → 「个结果，」），
+ *      而 `repositories sorted by` 不得带量词（→ 「仓库，」）；
+ *   2. 连接词必须落在它所连接的那一段之后：`sorted by` 在中文里是「按…排序」，
+ *      末段之后就是容器末尾，故整段归 `last updated`（→ 「按上次更新排序」）。
+ * 下面两条断言就是这条不变量（数字、量词、连接词各就各位）的回归网：
+ * 逐片段断言锁每一段的形状，整句拼装断言锁拼接结果。
  */
 const SUMMARY_NODES: readonly (readonly [
 	string,
 	string | null,
 ])[] = [
-	["\n        results\n        for\n          ", "结果，"],
 	[
-		"\n        repositories\n        sorted by ",
-		" 个仓库，",
+		"\n        results\n        for\n          ",
+		"个结果，",
 	],
-	["last updated", "上次更新。"],
+	["\n        repositories\n        sorted by ", "仓库，"],
+	["last updated", "按上次更新排序"],
 	["\n          Clear filter\n", "清除筛选"],
 	// 纯数字节点翻不了，也不该收（收了就是永不命中的死键）；
-	// 数字与其后的名词由规则一起接手（见上面的说明）
+	// 它的量词由紧邻的下一条片段承载（见上面的说明）
 	["5", null],
 ];
 
@@ -143,71 +170,67 @@ describe("pages/profile 的仓库列表结果摘要", () => {
 		}
 	});
 
-	it("keeps the count next to the noun it counts", () => {
-		// 带计数：规则把数字与「结果，」一起译出，量词绝不脱在数字之外
+	it("keeps the count next to the results it counts", () => {
+		// 计数与半句同处一个节点时（`<strong>` 边界改版的形态）由规则一起译出
 		expect(translateText("5 results for", view)).toBe(
-			"5 结果，",
+			"5 个结果，",
 		);
 		expect(translateText("1,234 results for", view)).toBe(
-			"1,234 结果，",
+			"1,234 个结果，",
 		);
-		// 裸半句（<strong> 边界若改版、数字被拆成独立节点）仍要保持通顺：
-		// `$<count:>` 的默认值是空串，开头的空格由 normalizeKey 收掉
+		// 计数被 <strong> 拆成独立节点时，剩下这半句自己带量词——
+		// 它在数字节点**之后**，拼接顺序天然就是「5 个结果，」
 		expect(translateText("results for", view)).toBe(
-			"结果，",
+			"个结果，",
 		);
 	});
 
-	it("assembles both summary shapes into a grammatical sentence", () => {
-		// 类型名 `source` 是 Type 菜单的标识（专名不译），自己成一个节点。
-		// 注意：这里刻意用**归一化后**的节点文本（词典键的形态）拼装，
-		// 因为实机原文的换行缩进会被 walker 保留、再由浏览器折叠空白，拼装结果里
-		// 只有空白差异；真正要锁的是「片段 + 类型名 + 末段能拼成一句通顺中文」。
-		const translate = (node: string) =>
-			translateText(node, view) ?? node;
-		const filtered = [
-			"5 results for",
-			"source",
+	it("never puts a quantifier on a noun whose count is not on the page", () => {
+		// 实机错乱的根源：`repositories` 凭空带上「个」——页面上并没有「几个仓库」这个数。
+		// 谁把量词加回这条片段，这条用例立刻红。
+		for (const node of [
 			"repositories sorted by",
+			"repository sorted by",
+		]) {
+			const translated = translateText(node, view) ?? "";
+			expect(translated, node).toBe("仓库，");
+			expect(translated.includes("个"), node).toBe(false);
+		}
+	});
+
+	it("assembles the live node sequence into a grammatical sentence", () => {
+		// 逐字抄自实机 dump 的五个节点（`type=source` 筛选态）
+		const filtered = [
+			"5",
+			"\n        results\n        for\n          ",
+			"source",
+			"\n        repositories\n        sorted by ",
 			"last updated",
-		].map(translate);
-		expect(filtered.join("")).toBe(
-			"5 结果，source 个仓库，上次更新。",
+		];
+		expect(renderNodes(filtered)).toBe(
+			"5 个结果， source 仓库， 按上次更新排序",
 		);
-		// 未筛选时只是少了类型名那一段节点，其余片段完全一样——这正是
+		// 未筛选时只是少了类型名那个节点，其余片段完全一样——这正是
 		// 「不把整句 `repositories sorted by last updated` 收成一条键」的理由
 		// （末段被 <strong> 单独包住，整句键会永不命中，见 core/canonical.jsonc 注释）。
-		const unfiltered = [
-			"5 results for",
-			"repositories sorted by",
-			"last updated",
-		].map(translate);
-		expect(unfiltered.join("")).toBe(
-			"5 结果， 个仓库，上次更新。",
+		// 注：未筛选态的节点边界是**推断**，dump 只覆盖了 `type=source`。
+		const unfiltered = filtered.filter(
+			(node) => node !== "source",
 		);
-		// 反例：任何以量词开头的片段都不允许再出现——那正是错乱的形态
-		for (const fragment of [
-			"results for",
-			"repositories sorted by",
-			"last updated",
-		]) {
-			const translated =
-				translateText(fragment, view) ?? "";
-			expect(translated.startsWith("个"), fragment).toBe(
-				false,
-			);
-		}
+		expect(renderNodes(unfiltered)).toBe(
+			"5 个结果， 仓库， 按上次更新排序",
+		);
 	});
 
 	it("keeps the capitalised Type-menu option apart from the summary fragments", () => {
 		// 菜单项是 "Last updated"（大写 L，下拉里渲染为「最近更新」），摘要里的片段是
-		// "last updated"（小写，渲染为「上次更新。」）——两者是两条不同的键，
+		// "last updated"（小写，渲染为「按上次更新排序」）——两者是两条不同的键，
 		// 大小写混用会被这条用例挡住。
 		expect(translateText("Last updated", view)).toBe(
 			"最近更新",
 		);
 		expect(translateText("last updated", view)).toBe(
-			"上次更新。",
+			"按上次更新排序",
 		);
 	});
 });

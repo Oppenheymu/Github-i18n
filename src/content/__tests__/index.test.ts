@@ -7,8 +7,9 @@
 //   3. 目标语言解析错 → 整站用错词典，且不报任何错（本文件用「Star 真的被译成
 //      星标」端到端钉住它）。
 //
-// 环境：bun 没有 chrome / document / location / window / MutationObserver（实测
-// undefined），故全部装桩后**动态 import**——入口有顶层副作用，import 即启动。
+// 环境：**真实 DOM + 真实 MutationObserver**（happy-dom，见 test-support/dom.ts），
+// 故「观察 documentElement」与「首轮真的翻了页」是同一套真实链路；chrome /
+// location / window 之外的扩展侧全局仍是自桩。
 //
 // 两个必须遵守的约束（都是实测踩出来的）：
 //   a. **不要用 mock.module**：它是进程级的，注册的 mock 会泄漏给同一进程里的
@@ -18,28 +19,14 @@
 // 入口模块一个进程只会装配一次，故「enabled=false 不启动」这条反向条件无法在本
 // 仓库里再开一个文件验证（姊妹文件会因模块缓存而复用第一次的装配结果）。该闸门
 // 由 engine.test.ts 的「关闭时只清空队列不翻译」与 readEnabled 的默认值把守。
-import { describe, expect, it } from "bun:test";
-import {
-	installDomStubs,
-	StubElement,
-} from "./stub-dom.ts";
+import { afterAll, describe, expect, it } from "bun:test";
+import { installDom } from "../../test-support/dom.ts";
 
-class StubObserver {
-	static readonly instances: StubObserver[] = [];
-	readonly observed: { target: unknown }[] = [];
-	disconnected = false;
-	constructor(
-		_callback: (records: MutationRecord[]) => void,
-	) {
-		StubObserver.instances.push(this);
-	}
-	observe(target: unknown): void {
-		this.observed.push({ target });
-	}
-	disconnect(): void {
-		this.disconnected = true;
-	}
-}
+const env = installDom();
+
+afterAll(() => {
+	env.restore();
+});
 
 type ChangeListener = (
 	changes: Record<string, { newValue?: unknown }>,
@@ -53,20 +40,19 @@ const storageData = new Map<string, unknown>([
 const changeListeners: ChangeListener[] = [];
 const reloads: string[] = [];
 const intervals: unknown[][] = [];
-const documentListeners: string[] = [];
-const windowListeners: string[] = [];
 
-const documentElement = new StubElement("html");
-const rootText = documentElement.addText("Star");
+// 被观察的页面：入口挂的是 documentElement，故真实 DOM 里随便放一段英文文本，
+// 首轮 flush 就该把它译掉（这就是「语言解析对不对」的端到端证据）
+const rootText = env.document.createTextNode("Star");
+const host = env.document.createElement("div");
+host.appendChild(rootText);
+env.document.body.appendChild(host);
 
 const globals = globalThis as unknown as Record<
 	string,
 	unknown
 >;
 
-// DOM 桩与 walker / engine 共用一份（见 stub-dom.ts 的说明）
-installDomStubs();
-globals["MutationObserver"] = StubObserver;
 globals["setInterval"] = (...args: unknown[]) => {
 	intervals.push(args);
 	return 0;
@@ -75,11 +61,6 @@ globals["location"] = {
 	pathname: "/microsoft/vscode",
 	reload: () => {
 		reloads.push("reload");
-	},
-};
-globals["window"] = {
-	addEventListener(type: string) {
-		windowListeners.push(type);
 	},
 };
 
@@ -115,21 +96,9 @@ chromeGlobal["storage"] = {
 };
 globals["chrome"] = chromeGlobal;
 
-// —— document：合并挂载，保留 installDomStubs 装的 createTreeWalker ——
-const documentGlobal = (globals["document"] ??
-	{}) as Record<string, unknown>;
-documentGlobal["documentElement"] = documentElement;
-documentGlobal["visibilityState"] = "visible";
-documentGlobal["addEventListener"] = (type: string) => {
-	documentListeners.push(type);
-};
-globals["document"] = documentGlobal;
-
 /** 排空微任务，等 bootstrap 的 await 链跑完 */
 function flush(): Promise<void> {
-	return new Promise((resolve) => {
-		setTimeout(resolve, 0);
-	});
+	return env.tick();
 }
 
 function emit(
@@ -153,12 +122,10 @@ describe("content 入口的启动装配", () => {
 	});
 
 	it("starts observing the document element once enabled", () => {
-		const observer = StubObserver.instances[0];
-		expect(observer).toBeDefined();
 		// 关闭状态下不该有任何 observe 调用（见文件头对反向条件的说明）
-		expect(observer?.observed).toHaveLength(1);
-		expect(observer?.observed[0]?.target).toBe(
-			documentElement,
+		expect(env.observes).toHaveLength(1);
+		expect(env.observes[0]?.target).toBe(
+			env.document.documentElement,
 		);
 	});
 
@@ -171,8 +138,10 @@ describe("content 入口的启动装配", () => {
 	it("installs the developer-mode auto flush and its unload hooks", () => {
 		expect(intervals).toHaveLength(1);
 		expect(intervals[0]?.[1]).toBe(5000);
-		expect(documentListeners).toContain("visibilitychange");
-		expect(windowListeners).toContain("pagehide");
+		expect(env.hooks.document).toContain(
+			"visibilitychange",
+		);
+		expect(env.hooks.window).toContain("pagehide");
 	});
 });
 

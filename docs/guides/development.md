@@ -38,7 +38,8 @@ Github-i18n/
 │   │       ├── dict.schema.json # 编辑器侧 JSON Schema（oneOf 覆盖六种数据形状）
 │   │       └── jsonc.d.ts       # `.jsonc` ambient 声明（tsc 不认该扩展名）
 │   ├── popup/popup.ts       # popup：UI 文案回填 + 开关 / 语言读写 + 漏翻面板
-│   └── shared/              # types.ts（词典类型）、storage.ts（开关与语言存取）、identity.ts
+│   ├── shared/              # types.ts（词典类型）、storage.ts（开关与语言存取）、identity.ts
+│   └── test-support/dom.ts  # 测试用的真实 DOM 环境（happy-dom，唯一一份，devDependency）
 ├── tooling/
 │   ├── pipeline/build.ts    # Bun.build IIFE ×2 + 重命名 + 拷贝 public/ → dist/
 │   ├── pipeline/pack.ts     # dist/ 压 zip（零依赖 store 模式）
@@ -178,6 +179,8 @@ content script 以 `run_at: document_start` 注入：
 ### 构建产物集合断言（`tooling/pipeline/build.ts`）
 
 `bun run build` 结束后会把 `dist/*.js` 的实际集合与入口清单逐一比对（`expectedArtifacts` / `diffArtifacts`，纯函数，用例在 `tooling/pipeline/build.test.ts`）：**每个入口必须有恰好一个产物，且产物名必须是 manifest 引用的那个**。Bun.build 没有 `outfile`、产物名靠 `naming` 模板 + 一张 `OUTPUT_RENAMES` 改名表，所以「新增入口却忘了定名」时产物会以入口原名（如 `index.js`）落进 `dist/` 并被 `bun run pack` 无差别打进商店包——这条断言把那种静默错误变成红灯。
+
+同一份用例还**真跑一遍 `buildOnce`**（写进临时目录）：除了产物集合与 `public/` 资产，还断言两份产物都是 **IIFE 包装**而不是平铺的 ES 模块——MV3 的 `content_scripts` 不支持 `type: module`（硬性约束 5），而把 `format` 从 `iife` 改成 `esm` 时，产物里**不会**出现 `import` / `export` 关键字（这两个入口没有导出，实测），只查关键字等于没查；判据必须是包装形态（iife 产物以 `(` 开头、以 `})();` 收尾，esm 产物平铺在顶层）。审计 L-08 说的正是「改坏 build.ts 而 CI 全绿」，所以这条断言必须真跑构建，不能只测纯函数。
 
 ## 词典维护指南
 
@@ -416,21 +419,28 @@ for (const p of probes) {
 
 除上表外的用例都不再是「实机节点」而是纯逻辑回归：`src/content/__tests__/pages.test.ts`（视图单槽缓存：缓存键写错会表现为「换页后一半英文」）、`src/shared/__tests__/storage.test.ts`（storage 脏数据收窄与开关 / 语言监听）、`src/dict/__tests__/locales.test.ts`（`resolveLocale` 对 `zh-Hans-CN` / `zh_TW` / `en-US` 的归属），另有门禁自身与构建脚本的测试（`tooling/checks/__tests__/`、`tooling/pipeline/build.test.ts`）。
 
-新增的进程内测试补齐了三个**此前从未被任何测试加载**的模块：`src/content/__tests__/engine.test.ts`（观察器调度）、`src/content/__tests__/index.test.ts`（content 入口装配）、`src/popup/__tests__/popup.test.ts`（popup 全交互）、`src/shared/__tests__/identity.test.ts`（身份标记契约）。其中 walker / engine 共用 `src/content/__tests__/stub-dom.ts` 的最小 DOM 桩（它们只需要 `createTreeWalker` / `closest` / `nodeValue` 三种语义），**popup 则用 devDependency `happy-dom` 直接加载仓库里的 `public/popup.html`**（理由见下）。
+新增的进程内测试补齐了四个**此前从未被任何测试加载**的模块：`src/content/__tests__/engine.test.ts`（观察器调度）、`src/content/__tests__/index.test.ts`（content 入口装配）、`src/popup/__tests__/popup.test.ts`（popup 全交互）、`src/shared/__tests__/identity.test.ts`（身份标记契约）。凡是需要 DOM 语义的用例（walker / engine / index / popup / collector）**一律从 `src/test-support/dom.ts` 取环境**——devDependency `happy-dom`，**手写 DOM 桩已全部退役**。
 
 `bun test` 的 `globalThis` 与模块注册表**跨测试文件共享**，三条硬约束违反任一条都会让**别的文件**的用例成片变红（2026-10-03 逐一踩过）：
 
 1. **不要用 `mock.module`**：它是进程级注册，会泄漏给同一进程里的其他测试文件（实测：入口测试 mock 掉 `collector` / `pages` 后，walker 与全部页面测试找不到真实导出）；
 2. **全局桩一律合并挂载**（`obj["k"] = v`），**禁止整体替换** `globalThis.chrome` / `document`——整体替换会删掉别的测试文件刚装好的命名空间（实测：入口测试的 chrome 桩只有 `i18n`，把 storage 测试的 `chrome.storage` 打掉，12 个用例失败）；
-3. **DOM 桩只能有一份**（`stub-dom.ts`）：`walker.ts` 用 `root instanceof Element` 判根节点类型，两处各内联一份桩会让先装的那份类身份失效。
+3. **DOM 只有一份来源**（`src/test-support/dom.ts`）：`walker.ts` 用 `root instanceof Element` 判根节点类型，而 `instanceof` 比的是**类身份**——两个文件各造一个窗口，后装的那份会让先装的那份的节点不再 `instanceof Element`（2026-10-03 用两份内联桩实际踩到，成片用例变红）。该文件同时负责在用例文件收尾 `restore()`：bun 是**按文件**「加载 → 跑 → 下一个」（实测），还原后下一个文件拿到的仍是它自己期望的全局。它自身的行为（嵌套安装的还原、观察留痕、事件钩子留痕且照常派发）由 `src/test-support/__tests__/dom.test.ts` 钉住。
 
 **popup 为什么改用真实 DOM**：popup.ts 顶层的 `assertFound` 在缺元素时直接抛错 → popup **整页空白**，而 `popup.html` 与 `popup.ts` 分属两类文件。写桩 DOM 时，桩里的选择器列表是从 HTML **抄**来的——HTML 改了测试照样全绿。改用 happy-dom 加载真实 HTML 后，删掉或改名任一元素都会当场红灯（实测：把 `#dev-panel` 改名后 popup 测试报「popup 结构不完整：缺少 #dev-panel」）。同一份契约另有一道**零依赖**的静态防线——`check:manifest` 的 `validatePopupSelectors`（只查存在性，不需要 DOM 库）：一道锁结构、一道锁行为，缺一不可。
 
 真实 DOM 还当场纠正了一条**桩掩盖的语义**：`#status` 是双重身份元素（HTML 兜底文案 `statusLoading`，启动后立刻被 `statusOn` / `statusOff` 覆写）。手写桩把它拆成两个对象，于是「data-i18n 全部回填」的断言一直在假通过。
 
-**happy-dom 的使用边界**：它是 devDependency（不进 dist），只给「需要真实 DOM 语义」的测试用。49 个页面词条回归是纯字符串断言（`translateText`），**不要**为它们引入 DOM —— 那是测试量的主体，也是收益为零的地方。happy-dom 也不是浏览器：扩展 API（`chrome.*`）仍需自桩，语义差异风险仍在，故**不能替代实机验证**。（实测它的 `MutationObserver` 与规范一致——同值写入同样产生记录，将来若要真实验证「防翻译循环」可以用它。）
+**真实 DOM 还抓出了一个真实缺陷（2026-10-03，已修）**：`TreeWalker` 的过滤器**不作用于 root**——DOM 规范里 root 只是遍历的起点与边界，`nextNode()` 永远不会把它交给过滤器；而属性变更记录的 `target` 恰恰是**那个元素本身**，引擎把它入队后调用的是 `translateTree(input)`。于是「上游（Turbo 快照 / `data-disable-with`）把按钮 `value` 改回英文后重翻」这条功能**在实机上是坏的**：`input` 自己的 `value` 从来不会被翻。修法是 `translateTree` 里那句 `applyAttrs(root, view)`，回归用例是 `walker.test.ts` 的「translates attributes on the traversal root itself」。**手写桩的结构性缺陷正在这里**：旧桩的 TreeWalker 会把 root 也过一遍过滤器，于是这个缺口永远是绿的——桩的危险不是「不够真」，而是它会悄悄改变被测对象的拓扑。
 
-另注：content 入口与 popup 都有顶层副作用，**一个进程只会装配一次**，所以「`enabled` 关闭时不启动观察器」这条反向条件无法再开一个测试文件验证（第二个文件会复用第一次的装配结果，`?query` 也不产生新实例——Bun 实测不支持）。该闸门由 `engine.test.ts` 的「关闭时只清空队列不翻译」与 `readEnabled` 的默认值把守。
+**防翻译循环现在有一条端到端验证**：`engine.test.ts` 的「writes nothing for a dictionary entry that maps to itself」先用真实 `MutationObserver` 证明**同值写入也产生 characterData 记录**（规范如此，这是循环在结构上成立的唯一原因），再断言引擎跑完整轮后 DOM 上一条新记录都没有。这类断言非真实 DOM 不可得。
+
+**happy-dom 的使用边界**：它是 devDependency（不进 dist），只给「需要真实 DOM 语义」的测试用。49 个页面词条回归是纯字符串断言（`translateText`），**不要**为它们引入 DOM —— 那是测试量的主体，也是收益为零的地方。happy-dom 也不是浏览器：扩展 API（`chrome.*`）仍需自桩，语义差异风险仍在，故**不能替代实机验证**。
+
+另注：content 入口与 popup 都有顶层副作用，**一个进程只会装配一次**，所以有两处覆盖不到，都不是「忘了写」而是结构上做不到：
+
+- 「`enabled` 关闭时不启动观察器」这条反向条件无法再开一个测试文件验证（第二个文件会复用第一次的装配结果，`?query` 也不产生新实例——Bun 实测不支持）。该闸门由 `engine.test.ts` 的「关闭时只清空队列不翻译」与 `readEnabled` 的默认值把守；
+- `popup.ts` 末尾那个 `try { main() } catch` 兜底分支同理（要覆盖它得造出第二个「`main()` 抛错」的装配场景）。它是纯兜底，代价可接受；`popup.ts` 顶层的 `assertFound` 仍在 `main()` 之外抛出，**刻意不吞**（缺元素属打包错误，掩盖它只会让人更难查）。
 
 **已知空缺：`repo-settings`（`/owner/repo/settings`）整页尚未采集**（该页需要登录），所以仓库设置页没有**整页**的实机节点回归——目前它只有两处：`settings-repo.test.ts` 覆盖的「Creation allowed by」筛选按钮三节点，与 `repo-settings-interaction-limits.test.ts` 覆盖的交互限制子页（途径 A 清单）；其余词条靠视图骨架层的保护（命中模块序列 + 碰撞赢家）与词典门禁。
 

@@ -241,6 +241,13 @@ export function translateTree(
 		handleExcluded(root, view);
 		return 0;
 	}
+	// root 自身的属性必须在这里单独翻：TreeWalker 的过滤器**不作用于 root**
+	// （DOM 规范里 root 只是遍历的起点与边界，`nextNode()` 永远不会把它交给
+	// 过滤器），而属性变更记录的 target 恰恰是**那个元素本身**——引擎把
+	// `record.target` 入队后调用的正是本函数的最内层形态。漏掉这一行就会表现为
+	// 「页面（Turbo 快照 / data-disable-with）把按钮 value 改回英文后不再重翻」，
+	// 只有真实 DOM 能暴露它（手写桩会把 root 也过一遍过滤器，于是永远绿）。
+	if (root instanceof Element) applyAttrs(root, view);
 	const walker = document.createTreeWalker(
 		root,
 		NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,

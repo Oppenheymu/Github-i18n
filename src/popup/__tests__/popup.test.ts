@@ -9,26 +9,36 @@
 //      check:manifest 的 validatePopupSelectors 对同一契约做静态校验：一道锁结构、
 //      一道锁行为）。
 //
-// 环境：bun 没有 document / window（实测 undefined），happy-dom 提供真实 DOM
-// （含 MutationObserver / createTreeWalker，均为规范语义）；chrome 是扩展侧注入
-// 的全局，仍需自桩，且**只补自己的命名空间、不整体替换**（bun test 的 globalThis
-// 跨文件共享，见 AGENTS.md 已知坑）。
-import { describe, expect, it } from "bun:test";
+// 环境：bun 没有 document / window（实测 undefined），故用 test-support/dom.ts 装一套
+// **真实 DOM**（happy-dom，含 MutationObserver / createTreeWalker，均为规范语义）；
+// chrome 是扩展侧注入的全局，仍需自桩，且**只补自己的命名空间、不整体替换**
+// （bun test 的 globalThis 跨文件共享，见 AGENTS.md 已知坑）。
+//
+// 覆盖边界：popup.ts 末尾的 `try { main() } catch`（最外层兜底）在本仓库里**测不到**——
+// popup.ts 的顶层副作用一个进程只跑一次，姊妹文件会因模块缓存而复用第一次的装配结果，
+// 造不出第二个「main() 抛错」的装配场景（与 index.test.ts 的 enabled=false 同理）。
+// 它是纯粹的兜底分支，代价可接受；真要覆盖得让模块可重复装配，那是另一件事。
+import { afterAll, describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { Window } from "happy-dom";
+import { installDom } from "../../test-support/dom.ts";
 
 const rootDir = join(import.meta.dir, "..", "..", "..");
-const dom = new Window({ url: "https://example.com/" });
-dom.document.write(
+// DOM 环境与其他用例共用一份（见 test-support/dom.ts 的说明）
+const env = installDom();
+const dom = env.window;
+const document = env.document;
+
+afterAll(() => {
+	env.restore();
+});
+
+document.write(
 	readFileSync(
 		join(rootDir, "public", "popup.html"),
 		"utf8",
 	),
 );
-
-/** 用 DOM lib 的类型看待它，免得 happy-dom 自有类型渗进断言 */
-const document = dom.document as unknown as Document;
 
 /** 取元素；找不到即测试桩自身有问题（真实 HTML 缺元素会先被 check:manifest 拦住） */
 function element(selector: string): HTMLElement {
@@ -44,9 +54,7 @@ function input(selector: string): HTMLInputElement {
 }
 
 function fire(selector: string, type: string): void {
-	element(selector).dispatchEvent(
-		new dom.Event(type) as unknown as Event,
-	);
+	element(selector).dispatchEvent(env.createEvent(type));
 }
 
 // —— 时间与剪贴板 ——
@@ -98,8 +106,7 @@ const globals = globalThis as unknown as Record<
 	string,
 	unknown
 >;
-globals["window"] = dom;
-globals["document"] = dom.document;
+// window / document 由 installDom 装好，这里只补扩展侧注入的 navigator
 globals["navigator"] = {
 	clipboard: {
 		async writeText(text: string): Promise<void> {

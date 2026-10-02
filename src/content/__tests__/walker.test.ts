@@ -1,10 +1,33 @@
-import { describe, expect, it } from "bun:test";
-import type { DictView } from "../../shared/types.ts";
-import { translateText, translateTree } from "../walker.ts";
+// walker.ts 的两层语义：纯函数 translateText（无 DOM）与 translateTree（真实遍历）。
+//
+// translateTree 的部分改用**真实 DOM**（happy-dom，见 test-support/dom.ts），因为
+// 它的正确性一半挂在 DOM 行为上：`closest` 的选择器语义、TreeWalker 对
+// `FILTER_REJECT` 的「整棵子树跳过」、`setAttribute` 是否真的写回、以及**写回本身
+// 会不会产生变更记录**（同值写入也产生记录，见下）。手写桩只能近似这些行为——
+// 旧桩的 `closest` 只认 `.class` 与标签名，选择器写复杂一点就静默失配。
 import {
-	installDomStubs,
-	StubElement,
-} from "./stub-dom.ts";
+	afterAll,
+	beforeAll,
+	describe,
+	expect,
+	it,
+} from "bun:test";
+import type { DictView } from "../../shared/types.ts";
+import {
+	type DomEnvironment,
+	installDom,
+} from "../../test-support/dom.ts";
+import { translateText, translateTree } from "../walker.ts";
+
+let env: DomEnvironment;
+
+beforeAll(() => {
+	env = installDom();
+});
+
+afterAll(() => {
+	env.restore();
+});
 
 const view: DictView = {
 	entries: new Map([
@@ -146,11 +169,48 @@ describe("translateText", () => {
 	});
 });
 
-describe("translateTree 的同值写入守卫", () => {
-	// DOM 桩与 engine 的测试共用一份（stub-dom.ts）：`root instanceof Element` 比的是
-	// 类身份，两个测试文件各装一份会互相顶掉（见该文件头部的说明）
-	installDomStubs();
+/** 造一个已挂进文档的根（`closest` 会往上走到 body，故必须是真实树） */
+function makeRoot(): HTMLElement {
+	const root = env.document.createElement("div");
+	env.document.body.appendChild(root);
+	return root;
+}
 
+function makeText(parent: Node, value: string): Text {
+	const node = env.document.createTextNode(value);
+	parent.appendChild(node);
+	return node;
+}
+
+interface WriteProbe {
+	/** translateTree 报出的替换次数 */
+	readonly result: number;
+	/** 期间真实产生的变更记录（不是「调用了几次赋值」，是 DOM 真的变了没有） */
+	readonly records: MutationRecord[];
+}
+
+/** 挂一个真实旁观观察器跑一次改动：记录数为 0 才是「真的没写」 */
+async function probeWrites(
+	root: Node,
+	run: () => number,
+): Promise<WriteProbe> {
+	const records: MutationRecord[] = [];
+	const spy = env.createObserver((batch) => {
+		records.push(...batch);
+	});
+	spy.observe(root, {
+		childList: true,
+		subtree: true,
+		characterData: true,
+		attributes: true,
+	});
+	const result = run();
+	await env.tick();
+	spy.disconnect();
+	return { result, records };
+}
+
+describe("translateTree 的同值写入守卫", () => {
 	/** 译文与原文同形：这正是让 /settings/profile 卡死的形态 */
 	const selfIdentical: DictView = {
 		entries: new Map([["ORCID iD", "ORCID iD"]]),
@@ -158,34 +218,48 @@ describe("translateTree 的同值写入守卫", () => {
 		rules: [],
 	};
 
-	it("skips writing when the translation equals the current value", () => {
-		const root = new StubElement("div");
-		const node = root.addText("ORCID iD");
-		const replaced = translateTree(
-			root as unknown as Node,
-			selfIdentical,
+	it("skips writing when the translation equals the current value", async () => {
+		const root = makeRoot();
+		const node = makeText(root, "ORCID iD");
+		const { result, records } = await probeWrites(
+			root,
+			() => translateTree(root, selfIdentical),
 		);
-		expect(replaced).toBe(0);
-		// 关键断言：一次赋值都没发生（同值写入也会产生 characterData 记录，
-		// 观察器会把它再入队，于是微任务队列无限自转）
-		expect(node.writes).toEqual([]);
+		expect(result).toBe(0);
+		// 关键断言：一条变更记录都没有。同值写入在规范里**也**产生 characterData
+		// 记录，观察器会把它再入队，于是「命中 → 写入 → 再命中」在微任务队列里
+		// 无限自转（引擎侧的端到端收敛用例见 engine.test.ts）
+		expect(records).toEqual([]);
 		expect(node.nodeValue).toBe("ORCID iD");
 	});
 
-	it("still writes when the translation differs", () => {
-		const root = new StubElement("div");
-		const node = root.addText("Star");
-		const replaced = translateTree(
-			root as unknown as Node,
-			view,
+	it("still writes when the translation differs", async () => {
+		const root = makeRoot();
+		const node = makeText(root, "Star");
+		const first = await probeWrites(root, () =>
+			translateTree(root, view),
 		);
-		expect(replaced).toBe(1);
-		expect(node.writes).toEqual(["星标"]);
+		expect(first.result).toBe(1);
+		expect(first.records).toHaveLength(1);
+		expect(node.nodeValue).toBe("星标");
+
 		// 第二轮：已是译文，不再产生任何写入（收敛）
-		expect(
-			translateTree(root as unknown as Node, view),
-		).toBe(0);
-		expect(node.writes).toHaveLength(1);
+		const second = await probeWrites(root, () =>
+			translateTree(root, view),
+		);
+		expect(second.result).toBe(0);
+		expect(second.records).toEqual([]);
+	});
+
+	it("translates attributes on the traversal root itself", () => {
+		// TreeWalker 的过滤器**不作用于 root**（DOM 规范里 root 只是遍历的起点与
+		// 边界，`nextNode()` 永远不会把它交给过滤器），而属性变更记录的 target 恰恰
+		// 是**元素本身**。这条只有真实 DOM 测得出来——手写桩会把 root 也过一遍
+		// 过滤器，于是「页面把 value 改回英文后不再重翻」这个缺口永远是绿的。
+		const link = env.document.createElement("a");
+		link.setAttribute("aria-label", "Star");
+		translateTree(link, view);
+		expect(link.getAttribute("aria-label")).toBe("星标");
 	});
 
 	// —— 按钮类 <input> 的 value 翻译（Rails 表单按钮的可见文案在 value 上）——
@@ -201,8 +275,8 @@ describe("translateTree 的同值写入守卫", () => {
 	/** 造一个 <input>，复刻 `<input type="submit" value="…">` 的形态 */
 	function makeInput(
 		attrs: Record<string, string>,
-	): StubElement {
-		const element = new StubElement("input");
+	): HTMLInputElement {
+		const element = env.document.createElement("input");
 		for (const [name, value] of Object.entries(attrs)) {
 			element.setAttribute(name, value);
 		}
@@ -217,7 +291,7 @@ describe("translateTree 的同值写入守卫", () => {
 			"data-disable-with": "Save Trending settings",
 			class: "btn",
 		});
-		translateTree(element as unknown as Node, buttonView);
+		translateTree(element, buttonView);
 		expect(element.getAttribute("value")).toBe(
 			"保存趋势设置",
 		);
@@ -236,7 +310,7 @@ describe("translateTree 的同值写入守卫", () => {
 			name: "user[blog]",
 			value: "Save Trending settings",
 		});
-		translateTree(element as unknown as Node, buttonView);
+		translateTree(element, buttonView);
 		expect(element.getAttribute("value")).toBe(
 			"Save Trending settings",
 		);
@@ -246,7 +320,7 @@ describe("translateTree 的同值写入守卫", () => {
 		const element = makeInput({
 			value: "Save Trending settings",
 		});
-		translateTree(element as unknown as Node, buttonView);
+		translateTree(element, buttonView);
 		expect(element.getAttribute("value")).toBe(
 			"Save Trending settings",
 		);
@@ -257,7 +331,7 @@ describe("translateTree 的同值写入守卫", () => {
 			type: "submit",
 			value: "Not in the dictionary",
 		});
-		translateTree(element as unknown as Node, buttonView);
+		translateTree(element, buttonView);
 		expect(element.getAttribute("value")).toBe(
 			"Not in the dictionary",
 		);
@@ -281,7 +355,7 @@ describe("translateTree 的同值写入守卫", () => {
 	};
 
 	it("translates placeholder and aria-label on an excluded textarea", () => {
-		const element = new StubElement("textarea");
+		const element = env.document.createElement("textarea");
 		element.setAttribute(
 			"placeholder",
 			"Ask anything or type @ to add context",
@@ -291,10 +365,13 @@ describe("translateTree 的同值写入守卫", () => {
 			"Ask anything or type @ to add context with Copilot",
 		);
 		// textarea 的内容是**用户输入**：即便它是词条也必须保持原样
-		const typed = element.addText(
+		const typed = makeText(
+			element,
 			"Ask anything or type @ to add context",
 		);
-		translateTree(element as unknown as Node, copilotView);
+		const root = makeRoot();
+		root.appendChild(element);
+		translateTree(root, copilotView);
 		expect(element.getAttribute("placeholder")).toBe(
 			"问点什么，或输入 @ 用 Copilot 添加上下文",
 		);
@@ -309,78 +386,33 @@ describe("translateTree 的同值写入守卫", () => {
 	it("still skips non-form excluded containers entirely", () => {
 		// 排除清单里除表单控件外的标签（code / pre / .markdown-body…）连属性都不碰：
 		// 那条口子只为「属性是 UI 文案、内容是用户输入」的表单控件开（见 filters.ts）
-		const code = new StubElement("code");
+		const code = env.document.createElement("code");
 		code.setAttribute(
 			"title",
 			"Ask anything or type @ to add context",
 		);
-		const root = new StubElement("div");
-		root.append(code);
-		translateTree(root as unknown as Node, copilotView);
+		const root = makeRoot();
+		root.appendChild(code);
+		// 排除是**整棵子树**（TreeWalker 的 FILTER_REJECT），但不得吞掉后面的兄弟节点
+		const after = makeText(root, "Star");
+		translateTree(root, view);
 		expect(code.getAttribute("title")).toBe(
 			"Ask anything or type @ to add context",
 		);
+		expect(after.nodeValue).toBe("星标");
 	});
 
 	it("handles an excluded textarea as the traversal root", () => {
 		// 属性变化会在引擎里把**元素本身**入队（childList 的 target 是父元素，
 		// 但 translateTree 也可能直接收到被排除的元素），此时属性同样要翻
-		const element = new StubElement("textarea");
+		const element = env.document.createElement("textarea");
 		element.setAttribute(
 			"placeholder",
 			"Ask anything or type @ to add context",
 		);
-		translateTree(element as unknown as Node, copilotView);
+		translateTree(element, copilotView);
 		expect(element.getAttribute("placeholder")).toBe(
 			"问点什么，或输入 @ 用 Copilot 添加上下文",
 		);
-	});
-});
-
-describe("引擎的属性观察加固", () => {
-	it("observes value attributes so a rewritten label gets retranslated", async () => {
-		// 记录 observe 的配置：value 文案来自属性，页面（Turbo 快照 /
-		// data-disable-with）改回英文时必须能再次触发翻译
-		const calls: MutationObserverInit[] = [];
-		const g = globalThis as unknown as Record<
-			string,
-			unknown
-		>;
-		const previous = g["MutationObserver"];
-		g["MutationObserver"] = class {
-			constructor(_callback: unknown) {
-				void _callback;
-			}
-			observe(
-				_root: unknown,
-				options: MutationObserverInit,
-			) {
-				calls.push(options);
-			}
-			disconnect() {}
-		};
-		try {
-			const { TranslationEngine } = await import(
-				"../engine.ts"
-			);
-			const engine = new TranslationEngine({
-				getView: () => ({
-					entries: new Map(),
-					aliases: new Map(),
-					rules: [],
-				}),
-				isEnabled: () => false,
-			});
-			engine.start({} as unknown as Node);
-			expect(calls).toHaveLength(1);
-			expect(calls[0]?.attributes).toBe(true);
-			expect(calls[0]?.attributeFilter).toEqual([
-				"value",
-				"data-disable-with",
-			]);
-			expect(calls[0]?.characterData).toBe(true);
-		} finally {
-			g["MutationObserver"] = previous;
-		}
 	});
 });

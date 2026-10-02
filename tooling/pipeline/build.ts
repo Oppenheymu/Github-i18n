@@ -69,10 +69,20 @@ export function diffArtifacts(
 	return problems;
 }
 
-async function buildOnce(): Promise<void> {
+/**
+ * 真实跑一次构建（Bun.build → 改名 → 拷贝 public/ → 产物集合断言）。
+ *
+ * 导出是为了让用例**真跑一遍**：产物集合与 public 资产断言的价值在于「构建确实被
+ * 执行过」，只测 `expectedArtifacts` / `diffArtifacts` 两个纯函数时，把 `format`
+ * 从 iife 改成 esm 或把 `ENTRIES` 改坏都不会变红（审计 L-08）。`outdir` 可指定，
+ * 用例借此写进临时目录而不碰仓库的 dist/。
+ */
+export async function buildOnce(
+	outdir = DIST,
+): Promise<void> {
 	const result = await Bun.build({
 		entrypoints: [...ENTRIES],
-		outdir: DIST,
+		outdir,
 		format: "iife",
 		target: "browser",
 		// 不压缩：便于在浏览器里排查漏翻与误伤
@@ -88,7 +98,7 @@ async function buildOnce(): Promise<void> {
 		return;
 	}
 	for (const [from, to] of OUTPUT_RENAMES) {
-		const source = join(DIST, from);
+		const source = join(outdir, from);
 		if (!existsSync(source)) {
 			console.error(
 				`构建产物缺少 ${from}（改过入口文件名或 Bun.build 的 naming 模板？OUTPUT_RENAMES 必须同步）`,
@@ -96,21 +106,21 @@ async function buildOnce(): Promise<void> {
 			process.exitCode = 1;
 			return;
 		}
-		renameSync(source, join(DIST, to));
+		renameSync(source, join(outdir, to));
 	}
-	// public/ 静态资产原样拷入 dist/（manifest / popup.html / icons）
-	cpSync("public", DIST, { recursive: true });
+	// public/ 静态资产原样拷入 outdir/（manifest / popup.html / icons）
+	cpSync("public", outdir, { recursive: true });
 	for (const asset of REQUIRED_PUBLIC_ASSETS) {
-		if (existsSync(join(DIST, asset))) continue;
+		if (existsSync(join(outdir, asset))) continue;
 		console.error(
-			`dist/${asset} 不存在：public/ 里的静态资产没被拷进来`,
+			`${outdir}/${asset} 不存在：public/ 里的静态资产没被拷进来`,
 		);
 		process.exitCode = 1;
 		return;
 	}
 	// 产物集合必须与入口一一对应（见 expectedArtifacts 的说明）
 	const actualJs = [
-		...new Bun.Glob("*.js").scanSync({ cwd: DIST }),
+		...new Bun.Glob("*.js").scanSync({ cwd: outdir }),
 	].sort();
 	const problems = diffArtifacts(
 		actualJs,
@@ -124,9 +134,11 @@ async function buildOnce(): Promise<void> {
 		return;
 	}
 	const files = [
-		...new Bun.Glob("**/*").scanSync({ cwd: DIST }),
+		...new Bun.Glob("**/*").scanSync({ cwd: outdir }),
 	].sort();
-	console.log(`构建完成：dist/（${files.length} 个文件）`);
+	console.log(
+		`构建完成：${outdir}/（${files.length} 个文件）`,
+	);
 }
 
 /** --watch 模式：监听 src/ 与 public/ 变更后防抖重建 */

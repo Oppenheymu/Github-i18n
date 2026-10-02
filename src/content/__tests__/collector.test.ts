@@ -1,14 +1,77 @@
-import { describe, expect, it } from "bun:test";
+import {
+	afterAll,
+	afterEach,
+	beforeAll,
+	beforeEach,
+	describe,
+	expect,
+	it,
+} from "bun:test";
 import type { MissItem } from "../../shared/types.ts";
 import {
+	type DomEnvironment,
+	installDom,
+} from "../../test-support/dom.ts";
+import {
+	flushMisses,
 	isEnabled,
 	mergeMissLogs,
 	missKey,
+	recordAttr,
+	recordText,
 	serializeMisses,
 	setEnabled,
 	sortMisses,
+	startAutoFlush,
 	upsertMiss,
 } from "../collector.ts";
+
+// —— 落盘链路的环境 ——
+// 本文件大部分用例是纯函数，但 flushMisses / startAutoFlush 的挂载点必须是**真实的
+// EventTarget**，才能「派发事件 → 断言真的落盘」，而不是只断言「注册过监听器」。
+const env: DomEnvironment = installDom();
+const globals = globalThis as unknown as Record<
+	string,
+	unknown
+>;
+globals["location"] = { pathname: "/owner/repo/pulls" };
+
+/** chrome.storage.local 桩（合并挂载；落盘链路要能看见写进去的内容） */
+const stored = new Map<string, unknown>();
+const chromeGlobal = (globals["chrome"] ?? {}) as Record<
+	string,
+	unknown
+>;
+chromeGlobal["storage"] = {
+	local: {
+		async get(
+			key: string,
+		): Promise<Record<string, unknown>> {
+			return stored.has(key)
+				? { [key]: stored.get(key) }
+				: {};
+		},
+		async set(values: Record<string, unknown>) {
+			for (const [key, value] of Object.entries(values)) {
+				stored.set(key, value);
+			}
+		},
+		async remove(key: string) {
+			stored.delete(key);
+		},
+	},
+};
+globals["chrome"] = chromeGlobal;
+
+const intervals: (() => void)[] = [];
+globals["setInterval"] = (handler: () => void) => {
+	intervals.push(handler);
+	return 0;
+};
+
+afterAll(() => {
+	env.restore();
+});
 
 function item(overrides: Partial<MissItem> = {}): MissItem {
 	return {
@@ -131,6 +194,24 @@ describe("sortMisses", () => {
 			"Zeta",
 		]);
 	});
+
+	it("keeps the original order for entries that tie on all three keys", () => {
+		// 同一段文案可能同时以 text 与 title 两种 kind 记录（三个排序键完全相同），
+		// 此时保持插入顺序——kind 不参与排序，导出结果才是稳定的
+		const sorted = sortMisses([
+			item({ path: "/a", text: "Star", count: 1 }),
+			item({
+				path: "/a",
+				text: "Star",
+				count: 1,
+				kind: "title",
+			}),
+		]);
+		expect(sorted.map((entry) => entry.kind)).toEqual([
+			"text",
+			"title",
+		]);
+	});
 });
 
 describe("serializeMisses", () => {
@@ -191,5 +272,132 @@ describe("module state", () => {
 		expect(isEnabled()).toBe(true);
 		setEnabled(false);
 		expect(isEnabled()).toBe(false);
+	});
+});
+
+// 模块单例（enabled + 缓冲）在一个文件里是共享状态，故本 describe 必须放在
+// 「starts disabled」之后，且收尾要还原开关——否则状态断言会随用例顺序翻车。
+describe("漏翻缓冲的落盘链路", () => {
+	beforeAll(() => {
+		// 只装一次：真实注册 5 秒定时器 + visibilitychange / pagehide 两个卸载钩子
+		startAutoFlush();
+	});
+
+	beforeEach(() => {
+		stored.clear();
+		setEnabled(true);
+	});
+
+	afterEach(async () => {
+		// flush 顺带清空模块缓冲，避免把收集到的条目漏给后续用例
+		await flushMisses();
+		setEnabled(false);
+		stored.clear();
+	});
+
+	it("records text and attribute misses under the current path", async () => {
+		// 调用方传来的文本可能带首尾空白（walker 传的是 trimmed 原文，这里防回归）
+		recordText("  Untranslated  ");
+		recordText("Untranslated");
+		recordAttr("placeholder", "Ask anything");
+		await flushMisses();
+		expect(stored.get("missLog")).toEqual([
+			{
+				kind: "text",
+				text: "Untranslated",
+				path: "/owner/repo/pulls",
+				count: 2,
+			},
+			{
+				kind: "placeholder",
+				text: "Ask anything",
+				path: "/owner/repo/pulls",
+				count: 1,
+			},
+		]);
+	});
+
+	it("ignores records while disabled", async () => {
+		setEnabled(false);
+		recordText("Untranslated");
+		recordAttr("title", "Untranslated");
+		await flushMisses();
+		// 缓冲为空 → 连一次 storage 写都没有（关闭即零开销，改动也不落盘）
+		expect(stored.size).toBe(0);
+	});
+
+	it("does not touch storage when nothing was collected", async () => {
+		// 这就是落盘节流：无新增不写 storage（否则 5 秒一次的定时器会一直写）
+		await flushMisses();
+		expect(stored.size).toBe(0);
+	});
+
+	it("merges into the persisted log instead of overwriting it", async () => {
+		stored.set("missLog", [
+			{
+				kind: "text",
+				text: "Untranslated",
+				path: "/old",
+				count: 3,
+			},
+			{
+				kind: "title",
+				text: "Kept",
+				path: "/old",
+				count: 1,
+			},
+		]);
+		recordText("Untranslated");
+		recordText("Fresh");
+		await flushMisses();
+		// 同键累加且 path 保留首次，新键追加在后
+		expect(stored.get("missLog")).toEqual([
+			{
+				kind: "text",
+				text: "Untranslated",
+				path: "/old",
+				count: 4,
+			},
+			{
+				kind: "title",
+				text: "Kept",
+				path: "/old",
+				count: 1,
+			},
+			{
+				kind: "text",
+				text: "Fresh",
+				path: "/owner/repo/pulls",
+				count: 1,
+			},
+		]);
+	});
+
+	it("flushes on the 5 second interval", async () => {
+		recordText("Untranslated");
+		expect(stored.size).toBe(0);
+		intervals.at(-1)?.();
+		await env.tick();
+		expect(stored.has("missLog")).toBe(true);
+	});
+
+	it("flushes when the page becomes hidden", async () => {
+		recordText("Untranslated");
+		Object.defineProperty(env.document, "visibilityState", {
+			value: "hidden",
+			configurable: true,
+		});
+		env.document.dispatchEvent(
+			env.createEvent("visibilitychange"),
+		);
+		await env.tick();
+		expect(stored.has("missLog")).toBe(true);
+	});
+
+	it("flushes when the page is unloaded", async () => {
+		recordText("Untranslated");
+		env.window.dispatchEvent(env.createEvent("pagehide"));
+		await env.tick();
+		expect(stored.has("missLog")).toBe(true);
 	});
 });

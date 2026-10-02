@@ -4036,6 +4036,8 @@
 				"Edit profile",
 				"Block or report",
 				"Contribution activity",
+				// 状态弹层的「Set status」入口键已下沉到 global 的头部 UI 组（头像菜单 →
+				// 编辑状态对话框在全站可见），本模块不再重复登记。
 				// 侧栏「Top repositories」标题。维护者 2026-10-02 在个人主页（/Oppenheymu）
 				// 抓到这条链接：目标是 `?tab=repositories&sort=stargazers&type=source`，
 				// 链接文本正是本键。它与 pages/dashboard 同名同译——dashboard 模块只命中
@@ -4050,7 +4052,6 @@
 				// repositories` 收成静态词条，它会先于规则命中剩下的整段文本
 				//（引擎查表顺序是静态词典 → 规则，见 content/walker.ts 的 translateText），
 				// 让实机渲染成「1 次贡献，来自私有仓库」变成「次贡献，来自私有仓库」。
-				"Set status",
 				"Send message",
 				// —— 主页页签 ——
 				"Projects",
@@ -4423,6 +4424,41 @@
 				"Accessibility",
 				"Try Enterprise",
 				"Free",
+				// 维护者 2026-10-02 贴的实机 HTML：新版权用户菜单的头像弹层里，
+				// 个人资料入口的可见文案是 `Personal profile`（旧版的 `Profile` 仍在
+				// 无障碍属性里），弹层顶部还有 `Switch account`，底部有 `Add account`。
+				// 三条都属全站可见的头部 UI，故进 global（`Add account` 与
+				// pages/settings-security 的同名键同译，设置页仍由更具体的模块胜出）。
+				"Personal profile",
+				"Switch account",
+				"Add account",
+				"Set status",
+				// —— 状态编辑对话框（头像菜单 → Edit status；全站可见，2026-10-02 实机 HTML）——
+				// 节点边界：标题 / 各分组标签是**独立节点**；四个建议状态与两个下拉的选项
+				// 都是**单个节点**；提示句里带动态计数或 emoji 别名的三条走规则
+				// （global/status-characters-remaining、global/status-characters-limit、
+				// global/status-emoji-tooltip）。
+				"Edit status",
+				"What's happening",
+				"On vacation",
+				"Out sick",
+				"Working from home",
+				"Focusing",
+				"Busy",
+				"When others mention you, assign you, or request your review, GitHub will let them know that you have limited availability.",
+				"Expiration",
+				"Never",
+				"In 30 minutes",
+				"In 1 hour",
+				"In 4 hours",
+				"After today",
+				"After this week",
+				"After a month",
+				"Your status will be cleared after the selected time.",
+				"Visible to",
+				"Everyone",
+				"Limit status visibility to a single organization.",
+				"Clear status",
 				// —— 通用操作 ——
 				"Edit",
 				"Delete",

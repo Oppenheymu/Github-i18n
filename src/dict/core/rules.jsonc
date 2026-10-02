@@ -2807,6 +2807,21 @@
 					"id": "global/files-changed",
 					"pattern": "^([\\d,]+) files? changed$"
 				},
+				// 状态编辑对话框的输入提示（2026-10 实机）：剩余字数与上限都带动态数字，
+				// 且同一句在可视区与 aria 描述里各渲染一次，故走规则而不是静态词条。
+				{
+					"id": "global/status-characters-remaining",
+					"pattern": "^(?<count>[\\d,]+) characters? remaining$"
+				},
+				{
+					"id": "global/status-characters-limit",
+					"pattern": "^You can enter up to (?<count>[\\d,]+) characters$"
+				},
+				// emoji 选择按钮的 tooltip：`:dart:` 是上游的 emoji 别名（专名，原样保留）
+				{
+					"id": "global/status-emoji-tooltip",
+					"pattern": "^Select an emoji: (?<alias>:[a-z0-9_+-]+:)$"
+				},
 				// 全站专属规则：绝对日期、回应记录与零散计数（commonRules 兜底之外的补充）
 				// 绝对日期（月份缩写）：Sep 25, 2026 → 2026 年 9 月 25 日
 				{

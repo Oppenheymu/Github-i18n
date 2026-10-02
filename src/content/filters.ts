@@ -44,8 +44,26 @@ export const EXCLUDE_SELECTOR = [
 const NON_LATIN_LETTER =
 	/(?:(?!\p{Script=Latin})\p{Letter})/u;
 
+/** 是否含拉丁字母（与 hasNonLatinLetter 对称，用于判定「半中半英」的混合节点） */
+const LATIN_LETTER = /\p{Script=Latin}/u;
+
 export function hasNonLatinLetter(text: string): boolean {
 	return NON_LATIN_LETTER.test(text);
+}
+
+/**
+ * 是否**已含非拉丁字母、且不含任何拉丁字母**——即整段都已是目标语言（或其它非英文）。
+ *
+ * 与 hasNonLatinLetter 的区别在一个真实案例上：GitHub 中文界面的
+ * 「Optimized for: 均衡」是**半中半英**节点——前缀是上游漏翻的英文，档位名由 GitHub
+ * 自己译成了中文。判定为「已译文、整段跳过」时，规则**结构上永远看不到**这类节点，
+ * 于是前缀永远翻不掉（2026-10-02 维护者截图的正是这一处）。
+ * 本判定把「含拉丁字母」的混合节点放行给规则，纯中文 / 纯假名的节点仍被拦住。
+ */
+function isEntirelyNonLatin(text: string): boolean {
+	return (
+		hasNonLatinLetter(text) && !LATIN_LETTER.test(text)
+	);
 }
 
 /** 单段文本长度上限：超过视为代码或用户内容，直接放弃 */
@@ -53,14 +71,19 @@ const MAX_TEXT_LENGTH = 500;
 
 /**
  * 文本节点 / 属性值翻译前的可翻译判定：
- * 空白、超长、无拉丁字母（纯数字或符号）、已含非拉丁字母（已是译文或非英文
- * 用户内容）一律跳过。先测最便宜的「含拉丁字母」再测字系，热路径上更省。
+ * 空白、超长、全段非拉丁（已是译文或非英文用户内容）一律跳过。
+ * 先测最便宜的「含拉丁字母」再测字系，热路径上更省。
+ *
+ * 注意「含拉丁字母」同时也是**半中半英节点**的放行条件：`Optimized for: 均衡`
+ * 这类上游只译了一半的文案必须留给规则处理前缀（见 isEntirelyNonLatin 的说明）。
+ * 放行的代价是这类节点每轮都会被再查一次表——查不中即返回 null，不写回 DOM，
+ * 不构成翻译循环（循环的两道结构防线仍由「译文不得等于键」与「同值不写入」把守）。
  */
 export function isTranslatableText(text: string): boolean {
 	const trimmed = text.trim();
 	if (trimmed.length === 0) return false;
 	if (trimmed.length > MAX_TEXT_LENGTH) return false;
 	if (!/[a-z]/i.test(trimmed)) return false;
-	if (hasNonLatinLetter(trimmed)) return false;
+	if (isEntirelyNonLatin(trimmed)) return false;
 	return true;
 }

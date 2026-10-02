@@ -2133,10 +2133,14 @@
 					"id": "dashboard/greeting-evening",
 					"pattern": "^Good evening, (\\S+)!$"
 				},
-				// 「按 … 优化」档位按钮：属性与可见文案同串，档位名是**产品档位**（不译）
+				// 「按 … 优化」档位按钮：档位名由 GitHub 自己译出，实机节点是**半中半英**的
+				// 「Optimized for: 均衡」。它能走到本规则，靠的是 filters 的
+				// isTranslatableText 放行「含拉丁字母的混合节点」（见该函数说明）——
+				// 只收 `.+` 会让规则在整段上命中而模板不引用捕获组，故用 `\\s*` 只吃前缀，
+				// 档位名原样留在译文里。
 				{
 					"id": "dashboard/optimized-for",
-					"pattern": "^Optimized for: (.+)$"
+					"pattern": "^Optimized for:\\s*"
 				}
 			]
 		},

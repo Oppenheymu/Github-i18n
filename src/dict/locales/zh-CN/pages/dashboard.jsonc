@@ -26,6 +26,11 @@
 		"Balances speed and intelligence": "在速度与智能之间取得平衡",
 		"Intelligence": "智能",
 		"Prioritizes intelligence": "优先考虑智能",
+		// 触发按钮整串（英文界面形态）：中文界面下的「Optimized for: 均衡」是混合节点，
+		// 由 dashboard/optimized-for 规则换上中文前缀，档位名沿用 GitHub 自己给出的译名
+		"Optimized for: Efficiency": "优化目标：效率",
+		"Optimized for: Balance": "优化目标：均衡",
+		"Optimized for: Intelligence": "优化目标：智能",
 		"Send now": "立即发送",
 		"Debug": "调试",
 		"Agent": "智能代理",

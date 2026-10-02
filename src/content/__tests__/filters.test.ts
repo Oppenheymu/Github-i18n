@@ -41,11 +41,21 @@ describe("isTranslatableText", () => {
 		expect(isTranslatableText("   \n\t ")).toBe(false);
 	});
 
-	it("rejects text already carrying another script", () => {
+	it("rejects text that is entirely another script", () => {
 		expect(isTranslatableText("已合并")).toBe(false);
-		expect(isTranslatableText("merged 已合并")).toBe(false);
 		// 纯假名的日语译文同样要被拦住（汉字判定会漏掉它）
 		expect(isTranslatableText("もっと見る")).toBe(false);
+	});
+
+	it("lets half-translated text through so rules can fix the English part", () => {
+		// `Optimized for: 均衡` 是 GitHub 中文界面的真实节点：前缀是上游漏翻的英文，
+		// 档位名由 GitHub 自己译出。整段跳过会让规则结构上永远看不到它，
+		// 前缀就永远翻不掉（2026-10-02 实机报的正是这一处），故混合节点放行。
+		// 纯中文 / 纯假名仍被拦住（上一条用例），且混合节点查不中规则时不写回 DOM。
+		expect(isTranslatableText("Optimized for: 均衡")).toBe(
+			true,
+		);
+		expect(isTranslatableText("merged 已合并")).toBe(true);
 	});
 
 	it("rejects overlong text (likely code or user content)", () => {

@@ -163,16 +163,23 @@ describe("pages/dashboard 的实机节点边界", () => {
 		).toBeNull();
 	});
 
-	it("keeps the model tier and the Git starter as upstream text", () => {
-		// 「Optimized for: Balance」按钮的**可见文案与 aria-label 是同串**。
-		// 规则只翻前缀「Optimized for:」，档位名原样留在触发按钮上——而展开菜单里的
-		// 档位名是**独立的文本节点**，由静态词条译出（Balance → 均衡），两者互不干扰。
+	it("translates only the prefix of the tier button and never swallows the tier name", () => {
+		// 中文界面下这个按钮的实机节点是**半中半英**的「Optimized for: 均衡」：档位名由
+		// GitHub 自己译出，前缀是上游漏翻的英文。它能走到规则，靠的是 filters 放行
+		// 「含拉丁字母的混合节点」；规则只用 `\\s*` 吃前缀，档位名原样留下。
+		expect(translateText("Optimized for: 均衡", view)).toBe(
+			"优化目标：均衡",
+		);
+		// 英文界面下的形态由静态词条整串接手（档位名一并译成中文）
 		expect(
 			translateText("Optimized for: Balance", view),
-		).toBe("优化目标：Balance");
+		).toBe("优化目标：均衡");
 		expect(
 			translateText("Optimized for: Efficiency", view),
-		).toBe("优化目标：Efficiency");
+		).toBe("优化目标：效率");
+	});
+
+	it("keeps the Git starter and product names as upstream text", () => {
 		// 「Git」是纯专名，刻意不收录：未命中即保留英文，这是正确行为而非漏译
 		expect(translateText("Git", view)).toBeNull();
 	});

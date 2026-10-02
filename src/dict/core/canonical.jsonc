@@ -3358,6 +3358,13 @@
 				"Balances speed and intelligence",
 				"Intelligence",
 				"Prioritizes intelligence",
+				// —— AutoTierPicker 的**触发按钮**整串（英文界面形态）——
+				// 中文界面下按钮节点是半中半英的「Optimized for: 均衡」（键里不能含中文，
+				// 见 validateCanonicalKeys），那种形态由 dashboard/optimized-for 规则处理前缀；
+				// 这里收的是英文界面下的整串，避免规则未命中时整句保留英文。
+				"Optimized for: Efficiency",
+				"Optimized for: Balance",
+				"Optimized for: Intelligence",
 				"Send now",
 				"Debug",
 				"Agent",

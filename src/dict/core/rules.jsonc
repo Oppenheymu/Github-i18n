@@ -858,7 +858,7 @@
 				// （"Gross metered usage for " + 区间），区间本身又是动态的，故按月全展开：
 				// 12 条同月 + 132 条跨月，与 insights/range-long-* 同一形态。之所以逐组合
 				// 写死月份，是因为替换模板不支持函数映射——把英文月名捕获进模板，中文里
-				// 就会渲染出 September（见 src/dict/__tests__/pages/settings-billing.test.ts）。
+				// 就会渲染出 September（见 src/dict/__tests__/pages/settings/billing.test.ts）。
 				//
 				// 顺序即语义：同月的 12 条以月份字面量锚定，先吃掉「September 1 - September
 				// 30, 2026」这类；跨月的 132 条各自写死起止月份，收尾的 (?:\\.)? 同时覆盖
@@ -1800,7 +1800,7 @@
 				// —— 赞助订阅页（/settings/billing/subscriptions）——
 				// 顶部「除此之外你还管理 N 个组织」：数字随组织数变化，只能做规则，$1 是组织数。
 				// 实机 HTML 实证：整句是 `<div class="tmp-mb-4">` 的**首个文本节点**（带源码
-				// 缩进），归一空白后是单行整句，故 ^…$ 锚定成立（节点原文见 settings-billing.test.ts）
+				// 缩进），归一空白后是单行整句，故 ^…$ 锚定成立（节点原文见 settings/billing.test.ts）
 				{
 					"id": "settings/manage-organizations",
 					"pattern": "^In addition to your personal account, you manage (\\d+) organizations?\\.$"

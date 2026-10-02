@@ -244,7 +244,7 @@ site|security|team|events|about|contact)(?:/|$))[^/]+
 | 2 | 采集实机节点 | 途径 A / B（见下），拿到**逐字**文本节点与可翻译属性 |
 | 3 | 登记键 | `core/canonical.jsonc` 对应模块的 `keys` 末尾追加，**顺序与页面出现顺序一致**，并写清节点边界的注释；改完立刻跑 `bun run check:dict` |
 | 4 | 补译文 | `locales/zh-CN/<模块>.jsonc` 同步追加键值对（ja 缺译是正常状态，不强制） |
-| 5 | 写节点边界回归 | `src/dict/__tests__/pages/<页名>.test.ts`：节点原文清单 + 拆分处 `renderNodes` 拼接断言 + **反例**（用户内容 / 纯专名必须保持英文） |
+| 5 | 写节点边界回归 | `src/dict/__tests__/pages/[<模块族>/]<页名>.test.ts`：节点原文清单 + 拆分处 `renderNodes` 拼接断言 + **反例**（用户内容 / 纯专名必须保持英文） |
 | 6 | `bun run format` 再 `bun run check` | 格式由 Biome 唯一权威，先格式化再跑全量，否则会为纯格式问题白跑一轮 |
 | 7 | 快照变了就 `bun run check:view --update` | 只在**有意改动**时更新（新增跨模块同键异译、模块顺序变化），并在提交信息里说明原因 |
 | 8 | `bun run build` → 提交 | 提交前 `bun run check` 必须全绿；提交信息写清「哪一页、为什么、快照为何变」 |
@@ -345,7 +345,7 @@ dump.join("\n");
 2. 决定归属模块：全站通用进 `global`，仅特定页面出现的进对应 `pages/<页名>`（模块路由见 `core/modules.jsonc`）；需要新模块时同时改 `core/modules.jsonc` 与 `core/canonical.jsonc`（同名同序，门禁强制）；
 3. 在 `core/canonical.jsonc` 对应模块的 `keys` 里登记该键；
 4. 在**每种已支持语言**的 `locales/<语言>/<模块>.jsonc` 里加键值对（没翻译的语言可以先不加，覆盖率会显示缺口）；
-5. 若该页已有 `src/dict/__tests__/pages/<页名>.test.ts` 的实机节点回归，把新节点（以及拼接结果）补进去——没有就在同一 PR 里建一份：**页面上的节点边界只有测试能长期锁住**；
+5. 若该页已有 `src/dict/__tests__/pages/[<模块族>/]<页名>.test.ts` 的实机节点回归，把新节点（以及拼接结果）补进去——没有就在同一 PR 里建一份：**页面上的节点边界只有测试能长期锁住**；
 6. `bun run check` → `bun run build` → 浏览器重载扩展验证。
 
 ### 采集实机渲染文本
@@ -374,42 +374,48 @@ for (const p of probes) {
 
 ### 实机节点边界测试（把抓下来的节点锁进仓库）
 
-抓取只是第一步：**节点边界必须落成仓库里的测试**，否则下次 GitHub 改版没人知道它断了。现有的实机节点回归都在 `src/dict/__tests__/pages/`（**不放 `src/content/__tests__/`**：这些用例的被测对象是 `src/dict/**` 的词条数据与模块路由，`buildView` / `translateText` 只是断言工具，`src/content/__tests__/` 只留 content 各模块自身的单测），命名与页面一一对应：
+抓取只是第一步：**节点边界必须落成仓库里的测试**，否则下次 GitHub 改版没人知道它断了。现有的实机节点回归都在 `src/dict/__tests__/pages/`（**不放 `src/content/__tests__/`**：这些用例的被测对象是 `src/dict/**` 的词条数据与模块路由，`buildView` / `translateText` 只是断言工具，`src/content/__tests__/` 只留 content 各模块自身的单测）。**用例按既有文件名前缀分目录**，前缀就是分组依据（2026-10-03 整理，此前 49 个文件平铺）：
+
+- `settings-*.test.ts` → `pages/settings/<页名>.test.ts`（账号设置族，文件名去掉 `settings-` 前缀）；
+- `repo-settings-*.test.ts` → `pages/repo-settings/<页名>.test.ts`（仓库设置族，去掉 `repo-settings-` 前缀；族内那页**仓库设置根页** `/owner/repo/settings` 是 `repo-settings/index.test.ts`——它原名 `settings-repo.test.ts`，按前缀会归错组）；
+- 其余**一模块一文件**的（`global` / `dashboard` / `repo` / `profile` / `issues` / `pulls` / `insights-security` / `status-dialog`）留在 `pages/` 根下，不再往下切。
+
+下表列出已登记的实机节点回归，**文件列是相对 `pages/` 的路径**（表由人工维护：新用例按上文规则归位后，照「每次收工前的清单」在表里补一行，别只建文件）：
 
 | 文件 | 覆盖的路径 | 说明 |
 | --- | --- | --- |
-| `settings-admin.test.ts` | `/settings/admin` | 账号管理页（Turbo frame，长句被链接切碎） |
-| `settings-appearance.test.ts` | `/settings/appearance` | 外观设置页（下拉 / 分段控件的当前值本身是节点） |
-| `settings-accessibility.test.ts` | `/settings/accessibility` | 辅助功能设置页（按键名 + `kbd` + `sr-only` 拼接） |
-| `settings-notifications.test.ts` | `/settings/notifications` | 通知设置页（四处拼接必须成立） |
-| `settings-emails.test.ts` | `/settings/emails` | 电子邮件设置页（`<strong>` / `<a>` 把说明段切成三段、弹窗里邮箱是纯文本节点） |
-| `settings-education.test.ts` | `/settings/education/benefits` | 教育权益页（H2 与说明段都是**带源码缩进的单个节点**，归一空白后才等于键） |
-| `settings-security.test.ts` | `/settings/security` | 账号安全页（通行密钥行的动态日期整句、2FA 横幅三段拼接、密码强度六段拼接；**独立模块** `pages/settings-security`） |
-| `settings-sessions.test.ts` | `/settings/sessions` | 会话页（Web / GitHub Mobile 两张卡；动态国家码走 `settings/session-seen-in` 规则，带城市与日期的 `aria-label` 结构上翻不了） |
-| `settings-keys.test.ts` | `/settings/keys` | SSH / GPG 密钥页（说明句被两个链接切成四段；`This action cannot be undone.` 三段拼接；`Added <日期>` 是标签 + 日期两个节点） |
-| `settings-credentials.test.ts` | `/settings/credentials`、`/settings/apps`、`/settings/developers`、`/settings/tokens`、`/settings/personal-access-tokens` | 凭据 / 开发者设置一族（五页共用一份回归：令牌说明句的链接拼接、卡片计数规则、12 个月份的过期日期规则；OAuth 权限范围标识符保留英文） |
-| `settings-limits.test.ts` | `/settings/blocked_users`、`/settings/interaction_limits`、`/settings/code_review_limits`、`/settings/organizations`、`/settings/enterprises` | 限制与组织页（备注剩余字数的规则、交互限制提示的三段拼接、离开组织确认句的动态规则；企业空状态按**实机 HTML** 收录；组织名与 `Settings for <组织名>` 保留英文） |
-| `settings-repositories.test.ts` | `/settings/repositories` | 仓库默认设置页（两段说明都在链接处断开；下拉按 appearance 页实测的「标签含冒号 + 当前值」两节点形态收录，其拼好的 `aria-label` 保留英文） |
-| `settings-codespaces.test.ts` | `/settings/codespaces` | 代码空间个人设置页（三段拼接的编辑器选项、说明段末尾的独立纯数字节点 + 单位句、区域下拉、仓库选择器计数规则；产品名保留英文） |
-| `settings-packages.test.ts` | `/settings/packages` | 软件包个人设置页（搜索框的 aria-label 与 placeholder 同串一条键；已删除软件包空状态含动态用户名，走规则） |
-| `settings-copilot-features.test.ts` | `/settings/copilot/features` | Copilot 功能设置页（句号常落在后一节点故译文以「。」起头、`through` 等连接词单独成节点、Copilot Spaces 三段拼接、用量百分比规则；产品名保留英文） |
-| `settings-replies.test.ts` | `/settings/replies` | 已保存回复页（Markdown 工具栏与附件组件的文案在 `global`；附件类型说明是「链接 + `is supported`」两段；扩展名清单原样保留、`SavedReply` 是模型名） |
-| `settings-pages.test.ts` | `/settings/pages`、`/settings/copilot/coding_agent` | 已验证域名页 + Copilot 云端代理页（两页都很小，合并在一个文件里；说明段是含源码换行的单节点） |
-| `settings-security-analysis.test.ts` | `/settings/security_analysis` | 安全与分析页（每个功能一对「启用 / 禁用 / 全部启用 / 全部禁用 + 你即将…确认句」；私密漏洞报告那对确认句含动态账户名走规则；功能标识符 `dependency_graph` 等保留英文） |
-| `settings-installations.test.ts` | `/settings/installations`、`/settings/applications`、`/settings/apps/authorizations` | 已安装 / 已授权应用一族（应用名是用户内容，`Report <名>` / `Revoke <名>` / `Reporting <名> …` / `<名> will no longer be able to access …` 四条走规则；词典先于规则命中，`Report abuse`、`Revoke all` 仍走词条） |
-| `settings-logs.test.ts` | `/settings/reminders`、`/settings/security-log`、`/settings/sponsors-log`、`/settings/apps` | 定时提醒 / 安全日志 / 赞助记录 / 自建 GitHub Apps（apps 页与**安全日志的事件行**都有实机 HTML 实证：动态值各被 `<span class="context">` 包住、句号独立成节点，故收 `ending in`/`for the`/`OAuth app` 三个碎片键；提醒与赞助记录两页是截图） |
-| `settings-profile.test.ts` | `/settings/profile`（ORCID 区块） | 连接 ORCID 后才渲染的段落（**实机 HTML 实证**：标识符与 @账户都被 `<strong>` 包住，故已连接提示收成 `You have a connected ORCID iD` + `for the account` 两段碎片键；另用一条断言钉住 `ORCID iD` 的译文不得与键同形——2026-09 卡死事故） |
-| `settings-billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
-| `repo-settings-code-review-limits.test.ts` | `/owner/repo/settings/code_review_limits` | 仓库级「代码审查限制」子页（**证据是维护者贴的实机节点**：说明句、开关解释段、以及被 `<strong>read</strong>` 切成三段的开关标签；措辞是 this repository 单数，与账户级 `/settings/code_review_limits` 的 your public repositories 复数互斥，故词条登记在 `pages/repo-settings`，并断言本页不得命中账户级那两条串） |
-| `repo-settings-interaction-limits.test.ts` | `/owner/repo/settings/interaction_limits` | 仓库级「临时交互限制」子页（**证据是途径 A 导出的漏翻清单**，2026-09-27：46 条实机条目全部命中；页面级别由措辞判定——本页一律说 this repository 单数，与账户级 `/settings/interaction_limits` 的 your repositories 复数互斥，故词条登记在 `pages/repo-settings`；另锁三处被链接拆开的句子拼接，以及 `Temporary interaction restrictions` 与账户级的 `Temporary interaction limits` 不得合并） |
-| `repo-settings-branches.test.ts` | `/owner/repo/settings/branches` | 分支子页顶部的经典分支保护横幅（**证据是维护者贴的实机 HTML**：说明句被两个链接切成五段——前段 / `repository rules` / 连词 ` and ` / `protected branches` / 纯符号句点；` and ` 由本模块既有的 `and` 词条覆盖、句点翻不了也不收，故只登记另外三段与两个按钮。**采集时页面已装扩展，贴出的「与」是既有词条的产物而非上游原文**） |
-| `repo-settings-tag-protection.test.ts` | `/owner/repo/settings/tag_protection` | 标签保护子页（**证据是维护者贴的整页截图**：弃用横幅 + `Protected tags` 空状态。横幅说明句里的 `changelog` 是链接，故整句键只作兜底、真正命中的是「前段 / `changelog` / 后段」三条；另锁页面标题 `Protected tags` 与空状态标题 `Protected tags have been deprecated` 不得互相吃掉） |
-| `repo-settings-actions.test.ts` | `/owner/repo/settings/actions` | Actions 设置页（**证据是途径 A 导出的漏翻清单**，2026-09-27：63 条里除专名 / 用户内容外全部命中。三条边界事实：两条长说明在实机是**含源码换行的单节点**，键按 `normalizeKey` 折叠；允许列表那两段说明里的 `!` 与 `*` 各自被 `<code>` 包住（排除容器），故引擎看到的只是清单里那些碎片节点；四条嵌**组织名**的文案靠 5 条 `repo-settings/actions-*` 规则，其中 `Allow <org>, and select non-<org>, …` 必须排在 `Allow <org> …` 之前——后者的贪婪 `(.+)` 会把前者整段吞掉） |
-| `repo-settings-runners.test.ts` | `/owner/repo/settings/actions/runners`、`…/runners/new` | 运行器列表页与新建页（**证据是途径 A 导出的漏翻清单 + 一张列表页截图**，2026-09-27：除专名外全部命中。三条边界事实：架构名与平台名（`x64` / `ARM64` / `ARM` / `Linux` / `Windows` / `macOS`，含它们作 aria-label 的形态）**有意不收录**；新建页的许可说明是**含源码换行的单节点**，键按 `normalizeKey` 折叠；两支面包屑标题靠 2 条 `repo-settings/runners-*` 规则，而侧栏那个单独的 `Runners` 是静态词条、不会被规则连仓库名一起吞掉） |
-| `repo-settings-actions-policies.test.ts` | `/owner/repo/settings/actions/rules`、`…/rules/insights`、`…/actions/oidc-configuration` | Actions 策略三支（**证据是途径 A 分别导出的三份漏翻清单**，2026-09-27。三条边界事实：策略列表的弃用横幅被 `<code>pull_request_target</code>` 切成两段、两段译文拼起来要读作「…将限制 pull_request_target 在公开仓库中的使用。」；洞察页 `See how rulesets are affecting this` + 链接文本 `repository` 是两条键；OIDC 标题在实机有 `OIDC Configuration` / `OIDC configuration` 两种大小写形态，是两条不同的键，另锁两条面包屑规则 `Settings · Actions policies · <repo>` / `Settings · Insights · <repo>`） |
-| `repo-settings-hooks.test.ts` | `/owner/repo/settings/hooks`、`…/hooks/new` | 网络钩子列表页与新建页（**新建页的证据是维护者贴的「未装扩展」的实机 HTML**，是权威节点边界；由此确认四件事：必填标记 `*` 是独立 `<span aria-hidden="true">`、`(not recommended)` 被独立 `<span class="f6">` 包住、说明段里的 `POST` 与 `x-www-form-urlencoded` 在 `<code>` 里而 `<em>etc</em>` **不在**（照常翻译）、三个选项标签里前两个被内联元素切开。新建页的 56 个事件各收「名称 + 说明」两条键，其中 `Deploy keys` / `Discussions` / `Pushes` 与设置侧边栏、推送设置同串同义，复用不重复登记；列表页仍只有截图，那句说明由 `repo-settings/webhooks-intro` 规则承担，撇号直弯都用 `['’]` 覆盖） |
-| `settings-repo.test.ts` | `/owner/repo/settings` | 仓库设置页的「Creation allowed by」筛选按钮（**目前只覆盖这一处**：维护者给的 HTML 片段证明标签、当前值、菜单项是三个独立文本节点；整页尚未采集，其余词条仍只有词典门禁与视图骨架的保护） |
-| `repo-settings-rulesets.test.ts` | `/owner/repo/settings/rules`、`/owner/repo/settings/rules/<id>` | 规则集列表页与详情页（**证据是途径 A 导出的漏翻清单 + 两张实机截图 + 维护者贴的两段实机 HTML**（状态检查与「合并前需要拉取请求」两个规则的展开面板），2026-09-27：清单里除专名 / 用户内容外的节点、以及两段 HTML 里的全部节点都命中；本页此前**没有任何词条**，属整页新增。三条边界事实：规则名 `Protect Default Branch`、仓库名、用户名、分支名 `main` 与产品名保持英文；组合型 aria-label（`Active, Enforcement status`、`Roles, Filter actors by category`、`Squash, Allowed merge methods`）是**属性**、不走正则规则，故逐条收静态键；含动态值的文本（列表行计数、目标计数、面包屑、`Apps • <应用名>`、`Delete include of <分支模式>`）靠 6 条 `repo-settings/ruleset-*` 规则，分隔符用字符类同时覆盖 `•` 与 `·`。清单里孤立的 `changes` 来源不明，有意不收） |
+| `settings/admin.test.ts` | `/settings/admin` | 账号管理页（Turbo frame，长句被链接切碎） |
+| `settings/appearance.test.ts` | `/settings/appearance` | 外观设置页（下拉 / 分段控件的当前值本身是节点） |
+| `settings/accessibility.test.ts` | `/settings/accessibility` | 辅助功能设置页（按键名 + `kbd` + `sr-only` 拼接） |
+| `settings/notifications.test.ts` | `/settings/notifications` | 通知设置页（四处拼接必须成立） |
+| `settings/emails.test.ts` | `/settings/emails` | 电子邮件设置页（`<strong>` / `<a>` 把说明段切成三段、弹窗里邮箱是纯文本节点） |
+| `settings/education.test.ts` | `/settings/education/benefits` | 教育权益页（H2 与说明段都是**带源码缩进的单个节点**，归一空白后才等于键） |
+| `settings/security.test.ts` | `/settings/security` | 账号安全页（通行密钥行的动态日期整句、2FA 横幅三段拼接、密码强度六段拼接；**独立模块** `pages/settings-security`） |
+| `settings/sessions.test.ts` | `/settings/sessions` | 会话页（Web / GitHub Mobile 两张卡；动态国家码走 `settings/session-seen-in` 规则，带城市与日期的 `aria-label` 结构上翻不了） |
+| `settings/keys.test.ts` | `/settings/keys` | SSH / GPG 密钥页（说明句被两个链接切成四段；`This action cannot be undone.` 三段拼接；`Added <日期>` 是标签 + 日期两个节点） |
+| `settings/credentials.test.ts` | `/settings/credentials`、`/settings/apps`、`/settings/developers`、`/settings/tokens`、`/settings/personal-access-tokens` | 凭据 / 开发者设置一族（五页共用一份回归：令牌说明句的链接拼接、卡片计数规则、12 个月份的过期日期规则；OAuth 权限范围标识符保留英文） |
+| `settings/limits.test.ts` | `/settings/blocked_users`、`/settings/interaction_limits`、`/settings/code_review_limits`、`/settings/organizations`、`/settings/enterprises` | 限制与组织页（备注剩余字数的规则、交互限制提示的三段拼接、离开组织确认句的动态规则；企业空状态按**实机 HTML** 收录；组织名与 `Settings for <组织名>` 保留英文） |
+| `settings/repositories.test.ts` | `/settings/repositories` | 仓库默认设置页（两段说明都在链接处断开；下拉按 appearance 页实测的「标签含冒号 + 当前值」两节点形态收录，其拼好的 `aria-label` 保留英文） |
+| `settings/codespaces.test.ts` | `/settings/codespaces` | 代码空间个人设置页（三段拼接的编辑器选项、说明段末尾的独立纯数字节点 + 单位句、区域下拉、仓库选择器计数规则；产品名保留英文） |
+| `settings/packages.test.ts` | `/settings/packages` | 软件包个人设置页（搜索框的 aria-label 与 placeholder 同串一条键；已删除软件包空状态含动态用户名，走规则） |
+| `settings/copilot-features.test.ts` | `/settings/copilot/features` | Copilot 功能设置页（句号常落在后一节点故译文以「。」起头、`through` 等连接词单独成节点、Copilot Spaces 三段拼接、用量百分比规则；产品名保留英文） |
+| `settings/replies.test.ts` | `/settings/replies` | 已保存回复页（Markdown 工具栏与附件组件的文案在 `global`；附件类型说明是「链接 + `is supported`」两段；扩展名清单原样保留、`SavedReply` 是模型名） |
+| `settings/pages.test.ts` | `/settings/pages`、`/settings/copilot/coding_agent` | 已验证域名页 + Copilot 云端代理页（两页都很小，合并在一个文件里；说明段是含源码换行的单节点） |
+| `settings/security-analysis.test.ts` | `/settings/security_analysis` | 安全与分析页（每个功能一对「启用 / 禁用 / 全部启用 / 全部禁用 + 你即将…确认句」；私密漏洞报告那对确认句含动态账户名走规则；功能标识符 `dependency_graph` 等保留英文） |
+| `settings/installations.test.ts` | `/settings/installations`、`/settings/applications`、`/settings/apps/authorizations` | 已安装 / 已授权应用一族（应用名是用户内容，`Report <名>` / `Revoke <名>` / `Reporting <名> …` / `<名> will no longer be able to access …` 四条走规则；词典先于规则命中，`Report abuse`、`Revoke all` 仍走词条） |
+| `settings/logs.test.ts` | `/settings/reminders`、`/settings/security-log`、`/settings/sponsors-log`、`/settings/apps` | 定时提醒 / 安全日志 / 赞助记录 / 自建 GitHub Apps（apps 页与**安全日志的事件行**都有实机 HTML 实证：动态值各被 `<span class="context">` 包住、句号独立成节点，故收 `ending in`/`for the`/`OAuth app` 三个碎片键；提醒与赞助记录两页是截图） |
+| `settings/profile.test.ts` | `/settings/profile`（ORCID 区块） | 连接 ORCID 后才渲染的段落（**实机 HTML 实证**：标识符与 @账户都被 `<strong>` 包住，故已连接提示收成 `You have a connected ORCID iD` + `for the account` 两段碎片键；另用一条断言钉住 `ORCID iD` 的译文不得与键同形——2026-09 卡死事故） |
+| `settings/billing.test.ts` | `/account/billing`、`/account/billing/usage` | 账单 / 用量页（含日期区间规则的顺序语义） |
+| `repo-settings/code-review-limits.test.ts` | `/owner/repo/settings/code_review_limits` | 仓库级「代码审查限制」子页（**证据是维护者贴的实机节点**：说明句、开关解释段、以及被 `<strong>read</strong>` 切成三段的开关标签；措辞是 this repository 单数，与账户级 `/settings/code_review_limits` 的 your public repositories 复数互斥，故词条登记在 `pages/repo-settings`，并断言本页不得命中账户级那两条串） |
+| `repo-settings/interaction-limits.test.ts` | `/owner/repo/settings/interaction_limits` | 仓库级「临时交互限制」子页（**证据是途径 A 导出的漏翻清单**，2026-09-27：46 条实机条目全部命中；页面级别由措辞判定——本页一律说 this repository 单数，与账户级 `/settings/interaction_limits` 的 your repositories 复数互斥，故词条登记在 `pages/repo-settings`；另锁三处被链接拆开的句子拼接，以及 `Temporary interaction restrictions` 与账户级的 `Temporary interaction limits` 不得合并） |
+| `repo-settings/branches.test.ts` | `/owner/repo/settings/branches` | 分支子页顶部的经典分支保护横幅（**证据是维护者贴的实机 HTML**：说明句被两个链接切成五段——前段 / `repository rules` / 连词 ` and ` / `protected branches` / 纯符号句点；` and ` 由本模块既有的 `and` 词条覆盖、句点翻不了也不收，故只登记另外三段与两个按钮。**采集时页面已装扩展，贴出的「与」是既有词条的产物而非上游原文**） |
+| `repo-settings/tag-protection.test.ts` | `/owner/repo/settings/tag_protection` | 标签保护子页（**证据是维护者贴的整页截图**：弃用横幅 + `Protected tags` 空状态。横幅说明句里的 `changelog` 是链接，故整句键只作兜底、真正命中的是「前段 / `changelog` / 后段」三条；另锁页面标题 `Protected tags` 与空状态标题 `Protected tags have been deprecated` 不得互相吃掉） |
+| `repo-settings/actions.test.ts` | `/owner/repo/settings/actions` | Actions 设置页（**证据是途径 A 导出的漏翻清单**，2026-09-27：63 条里除专名 / 用户内容外全部命中。三条边界事实：两条长说明在实机是**含源码换行的单节点**，键按 `normalizeKey` 折叠；允许列表那两段说明里的 `!` 与 `*` 各自被 `<code>` 包住（排除容器），故引擎看到的只是清单里那些碎片节点；四条嵌**组织名**的文案靠 5 条 `repo-settings/actions-*` 规则，其中 `Allow <org>, and select non-<org>, …` 必须排在 `Allow <org> …` 之前——后者的贪婪 `(.+)` 会把前者整段吞掉） |
+| `repo-settings/runners.test.ts` | `/owner/repo/settings/actions/runners`、`…/runners/new` | 运行器列表页与新建页（**证据是途径 A 导出的漏翻清单 + 一张列表页截图**，2026-09-27：除专名外全部命中。三条边界事实：架构名与平台名（`x64` / `ARM64` / `ARM` / `Linux` / `Windows` / `macOS`，含它们作 aria-label 的形态）**有意不收录**；新建页的许可说明是**含源码换行的单节点**，键按 `normalizeKey` 折叠；两支面包屑标题靠 2 条 `repo-settings/runners-*` 规则，而侧栏那个单独的 `Runners` 是静态词条、不会被规则连仓库名一起吞掉） |
+| `repo-settings/actions-policies.test.ts` | `/owner/repo/settings/actions/rules`、`…/rules/insights`、`…/actions/oidc-configuration` | Actions 策略三支（**证据是途径 A 分别导出的三份漏翻清单**，2026-09-27。三条边界事实：策略列表的弃用横幅被 `<code>pull_request_target</code>` 切成两段、两段译文拼起来要读作「…将限制 pull_request_target 在公开仓库中的使用。」；洞察页 `See how rulesets are affecting this` + 链接文本 `repository` 是两条键；OIDC 标题在实机有 `OIDC Configuration` / `OIDC configuration` 两种大小写形态，是两条不同的键，另锁两条面包屑规则 `Settings · Actions policies · <repo>` / `Settings · Insights · <repo>`） |
+| `repo-settings/hooks.test.ts` | `/owner/repo/settings/hooks`、`…/hooks/new` | 网络钩子列表页与新建页（**新建页的证据是维护者贴的「未装扩展」的实机 HTML**，是权威节点边界；由此确认四件事：必填标记 `*` 是独立 `<span aria-hidden="true">`、`(not recommended)` 被独立 `<span class="f6">` 包住、说明段里的 `POST` 与 `x-www-form-urlencoded` 在 `<code>` 里而 `<em>etc</em>` **不在**（照常翻译）、三个选项标签里前两个被内联元素切开。新建页的 56 个事件各收「名称 + 说明」两条键，其中 `Deploy keys` / `Discussions` / `Pushes` 与设置侧边栏、推送设置同串同义，复用不重复登记；列表页仍只有截图，那句说明由 `repo-settings/webhooks-intro` 规则承担，撇号直弯都用 `['’]` 覆盖） |
+| `repo-settings/index.test.ts` | `/owner/repo/settings` | 仓库设置页的「Creation allowed by」筛选按钮（**目前只覆盖这一处**：维护者给的 HTML 片段证明标签、当前值、菜单项是三个独立文本节点；整页尚未采集，其余词条仍只有词典门禁与视图骨架的保护） |
+| `repo-settings/rulesets.test.ts` | `/owner/repo/settings/rules`、`/owner/repo/settings/rules/<id>` | 规则集列表页与详情页（**证据是途径 A 导出的漏翻清单 + 两张实机截图 + 维护者贴的两段实机 HTML**（状态检查与「合并前需要拉取请求」两个规则的展开面板），2026-09-27：清单里除专名 / 用户内容外的节点、以及两段 HTML 里的全部节点都命中；本页此前**没有任何词条**，属整页新增。三条边界事实：规则名 `Protect Default Branch`、仓库名、用户名、分支名 `main` 与产品名保持英文；组合型 aria-label（`Active, Enforcement status`、`Roles, Filter actors by category`、`Squash, Allowed merge methods`）是**属性**、不走正则规则，故逐条收静态键；含动态值的文本（列表行计数、目标计数、面包屑、`Apps • <应用名>`、`Delete include of <分支模式>`）靠 6 条 `repo-settings/ruleset-*` 规则，分隔符用字符类同时覆盖 `•` 与 `·`。清单里孤立的 `changes` 来源不明，有意不收） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分；侧栏星标 / 关注 / 复刻三个计数走 `repo/*-count` 规则，数字随仓库变化，另收 `4.1k` / `1,234` 这类缩写形态） |
 | `profile.test.ts` | `/<用户名>?tab=repositories` | 个人 / 组织主页的仓库列表（Type 下拉九项按**整节点相等**断言；结果摘要行是五个节点——`5` / `results for` / `source` / `repositories sorted by` / `last updated`，加粗的三段各被 `<strong>` 单独包住，靠三条 `profile/repo-results-*` 规则 + `results for` / `last updated` 两条片段词条拼装，整句渲染成「5 个结果， 来源 仓库， 按上次更新排序」（量词只跟数字、连接词落在宾语之后，见「四、采集结果怎么读」第 6 条；筛选值 `source` 按维护者拍板收成词条，代价见第 5 条例外）；`Clear filter` 与 Type 菜单里上游未本地化的 `Can be sponsored` / `Templates` 一并锁住） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |
@@ -442,7 +448,7 @@ for (const p of probes) {
 - 「`enabled` 关闭时不启动观察器」这条反向条件无法再开一个测试文件验证（第二个文件会复用第一次的装配结果，`?query` 也不产生新实例——Bun 实测不支持）。该闸门由 `engine.test.ts` 的「关闭时只清空队列不翻译」与 `readEnabled` 的默认值把守；
 - `popup.ts` 末尾那个 `try { main() } catch` 兜底分支同理（要覆盖它得造出第二个「`main()` 抛错」的装配场景）。它是纯兜底，代价可接受；`popup.ts` 顶层的 `assertFound` 仍在 `main()` 之外抛出，**刻意不吞**（缺元素属打包错误，掩盖它只会让人更难查）。
 
-**已知空缺：`repo-settings`（`/owner/repo/settings`）整页尚未采集**（该页需要登录），所以仓库设置页没有**整页**的实机节点回归——目前它只有两处：`settings-repo.test.ts` 覆盖的「Creation allowed by」筛选按钮三节点，与 `repo-settings-interaction-limits.test.ts` 覆盖的交互限制子页（途径 A 清单）；其余词条靠视图骨架层的保护（命中模块序列 + 碰撞赢家）与词典门禁。
+**已知空缺：`repo-settings`（`/owner/repo/settings`）整页尚未采集**（该页需要登录），所以仓库设置页没有**整页**的实机节点回归——目前它只有两处：`repo-settings/index.test.ts` 覆盖的「Creation allowed by」筛选按钮三节点，与 `repo-settings/interaction-limits.test.ts` 覆盖的交互限制子页（途径 A 清单）；其余词条靠视图骨架层的保护（命中模块序列 + 碰撞赢家）与词典门禁。
 
 每个实机测试文件的结构都一样：文件头写明节点来源与日期，然后是一份**逐字录入的 `nodeValue` 清单**（带源码缩进 / 换行的按原样保留，因为实机里长句的节点自带缩进），用 `translateText(节点, 该路径的 buildView(...))` 断言命中与译文，另有一组**反例**断言用户内容（文件名、仓库名、`README.md`、小写常用词）**必须不被翻译**。
 
@@ -451,7 +457,7 @@ for (const p of probes) {
 1. **无扩展的无头 Edge**：用 `msedge --headless=new --remote-debugging-port=<端口> --user-data-dir=<临时目录>` 打开目标页面，**不要加载 `dist/`**——要的是 GitHub 的原始英文渲染，不是翻译后的结果；
 2. **CDP 采集文本节点**：连上 DevTools 协议，用 `Runtime.evaluate` 跑一次 `document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)`，把每个文本节点的 `nodeValue` 与父元素路径（tag + class 链）一起打出来；需要元素属性时另跑一遍 `title` / `aria-label` / `placeholder` / `alt` / 按钮类 `value` / `data-disable-with`；
 3. **在仓库内判定命中**：把采集结果喂给 `translateText(text, buildView(pathname, dictForLocale("zh-CN"), 别名映射))`——命中即为「这条节点已经有词条」，未命中且确实是 UI 文案就是待补的漏翻；**采集时会自然暴露出「哪些整句在实机上被拆过」**，这是登记键的唯一依据；
-4. 把清单连同反例一起写进 `src/dict/__tests__/pages/<页名>.test.ts`，`bun test` 全绿后提交。
+4. 把清单连同反例一起写进 `src/dict/__tests__/pages/[<模块族>/]<页名>.test.ts`，`bun test` 全绿后提交。
 
 **M-02 的实机结论（`repo.test.ts` 的反例就是它的回归保护）**：仓库页的文件 / 目录列表**确实**渲染成孤立文本节点（`div.react-directory-filename-cell > a.Link--primary` 里的 `src` / `test` / `build` / `extensions` / `resources` / `scripts` / `.github`…），而它们**全部没被翻译**——因为小写常用词没收录。也就是说硬性约束 3 那条「宁可漏翻也不误伤用户内容」的权衡在实机成立；残留风险是「仓库里真有一个叫 `Docs` / `Assets` / `Star` 的目录」这类**条件性误伤**，唯一的保护是继续不收录可疑短词，而不是加白名单。
 
@@ -530,7 +536,7 @@ Added on Mar 6, 2026
 
 `/settings/credentials`、`/settings/apps`、`/settings/developers`、`/settings/tokens`、`/settings/personal-access-tokens` 五页共用 `pages/settings` 模块（路由 `^/(?:settings|account/billing)`），词条直接追加在那里，不新建模块——它们只带来 16 条规则，没有 `pages/settings-security` 那种「一百多条规则淹掉别的探针」的规模问题。三条需要记住的取舍：
 
-- **OAuth 权限范围标识符不译**（`repo` / `user` / `workflow` / `gist` / `notifications` / `project` / `copilot` / `codespace` / `audit_log` / `admin:*` / `read:*` / `write:*` / `delete:*`）：它们是 API 里的字面量，译了会与代码、文档、报错信息对不上，与 `GPG` / `CLI` 同属「纯标识符保留英文」。芯片的 `title` 是**人类可读说明**，那部分要译（已逐条收录，见 `settings-credentials.test.ts`）；
+- **OAuth 权限范围标识符不译**（`repo` / `user` / `workflow` / `gist` / `notifications` / `project` / `copilot` / `codespace` / `audit_log` / `admin:*` / `read:*` / `write:*` / `delete:*`）：它们是 API 里的字面量，译了会与代码、文档、报错信息对不上，与 `GPG` / `CLI` 同属「纯标识符保留英文」。芯片的 `title` 是**人类可读说明**，那部分要译（已逐条收录，见 `settings/credentials.test.ts`）；
 - **令牌过期日期按 12 个月份全展开**（`settings/expires-on-*`）：实机节点形如 `on Fri, Nov 27 2026` / `on Wed, Sep  2 2026`——周几缩写 + 月份缩写 + **空格补齐的日**、年份前无逗号。月份无法经捕获组映射成中文（与 `global/short-date-*`、`settings/usage-range-*` 同一个原因），故写死月份；周几用 `[A-Za-z]{3}` 吃掉且**中文里不体现**（`2026 年 11 月 27 日` 已足够，且周几由日期唯一确定）。日与月之间的多个空格用 ` +` 容忍；
 - **`GitHub API` 保留英文**：纯专名加缩写，译文无法含中文字系（门禁要求含目标语言文字系统），未命中即保留英文是正确的；句子被链接切开时按碎片收录，拼接后仍读得通。
 

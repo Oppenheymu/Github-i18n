@@ -26,7 +26,7 @@
 		// 同一张卡片的计费周期后缀「per month」**不在这里**：实机把它拆成两个文本节点
 		// （`per ` + `month`），整短语键永不命中，改由 core/rules.jsonc 的两条碎片规则
 		// 覆盖（per-word 用空模板让 per 节点消失，billing-period-word 把 month 译「每月」；
-		// 节点边界见 src/dict/__tests__/pages/settings-billing.test.ts 的 PLAN_CARD_NODES）
+		// 节点边界见 src/dict/__tests__/pages/settings/billing.test.ts 的 PLAN_CARD_NODES）
 		"GitHub Free": "GitHub 免费版",
 		"Next payment due": "下次付款到期日",
 		"Current metered usage": "当前按量计费用量",
@@ -85,7 +85,7 @@
 		"Billable spend for Codespaces for the selected timeframe.": "所选时间段内代码空间的计费支出。",
 		// —— 「More details」弹窗：所含用量与点数明细 ——
 		// 截图确认的渲染文本（弹窗只在点开后渲染，未进开发者模式导出；节点边界见
-		// src/dict/__tests__/pages/settings-billing.test.ts 的 PANEL_NODES）
+		// src/dict/__tests__/pages/settings/billing.test.ts 的 PANEL_NODES）
 		"More details": "更多详情",
 		"Included usage and credits": "所含用量与点数",
 		"Showing currently applied usage and credits for your account.": "显示你的账户当前生效的用量与点数。",
@@ -106,7 +106,7 @@
 		// —— 用量页（/account/billing/usage）——
 		// 路由 ^/(?:settings|account)/billing 同时命中用量页，故词条归本模块；键来自 2026-09 的实机
 		// 截图逐行誊录（页面需登录，未进开发者模式导出），节点边界见
-		// src/dict/__tests__/pages/settings-billing.test.ts 的 USAGE_NODES。
+		// src/dict/__tests__/pages/settings/billing.test.ts 的 USAGE_NODES。
 		//
 		// 「Date」只有独立成节点（= 表头）时才需要翻，故收键是安全的
 		"Get usage report": "获取用量报告",
@@ -133,7 +133,7 @@
 		"The start date must be before the end date.": "开始日期必须早于结束日期。",
 		// —— AI 用量页（/account/billing/ai_usage）——
 		// 键来自 2026-09 的实机截图逐行誊录（页面需登录，未进开发者模式导出），
-		// 节点边界见 src/dict/__tests__/pages/settings-billing.test.ts 的 AI_USAGE_NODES。
+		// 节点边界见 src/dict/__tests__/pages/settings/billing.test.ts 的 AI_USAGE_NODES。
 		// 页面标题「AI usage」沿用 pages/settings 的「AI 用量」（模块更靠前，先到先得），
 		// 不在此重复登记，避免同键异译。
 		// 图表分组切换器（截图里 Days 为选中态；Models 沿用本模块既有的「模型」词条）
@@ -153,7 +153,7 @@
 		"Each GitHub AI credit costs $0.01.": "每个 GitHub AI 点数费用为 $0.01。",
 		// —— 预算与提醒页（/account/billing/budgets）——
 		// 键来自 2026-09 的实机截图逐行誊录（页面需登录，未进开发者模式导出），
-		// 节点边界见 src/dict/__tests__/pages/settings-billing.test.ts 的 BUDGETS_NODES。
+		// 节点边界见 src/dict/__tests__/pages/settings/billing.test.ts 的 BUDGETS_NODES。
 		// 页面标题「Budgets and alerts」沿用 pages/settings 的「预算与提醒」（模块更靠前）；
 		// 表格里的「Name」「Account」同样沿用既有词条（本路由上 Name 由 pages/settings 胜出为
 		// 「姓名」、Account 为「账户」），不在本模块重复登记，避免同键异译。
@@ -170,7 +170,7 @@
 		"Budget options": "预算选项",
 		// —— 许可页（/account/billing/licensing）——
 		// 键来自 2026-09 的实机截图逐行誊录（页面需登录，未进开发者模式导出），
-		// 节点边界见 src/dict/__tests__/pages/settings-billing.test.ts 的 LICENSING_NODES。
+		// 节点边界见 src/dict/__tests__/pages/settings/billing.test.ts 的 LICENSING_NODES。
 		// 页面标题「Licensing」沿用 pages/settings 的「许可」；「GitHub Copilot」这类纯专名
 		// 与「Copilot」一样不收录（未命中即保留英文）；「GitHub Free」见上方账单总览处的
 		// 说明——它已改为同译「GitHub 免费版」，本页的基础方案标题因此也一并译出；
@@ -216,7 +216,7 @@
 		"See all features and compare plans": "查看所有功能并对比各方案",
 		// —— 付款信息页（/account/billing/payment_information）——
 		// 键来自 2026-09 的实机 HTML（用户提供 label 片段）与截图，节点边界见
-		// src/dict/__tests__/pages/settings-billing.test.ts 的 PAYMENT_NODES。
+		// src/dict/__tests__/pages/settings/billing.test.ts 的 PAYMENT_NODES。
 		// 三条实机边界必须记住：
 		//   1. 表单标签被 `.text-normal` 拆成「主标签」+「括号说明」两个节点，
 		//      故键分开收（整行键在实机上永不命中）；

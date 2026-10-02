@@ -169,8 +169,9 @@ function summaryNodes(html: string): string[] {
  *
  * **2026-10-02 实机复核通过**：维护者重载扩展后贴回的 Console dump
  * （`[...d.childNodes]` 逐条打印）与下方断言完全一致——
- * `"个结果，"` / `"仓库，"` / `"按上次更新排序"` 三段各自落在原文节点里，
- * 渲染为「5 个结果， source 仓库， 按上次更新排序」。
+ * `"个结果，"` / `"仓库，"` / `"按上次更新排序"` 三段各自落在原文节点里。
+ * 同一次复核里维护者又拍板把筛选值 `source` 也译出（→「来源」），
+ * 故整行现在渲染为「5 个结果， 来源 仓库， 按上次更新排序」。
  */
 const SUMMARY_NODES: readonly (readonly [
 	string,
@@ -182,6 +183,9 @@ const SUMMARY_NODES: readonly (readonly [
 	],
 	["\n        repositories\n        sorted by ", "仓库，"],
 	["last updated", "按上次更新排序"],
+	// Type 筛选值：实机是单数小写、被 <strong> 单独包住的一条节点，与菜单项
+	// `Sources` 同义但另成一键；维护者 2026-10-02 拍板译出（代价见下方用例）
+	["source", "来源"],
 	["\n          Clear filter\n", "清除筛选"],
 	// 纯数字节点翻不了，也不该收（收了就是永不命中的死键）；
 	// 它的量词由紧邻的下一条片段承载（见上面的说明）
@@ -231,7 +235,7 @@ describe("pages/profile 的仓库列表结果摘要", () => {
 		// 断言的是实机渲染出来的那一行（walker 保留节点首尾空白 + 浏览器折叠空白）。
 		const nodes = summaryNodes(SUMMARY_HTML);
 		expect(renderNodes(nodes)).toBe(
-			"5 个结果， source 仓库， 按上次更新排序",
+			"5 个结果， 来源 仓库， 按上次更新排序",
 		);
 		// 未筛选时只是少了类型名那个节点，其余片段完全一样——这正是
 		// 「不把整句 `repositories sorted by last updated` 收成一条键」的理由
@@ -243,6 +247,16 @@ describe("pages/profile 的仓库列表结果摘要", () => {
 		expect(renderNodes(unfiltered)).toBe(
 			"5 个结果， 仓库， 按上次更新排序",
 		);
+	});
+
+	it("knowingly translates a user repository that is literally named source", () => {
+		// 有意接受的代价：词典按**整节点精确匹配**，拿不到「这是筛选值还是仓库名」的上下文，
+		// 所以个人主页上恰好叫 `source`（全小写；大小写敏感）的仓库 / Gist 名也会变成「来源」。
+		// 维护者 2026-10-02 明确选择译出；这条用例把代价写在案，
+		// 日后有人报「我的仓库名被翻了」时，先看这里再决定是否回退（回退 = 删掉该词条）。
+		expect(translateText("source", view)).toBe("来源");
+		// 反例：大小写不同的仓库名不受影响（`Source` 是另一条键，pages/profile 里没有）
+		expect(translateText("Source", view)).toBeNull();
 	});
 
 	it("fails loudly when the authoritative HTML's node boundaries change", () => {

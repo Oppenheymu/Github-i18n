@@ -4233,6 +4233,11 @@
 				"repositories sorted by",
 				// 末段（小写形态；Type 菜单里的是大写 "Last updated"，两者是不同的键）
 				"last updated",
+				// 摘要里嵌着的 Type 筛选值（`5 results for <strong>source</strong> repositories`）
+				// ——与菜单项 `Sources` 同义但另成一键：实机是单数小写、被 <strong> 单独包住。
+				// 维护者 2026-10-02 拍板译出，代价（同名仓库 / Gist 会被一起翻）
+				// 记在 locales/zh-CN/pages/profile.jsonc 与该模块的用例里。
+				"source",
 				// 摘要右侧的清除按钮（键与 pages/pulls 同名，两页语义一致）
 				"Clear filter",
 				// —— 仓库卡片元信息与徽标 ——

@@ -52,6 +52,8 @@ export interface ValidateOptions {
 	locales: readonly LocaleMessages[];
 	/** popup.html 源码；null 表示读不到，跳过 data-i18n 键与版本号校验 */
 	popupHtml: string | null;
+	/** src/popup/popup.ts 源码；null 表示读不到，跳过「选择器必须存在于 popup.html」校验 */
+	popupSource: string | null;
 }
 
 /** popup.html 里的 data-i18n="key" 引用 */
@@ -94,6 +96,123 @@ export function readTextOrNull(
 	} catch {
 		return null;
 	}
+}
+
+/** popup.ts 里的元素选择器字面量：querySelector / querySelectorAll，可带泛型参数 */
+const POPUP_SELECTOR =
+	/querySelector(?:All)?(?:<[^>]*>)?\(\s*"([^"]+)"\s*\)/g;
+
+/**
+ * 取出 popup.ts 用到的全部选择器字面量（去重，保持出现顺序）。
+ * 只认字符串字面量：拼出来的选择器静态看不见，门禁会漏（故 popup.ts 里不要那么写）。
+ */
+export function extractPopupSelectors(
+	source: string,
+): string[] {
+	const selectors: string[] = [];
+	for (const match of source.matchAll(POPUP_SELECTOR)) {
+		const selector = match[1];
+		if (
+			selector !== undefined &&
+			!selectors.includes(selector)
+		) {
+			selectors.push(selector);
+		}
+	}
+	return selectors;
+}
+
+interface HtmlTargets {
+	readonly ids: ReadonlySet<string>;
+	readonly classes: ReadonlySet<string>;
+	readonly attrs: ReadonlySet<string>;
+}
+
+const HTML_TAG = /<[A-Za-z][A-Za-z0-9-]*\b([^>]*)>/g;
+const HTML_ID = /\bid="([^"]*)"/;
+const HTML_CLASS = /\bclass="([^"]*)"/;
+const HTML_ATTR_NAME = /([A-Za-z_:][-A-Za-z0-9_:.]*)\s*=/g;
+
+/**
+ * 零依赖地收集 HTML 里可供选择器命中的目标：id / class 名 / 属性名。
+ * 只做「存在性」判断——门禁不需要真的解析 DOM，但足以拦住「HTML 改了、选择器没改」。
+ */
+export function collectHtmlTargets(
+	html: string,
+): HtmlTargets {
+	const ids = new Set<string>();
+	const classes = new Set<string>();
+	const attrs = new Set<string>();
+	for (const tag of html.matchAll(HTML_TAG)) {
+		const segment = tag[1] ?? "";
+		const id = HTML_ID.exec(segment)?.[1];
+		if (id !== undefined && id.length > 0) ids.add(id);
+		const classValue = HTML_CLASS.exec(segment)?.[1];
+		if (classValue !== undefined) {
+			for (const name of classValue.split(/\s+/)) {
+				if (name.length > 0) classes.add(name);
+			}
+		}
+		for (const attr of segment.matchAll(HTML_ATTR_NAME)) {
+			const name = attr[1];
+			if (name !== undefined) attrs.add(name.toLowerCase());
+		}
+	}
+	return { ids, classes, attrs };
+}
+
+/** true = 命中；false = 确定不存在；null = 形态不受支持（门禁宁可响亮报错也不静默放过） */
+function isPresentInHtml(
+	selector: string,
+	targets: HtmlTargets,
+): boolean | null {
+	if (selector.startsWith("#")) {
+		return targets.ids.has(selector.slice(1));
+	}
+	if (selector.startsWith(".")) {
+		return targets.classes.has(selector.slice(1));
+	}
+	if (selector.startsWith("[") && selector.endsWith("]")) {
+		const name =
+			selector
+				.slice(1, -1)
+				.split("=")[0]
+				?.trim()
+				.toLowerCase() ?? "";
+		return targets.attrs.has(name);
+	}
+	return null;
+}
+
+/**
+ * 校验 popup.ts 用到的选择器都存在于 popup.html。
+ *
+ * 为什么需要（记 L-08）：popup.ts 顶层的 assertFound 在缺元素时直接抛错，popup
+ * 会整页空白；而 HTML 与 TS 分属两类文件，`check:manifest` 此前只对了
+ * data-i18n 键与版本号文本，**元素 id / class 无人对账**——改个 id 或删个容器，
+ * 测试与门禁全绿，只有实机点开 popup 才发现。
+ */
+export function validatePopupSelectors(
+	html: string,
+	source: string,
+): string[] {
+	const targets = collectHtmlTargets(html);
+	const errors: string[] = [];
+	for (const selector of extractPopupSelectors(source)) {
+		const present = isPresentInHtml(selector, targets);
+		if (present === null) {
+			errors.push(
+				`popup.ts 的选择器 ${selector} 形态不受门禁支持（只认 #id / .class / [attr]）`,
+			);
+			continue;
+		}
+		if (!present) {
+			errors.push(
+				`popup.ts 的选择器 ${selector} 在 popup.html 里不存在（popup 初始化会因缺少该元素而整页空白）`,
+			);
+		}
+	}
+	return errors;
 }
 
 /** 一个语言目录的消息键集合与逐条占位符信息（tooling 侧读取 public/_locales/<locale>/messages.json） */
@@ -493,6 +612,18 @@ export function validateManifest(
 			);
 		}
 	}
+	// popup.ts 的选择器必须都存在于 popup.html（记 L-08）
+	if (
+		options.popupHtml !== null &&
+		options.popupSource !== null
+	) {
+		errors.push(
+			...validatePopupSelectors(
+				options.popupHtml,
+				options.popupSource,
+			),
+		);
+	}
 	const permissions = manifest.permissions ?? [];
 	if (!permissions.includes("storage")) {
 		errors.push(
@@ -577,6 +708,12 @@ function main(): void {
 		typeof popupFile === "string"
 			? readTextOrNull(join(publicDir, popupFile))
 			: null;
+	// popup.ts 的源码路径与 build.ts 共用 BUILD_OUTPUTS 映射，避免两处各写一份
+	const popupEntry = BUILD_OUTPUTS["popup.js"];
+	const popupSource =
+		typeof popupEntry === "string"
+			? readTextOrNull(join(root, popupEntry))
+			: null;
 	const errors = [
 		...loaded.errors,
 		...validateManifest(shipped, {
@@ -586,6 +723,7 @@ function main(): void {
 			packageVersion: packageJson.version,
 			locales: loaded.locales,
 			popupHtml,
+			popupSource,
 		}),
 	];
 	if (errors.length > 0) {
@@ -598,7 +736,7 @@ function main(): void {
 		return;
 	}
 	console.log(
-		`manifest 门禁通过：MV3 字段完整，资产与产物引用有效，_locales ${loaded.locales.map((entry) => entry.locale).join(" / ")} 键集合与占位符一致，popup.html 版本号与 package.json 相符（若存在 class="version"）`,
+		`manifest 门禁通过：MV3 字段完整，资产与产物引用有效，_locales ${loaded.locales.map((entry) => entry.locale).join(" / ")} 键集合与占位符一致，popup.html 版本号与 package.json 相符（若存在 class="version"），popup.ts 的元素选择器均存在于 popup.html`,
 	);
 }
 

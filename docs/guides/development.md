@@ -173,6 +173,7 @@ content script 以 `run_at: document_start` 注入：
 - `_locales` 键集合一致：`__MSG_*__` 引用的键必须在默认语言里存在，各语言的消息键集合必须完全相同（缺键会让某语言的界面出现空文案）；
 - **`_locales` 占位符一致性**（`validateLocalePlaceholders`）：同一条消息在所有语言里的 `$NAME$` 引用集合必须一致（否则某语言静默丢掉数值，例如 `devCount` 写成「已收集 条」），且每个被引用的 `$NAME$` 都必须在该条目的 `placeholders` 里声明（未声明的引用在 Chrome 里取不到值）。若所有语言都没用过 `placeholders`，则只做前一条，不凭空要求补声明；
 - **`popup.html` 版本号**：`class="version"` 元素的文本（存在时）必须等于 `package.json` 的 `version`。它是 `chrome.runtime.getManifest().version` 覆写前的兜底文案，改了 `package.json` 忘了改它就会出现「关于里版本对不上」。
+- **`popup.ts` 的选择器必须存在于 `popup.html`**（`validatePopupSelectors`，记 L-08）：扫 `popup.ts` 里 `querySelector` / `querySelectorAll` 的字符串字面量，逐个断言 `#id` / `.class` / `[attr]` 能在 `popup.html` 里找到。popup.ts 顶层的 `assertFound` 在缺元素时直接抛错 → popup **整页空白**；而 HTML 与 TS 分属两类文件，此前只对了 `data-i18n` 键与版本号文本，**元素 id / class 无人对账**——改个 id 或删个容器，测试与门禁全绿，只有实机点开 popup 才发现。组合型（`div > span`）或拼接出来的选择器静态看不见，门禁**报错而不是放过**，所以 popup.ts 里不要那么写。
 
 ### 构建产物集合断言（`tooling/pipeline/build.ts`）
 

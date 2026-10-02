@@ -13,6 +13,7 @@ import {
 	extractI18nKeys,
 	extractMessagePlaceholders,
 	extractPlaceholders,
+	extractPopupSelectors,
 	extractVersionText,
 	loadLocaleMessages,
 	parseMessageEntry,
@@ -20,6 +21,7 @@ import {
 	validateLocalePlaceholders,
 	validateLocales,
 	validateManifest,
+	validatePopupSelectors,
 } from "../manifest.ts";
 
 const rootDir = join(import.meta.dir, "..", "..", "..");
@@ -37,6 +39,9 @@ const options = {
 	packageVersion,
 	locales: shippedLocales.locales,
 	popupHtml: readTextOrNull(join(publicDir, "popup.html")),
+	popupSource: readTextOrNull(
+		join(rootDir, BUILD_OUTPUTS["popup.js"] ?? ""),
+	),
 };
 
 /** 构造一条 locale（entries 走真实解析路径，供占位符断言复用） */
@@ -499,10 +504,13 @@ describe("validateManifest", () => {
 	});
 
 	it("skips the popup.html version assertion without that element", () => {
+		// 同时把 popupSource 置空：本用例只隔离「没有 version 元素就不比对版本号」
+		// 这一条，选择器校验由 validatePopupSelectors 自己的用例覆盖
 		expect(
 			validateManifest(validManifest, {
 				...options,
 				popupHtml: "<html><body></body></html>",
+				popupSource: null,
 			}),
 		).toEqual([]);
 	});
@@ -524,5 +532,67 @@ describe("validateManifest", () => {
 		for (const source of Object.values(BUILD_OUTPUTS)) {
 			expect(existsSync(join(rootDir, source))).toBe(true);
 		}
+	});
+});
+
+describe("extractPopupSelectors", () => {
+	it("takes querySelector / querySelectorAll literals and dedupes them", () => {
+		const source = [
+			'document.querySelector<HTMLInputElement>("#toggle");',
+			'document.querySelectorAll<HTMLElement>("[data-i18n]");',
+			'document.querySelector("#toggle");',
+		].join("\n");
+		expect(extractPopupSelectors(source)).toEqual([
+			"#toggle",
+			"[data-i18n]",
+		]);
+	});
+});
+
+describe("validatePopupSelectors", () => {
+	it("accepts the shipped popup.html and popup.ts", () => {
+		// 锁住真实契约：popup.ts 的元素选择器全部存在于 popup.html
+		expect(
+			validatePopupSelectors(
+				options.popupHtml ?? "",
+				options.popupSource ?? "",
+			),
+		).toEqual([]);
+	});
+
+	it("reports an id the html does not have", () => {
+		const errors = validatePopupSelectors(
+			'<div id="a"></div>',
+			'document.querySelector("#b");',
+		);
+		expect(errors).toHaveLength(1);
+		expect(errors[0]).toContain("#b");
+	});
+
+	it("reports a missing class and a missing attribute", () => {
+		const errors = validatePopupSelectors(
+			'<div id="a"></div>',
+			'document.querySelector(".missing"); document.querySelector("[data-x]");',
+		);
+		expect(errors).toHaveLength(2);
+	});
+
+	it("accepts class and attribute targets found in real markup", () => {
+		expect(
+			validatePopupSelectors(
+				'<select id="locale" class="wide"></select><div data-i18n="k"></div>',
+				'document.querySelector("#locale"); document.querySelector(".wide"); document.querySelector("[data-i18n]");',
+			),
+		).toEqual([]);
+	});
+
+	it("reports a selector shape it cannot check statically", () => {
+		// 拼出来或组合型的选择器静态看不见，宁可响亮报错也不静默放过
+		const errors = validatePopupSelectors(
+			"<div></div>",
+			'document.querySelector("div > span");',
+		);
+		expect(errors).toHaveLength(1);
+		expect(errors[0]).toContain("形态");
 	});
 });

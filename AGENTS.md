@@ -34,7 +34,7 @@ bun run lint                    # biome check .（格式 + lint 唯一权威）
 bun run format                  # biome format --write .
 bun run typecheck               # 两条 tsc：src（浏览器侧）+ tooling（脚本侧）
 bun run check:dict              # 词典门禁（结构编译 / 交叉引用 / 键形态 / pattern 唯一 / 译文形态 / 防循环 / 覆盖率报告）
-bun run check:manifest          # manifest 门禁（MV3 字段完整性、_locales 键集合与占位符、popup.html 版本号、public 资产存在性）
+bun run check:manifest          # manifest 门禁（MV3 字段完整性、_locales 键集合与占位符、popup.html 版本号与 popup.ts 选择器、public 资产存在性）
 bun run check:view              # 视图骨架门禁（模块顺序 / 命中序列 / 同键异译赢家 / 规则 id 序列；--update 重生成快照）
 bun test                        # 全量用例（bun test）
 bun run build                   # 构建 dist/（Bun.build IIFE ×2 + 拷贝 public/）
@@ -44,7 +44,7 @@ bun run pack                    # dist/ 打 zip（Chrome Web Store / Edge Add-on
 
 - 提交前 `bun run check` 必须全绿；实机验证：构建后在 `chrome://extensions`（Edge 为 `edge://extensions`）开发者模式加载 `dist/` 目录。
 - GitHub 改版导致漏翻 / 误伤属常态：先在实机确认失效点，再修对应词条或排除选择器。
-- 审计后补强的门禁项（细节见 `docs/guides/development.md`）：`check:dict` 要求**键必须等于引擎 `normalizeKey` 后的形态**（带换行 / 连续空格的键永不命中，只会虚高覆盖率）且**同模块内 pattern 唯一**；`check:manifest` 校验**跨语言 `$NAME$` 占位符一致性与 `placeholders` 声明**、以及 **`popup.html` 的 `class="version"` 文本等于 `package.json` 版本**；`bun run build` 断言**产物集合与入口一一对应**。
+- 审计后补强的门禁项（细节见 `docs/guides/development.md`）：`check:dict` 要求**键必须等于引擎 `normalizeKey` 后的形态**（带换行 / 连续空格的键永不命中，只会虚高覆盖率）且**同模块内 pattern 唯一**；`check:manifest` 校验**跨语言 `$NAME$` 占位符一致性与 `placeholders` 声明**、**`popup.html` 的 `class="version"` 文本等于 `package.json` 版本**、以及 **`popup.ts` 的每个 `querySelector` 字面量都存在于 `popup.html`**（缺元素会让 popup 整页空白）；`bun run build` 断言**产物集合与入口一一对应**。
 
 ## 代码风格
 

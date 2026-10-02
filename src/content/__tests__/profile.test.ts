@@ -108,24 +108,28 @@ describe("pages/profile 的仓库列表筛选菜单", () => {
  * 与各自应得的译文：未命中的节点会拿到 null，故 null 即红。
  * 加粗的三段（`5` / `source` / `last updated`）在 dump 里各自是一个文本节点，
  * 说明 `<strong>` 确实把这一行切成了五个节点——整句键在实机上永不命中。
- * 未带类型筛选时中间那段退化为整句 `repositories sorted by last updated`
- * （单条静态词条接手），对应断言在下面的「unfiltered」用例里。
+ *
+ * 2026-10-02 维护者贴出的**实机渲染**是「5 个结果，source 个仓库，按 上次更新。」——
+ * 量词落到了它修饰的数字之外。根因是每个节点单独翻译、译文按原文顺序落地：
+ * 只要有一条译文以量词开头，而数字在另一个节点里，错位就必然发生。
+ * 故片段的边界按「名词短语 + 量词同处一条译文」重排：数字与 `results for` 由
+ * profile/repo-results-filtered 规则**一起吃下**（`$<count:>结果，`），
+ * `repositories sorted by` 的译文自带量词（「 个仓库，」）。
+ * 下面两条拼装断言就是这条不变量（数字必须紧挨着它修饰的名词）的回归网。
  */
 const SUMMARY_NODES: readonly (readonly [
 	string,
 	string | null,
 ])[] = [
-	[
-		"\n        results\n        for\n          ",
-		"个结果，",
-	],
+	["\n        results\n        for\n          ", "结果，"],
 	[
 		"\n        repositories\n        sorted by ",
-		"个仓库，按",
+		" 个仓库，",
 	],
 	["last updated", "上次更新。"],
 	["\n          Clear filter\n", "清除筛选"],
-	// 纯数字节点翻不了，也不该收（收了就是永不命中的死键）
+	// 纯数字节点翻不了，也不该收（收了就是永不命中的死键）；
+	// 数字与其后的名词由规则一起接手（见上面的说明）
 	["5", null],
 ];
 
@@ -139,7 +143,22 @@ describe("pages/profile 的仓库列表结果摘要", () => {
 		}
 	});
 
-	it("assembles both summary shapes through the same fragments", () => {
+	it("keeps the count next to the noun it counts", () => {
+		// 带计数：规则把数字与「结果，」一起译出，量词绝不脱在数字之外
+		expect(translateText("5 results for", view)).toBe(
+			"5 结果，",
+		);
+		expect(translateText("1,234 results for", view)).toBe(
+			"1,234 结果，",
+		);
+		// 裸半句（<strong> 边界若改版、数字被拆成独立节点）仍要保持通顺：
+		// `$<count:>` 的默认值是空串，开头的空格由 normalizeKey 收掉
+		expect(translateText("results for", view)).toBe(
+			"结果，",
+		);
+	});
+
+	it("assembles both summary shapes into a grammatical sentence", () => {
 		// 类型名 `source` 是 Type 菜单的标识（专名不译），自己成一个节点。
 		// 注意：这里刻意用**归一化后**的节点文本（词典键的形态）拼装，
 		// 因为实机原文的换行缩进会被 walker 保留、再由浏览器折叠空白，拼装结果里
@@ -147,27 +166,37 @@ describe("pages/profile 的仓库列表结果摘要", () => {
 		const translate = (node: string) =>
 			translateText(node, view) ?? node;
 		const filtered = [
-			"5",
-			"results for",
+			"5 results for",
 			"source",
 			"repositories sorted by",
 			"last updated",
 		].map(translate);
 		expect(filtered.join("")).toBe(
-			"5个结果，source个仓库，按上次更新。",
+			"5 结果，source 个仓库，上次更新。",
 		);
 		// 未筛选时只是少了类型名那一段节点，其余片段完全一样——这正是
 		// 「不把整句 `repositories sorted by last updated` 收成一条键」的理由
 		// （末段被 <strong> 单独包住，整句键会永不命中，见 core/canonical.jsonc 注释）。
 		const unfiltered = [
-			"5",
-			"results for",
+			"5 results for",
 			"repositories sorted by",
 			"last updated",
 		].map(translate);
 		expect(unfiltered.join("")).toBe(
-			"5个结果，个仓库，按上次更新。",
+			"5 结果， 个仓库，上次更新。",
 		);
+		// 反例：任何以量词开头的片段都不允许再出现——那正是错乱的形态
+		for (const fragment of [
+			"results for",
+			"repositories sorted by",
+			"last updated",
+		]) {
+			const translated =
+				translateText(fragment, view) ?? "";
+			expect(translated.startsWith("个"), fragment).toBe(
+				false,
+			);
+		}
 	});
 
 	it("keeps the capitalised Type-menu option apart from the summary fragments", () => {

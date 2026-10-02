@@ -2546,10 +2546,16 @@
 					"id": "profile/repo-results-count",
 					"pattern": "^([\\d,]+) results?$"
 				},
-				// 摘要里数字之后的那半句；带类型筛选时它被 <strong> 截断，只剩到 "for" 为止
+				// 摘要里数字之后的那半句；带类型筛选时它被 <strong> 截断，只剩到 "for" 为止。
+				// 2026-10-02 起 pattern 同时接受**带计数**的形态（`5 results for`）：
+				// 每个节点单独翻译、译文按原文顺序落地，故「名词短语 + 量词」必须收在同一条
+				// 译文里，否则量词会落在它修饰的数字之外（实机上表现为
+				// 「5 个结果，source 个仓库，按 上次更新。」这种错乱，见 locales 的说明）。
+				// 不带计数的裸 `results for` 保留支持：<strong> 的边界随 GitHub 改版会变，
+				// 数字若被拆成独立节点，这条规则仍能把剩下的半句译对。
 				{
 					"id": "profile/repo-results-filtered",
-					"pattern": "^results? for$"
+					"pattern": "^(?:(?<count>[\\d,]+) )?results? for$"
 				},
 				// 被截断的后半句（筛选类型嵌在中间：`source` 是独立节点）
 				{

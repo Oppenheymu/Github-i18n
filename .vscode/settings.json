@@ -13,6 +13,7 @@
 		// src
 		"dict": "resource",
 		"popup": "views",
+		"test-support": "test",
 		// tooling
 		"checks": "guard",
 		// docs

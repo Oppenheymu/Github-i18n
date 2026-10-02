@@ -13,6 +13,12 @@
 		"Edit profile": "编辑资料",
 		"Block or report": "屏蔽或举报",
 		"Contribution activity": "贡献动态",
+		// 侧栏热门仓库标题：与 pages/dashboard 同译（该模块只命中根路径，覆盖不到个人主页）
+		"Top repositories": "热门仓库",
+		// 私有贡献摘要「1 contribution in private repositories」不在此登记静态词条：
+		// 整句由 profile/contributions-private 规则接手，计数单独成节点时由
+		// global/contributions-count 接手——若把半句收成词条，它会先于规则命中
+		// 剩下的整段文本，渲染结果被压成「次贡献，来自私有仓库」。
 		"Set status": "设置状态",
 		"Send message": "发送消息",
 		// —— 主页页签 ——

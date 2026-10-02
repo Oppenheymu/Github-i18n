@@ -521,6 +521,7 @@
 		"profile/repo-results-repos": "个仓库，按",
 		"profile/contributions-in-year": "$<year> 年共 $<count> 次贡献",
 		"profile/contributions-of-year": "次贡献（$1 年）",
+		"profile/contributions-private": "$<count> 次贡献，来自私有仓库",
 		"profile/pins-remaining": "还可选择 $1 个",
 		"profile/created-commits": "在 $<repos> 个仓库中创建了 $<count> 次提交",
 		"profile/created-repositories": "创建了 $1 个仓库",

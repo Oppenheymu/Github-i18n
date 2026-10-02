@@ -9,7 +9,9 @@
 	"$schema": "../../../types/dict.schema.json",
 	"entries": {
 		// —— Pulse 动态页 ——
-		"merged": "已合并",
+		// 小写 `merged` 已下沉到 global（状态徽标组）：它是跨页共用的状态标签，
+		// 留在本模块就成了同键异译的死登记（global 在模块顺序里更靠后，永远被本模块压过），
+		// 且其它页面的同名标签依旧翻不了。
 		"Period:": "时间段：",
 		"Open pull requests": "打开的拉取请求",
 		"commits": "次提交",

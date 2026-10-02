@@ -3397,7 +3397,8 @@
 			"name": "pages/insights",
 			"keys": [
 				// —— Pulse 动态页 ——
-				"merged",
+				// 小写 `merged` 已下沉到 global 的状态徽标组（跨页共用的状态标签），
+				// 本模块不再重复登记；同键由两个模块提供只会产生假的「同键异译」赢家记录。
 				"Period:",
 				"Open pull requests",
 				"commits",
@@ -4035,6 +4036,20 @@
 				"Edit profile",
 				"Block or report",
 				"Contribution activity",
+				// 侧栏「Top repositories」标题。维护者 2026-10-02 在个人主页（/Oppenheymu）
+				// 抓到这条链接：目标是 `?tab=repositories&sort=stargazers&type=source`，
+				// 链接文本正是本键。它与 pages/dashboard 同名同译——dashboard 模块只命中
+				// 根路径 `/`，故不登记在本模块时，个人主页上这一条会保留英文。
+				// 两模块译文一致；两条路由互斥（dashboard 只命中 `/`，profile 只命中单段用户名），
+				// 且两个模块的词条在探针路径上不共存，故不产生「同键异译」的赢家记录。
+				"Top repositories",
+				// 私有贡献摘要（实机 HTML：`<span class="f4 …">1 contribution in private
+				// repositories</span>`）。**只收规则、不收静态词条**：整句由
+				// profile/contributions-private 规则接手；计数若独立成节点，则由 global 的
+				// global/contributions-count 接手。此时若把半句 `contribution in private
+				// repositories` 收成静态词条，它会先于规则命中剩下的整段文本
+				//（引擎查表顺序是静态词典 → 规则，见 content/walker.ts 的 translateText），
+				// 让实机渲染成「1 次贡献，来自私有仓库」变成「次贡献，来自私有仓库」。
 				"Set status",
 				"Send message",
 				// —— 主页页签 ——
@@ -4468,6 +4483,14 @@
 				"Closed",
 				"Merged",
 				"Draft",
+				// 小写形态：**同一批状态标签在计数胶囊里是小写的**（`<span class="State--open
+				// State …">open</span>`，例如个人主页贡献动态的「40 merged / 1 closed」与
+				// PR 列表的状态计数），大写词条命中不了。放 global 而非某一页，是因为
+				// 维护者反馈「open / closed / merged 这类漏翻很多」——它们是跨页共用的
+				// 状态标签；风险与上面四条同级（都是单个英文常用词）。
+				"open",
+				"closed",
+				"merged",
 				"Completed",
 				"Success",
 				"Failure",

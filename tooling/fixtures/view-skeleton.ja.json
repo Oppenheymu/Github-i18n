@@ -126,6 +126,7 @@
 				"profile/repo-results-repos",
 				"profile/contributions-in-year",
 				"profile/contributions-of-year",
+				"profile/contributions-private",
 				"profile/pins-remaining",
 				"profile/created-commits",
 				"profile/created-repositories",

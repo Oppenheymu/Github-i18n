@@ -2535,6 +2535,15 @@
 					"id": "profile/contributions-of-year",
 					"pattern": "^contributions in (\\d{4})$"
 				},
+				// 私有贡献摘要：实机 HTML 是 `<span>1 contribution in private repositories</span>`
+				// 一个节点（单复数折叠）。计数若被自己的 span 拆成独立节点，计数节点由
+				// global 的 global/contributions-count 接手；半句**刻意不收静态词条**——收了
+				// 它就会先于本规则命中剩下的整段文本，把它压成「次贡献，来自私有仓库」
+				//（见 content/walker.ts 的查表顺序：静态词典 → 规则）。
+				{
+					"id": "profile/contributions-private",
+					"pattern": "^(?<count>[\\d,]+) contributions? in private repositories$"
+				},
 				// 置顶项编辑器的剩余可选数量（整句成节点时命中；数字独立成节点则走静态词条）
 				{
 					"id": "profile/pins-remaining",

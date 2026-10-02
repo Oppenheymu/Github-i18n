@@ -182,3 +182,90 @@ describe("pages/profile 的仓库列表结果摘要", () => {
 		);
 	});
 });
+
+/**
+ * 维护者 2026-10-02 提供的实机 HTML 片段（`/Oppenheymu`，未加载扩展的原始英文页）。
+ *
+ * 三处漏翻的**节点边界**（这是本组用例存在的理由）：
+ *   1. `<a href="…?tab=repositories&sort=stargazers&type=source">Top repositories</a>`
+ *      —— 链接文本是**完整一个节点**，故整串即键（不是片段）；
+ *   2. `<span class="f4 lh-condensed m-0 color-fg-muted">1 contribution in private
+ *      repositories</span>` —— 整句由 profile/contributions-private 规则接手；
+ *      **半句不能收静态词条**，否则计数被拆成独立节点时，它会先于规则命中剩下的
+ *      「…contribution in private repositories」整段文本，把渲染结果压成「次贡献，来自私有仓库」；
+ *   3. `<span class="State--open State …">open</span>` —— 状态胶囊里的状态标签是
+ *      **小写**，global 里的大写 `Open` / `Closed` / `Merged` 命中不了。
+ */
+describe("pages/profile 的个人主页侧栏与状态胶囊", () => {
+	it("translates the sidebar Top repositories link", () => {
+		// 键与 pages/dashboard 同名同译；个人主页只命中 pages/profile，故这一页必须自己登记
+		expect(translateText("Top repositories", view)).toBe(
+			"热门仓库",
+		);
+	});
+
+	it("translates the lowercase state pills in bare and whitespace-wrapped form", () => {
+		// 计数胶囊：<span class="State--open State …">\n  2\n</span> 内只剩状态词本身
+		for (const [node, expected] of [
+			["open", "打开"],
+			["closed", "已关闭"],
+			["merged", "已合并"],
+		] as const) {
+			for (const variant of withWhitespace(node)) {
+				expect(
+					translateText(variant, view),
+					`节点 ${JSON.stringify(variant)}`,
+				).toBe(expected);
+			}
+		}
+	});
+});
+
+describe("pages/profile 的私有贡献摘要", () => {
+	it("translates the single-node form through the rule", () => {
+		// 实机 HTML 是 `<span class="f4 …">1 contribution in private repositories</span>`：
+		// 整句由 profile/contributions-private 规则接手（单复数折叠）。带缩进换行的原文
+		// 先被 normalizeKey 折叠，故同样命中——注意 translateText 返回的是**纯译文**，
+		// 首尾空白由 walker 的 applyTextNode 负责拼接（这里不重复断言那段空白）。
+		expect(
+			translateText(
+				"1 contribution in private repositories",
+				view,
+			),
+		).toBe("1 次贡献，来自私有仓库");
+		expect(
+			translateText(
+				"26 contributions in private repositories",
+				view,
+			),
+		).toBe("26 次贡献，来自私有仓库");
+		expect(
+			translateText(
+				"\n            1 contribution in private repositories\n          ",
+				view,
+			),
+		).toBe("1 次贡献，来自私有仓库");
+	});
+
+	it("renders the count node and refuses a half-sentence entry that would shadow the rule", () => {
+		// 计数若被自己的 span 拆成独立节点，计数节点由 global/contributions-count 接手；
+		// 剩下的半句节点**有意保持英文**——把它收成静态词条，它就会先于规则命中
+		// 整段文本（引擎查表顺序是静态词典 → 规则），实机渲染成「次贡献，来自私有仓库」。
+		// 这条用例就是那道结构约束的回归保护：谁把半句加回词典，这里立刻红。
+		expect(translateText("1 contribution", view)).toBe(
+			"1 次贡献",
+		);
+		expect(
+			translateText(
+				"contribution in private repositories",
+				view,
+			),
+		).toBeNull();
+	});
+
+	it("keeps the username in the linked sidebar heading", () => {
+		// 反例：侧栏标题里不一定只有固定文案（组织主页有「<组织名> repositories」），
+		// 用户名 / 组织名是用户内容，整节点不收录。
+		expect(translateText("Oppenheymu", view)).toBeNull();
+	});
+});

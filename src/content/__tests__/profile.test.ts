@@ -127,6 +127,29 @@ describe("pages/profile 的仓库列表筛选菜单", () => {
 });
 
 /**
+ * 维护者 2026-10-02 提供的**原版 HTML**（关掉扩展后从 `?tab=repositories&type=source`
+ * 复制的 outerHTML，逐字录入）。这是本页最权威的节点边界证据：加粗的三段
+ * （`5` / `source` / `last updated`）各自是一个 `<strong>`，而两句半截文案
+ * （`results for` / `repositories sorted by`）是容器直属的文本节点。
+ * **不要**把它改写成「看起来更整齐」的一行——换行与缩进就是节点原文的一部分。
+ */
+const SUMMARY_HTML = `<div class="user-repo-search-results-summary TableObject-item TableObject-item--primary v-align-top">
+        <strong>5</strong>
+        results
+        for
+          <strong>source</strong>
+        repositories
+        sorted by <strong>last updated</strong>
+      </div>`;
+
+/** 从实机 HTML 里抽出全部非空文本节点（`<strong>` 内外的文本各算一个节点） */
+function summaryNodes(html: string): string[] {
+	return [...html.matchAll(/>([^<]*)</g)]
+		.map((match) => match[1] ?? "")
+		.filter((text) => text.trim() !== "");
+}
+
+/**
  * 结果摘要行的实机文本节点（逐字抄自 2026-09 Console dump，含真实换行缩进）
  * 与各自应得的译文：未命中的节点会拿到 null，故 null 即红。
  * 加粗的三段（`5` / `source` / `last updated`）在 dump 里各自是一个文本节点，
@@ -199,27 +222,34 @@ describe("pages/profile 的仓库列表结果摘要", () => {
 	});
 
 	it("assembles the live node sequence into a grammatical sentence", () => {
-		// 逐字抄自实机 dump 的五个节点（`type=source` 筛选态）
-		const filtered = [
-			"5",
-			"\n        results\n        for\n          ",
-			"source",
-			"\n        repositories\n        sorted by ",
-			"last updated",
-		];
-		expect(renderNodes(filtered)).toBe(
+		// 节点直接从**原版 HTML** 抽出来，避免 HTML 与节点清单两处常量各写一份而漂移；
+		// 断言的是实机渲染出来的那一行（walker 保留节点首尾空白 + 浏览器折叠空白）。
+		const nodes = summaryNodes(SUMMARY_HTML);
+		expect(renderNodes(nodes)).toBe(
 			"5 个结果， source 仓库， 按上次更新排序",
 		);
 		// 未筛选时只是少了类型名那个节点，其余片段完全一样——这正是
 		// 「不把整句 `repositories sorted by last updated` 收成一条键」的理由
 		// （末段被 <strong> 单独包住，整句键会永不命中，见 core/canonical.jsonc 注释）。
-		// 注：未筛选态的节点边界是**推断**，dump 只覆盖了 `type=source`。
-		const unfiltered = filtered.filter(
+		// 注：未筛选态的节点边界是**推断**，原版 HTML 只覆盖了 `type=source`。
+		const unfiltered = nodes.filter(
 			(node) => node !== "source",
 		);
 		expect(renderNodes(unfiltered)).toBe(
 			"5 个结果， 仓库， 按上次更新排序",
 		);
+	});
+
+	it("fails loudly when the authoritative HTML's node boundaries change", () => {
+		// 这五个节点就是片段词条的全部依据：谁改了 HTML 常量、或 GitHub 改版后边界变了，
+		// 都必须回来重新核对片段该怎么切，而不是让断言悄悄跟着漂。
+		expect(summaryNodes(SUMMARY_HTML)).toEqual([
+			"5",
+			"\n        results\n        for\n          ",
+			"source",
+			"\n        repositories\n        sorted by ",
+			"last updated",
+		]);
 	});
 
 	it("keeps the capitalised Type-menu option apart from the summary fragments", () => {

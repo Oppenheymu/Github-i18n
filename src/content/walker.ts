@@ -58,6 +58,43 @@ function lookup(
 }
 
 /**
+ * 把规则的替换模板展开成最终替换串：命名引用 `$<name>`、命名引用带默认值
+ * `$<name:值>`、位置引用 `$1`…。
+ *
+ * 为什么不用 `String#replace(pattern, template)` 直接带模板：
+ *   1. **默认值引用**（`$<count:1>`）不是 JS 语法，会被当成 `$<count>` 后跟字面量 `:1`；
+ *   2. 用函数式 replace 返回模板也不行——**函数返回值不再展开 `$<name>`**（实测），
+ *      那会把 `$<count>` 原样写进页面。
+ * 故这里自己展开：命名组的值走**函数式 replace**（值里的 `$` 不会被二次解释），
+ * 位置引用只展开**真实存在的捕获组**（`$1`…`$n`），金额一类的字面量 `$0.02` 原样保留。
+ */
+function expandTemplate(
+	template: string,
+	match: RegExpExecArray,
+): string {
+	const groups = match.groups ?? {};
+	return template
+		.replace(
+			/\$<([A-Za-z_$][A-Za-z0-9_$]*)(?::([^>]*))?>/g,
+			(full, name: string, fallback?: string) => {
+				const group = groups[name];
+				if (group !== undefined && group !== "")
+					return group;
+				return fallback ?? full;
+			},
+		)
+		.replace(/\$(\d+)/g, (full, index: string) => {
+			const position = Number.parseInt(index, 10);
+			// 只展开**真实存在的捕获组**：模板里的金额（`$0.02`）必须原样保留——
+			// `$0` 不是捕获组引用（`match[0]` 是整段匹配，展开它会把整句再插一遍）；
+			// 组存在但未参与匹配时按 JS 原生语义展开成空串（可选组的惯用写法）
+			if (position < 1 || position >= match.length)
+				return full;
+			return match[position] ?? "";
+		});
+}
+
+/**
  * 对一段文本应用词典视图，返回译文；未命中返回 null。
  * 查询键先 trim 并把连续空白折叠为单空格（GitHub React 页面的文本节点
  * 常带首尾空白与换行缩进，精确匹配必须先归一），顺序：静态词典（含改名映射）
@@ -73,10 +110,13 @@ export function translateText(
 	const mapped = lookup(view, normalized);
 	if (mapped !== undefined) return mapped;
 	for (const rule of view.rules) {
+		// 先用 test（热路径上最便宜、Object.is 可优化）筛一遍；命中后才跑 exec
+		// 取捕获组，再用展开后的模板替换
 		if (!rule.pattern.test(normalized)) continue;
-		return normalized.replace(
-			rule.pattern,
-			rule.replacement,
+		const match = rule.pattern.exec(normalized);
+		if (match === null) continue;
+		return normalized.replace(rule.pattern, () =>
+			expandTemplate(rule.replacement, match),
 		);
 	}
 	return null;

@@ -3044,6 +3044,255 @@
 				{
 					"id": "global/copyright-year",
 					"pattern": "^\\u00A9 (\\d{4}) GitHub, Inc\\.$"
+				},
+				// —— 相对时间的「数量 + 单位」变体（2026-10-02 维护者在 /Oppenheymu?tab=repositories
+				// 报「2 minutes ago 没翻译」时顺带排查出的缺口）——
+				// 上面的 global/{unit}s-ago 只覆盖 `N units ago`。GitHub 的 <relative-time>
+				// 由 Intl.RelativeTimeFormat 驱动，同一语义还会渲染出下列形态（在 Node 里直接跑
+				// Intl 枚举出来的英文集合，见 docs/guides/development.md 的采集流程）：
+				//   数量带小数：1.5 hours ago（git blame / 提交日期上真会这样渲染）
+				//   冠词代替数字：a minute ago / less than a minute ago
+				//   模糊限定词：about / over / almost + a|N units ago
+				// 这一组与 `in-*` 组一样是**整段锚定**的，只吃完整的相对时间节点，
+				// 不会误伤正文（如「about 3 minutes ago」这种散文短语不会出现整段相等的情形）。
+				{
+					"id": "global/fractional-seconds-ago",
+					"pattern": "^(\\d+(?:\\.\\d+)?) seconds? ago$"
+				},
+				{
+					"id": "global/fractional-minutes-ago",
+					"pattern": "^(\\d+(?:\\.\\d+)?) minutes? ago$"
+				},
+				{
+					"id": "global/fractional-hours-ago",
+					"pattern": "^(\\d+(?:\\.\\d+)?) hours? ago$"
+				},
+				{
+					"id": "global/fractional-days-ago",
+					"pattern": "^(\\d+(?:\\.\\d+)?) days? ago$"
+				},
+				{
+					"id": "global/fractional-weeks-ago",
+					"pattern": "^(\\d+(?:\\.\\d+)?) weeks? ago$"
+				},
+				{
+					"id": "global/fractional-months-ago",
+					"pattern": "^(\\d+(?:\\.\\d+)?) months? ago$"
+				},
+				{
+					"id": "global/fractional-years-ago",
+					"pattern": "^(\\d+(?:\\.\\d+)?) years? ago$"
+				},
+				// 冠词形态（a / an 都出现，an 只用于 hour）。捕获组**可选**，故模板用
+				// `$<count:...>` 形式的默认值引用补上数字（模板不能做值映射，见 shared/types.ts）。
+				// 冠词形态（a / an 都出现，an 只用于 hour）。捕获组只收数字，
+				// 冠词由 `(?:an? )` 吃掉，于是 `a minute ago` 与 `an hour ago` 都靠模板的
+				// `$<count:1>` 默认值补出「1」——模板不能做 a→1 的值映射，
+				// 把冠词排除在捕获组之外是唯一无需映射的写法（见 shared/types.ts 的说明）。
+				{
+					"id": "global/a-second-ago",
+					"pattern": "^(?:an? |(?<count>\\d+(?:\\.\\d+)?) )seconds? ago$"
+				},
+				{
+					"id": "global/a-minute-ago",
+					"pattern": "^(?:an? |(?<count>\\d+(?:\\.\\d+)?) )minutes? ago$"
+				},
+				{
+					"id": "global/a-hour-ago",
+					"pattern": "^(?:an? |(?<count>\\d+(?:\\.\\d+)?) )hours? ago$"
+				},
+				{
+					"id": "global/a-day-ago",
+					"pattern": "^(?:an? |(?<count>\\d+(?:\\.\\d+)?) )days? ago$"
+				},
+				{
+					"id": "global/a-week-ago",
+					"pattern": "^(?:an? |(?<count>\\d+(?:\\.\\d+)?) )weeks? ago$"
+				},
+				{
+					"id": "global/a-month-ago",
+					"pattern": "^(?:an? |(?<count>\\d+(?:\\.\\d+)?) )months? ago$"
+				},
+				{
+					"id": "global/a-year-ago",
+					"pattern": "^(?:an? |(?<count>\\d+(?:\\.\\d+)?) )years? ago$"
+				},
+				// 「不到」形态：数量可省，也可写成冠词
+				// （less than a minute ago / less than 2 minutes ago）
+				{
+					"id": "global/less-than-seconds-ago",
+					"pattern": "^less than (?:an? |(?<count>\\d+) )?seconds? ago$"
+				},
+				{
+					"id": "global/less-than-minutes-ago",
+					"pattern": "^less than (?:an? |(?<count>\\d+) )?minutes? ago$"
+				},
+				{
+					"id": "global/less-than-hours-ago",
+					"pattern": "^less than (?:an? |(?<count>\\d+) )?hours? ago$"
+				},
+				{
+					"id": "global/less-than-days-ago",
+					"pattern": "^less than (?:an? |(?<count>\\d+) )?days? ago$"
+				},
+				{
+					"id": "global/less-than-weeks-ago",
+					"pattern": "^less than (?:an? |(?<count>\\d+) )?weeks? ago$"
+				},
+				{
+					"id": "global/less-than-months-ago",
+					"pattern": "^less than (?:an? |(?<count>\\d+) )?months? ago$"
+				},
+				{
+					"id": "global/less-than-years-ago",
+					"pattern": "^less than (?:an? |(?<count>\\d+) )?years? ago$"
+				},
+				// 「大约」形态：数量可省、可带小数
+				{
+					"id": "global/about-seconds-ago",
+					"pattern": "^about (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?seconds? ago$"
+				},
+				{
+					"id": "global/about-minutes-ago",
+					"pattern": "^about (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?minutes? ago$"
+				},
+				{
+					"id": "global/about-hours-ago",
+					"pattern": "^about (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?hours? ago$"
+				},
+				{
+					"id": "global/about-days-ago",
+					"pattern": "^about (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?days? ago$"
+				},
+				{
+					"id": "global/about-weeks-ago",
+					"pattern": "^about (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?weeks? ago$"
+				},
+				{
+					"id": "global/about-months-ago",
+					"pattern": "^about (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?months? ago$"
+				},
+				{
+					"id": "global/about-years-ago",
+					"pattern": "^about (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?years? ago$"
+				},
+				// 「超过」形态
+				{
+					"id": "global/over-seconds-ago",
+					"pattern": "^over (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?seconds? ago$"
+				},
+				{
+					"id": "global/over-minutes-ago",
+					"pattern": "^over (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?minutes? ago$"
+				},
+				{
+					"id": "global/over-hours-ago",
+					"pattern": "^over (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?hours? ago$"
+				},
+				{
+					"id": "global/over-days-ago",
+					"pattern": "^over (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?days? ago$"
+				},
+				{
+					"id": "global/over-weeks-ago",
+					"pattern": "^over (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?weeks? ago$"
+				},
+				{
+					"id": "global/over-months-ago",
+					"pattern": "^over (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?months? ago$"
+				},
+				{
+					"id": "global/over-years-ago",
+					"pattern": "^over (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?years? ago$"
+				},
+				// 「快满」形态
+				{
+					"id": "global/almost-seconds-ago",
+					"pattern": "^almost (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?seconds? ago$"
+				},
+				{
+					"id": "global/almost-minutes-ago",
+					"pattern": "^almost (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?minutes? ago$"
+				},
+				{
+					"id": "global/almost-hours-ago",
+					"pattern": "^almost (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?hours? ago$"
+				},
+				{
+					"id": "global/almost-days-ago",
+					"pattern": "^almost (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?days? ago$"
+				},
+				{
+					"id": "global/almost-weeks-ago",
+					"pattern": "^almost (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?weeks? ago$"
+				},
+				{
+					"id": "global/almost-months-ago",
+					"pattern": "^almost (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?months? ago$"
+				},
+				{
+					"id": "global/almost-years-ago",
+					"pattern": "^almost (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?years? ago$"
+				},
+				// 「半」形态（half a minute ago / half an hour ago）
+				{
+					"id": "global/half-seconds-ago",
+					"pattern": "^half (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?seconds? ago$"
+				},
+				{
+					"id": "global/half-minutes-ago",
+					"pattern": "^half (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?minutes? ago$"
+				},
+				{
+					"id": "global/half-hours-ago",
+					"pattern": "^half (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?hours? ago$"
+				},
+				{
+					"id": "global/half-days-ago",
+					"pattern": "^half (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?days? ago$"
+				},
+				{
+					"id": "global/half-weeks-ago",
+					"pattern": "^half (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?weeks? ago$"
+				},
+				{
+					"id": "global/half-months-ago",
+					"pattern": "^half (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?months? ago$"
+				},
+				{
+					"id": "global/half-years-ago",
+					"pattern": "^half (?:an? |(?<count>\\d+(?:\\.\\d+)?) )?years? ago$"
+				},
+				// 未来方向的同类变体：`in 2 hours` / `in a minute` / `in less than a minute`
+				// 与 `in about 2 hours` 都是同一族（数量可省、可带小数），故只留 7 条；
+				// 模板用 `$<count:1>` 补上省略的数量。
+				{
+					"id": "global/in-a-second",
+					"pattern": "^in (?:less than |about )?(?:an? |(?<count>\\d+(?:\\.\\d+)?) )seconds?$"
+				},
+				{
+					"id": "global/in-a-minute",
+					"pattern": "^in (?:less than |about )?(?:an? |(?<count>\\d+(?:\\.\\d+)?) )minutes?$"
+				},
+				{
+					"id": "global/in-a-hour",
+					"pattern": "^in (?:less than |about )?(?:an? |(?<count>\\d+(?:\\.\\d+)?) )hours?$"
+				},
+				{
+					"id": "global/in-a-day",
+					"pattern": "^in (?:less than |about )?(?:an? |(?<count>\\d+(?:\\.\\d+)?) )days?$"
+				},
+				{
+					"id": "global/in-a-week",
+					"pattern": "^in (?:less than |about )?(?:an? |(?<count>\\d+(?:\\.\\d+)?) )weeks?$"
+				},
+				{
+					"id": "global/in-a-month",
+					"pattern": "^in (?:less than |about )?(?:an? |(?<count>\\d+(?:\\.\\d+)?) )months?$"
+				},
+				{
+					"id": "global/in-a-year",
+					"pattern": "^in (?:less than |about )?(?:an? |(?<count>\\d+(?:\\.\\d+)?) )years?$"
 				}
 			]
 		}

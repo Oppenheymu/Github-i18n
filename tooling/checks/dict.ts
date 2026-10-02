@@ -261,7 +261,7 @@ export function validateEntries(
 	return errors;
 }
 
-/** 取出替换模板引用的捕获组：位置引用 $1 与命名引用 $<name> */
+/** 取出替换模板引用的捕获组：位置引用 $1 与命名引用 $<name> / $<name:默认值> */
 export function extractTemplateRefs(template: string): {
 	readonly indexes: readonly number[];
 	readonly names: readonly string[];
@@ -269,7 +269,7 @@ export function extractTemplateRefs(template: string): {
 	const indexes: number[] = [];
 	const names: string[] = [];
 	for (const match of template.matchAll(
-		/\$(?:(\d+)|<([^>]*)>)/g,
+		/\$(?:(\d+)|<([^>:]*)>)/g,
 	)) {
 		if (match[1] !== undefined) {
 			indexes.push(Number.parseInt(match[1], 10));

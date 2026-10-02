@@ -17,6 +17,48 @@ export interface RuleDef {
 	readonly pattern: RegExp;
 }
 
+/**
+ * 替换模板里「默认值引用」的语法：`$<name:默认值>`。
+ *
+ * 存在的理由：模板**只能搬运捕获组原文，不能做值映射**，于是「可选的捕获组 + 目标是
+ * 固定词」这种组合无解。首例是 `<relative-time>` 的冠词形态：
+ * `less than a minute ago` 与 `less than 2 minutes ago` 共用一条 pattern
+ * （`^less than (?:an? |(\d+) )?minutes? ago$`），而中文里两条都要说成
+ * 「不到 1 分钟前」/「不到 2 分钟前」——第一分支没有捕获组，
+ * `"不到 $1分钟前"` 会替换成「不到 分钟前」。
+ *
+ * 语义：命名组未参与匹配（值为 undefined）时用冒号后的字面量顶上。
+ * 默认值里不允许出现 `>`；`$<name>`（不带冒号）仍是普通命名引用。
+ */
+export const TEMPLATE_DEFAULT_PATTERN =
+	/\$<([A-Za-z_$][A-Za-z0-9_$]*):([^>]*)>/g;
+
+/**
+ * 替换模板里的一条默认值引用。默认值一律写成**数字字面量**，由模板作者在冒号后给出，
+ * 引擎把它当字符串直接拼回模板（`$<count:0>` 与写 `0` 等价）。
+ */
+export interface TemplateDefault {
+	/** 命名捕获组名（不含 `<>` 与默认值部分） */
+	readonly name: string;
+	/** 该组未参与匹配时顶上的字面量 */
+	readonly value: string;
+}
+
+/** 取出模板里所有默认值引用（保持出现顺序；重复引用同一组名时逐个返回） */
+export function extractTemplateDefaults(
+	template: string,
+): TemplateDefault[] {
+	const defaults: TemplateDefault[] = [];
+	for (const match of template.matchAll(
+		TEMPLATE_DEFAULT_PATTERN,
+	)) {
+		const [, name, value] = match;
+		if (name === undefined || value === undefined) continue;
+		defaults.push({ name, value });
+	}
+	return defaults;
+}
+
 /** 运行时规则：共享 pattern + 当前语言的替换模板 */
 export interface Rule {
 	/** 匹配模式（禁用 g / y 标志——lastIndex 状态会跨节点累积，见 tooling/checks/dict.ts） */

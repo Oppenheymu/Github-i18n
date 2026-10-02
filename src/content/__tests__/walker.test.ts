@@ -96,6 +96,50 @@ describe("translateText", () => {
 			translateText("2 minutes ago", overlapping),
 		).toBe("两分钟前");
 	});
+
+	// —— 模板展开：命名引用、默认值引用与位置引用 ——
+	// 这三条锁的是 expandTemplate 的实现细节——用 `String#replace(pattern, 模板)` 是错的，
+	// 因为 (a) `$<count:1>` 会被当成 `$<count>` + 字面量 `:1`；
+	// (b) 函数式 replace 的**返回值不再展开 `$<name>`**（实测），会把 `$<count>` 写进页面。
+	const templateView: DictView = {
+		entries: new Map(),
+		aliases: new Map(),
+		rules: [
+			{
+				// 冠词由非捕获组吃掉，数字进命名组；冠词分支靠 `$<count:1>` 补出 1
+				pattern: /^(?:an? |(?<count>\d+) )minutes? ago$/,
+				replacement: "不到 $<count:1> 分钟前",
+			},
+			{
+				pattern: /^(\d+) files?$/,
+				replacement: "$1 个文件",
+			},
+		],
+	};
+
+	it("expands a named group when it participated in the match", () => {
+		expect(
+			translateText("2 minutes ago", templateView),
+		).toBe("不到 2 分钟前");
+		expect(
+			translateText("12 minutes ago", templateView),
+		).toBe("不到 12 分钟前");
+	});
+
+	it("falls back to the template default when the group did not participate", () => {
+		expect(
+			translateText("a minute ago", templateView),
+		).toBe("不到 1 分钟前");
+		expect(
+			translateText("an minute ago", templateView),
+		).toBe("不到 1 分钟前");
+	});
+
+	it("still expands positional references", () => {
+		expect(translateText("3 files", templateView)).toBe(
+			"3 个文件",
+		);
+	});
 });
 
 describe("translateTree 的同值写入守卫", () => {

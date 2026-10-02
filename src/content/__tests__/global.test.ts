@@ -93,6 +93,94 @@ function withWhitespace(node: string): readonly string[] {
 	return [node, `\n        ${node}\n      `];
 }
 
+/**
+ * 相对时间的**完整变体集**：维护者 2026-10-02 报「`2 minutes ago` 没翻译」时，
+ * 顺带在 Node 里用 `Intl.RelativeTimeFormat`（`<relative-time>` 的驱动）把英文集合
+ * 枚举了一遍，再把标点/冠词/模糊限定词各形态列全。
+ *
+ * 这一组是回归网：任何一条变成 null（或不再是中文）都会被下面两个用例挡住。
+ * 关键边界事实：
+ *   1. 数量可带小数（`1.5 hours ago`），`\\d+` 的 pattern 会漏掉这类；
+ *   2. 冠词形态（`a minute ago`）与省略数量的模糊形态（`less than a minute ago`）
+ *      在模板里只能写成「1」——模板只能搬运捕获组，不能做值映射；
+ *   3. `yesterday` 走静态词条（global 的 `yesterday`），不属规则族；
+ *   4. 未来方向的 `in a minute` 等同样成族。
+ */
+const RELATIVE_TIME_NODES: readonly (readonly [
+	string,
+	string,
+])[] = [
+	["now", "刚刚"],
+	["yesterday", "昨天"],
+	// —— 纯数量（既有规则）——
+	["2 seconds ago", "2 秒前"],
+	["2 minutes ago", "2 分钟前"],
+	["2 hours ago", "2 小时前"],
+	["2 days ago", "2 天前"],
+	["2 weeks ago", "2 周前"],
+	["2 months ago", "2 个月前"],
+	["2 years ago", "2 年前"],
+	// —— 小数数量 ——
+	["1.5 hours ago", "1.5 小时前"],
+	["1.5 days ago", "1.5 天前"],
+	// —— 冠词形态 ——
+	["a second ago", "1 秒前"],
+	["a minute ago", "1 分钟前"],
+	["an hour ago", "1 小时前"],
+	["a day ago", "1 天前"],
+	["a week ago", "1 周前"],
+	["a month ago", "1 个月前"],
+	["a year ago", "1 年前"],
+	// —— 模糊限定词（数量可省）——
+	["less than a minute ago", "不到 1 分钟前"],
+	["less than 2 minutes ago", "不到 2 分钟前"],
+	["about a minute ago", "大约 1 分钟前"],
+	["about 3 minutes ago", "大约 3 分钟前"],
+	["over an hour ago", "超过 1 小时前"],
+	["almost 2 days ago", "快 2 天前"],
+	["half an hour ago", "半小时前"],
+	["half a day ago", "半天前"],
+	// —— 未来方向 ——
+	["in a minute", "1 分钟后"],
+	["in less than a minute", "1 分钟后"],
+	["in about 2 hours", "2 小时后"],
+];
+
+describe("global 模块的相对时间变体", () => {
+	it("translates every relative-time shape to Chinese", () => {
+		for (const [node, expected] of RELATIVE_TIME_NODES) {
+			expect(
+				translateText(node, view),
+				`相对时间 ${JSON.stringify(node)}`,
+			).toBe(expected);
+		}
+	});
+
+	it("never leaves the relative-time unit word in english", () => {
+		// 兜底网：pattern 若被改成漏掉某个前缀/小数形态，这里会因为「译文里还有 ago」
+		// 或「根本没命中」而变红——比逐条断言更能抓住新出现的变体
+		for (const [node] of RELATIVE_TIME_NODES) {
+			const translated = translateText(node, view);
+			expect(translated, node).not.toBeNull();
+			expect(translated ?? "", node).not.toMatch(
+				/\b(?:ago|yesterday|now)\b/i,
+			);
+		}
+	});
+
+	it("keeps prose that merely contains a duration in english", () => {
+		// 反例：整段锚定意味着**只有整节点就是相对时间**时才翻；
+		// 含时长的散文（issue 标题、README 句子）绝不会被规则命中
+		for (const node of [
+			"Updated 2 minutes ago",
+			"I created this 2 minutes ago by mistake",
+			"about the last 30 days",
+		]) {
+			expect(translateText(node, view), node).toBeNull();
+		}
+	});
+});
+
 describe("global 模块的实机节点边界", () => {
 	it("translates every shell text node GitHub actually renders", () => {
 		for (const node of GLOBAL_NODES) {

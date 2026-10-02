@@ -416,11 +416,19 @@ for (const p of probes) {
 
 除上表外的用例都不再是「实机节点」而是纯逻辑回归：`src/content/__tests__/pages.test.ts`（视图单槽缓存：缓存键写错会表现为「换页后一半英文」）、`src/shared/__tests__/storage.test.ts`（storage 脏数据收窄与开关 / 语言监听）、`src/dict/__tests__/locales.test.ts`（`resolveLocale` 对 `zh-Hans-CN` / `zh_TW` / `en-US` 的归属），另有门禁自身与构建脚本的测试（`tooling/checks/__tests__/`、`tooling/pipeline/build.test.ts`）。
 
-新增的进程内测试补齐了三个**此前从未被任何测试加载**的模块：`src/content/__tests__/engine.test.ts`（观察器调度）、`src/content/__tests__/index.test.ts`（content 入口装配）、`src/popup/__tests__/popup.test.ts`（popup 全交互）、`src/shared/__tests__/identity.test.ts`（身份标记契约）。它们共用 `src/content/__tests__/stub-dom.ts` 的 DOM 桩，并受三条硬约束——`bun test` 的 `globalThis` 与模块注册表**跨测试文件共享**，违反任一条都会让**别的文件**的用例成片变红（2026-10-03 逐一踩过）：
+新增的进程内测试补齐了三个**此前从未被任何测试加载**的模块：`src/content/__tests__/engine.test.ts`（观察器调度）、`src/content/__tests__/index.test.ts`（content 入口装配）、`src/popup/__tests__/popup.test.ts`（popup 全交互）、`src/shared/__tests__/identity.test.ts`（身份标记契约）。其中 walker / engine 共用 `src/content/__tests__/stub-dom.ts` 的最小 DOM 桩（它们只需要 `createTreeWalker` / `closest` / `nodeValue` 三种语义），**popup 则用 devDependency `happy-dom` 直接加载仓库里的 `public/popup.html`**（理由见下）。
+
+`bun test` 的 `globalThis` 与模块注册表**跨测试文件共享**，三条硬约束违反任一条都会让**别的文件**的用例成片变红（2026-10-03 逐一踩过）：
 
 1. **不要用 `mock.module`**：它是进程级注册，会泄漏给同一进程里的其他测试文件（实测：入口测试 mock 掉 `collector` / `pages` 后，walker 与全部页面测试找不到真实导出）；
 2. **全局桩一律合并挂载**（`obj["k"] = v`），**禁止整体替换** `globalThis.chrome` / `document`——整体替换会删掉别的测试文件刚装好的命名空间（实测：入口测试的 chrome 桩只有 `i18n`，把 storage 测试的 `chrome.storage` 打掉，12 个用例失败）；
 3. **DOM 桩只能有一份**（`stub-dom.ts`）：`walker.ts` 用 `root instanceof Element` 判根节点类型，两处各内联一份桩会让先装的那份类身份失效。
+
+**popup 为什么改用真实 DOM**：popup.ts 顶层的 `assertFound` 在缺元素时直接抛错 → popup **整页空白**，而 `popup.html` 与 `popup.ts` 分属两类文件。写桩 DOM 时，桩里的选择器列表是从 HTML **抄**来的——HTML 改了测试照样全绿。改用 happy-dom 加载真实 HTML 后，删掉或改名任一元素都会当场红灯（实测：把 `#dev-panel` 改名后 popup 测试报「popup 结构不完整：缺少 #dev-panel」）。同一份契约另有一道**零依赖**的静态防线——`check:manifest` 的 `validatePopupSelectors`（只查存在性，不需要 DOM 库）：一道锁结构、一道锁行为，缺一不可。
+
+真实 DOM 还当场纠正了一条**桩掩盖的语义**：`#status` 是双重身份元素（HTML 兜底文案 `statusLoading`，启动后立刻被 `statusOn` / `statusOff` 覆写）。手写桩把它拆成两个对象，于是「data-i18n 全部回填」的断言一直在假通过。
+
+**happy-dom 的使用边界**：它是 devDependency（不进 dist），只给「需要真实 DOM 语义」的测试用。49 个页面词条回归是纯字符串断言（`translateText`），**不要**为它们引入 DOM —— 那是测试量的主体，也是收益为零的地方。happy-dom 也不是浏览器：扩展 API（`chrome.*`）仍需自桩，语义差异风险仍在，故**不能替代实机验证**。（实测它的 `MutationObserver` 与规范一致——同值写入同样产生记录，将来若要真实验证「防翻译循环」可以用它。）
 
 另注：content 入口与 popup 都有顶层副作用，**一个进程只会装配一次**，所以「`enabled` 关闭时不启动观察器」这条反向条件无法再开一个测试文件验证（第二个文件会复用第一次的装配结果，`?query` 也不产生新实例——Bun 实测不支持）。该闸门由 `engine.test.ts` 的「关闭时只清空队列不翻译」与 `readEnabled` 的默认值把守。
 

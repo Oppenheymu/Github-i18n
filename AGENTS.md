@@ -74,6 +74,7 @@ bun run pack                    # dist/ 打 zip（Chrome Web Store / Edge Add-on
 - **逐页补翻译的完整流程已固化成 SOP**：见 `docs/guides/development.md` 的「逐页补翻译的标准作业流程」。开工前先读那一节，别在同一个地方重新摸索。三条最容易白费 token 的既定事实：① 实机文本**只能由维护者在浏览器里采集**——本机 `web_fetch` 到 github.com 会报「解析到非公网地址」、复制 Edge 配置副本拿不到登录态（`Cookies` 库被运行中的 Edge 独占）、运行中的 Edge 不暴露 CDP 端点，这三条路都已实测走不通；② 采集必须在**未加载本扩展**的原始英文页面上做，否则拿到的是中英混杂的渲染结果；③ PowerShell 沙箱偶发 `SetNamedSecurityInfoW … grantWrite` 初始化失败时**连续重试无用**，直接说明并改用文件读写（read / write / edit / glob / grep）继续推进。
 - **自动化实机探针已于 `48bf519` 删除、尚未重建**：`tooling/verify-live.ts` 与 `package.json` 里的 `verify` 脚本都已不在仓库里，**文档与脚本都不得再引用那条命令**；现在只有 popup 的开发者模式 + 手工浏览这条采集路径（做法见 `docs/guides/development.md`）。`src/shared/identity.ts` 的身份标记保留给未来的实机探针（`content/index.ts` 仍照常写入 `__githubI18nContent`），当前全仓没有任何读取方。
 - **`bun test` 的 `globalThis` 与模块注册表跨测试文件共享，三个动作会打红别人的用例**：① `mock.module` 是**进程级**注册、会泄漏（实测把 walker / pages 的真实导出顶掉）；② `globalThis.chrome` / `document` 等桩必须**合并挂载**（`obj["k"] = v`）、禁止整体替换，否则会删掉别的文件刚装的命名空间；③ DOM 桩只能有一份（`src/content/__tests__/stub-dom.ts`），因为 `root instanceof Element` 比的是**类身份**。三次实测细节见 `docs/guides/development.md` 的「实机节点边界测试」末段。
+- **需要真实 DOM 语义的测试用 `happy-dom`（唯一新增的 devDependency，不进 dist），但页面词条回归绝不引入**：popup 测试直接加载仓库里的 `public/popup.html`，才能锁住「HTML 元素 ↔ popup.ts 选择器」这条契约——写桩 DOM 时那份选择器列表是从 HTML **抄**来的，HTML 改了测试照样绿（同一契约另有零依赖的 `check:manifest` 静态防线）。`happy-dom` **不是浏览器**：扩展 API（`chrome.*`）仍要自桩，也不能替代实机验证。
 
 ## git 提交流程
 

@@ -1,149 +1,68 @@
 // popup 的交互语义（popup.ts 此前从未被任何测试加载 = 零覆盖，225 行）。
 //
-// 为什么值得测：popup 是用户唯一能操作扩展控制的界面，而它的失效方式全是**静默**的——
-// 语言选择器少一项用户就永远选不到那个语言；开关写错键名则点了没反应且不报错；
-// 漏翻面板的复制 / 清空写坏只有开发者模式的人才会遇到。modules 顶层的 9 个
-// assertFound 更决定了 popup.html 与 popup.js 一旦脱节就是**整页空白**。
+// 为什么用**真实的 popup.html + 真实 DOM**：popup 的失效方式有两层——
+//   ① 逻辑写错（开关没写回 storage、语言选择器少一项）；
+//   ② **结构与代码脱节**：popup.ts 顶层的 assertFound 在缺元素时直接抛错，popup
+//      整页空白，而 popup.html 与 popup.ts 分属两类文件。用手写桩 DOM 时，桩里的
+//      选择器列表是**抄**来的——HTML 改了测试照样全绿。改用 happy-dom 直接加载
+//      仓库里的 public/popup.html，这条契约就被真正锁住了（另有一条零依赖门禁
+//      check:manifest 的 validatePopupSelectors 对同一契约做静态校验：一道锁结构、
+//      一道锁行为）。
 //
-// 环境：bun 没有 document / window（实测 undefined），chrome 也要自己装。这里装一套
-// 最小 DOM 桩 + chrome 桩（storage 部分与 storage.test.ts 同语义），再动态 import
-// 入口——它有顶层副作用（import 即渲染）。模块只加载一次，故用例按生命周期顺序
-// 共享状态，不要重排。
+// 环境：bun 没有 document / window（实测 undefined），happy-dom 提供真实 DOM
+// （含 MutationObserver / createTreeWalker，均为规范语义）；chrome 是扩展侧注入
+// 的全局，仍需自桩，且**只补自己的命名空间、不整体替换**（bun test 的 globalThis
+// 跨文件共享，见 AGENTS.md 已知坑）。
 import { describe, expect, it } from "bun:test";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { Window } from "happy-dom";
 
-// —— 最小 DOM 桩 ——
-
-class StubElement {
-	textContent = "";
-	className = "";
-	lang = "";
-	checked = false;
-	disabled = false;
-	value = "";
-	readonly dataset: Record<string, string> = {};
-	readonly children: StubElement[] = [];
-	readonly listeners = new Map<string, (() => void)[]>();
-	readonly classToggles: {
-		name: string;
-		force: boolean | undefined;
-	}[] = [];
-	readonly classList = {
-		toggle: (name: string, force?: boolean): void => {
-			this.classToggles.push({ name, force });
-		},
-	};
-	append(child: StubElement): void {
-		this.children.push(child);
-	}
-	addEventListener(
-		type: string,
-		handler: () => void,
-	): void {
-		const list = this.listeners.get(type) ?? [];
-		list.push(handler);
-		this.listeners.set(type, list);
-	}
-	dispatch(type: string): void {
-		for (const handler of this.listeners.get(type) ?? []) {
-			handler();
-		}
-	}
-}
-
-const selectors = [
-	"#toggle",
-	"#status",
-	".version",
-	"#dev-toggle",
-	"#dev-panel",
-	"#dev-count",
-	"#dev-copy",
-	"#dev-clear",
-	"#locale",
-] as const;
-
-const elements = new Map<string, StubElement>(
-	selectors.map((selector) => [
-		selector,
-		new StubElement(),
-	]),
+const rootDir = join(import.meta.dir, "..", "..", "..");
+const dom = new Window({ url: "https://example.com/" });
+dom.document.write(
+	readFileSync(
+		join(rootDir, "public", "popup.html"),
+		"utf8",
+	),
 );
 
-function element(selector: string): StubElement {
-	const found = elements.get(selector);
-	if (found === undefined) {
-		throw new Error(`测试桩缺少选择器 ${selector}`);
+/** 用 DOM lib 的类型看待它，免得 happy-dom 自有类型渗进断言 */
+const document = dom.document as unknown as Document;
+
+/** 取元素；找不到即测试桩自身有问题（真实 HTML 缺元素会先被 check:manifest 拦住） */
+function element(selector: string): HTMLElement {
+	const found = document.querySelector(selector);
+	if (found === null) {
+		throw new Error(`popup.html 里没有 ${selector}`);
 	}
-	return found;
+	return found as HTMLElement;
 }
 
-/** popup.html 里带 data-i18n 的占位；末尾那项没有键，用来覆盖防御分支 */
-const i18nElements: StubElement[] = [
-	"appName",
-	"statusLoading",
-	"hintPrivacy",
-	"localeLabel",
-	"localeHint",
-	"devTitle",
-	"devHint",
-	"devCopy",
-	"devClear",
-	"devWarn",
-	"footer",
-].map((key) => {
-	const node = new StubElement();
-	node.dataset["i18n"] = key;
-	return node;
-});
-const keylessElement = new StubElement();
-i18nElements.push(keylessElement);
+function input(selector: string): HTMLInputElement {
+	return element(selector) as HTMLInputElement;
+}
 
-const documentElement = new StubElement();
-
-const globals = globalThis as unknown as Record<
-	string,
-	unknown
->;
-// 合并式挂载，不整体替换 document：walker / engine 的测试在同一进程里也装了
-// document（createTreeWalker 等），整体替换会把它们的桩打掉
-const documentGlobal = (globals["document"] ??
-	{}) as Record<string, unknown>;
-documentGlobal["title"] = "";
-documentGlobal["documentElement"] = documentElement;
-documentGlobal["querySelector"] = (selector: string) =>
-	elements.get(selector) ?? null;
-documentGlobal["querySelectorAll"] = (selector: string) =>
-	selector === "[data-i18n]" ? i18nElements : [];
-documentGlobal["createElement"] = () => new StubElement();
-globals["document"] = documentGlobal;
+function fire(selector: string, type: string): void {
+	element(selector).dispatchEvent(
+		new dom.Event(type) as unknown as Event,
+	);
+}
 
 // —— 时间与剪贴板 ——
 
 const timeouts: (() => void)[] = [];
-globals["window"] = {
-	setTimeout: (handler: () => void) => {
+// flashCopyButton 的 1.5 秒还原：记录下来手动触发，别让用例真等
+(dom as unknown as Record<string, unknown>)["setTimeout"] =
+	(handler: () => void) => {
 		timeouts.push(handler);
 		return 0;
-	},
-};
+	};
 
 const clipboardWrites: string[] = [];
 let clipboardFails = false;
-Object.defineProperty(globalThis, "navigator", {
-	value: {
-		clipboard: {
-			async writeText(text: string): Promise<void> {
-				if (clipboardFails) {
-					throw new Error("剪贴板被拒绝");
-				}
-				clipboardWrites.push(text);
-			},
-		},
-	},
-	configurable: true,
-});
 
-// —— chrome 桩 ——
+// —— chrome 桩（合并挂载） ——
 
 const MESSAGES = new Map<string, string>([
 	["appName", "GitHub UI Localization"],
@@ -175,8 +94,21 @@ const storageData = new Map<string, unknown>([
 ]);
 const changeListeners: ChangeListener[] = [];
 
-// 只挂自己需要的命名空间，**不整体替换** chrome：globalThis 跨文件共享，入口测试与
-// storage 测试在同一个进程里也挂 chrome（i18n / storage），整体替换会互相打掉对方的桩
+const globals = globalThis as unknown as Record<
+	string,
+	unknown
+>;
+globals["window"] = dom;
+globals["document"] = dom.document;
+globals["navigator"] = {
+	clipboard: {
+		async writeText(text: string): Promise<void> {
+			if (clipboardFails) throw new Error("剪贴板被拒绝");
+			clipboardWrites.push(text);
+		},
+	},
+};
+
 const chromeGlobal = (globals["chrome"] ?? {}) as Record<
 	string,
 	unknown
@@ -241,26 +173,34 @@ await import("../popup.ts");
 await tick();
 
 describe("popup 的初始化渲染", () => {
-	it("fills every data-i18n placeholder", () => {
-		for (const node of i18nElements) {
+	it("fills every data-i18n placeholder the html declares", () => {
+		const nodes = [
+			...document.querySelectorAll<HTMLElement>(
+				"[data-i18n]",
+			),
+		];
+		// 真实 HTML 里现有 11 处；数量变化本身就该进测试视野
+		expect(nodes.length).toBe(11);
+		// #status 是**双重身份**元素：HTML 里它的兜底文案是 statusLoading，但启动
+		// 后立刻被开关状态覆写（statusOn / statusOff）。它的语义由下面的
+		// 「renders the stored enabled state」专门覆盖——用手写桩时这两个身份被拆成
+		// 两个对象，这条真实约束反而看不见了
+		const placeholders = nodes.filter(
+			(node) => node.id !== "status",
+		);
+		expect(placeholders.length).toBe(10);
+		for (const node of placeholders) {
 			const key = node.dataset["i18n"];
-			if (key === undefined) {
-				expect(node.textContent).toBe("");
-				continue;
-			}
-			// 每个键都在 MESSAGES 里；?? "" 只为收窄类型
+			expect(key).toBeDefined();
 			expect(node.textContent).toBe(
-				MESSAGES.get(key) ?? "",
+				MESSAGES.get(key ?? "") ?? "",
 			);
 		}
 	});
 
 	it("back-fills the document title and language", () => {
-		const doc = globals["document"] as {
-			title: string;
-		};
-		expect(doc.title).toBe("GitHub UI Localization");
-		expect(documentElement.lang).toBe("zh-CN");
+		expect(document.title).toBe("GitHub UI Localization");
+		expect(document.documentElement.lang).toBe("zh-CN");
 	});
 
 	it("back-fills the version from the manifest", () => {
@@ -268,15 +208,18 @@ describe("popup 的初始化渲染", () => {
 	});
 
 	it("renders the stored enabled state", () => {
-		expect(element("#toggle").checked).toBe(true);
+		expect(input("#toggle").checked).toBe(true);
 		expect(element("#status").textContent).toBe("已启用");
 		expect(element("#status").className).toBe("on");
 	});
 
 	it("offers 自动 plus every declared locale", () => {
-		const options = element("#locale").children;
+		const options = [
+			...document.querySelectorAll<HTMLOptionElement>(
+				"#locale option",
+			),
+		];
 		// 自动 + zh-CN + ja
-		expect(options).toHaveLength(3);
 		expect(options.map((option) => option.value)).toEqual([
 			"",
 			"zh-CN",
@@ -288,22 +231,24 @@ describe("popup 的初始化渲染", () => {
 	});
 
 	it("back-fills the locale selector as 自动 when unset", () => {
-		expect(element("#locale").value).toBe("");
+		expect(
+			(element("#locale") as HTMLSelectElement).value,
+		).toBe("");
 	});
 
 	it("hides the developer panel while devMode is off", () => {
-		expect(element("#dev-toggle").checked).toBe(false);
-		expect(element("#dev-panel").classToggles).toEqual([
-			{ name: "hidden", force: true },
-		]);
+		expect(input("#dev-toggle").checked).toBe(false);
+		// 真实 classList：断言的是 HTML 里那个 class 的最终状态
+		expect(
+			element("#dev-panel").classList.contains("hidden"),
+		).toBe(true);
 	});
 });
 
 describe("popup 的翻译开关", () => {
 	it("writes the new value and re-renders on change", async () => {
-		const toggle = element("#toggle");
-		toggle.checked = false;
-		toggle.dispatch("change");
+		input("#toggle").checked = false;
+		fire("#toggle", "change");
 		await tick();
 		expect(storageData.get("enabled")).toBe(false);
 		expect(element("#status").textContent).toBe("已停用");
@@ -313,17 +258,17 @@ describe("popup 的翻译开关", () => {
 
 describe("popup 的语言选择器", () => {
 	it("persists a declared locale id", async () => {
-		const select = element("#locale");
+		const select = element("#locale") as HTMLSelectElement;
 		select.value = "ja";
-		select.dispatch("change");
+		fire("#locale", "change");
 		await tick();
 		expect(storageData.get("locale")).toBe("ja");
 	});
 
 	it("clears the key when 自动 is selected", async () => {
-		const select = element("#locale");
+		const select = element("#locale") as HTMLSelectElement;
 		select.value = "";
-		select.dispatch("change");
+		fire("#locale", "change");
 		await tick();
 		// 空值语义是「恢复自动」→ 删除该键，而不是写入空串
 		expect(storageData.has("locale")).toBe(false);
@@ -332,14 +277,13 @@ describe("popup 的语言选择器", () => {
 
 describe("popup 的开发者区块", () => {
 	it("writes devMode and reveals the panel", async () => {
-		const toggle = element("#dev-toggle");
-		toggle.checked = true;
-		toggle.dispatch("change");
+		input("#dev-toggle").checked = true;
+		fire("#dev-toggle", "change");
 		await tick();
 		expect(storageData.get("devMode")).toBe(true);
 		expect(
-			element("#dev-panel").classToggles.at(-1),
-		).toEqual({ name: "hidden", force: false });
+			element("#dev-panel").classList.contains("hidden"),
+		).toBe(false);
 		expect(element("#dev-count").textContent).toBe(
 			"未翻译 0 条",
 		);
@@ -370,24 +314,25 @@ describe("popup 的开发者区块", () => {
 	});
 
 	it("copies the serialized log and flashes the button", async () => {
-		element("#dev-copy").dispatch("click");
+		fire("#dev-copy", "click");
 		await tick();
 		expect(clipboardWrites).toHaveLength(1);
 		expect(clipboardWrites[0]).toContain(
 			'"schema": "github-zh-misses/1"',
 		);
-		expect(element("#dev-copy").textContent).toBe("已复制");
-		expect(element("#dev-copy").disabled).toBe(true);
+		const copy = element("#dev-copy") as HTMLButtonElement;
+		expect(copy.textContent).toBe("已复制");
+		expect(copy.disabled).toBe(true);
 
 		// 1.5 秒后由 window.setTimeout 还原
 		timeouts.at(-1)?.();
-		expect(element("#dev-copy").textContent).toBe("复制");
-		expect(element("#dev-copy").disabled).toBe(false);
+		expect(copy.textContent).toBe("复制");
+		expect(copy.disabled).toBe(false);
 	});
 
 	it("reports a rejected clipboard instead of claiming success", async () => {
 		clipboardFails = true;
-		element("#dev-copy").dispatch("click");
+		fire("#dev-copy", "click");
 		await tick();
 		expect(element("#dev-copy").textContent).toBe(
 			"复制失败",
@@ -396,7 +341,7 @@ describe("popup 的开发者区块", () => {
 	});
 
 	it("clears the log and the count", async () => {
-		element("#dev-clear").dispatch("click");
+		fire("#dev-clear", "click");
 		await tick();
 		expect(storageData.get("missLog")).toEqual([]);
 		expect(element("#dev-count").textContent).toBe(
@@ -413,7 +358,7 @@ describe("popup 的开发者区块", () => {
 			warnings.push(args.map(String).join(" "));
 		};
 		try {
-			element("#dev-toggle").dispatch("change");
+			fire("#dev-toggle", "change");
 			expect(element("#dev-count").textContent).toBe(
 				"devCount",
 			);

@@ -166,6 +166,11 @@ function summaryNodes(html: string): string[] {
  *      末段之后就是容器末尾，故整段归 `last updated`（→ 「按上次更新排序」）。
  * 下面两条断言就是这条不变量（数字、量词、连接词各就各位）的回归网：
  * 逐片段断言锁每一段的形状，整句拼装断言锁拼接结果。
+ *
+ * **2026-10-02 实机复核通过**：维护者重载扩展后贴回的 Console dump
+ * （`[...d.childNodes]` 逐条打印）与下方断言完全一致——
+ * `"个结果，"` / `"仓库，"` / `"按上次更新排序"` 三段各自落在原文节点里，
+ * 渲染为「5 个结果， source 仓库， 按上次更新排序」。
  */
 const SUMMARY_NODES: readonly (readonly [
 	string,

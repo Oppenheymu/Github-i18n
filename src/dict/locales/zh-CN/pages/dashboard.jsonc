@@ -49,6 +49,10 @@
 		// 「Git」启动器按 AGENTS.md 硬性约束 3 的做法**不收录**：它是纯专名
 		// （与 global 里的键同名同形），收录只会被门禁判为「译文与键同形」的循环风险。
 		// 未命中即保留英文，这是正确行为。
+		// —— 启动器胶囊展开后的命令菜单：`Git` 胶囊的三条（同序见 core/canonical.jsonc）——
+		"Basic Git commands": "基本 Git 命令",
+		"Git branching": "Git 分支",
+		"Advanced Git commands": "高级 Git 命令",
 		// —— Copilot 应用宣传横幅 ——
 		"The GitHub Copilot app": "GitHub Copilot 应用",
 		"An agent-driven desktop experience built natively on GitHub.": "原生构建于 GitHub 的智能代理桌面体验。",

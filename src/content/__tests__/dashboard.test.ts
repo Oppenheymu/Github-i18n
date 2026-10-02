@@ -79,6 +79,11 @@ const STATIC_NODES: readonly (readonly [string, string])[] =
 		["Intelligence", "智能"],
 		["Prioritizes intelligence", "优先考虑智能"],
 		["Send now", "立即发送"],
+		// —— 启动器胶囊 ——
+		["Debug", "调试"],
+		["Agent", "智能代理"],
+		["Create issue", "创建议题"],
+		["Write code", "编写代码"],
 		// —— 对话区的动作菜单（ActionList 覆盖层，各是一个菜单项节点）——
 		["My open pull requests", "我打开的拉取请求"],
 		["Summarize my latest PR", "总结我最新的 PR"],
@@ -99,11 +104,10 @@ const STATIC_NODES: readonly (readonly [string, string])[] =
 			"First, create an issue with sub issues. Then ask for additional information to fill out these issues.",
 			"先创建一个带子议题的议题，然后补充信息把这些议题填完整。",
 		],
-		// —— 启动器胶囊 ——
-		["Debug", "调试"],
-		["Agent", "智能代理"],
-		["Create issue", "创建议题"],
-		["Write code", "编写代码"],
+		// —— `Git` 胶囊展开后的命令菜单（截图证据：三条仍英文；专名 Git 留在译文里）——
+		["Basic Git commands", "基本 Git 命令"],
+		["Git branching", "Git 分支"],
+		["Advanced Git commands", "高级 Git 命令"],
 		// —— Copilot 应用宣传横幅 ——
 		["The GitHub Copilot app", "GitHub Copilot 应用"],
 		[
@@ -201,7 +205,9 @@ describe("pages/dashboard 的实机节点边界", () => {
 	});
 
 	it("keeps the Git starter and product names as upstream text", () => {
-		// 「Git」是纯专名，刻意不收录：未命中即保留英文，这是正确行为而非漏译
+		// 「Git」是纯专名，刻意不收录：未命中即保留英文，这是正确行为而非漏译。
+		// 注意它与 `Git` 胶囊展开后的三条命令词条并存：胶囊标签仍英文，
+		// 菜单项（Basic Git commands 等）已译——两者不是同一条词条。
 		expect(translateText("Git", view)).toBeNull();
 	});
 

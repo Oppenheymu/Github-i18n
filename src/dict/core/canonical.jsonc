@@ -3388,6 +3388,14 @@
 				"First, create an issue with sub issues. Then ask for additional information to fill out these issues.",
 				// 「Git」启动器是纯专名，按 AGENTS.md 硬性约束 3 刻意**不收录**
 				// （global 里已有同名键；收录会被门禁判为「译文与键同形」）
+				// —— 启动器胶囊展开后的命令菜单：`Git` 胶囊的三条 ——
+				// 证据：维护者 2026-10-02 的实机截图（展开 `Git` 胶囊后只见这三条仍是英文）。
+				// 截图里每项各自是一个文本节点，整节点精确收录即可。「Git」是专名故留在译文里
+				// （`Git 分支` 这类形态与既有的 `Git LFS 带宽` 一致），可译部分是 Basic /
+				// Advanced / commands / branching。
+				"Basic Git commands",
+				"Git branching",
+				"Advanced Git commands",
 				// —— 首页顶部的 Copilot 应用宣传横幅 ——
 				"The GitHub Copilot app",
 				"An agent-driven desktop experience built natively on GitHub.",

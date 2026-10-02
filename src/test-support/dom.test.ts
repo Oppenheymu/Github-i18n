@@ -2,7 +2,7 @@
 // collector）的公共基础设施，装错一次会成片变红，而「装错」的表现往往是被测代码
 // 的问题——所以这里把它的三条约定各自钉一条用例（见 dom.ts 头部）。
 import { describe, expect, it } from "bun:test";
-import { installDom } from "../dom.ts";
+import { installDom } from "./dom.ts";
 
 describe("installDom / restore", () => {
 	it("installs the globals bun itself does not have", () => {

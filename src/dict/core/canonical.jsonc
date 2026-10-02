@@ -3333,7 +3333,39 @@
 				"Find a repository…",
 				"Recent activity",
 				"Latest changes",
-				"Create repository"
+				"Create repository",
+				// —— 首页（登录后 /dashboard）的 Copilot 对话区，2026-10-02 维护者实机 HTML ——
+				// 页面已由 GitHub 自己译出的部分不重复登记（如「新建」标签与「拉取请求」启动器）；
+				// 问候语含用户名与时段，走 pages/dashboard/greeting 规则。
+				"Ask anything or type @ to add context",
+				"Ask anything or type @ to add context with Copilot",
+				"Ask",
+				"Select repositories to attach to conversation",
+				"All repositories",
+				"Add files, and spaces",
+				"Auto",
+				// 「Auto」上面的 sr-only 前缀（`Model: ` 带尾随空格，归一化后即本键）
+				"Model:",
+				"Send now",
+				"Debug",
+				"Agent",
+				"Create issue",
+				"Write code",
+				// 「Git」启动器是纯专名，按 AGENTS.md 硬性约束 3 刻意**不收录**
+				// （global 里已有同名键；收录会被门禁判为「译文与键同形」）
+				// —— 首页顶部的 Copilot 应用宣传横幅 ——
+				"The GitHub Copilot app",
+				"An agent-driven desktop experience built natively on GitHub.",
+				"Download for Windows",
+				"Dismiss banner",
+				// 深色主题下作为**无障碍名称**的完整标题（`The GitHub Copilot app, New`）；
+				// 浅色主题里它是被拆开的两段可见文本，故两条都收
+				"The GitHub Copilot app, New",
+				// —— 议题列表的「查看全部」链接 ——
+				// 实机节点边界：可见文本 `View all` 与被 sr-only 包住的 ` issues` 是**两个**
+				// 文本节点（含前导空格），故各收一条
+				"View all",
+				"issues"
 			]
 		},
 		{

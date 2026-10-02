@@ -2114,6 +2114,33 @@
 			]
 		},
 		{
+			"name": "pages/dashboard",
+			"rules": [
+				// 首页问候语：时段 + 用户名。用户名是用户内容，捕获后原样保留
+				// （`\\S+` 只吃到逗号为止，用户名里的空格不会误匹配）。
+				// **三个时段各一条 pattern**（而不是一条 `(morning|afternoon|evening)` +
+				// 模板里换位）：替换模板只能搬运捕获组原文，无法把 `afternoon` 映射成「下午」，
+				// 一条规则写出来会渲染成「afternoon好，…」。三条 pattern 同模块内互不相同。
+				{
+					"id": "dashboard/greeting-morning",
+					"pattern": "^Good morning, (\\S+)!$"
+				},
+				{
+					"id": "dashboard/greeting-afternoon",
+					"pattern": "^Good afternoon, (\\S+)!$"
+				},
+				{
+					"id": "dashboard/greeting-evening",
+					"pattern": "^Good evening, (\\S+)!$"
+				},
+				// 「按 … 优化」档位按钮：属性与可见文案同串，档位名是**产品档位**（不译）
+				{
+					"id": "dashboard/optimized-for",
+					"pattern": "^Optimized for: (.+)$"
+				}
+			]
+		},
+		{
 			"name": "pages/commits",
 			"rules": [
 				// 标签行「…」按钮的悬浮提示（tool-tip 文本节点，含标签名）

@@ -24,8 +24,17 @@
 			"name": "",
 			"path": "/",
 			"matched": ["pages/dashboard", "global"],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "All repositories",
+					"module": "pages/dashboard"
+				}
+			],
 			"rules": [
+				"dashboard/greeting-morning",
+				"dashboard/greeting-afternoon",
+				"dashboard/greeting-evening",
+				"dashboard/optimized-for",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",

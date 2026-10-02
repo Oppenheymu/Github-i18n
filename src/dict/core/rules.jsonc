@@ -858,7 +858,7 @@
 				// （"Gross metered usage for " + 区间），区间本身又是动态的，故按月全展开：
 				// 12 条同月 + 132 条跨月，与 insights/range-long-* 同一形态。之所以逐组合
 				// 写死月份，是因为替换模板不支持函数映射——把英文月名捕获进模板，中文里
-				// 就会渲染出 September（见 src/content/__tests__/settings-billing.test.ts）。
+				// 就会渲染出 September（见 src/dict/__tests__/pages/settings-billing.test.ts）。
 				//
 				// 顺序即语义：同月的 12 条以月份字面量锚定，先吃掉「September 1 - September
 				// 30, 2026」这类；跨月的 132 条各自写死起止月份，收尾的 (?:\\.)? 同时覆盖

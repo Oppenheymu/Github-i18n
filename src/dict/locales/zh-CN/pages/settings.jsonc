@@ -305,7 +305,7 @@
 		"Save assistive technology hint preferences": "保存辅助技术提示偏好设置",
 		// —— 通知设置（/settings/notifications）——
 		// 键逐字抄自开发者模式导出的实机文本节点（2026-09 该页会话），节点边界见
-		// src/content/__tests__/settings-notifications.test.ts。本页说明句多被链接拆开，
+		// src/dict/__tests__/pages/settings-notifications.test.ts。本页说明句多被链接拆开，
 		// 拆分片段必须能直接拼接（walker 保留原节点首尾空白，译文里不要再自带首尾空格）。
 		"Notification Settings": "通知设置",
 		"Default notifications email": "默认通知邮箱",
@@ -398,7 +398,7 @@
 		"Start an application": "开始申请",
 		// —— 电子邮件设置（/settings/emails）——
 		// 键来自开发者模式导出的实机节点 + 维护者采集的全部文本节点/属性 + 全页截图；
-		// 节点边界（哪些长句被 <strong> / <a> 切开）见 src/content/__tests__/settings-emails.test.ts
+		// 节点边界（哪些长句被 <strong> / <a> 切开）见 src/dict/__tests__/pages/settings-emails.test.ts
 		"Email settings": "电子邮件设置",
 		"Emails you can use to sign in to your account. Verified emails can be used as the author or committer addresses for web-based Git operations, e.g. edits and merges.": "可用于登录你账户的电子邮箱。已验证的电子邮箱可作为基于网页的 Git 操作（例如编辑和合并）的作者或提交者地址。",
 		"You have a single verified email associated with your GitHub account. Add an additional verified email address in case you lose access to your primary email.": "你的 GitHub 账户只关联了一个已验证的电子邮箱。请再添加一个已验证的电子邮箱地址，以防你无法访问主邮箱。",
@@ -435,7 +435,7 @@
 		"Packages": "软件包",
 		// —— 会话页（/settings/sessions）——
 		// 键来自开发者模式导出的漏翻清单 + 无扩展的原始英文截图核对；
-		// 节点边界、拼接结果与反例见 src/content/__tests__/settings-sessions.test.ts
+		// 节点边界、拼接结果与反例见 src/dict/__tests__/pages/settings-sessions.test.ts
 		"Web sessions": "Web 会话",
 		"This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.": "这是一系列已登录你账号的设备。请撤销任何你无法识别的会话。",
 		"active": "活跃",
@@ -455,7 +455,7 @@
 		"Never used": "从未使用",
 		// —— SSH / GPG 密钥页（/settings/keys）——
 		// 键同样来自开发者模式导出的漏翻清单 + 无扩展的原始英文截图核对；
-		// 节点边界、拼接结果与反例见 src/content/__tests__/settings-keys.test.ts
+		// 节点边界、拼接结果与反例见 src/dict/__tests__/pages/settings-keys.test.ts
 		// —— SSH keys 区块 ——
 		"SSH keys": "SSH 密钥",
 		"New SSH key": "新建 SSH 密钥",
@@ -496,7 +496,7 @@
 		// —— 凭据 / 开发者设置一族（/settings/credentials、apps、developers、tokens、
 		// personal-access-tokens）——
 		// 键来自开发者模式导出的漏翻清单（五条 path 各一次采集）；
-		// 节点边界、拼接结果与反例见 src/content/__tests__/settings-credentials.test.ts
+		// 节点边界、拼接结果与反例见 src/dict/__tests__/pages/settings-credentials.test.ts
 		// —— /settings/credentials（凭据总览）——
 		"View and manage all the credentials generated or authorized by your personal account.": "查看并管理由你的个人账户生成或授权的所有凭据。",
 		"Authorized GitHub Apps": "已授权的 GitHub 应用",
@@ -575,7 +575,7 @@
 		"Write org hosted compute network configurations": "写入组织托管的计算网络配置",
 		// —— 交互限制 / 代码审查限制 / 已屏蔽用户 / 组织 ——
 		// 键来自开发者模式导出的漏翻清单（四条 path）；
-		// 节点边界、拼接结果与反例见 src/content/__tests__/settings-limits.test.ts
+		// 节点边界、拼接结果与反例见 src/dict/__tests__/pages/settings-limits.test.ts
 		// —— /settings/blocked_users（已屏蔽用户）——
 		"Block a user": "屏蔽用户",
 		// 与 pages/profile 的同键译文保持一致（路径互斥，同键异译机制见 registry.ts）
@@ -673,7 +673,7 @@
 		"Disabled by default": "默认禁用",
 		// —— /settings/codespaces（代码空间个人设置）——
 		// 键来自开发者模式导出的漏翻清单；节点边界与反例见
-		// src/content/__tests__/settings-codespaces.test.ts
+		// src/dict/__tests__/pages/settings-codespaces.test.ts
 		"GitHub Codespaces": "GitHub 代码空间",
 		// —— 编辑器偏好 ——
 		"Editor preference": "编辑器偏好",
@@ -761,7 +761,7 @@
 		"There are no Codespace secrets.": "没有代码空间机密。",
 		// —— /settings/packages（软件包个人设置）——
 		// 键来自开发者模式导出的漏翻清单；节点边界与反例见
-		// src/content/__tests__/settings-packages.test.ts
+		// src/dict/__tests__/pages/settings-packages.test.ts
 		"Packages permissions": "软件包权限",
 		"Inherit access from source repository": "从源仓库继承访问权限",
 		"Default Package Setting": "默认软件包设置",
@@ -772,7 +772,7 @@
 		"Search deleted packages": "搜索已删除的软件包",
 		// —— /settings/copilot/features（Copilot 功能设置）——
 		// 键来自开发者模式导出的漏翻清单；节点边界与碎片拼接见
-		// src/content/__tests__/settings-copilot-features.test.ts
+		// src/dict/__tests__/pages/settings-copilot-features.test.ts
 		// —— 套餐与用量 ——
 		"Get Copilot from an organization": "从组织获取 Copilot",
 		"Organizations can provide their members (including you) and their teams access to GitHub Copilot.": "组织可以为其成员（包括你）及其团队提供 GitHub Copilot 访问权限。",
@@ -885,7 +885,7 @@
 		"There was an error creating your SavedReply.": "创建你的 SavedReply 时出错。",
 		// —— /settings/security_analysis（安全与分析）——
 		// 键来自开发者模式导出的漏翻清单；节点边界与反例见
-		// src/content/__tests__/settings-security-analysis.test.ts
+		// src/dict/__tests__/pages/settings-security-analysis.test.ts
 		"Security & analysis": "安全与分析",
 		// —— 页面级说明 ——
 		"Security and analysis features help keep your repositories secure and updated.": "安全与分析功能可帮助你的仓库保持安全与最新。",

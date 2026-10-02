@@ -177,7 +177,7 @@
 				// 该清单同时给出**节点原文**，因此下面每条的形态就是实机形态：
 				// 长说明句多数是**单个带源码缩进的文本节点**（归一空白后等于本表的键），
 				// 少数被 `<a>` / `<strong>` 切开（如「部分 GitHub 用户现在必须启用…」三段）。
-				// 节点边界与拼接断言见 src/content/__tests__/settings-security.test.ts。
+				// 节点边界与拼接断言见 src/dict/__tests__/pages/settings-security.test.ts。
 				//
 				// 刻意**不收录**（同测试里的反例断言）：用户内容（`CanoKey Main` / `CanoKey
 				// Backup` 这类用户自命名的通行密钥、`M. Oppenheymu` / `(Oppenheymu)` /
@@ -492,7 +492,7 @@
 				"Delete your account",
 				// —— 外观（/settings/appearance）——
 				// 键逐字抄自实机渲染文本（本页由 React 分部渲染，节点边界见
-				// src/content/__tests__/settings-appearance.test.ts）。
+				// src/dict/__tests__/pages/settings-appearance.test.ts）。
 				// 「主题模式」「对比度」两个下拉/分段控件的当前值本身就是文本节点
 				// （Rails 的 <details><summary> 结构），故各主题名单独成条。
 				"Theme preferences",
@@ -601,7 +601,7 @@
 				// 多数被链接拆开：链接前 / 链接后的片段各成一条（整句键在实机永不命中的不收录）。
 				// 纯专名链接（GitHub Actions）与纯缩写（CLI）不收录——译文必须含中文字系，
 				// 收录必被门禁拒；未命中即保留英文，这是正确做法而不是漏译。
-				// 节点边界与拼接结果见 src/content/__tests__/settings-notifications.test.ts。
+				// 节点边界与拼接结果见 src/dict/__tests__/pages/settings-notifications.test.ts。
 				"Notification Settings",
 				"Default notifications email",
 				"Choose where you'd like emails to be sent. You can add more email addresses. Use custom routes to specify different email addresses to be used for individual organizations.",
@@ -691,7 +691,7 @@
 				// 键逐字抄自两处实机证据（2026-09-26 该页会话）：开发者模式导出的漏翻节点清单
 				// （46 条）+ 维护者按固定起手式采集的「全部文本节点 + 六个可翻译属性 + 整理后
 				// HTML」，另与全页截图逐条对照。节点边界与拼接断言见
-				// src/content/__tests__/settings-emails.test.ts。
+				// src/dict/__tests__/pages/settings-emails.test.ts。
 				// 用户内容（邮箱地址、@用户名、头像 alt/title、noreply 地址）不收录：收了会误伤。
 				// 纯专名（GitHub / Google / Git）与纯缩写同样不收录——译文必须含中文字系，
 				// 收录必被门禁拒；未命中即保留英文，这是正确做法而不是漏译。
@@ -1532,7 +1532,7 @@
 				// —— 账单页（/account/billing）与用量页（/account/billing/usage）——
 				// 键逐字抄自开发者模式导出的实机文本节点（2026-09 该页会话）、「More details」
 				// 弹窗截图与用量页实机截图；节点边界见
-				// src/content/__tests__/settings-billing.test.ts。
+				// src/dict/__tests__/pages/settings-billing.test.ts。
 				// 纯专名（Copilot / Spark / GitHub / GitHub Models / Packages / Git LFS）、
 				// 纯泛化短词（per / month / items / usage）与用户内容（仓库名、@用户名、
 				// 头像 alt）**一律不收录**：前者的译文必然与键同形（自触发循环，门禁直接拒），
@@ -1542,7 +1542,7 @@
 				// settings/per-word / settings/billing-period-word 覆盖，其中 per 用空模板
 				// 让节点消失——空模板语义见 tooling/checks/dict.ts 的 validateTemplate）。
 				// 另一处例外是订阅卡片上的方案名（2026-09 实机 HTML，节点边界见
-				// src/content/__tests__/settings-billing.test.ts 的 PLAN_CARD_NODES）：
+				// src/dict/__tests__/pages/settings-billing.test.ts 的 PLAN_CARD_NODES）：
 				//   · 「GitHub Free」——方案名（计费卡与许可页的基础方案都叫这个名字）。
 				//     既有约定只译「Copilot 免费版」而让它保持英文，同一张卡片上两种口径
 				//     并列很别扭，故改为同译「GitHub 免费版」；译文不等于键，不会自触发。
@@ -1651,7 +1651,7 @@
 				// —— AI 用量页（/account/billing/ai_usage，账单侧栏「AI usage」进入）——
 				// 该页同样由 ^/(?:settings|account)/billing 覆盖，故键归本模块。键逐字抄自 2026-09 的
 				// 实机截图（页面需登录，未进开发者模式导出），节点边界见
-				// src/content/__tests__/settings-billing.test.ts 的 AI_USAGE_NODES。
+				// src/dict/__tests__/pages/settings-billing.test.ts 的 AI_USAGE_NODES。
 				// 页面标题「AI usage」与分组切换器的「Models」都不在此登记：
 				// pages/settings 与本就排在本模块词条里的同键译文可复用（先到先得）
 				"Days",
@@ -1673,7 +1673,7 @@
 				"Each GitHub AI credit costs $0.01.",
 				// —— 预算与提醒页（/account/billing/budgets，账单侧栏「Budgets and alerts」进入）——
 				// 键逐字抄自 2026-09 的实机截图（页面需登录，未进开发者模式导出），节点边界见
-				// src/content/__tests__/settings-billing.test.ts 的 BUDGETS_NODES。
+				// src/dict/__tests__/pages/settings-billing.test.ts 的 BUDGETS_NODES。
 				// 页面标题「Budgets and alerts」不在此登记：pages/settings 已提供同一键（模块更靠前）。
 				// 工具条与说明句
 				"New budget",
@@ -1693,7 +1693,7 @@
 				// settings/budget-amount-limit 与 settings/budget-count 覆盖
 				// —— 许可页（/account/billing/licensing，账单侧栏「Licensing」进入）——
 				// 键逐字抄自 2026-09 的实机截图（页面需登录，未进开发者模式导出），节点边界见
-				// src/content/__tests__/settings-billing.test.ts 的 LICENSING_NODES。
+				// src/dict/__tests__/pages/settings-billing.test.ts 的 LICENSING_NODES。
 				// 页面标题「Licensing」不在此登记：pages/settings 已提供同一键（模块更靠前）。
 				// Copilot 区块
 				"Upgrade Individual Plan",
@@ -1743,7 +1743,7 @@
 				"See all features and compare plans",
 				// —— 付款信息页（/account/billing/payment_information）——
 				// 键逐字抄自 2026-09 的实机截图（页面需登录，未进开发者模式导出），
-				// 节点边界见 src/content/__tests__/settings-billing.test.ts 的 PAYMENT_NODES。
+				// 节点边界见 src/dict/__tests__/pages/settings-billing.test.ts 的 PAYMENT_NODES。
 				// 页面标题「Payment information」不在此登记：pages/settings 已提供同一键。
 				// 另注意：**国家/地区下拉的选项名一律不收录**——它们是随表单提交的表单值，
 				// 改了显示文案会改坏功能（且几百个国家名会撞用户内容）

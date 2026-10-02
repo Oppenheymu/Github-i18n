@@ -240,7 +240,7 @@ site|security|team|events|about|contact)(?:/|$))[^/]+
 | 2 | 采集实机节点 | 途径 A / B（见下），拿到**逐字**文本节点与可翻译属性 |
 | 3 | 登记键 | `core/canonical.jsonc` 对应模块的 `keys` 末尾追加，**顺序与页面出现顺序一致**，并写清节点边界的注释；改完立刻跑 `bun run check:dict` |
 | 4 | 补译文 | `locales/zh-CN/<模块>.jsonc` 同步追加键值对（ja 缺译是正常状态，不强制） |
-| 5 | 写节点边界回归 | `src/content/__tests__/<页名>.test.ts`：节点原文清单 + 拆分处 `renderNodes` 拼接断言 + **反例**（用户内容 / 纯专名必须保持英文） |
+| 5 | 写节点边界回归 | `src/dict/__tests__/pages/<页名>.test.ts`：节点原文清单 + 拆分处 `renderNodes` 拼接断言 + **反例**（用户内容 / 纯专名必须保持英文） |
 | 6 | `bun run format` 再 `bun run check` | 格式由 Biome 唯一权威，先格式化再跑全量，否则会为纯格式问题白跑一轮 |
 | 7 | 快照变了就 `bun run check:view --update` | 只在**有意改动**时更新（新增跨模块同键异译、模块顺序变化），并在提交信息里说明原因 |
 | 8 | `bun run build` → 提交 | 提交前 `bun run check` 必须全绿；提交信息写清「哪一页、为什么、快照为何变」 |
@@ -341,7 +341,7 @@ dump.join("\n");
 2. 决定归属模块：全站通用进 `global`，仅特定页面出现的进对应 `pages/<页名>`（模块路由见 `core/modules.jsonc`）；需要新模块时同时改 `core/modules.jsonc` 与 `core/canonical.jsonc`（同名同序，门禁强制）；
 3. 在 `core/canonical.jsonc` 对应模块的 `keys` 里登记该键；
 4. 在**每种已支持语言**的 `locales/<语言>/<模块>.jsonc` 里加键值对（没翻译的语言可以先不加，覆盖率会显示缺口）；
-5. 若该页已有 `src/content/__tests__/<页名>.test.ts` 的实机节点回归，把新节点（以及拼接结果）补进去——没有就在同一 PR 里建一份：**页面上的节点边界只有测试能长期锁住**；
+5. 若该页已有 `src/dict/__tests__/pages/<页名>.test.ts` 的实机节点回归，把新节点（以及拼接结果）补进去——没有就在同一 PR 里建一份：**页面上的节点边界只有测试能长期锁住**；
 6. `bun run check` → `bun run build` → 浏览器重载扩展验证。
 
 ### 采集实机渲染文本
@@ -370,7 +370,7 @@ for (const p of probes) {
 
 ### 实机节点边界测试（把抓下来的节点锁进仓库）
 
-抓取只是第一步：**节点边界必须落成仓库里的测试**，否则下次 GitHub 改版没人知道它断了。现有的实机节点回归都在 `src/content/__tests__/`，命名与页面一一对应：
+抓取只是第一步：**节点边界必须落成仓库里的测试**，否则下次 GitHub 改版没人知道它断了。现有的实机节点回归都在 `src/dict/__tests__/pages/`（**不放 `src/content/__tests__/`**：这些用例的被测对象是 `src/dict/**` 的词条数据与模块路由，`buildView` / `translateText` 只是断言工具，`src/content/__tests__/` 只留 content 各模块自身的单测），命名与页面一一对应：
 
 | 文件 | 覆盖的路径 | 说明 |
 | --- | --- | --- |
@@ -413,7 +413,7 @@ for (const p of probes) {
 | `insights-security.test.ts` | `/owner/repo/security` | 仓库安全概览页（**证据是维护者 2026-09-27 贴的实机 HTML**：顶部 Scorecard / Code scanning 横幅被 `<a>status page</a>` 切成三段；七个功能行的标题与状态是两个节点，但**项目符号 `•` 落在标题节点内部**，故带 ` •` 的形态由本模块各收一条——裸标题 `Security policy` 仍由 pages/repo 提供，两条各自独立；`View alerts` 这类短链接在源码里带 16 空格缩进，键按 normalizeKey 折叠空白） |
 | `global.test.ts` | 任意路径 | 全站外壳、动态时间文本与仓库可见性标签（`Public` / `Private` / `Public template` / `Private template` / `Public archive` / `Archived`——标签是独立节点、「可见性 + 类型」固定短语，故整族归 global，仓库页与个人主页共用；`Public template` 的证据是维护者 2026-10-02 在 `?tab=repositories` 贴的 `Label Label--secondary` 片段） |
 
-其余新增用例不再是「实机节点」而是纯逻辑回归：`pages.test.ts`（视图单槽缓存：缓存键写错会表现为「换页后一半英文」）、`src/shared/__tests__/storage.test.ts`（storage 脏数据收窄与开关 / 语言监听）、`src/dict/__tests__/locales.test.ts`（`resolveLocale` 对 `zh-Hans-CN` / `zh_TW` / `en-US` 的归属），另有门禁自身与构建脚本的测试（`tooling/checks/__tests__/`、`tooling/pipeline/build.test.ts`）。
+除上表外的用例都不再是「实机节点」而是纯逻辑回归：`src/content/__tests__/pages.test.ts`（视图单槽缓存：缓存键写错会表现为「换页后一半英文」）、`src/shared/__tests__/storage.test.ts`（storage 脏数据收窄与开关 / 语言监听）、`src/dict/__tests__/locales.test.ts`（`resolveLocale` 对 `zh-Hans-CN` / `zh_TW` / `en-US` 的归属），另有门禁自身与构建脚本的测试（`tooling/checks/__tests__/`、`tooling/pipeline/build.test.ts`）。
 
 **已知空缺：`repo-settings`（`/owner/repo/settings`）整页尚未采集**（该页需要登录），所以仓库设置页没有**整页**的实机节点回归——目前它只有两处：`settings-repo.test.ts` 覆盖的「Creation allowed by」筛选按钮三节点，与 `repo-settings-interaction-limits.test.ts` 覆盖的交互限制子页（途径 A 清单）；其余词条靠视图骨架层的保护（命中模块序列 + 碰撞赢家）与词典门禁。
 
@@ -424,7 +424,7 @@ for (const p of probes) {
 1. **无扩展的无头 Edge**：用 `msedge --headless=new --remote-debugging-port=<端口> --user-data-dir=<临时目录>` 打开目标页面，**不要加载 `dist/`**——要的是 GitHub 的原始英文渲染，不是翻译后的结果；
 2. **CDP 采集文本节点**：连上 DevTools 协议，用 `Runtime.evaluate` 跑一次 `document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)`，把每个文本节点的 `nodeValue` 与父元素路径（tag + class 链）一起打出来；需要元素属性时另跑一遍 `title` / `aria-label` / `placeholder` / `alt` / 按钮类 `value` / `data-disable-with`；
 3. **在仓库内判定命中**：把采集结果喂给 `translateText(text, buildView(pathname, dictForLocale("zh-CN"), 别名映射))`——命中即为「这条节点已经有词条」，未命中且确实是 UI 文案就是待补的漏翻；**采集时会自然暴露出「哪些整句在实机上被拆过」**，这是登记键的唯一依据；
-4. 把清单连同反例一起写进 `src/content/__tests__/<页名>.test.ts`，`bun test` 全绿后提交。
+4. 把清单连同反例一起写进 `src/dict/__tests__/pages/<页名>.test.ts`，`bun test` 全绿后提交。
 
 **M-02 的实机结论（`repo.test.ts` 的反例就是它的回归保护）**：仓库页的文件 / 目录列表**确实**渲染成孤立文本节点（`div.react-directory-filename-cell > a.Link--primary` 里的 `src` / `test` / `build` / `extensions` / `resources` / `scripts` / `.github`…），而它们**全部没被翻译**——因为小写常用词没收录。也就是说硬性约束 3 那条「宁可漏翻也不误伤用户内容」的权衡在实机成立；残留风险是「仓库里真有一个叫 `Docs` / `Assets` / `Star` 的目录」这类**条件性误伤**，唯一的保护是继续不收录可疑短词，而不是加白名单。
 

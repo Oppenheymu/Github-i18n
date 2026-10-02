@@ -3349,6 +3349,15 @@
 				"Auto",
 				// 「Auto」上面的 sr-only 前缀（`Model: ` 带尾随空格，归一化后即本键）
 				"Model:",
+				// AutoTierPicker（「Optimized for: …」）展开后的三档选项：档位名是**独立
+				// 文本节点**，说明句是同一行里的另一个节点，故各收一条。档位名沿用
+				// pages/repo-settings 里 `Balanced` 的译法（均衡），保持同一概念一致。
+				"Efficiency",
+				"Prioritizes speed and efficiency",
+				"Balance",
+				"Balances speed and intelligence",
+				"Intelligence",
+				"Prioritizes intelligence",
 				"Send now",
 				"Debug",
 				"Agent",

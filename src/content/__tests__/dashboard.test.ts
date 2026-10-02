@@ -64,6 +64,19 @@ const STATIC_NODES: readonly (readonly [string, string])[] =
 		["Add files, and spaces", "添加文件与空间"],
 		["Auto", "自动"],
 		["Model:", "模型："],
+		// —— AutoTierPicker（「Optimized for: …」）展开后的三档：档位名与说明各一个节点 ——
+		["Efficiency", "效率"],
+		[
+			"Prioritizes speed and efficiency",
+			"优先考虑速度与效率",
+		],
+		["Balance", "均衡"],
+		[
+			"Balances speed and intelligence",
+			"在速度与智能之间取得平衡",
+		],
+		["Intelligence", "智能"],
+		["Prioritizes intelligence", "优先考虑智能"],
 		["Send now", "立即发送"],
 		// —— 启动器胶囊 ——
 		["Debug", "调试"],
@@ -151,10 +164,15 @@ describe("pages/dashboard 的实机节点边界", () => {
 	});
 
 	it("keeps the model tier and the Git starter as upstream text", () => {
-		// 「Optimized for: Balance」里的档位名是产品档位（Balance），只翻前缀、原样保留档位名
+		// 「Optimized for: Balance」按钮的**可见文案与 aria-label 是同串**。
+		// 规则只翻前缀「Optimized for:」，档位名原样留在触发按钮上——而展开菜单里的
+		// 档位名是**独立的文本节点**，由静态词条译出（Balance → 均衡），两者互不干扰。
 		expect(
 			translateText("Optimized for: Balance", view),
 		).toBe("优化目标：Balance");
+		expect(
+			translateText("Optimized for: Efficiency", view),
+		).toBe("优化目标：Efficiency");
 		// 「Git」是纯专名，刻意不收录：未命中即保留英文，这是正确行为而非漏译
 		expect(translateText("Git", view)).toBeNull();
 	});

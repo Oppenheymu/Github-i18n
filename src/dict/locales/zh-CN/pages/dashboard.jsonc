@@ -19,6 +19,13 @@
 		"Add files, and spaces": "添加文件与空间",
 		"Auto": "自动",
 		"Model:": "模型：",
+		// —— AutoTierPicker 展开后的三档（档位名 + 说明各是一条词条）——
+		"Efficiency": "效率",
+		"Prioritizes speed and efficiency": "优先考虑速度与效率",
+		"Balance": "均衡",
+		"Balances speed and intelligence": "在速度与智能之间取得平衡",
+		"Intelligence": "智能",
+		"Prioritizes intelligence": "优先考虑智能",
 		"Send now": "立即发送",
 		"Debug": "调试",
 		"Agent": "智能代理",

@@ -1983,6 +1983,11 @@
 				// 故三条键各自成条；All users 已在上面登记，这里补标签与协作者选项。
 				"Creation allowed by:",
 				"Collaborators only",
+				// 议题创建策略的 action-list（`…/settings/issue_creation_policy`）：选项标签
+				// 复用 `All users` / `Collaborators only`，说明句各自是独立节点。
+				// 证据：维护者 2026-10-03 贴的 /Oppenheymu/Github-i18n/settings 原版 HTML。
+				"Anyone can create an issue",
+				"Only collaborators can create issues",
 				"Up to",
 				"branches and tags can be updated in a push",
 				// —— 自动关闭议题 ——
@@ -2615,6 +2620,13 @@
 				"Duration must be 1 or more.",
 				"Duration must be 90 or less",
 				"Save artifact and log retention setting",
+				// 上游改版（2026-10-03 维护者在 /Oppenheymu/Github-i18n/settings 采集）：
+				// 保留期文案改成枚举五项的版本，标题那条在实机上出现两次
+				// （`<h2 id="retention-header">` 与 `<strong id="artifact-retention-subheading">`），
+				// 文案相同故一条键覆盖两处；上面三条短文案保留（见 locales 的说明）。
+				"Check, workflow run, status, artifact and log retention",
+				"Choose the repository settings for checks, workflow runs, statuses, artifacts, and logs.",
+				"Learn more about the check, workflow run, status, artifact and log retention policy.",
 				// —— 运行器页（/owner/repo/settings/actions/runners 与 …/runners/new）——
 				// 证据：维护者 2026-09-27 用途径 A 导出的漏翻清单 + 一张列表页截图。
 				// 不收录（未命中即保留英文）：架构与平台名（x64 / ARM64 / ARM / Linux /

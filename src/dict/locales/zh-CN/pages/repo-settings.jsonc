@@ -178,6 +178,13 @@
 		// 当前值（All users / Collaborators only）在同一按钮里各自成节点
 		"Creation allowed by:": "允许创建者：",
 		"Collaborators only": "仅协作者",
+		// 议题创建策略的 action-list（`/owner/repo/settings` 里
+		// `action="…/settings/issue_creation_policy"` 那张菜单）：选项标签复用上面的
+		// All users / Collaborators only，**说明句各自是独立节点**
+		// （`<span class="ActionListItem-description">`）。实机证据：维护者 2026-10-03
+		// 贴的 /Oppenheymu/Github-i18n/settings 原版 HTML（标签已是中文，说明句仍是英文）。
+		"Anyone can create an issue": "任何人都可以创建议题",
+		"Only collaborators can create issues": "仅协作者可以创建议题",
 		"Up to": "最多",
 		"branches and tags can be updated in a push": "个分支和标签可在一次推送中更新",
 		// —— 自动关闭议题 ——
@@ -766,6 +773,16 @@
 		"Duration must be 1 or more.": "时长必须为 1 或更大。",
 		"Duration must be 90 or less": "时长必须为 90 或更小",
 		"Save artifact and log retention setting": "保存构件与日志保留期设置",
+		// 上游改版：保留期文案改成**枚举五项**的版本（check / workflow run / status /
+		// artifact / log）。实机证据是维护者 2026-10-03 贴的 /Oppenheymu/Github-i18n/settings
+		// 原版 HTML——同一段里出现了两次标题节点：`<h2 id="retention-header">` 与
+		// `<strong id="artifact-retention-subheading">`，**文案完全相同，一条键覆盖两处**。
+		// 上面三条旧文案（Artifact and log retention …）**有意保留**：它们是 2026-09-27
+		// 从 /settings/actions 的漏翻清单里登记过的真节点，我们无法确认上游是否已在
+		// 所有位置替换掉短文案；删掉只会白白丢覆盖（多词短语，无撞车风险）。
+		"Check, workflow run, status, artifact and log retention": "检查、工作流运行、状态、构件与日志保留期",
+		"Choose the repository settings for checks, workflow runs, statuses, artifacts, and logs.": "选择检查、工作流运行、状态、构件与日志的仓库设置。",
+		"Learn more about the check, workflow run, status, artifact and log retention policy.": "进一步了解检查、工作流运行、状态、构件与日志的保留政策。",
 		// —— 运行器页（/owner/repo/settings/actions/runners 与 …/runners/new）——
 		// 列表页
 		"Host your own runners and customize the environment used to run jobs in your GitHub Actions workflows.": "托管你自己的运行器，并自定义在你的 GitHub Actions 工作流中运行作业所使用的环境。",

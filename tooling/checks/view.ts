@@ -68,6 +68,10 @@ export const PROBE_PATHS: readonly string[] = [
 	// 仓库策略页：同模块的第二页，是 org-settings/page-title 规则唯一的生效路径，
 	// 不单独列探针的话「规则加了却没生效」在骨架里完全不可见
 	"/organizations/octocat/settings/policies/repositories",
+	// 组织账单页：pages/settings-billing 的**第二支路由**（2026-10-03 并入），
+	// 它同时命中 pages/org-settings，故这条探针同时钉住「账单模块在前、组织设置模块兜底」
+	// 的命中序列、两支之间的同键覆盖与整句日期区间规则的生效情况
+	"/organizations/octocat/settings/billing",
 	"/settings/profile",
 	"/settings/accessibility",
 	"/settings/notifications",

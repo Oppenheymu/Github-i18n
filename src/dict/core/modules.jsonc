@@ -44,8 +44,20 @@
 			"route": "^/(?:settings|account/billing)"
 		},
 		{
+			// 账单页的路由有**两支**（2026-10-03 实测确认组织账单页渲染的是同一套
+			// billing-app 组件、文案逐字相同）：
+			//   /settings/billing/**            个人账单旧地址（仅 licensing 尚存）
+			//   /account/billing/**             个人账单新地址
+			//   /organizations/<组织>/settings/billing/**   组织账单（本行新增）
+			// 组织账单页挂在组织设置路由下，但它与 pages/org-settings 的侧栏 / 正文毫无重叠，
+			// 整页都是账单组件（SummaryCardContainer / IncludedUsageTile / ProductUsage…）：
+			// 「Current metered usage」「Gross metered usage for …」「Timeframe: Current month」
+			// 等句子与个人账单页逐字一致（节点原文见实机 HTML 与 settings/billing.test.ts）。
+			// 若不覆盖这一支，组织账单页只剩 global 的零星通用词条命中，整页保留英文。
+			// 本模块排在 pages/org-settings **之前**，两模块同时命中组织账单页时逐键先到先得：
+			// 账单词条与规则由本模块提供，组织设置外壳（侧栏等）由后者兜底。
 			"name": "pages/settings-billing",
-			"route": "^/(?:settings|account)/billing"
+			"route": "^/(?:(?:settings|account)/billing|(?:organizations|orgs)/[^/]+/settings/billing)"
 		},
 		{
 			"name": "pages/repo-settings",

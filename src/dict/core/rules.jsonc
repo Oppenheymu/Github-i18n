@@ -1797,6 +1797,221 @@
 					"id": "settings/licensing-codespaces-storage",
 					"pattern": "^(?<count>[\\d.,]+)(?<unit>GB|MB|TB|KB) of Codespaces storage per developer$"
 				},
+				// —— 账单说明句里的**整句日期区间**（组织账单页与个人账单页共用同一套组件）——
+				// 实机节点边界：说明句与日期区间都在**同一个文本节点**里（开发者模式导出的
+				// 漏翻清单记录的就是整句原文），故区间规则（settings/usage-range-*）永远
+				// 吃不到它——那条只覆盖「区间单独成节点」的形态。这里按整句展开：同月 12 条，
+				// 跨月只展开 January → 各月 11 条，因为本页的时间范围下拉只有四个选项
+				//（Current month / Last month / This year / Last year），能产生跨月的只有
+				// 后两者、起点恒为 1 月；其余跨月组合（如 September 15 - October 14）
+				// 在本页不可达，未收：未命中只是保留英文，不会产出中英残句。
+				// 模板写死中文月份：把英文月名捕获进模板只会渲染出 October（同 usage-range-*）
+
+				// —— 所含用量限额的重置天数 ——
+				// 实机形如「Included usage limits reset in 29 days.」：天数动态。三种可能的
+				// 节点切分都被覆盖——① 整句一个节点（主规则）；② 前缀 + 天数（尾节点规则）；
+				// ③ 前缀与天数间再插一层（head 规则 + 尾节点规则）。
+				// 前缀词条「Included usage limits reset in」已在静态词典里（第一段单独成节点时生效）
+				{
+					"id": "settings/gross-metered-usage-same-month-jan",
+					"pattern": "^Gross metered usage for January (?<startDay>\\d{1,2}) - January (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-same-month-feb",
+					"pattern": "^Gross metered usage for February (?<startDay>\\d{1,2}) - February (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-same-month-mar",
+					"pattern": "^Gross metered usage for March (?<startDay>\\d{1,2}) - March (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-same-month-apr",
+					"pattern": "^Gross metered usage for April (?<startDay>\\d{1,2}) - April (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-same-month-may",
+					"pattern": "^Gross metered usage for May (?<startDay>\\d{1,2}) - May (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-same-month-jun",
+					"pattern": "^Gross metered usage for June (?<startDay>\\d{1,2}) - June (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-same-month-jul",
+					"pattern": "^Gross metered usage for July (?<startDay>\\d{1,2}) - July (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-same-month-aug",
+					"pattern": "^Gross metered usage for August (?<startDay>\\d{1,2}) - August (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-same-month-sep",
+					"pattern": "^Gross metered usage for September (?<startDay>\\d{1,2}) - September (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-same-month-oct",
+					"pattern": "^Gross metered usage for October (?<startDay>\\d{1,2}) - October (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-same-month-nov",
+					"pattern": "^Gross metered usage for November (?<startDay>\\d{1,2}) - November (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-same-month-dec",
+					"pattern": "^Gross metered usage for December (?<startDay>\\d{1,2}) - December (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-cross-jan-feb",
+					"pattern": "^Gross metered usage for January (?<startDay>\\d{1,2}) - February (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-cross-jan-mar",
+					"pattern": "^Gross metered usage for January (?<startDay>\\d{1,2}) - March (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-cross-jan-apr",
+					"pattern": "^Gross metered usage for January (?<startDay>\\d{1,2}) - April (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-cross-jan-may",
+					"pattern": "^Gross metered usage for January (?<startDay>\\d{1,2}) - May (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-cross-jan-jun",
+					"pattern": "^Gross metered usage for January (?<startDay>\\d{1,2}) - June (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-cross-jan-jul",
+					"pattern": "^Gross metered usage for January (?<startDay>\\d{1,2}) - July (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-cross-jan-aug",
+					"pattern": "^Gross metered usage for January (?<startDay>\\d{1,2}) - August (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-cross-jan-sep",
+					"pattern": "^Gross metered usage for January (?<startDay>\\d{1,2}) - September (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-cross-jan-oct",
+					"pattern": "^Gross metered usage for January (?<startDay>\\d{1,2}) - October (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-cross-jan-nov",
+					"pattern": "^Gross metered usage for January (?<startDay>\\d{1,2}) - November (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/gross-metered-usage-cross-jan-dec",
+					"pattern": "^Gross metered usage for January (?<startDay>\\d{1,2}) - December (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-same-month-jan",
+					"pattern": "^Included usage discounts for January (?<startDay>\\d{1,2}) - January (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-same-month-feb",
+					"pattern": "^Included usage discounts for February (?<startDay>\\d{1,2}) - February (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-same-month-mar",
+					"pattern": "^Included usage discounts for March (?<startDay>\\d{1,2}) - March (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-same-month-apr",
+					"pattern": "^Included usage discounts for April (?<startDay>\\d{1,2}) - April (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-same-month-may",
+					"pattern": "^Included usage discounts for May (?<startDay>\\d{1,2}) - May (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-same-month-jun",
+					"pattern": "^Included usage discounts for June (?<startDay>\\d{1,2}) - June (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-same-month-jul",
+					"pattern": "^Included usage discounts for July (?<startDay>\\d{1,2}) - July (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-same-month-aug",
+					"pattern": "^Included usage discounts for August (?<startDay>\\d{1,2}) - August (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-same-month-sep",
+					"pattern": "^Included usage discounts for September (?<startDay>\\d{1,2}) - September (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-same-month-oct",
+					"pattern": "^Included usage discounts for October (?<startDay>\\d{1,2}) - October (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-same-month-nov",
+					"pattern": "^Included usage discounts for November (?<startDay>\\d{1,2}) - November (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-same-month-dec",
+					"pattern": "^Included usage discounts for December (?<startDay>\\d{1,2}) - December (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-cross-jan-feb",
+					"pattern": "^Included usage discounts for January (?<startDay>\\d{1,2}) - February (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-cross-jan-mar",
+					"pattern": "^Included usage discounts for January (?<startDay>\\d{1,2}) - March (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-cross-jan-apr",
+					"pattern": "^Included usage discounts for January (?<startDay>\\d{1,2}) - April (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-cross-jan-may",
+					"pattern": "^Included usage discounts for January (?<startDay>\\d{1,2}) - May (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-cross-jan-jun",
+					"pattern": "^Included usage discounts for January (?<startDay>\\d{1,2}) - June (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-cross-jan-jul",
+					"pattern": "^Included usage discounts for January (?<startDay>\\d{1,2}) - July (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-cross-jan-aug",
+					"pattern": "^Included usage discounts for January (?<startDay>\\d{1,2}) - August (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-cross-jan-sep",
+					"pattern": "^Included usage discounts for January (?<startDay>\\d{1,2}) - September (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-cross-jan-oct",
+					"pattern": "^Included usage discounts for January (?<startDay>\\d{1,2}) - October (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-cross-jan-nov",
+					"pattern": "^Included usage discounts for January (?<startDay>\\d{1,2}) - November (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-discounts-cross-jan-dec",
+					"pattern": "^Included usage discounts for January (?<startDay>\\d{1,2}) - December (?<endDay>\\d{1,2}), (?<year>\\d{4})\\.$"
+				},
+				{
+					"id": "settings/included-usage-reset-days",
+					"pattern": "^Included usage limits reset in (?<days>\\d+) days?\\.$"
+				},
+				{
+					"id": "settings/included-usage-reset-days-head",
+					"pattern": "^Included usage limits reset in (?<days>\\d+)$"
+				},
+				{
+					"id": "settings/included-usage-reset-days-tail",
+					"pattern": "^(?<days>\\d+) days?\\.$"
+				},
+				{
+					"id": "settings/included-usage-reset-days-word",
+					"pattern": "^days?\\.$"
+				},
 				// —— 赞助订阅页（/settings/billing/subscriptions）——
 				// 顶部「除此之外你还管理 N 个组织」：数字随组织数变化，只能做规则，$1 是组织数。
 				// 实机 HTML 实证：整句是 `<div class="tmp-mb-4">` 的**首个文本节点**（带源码

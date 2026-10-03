@@ -3,8 +3,15 @@
 // 路径迁移（2026-09 实测）：这一支原在 /settings/billing/**，GitHub 已把个人账单整支迁到
 // /account/billing/**（/settings/billing 及其子页实测 404，仅 /settings/billing/licensing 尚存）。
 // 迁移只换路径、不换文案，故键与规则原样沿用；core/modules.jsonc 里本模块路由
-// ^/(?:settings|account)/billing 与 pages/settings 的 ^/(?:settings|account/billing) 一起覆盖
-// 新老路径（旧路径保留兼容，因为 /settings/billing/licensing 仍在线）。
+// ^/(?:(?:settings|account)/billing|(?:organizations|orgs)/[^/]+/settings/billing)
+// 与 pages/settings 的 ^/(?:settings|account/billing) 一起覆盖新老路径
+//（旧路径保留兼容，因为 /settings/billing/licensing 仍在线）。
+//
+// 组织账单页（2026-10-03 并入）：/organizations/<组织>/settings/billing 渲染的是**同一套**
+// billing-app 组件，文案与个人账单页逐字相同（实机 HTML 实证），故共用本模块的词条与规则；
+// 本模块排在 pages/org-settings 之前，两模块同时命中时逐键先到先得——账单内容由本模块提供，
+// 组织设置外壳（侧栏等）由后者兜底。组织账单页的实机节点边界见
+// src/dict/__tests__/pages/org-settings/billing.test.ts。
 //
 // 为什么单开一个子模块而不是塞进 pages/settings：本页的动态规则数量很大
 // （日期区间按月全展开：12 条同月 + 132 条跨月，另有用量页的短月份区间与两个下拉），
@@ -20,6 +27,9 @@
 		// —— 账单总览 ——
 		"Billing Overview": "账单概览",
 		"Manage subscriptions": "管理订阅",
+		// 订阅列表的区块标题。译文与 pages/settings 的同键词条逐字一致（那条路由不命中
+		// 组织设置页，故这里必须另来一份；模块不在同一路由上，不构成同键异译）
+		"Subscriptions": "订阅",
 		// 订阅卡片（SubscriptionsContainer 里的 PlanCard）的方案名，2026-09 实机 HTML：
 		//   <p class="PlanCard-module__cardHeading__UIO8J">GitHub Free</p>
 		// 「GitHub 免费版」与同模块「Copilot Free」→「Copilot 免费版」保持同一口径。
@@ -60,6 +70,9 @@
 		"About GitHub Actions storage billing": "关于 GitHub Actions 存储计费",
 		"Actions minutes": "Actions 分钟数",
 		"Actions storage": "Actions 存储",
+		// 额度卡的合并存储条标题（组织账单页实机 HTML 实测，进度条的 aria-label 同文案）。
+		// Packages 与「Packages 存储」「Packages 数据传输」保持同一口径：产品名不译
+		"Actions and Packages storage": "Actions 与 Packages 存储",
 		"Git LFS bandwidth": "Git LFS 带宽",
 		"Git LFS storage": "Git LFS 存储",
 		"Packages data transfer": "Packages 数据传输",

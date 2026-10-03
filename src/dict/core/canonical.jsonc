@@ -3361,6 +3361,128 @@
 				// 位置下拉菜单底部的清空按钮（`Select a location` 只是 data-default-message 属性，
 				// 不在引擎翻译的六个属性里，有意不登记）
 				"Clear Location",
+				// —— 产品内消息（In-product messages）——
+				// 证据：2026-10-03 维护者贴的下半页实机 HTML。开关的 `On` / `Off` 是两个
+				// 各自独立的 `<span>`（靠 data-hidden 切换显隐），两者都会被遍历到，故都要收；
+				// `In-product messages` 与 pages/settings 同键同义，译文逐字一致。
+				"In-product messages",
+				"Promotions",
+				"Notify account admins about exclusive GitHub products, services, offers, and events.",
+				"Member requests",
+				"Allow members in your organization to request access to products, budget, or features.",
+				"Tips",
+				"Show your organization members tips about enabled products and features.",
+				"Customer Research",
+				"Allow GitHub to contact members in your organization for research and feedback surveys.",
+				"On",
+				"Off",
+				// —— Patreon 与 GitHub Developer Program 区块 ——
+				// 两条标题与按钮在 pages/settings 里已有同键译文，此处逐字沿用（两模块路由互斥）；
+				// Patreon 的说明句被 `<strong>@组织名</strong>` 拆成两段，后一段自带前导空格。
+				"Link Patreon account",
+				"Connect with Patreon",
+				"Connect a Patreon account for",
+				"to sponsor maintainers with. Get recognition on GitHub for sponsorships made on Patreon when the sponsored person has linked Patreon and GitHub, too, and has a public GitHub Sponsors profile.",
+				"GitHub Developer Program",
+				"Building an application, service, or tool that integrates with GitHub?",
+				"Join the GitHub Developer Program",
+				", or read more about it at our",
+				"GitHub developer program",
+				// —— 服务条款（Terms of Service）区块 ——
+				// `Accept GitHub customer agreement` 同一串既挂在 details-dialog 的 aria-label 上，
+				// 也是对话框的 h3 标题；`Accepting terms...` 是提交按钮 data-disable-with 的文案
+				// （六个可翻译属性之一）。句末的 `.` 是链接之外的纯符号节点，翻不了也不收。
+				"Terms of Service",
+				"Standard",
+				"Best for individuals wanting the freedom to move data and remain independent of a corporation.",
+				"Read the Standard Terms of Service",
+				"Corporate",
+				"Best for businesses that need to protect their intellectual property and secure visibility into their data.",
+				"Read the GitHub customer agreement",
+				"Sign GitHub customer terms",
+				"Accept GitHub customer agreement",
+				"Do you want to give ownership of your organization to your business?",
+				"Yes, I want to sign the GitHub customer agreement on behalf of my business.",
+				"What is the name of the business that owns this account?",
+				"e.g, Acme, Inc.",
+				"The name of the company that owns this account",
+				"This business — not",
+				"(your user account), will own and/or control any content posted to the organization",
+				"Accepting terms...",
+				"Accept terms",
+				"By clicking “Accept terms”, you agree to the",
+				"GitHub customer agreement",
+				"and the",
+				"privacy statement",
+				// —— 客户协议里的企业账单信息表单 ——
+				// 与 pages/settings-billing 的付款信息表单同一套字段（Address / City /
+				// Country/Region / Postal/Zip code / VAT/GST ID…），译文沿用那边的措辞；
+				// 国家与地区、州 / 省的 `<option>` 名称仍然一律**不收**（表单数据值）。
+				"GitHub's customer agreement requires you to transfer the ownership of your organization to your business. Enter your business details below to continue. You can change these at any time by accessing your organization’s billing information.",
+				"Business/Institution name",
+				"VAT/GST ID",
+				"Address",
+				"(Street, P.O. box)",
+				"Address line 2",
+				"(Apartment, suite, unit)",
+				"City",
+				"Country/Region",
+				"Choose your country/region",
+				"State/Province",
+				"Select state",
+				"Select province",
+				"Required for certain countries",
+				"Postal/Zip code",
+				"(9-digit zip code for US)",
+				"I agree to the",
+				"Corporate Terms of Service",
+				"cancel",
+				// —— 危险区域：重命名 / 归档 / 删除三个对话框 ——
+				// 大小写以实机为准：这里是 `Danger zone`（小写 z），与 pages/settings、
+				// pages/repo-settings 的 `Danger Zone` 是两个键，不能互相顶替。
+				// 三个对话框的小节标题同时就是按钮文案；三处 `<strong>` 把句子拆成多段
+				// （We **will**…、Please type **组织名** to confirm.、
+				// Deleting the **组织名** organization will delete…），收不到整句。
+				"Danger zone",
+				"Rename organization",
+				"Renaming your organization can have",
+				"unintended side effects",
+				"Rename your organization?",
+				"Unexpected bad things will happen if you don’t read this!",
+				"We",
+				"will",
+				"create redirects for your repositories (web and git access).",
+				"You will need to update your local repositories to point to the new location.",
+				"Renaming may take a few minutes to complete.",
+				"Enter a new name",
+				"Change organization’s name",
+				"Archive organization",
+				"Archive this organization",
+				"This organization will be archived.",
+				"Modifying settings will be limited and creating new repositories will be blocked.",
+				"All repositories will be",
+				"archived",
+				"and be read-only.",
+				"Before you archive, please consider:",
+				"Updating any organization settings",
+				"Making a note in your",
+				"organization README",
+				"Please type",
+				"to confirm.",
+				"Type in the name of the organization to confirm that you want to archive this organization.",
+				"I understand the consequences, archive this organization",
+				"Mark this organization and all its repositories as archived and read-only.",
+				"Delete this organization",
+				"Are you sure you want to delete this?",
+				"Delete organization",
+				"Deleting the",
+				"organization will delete all of its repositories. The",
+				"username will be unavailable for 90 days.",
+				"Before proceeding, please be sure to review the",
+				"regarding account deletion.",
+				"Enter this organization’s name to confirm",
+				"Cancel plan and delete the organization",
+				"Once deleted, it will be gone forever. Please be certain.",
 				// —— 仓库策略页（/organizations/<组织>/settings/policies/repositories）——
 				"Organization rulesets won't be enforced",
 				"until you upgrade this organization account to GitHub Team.",

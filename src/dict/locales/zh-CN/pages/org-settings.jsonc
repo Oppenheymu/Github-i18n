@@ -1,17 +1,25 @@
 // 组织设置模块：/organizations/<组织>/settings/** （另有 /orgs/<组织>/settings 一支）
 // 简体中文 · 模块 pages/org-settings（路由见 core/modules.jsonc，键的分组注释见 core/canonical.jsonc）
 //
-// 证据：2026-10-03 维护者用 popup 开发者模式导出的漏翻清单（途径 A），覆盖
-// /organizations/Koishi-CE/settings/profile 与 …/policies/repositories 两页。
-// 途径 A 只给文本与出现次数、不给节点边界，故这里只收**本身就是完整节点**的短标签；
-// 含 `sr-only` 碎片或动态值的句子一律不凭猜登记（等途径 B 的节点清单）。
+// 证据：① 2026-10-03 维护者用 popup 开发者模式导出的漏翻清单（途径 A），覆盖
+// /organizations/Koishi-CE/settings/profile 与 …/policies/repositories 两页——
+// 途径 A 只给文本与出现次数、不给节点边界，故那批只收**本身就是完整节点**的短标签；
+// ② 同日维护者贴的两段实机 HTML（装了扩展后复制的 /settings/profile，中英混排）——
+// 那两批按标签真实嵌套逐条登记，节点边界见
+// src/dict/__tests__/pages/org-settings/profile.test.ts。
 //
 // 刻意**不收录**（未命中即保留英文，这才是正确行为）：
 //   - 产品名与缩写：Dependabot / Copilot / OIDC / GitHub Team；
-//   - 国家与地区下拉的名称（Afghanistan…Åland，约 200 条）：属用户可选的数据值，
-//     整节点精确匹配会误伤同名的 location 文本与仓库名，维护者已明确暂不收录；
+//   - 国家与地区下拉的名称（Afghanistan…Åland，约 200 条）、州 / 省下拉的名称
+//     （Alabama…Wyoming / Alberta…Yukon）：属用户可选的数据值，整节点精确匹配会误伤
+//     同名的 location 文本与仓库名，维护者已明确暂不收录；
 //   - 社交平台品牌名（Bluesky / Facebook / X / YouTube…）与组织名、用户名、头像 alt；
-//   - 小写泛化词 `settings`（可能是仓库名 / 目录名）。
+//   - 小写泛化词 `settings`（可能是仓库名 / 目录名）；
+//   - 隐藏 span 上的 `data-wording="on behalf of"`（`data-*` 不在引擎翻译的六个属性里）。
+//
+// 已知取舍：危险区域对话框里 `We` / `will` / `archived` / `cancel` 这类单词键本身
+// 是泛化词，只因为模块按路由限定在组织设置页才敢收（同一页的仓库列表可能撞名，
+// 频率极低）；再遇到实机误伤就直接删词条，别加白名单。
 {
 	"$schema": "../../../types/dict.schema.json",
 	"entries": {
@@ -117,6 +125,133 @@
 		"Something went really wrong and we can’t process that picture.": "出了点严重的问题，无法处理这张图片。",
 		"File contents don’t match the file extension.": "文件内容与扩展名不符。",
 		"Clear Location": "清除位置",
+		// —— 产品内消息（In-product messages）——
+		// 证据：2026-10-03 维护者贴的下半页实机 HTML（装了扩展后的渲染结果，
+		// 页面里仍是英文的节点才是待补项）。开关状态与 pages/settings 同措辞。
+		"In-product messages": "产品内消息",
+		"Promotions": "推广",
+		"Notify account admins about exclusive GitHub products, services, offers, and events.": "向账户管理员通知 GitHub 专属的产品、服务、优惠与活动。",
+		"Member requests": "成员请求",
+		"Allow members in your organization to request access to products, budget, or features.": "允许组织成员申请使用产品、预算或功能。",
+		"Tips": "提示",
+		"Show your organization members tips about enabled products and features.": "向组织成员展示关于已启用产品与功能的提示。",
+		"Customer Research": "客户调研",
+		"Allow GitHub to contact members in your organization for research and feedback surveys.": "允许 GitHub 就调研与反馈问卷联系你组织中的成员。",
+		"On": "开启",
+		"Off": "关闭",
+		// —— Patreon 与 GitHub Developer Program ——
+		"Link Patreon account": "关联 Patreon 账户",
+		"Connect with Patreon": "关联 Patreon",
+		// 说明句被 `<strong>@组织名</strong>` 拆开：第一段只剩一个介词，
+		// 组织名之后接第二段，拼起来读作「为 @组织名 关联一个 Patreon 账户，用于赞助维护者。…」
+		"Connect a Patreon account for": "为",
+		"to sponsor maintainers with. Get recognition on GitHub for sponsorships made on Patreon when the sponsored person has linked Patreon and GitHub, too, and has a public GitHub Sponsors profile.": "关联一个 Patreon 账户，用于赞助维护者。当被赞助者同时关联了 Patreon 与 GitHub、并拥有公开的 GitHub Sponsors 个人资料时，你在 Patreon 上进行的赞助也会在 GitHub 上获得认可。",
+		"GitHub Developer Program": "GitHub 开发者计划",
+		"Building an application, service, or tool that integrates with GitHub?": "正在构建与 GitHub 集成的应用、服务或工具？",
+		"Join the GitHub Developer Program": "加入 GitHub 开发者计划",
+		// 链接之后的片段以逗号开头，实机拼作「…加入 GitHub 开发者计划，更多信息请见我们的 GitHub 开发者计划.」
+		", or read more about it at our": "，更多信息请见我们的",
+		"GitHub developer program": "GitHub 开发者计划",
+		// —— 服务条款（Terms of Service）——
+		"Terms of Service": "服务条款",
+		"Standard": "标准版",
+		"Best for individuals wanting the freedom to move data and remain independent of a corporation.": "适合希望自由迁移数据、保持独立于企业之外的个人。",
+		"Read the Standard Terms of Service": "阅读标准版服务条款",
+		"Corporate": "企业版",
+		"Best for businesses that need to protect their intellectual property and secure visibility into their data.": "适合需要保护知识产权、并确保对自身数据拥有可见性的企业。",
+		"Read the GitHub customer agreement": "阅读 GitHub 客户协议",
+		"Sign GitHub customer terms": "签署 GitHub 客户条款",
+		// 同一串既挂在 details-dialog 的 aria-label 上，也是对话框的 h3 标题
+		"Accept GitHub customer agreement": "接受 GitHub 客户协议",
+		"Do you want to give ownership of your organization to your business?": "你想将组织的所有权交给你的企业吗？",
+		"Yes, I want to sign the GitHub customer agreement on behalf of my business.": "是的，我想代表我的企业签署 GitHub 客户协议。",
+		"What is the name of the business that owns this account?": "拥有此账户的企业名称是什么？",
+		// 企业名输入框的示例占位符（属性只走精确命中，键保持与实机同形）
+		"e.g, Acme, Inc.": "例如：Acme 公司",
+		"The name of the company that owns this account": "拥有此账户的公司名称",
+		// `<span class="note">This business — not <strong>用户名</strong> (your user account), will own…</span>`
+		"This business — not": "该企业——而不是",
+		"(your user account), will own and/or control any content posted to the organization": "（你的用户账户），将拥有和/或控制发布到该组织的任何内容",
+		"Accepting terms...": "正在接受条款...",
+		"Accept terms": "接受条款",
+		"By clicking “Accept terms”, you agree to the": "点击“接受条款”即表示你同意",
+		"GitHub customer agreement": "GitHub 客户协议",
+		"and the": "以及",
+		"privacy statement": "隐私声明",
+		// —— 客户协议里的企业账单信息表单 ——
+		// 字段与 pages/settings-billing 的付款信息页同源，译文逐字沿用那边的措辞
+		//（「某些国家/地区必填」「增值税号（VAT/GST ID）」「（美国为 9 位 ZIP 码）」等）。
+		"GitHub's customer agreement requires you to transfer the ownership of your organization to your business. Enter your business details below to continue. You can change these at any time by accessing your organization’s billing information.": "GitHub 的客户协议要求你将组织的所有权转移给你的企业。请在下方填写你的企业详细信息以继续。你随时可以通过访问组织的账单信息来更改这些内容。",
+		"Business/Institution name": "企业/机构名称",
+		"VAT/GST ID": "增值税号（VAT/GST ID）",
+		"Address": "地址",
+		"(Street, P.O. box)": "（街道、邮政信箱）",
+		"Address line 2": "地址第二行",
+		"(Apartment, suite, unit)": "（公寓、套房、单元）",
+		"City": "城市",
+		"Country/Region": "国家/地区",
+		"Choose your country/region": "选择你的国家/地区",
+		"State/Province": "州/省",
+		// 州 / 省下拉的首项（美 / 加两份 select 各一条），选项名本身一律不收
+		"Select state": "选择州",
+		"Select province": "选择省",
+		"Required for certain countries": "某些国家/地区必填",
+		"Postal/Zip code": "邮政编码",
+		"(9-digit zip code for US)": "（美国为 9 位 ZIP 码）",
+		"I agree to the": "我同意",
+		"Corporate Terms of Service": "企业服务条款",
+		// 表单右侧 reset 按钮的小写原文；模块只在该路由生效，误伤面限于组织设置页
+		"cancel": "取消",
+		// —— 危险区域：重命名 / 归档 / 删除三个对话框 ——
+		// 实机渲染是小写 `Danger zone`（不是 pages/settings 的 `Danger Zone`），键必须同形。
+		"Danger zone": "危险区域",
+		"Rename organization": "重命名组织",
+		// `<p>Renaming your organization can have <a>unintended side effects</a>.</p>`
+		"Renaming your organization can have": "重命名组织可能会带来",
+		"unintended side effects": "意料之外的副作用",
+		"Rename your organization?": "要重命名你的组织吗？",
+		"Unexpected bad things will happen if you don’t read this!": "如果你没有读完这段内容，可能会发生意想不到的糟糕事情！",
+		// `<li>We <strong>will</strong> create redirects…</li>`：三个节点必须分别命中
+		"We": "我们",
+		"will": "将",
+		"create redirects for your repositories (web and git access).": "为你的仓库创建重定向（Web 与 Git 访问）。",
+		"You will need to update your local repositories to point to the new location.": "你需要更新本地仓库，使其指向新的位置。",
+		"Renaming may take a few minutes to complete.": "重命名可能需要几分钟才能完成。",
+		"Enter a new name": "输入新名称",
+		"Change organization’s name": "更改组织名称",
+		// 归档对话框：h1 标题与按钮文案是两串不同的原文
+		"Archive organization": "归档组织",
+		"Archive this organization": "归档此组织",
+		"This organization will be archived.": "此组织将被归档。",
+		"Modifying settings will be limited and creating new repositories will be blocked.": "修改设置将受到限制，并且无法创建新仓库。",
+		// `<p>All repositories will be <a>archived</a> and be read-only.</p>`
+		"All repositories will be": "所有仓库都将被",
+		"archived": "归档",
+		"and be read-only.": "并变为只读。",
+		"Before you archive, please consider:": "归档之前，请考虑：",
+		"Updating any organization settings": "更新任何组织设置",
+		// `<li>Making a note in your <a>organization README</a></li>`
+		"Making a note in your": "在你的",
+		"organization README": "组织 README",
+		// `<p>Please type <strong>组织名</strong> to confirm.</p>`
+		"Please type": "请输入",
+		"to confirm.": "以确认。",
+		"Type in the name of the organization to confirm that you want to archive this organization.": "输入组织名称，以确认你要归档此组织。",
+		"I understand the consequences, archive this organization": "我了解相应后果，归档此组织",
+		"Mark this organization and all its repositories as archived and read-only.": "将此组织及其所有仓库标记为已归档且只读。",
+		// 删除对话框：按钮与小节标题同串；表单的 aria-label 是另一串
+		"Delete this organization": "删除此组织",
+		"Are you sure you want to delete this?": "你确定要删除此内容吗？",
+		"Delete organization": "删除组织",
+		// `<p>Deleting the <strong>组织名</strong> organization will delete… The <strong>组织名</strong> username will…</p>`
+		"Deleting the": "删除",
+		"organization will delete all of its repositories. The": "组织会同时删除其所有仓库，并且该",
+		"username will be unavailable for 90 days.": "用户名将在 90 天内不可用。",
+		"Before proceeding, please be sure to review the": "在继续之前，请务必查阅",
+		"regarding account deletion.": "有关账户删除的规定。",
+		"Enter this organization’s name to confirm": "输入此组织的名称以确认",
+		"Cancel plan and delete the organization": "取消方案并删除组织",
+		"Once deleted, it will be gone forever. Please be certain.": "一旦删除，它将永远消失。请务必确认。",
 		// —— 仓库策略页 ——
 		// 后两条在实机上是**同一句被链接拆开**的两段：拼接后读作
 		// 「组织规则集将不会强制执行 直到你将此组织账户升级为 GitHub Team。」

@@ -20,12 +20,12 @@
 //     （Alabama…Wyoming / Alberta…Yukon）：属用户可选的数据值，整节点精确匹配会误伤
 //     同名的 location 文本与仓库名，维护者已明确暂不收录；
 //   - 社交平台品牌名（Bluesky / Facebook / X / YouTube…）与组织名、用户名、头像 alt；
-//   - 小写泛化词 `settings`（可能是仓库名 / 目录名）；
 //   - 隐藏 span 上的 `data-wording="on behalf of"`（`data-*` 不在引擎翻译的六个属性里）。
 //
-// 已知取舍：危险区域对话框里 `We` / `will` / `archived` / `cancel` 这类单词键本身
-// 是泛化词，只因为模块按路由限定在组织设置页才敢收（同一页的仓库列表可能撞名，
-// 频率极低）；再遇到实机误伤就直接删词条，别加白名单。
+// 已知取舍：危险区域对话框里 `We` / `will` / `archived` / `cancel`，以及设置范围
+// 切换器里的 `settings`（小写）这类单词键本身是泛化词，只因为模块按路由限定在
+// 组织设置页才敢收（同一页的仓库列表可能撞名，频率极低）；`settings` 一条另有
+// pages/settings 的同句先例兜着。再遇到实机误伤就直接删词条，别加白名单。
 {
 	"$schema": "../../../types/dict.schema.json",
 	"entries": {
@@ -39,6 +39,9 @@
 		"Select settings context": "选择设置范围",
 		"Switch": "切换",
 		"context": "上下文",
+		// 设置范围切换器：`切换 <span>settings </span>上下文`。小写泛化词，只因为
+		// 模块按路由限定在组织设置页才收（pages/settings 在同一句里早就收了同一个键）
+		"settings": "设置",
 		"People": "成员",
 		"Insights": "洞察",
 		// —— 组织设置侧栏 ——
@@ -293,6 +296,14 @@
 		//（两段之间由 walker 保留原节点的前导空格，故译文不带首尾空格）
 		"Organization rulesets won't be enforced": "组织规则集将不会强制执行",
 		"until you upgrade this organization account to GitHub Team.": "直到你将此组织账户升级为 GitHub Team。",
-		"Define whether members can perform operations on repositories such as delete and transfer.": "定义成员是否可以对仓库执行删除、转移等操作。"
+		"Define whether members can perform operations on repositories such as delete and transfer.": "定义成员是否可以对仓库执行删除、转移等操作。",
+		// 空态与「进一步了解」链接（证据：2026-10-03 维护者贴的实机 HTML + 截图）。
+		// 链接实机渲染为「进一步了解 policies.」：`Learn more about` 由 global 的短键命中，
+		// 剩下的片段此前漏翻。片段含不含句点从 outerHTML 看不出来，故三种形态都收。
+		"You haven't created any policies": "你还没有创建任何策略",
+		"New policy": "新建策略",
+		"policies": "策略",
+		"policies.": "策略。",
+		"Learn more about policies.": "进一步了解策略。"
 	}
 }

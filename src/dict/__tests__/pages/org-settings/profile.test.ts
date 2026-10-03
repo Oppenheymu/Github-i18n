@@ -18,9 +18,9 @@
 //     文本与仓库名，维护者 2026-10-03 明确拍板暂不收录；
 //   - 社交平台品牌名（Bluesky / Facebook / X / YouTube…）与产品名 / 缩写
 //     （Dependabot / Copilot / OIDC / GitHub Team）；
-//   - 组织名、用户名与头像 alt（`Koishi-CE` / `@Koishi-CE` / `M. Oppenheymu`）；
-//   - 小写泛化词 `settings`（可能是仓库名 / 目录名，硬收会误伤用户内容）。
-// 未命中即保留英文，这才是正确做法。
+//   - 组织名、用户名与头像 alt（`Koishi-CE` / `@Koishi-CE` / `M. Oppenheymu`）。
+// 未命中即保留英文，这才是正确做法。（小写泛化词 `settings` 原本也在这张清单上，
+// 2026-10-03 维护者指出设置范围切换器里的它必须译出，已改为收录——见下方切换器用例。）
 import { describe, expect, it } from "bun:test";
 import { buildView } from "../../../../content/view.ts";
 import { translateText } from "../../../../content/walker.ts";
@@ -304,8 +304,6 @@ const MUST_STAY_ENGLISH: readonly string[] = [
 	"Koishi-CE",
 	"@Koishi-CE",
 	"M. Oppenheymu",
-	// 小写泛化词：可能是仓库名 / 目录名
-	"settings",
 	// 位置下拉的 data-default-message（不在引擎翻译的六个属性里，有意不登记）
 	"Select a location",
 ];
@@ -373,8 +371,15 @@ describe("组织资料页的实机节点边界", () => {
 		}
 	});
 
-	it("renders the settings-context switcher across its two nodes", () => {
-		// 实机：sr-only 的 `Switch` 与可见的 `context` 是两个独立节点
+	it("renders the settings-context switcher across its three nodes", () => {
+		// 实机：`切换 <span class="d-none d-md-inline">settings </span>上下文`，
+		// 走到 walker 面前是三个文本节点（sr-only 的 `Switch`、可见的 `settings`、`context`）。
+		// `settings` 是小写泛化词，2026-10-03 维护者指出这里必须译出，
+		// 与 pages/settings 的同一句保持一致。
+		expect(
+			renderNodes(["Switch ", "settings ", "context"]),
+		).toBe("切换 设置 上下文");
+		// 窄屏（`d-none d-md-inline` 隐藏）时中间那段不参与渲染
 		expect(renderNodes(["Switch", " ", "context"])).toBe(
 			"切换 上下文",
 		);

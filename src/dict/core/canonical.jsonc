@@ -3262,6 +3262,11 @@
 				"Select settings context",
 				"Switch",
 				"context",
+				// 设置范围切换器的中间那个词：`切换 <span>settings </span>上下文`。
+				// 它是**小写泛化词**（可能与仓库名 / 目录名撞车），pages/settings 早在
+				// 同一句里收过（「设置页外壳」一组），组织设置页此前没收，实机就会
+				// 显示成「切换 settings 上下文」——本次按同一句的一致性补上。
+				"settings",
 				"People",
 				"Insights",
 				// —— 组织设置侧栏（分组标题下的每一项都是独立节点）——
@@ -3517,7 +3522,21 @@
 				// —— 仓库策略页（/organizations/<组织>/settings/policies/repositories）——
 				"Organization rulesets won't be enforced",
 				"until you upgrade this organization account to GitHub Team.",
-				"Define whether members can perform operations on repositories such as delete and transfer."
+				"Define whether members can perform operations on repositories such as delete and transfer.",
+				// 空态：标题、按钮与「进一步了解」链接。**关键实证**（2026-10-03 维护者贴的
+				// 实机 HTML）：链接渲染成「进一步了解 policies.」——中英混杂说明 `Learn more
+				// about` 命中了 global 的同名短键，剩下的 `policies` 片段漏翻。
+				// 片段到底含不含句点是 outerHTML 看不出来的（相邻文本节点会被拼接输出），
+				// 故三种形态都收：裸 `policies`（与 pages/repo-settings 的 Actions 策略页同形）、
+				// 带句点的 `policies.`（与 canonical 里规则集列表页的 `rulesets.` 同形）、
+				// 以及整句兜底（上游改回单节点时生效）。
+				// `You haven't created any policies` 与 `New policy` 与 pages/repo-settings
+				// 同键同义，译文逐字沿用。
+				"You haven't created any policies",
+				"New policy",
+				"policies",
+				"policies.",
+				"Learn more about policies."
 			]
 		},
 		{

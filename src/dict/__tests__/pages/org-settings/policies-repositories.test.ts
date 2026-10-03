@@ -1,16 +1,22 @@
 // 组织仓库策略页（/organizations/<组织>/settings/policies/repositories）实机文本回归。
 //
-// 证据与强度：2026-10-03 维护者用 popup 开发者模式导出的漏翻清单（**途径 A**）。
-// 途径 A 只给文本、不给节点边界，故这里只登记清单里本身就是完整节点的短句；
+// 证据与强度：① 2026-10-03 维护者用 popup 开发者模式导出的漏翻清单（**途径 A**）；
+// ② 同日维护者贴的该页实机 HTML 与截图（空态：「你还没有创建任何策略」+「新建策略」+
+// 被 React 拆开的「进一步了解」链接）。途径 A 只给文本、不给节点边界，故那批只登记
+// 清单里本身就是完整节点的短句；实机 HTML 那批按标签真实嵌套登记。
 // 页面标题（`Settings · Repository policies · Koishi-CE`）是 `<title>` 文本节点，
 // 含动态组织名，走 org-settings/page-title 规则（规则 id 见 core/rules.jsonc）。
 //
-// 两条边界事实：
+// 三条边界事实：
 //   1. 上面那两句提示在实机里是**同一句被链接拆开**的两段，译文要能直接拼起来读：
 //      「组织规则集将不会强制执行 直到你将此组织账户升级为 GitHub Team。」
 //      （两段之间的空格由 walker 保留原节点的前导空白而来，译文自身不带首尾空格）；
 //   2. document.title 的中段是页面名，规则不递归，故保留英文；末段是组织名（用户内容），
-//      原样带回。
+//      原样带回；
+//   3. 「进一步了解 policies.」是**半中半英**：`Learn more about` 命中 global 的短键，
+//      剩下的 `policies` 片段漏翻。outerHTML 把相邻文本节点拼在一起输出，看不出片段
+//      含不含句点，故 `policies` / `policies.` / 整句三种形态都收（与 canonical 里
+//      规则集列表页的 `rulesets.` 同一套处理）。
 import { describe, expect, it } from "bun:test";
 import { buildView } from "../../../../content/view.ts";
 import { translateText } from "../../../../content/walker.ts";
@@ -29,6 +35,14 @@ const POLICY_NODES: readonly string[] = [
 	"Organization rulesets won't be enforced",
 	"until you upgrade this organization account to GitHub Team.",
 	"Define whether members can perform operations on repositories such as delete and transfer.",
+	// —— 空态（2026-10-03 维护者贴的实机 HTML + 截图）——
+	"You haven't created any policies",
+	"New policy",
+	// 「进一步了解」链接被 React 拆开，片段含不含句点从 outerHTML 看不出来，两种都收
+	"policies",
+	"policies.",
+	// 整句兜底（上游改回单节点时生效）
+	"Learn more about policies.",
 ];
 
 /** 必须保持英文的实机文本：组织名与产品名 */
@@ -126,5 +140,33 @@ describe("组织仓库策略页的实机节点边界", () => {
 				view,
 			),
 		).toBe("定义成员是否可以对仓库执行删除、转移等操作。");
+	});
+
+	it("renders the empty state and its create button", () => {
+		// 与 pages/repo-settings 的 Actions 策略页同键同义，译文一致
+		expect(
+			translateText(
+				"You haven't created any policies",
+				view,
+			),
+		).toBe("你还没有创建任何策略");
+		expect(translateText("New policy", view)).toBe(
+			"新建策略",
+		);
+	});
+
+	it("renders the learn-more link across its split nodes", () => {
+		// 实机渲染成「进一步了解 policies.」：`Learn more about` 命中 global 的同名短键，
+		// 剩下的片段是本次补的。两种可能的节点边界都必须拼成中文。
+		expect(
+			renderNodes(["Learn more about ", "policies."]),
+		).toBe("进一步了解 策略。");
+		expect(
+			renderNodes(["Learn more about ", "policies", "."]),
+		).toBe("进一步了解 策略.");
+		// 整句兜底：词典先于规则/短键命中，整节点形态直接给出完整中文
+		expect(
+			translateText("Learn more about policies.", view),
+		).toBe("进一步了解策略。");
 	});
 });

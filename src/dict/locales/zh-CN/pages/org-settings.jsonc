@@ -93,6 +93,30 @@
 		"Link to social profile 4": "社交资料链接 4",
 		"Feature Release Label: Preview": "功能发布标签：预览版",
 		"Feature Release Label: Public preview": "功能发布标签：公开预览版",
+		// —— 账单邮箱与头像区块（证据：2026-10-03 维护者贴的实机 HTML）——
+		"Billing email": "账单邮箱",
+		// `<small>(Private)</small>` 是独立节点，与标签文本分开
+		"(Private)": "（私密）",
+		// 说明句被 `<a>billing page</a>` 拆开：链接在「请前往」之后，链接外的句点是纯符号节点
+		// （引擎翻不了），实机拼作「要添加更多账单邮箱收件人，请前往 账单页面 .」
+		"Add more billing email recipients in the": "要添加更多账单邮箱收件人，请前往",
+		"billing page": "账单页面",
+		"Gravatar email": "Gravatar 邮箱",
+		"Sponsors update email": "赞助更新邮箱",
+		"The developers and organizations that your organization sponsors can send you updates to this email.": "你的组织所赞助的开发者和组织可以向此邮箱发送更新。",
+		// 头像上传器（与 pages/settings 的同键译文保持一致；两模块路径互斥）
+		"Update profile": "更新资料",
+		"Profile picture": "头像",
+		"Upload new picture": "上传新图片",
+		"Uploading...": "上传中...",
+		"Note: To apply for a publisher verification your organization's profile picture should not be irrelevant, abusive or vulgar. It should not be a default image provided by GitHub.": "注意：申请发布者验证时，你组织的资料图片不应与组织无关，也不应包含辱骂或低俗内容，并且不能使用 GitHub 提供的默认图片。",
+		"This file is empty.": "文件为空。",
+		"Please upload a picture smaller than 1 MB.": "请上传小于 1 MB 的图片。",
+		"Please upload a picture smaller than 10,000x10,000.": "请上传小于 10,000×10,000 的图片。",
+		"We only support PNG, GIF, or JPG pictures.": "仅支持 PNG、GIF 或 JPG 图片。",
+		"Something went really wrong and we can’t process that picture.": "出了点严重的问题，无法处理这张图片。",
+		"File contents don’t match the file extension.": "文件内容与扩展名不符。",
+		"Clear Location": "清除位置",
 		// —— 仓库策略页 ——
 		// 后两条在实机上是**同一句被链接拆开**的两段：拼接后读作
 		// 「组织规则集将不会强制执行 直到你将此组织账户升级为 GitHub Team。」

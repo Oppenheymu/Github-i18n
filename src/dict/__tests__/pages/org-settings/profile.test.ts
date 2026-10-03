@@ -1,9 +1,11 @@
 // 组织资料页（/organizations/<组织>/settings/profile）实机文本与属性回归。
 //
 // 证据与强度：2026-10-03 维护者用 popup 开发者模式导出的漏翻清单（**途径 A**），
-// 覆盖 /organizations/Koishi-CE/settings/profile。途径 A 只给「文本 + 出现次数 + path」、
-// 不给节点边界，故本文件的节点清单里只放**本身就是完整节点**的短标签
-// （侧栏项、表单标签、属性），凡是含 `sr-only` 碎片或动态值的句子一律不凭猜登记。
+// 覆盖 /organizations/Koishi-CE/settings/profile；同日又贴了该页账单邮箱与头像区块的
+// **实机 HTML**（那一份是装了扩展后复制的，故中文节点是扩展产物、英文节点才是待补项）。
+// 途径 A 只给「文本 + 出现次数 + path」、不给节点边界，故本文件的节点清单里只放
+// **本身就是完整节点**的短标签（侧栏项、表单标签、属性），凡是含 `sr-only` 碎片或
+// 动态值的句子一律不凭猜登记；实机 HTML 那批则按标签的真实嵌套逐条登记。
 //
 // 这一页同时也是 `pages/repo-settings` 路由排除的回归：排除前组织设置页会被注入整包
 // 仓库设置词条（实机表现：`Actions` →「Actions 工作流」由仓库模块提供），排除后
@@ -103,6 +105,31 @@ const PROFILE_NODES: readonly string[] = [
 	"Social account",
 	// Location 搜索框的 placeholder（实机原文用半角省略号）
 	"Find a location...",
+	// —— 账单邮箱与头像区块（实机 HTML 证据）——
+	"Billing email",
+	// `<small>(Private)</small>` 独立成节点，与标签文本分开
+	"(Private)",
+	"Gravatar email",
+	"Sponsors update email",
+	"The developers and organizations that your organization sponsors can send you updates to this email.",
+	"Update profile",
+	"Profile picture",
+	"Upload new picture",
+	"Uploading...",
+	"Note: To apply for a publisher verification your organization's profile picture should not be irrelevant, abusive or vulgar. It should not be a default image provided by GitHub.",
+	"This file is empty.",
+	"Please upload a picture smaller than 1 MB.",
+	"Please upload a picture smaller than 10,000x10,000.",
+	"We only support PNG, GIF, or JPG pictures.",
+	"Something went really wrong and we can’t process that picture.",
+	"File contents don’t match the file extension.",
+	"Clear Location",
+];
+
+/** 账单说明句在 `<a>billing page</a>` 处被拆开：链接前的片段与链接文本各成一条 */
+const BILLING_NOTICE_NODES: readonly string[] = [
+	"Add more billing email recipients in the",
+	"billing page",
 ];
 
 /** 社交账号输入框的属性：aria-label 与 placeholder 同串同键 */
@@ -150,6 +177,8 @@ const MUST_STAY_ENGLISH: readonly string[] = [
 	"M. Oppenheymu",
 	// 小写泛化词：可能是仓库名 / 目录名
 	"settings",
+	// 位置下拉的 data-default-message（不在引擎翻译的六个属性里，有意不登记）
+	"Select a location",
 ];
 
 /** 节点在实机里通常带源码缩进与换行；两种形态都必须命中 */
@@ -195,6 +224,7 @@ describe("组织资料页的实机节点边界", () => {
 		for (const key of [
 			...SOCIAL_PROFILE_ATTRS,
 			...PREVIEW_LABELS,
+			...BILLING_NOTICE_NODES,
 		]) {
 			const translated = translateText(key, view);
 			expect(
@@ -256,5 +286,55 @@ describe("组织资料页的实机节点边界", () => {
 		expect(
 			translateText("Link to social profile 1", view),
 		).toBe("社交资料链接 1");
+	});
+
+	it("renders the billing-email notice across its link boundary", () => {
+		// 实机：`Add more billing email recipients in the <a>billing page</a>.`
+		// ——链接外的句点是纯符号节点（引擎按「含拉丁字母」判定，翻不了），原样保留
+		expect(
+			renderNodes([
+				"Add more billing email recipients in the",
+				" ",
+				"billing page",
+				".",
+			]),
+		).toBe("要添加更多账单邮箱收件人，请前往 账单页面.");
+	});
+
+	it("renders the private marker next to its three email labels", () => {
+		// 实机：`<label>Billing email <small>(Private)</small></label>` 是两个节点
+		expect(
+			renderNodes(["Billing email ", "(Private)"]),
+		).toBe("账单邮箱 （私密）");
+		expect(
+			renderNodes(["Gravatar email ", "(Private)"]),
+		).toBe("Gravatar 邮箱 （私密）");
+		expect(
+			renderNodes(["Sponsors update email ", "(Private)"]),
+		).toBe("赞助更新邮箱 （私密）");
+	});
+
+	it("renders the avatar uploader and its validation states", () => {
+		expect(translateText("Profile picture", view)).toBe(
+			"头像",
+		);
+		expect(translateText("Upload new picture", view)).toBe(
+			"上传新图片",
+		);
+		// 上传中的文案与 global 的 sr-only「加载中」是两个节点
+		expect(
+			renderNodes(["加载中", " ", "Uploading..."]),
+		).toBe("加载中 上传中...");
+		expect(translateText("This file is empty.", view)).toBe(
+			"文件为空。",
+		);
+		expect(
+			translateText(
+				"Note: To apply for a publisher verification your organization's profile picture should not be irrelevant, abusive or vulgar. It should not be a default image provided by GitHub.",
+				view,
+			),
+		).toBe(
+			"注意：申请发布者验证时，你组织的资料图片不应与组织无关，也不应包含辱骂或低俗内容，并且不能使用 GitHub 提供的默认图片。",
+		);
 	});
 });

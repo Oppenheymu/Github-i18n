@@ -417,6 +417,9 @@
 		"repo-settings/dependabot-rules-enabled-count": "已启用 $<count> 条规则",
 		"repo-settings/languages-selected-count": "已选择 $<count>/$<total> 种语言",
 		"repo-settings/dependent-repositories-count": "$<registry> · $<count> 个依赖仓库",
+		// —— 组织设置页（/organizations/<组织>/settings/**，模块 pages/org-settings）——
+		// document.title 的中段保留英文（规则不递归），末段是组织名（用户内容）
+		"org-settings/page-title": "设置 · $<page> · $<org>",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

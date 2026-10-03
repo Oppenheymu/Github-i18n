@@ -1,0 +1,104 @@
+// 组织设置模块：/organizations/<组织>/settings/** （另有 /orgs/<组织>/settings 一支）
+// 简体中文 · 模块 pages/org-settings（路由见 core/modules.jsonc，键的分组注释见 core/canonical.jsonc）
+//
+// 证据：2026-10-03 维护者用 popup 开发者模式导出的漏翻清单（途径 A），覆盖
+// /organizations/Koishi-CE/settings/profile 与 …/policies/repositories 两页。
+// 途径 A 只给文本与出现次数、不给节点边界，故这里只收**本身就是完整节点**的短标签；
+// 含 `sr-only` 碎片或动态值的句子一律不凭猜登记（等途径 B 的节点清单）。
+//
+// 刻意**不收录**（未命中即保留英文，这才是正确行为）：
+//   - 产品名与缩写：Dependabot / Copilot / OIDC / GitHub Team；
+//   - 国家与地区下拉的名称（Afghanistan…Åland，约 200 条）：属用户可选的数据值，
+//     整节点精确匹配会误伤同名的 location 文本与仓库名，维护者已明确暂不收录；
+//   - 社交平台品牌名（Bluesky / Facebook / X / YouTube…）与组织名、用户名、头像 alt；
+//   - 小写泛化词 `settings`（可能是仓库名 / 目录名）。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		// —— 设置外壳（侧栏、上下文切换器、组织导航）——
+		"Organization settings": "组织设置",
+		"Organization": "组织",
+		"Organization navigation": "组织导航",
+		"General Organization Settings": "常规组织设置",
+		"Settings menu": "设置菜单",
+		"Menu": "菜单",
+		"Select settings context": "选择设置范围",
+		"Switch": "切换",
+		"context": "上下文",
+		"People": "成员",
+		"Insights": "洞察",
+		// —— 组织设置侧栏 ——
+		"Member privileges": "成员权限",
+		"Repository policies": "仓库策略",
+		"Repository roles": "仓库角色",
+		"Organization roles": "组织角色",
+		"Role assignments": "角色分配",
+		"Role management": "角色管理",
+		"Repository properties": "仓库属性",
+		"Custom properties": "自定义属性",
+		"Projects": "项目",
+		"Configurations": "配置",
+		"Caches": "缓存",
+		"Code review": "代码审查",
+		"Issue fields": "议题字段",
+		"Issue types": "议题类型",
+		"Ruleset dashboard": "规则集仪表板",
+		"Ruleset insights": "规则集洞察",
+		"Runner groups": "运行器组",
+		"Authentication security": "身份验证安全",
+		"Compliance": "合规",
+		"Moderators": "版主",
+		"Logs": "日志",
+		"Audit log": "审计日志",
+		"Active tokens": "活跃令牌",
+		"Pending requests": "待处理的请求",
+		"Private registries": "私有注册表",
+		"Deleted repositories": "已删除的仓库",
+		"OAuth app policy": "OAuth 应用策略",
+		"OAuth Apps": "OAuth 应用",
+		"Personal access tokens": "个人访问令牌",
+		"Third-party Access": "第三方访问",
+		"GitHub Apps": "GitHub 应用",
+		"Publisher Verification": "发布者验证",
+		"Verified and approved domains": "已验证且已批准的域名",
+		"Sandboxes": "沙盒",
+		"Import/Export": "导入/导出",
+		"Scheduled reminders": "定时提醒",
+		"Global settings": "全局设置",
+		"Billing and licensing": "账单与许可",
+		"Payment information": "付款信息",
+		"Payment history": "付款历史",
+		"Additional billing details": "其他账单详情",
+		"Budgets and alerts": "预算与提醒",
+		"AI usage": "AI 用量",
+		"Sponsorship log": "赞助记录",
+		"Licensing": "许可",
+		"Usage": "用量",
+		"Blocked users": "已屏蔽用户",
+		"Developer settings": "开发者设置",
+		// 组织页的 `Actions` 与仓库设置同措辞（同一批侧栏项），排除注入后由本模块自己提供
+		"Actions": "Actions 工作流",
+		// —— 组织资料表单 ——
+		"Organization display name": "组织显示名称",
+		"Email (will be public)": "电子邮箱（将公开）",
+		"Location": "位置",
+		"URL": "网址",
+		"Social accounts": "社交账号",
+		"Social account": "社交账号",
+		// Location 搜索框的占位符（属性只走精确命中，保持半角省略号与键同形）
+		"Find a location...": "查找位置...",
+		"Link to social profile 1": "社交资料链接 1",
+		"Link to social profile 2": "社交资料链接 2",
+		"Link to social profile 3": "社交资料链接 3",
+		"Link to social profile 4": "社交资料链接 4",
+		"Feature Release Label: Preview": "功能发布标签：预览版",
+		"Feature Release Label: Public preview": "功能发布标签：公开预览版",
+		// —— 仓库策略页 ——
+		// 后两条在实机上是**同一句被链接拆开**的两段：拼接后读作
+		// 「组织规则集将不会强制执行 直到你将此组织账户升级为 GitHub Team。」
+		//（两段之间由 walker 保留原节点的前导空格，故译文不带首尾空格）
+		"Organization rulesets won't be enforced": "组织规则集将不会强制执行",
+		"until you upgrade this organization account to GitHub Team.": "直到你将此组织账户升级为 GitHub Team。",
+		"Define whether members can perform operations on repositories such as delete and transfer.": "定义成员是否可以对仓库执行删除、转移等操作。"
+	}
+}

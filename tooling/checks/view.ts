@@ -60,6 +60,14 @@ export const PROBE_PATHS: readonly string[] = [
 	// 的第二支路由：它同时命中 pages/repo，两支的词条「先到先得」谁胜出、规则序列如何，
 	// 只有单独一条探针能钉住（2026-09-27 实机发现漏路由后补）
 	"/microsoft/vscode/reported_content",
+	// 组织设置（/organizations/<组织>/settings/**）是独立模块 pages/org-settings，
+	// 而 pages/repo-settings 的路由**排除了**这一支：两者互斥。这条探针同时钉住
+	// 「排除是否生效」——命中序列里只应出现 pages/org-settings + global，
+	// 仓库设置词条一旦注入回来，这里的 matched 立刻变长（2026-10-03 实机采集发现注入后修）
+	"/organizations/octocat/settings/profile",
+	// 仓库策略页：同模块的第二页，是 org-settings/page-title 规则唯一的生效路径，
+	// 不单独列探针的话「规则加了却没生效」在骨架里完全不可见
+	"/organizations/octocat/settings/policies/repositories",
 	"/settings/profile",
 	"/settings/accessibility",
 	"/settings/notifications",

@@ -47,6 +47,7 @@ import zhDiscussionsRaw from "./locales/zh-CN/pages/discussions.jsonc";
 import zhInsightsRaw from "./locales/zh-CN/pages/insights.jsonc";
 import zhIssuesRaw from "./locales/zh-CN/pages/issues.jsonc";
 import zhMarketingRaw from "./locales/zh-CN/pages/marketing.jsonc";
+import zhOrgSettingsRaw from "./locales/zh-CN/pages/org-settings.jsonc";
 import zhProfileRaw from "./locales/zh-CN/pages/profile.jsonc";
 import zhPullsRaw from "./locales/zh-CN/pages/pulls.jsonc";
 import zhRepoRaw from "./locales/zh-CN/pages/repo.jsonc";
@@ -92,6 +93,8 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 			// 账号安全页单独成模块（路由重叠，词条逐键先到先得）：理由见 core/modules.jsonc
 			["pages/settings-security", zhSettingsSecurityRaw],
 			["pages/repo-settings", zhRepoSettingsRaw],
+			// 组织设置单独成模块（路由与 repo-settings 互斥）：理由见 core/modules.jsonc
+			["pages/org-settings", zhOrgSettingsRaw],
 			["pages/actions", zhActionsRaw],
 			["pages/agents", zhAgentsRaw],
 			["pages/dashboard", zhDashboardRaw],

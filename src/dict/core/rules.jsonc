@@ -2051,6 +2051,19 @@
 			]
 		},
 		{
+			"name": "pages/org-settings",
+			"rules": [
+				// 组织设置页的 document.title：`Settings · Repository policies · Koishi-CE`。
+				// 中段是页面名（英文：规则不递归，故原样带回）、末段是组织名（用户内容）。
+				// 分隔符在实机是中点，仍用字符类同时覆盖中点与项目符号（与既有规则一致）。
+				// 与 repo-settings 的 `^Settings: (.+)$`（带冒号）互不干扰。
+				{
+					"id": "org-settings/page-title",
+					"pattern": "^Settings [\\u00b7\\u2022] (?<page>.+) [\\u00b7\\u2022] (?<org>.+)$"
+				}
+			]
+		},
+		{
 			"name": "pages/actions",
 			"rules": [
 				// 运行时长：12s / 3m 40s / 1h 2m 3s（长格式在前，首条命中生效）

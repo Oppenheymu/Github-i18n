@@ -3246,6 +3246,101 @@
 			]
 		},
 		{
+			"name": "pages/org-settings",
+			"keys": [
+				// —— 设置外壳（侧栏、上下文切换器、组织导航）——
+				// 证据：2026-10-03 维护者用 popup 开发者模式导出的漏翻清单（途径 A），
+				// 覆盖 /organizations/Koishi-CE/settings/profile 与 …/policies/repositories。
+				// 途径 A 只给文本、不给节点边界，故这里只登记**本身就是完整节点**的短标签；
+				// 含 `sr-only` 碎片或动态值的句子一律不凭猜登记。
+				"Organization settings",
+				"Organization",
+				"Organization navigation",
+				"General Organization Settings",
+				"Settings menu",
+				"Menu",
+				"Select settings context",
+				"Switch",
+				"context",
+				"People",
+				"Insights",
+				// —— 组织设置侧栏（分组标题下的每一项都是独立节点）——
+				"Member privileges",
+				"Repository policies",
+				"Repository roles",
+				"Organization roles",
+				"Role assignments",
+				"Role management",
+				"Repository properties",
+				"Custom properties",
+				"Projects",
+				"Configurations",
+				"Caches",
+				"Code review",
+				"Issue fields",
+				"Issue types",
+				"Ruleset dashboard",
+				"Ruleset insights",
+				"Runner groups",
+				// Dependabot / Copilot / OIDC 是产品名与缩写，**有意不收录**：
+				// 未命中即保留英文，这是正确行为而不是漏译。
+				"Authentication security",
+				"Compliance",
+				"Moderators",
+				"Logs",
+				"Audit log",
+				"Active tokens",
+				"Pending requests",
+				"Private registries",
+				"Deleted repositories",
+				"OAuth app policy",
+				"OAuth Apps",
+				"Personal access tokens",
+				"Third-party Access",
+				"GitHub Apps",
+				"Publisher Verification",
+				"Verified and approved domains",
+				"Sandboxes",
+				"Import/Export",
+				"Scheduled reminders",
+				"Global settings",
+				"Billing and licensing",
+				"Payment information",
+				"Payment history",
+				"Additional billing details",
+				"Budgets and alerts",
+				"AI usage",
+				"Sponsorship log",
+				"Licensing",
+				"Usage",
+				"Blocked users",
+				"Developer settings",
+				// 组织页的 `Actions` 与仓库设置同措辞（同一批侧栏项），
+				// 排除 repo-settings 注入后由本模块自己提供，避免实机出现两种译法。
+				"Actions",
+				// —— 组织资料表单（/organizations/<组织>/settings/profile）——
+				"Organization display name",
+				"Email (will be public)",
+				"Location",
+				"URL",
+				"Social accounts",
+				"Social account",
+				// Location 的搜索框占位符与社交账号输入框的属性（属性只走精确命中）
+				"Find a location...",
+				"Link to social profile 1",
+				"Link to social profile 2",
+				"Link to social profile 3",
+				"Link to social profile 4",
+				// 预览标签是 title + aria-label 同串的两处渲染
+				"Feature Release Label: Preview",
+				"Feature Release Label: Public preview",
+				// —— 仓库策略页（/organizations/<组织>/settings/policies/repositories）——
+				"Organization rulesets won't be enforced",
+				"until you upgrade this organization account to GitHub Team.",
+				"Define whether members can perform operations on repositories such as delete and transfer."
+			]
+		},
+		{
 			"name": "pages/actions",
 			"keys": [
 				// —— 侧栏 ——

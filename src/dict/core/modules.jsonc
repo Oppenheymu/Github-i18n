@@ -57,7 +57,24 @@
 			//                                 实机表现为「一进这个页面翻译就消失」：
 			//                                 侧栏 General / Webhooks / Moderation 与正文
 			//                                 全部保留英文，只有「保存」这类 global 词条是中文。
-			"route": "^/[^/]+/[^/]+/(?:settings|reported_content)"
+			// 路由还要排除 /organizations/<组织>/settings 与 /orgs/<组织>/settings：
+			// 组织设置页是**另一套**侧栏与正文（pages/org-settings），不排除的话整包仓库
+			// 设置词条都会注入组织设置页。实机证据（2026-10-03 维护者用 popup 开发者模式
+			// 采集的漏翻清单）：组织设置页的侧栏项被译成仓库设置的措辞
+			//（如 `Actions` →「Actions 工作流」、`GitHub Apps` →「GitHub 应用」），
+			// 而真正属于组织页的文案（Repository policies / Member privileges…）全部保留英文。
+			"route": "^/(?!(?:organizations|orgs)/)[^/]+/[^/]+/(?:settings|reported_content)"
+		},
+		{
+			// 组织设置：/organizations/<组织>/settings/** （另有 /orgs/<组织>/settings 一支，
+			// 是同一页的旧地址，两条都要覆盖；不存在的路径不会渲染，多覆盖不会误注入）。
+			// 为什么单独成模块：组织设置的侧栏与正文和仓库设置毫无重叠
+			//（Profile / Member privileges / Repository policies / Authentication security…），
+			// 挂进 pages/repo-settings 会让两边互相污染，见上一条的排除说明。
+			// 本模块只放组织设置专属词条；`Organization` / `Menu` 这类外壳词条按页面实际
+			// 渲染登记（它们与 pages/settings 同键但路径互斥，不会构成跨模块碰撞）。
+			"name": "pages/org-settings",
+			"route": "^/(?:organizations|orgs)/[^/]+/settings"
 		},
 		{
 			"name": "pages/actions",

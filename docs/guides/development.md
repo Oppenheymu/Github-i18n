@@ -378,6 +378,7 @@ for (const p of probes) {
 
 - `settings-*.test.ts` → `pages/settings/<页名>.test.ts`（账号设置族，文件名去掉 `settings-` 前缀）；
 - `repo-settings-*.test.ts` → `pages/repo-settings/<页名>.test.ts`（仓库设置族，去掉 `repo-settings-` 前缀；族内那页**仓库设置根页** `/owner/repo/settings` 是 `repo-settings/index.test.ts`——它原名 `settings-repo.test.ts`，按前缀会归错组）；
+- 组织设置族（模块 `pages/org-settings`，`/organizations/<组织>/settings/**`）同理收进 `pages/org-settings/<页名>.test.ts`；它在 `core/modules.jsonc` 里**排在 `pages/repo-settings` 之后**，而两者的路由互斥（仓库设置的路由排除了 `organizations` / `orgs`，见该文件的注释）；
 - 其余**一模块一文件**的（`global` / `dashboard` / `repo` / `profile` / `issues` / `pulls` / `insights-security` / `status-dialog`）留在 `pages/` 根下，不再往下切。
 
 下表列出已登记的实机节点回归，**文件列是相对 `pages/` 的路径**（表由人工维护：新用例按上文规则归位后，照「每次收工前的清单」在表里补一行，别只建文件）：
@@ -416,6 +417,8 @@ for (const p of probes) {
 | `repo-settings/hooks.test.ts` | `/owner/repo/settings/hooks`、`…/hooks/new` | 网络钩子列表页与新建页（**新建页的证据是维护者贴的「未装扩展」的实机 HTML**，是权威节点边界；由此确认四件事：必填标记 `*` 是独立 `<span aria-hidden="true">`、`(not recommended)` 被独立 `<span class="f6">` 包住、说明段里的 `POST` 与 `x-www-form-urlencoded` 在 `<code>` 里而 `<em>etc</em>` **不在**（照常翻译）、三个选项标签里前两个被内联元素切开。新建页的 56 个事件各收「名称 + 说明」两条键，其中 `Deploy keys` / `Discussions` / `Pushes` 与设置侧边栏、推送设置同串同义，复用不重复登记；列表页仍只有截图，那句说明由 `repo-settings/webhooks-intro` 规则承担，撇号直弯都用 `['’]` 覆盖） |
 | `repo-settings/index.test.ts` | `/owner/repo/settings` | 仓库设置页的两批**原版 HTML 片段**证据（整页仍未采集）：① 2026-09 的「Creation allowed by」筛选按钮（标签、当前值、菜单项是三个独立文本节点）；② 2026-10-03 的议题创建策略 action-list（`issue_creation_policy`，标签复用 `All users` / `Collaborators only`，说明句 `Anyone can create an issue` / `Only collaborators can create issues` 各自成节点）与保留期一节（**上游把文案改成枚举五项**的 `Check, workflow run, status, artifact and log retention`，它在同一段 HTML 里出现两次——`<h2 id="retention-header">` 与 `<strong id="artifact-retention-subheading">`，一条键覆盖两处；旧版短文案保留，由 `actions.test.ts` 覆盖，两批是不同的键） |
 | `repo-settings/rulesets.test.ts` | `/owner/repo/settings/rules`、`/owner/repo/settings/rules/<id>` | 规则集列表页与详情页（**证据是途径 A 导出的漏翻清单 + 两张实机截图 + 维护者贴的两段实机 HTML**（状态检查与「合并前需要拉取请求」两个规则的展开面板），2026-09-27：清单里除专名 / 用户内容外的节点、以及两段 HTML 里的全部节点都命中；本页此前**没有任何词条**，属整页新增。三条边界事实：规则名 `Protect Default Branch`、仓库名、用户名、分支名 `main` 与产品名保持英文；组合型 aria-label（`Active, Enforcement status`、`Roles, Filter actors by category`、`Squash, Allowed merge methods`）是**属性**、不走正则规则，故逐条收静态键；含动态值的文本（列表行计数、目标计数、面包屑、`Apps • <应用名>`、`Delete include of <分支模式>`）靠 6 条 `repo-settings/ruleset-*` 规则，分隔符用字符类同时覆盖 `•` 与 `·`。清单里孤立的 `changes` 来源不明，有意不收） |
+| `org-settings/profile.test.ts` | `/organizations/<组织>/settings/profile` | 组织资料页（**证据是途径 A 导出的漏翻清单**，2026-10-03：侧栏 49 项、设置外壳与表单标签全部命中，预览标签的 title / aria-label 同串也锁住。这一页同时是**路由排除的回归**：排除前整包仓库设置词条会注入组织设置页（实机把 `Actions` 译成「Actions 工作流」是仓库模块干的），排除后这两条由本模块自己提供、措辞保持一致。国家 / 地区下拉的名称、社交平台品牌名、产品名（Dependabot / Copilot / OIDC）与组织名都按反例断言保持英文） |
+| `org-settings/policies-repositories.test.ts` | `/organizations/<组织>/settings/policies/repositories` | 组织仓库策略页（同一条途径 A 清单：页面标题 `Settings · Repository policies · Koishi-CE` 走 `org-settings/page-title` 规则，中段页面名保留英文、末段组织名原样带回；rulesets 提示是**同一句被链接拆开**的两段，拼接后读作「组织规则集将不会强制执行 直到你将此组织账户升级为 GitHub Team。」；国家 / 地区下拉按维护者拍板暂不收录） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分；侧栏星标 / 关注 / 复刻三个计数走 `repo/*-count` 规则，数字随仓库变化，另收 `4.1k` / `1,234` 这类缩写形态） |
 | `profile.test.ts` | `/<用户名>?tab=repositories` | 个人 / 组织主页的仓库列表（Type 下拉九项按**整节点相等**断言；结果摘要行是五个节点——`5` / `results for` / `source` / `repositories sorted by` / `last updated`，加粗的三段各被 `<strong>` 单独包住，靠三条 `profile/repo-results-*` 规则 + `results for` / `last updated` 两条片段词条拼装，整句渲染成「5 个结果， 来源 仓库， 按上次更新排序」（量词只跟数字、连接词落在宾语之后，见「四、采集结果怎么读」第 6 条；筛选值 `source` 按维护者拍板收成词条，代价见第 5 条例外）；`Clear filter` 与 Type 菜单里上游未本地化的 `Can be sponsored` / `Templates` 一并锁住） |
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |
@@ -449,6 +452,8 @@ for (const p of probes) {
 - `popup.ts` 末尾那个 `try { main() } catch` 兜底分支同理（要覆盖它得造出第二个「`main()` 抛错」的装配场景）。它是纯兜底，代价可接受；`popup.ts` 顶层的 `assertFound` 仍在 `main()` 之外抛出，**刻意不吞**（缺元素属打包错误，掩盖它只会让人更难查）。
 
 **已知空缺：`repo-settings`（`/owner/repo/settings`）整页尚未采集**（该页需要登录），所以仓库设置页没有**整页**的实机节点回归——目前它只有三处：`repo-settings/index.test.ts` 覆盖的「Creation allowed by」筛选按钮三节点、2026-10-03 采集的议题创建策略 action-list 与保留期改版文案，`repo-settings/actions.test.ts` 覆盖的 Actions 子页（途径 A 清单），与 `repo-settings/interaction-limits.test.ts` 覆盖的交互限制子页（途径 A 清单）；其余词条靠视图骨架层的保护（命中模块序列 + 碰撞赢家）与词典门禁。
+
+组织设置族（模块 `pages/org-settings`）同样是**部分采集**：2026-10-03 的途径 A 清单只覆盖 `settings/profile` 与 `settings/policies/repositories` 两页，其余子页（`member_privileges` / `authentication_security` / 计费各页…）尚无任何实机证据，正文词条的长期保护同样只有视图骨架层。补下一批时的两条注意：① 采集必须在**未加载本扩展**的原始英文页面做，或明确以「仍是英文的模板文案」为待补项（本页清单是后者，故清单里混着扩展自己写入的中文译文产物——凡是 `kind: "text"` 却是中文的条目都不是漏翻，别登记）；② 国家 / 地区下拉的名称（约 200 条）与社交平台品牌名**有意不收录**，见 `pages/org-settings` 的译文文件头。
 
 每个实机测试文件的结构都一样：文件头写明节点来源与日期，然后是一份**逐字录入的 `nodeValue` 清单**（带源码缩进 / 换行的按原样保留，因为实机里长句的节点自带缩进），用 `translateText(节点, 该路径的 buildView(...))` 断言命中与译文，另有一组**反例**断言用户内容（文件名、仓库名、`README.md`、小写常用词）**必须不被翻译**。
 

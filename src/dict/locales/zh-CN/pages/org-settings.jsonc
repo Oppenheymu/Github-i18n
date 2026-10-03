@@ -6,7 +6,13 @@
 // 途径 A 只给文本与出现次数、不给节点边界，故那批只收**本身就是完整节点**的短标签；
 // ② 同日维护者贴的两段实机 HTML（装了扩展后复制的 /settings/profile，中英混排）——
 // 那两批按标签真实嵌套逐条登记，节点边界见
-// src/dict/__tests__/pages/org-settings/profile.test.ts。
+// src/dict/__tests__/pages/org-settings/profile.test.ts；
+// ③ 同日维护者贴的 `Layout-sidebar` 实机 HTML（侧栏是所有子页共用的外壳），
+// 补齐分组标题与第一批清单没覆盖到的条目，节点边界见同目录的 sidebar.test.ts。
+//
+// `Pages` 一条是对 global 的**定点纠正**：global 把 GitHub Pages 的 `Pages` 收成了
+// 「页码」，本模块在自己的路由上覆盖为「页面」；global 那条是否有别的页面证据尚不明确，
+// 未动它（改动 global 影响全站，需要独立证据）。
 //
 // 刻意**不收录**（未命中即保留英文，这才是正确行为）：
 //   - 产品名与缩写：Dependabot / Copilot / OIDC / GitHub Team；
@@ -84,6 +90,35 @@
 		"Usage": "用量",
 		"Blocked users": "已屏蔽用户",
 		"Developer settings": "开发者设置",
+		// —— 组织设置侧栏的分组标题与其余条目（证据：2026-10-03 维护者贴的 Layout-sidebar）——
+		// 除 `Pages` 外全部沿用 pages/settings 与 pages/repo-settings 的既有措辞：
+		// 同一批侧栏项在两个模块里都出现，改词必须一起改。
+		"General": "常规",
+		"Policies": "策略",
+		"Access": "访问权限",
+		"Moderation": "审核",
+		"Interaction limits": "互动限制",
+		"Code review limits": "代码审查限制",
+		"Code, planning, and automation": "代码、规划与自动化",
+		"Rulesets": "规则集",
+		"Planning": "规划",
+		"Cloud agent": "云端代理",
+		"Internet access": "网络访问",
+		"Runner type": "运行器类型",
+		"Policy insights": "策略洞察",
+		"Runners": "运行器",
+		"Webhooks": "网络钩子",
+		"Packages": "软件包",
+		// global 把 GitHub Pages 的 `Pages` 收成了「页码」，本模块在自己的路由上纠正为「页面」
+		"Pages": "页面",
+		"Security and quality": "安全与质量",
+		"Advanced Security": "高级安全",
+		"Code quality": "代码质量",
+		"Deploy keys": "部署密钥",
+		"Secrets and variables": "机密与变量",
+		"Agents": "代理",
+		"Integrations": "集成",
+		"Archive": "归档",
 		// 组织页的 `Actions` 与仓库设置同措辞（同一批侧栏项），排除注入后由本模块自己提供
 		"Actions": "Actions 工作流",
 		// —— 组织资料表单 ——

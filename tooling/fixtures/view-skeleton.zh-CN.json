@@ -2062,7 +2062,9 @@
 			"name": "organizations/octocat/settings/profile",
 			"path": "/organizations/octocat/settings/profile",
 			"matched": ["pages/org-settings", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Pages", "module": "pages/org-settings" }
+			],
 			"rules": [
 				"org-settings/page-title",
 				"global/now",
@@ -2204,7 +2206,9 @@
 			"name": "organizations/octocat/settings/policies/repositories",
 			"path": "/organizations/octocat/settings/policies/repositories",
 			"matched": ["pages/org-settings", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Pages", "module": "pages/org-settings" }
+			],
 			"rules": [
 				"org-settings/page-title",
 				"global/now",

@@ -3315,6 +3315,37 @@
 				"Usage",
 				"Blocked users",
 				"Developer settings",
+				// —— 组织设置侧栏：分组标题与第一批清单没覆盖到的条目 ——
+				// 证据：2026-10-03 维护者贴的 `Layout-sidebar` 实机 HTML。侧栏是所有子页
+				// 共用的外壳，下列键在 pages/settings / pages/repo-settings 里都已有同键译文，
+				// 此处逐字沿用（译文一致才不会有同一项两副面孔）；三个模块路由互斥。
+				// `Pages` 是**对 global 的定点纠正**：global 把 GitHub Pages 的 `Pages`
+				// 收成了「页码」，本模块在自己的路由上覆盖为「页面」（与仓库设置、wiki 一致）。
+				"General",
+				"Policies",
+				"Access",
+				"Moderation",
+				"Interaction limits",
+				"Code review limits",
+				"Code, planning, and automation",
+				"Rulesets",
+				"Planning",
+				"Cloud agent",
+				"Internet access",
+				"Runner type",
+				"Policy insights",
+				"Runners",
+				"Webhooks",
+				"Packages",
+				"Pages",
+				"Security and quality",
+				"Advanced Security",
+				"Code quality",
+				"Deploy keys",
+				"Secrets and variables",
+				"Agents",
+				"Integrations",
+				"Archive",
 				// 组织页的 `Actions` 与仓库设置同措辞（同一批侧栏项），
 				// 排除 repo-settings 注入后由本模块自己提供，避免实机出现两种译法。
 				"Actions",

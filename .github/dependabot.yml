@@ -3,12 +3,14 @@
 # 本仓库是 Bun + TypeScript 的浏览器扩展，受管依赖只有两块：
 # - github-actions：workflow 里 pin 到 commit SHA 的 action（PR 里只改 SHA 与注释，
 #   合并前需人工确认版本注释同步更新）；
-# - npm：devDependencies（Biome / TypeScript / 类型声明）。Bun 复用
-#   package.json + bun.lock，Dependabot 侧的生态名仍写 npm；若 PR 只改了
-#   package.json，合并后需本地跑 bun install 让 bun.lock 跟上。
+# - bun：devDependencies（Biome / TypeScript / 类型声明）。
+#
+# 生态名必须是 `bun` 而不是 `npm`：bun.lock 不是 npm 更新器能识别的锁文件，写 npm 时
+# PR 只会改 package.json，而 ci.yml 跑 `bun install --frozen-lockfile`，PR 必然红灯；
+# `bun` 生态认文本 bun.lock（需 Bun ≥ 1.1.39，本仓 1.4.2），会把 lockfile 一起更新。
+# 该生态只做版本更新、不支持 security updates——扩展产物零运行时依赖，无实际影响。
 #
 # 两个生态都每周检查一次、按生态分组以减少 PR 噪声，并限制同时打开的 PR 数量。
-# 安全更新不受分组与数量限制影响（Dependabot 会单独开 PR）。
 
 version: 2
 
@@ -32,8 +34,11 @@ updates:
         patterns:
           - "*"
 
-  # npm：package.json 里的开发依赖（扩展产物零运行时依赖）
-  - package-ecosystem: npm
+  # bun：package.json 里的开发依赖（扩展产物零运行时依赖）
+  #
+  # 不写 versioning-strategy：`bun` 生态不支持该选项；package.json 的 private: true
+  # 已让 Dependabot 按「应用」处理，默认策略就是 increase（抬高下界）。
+  - package-ecosystem: bun
     directory: /
     schedule:
       interval: weekly
@@ -41,15 +46,17 @@ updates:
       time: "09:00"
       timezone: Asia/Shanghai
     open-pull-requests-limit: 5
-    versioning-strategy: increase
     commit-message:
       prefix: "chore(deps)"
     labels:
       - "范围:构建与工具链"
     groups:
-      # 次版本与补丁版本合并；主版本单独开 PR，强制人工评估
+      # 次版本与补丁版本合并；主版本单独开 PR，强制人工评估。
+      # `bun` 生态不支持 groups.dependency-type，而本仓依赖全是 devDependencies，
+      # 故改用 patterns 全匹配，语义与「仅开发依赖」等价。
       dev-minor-patch:
-        dependency-type: development
+        patterns:
+          - "*"
         update-types:
           - minor
           - patch

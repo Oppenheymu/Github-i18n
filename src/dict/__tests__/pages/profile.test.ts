@@ -1,4 +1,6 @@
-// 个人 / 组织主页的「仓库列表」筛选菜单实机节点回归。
+// 个人 / 组织主页的实机节点回归：仓库列表筛选菜单、结果摘要、私有贡献摘要，
+// 以及左侧栏的内联「编辑资料」表单（2026-10-06 由维护者的实机 HTML + 截图确认，
+// 见文件末尾的 describe —— 那批文案此前误登记在 pages/settings，本页取不到）。
 //
 // 证据强度：**截图 + 维护者在实机采集的文本节点 dump**（2026-09 本页会话）。
 //   - 截图 `https://github.com/Oppenheymu?tab=repositories&type=source`：Type 下拉展开后
@@ -365,5 +367,123 @@ describe("pages/profile 的私有贡献摘要", () => {
 		// 反例：侧栏标题里不一定只有固定文案（组织主页有「<组织名> repositories」），
 		// 用户名 / 组织名是用户内容，整节点不收录。
 		expect(translateText("Oppenheymu", view)).toBeNull();
+	});
+});
+
+/**
+ * 个人主页左侧栏的**内联「编辑资料」表单**（仅本人访问自己的主页时渲染）。
+ *
+ * 事故背景（2026-10-06 维护者报「补了没生效」）：这一批文案此前只登记在
+ * pages/settings（/settings/profile），而个人主页 `/Oppenheymu` 命中 pages/profile，
+ * 一个键都取不到——实机渲染出来只有 global 的 `Company` / `Save` / `Cancel` /
+ * `Loading` 四条是中文，其余整片保留英文。现已两边各登记一份（路由互斥）。
+ *
+ * 节点边界与 /settings/profile 完全同构：`You can <strong>@mention</strong> …` 被
+ * `<strong>` 切成三段；字段名同时以 label 文本与 placeholder / aria-label 出现；
+ * 时区是 `<option>` 的可见文本（`value` 是标识符，引擎只翻按钮类 `<input>` 的 value）。
+ */
+const PROFILE_FORM_NODES: readonly string[] = [
+	"Name",
+	"Bio",
+	"Add a bio",
+	"You can",
+	"other users and organizations to link to them.",
+	"Pronouns",
+	"Don't specify",
+	"Custom",
+	"Location",
+	"Display current local time",
+	"Time zone",
+	"Email",
+	"Website",
+	"Display your ORCID iD",
+	"Social accounts",
+	"Social account",
+	"Link to social profile 1",
+	"Link to social profile 2",
+	"Link to social profile 3",
+	"Link to social profile 4",
+	// 下面四条住在 global：事故当天它们是页面上**仅有**的中文，
+	// 一并锁进本视图，防止有人误以为「global 兜底就够了」而删掉上面那批。
+	"Company",
+	"Save",
+	"Cancel",
+	"Loading",
+];
+
+/** 个人主页表单里必须保持英文的实机节点：用户内容、代词档位与 option 标识符 */
+const PROFILE_FORM_MUST_STAY_ENGLISH: readonly string[] = [
+	"M. Oppenheymu",
+	"Oppenheymu@pm.me",
+	"oppenheymu@gmail.com",
+	"https://x.com/Oppenheymu",
+	"@mention",
+	"they/them",
+	"she/her",
+	"he/him",
+	// `<option value="Beijing">` 这类标识符是表单提交值，引擎只翻按钮类 input 的 value
+	"Beijing",
+	"Hong Kong",
+	"UTC",
+];
+
+describe("pages/profile 的个人主页侧栏编辑资料表单", () => {
+	it("translates every label, placeholder, aria-label and option text", () => {
+		for (const node of PROFILE_FORM_NODES) {
+			for (const variant of withWhitespace(node)) {
+				const translated = translateText(variant, view);
+				expect(
+					translated,
+					`未命中：${JSON.stringify(variant)}`,
+				).not.toBeNull();
+				expect(translated ?? "").toMatch(/[\u4e00-\u9fff]/);
+			}
+		}
+	});
+
+	it("covers the whole time zone list on this page too", () => {
+		// 152 = 实机 HTML 里 `<option>` 的总数。数字写死：谁把个人主页这份时区词条删掉，
+		// 数量断言立刻红（时区是本页最容易被漏掉的一大块）。
+		const tzKeys = [...view.entries.keys()].filter((k) =>
+			k.startsWith("(GMT"),
+		);
+		expect(tzKeys.length).toBe(152);
+		for (const key of tzKeys) {
+			const translated = translateText(key, view);
+			expect(translated, `未命中：${key}`).not.toBeNull();
+			const offset = key.slice(0, key.indexOf(") ") + 2);
+			expect(
+				(translated ?? "").startsWith(offset),
+				`GMT 前缀被改动：${translated ?? ""}`,
+			).toBe(true);
+			expect(translated ?? "").toMatch(/[\u4e00-\u9fff]/);
+		}
+		// 代表性条目：本机时区（香港）与相邻的北京各一条
+		expect(
+			translateText("(GMT+08:00) Hong Kong", view),
+		).toBe("(GMT+08:00) 香港");
+		expect(translateText("(GMT+08:00) Beijing", view)).toBe(
+			"(GMT+08:00) 北京",
+		);
+	});
+
+	it("keeps user content, pronouns and option identifiers as-is", () => {
+		for (const raw of PROFILE_FORM_MUST_STAY_ENGLISH) {
+			expect(
+				translateText(raw, view),
+				`不应被翻译：${JSON.stringify(raw)}`,
+			).toBeNull();
+		}
+	});
+
+	it("renders the @mention hint across its three nodes", () => {
+		// 实机：`You can <strong>@mention</strong> other users and organizations to link to them.`
+		expect(
+			renderNodes([
+				"You can ",
+				"@mention",
+				" other users and organizations to link to them.",
+			]),
+		).toBe("你可以 @mention 其他用户和组织来链接他们。");
 	});
 });

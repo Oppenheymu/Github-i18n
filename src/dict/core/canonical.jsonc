@@ -2746,10 +2746,17 @@
 				"Require merge queue",
 				"Merges must be performed via a merge queue.",
 				// Require merge queue 的展开面板（勾选后才渲染；2026-09-27 实机 HTML 取证）。
-				// 下拉的另外两个选项与其余组合型 aria-label 本次未展开，故未登记
+				// 2026-10-07 补下拉**展开态**的两个禁用项与禁用说明：维护者贴出的
+				// /Koishi-CE/tools/settings/rules/new 展开态 HTML 里，`Merge commit` 已命中，
+				// 另两项与说明仍是英文——它们是漏翻点，不是「翻译过了没生效」。
+				// 两个选项名与 pages/pulls 的合并按钮逐字相同，跨模块重复合法（两条路由互斥）；
+				// 其余组合型 aria-label 本次仍未展开，故未登记
 				"Merge method",
 				"Method to use when merging changes from queued pull requests.",
 				"Merge commit",
+				"Squash and merge",
+				"Rebase and merge",
+				"Not enabled for this repository.",
 				"Merge commit, Select merge method",
 				"Build concurrency",
 				"Limit the number of queued pull requests requesting checks and workflow runs at the same time.",

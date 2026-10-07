@@ -755,7 +755,7 @@ describe("仓库设置页的「限制谁可以忽略拉取请求审查」面板"
 describe("仓库设置页的 Require merge queue 展开面板", () => {
 	it("translates the merge method row and its aria-label", () => {
 		// 证据：维护者 2026-09-27 贴出的该面板实机 HTML（面板标题已是中文，内容为英文残留）。
-		// 下拉的另外两个选项本次未展开，故只锁这一种显示值形态
+		// 下拉的另外两个选项当时未展开，2026-10-07 补（见下一个用例）
 		expect(translateText("Merge method", newView)).toBe(
 			"合并方式",
 		);
@@ -775,6 +775,28 @@ describe("仓库设置页的 Require merge queue 展开面板", () => {
 				newView,
 			),
 		).toBe("合并提交，选择合并方式");
+	});
+
+	it("translates the expanded merge method dropdown", () => {
+		// 证据：维护者 2026-10-07 贴出的 /Koishi-CE/tools/settings/rules/new
+		// **下拉展开态** HTML（menuitemradio ×3）：`Merge commit` 已命中成中文，
+		// 另两项与禁用项的说明仍是英文——三者在 pages/pulls 里有键、但本模块没有，
+		// 而两模块路由互斥，故「明明翻译过却漏翻」，只能在本模块各收一份同形同译的键。
+		// 节点边界：选项名是 `<span class="…ItemLabel…">` 单节点，
+		// `Not enabled for this repository.` 是与之并列的 `<span class="…Description…">`
+		// 单节点（Squash / Rebase 两项下各渲染一次），不含任何内联拆分
+		expect(translateText("Squash and merge", newView)).toBe(
+			"压缩合并",
+		);
+		expect(translateText("Rebase and merge", newView)).toBe(
+			"变基合并",
+		);
+		expect(
+			translateText(
+				"Not enabled for this repository.",
+				newView,
+			),
+		).toBe("此仓库未启用。");
 	});
 
 	it("translates the four numeric inputs and their captions", () => {

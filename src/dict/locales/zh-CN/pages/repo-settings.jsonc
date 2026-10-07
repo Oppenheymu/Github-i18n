@@ -538,13 +538,18 @@
 		"Merges must be performed via a merge queue.": "合并必须通过合并队列执行。",
 		// Require merge queue 的展开面板（勾选后才渲染）。
 		// 证据：维护者 2026-09-27 贴出的该面板实机 HTML——面板标题「隐藏其他设置」已是中文，
-		// 内容是英文残留，即漏翻点。
-		// 只收实证渲染出来的串：下拉的另外两个选项（Squash and merge / Rebase and merge）
-		// 本次没展开，故不登记；组合型 aria-label 同理只收实测到的这一种形态
-		// （属性不走正则规则，见 src/content/walker.ts）。
+		// 内容是英文残留，即漏翻点；2026-10-07 又贴出**下拉展开态**的该面板 HTML
+		//（/Koishi-CE/tools/settings/rules/new），补上当时没展开的另两个选项与禁用说明。
+		// 两个选项名与 pages/pulls 的合并按钮逐字相同，故沿用同一措辞（压缩合并 / 变基合并）——
+		// 它们是 pages/pulls 的键，本模块没有就会整块保留英文，这正是「明明翻译过却漏翻」的成因；
+		// 组合型 aria-label 同理只收实测到的形态（属性不走正则规则，见 src/content/walker.ts）。
 		"Merge method": "合并方式",
 		"Method to use when merging changes from queued pull requests.": "合并队列中拉取请求的更改时使用的方式。",
 		"Merge commit": "合并提交",
+		"Squash and merge": "压缩合并",
+		"Rebase and merge": "变基合并",
+		// 选项禁用时的说明（实机在 Squash / Rebase 两项下各渲染一次，一条键覆盖两处）
+		"Not enabled for this repository.": "此仓库未启用。",
 		"Merge commit, Select merge method": "合并提交，选择合并方式",
 		"Build concurrency": "构建并发数",
 		"Limit the number of queued pull requests requesting checks and workflow runs at the same time.": "限制同时请求检查与工作流运行的排队拉取请求数量。",

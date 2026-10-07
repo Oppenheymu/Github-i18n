@@ -1491,6 +1491,20 @@
 					"id": "settings/per-day",
 					"pattern": "^/day$"
 				},
+				// 付款信息页组织提示句（2026-10-07 实机 HTML）被两个链接切成五段，其中
+				// ` the ` 是**独立文本节点**：
+				//   `… billing information by <a>signing</a> the <a>GitHub Customer Agreement</a>.`
+				// 中文没有冠词，该节点应当整个消失——与 settings/per-word 同一手法（空模板，
+				// 引擎连同它的首尾空白一起清空）。**代价如实记在此处**：这是本模块覆盖面最广的
+				// 短规则（账单 / 许可路由上任何独立节点 `the` 都会被清空），中文里删掉冠词不会
+				// 读反，故接受；一旦实机出现删错的地方就删这条规则（同时删各语言模板并
+				// `bun run check:view --update` 快照），别加白名单（词典没有白名单）。
+				// 副作用：被清空的节点连尾随空格一起消失，故「签署」与后面的链接文字之间
+				// 少一个空格（实机渲染「…方法是 签署GitHub 客户协议.」，用例锁住这个形态）
+				{
+					"id": "settings/article-the",
+					"pattern": "^the$"
+				},
 				// 额度摘要「N GB used / N GB included」「N min used / N min included」：
 				// 数字随用量变化。实机上是独立节点，故键不在静态词条里。
 				// 两处单位恒相同，故只声明一个命名组 —— JS 正则不允许多个同名的命名组

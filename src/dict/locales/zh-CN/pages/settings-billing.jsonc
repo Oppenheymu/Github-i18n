@@ -317,6 +317,49 @@
 		// 按「sr-only 照常翻译」的既定边界收录）
 		"Additional information": "附加信息",
 		"Add specific contact or tax information to your receipts, like your full business name, VAT/GST identification number, or address of record here. We’ll make sure it shows up on every receipt.": "在这里添加会显示在收据上的具体联系或税务信息，例如你的完整企业名称、增值税/GST 识别号或注册地址。我们会确保它出现在每张收据上。",
+		// —— 组织付款信息页（/organizations/<组织>/settings/billing/payment_information）——
+		// 路由早已覆盖（settings/billing 前缀），本轮补的是组织侧 HTML 新暴露的其余区块：
+		// 顶部两条提示、组织账单信息关联卡、上次付款、附加账单信息对话框、发票区块与
+		// Azure 按量计费区块。节点边界见
+		// src/dict/__tests__/pages/org-settings/billing-payment-information.test.ts
+		"Please update your billing information in order to add a payment method.": "请更新你的账单信息，以便添加付款方式。",
+		"Dismiss this message": "关闭此消息",
+		// 说明句被两个链接切成五段：首段收到 `by`，中文在这里换成「方法是」把话接到链接上；
+		// 中间的独立冠词节点 `the` 由 core/rules.jsonc 的 settings/article-the 整节点清空
+		"An organization owner or billing manager must link their personal billing information with this organization account. You can switch to a business account to use your business’ billing information by": "组织所有者或账单管理员必须将其个人账单信息与此组织账户关联。你可以改用企业账户来使用你企业的账单信息，方法是",
+		"signing": "签署",
+		"GitHub Customer Agreement": "GitHub 客户协议",
+		"Allow my billing information to be linked with this organization": "允许将我的账单信息与此组织关联",
+		"Confirm your details shown below. To make changes,": "请确认下方显示的详细信息。如需修改，",
+		"edit your billing information": "编辑你的账单信息",
+		"Personal account": "个人账户",
+		"Last payment": "上次付款",
+		// 附加账单信息对话框（默认 hidden，但仍在 DOM 里，照常翻译）
+		"Extra billing information": "附加账单信息",
+		"This information will appear on all your receipts.": "此信息将显示在你的所有收据上。",
+		// `invoices`（`<strong>`）是独立节点：前后两段各收一条，拼接后是一句完整中文
+		"To update the information that appears on": "如需更新显示在",
+		"invoices": "发票",
+		"(if enabled), visit the": "（如已启用），请访问",
+		"billing information section": "账单信息部分",
+		"For your security, do not include any confidential or financial information (like credit card numbers).": "为安全起见，请勿填写任何机密或财务信息（例如信用卡号）。",
+		"Full business name or address of record": "完整的公司名称或注册地址",
+		// 按钮文案与它的 loading 形态（后者是 data-disable-with 属性）
+		"Save contact information": "保存联系信息",
+		"Saving contact information…": "正在保存联系信息…",
+		// 发票区块
+		"Invoice": "发票",
+		"Receive an invoice for your GitHub purchases": "接收你的 GitHub 购买项发票",
+		"The data from Billing Information, such as your address and VAT/GST ID will appear on your invoices.": "账单信息中的数据（例如你的地址与增值税/GST 识别号）将显示在你的发票上。",
+		"Update your information displayed on your invoices in the": "如需更新发票上显示的信息，请前往",
+		"Automatically receive an invoice alongside the payment receipt": "随付款收据自动接收发票",
+		"* Enables invoices for all NEW payments.": "* 为所有新付款启用发票。",
+		"Save invoice preference": "保存发票偏好设置",
+		"Saving invoice preference": "正在保存发票偏好设置",
+		// Azure 按量计费区块
+		"Metered billing via Azure": "通过 Azure 的按量计费",
+		"Add Azure Subscription": "添加 Azure 订阅",
+		"To manage metered billing for this account through Microsoft Azure an Azure Subscription ID must be added to your account.": "若要借助 Microsoft Azure 为此账户管理按量计费，必须为你的账户添加 Azure 订阅 ID。",
 		// 功能卡片的产品名：与仓库页 / 个人主页的「Packages」同译（软件包）。
 		// 修掉 pages/repo 的越界路由后，这条不再能靠别的模块顺带生效，必须登记在本模块
 		"Packages": "软件包",

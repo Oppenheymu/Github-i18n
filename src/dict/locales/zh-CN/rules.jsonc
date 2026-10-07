@@ -364,6 +364,9 @@
 		"settings/per-month": "每月",
 		"settings/per-year": "每年",
 		"settings/per-day": "每天",
+		// 付款信息页组织提示句里被链接切出来的独立冠词节点 `the`：中文没有冠词，
+		// 空模板让该节点整个消失（连同首尾空白），与 settings/per-word 同一手法
+		"settings/article-the": "",
 		// 额度摘要：两处单位恒相同，pattern 用 \k<unit> 反向引用，模板引用同一个命名组
 		"settings/storage-used-included": "已用 $<used> $<unit> / 包含 $<included> $<unit>",
 		"settings/minutes-used-included": "已用 $<used> 分钟 / 包含 $<included> 分钟",

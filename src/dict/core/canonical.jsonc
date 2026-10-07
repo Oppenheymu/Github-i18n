@@ -2030,6 +2030,59 @@
 				// （tooltip 文案用 We’ll 而不是 We'll），抄录时勿顺手改成直撇号
 				"Additional information",
 				"Add specific contact or tax information to your receipts, like your full business name, VAT/GST identification number, or address of record here. We’ll make sure it shows up on every receipt.",
+				// —— 组织付款信息页（/organizations/<组织>/settings/billing/payment_information，
+				//    2026-10-07 实机 HTML）——
+				// 它挂在 settings/billing 前缀下，路由早已覆盖（本轮**无需改路由**），上面那批
+				// 标签与说明句在组织侧照常命中；组织侧 HTML 新暴露的是**其余区块**：顶部两条提示
+				// （默认 hidden 的 flash）、组织账单信息关联卡、上次付款、附加账单信息对话框、
+				// 发票区块与 Azure 按量计费区块。节点边界见
+				// src/dict/__tests__/pages/org-settings/billing-payment-information.test.ts
+				"Please update your billing information in order to add a payment method.",
+				// flash 的关闭按钮只有 aria-label（属性，照常翻译）
+				"Dismiss this message",
+				// 组织账单信息关联卡的说明句被两个链接切成**五段**，故首段收整句到 `by`，
+				// `signing` / `GitHub Customer Agreement` 各收一条；中间那个独立节点 `the`
+				// 不是词条而是规则（core/rules.jsonc 的 settings/article-the，空模板整节点清空）
+				"An organization owner or billing manager must link their personal billing information with this organization account. You can switch to a business account to use your business’ billing information by",
+				// 原文里的撇号是**弯撇号** `\u2019`（business’ 而不是 business'），抄录时勿改成直撇号
+				"signing",
+				"GitHub Customer Agreement",
+				"Allow my billing information to be linked with this organization",
+				// 勾选后展开的确认区：说明句 + 链接两段（链接文字指回个人账单信息页）
+				"Confirm your details shown below. To make changes,",
+				"edit your billing information",
+				// 「Personal account」在两张账单信息卡里都出现（组织卡里标的是关联来源账户）；
+				// pages/settings 没有这个键，故本模块一处登记两条路由都生效，不会构成同键异译
+				"Personal account",
+				"Last payment",
+				// —— 附加账单信息对话框（默认 hidden，但仍在 DOM 里；按「隐藏节点照常翻译」处理）——
+				"Extra billing information",
+				"This information will appear on all your receipts.",
+				// 对话框正文里 `invoices` 是 `<strong>` 独立节点，前后两段各收一条
+				"To update the information that appears on",
+				"invoices",
+				"(if enabled), visit the",
+				"billing information section",
+				// 源码里这句跨两行、带 8 空格缩进，normalizeKey 折叠后是整句
+				"For your security, do not include any confidential or financial information (like credit card numbers).",
+				"Full business name or address of record",
+				// 按钮文案与它的 loading 形态（后者是 data-disable-with 属性）
+				"Save contact information",
+				"Saving contact information…",
+				// —— 发票区块 ——
+				"Invoice",
+				"Receive an invoice for your GitHub purchases",
+				"The data from Billing Information, such as your address and VAT/GST ID will appear on your invoices.",
+				"Update your information displayed on your invoices in the",
+				"Automatically receive an invoice alongside the payment receipt",
+				// 星号是这句节点原文的一部分（不是必填标记，故不能按「纯符号节点」跳过）
+				"* Enables invoices for all NEW payments.",
+				"Save invoice preference",
+				"Saving invoice preference",
+				// —— Azure 按量计费区块 ——
+				"Metered billing via Azure",
+				"Add Azure Subscription",
+				"To manage metered billing for this account through Microsoft Azure an Azure Subscription ID must be added to your account.",
 				// —— 账单总览 / 预算页的功能卡片 ——
 				// 「Packages」原本靠 pages/repo 的越界路由（^/[^/]+/[^/]+ 命中 /settings/**）
 				// 顺带生效；2026-09 修掉那个越界后，它必须由**真正显示它的模块**自己登记。

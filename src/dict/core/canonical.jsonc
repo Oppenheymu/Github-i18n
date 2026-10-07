@@ -2096,6 +2096,12 @@
 				// 连续空白，故键是不带空白的整句；两句各自成节点，**不要**合并成一条键
 				"You have not made any payments.",
 				"Amounts shown in USD",
+				// 页面标题。个人侧由 pages/settings 提供同一键，组织设置侧由 pages/org-settings 提供；
+				// 但组织账单的**非 settings 支**（/organizations/<组织>/billing/history，2026-10-07 并入）
+				// 两个模块都不命中，只有本模块在场，故这里必须再登记一份（同译「付款历史」——
+				// 同一个词在同一批页面上不能两副面孔）。它也让骨架多出一条同键赢家记录：
+				// 个人账单探针的赢家是 pages/settings，组织账单探针的赢家是本模块
+				"Payment history",
 				// —— 赞助订阅页（/settings/billing/subscriptions）——
 				// 边界强度：**实机 HTML 实证**（维护者 2026-09 提供，逐字照抄节点原文）。
 				// 该页仍挂在 /settings/billing/** 这一支（实测 302 存活），新路由

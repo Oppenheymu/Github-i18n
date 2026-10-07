@@ -367,6 +367,10 @@
 		// 口吻与同模块的其它空态一致（「你尚未…」/「你当前没有…」），不用「您」
 		"You have not made any payments.": "你尚未进行任何付款。",
 		"Amounts shown in USD": "金额以美元显示",
+		// 页面标题：个人侧由 pages/settings、组织设置侧由 pages/org-settings 提供同一键，
+		// 但组织账单的**非 settings 支**（/organizations/<组织>/billing/history）只有本模块命中，
+		// 故这里再登记一份（同译，避免同一个词两副面孔）
+		"Payment history": "付款历史",
 		// 赞助订阅页（/settings/billing/subscriptions）：页面标题与仓库设置页的同名开关同译
 		//（「赞助」），避免同一个词两副面孔
 		"Sponsorships": "赞助",

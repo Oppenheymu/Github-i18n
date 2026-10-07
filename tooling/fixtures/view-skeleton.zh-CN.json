@@ -2393,6 +2393,10 @@
 				},
 				{ "key": "Pages", "module": "pages/org-settings" },
 				{
+					"key": "Payment history",
+					"module": "pages/settings-billing"
+				},
+				{
 					"key": "Postal/Zip code",
 					"module": "pages/settings-billing"
 				},
@@ -3898,6 +3902,10 @@
 				},
 				{ "key": "Packages", "module": "pages/settings" },
 				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
 				}
@@ -4368,6 +4376,10 @@
 					"module": "pages/settings"
 				},
 				{ "key": "Packages", "module": "pages/settings" },
+				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
 				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
@@ -4840,6 +4852,10 @@
 				},
 				{ "key": "Packages", "module": "pages/settings" },
 				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
 				}
@@ -5311,6 +5327,10 @@
 				},
 				{ "key": "Packages", "module": "pages/settings" },
 				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
 				}
@@ -5781,6 +5801,10 @@
 					"module": "pages/settings"
 				},
 				{ "key": "Packages", "module": "pages/settings" },
+				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
 				{
 					"key": "Subscriptions",
 					"module": "pages/settings"

@@ -44,26 +44,38 @@
 			"route": "^/(?:settings|account/billing)"
 		},
 		{
-			// 账单 / 许可页的路由有四支（2026-10-03 实测确认组织侧渲染的是同一套
+			// 账单 / 许可页的路由有五支（2026-10-03 实测确认组织侧渲染的是同一套
 			// billing-app 组件、文案与个人侧逐字相同）：
 			//   /settings/billing/**            个人旧地址（仅 licensing 尚存）
 			//   /account/billing/**             个人新地址
 			//   /organizations/<组织>/settings/billing/**    组织账单（2026-10-03 并入）
 			//   /organizations/<组织>/settings/licensing/**  组织许可（2026-10-07 并入）
-			// 后两支**不在同一个前缀下**：组织许可页的路径里没有 billing 段，不显式加这一支
-			// 就整页只吃 pages/org-settings 的侧栏词条——实机表现正是「标题『许可』是中文、
-			// 正文全英文」。它渲染的仍是同一个 billing-app 许可组件（Copilot 附加项卡 +
-			// GitHub Free 方案卡），四条配额规则（settings/licensing-*）与整批判词条都在本模块，
-			// 故并入本模块，而不是把二十多条键 + 四条规则复制一份进 pages/org-settings。
-			// 组织侧两页挂在组织设置路由下，但它们与 pages/org-settings 的侧栏 / 正文毫无重叠，
-			// 整页都是账单组件（SummaryCardContainer / IncludedUsageTile / ProductUsage…）：
-			// 「Current metered usage」「Gross metered usage for …」「Timeframe: Current month」
-			// 等句子与个人账单页逐字一致（节点原文见实机 HTML 与 settings/billing.test.ts）。
-			// 若不覆盖这些支，组织侧只剩 global 的零星通用词条命中，整页保留英文。
-			// 本模块排在 pages/org-settings **之前**，两模块同时命中组织侧页面时逐键先到先得：
+			//   /organizations/<组织>/billing/**             组织账单的**非 settings 前缀**
+			//     那一支（2026-10-07 并入）。它的存在有两条硬证据：① 组织许可页的
+			//     「Compare base plans」按钮 href 就是 /organizations/<组织>/billing/plans，
+			//     付款信息页的表单 action 也指向 /organizations/<组织>/billing/extra；
+			//     ② 维护者 2026-10-07 贴的付款历史页整页**没有任何中文**——标题
+			//     `Payment history` 是 pages/org-settings 的既有键，若路径里带 `/settings/`
+			//     它必然已被译出，故该页只能落在这一支上（当时只有 global 命中）。
+			// 后三支**不在同一个前缀下**：组织许可页没有 billing 段，非 settings 支连
+			// settings 段都没有——漏掉任一支就整页只吃 global（或只吃 pages/org-settings）
+			// 的零星词条，实机表现分别是「标题中文、正文全英文」与「整页全英文」。
+			// 它们渲染的仍是同一个 billing-app：许可组件（Copilot 附加项卡 + GitHub Free
+			// 方案卡）、四条配额规则（settings/licensing-*）、账单空态与付款历史页都在本模块，
+			// 故并入本模块，而不是把几十条键 + 四条规则复制一份进 pages/org-settings。
+			// 组织侧页面与 pages/org-settings 的侧栏 / 正文几乎无重叠（非 settings 支更是
+			// 完全不命中它），整页都是账单组件（SummaryCardContainer / IncludedUsageTile /
+			// ProductUsage…）：「Current metered usage」「Gross metered usage for …」
+			// 「Timeframe: Current month」等句子与个人账单页逐字一致（节点原文见实机 HTML
+			// 与 settings/billing.test.ts）。若不覆盖这些支，组织侧只剩 global 的零星通用
+			// 词条命中，整页保留英文。
+			// 本模块排在 pages/org-settings **之前**，两模块同时命中组织设置页时逐键先到先得：
 			// 账单词条与规则由本模块提供，组织设置外壳（侧栏等）由后者兜底。
+			// 代价如实记在此处：非 settings 支上 pages/org-settings **不命中**，故组织侧页面
+			// 的标题类键（如 `Payment history`）若只在 pages/org-settings 里有，就必须在本模块
+			// 各来一份（同译；这也是骨架里 Record 同键赢家的原因）。
 			"name": "pages/settings-billing",
-			"route": "^/(?:(?:settings|account)/billing|(?:organizations|orgs)/[^/]+/settings/(?:billing|licensing))"
+			"route": "^/(?:(?:settings|account)/billing|(?:organizations|orgs)/[^/]+/(?:settings/(?:billing|licensing)|billing))"
 		},
 		{
 			"name": "pages/repo-settings",

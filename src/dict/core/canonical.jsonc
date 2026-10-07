@@ -1964,6 +1964,31 @@
 				"Multiple reviewers in pull requests",
 				// 清单底部的对比入口
 				"See all features and compare plans",
+				// —— 组织许可页（/organizations/<组织>/settings/licensing，2026-10-07 实机 HTML）——
+				// 同一个 billing-app 许可组件在**组织侧**渲染的是另一批文案：Copilot 卡从
+				// 个人侧的「Copilot Free / 升级 Pro」换成 **Copilot Business 附加项**，基础方案卡
+				// 换成 GitHub Free 的「组织与开发者」版本。上面那批个人许可页词条在组织侧照常命中
+				// （同一条路由支、同一个模块），故这里只登记组织侧独有的键；节点边界见
+				// src/dict/__tests__/pages/org-settings/billing-licensing.test.ts。
+				// 「GitHub Copilot」「OpenAI」这类纯专名仍不登记（未命中即保留英文）。
+				"Your AI powered pair programmer",
+				"Learn more about Copilot Business",
+				"GitHub Copilot uses the OpenAI large language models to suggest code and entire functions in real-time, right from your editor. You can set up a GitHub Copilot Business subscription for your organization.",
+				"Sign up for Copilot Business",
+				// 方案升级按钮。方案名保持英文（与 pages/org-settings 的「GitHub Team」同为不译专名），
+				// 故只译「Upgrade to」部分
+				"Upgrade to Team",
+				"The basics for organizations and developers",
+				// 「不包含」在实机里有**两种形态**，整节点精确匹配故两条都要收：
+				//   ① 清单上方的小标题 `Not included:`（文本节点，带 ASCII 冒号）
+				//   ② 每行删除图标的 `alt="Not included"`（属性，不带冒号，上一批个人许可页就收了它）
+				"Not included:",
+				// 每行「包含」图标的 `alt="Included"`（octicon-infinity / octicon-check），
+				// 与 alt="Not included" 对称收。它是本模块里少见的泛化短词——整节点精确匹配，
+				// 风险限于账单 / 许可路由上的独立节点「Included」（语义与图标的 alt 一致，译作
+				// 「已包含」不会读反），不像仓库名 / 文件名那样出现在本路由的正文里，故收；
+				// 将来若实机出现读不通的「Included」，删掉这条比加白名单正确（词典无白名单）
+				"Included",
 				// —— 付款信息页（/account/billing/payment_information）——
 				// 键逐字抄自 2026-09 的实机截图（页面需登录，未进开发者模式导出），
 				// 节点边界见 src/dict/__tests__/pages/settings/billing.test.ts 的 PAYMENT_NODES。

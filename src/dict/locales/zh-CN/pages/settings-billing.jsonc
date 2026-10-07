@@ -262,6 +262,24 @@
 		"Multiple reviewers in pull requests": "拉取请求中的多名审查者",
 		// 清单底部的对比入口
 		"See all features and compare plans": "查看所有功能并对比各方案",
+		// —— 组织许可页（/organizations/<组织>/settings/licensing，2026-10-07 实机 HTML）——
+		// 同一个 billing-app 许可组件在组织侧渲染的另一批文案（Copilot Business 附加项卡 +
+		// GitHub Free 的「组织与开发者」版本），节点边界见
+		// src/dict/__tests__/pages/org-settings/billing-licensing.test.ts。
+		// 上一批个人许可页的词条在组织侧照常命中（同一条路由支、同一个模块），不重复登记；
+		// 「GitHub Copilot」「OpenAI」是纯专名，保持原文
+		"Your AI powered pair programmer": "你的 AI 驱动的结对编程助手",
+		"Learn more about Copilot Business": "进一步了解 Copilot Business",
+		"GitHub Copilot uses the OpenAI large language models to suggest code and entire functions in real-time, right from your editor. You can set up a GitHub Copilot Business subscription for your organization.": "GitHub Copilot 使用 OpenAI 的大语言模型，直接从你的编辑器中实时给出代码乃至整个函数的建议。你可以为你的组织设置 GitHub Copilot Business 订阅。",
+		"Sign up for Copilot Business": "注册 Copilot Business",
+		// 方案名「Team」保持原文（与 pages/org-settings 的「GitHub Team」同为不译专名）
+		"Upgrade to Team": "升级到 Team",
+		"The basics for organizations and developers": "面向组织和开发者的基础功能",
+		// 「不包含」的两种形态各收一条：带冒号的是清单上方的小标题（全角冒号，与
+		//「所含用量提醒：」同理），不带冒号的是每行删除图标的 alt
+		"Not included:": "不包含：",
+		// 每行「包含」图标的 alt
+		"Included": "已包含",
 		// —— 付款信息页（/account/billing/payment_information）——
 		// 键来自 2026-09 的实机 HTML（用户提供 label 片段）与截图，节点边界见
 		// src/dict/__tests__/pages/settings/billing.test.ts 的 PAYMENT_NODES。

@@ -44,20 +44,26 @@
 			"route": "^/(?:settings|account/billing)"
 		},
 		{
-			// 账单页的路由有**两支**（2026-10-03 实测确认组织账单页渲染的是同一套
-			// billing-app 组件、文案逐字相同）：
-			//   /settings/billing/**            个人账单旧地址（仅 licensing 尚存）
-			//   /account/billing/**             个人账单新地址
-			//   /organizations/<组织>/settings/billing/**   组织账单（本行新增）
-			// 组织账单页挂在组织设置路由下，但它与 pages/org-settings 的侧栏 / 正文毫无重叠，
+			// 账单 / 许可页的路由有四支（2026-10-03 实测确认组织侧渲染的是同一套
+			// billing-app 组件、文案与个人侧逐字相同）：
+			//   /settings/billing/**            个人旧地址（仅 licensing 尚存）
+			//   /account/billing/**             个人新地址
+			//   /organizations/<组织>/settings/billing/**    组织账单（2026-10-03 并入）
+			//   /organizations/<组织>/settings/licensing/**  组织许可（2026-10-07 并入）
+			// 后两支**不在同一个前缀下**：组织许可页的路径里没有 billing 段，不显式加这一支
+			// 就整页只吃 pages/org-settings 的侧栏词条——实机表现正是「标题『许可』是中文、
+			// 正文全英文」。它渲染的仍是同一个 billing-app 许可组件（Copilot 附加项卡 +
+			// GitHub Free 方案卡），四条配额规则（settings/licensing-*）与整批判词条都在本模块，
+			// 故并入本模块，而不是把二十多条键 + 四条规则复制一份进 pages/org-settings。
+			// 组织侧两页挂在组织设置路由下，但它们与 pages/org-settings 的侧栏 / 正文毫无重叠，
 			// 整页都是账单组件（SummaryCardContainer / IncludedUsageTile / ProductUsage…）：
 			// 「Current metered usage」「Gross metered usage for …」「Timeframe: Current month」
 			// 等句子与个人账单页逐字一致（节点原文见实机 HTML 与 settings/billing.test.ts）。
-			// 若不覆盖这一支，组织账单页只剩 global 的零星通用词条命中，整页保留英文。
-			// 本模块排在 pages/org-settings **之前**，两模块同时命中组织账单页时逐键先到先得：
+			// 若不覆盖这些支，组织侧只剩 global 的零星通用词条命中，整页保留英文。
+			// 本模块排在 pages/org-settings **之前**，两模块同时命中组织侧页面时逐键先到先得：
 			// 账单词条与规则由本模块提供，组织设置外壳（侧栏等）由后者兜底。
 			"name": "pages/settings-billing",
-			"route": "^/(?:(?:settings|account)/billing|(?:organizations|orgs)/[^/]+/settings/billing)"
+			"route": "^/(?:(?:settings|account)/billing|(?:organizations|orgs)/[^/]+/settings/(?:billing|licensing))"
 		},
 		{
 			"name": "pages/repo-settings",

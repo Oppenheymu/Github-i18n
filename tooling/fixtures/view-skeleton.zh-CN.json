@@ -2063,7 +2063,8 @@
 			"path": "/organizations/octocat/settings/profile",
 			"matched": ["pages/org-settings", "global"],
 			"collisions": [
-				{ "key": "Pages", "module": "pages/org-settings" }
+				{ "key": "Pages", "module": "pages/org-settings" },
+				{ "key": "Write", "module": "pages/org-settings" }
 			],
 			"rules": [
 				"org-settings/page-title",
@@ -2207,7 +2208,8 @@
 			"path": "/organizations/octocat/settings/policies/repositories",
 			"matched": ["pages/org-settings", "global"],
 			"collisions": [
-				{ "key": "Pages", "module": "pages/org-settings" }
+				{ "key": "Pages", "module": "pages/org-settings" },
+				{ "key": "Write", "module": "pages/org-settings" }
 			],
 			"rules": [
 				"org-settings/page-title",
@@ -2412,6 +2414,7 @@
 					"key": "VAT/GST ID",
 					"module": "pages/settings-billing"
 				},
+				{ "key": "Write", "module": "pages/org-settings" },
 				{
 					"key": "will",
 					"module": "pages/settings-billing"

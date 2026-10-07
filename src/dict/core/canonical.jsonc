@@ -3943,7 +3943,182 @@
 				"New policy",
 				"policies",
 				"policies.",
-				"Learn more about policies."
+				"Learn more about policies.",
+				// —— 组织角色管理页（/organizations/<组织>/settings/org_roles，2026-10-07 并入）——
+				// 证据：维护者贴的**整页实机 HTML**（整段 outerHTML）。采集时扩展仍在运行，
+				// 页面上已有的中文即扩展产物——本页渲染成中文的只有 `Role management`（本模块
+				// 侧栏键）、`Repository` / `Security` / `Discussions`（global 的通用短键）与
+				// `Write`（global 的「编写」），其余全部保留英文，即本批待补清单。
+				// 四条节点边界事实（回归见 org-settings/org-roles.test.ts）：
+				//   ① 页首说明段是**单个文本节点**（`<p>` 里两句话之间只有空白、没有行内标签），
+				//      整段一个键；按句拆开就永不命中；
+				//   ② 权限清单每条是 `<span>• Assign or remove a user</span>`——**项目符号在
+				//      文本节点内部**（`• ` 前缀），裸短语永不命中。这与 pages/insights 的
+				//      `Security policy •`（符号在尾部）是同一类边界事实，译文原样保留 `• `；
+				//   ③ 角色卡片的两个 tooltip（`Show role permissions` / `Hide role permissions`）
+				//      是 `<tool-tip>` 里的独立文本节点（`sr-only` 照常翻译），不是属性；
+				//   ④ 角色名、说明句、分组标题各自成节点，逐条收即可。
+				// 与 global 的同键关系：**权限级别**语境下的 `Write` 是「写入」而不是 global 的
+				// 「编写」——沿用 pages/repo-settings 的既有口径（见 registry.ts 里的注释），
+				// 故本模块显式收一条覆盖它；其余四条基础角色名（Read / Triage / Maintain / Admin）
+				// 与 pages/repo-settings 逐字同译，只是那边路由与本页互斥、本页拿不到。
+				// 刻意**不收录**：
+				//   - `CI/CD`：纯英文缩写，译文只能与键同形（`validateNoIdentity` 直接报错），
+				//     未命中即保留英文，是正确行为而不是漏译；
+				//   - 九个 SVG 的 `aria-label`（`Repository icon` / `Organization icon` /
+				//     `All-repository write icon` / `all_repo_read icon` …）：装饰性图标标签，
+				//     屏显不可见；`all_repo_read icon` 还是代码风格的标识串，而 `Repository icon` /
+				//     `Organization icon` 是全站通用的泛化短串——全仓至今只收过两条产品专属的
+				//     （`Package icon` / `GitHub Mobile icon`），此处不扩大收录面；
+				//   - 组织名与用户名（用户内容）。
+				"Organization roles are used to grant access to specific organization and repository settings. Repository permissions are granted across every repository in the organization.",
+				// —— 九张角色卡片：标题 + 说明句 ——
+				"All-repository read",
+				"Grants read access to all repositories in the organization.",
+				"All-repository write",
+				"Grants write access to all repositories in the organization.",
+				"All-repository triage",
+				"Grants triage access to all repositories in the organization.",
+				"All-repository maintain",
+				"Grants maintenance access to all repositories in the organization.",
+				"All-repository admin",
+				"Grants admin access to all repositories in the organization.",
+				"Apps manager",
+				"Grants the ability to manage all GitHub Apps owned by an organization.",
+				"CI/CD Admin",
+				"Grants admin access to manage Actions policies, runners, runner groups, network configurations, secrets, variables, and usage metrics for an organization.",
+				"Security manager",
+				"Grants the ability to manage security policies, security alerts, and security configurations for an organization and all its repositories.",
+				"Open-source license manager",
+				"Grants the ability to review open-source license compliance closure requests and update repository license policies.",
+				// 每张可展开卡片右上角按钮上的两个 tooltip
+				"Show role permissions",
+				"Hide role permissions",
+				// —— 角色详情面板的表头与基础角色标签 ——
+				// `Base repository role:` 之后紧跟一个 Label 组件，故译文用全角冒号收尾
+				"Base repository role:",
+				"Read",
+				"Write",
+				"Triage",
+				"Maintain",
+				"Admin",
+				// Security manager / Open-source license manager 的仓库面板里，Read 之上还有这句话
+				"All read permissions plus…",
+				// —— 权限清单的分组标题 ——
+				// `仓库` / `安全` / `讨论区` / `组织` 四个标题由本模块与 global 的既有短键命中，
+				// 不在这里重复登记；`CI/CD` 有意不收（见上）。
+				"Issue and Pull Request",
+				"Issue",
+				"Pull Request",
+				"Merge Queue",
+				"Apps and automation",
+				// —— 权限清单：议题与拉取请求（八条，write / maintain / admin 三个角色共用）——
+				"• Assign or remove a user",
+				"• Add or remove a label",
+				"• Create a milestone",
+				"• Create a label",
+				"• Remove an assigned user",
+				"• Remove a label",
+				"• Edit a milestone",
+				"• Edit a label",
+				// —— 权限清单：议题 ——
+				"• Close an issue",
+				"• Comment on a locked issue",
+				"• Edit an issue title and body",
+				"• Edit a comment on an issue",
+				"• Lock and unlock an issue conversation",
+				"• Mark an issue as a duplicate",
+				"• Minimize an issue comment",
+				"• Reopen a closed issue",
+				"• Set an issue type",
+				"• Transfer an issue",
+				"• Unminimize an issue comment",
+				"• Delete an issue",
+				// —— 权限清单：拉取请求 ——
+				"• Close a pull request",
+				"• Reopen a closed pull request",
+				"• Request a pull request review",
+				// —— 权限清单：合并队列（只有 admin）——
+				"• Request a solo merge",
+				"• Jump to the front of the queue",
+				// —— 权限清单：仓库（triage / maintain / admin 逐级累加）——
+				"• Set milestones",
+				"• Create a protected tag",
+				"• Delete a protected tag",
+				"• Edit repository announcement banners",
+				"• Edit repository custom properties values at the repository level",
+				"• Edit repository metadata",
+				"• Edit repository rules",
+				"• Manage deploy keys",
+				"• Manage pull request merging settings",
+				"• Manage GitHub Page settings",
+				"• Manage project settings",
+				"• Manage wiki settings",
+				"• Manage topics",
+				"• Manage webhooks",
+				"• Push commits to protected branches",
+				"• Bypass branch protections",
+				"• Set interaction limits",
+				"• Set the social preview",
+				// —— 权限清单：安全 ——
+				// dismiss 沿用全仓既有译法「忽略」（pages/repo-settings 的告警条目），
+				// 故 `Dismissal requests` 一律是「忽略请求」
+				"• View code quality alerts",
+				"• View code scanning alerts",
+				"• View secret scanning alerts",
+				"• View Dependabot alerts",
+				"• View security advisories",
+				"• Dismiss or reopen Dependabot alerts",
+				"• Dismiss or reopen code quality alerts",
+				"• Dismiss or reopen code scanning alerts",
+				"• Dismiss, reopen, or assign secret scanning alerts",
+				"• Delete code scanning analyses",
+				"• Publish security advisories",
+				"• Create, edit, and manage security advisories",
+				"• Triage private vulnerability reports for security advisories",
+				"• Bypass code scanning alert dismissal requests",
+				"• Bypass Dependabot alert dismissal requests",
+				"• Bypass secret scanning alert closure requests",
+				"• Review and manage secret scanning bypass requests",
+				"• Review and manage secret scanning alert dismissal requests",
+				"• Review code scanning alert dismissal requests",
+				"• Review Dependabot alert dismissal requests",
+				"• View code scanning alert dismissal requests",
+				"• View Dependabot alert dismissal requests",
+				"• Review license compliance closure requests",
+				"• View license compliance closure requests",
+				"• View repository license policy",
+				// —— 权限清单：讨论区 ——
+				"• Close a discussion",
+				"• Convert issues to discussions",
+				"• Create a discussion category",
+				"• Delete a discussion",
+				"• Delete a discussion comment",
+				"• Edit category on a discussion",
+				"• Edit a discussion category",
+				"• Edit a discussion comment",
+				"• Award and revoke discussion badges",
+				"• Reopen a discussion",
+				"• Mark or unmark discussion answers",
+				"• Hide or unhide discussion comments",
+				// —— 权限清单：CI/CD（仓库面板与组织面板两套，动词不同故各自成键）——
+				"• Manage repository Actions secrets",
+				"• Manage repository Actions variables",
+				"• Manage repository Actions runners",
+				"• Manage repository Actions policies",
+				"• Manage repository environments, environment secrets and variables",
+				"• View organization Actions usage metrics",
+				"• Manage organization Actions secrets",
+				"• Manage organization Actions policies",
+				"• Manage organization Actions variables",
+				"• Edit organization hosted compute network configurations",
+				"• Manage organization hosted runner custom images",
+				"• Manage organization runners and runner groups",
+				// —— 权限清单：应用与自动化（只有 Apps manager）——
+				"• Create organization owned integrations",
+				"• Delete organization owned integrations",
+				"• Edit organization owned integrations",
+				"• View all organization owned integrations"
 			]
 		},
 		{

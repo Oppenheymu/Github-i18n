@@ -475,6 +475,10 @@
 		"org-settings/page-title": "设置 · $<page> · $<org>",
 		// 角色分配页的「N roles」计数（条数动态）
 		"org-settings/roles-count": "$1 个角色",
+		// 成员权限页：仓库讨论说明句里的组织名是动态值（规则不递归，原样带回）
+		"org-settings/discussion-creation-org": "如果启用，所有具有读取访问权限的用户都可以在 $1 的仓库中创建和评论讨论。",
+		// 成员权限页：基础权限确认对话框正文的两个动态计数（成员数 / 仓库数）
+		"org-settings/base-permission-change": "这可能会改变该组织的 $1 名成员在其 $2 个仓库上的权限。",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

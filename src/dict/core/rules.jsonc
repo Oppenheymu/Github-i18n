@@ -2377,6 +2377,22 @@
 				{
 					"id": "org-settings/roles-count",
 					"pattern": "^(\\d+) roles?$"
+				},
+				// 成员权限页（/organizations/<组织>/settings/member_privileges）的仓库讨论说明句：
+				// 实机含动态组织名（`in Koishi-CE’s repositories`），故走规则、组织名原样带回。
+				// 撇号直弯都覆盖（与仓库设置页的先例一致）。
+				{
+					"id": "org-settings/discussion-creation-org",
+					"pattern": "^If enabled, all users with read access can create and comment on discussions in (.+)['’]s repositories\\.$"
+				},
+				// 基础权限确认对话框的正文：成员数与仓库数都是动态值。整句形态（上游万一把它
+				// 渲染成一个文本节点）由这条规则兜住；ERB 插值把数字拆成独立节点时，由三段
+				// 碎片词条（`This may change the permission that the organization’s` /
+				// `members have on its` / `repositories.`）覆盖——两种切分都不会漏。
+				// 数字里的千位逗号一并覆盖。
+				{
+					"id": "org-settings/base-permission-change",
+					"pattern": "^This may change the permission that the organization['’]s ([\\d,]+) members? have on its ([\\d,]+) repositories?\\.$"
 				}
 			]
 		},

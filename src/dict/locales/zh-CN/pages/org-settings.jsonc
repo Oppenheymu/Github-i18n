@@ -509,6 +509,103 @@
 		// —— 页尾的 Enterprise 升级横幅（与 pages/repo-settings 同源，逐字同译）——
 		"Create custom roles with GitHub Enterprise": "使用 GitHub Enterprise 创建自定义角色",
 		"Enterprise accounts offer organizations more granular control over permissions by allowing you to configure up to 20 custom repository roles. This enables greater control over who and how your users access code and data in your organization.": "企业账户为组织提供更细粒度的权限控制，支持配置最多 20 个自定义仓库角色，从而更精细地控制组织中的哪些用户可以访问代码和数据，以及以何种方式访问。",
-		"Start free for 30 days": "免费试用 30 天"
+		"Start free for 30 days": "免费试用 30 天",
+		// —— 成员权限页（/organizations/<组织>/settings/member_privileges）——
+		// 证据与节点边界见 core/canonical.jsonc 的同名注释；回归见
+		// src/dict/__tests__/pages/org-settings/member-privileges.test.ts。
+		// 基础权限
+		"Base permissions": "基础权限",
+		"Base permissions to the organization’s repositories apply to all members and excludes outside collaborators. Since organization members can have permissions from multiple sources, members and collaborators who have been granted a higher level of access than the base permissions will retain their higher permission privileges.": "对组织仓库的基础权限适用于所有成员，不包含外部协作者。由于组织成员可能拥有来自多个来源的权限，被授予高于基础权限的访问级别的成员和协作者将保留其更高的权限。",
+		"No permission": "无权限",
+		"Organization member permissions": "组织成员权限",
+		"Members will only be able to clone and pull public repositories. To give a member additional access, you’ll need to add them to an authorized team or make them a collaborator on individual repositories.": "成员只能克隆和拉取公开仓库。若要为成员授予额外访问权限，你需要将他们添加到已授权的团队，或让他们成为各个仓库的协作者。",
+		"Members will be able to clone and pull all repositories.": "成员可以克隆和拉取所有仓库。",
+		"Members will be able to clone, pull, and push all repositories.": "成员可以克隆、拉取和推送所有仓库。",
+		"Members will be able to clone, pull, push, and add new collaborators to all repositories.": "成员可以克隆、拉取、推送所有仓库，并向所有仓库添加新的协作者。",
+		// 四个确认对话框（标题与提交按钮同一串）
+		"Change base permission to \"No permission\"": "将基础权限更改为“无权限”",
+		"Change base permission to \"Read\"": "将基础权限更改为“读取”",
+		"Change base permission to \"Write\"": "将基础权限更改为“写入”",
+		"Change base permission to \"Admin\"": "将基础权限更改为“管理员”",
+		"You are about to change the base repository permission for this organization.": "你即将更改此组织的基础仓库权限。",
+		// 对话框正文的动态计数：上游是 ERB 插值，实机最可能是
+		// `句首` + `数字` + `members have on its` + `数字` + `repositories.` 五段；
+		// 数字节点不含拉丁字母、引擎跳过，故三段常量各收一条键，拼作
+		// 「这可能会改变该组织的 2 名成员在其 5 个仓库上拥有的权限。」
+		// 万一上游渲染成整句一个节点，则由规则 org-settings/base-permission-change 兜住。
+		"This may change the permission that the organization’s": "这可能会改变该组织的",
+		"members have on its": "名成员在其",
+		"repositories.": "个仓库上拥有的权限。",
+		// 仓库创建
+		"Repository creation": "仓库创建",
+		"Members will be able to create only selected repository types. Outside collaborators can never create repositories.": "成员只能创建选定的仓库类型。外部协作者永远不能创建仓库。",
+		"Members will be able to create public repositories, visible to anyone.": "成员将能够创建公开仓库，任何人都可见。",
+		"Members will be able to create private repositories, visible to organization members with permission.": "成员将能够创建私有仓库，具有权限的组织成员可见。",
+		// 仓库创建与 Pages 创建两处各有一个同样的链接
+		"Why is this option disabled?": "为什么此选项被禁用？",
+		// 仓库复刻
+		"Repository forking": "仓库复刻",
+		"Allow forking of private repositories": "允许复刻私有仓库",
+		"If enabled, forking is allowed on private and public repositories. If disabled, forking is only allowed on public repositories. This setting is also configurable per-repository.": "如果启用，允许复刻私有和公开仓库。如果禁用，仅允许复刻公开仓库。此设置也可按仓库单独配置。",
+		// 仓库讨论
+		"Repository discussions": "仓库讨论",
+		"Allow users with read access to create discussions": "允许具有读取访问权限的用户创建讨论",
+		"If disabled, discussion creation is limited to users with at least triage permission. Users with read access can still comment on discussions.": "如果禁用，创建讨论仅限于至少具有分类权限的用户。具有读取访问权限的用户仍可评论讨论。",
+		// 项目基础权限
+		"Projects base permissions": "项目基础权限",
+		"Projects created by members will default to the selected role below.": "成员创建的项目将默认使用下方选定的角色。",
+		"No access": "无访问权限",
+		"Members will only be able to see projects that are made public. To give an organization member additional access, they can be added as part of a team or as a collaborator.": "成员只能看到已设为公开的项目。若要为组织成员授予额外访问权限，可以将其添加为团队成员或协作者。",
+		"Members can see projects.": "成员可以查看项目。",
+		"Members can see and make changes to projects.": "成员可以查看并更改项目。",
+		"Members can see, make changes to, and add new collaborators to projects.": "成员可以查看、更改项目，并添加新的协作者。",
+		"Change base permissions to \"No access\"": "将基础权限更改为“无访问权限”",
+		"Change base permissions to \"Read\"": "将基础权限更改为“读取”",
+		"Change base permissions to \"Write\"": "将基础权限更改为“写入”",
+		"Change base permissions to \"Admin\"": "将基础权限更改为“管理员”",
+		"You are about to change the base projects permission for this organization.": "你即将更改此组织的基础项目权限。",
+		"This won't affect any existing projects.": "这不会影响任何现有项目。",
+		// Pages 创建（`Pages` 在本模块是「页面」）
+		"Pages creation": "页面创建",
+		"Members will be able to publish sites with only the selected access controls.": "成员只能使用选定的访问控制发布站点。",
+		"Members will be able to create public sites, visible to anyone.": "成员将能够创建公开站点，任何人都可见。",
+		"Members will be able to create private sites, visible to anyone with permission.": "成员将能够创建私有站点，任何具有权限的人可见。",
+		// 应用访问请求
+		"App access requests": "应用访问请求",
+		"Choose who can request GitHub or OAuth apps to use with resources in this organization": "选择谁可以请求 GitHub 或 OAuth 应用来使用此组织中的资源",
+		"Members and outside collaborators": "成员和外部协作者",
+		"Both members and outside collaborators can request apps for this organization.": "成员和外部协作者都可以为此组织请求应用。",
+		"Members only": "仅成员",
+		"Members can request apps, while outside collaborators cannot.": "成员可以请求应用，而外部协作者不能。",
+		"Disable app access requests": "禁用应用访问请求",
+		"Neither members nor outside collaborators can request apps.": "成员和外部协作者都不能请求应用。",
+		// GitHub 应用（标题 GitHub Apps 是本模块的既有键）
+		"Allow repository admins to install GitHub Apps for their repositories.": "允许仓库管理员为其仓库安装 GitHub 应用。",
+		"Repository admins will be able to install and configure GitHub Apps on their repositories without requesting first, if the app doesn't require organization or repository administration permissions.": "如果应用不需要组织或仓库管理权限，仓库管理员将能够在其仓库上安装和配置 GitHub 应用，而无需事先申请。",
+		// 管理员仓库权限
+		"Admin repository permissions": "管理员仓库权限",
+		"Repository visibility change": "仓库可见性变更",
+		"Allow members to change repository visibilities for this organization": "允许成员更改此组织的仓库可见性",
+		"If enabled, members with admin permissions for the repository will be able to change its visibility. If disabled, only organization owners can change repository visibilities.": "如果启用，具有该仓库管理员权限的成员将能够更改其可见性。如果禁用，只有组织所有者可以更改仓库可见性。",
+		"Repository deletion and transfer": "仓库删除与转移",
+		"Allow members to delete or transfer repositories for this organization": "允许成员删除或转移此组织的仓库",
+		// 这句被 `<strong>` 切成五段；三个中间片段是小写泛化词，只因为模块按路由限定才敢收
+		"If enabled, members with admin permissions for the repository will be able to delete or transfer": "如果启用，具有该仓库管理员权限的成员将能够删除或转移",
+		"public": "公开",
+		"and": "和",
+		"private": "私有",
+		"repositories. If disabled, only organization owners can delete or transfer repositories.": "仓库。如果禁用，只有组织所有者可以删除或转移仓库。",
+		"Issue deletion": "议题删除",
+		"Allow repository administrators to delete issues for this organization": "允许仓库管理员删除此组织的议题",
+		"If enabled, members with admin permissions for the repository will be able to delete issues. If disabled, only organization owners can delete issues.": "如果启用，具有该仓库管理员权限的成员将能够删除议题。如果禁用，只有组织所有者可以删除议题。",
+		"Learn more about allowing people to delete issues in your organization": "进一步了解如何允许人们删除你组织中的议题",
+		"Branch renames": "分支重命名",
+		"Allow repository administrators to rename branches protected by organization rules": "允许仓库管理员重命名受组织规则保护的分支",
+		"If enabled, members with admin permissions for the repository will be able to rename branches targeted by organization-level rulesets, provided the new name is still covered by those same rulesets or the repository admin has bypass permission. If disabled, only organization owners can rename such branches.": "如果启用，具有该仓库管理员权限的成员将能够重命名组织级规则集所针对的分支，前提是新名称仍受同一批规则集覆盖，或者仓库管理员具有绕过权限。如果禁用，只有组织所有者可以重命名此类分支。",
+		// 成员团队权限
+		"Member team permissions": "成员团队权限",
+		"Team creation rules": "团队创建规则",
+		"Allow members to create teams": "允许成员创建团队",
+		"If enabled, any member of the organization will be able to create new teams. If disabled, only organization owners can create new teams.": "如果启用，组织中的任何成员都可以创建新团队。如果禁用，只有组织所有者可以创建新团队。"
 	}
 }

@@ -4208,7 +4208,123 @@
 				// 可见文本走本模块的键。同一条横幅在 pages/repo-settings 里已有同译，逐字沿用。
 				"Create custom roles with GitHub Enterprise",
 				"Enterprise accounts offer organizations more granular control over permissions by allowing you to configure up to 20 custom repository roles. This enables greater control over who and how your users access code and data in your organization.",
-				"Start free for 30 days"
+				"Start free for 30 days",
+				// —— 成员权限页（/organizations/<组织>/settings/member_privileges，2026-10-07 并入）——
+				// 证据：维护者同日贴的整页实机 HTML。采集时扩展仍在运行，已是中文的节点
+				// （标题「成员权限」、五个角色名、`公开` / `私有` / `保存` / `关闭` / `GitHub 应用`）
+				// 都是既有键的产物，其余英文才是本批清单。同样是**服务端渲染的传统 Primer 页面**
+				// （`Subhead` + `ActionList` + `<dialog>`），长句没有内联元素时就是一个整文本节点。
+				// 三处例外（节点边界由标签嵌套推定，见下方注释）：① 说明句里的链接各自成节点；
+				// ② 仓库删除那段的 `public` / `private` 被 `<strong>` 包住、`and` 夹在两者之间，
+				//    整句因此是**五个节点**；③ 四个确认对话框的正文含动态计数（成员数 / 仓库数），
+				//    由规则 `org-settings/base-permission-change` 与三段碎片键共同覆盖两种切分。
+				// 回归见 org-settings/member-privileges.test.ts。
+				// —— 基础权限 ——
+				"Base permissions",
+				"Base permissions to the organization’s repositories apply to all members and excludes outside collaborators. Since organization members can have permissions from multiple sources, members and collaborators who have been granted a higher level of access than the base permissions will retain their higher permission privileges.",
+				// 按钮标签与菜单里那个禁用项是同一串
+				"No permission",
+				"Organization member permissions",
+				"Members will only be able to clone and pull public repositories. To give a member additional access, you’ll need to add them to an authorized team or make them a collaborator on individual repositories.",
+				"Members will be able to clone and pull all repositories.",
+				"Members will be able to clone, pull, and push all repositories.",
+				"Members will be able to clone, pull, push, and add new collaborators to all repositories.",
+				// 四个确认对话框的标题（与提交按钮同一串，故各只登记一条）
+				"Change base permission to \"No permission\"",
+				"Change base permission to \"Read\"",
+				"Change base permission to \"Write\"",
+				"Change base permission to \"Admin\"",
+				// 四个对话框顶部的那条警告横幅（同一串）
+				"You are about to change the base repository permission for this organization.",
+				// 对话框正文含动态计数（`2 members` / `5 repositories`）。上游是 ERB 插值，
+				// 最可能的切分是「常量句首 / 数字 / 常量中段 / 数字 / 常量句尾」——数字节点
+				// 不含拉丁字母、引擎直接跳过，故三段常量各收一条键；万一上游把它渲染成**整句
+				// 一个节点**，则由规则 org-settings/base-permission-change 兜住（两种切分都覆盖）。
+				"This may change the permission that the organization’s",
+				"members have on its",
+				"repositories.",
+				// —— 仓库创建 ——
+				"Repository creation",
+				"Members will be able to create only selected repository types. Outside collaborators can never create repositories.",
+				"Members will be able to create public repositories, visible to anyone.",
+				"Members will be able to create private repositories, visible to organization members with permission.",
+				// 两个区块里各有一个「为什么此选项被禁用？」链接，同一串
+				"Why is this option disabled?",
+				// —— 仓库复刻 ——
+				"Repository forking",
+				"Allow forking of private repositories",
+				"If enabled, forking is allowed on private and public repositories. If disabled, forking is only allowed on public repositories. This setting is also configurable per-repository.",
+				// —— 仓库讨论 ——
+				"Repository discussions",
+				"Allow users with read access to create discussions",
+				// 「If enabled, all users with read access can create and comment on discussions in
+				// <组织>’s repositories.」含动态组织名，走规则 org-settings/discussion-creation-org
+				// （规则驱动的文本不进 canonical，这里只留注释）
+				"If disabled, discussion creation is limited to users with at least triage permission. Users with read access can still comment on discussions.",
+				// —— 项目基础权限 ——
+				"Projects base permissions",
+				"Projects created by members will default to the selected role below.",
+				"No access",
+				"Members will only be able to see projects that are made public. To give an organization member additional access, they can be added as part of a team or as a collaborator.",
+				"Members can see projects.",
+				"Members can see and make changes to projects.",
+				"Members can see, make changes to, and add new collaborators to projects.",
+				"Change base permissions to \"No access\"",
+				"Change base permissions to \"Read\"",
+				"Change base permissions to \"Write\"",
+				"Change base permissions to \"Admin\"",
+				"You are about to change the base projects permission for this organization.",
+				"This won't affect any existing projects.",
+				// —— Pages 创建（`Pages` 在本模块是「页面」，见上）——
+				"Pages creation",
+				"Members will be able to publish sites with only the selected access controls.",
+				"Members will be able to create public sites, visible to anyone.",
+				"Members will be able to create private sites, visible to anyone with permission.",
+				// —— 应用访问请求 ——
+				"App access requests",
+				"Choose who can request GitHub or OAuth apps to use with resources in this organization",
+				"Members and outside collaborators",
+				"Both members and outside collaborators can request apps for this organization.",
+				"Members only",
+				"Members can request apps, while outside collaborators cannot.",
+				"Disable app access requests",
+				"Neither members nor outside collaborators can request apps.",
+				// —— GitHub 应用（标题 `GitHub Apps` 是本模块的既有键）——
+				"Allow repository admins to install GitHub Apps for their repositories.",
+				"Repository admins will be able to install and configure GitHub Apps on their repositories without requesting first, if the app doesn't require organization or repository administration permissions.",
+				// —— 管理员仓库权限 ——
+				"Admin repository permissions",
+				// 仓库可见性变更
+				"Repository visibility change",
+				"Allow members to change repository visibilities for this organization",
+				"If enabled, members with admin permissions for the repository will be able to change its visibility. If disabled, only organization owners can change repository visibilities.",
+				// 仓库删除与转移
+				"Repository deletion and transfer",
+				"Allow members to delete or transfer repositories for this organization",
+				// 这句被 `<strong>public</strong>` / `<strong>private</strong>` 切成五段：
+				// 首段 / `public` / `and` / `private` / 尾段。三个中间片段是**小写泛化词**，
+				// 收它们的唯一理由是模块按路由限定在组织设置页（同 `settings` 的先例），
+				// 实机若出现读不通的 `public` / `private` 就删词条，别加白名单。
+				"If enabled, members with admin permissions for the repository will be able to delete or transfer",
+				"public",
+				"and",
+				"private",
+				"repositories. If disabled, only organization owners can delete or transfer repositories.",
+				// 议题删除
+				"Issue deletion",
+				"Allow repository administrators to delete issues for this organization",
+				"If enabled, members with admin permissions for the repository will be able to delete issues. If disabled, only organization owners can delete issues.",
+				// 链接文本后面还跟着一个独立的句号节点（翻不了，不收）
+				"Learn more about allowing people to delete issues in your organization",
+				// 分支重命名
+				"Branch renames",
+				"Allow repository administrators to rename branches protected by organization rules",
+				"If enabled, members with admin permissions for the repository will be able to rename branches targeted by organization-level rulesets, provided the new name is still covered by those same rulesets or the repository admin has bypass permission. If disabled, only organization owners can rename such branches.",
+				// —— 成员团队权限 ——
+				"Member team permissions",
+				"Team creation rules",
+				"Allow members to create teams",
+				"If enabled, any member of the organization will be able to create new teams. If disabled, only organization owners can create new teams."
 			]
 		},
 		{

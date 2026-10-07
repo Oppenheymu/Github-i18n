@@ -1854,6 +1854,8 @@
 			"notTranslated": [
 				"org-settings/page-title",
 				"org-settings/roles-count",
+				"org-settings/discussion-creation-org",
+				"org-settings/base-permission-change",
 				"global/seconds-ago",
 				"global/weeks-ago",
 				"global/months-ago",
@@ -1998,6 +2000,8 @@
 			"notTranslated": [
 				"org-settings/page-title",
 				"org-settings/roles-count",
+				"org-settings/discussion-creation-org",
+				"org-settings/base-permission-change",
 				"global/seconds-ago",
 				"global/weeks-ago",
 				"global/months-ago",
@@ -2424,6 +2428,8 @@
 				"settings/article-a",
 				"org-settings/page-title",
 				"org-settings/roles-count",
+				"org-settings/discussion-creation-org",
+				"org-settings/base-permission-change",
 				"global/seconds-ago",
 				"global/weeks-ago",
 				"global/months-ago",

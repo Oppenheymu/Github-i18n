@@ -2069,6 +2069,8 @@
 			"rules": [
 				"org-settings/page-title",
 				"org-settings/roles-count",
+				"org-settings/discussion-creation-org",
+				"org-settings/base-permission-change",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -2215,6 +2217,8 @@
 			"rules": [
 				"org-settings/page-title",
 				"org-settings/roles-count",
+				"org-settings/discussion-creation-org",
+				"org-settings/base-permission-change",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -2703,6 +2707,8 @@
 				"settings/article-a",
 				"org-settings/page-title",
 				"org-settings/roles-count",
+				"org-settings/discussion-creation-org",
+				"org-settings/base-permission-change",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",

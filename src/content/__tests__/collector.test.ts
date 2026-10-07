@@ -63,6 +63,14 @@ chromeGlobal["storage"] = {
 };
 globals["chrome"] = chromeGlobal;
 
+// 模块单例（enabled + 缓冲）与 globalThis 一样**跨测试文件共享**：跑过真实入口的
+// 文件（index.test.ts）会把开关打开，并在缓冲里留下未落盘的漏翻。这里先把状态收回
+// 基线，后面的断言才与 bun 的文件发现顺序无关——本机 Windows 按目录字母序把本文件
+// 排在 index 之前（一直绿），CI 的 Linux readdir 顺序把它排在 index 之后（2026-10-02
+// 起 CI 一直红在下面两条上）。flush 顺带清空缓冲，写的是本文件自己的 storage 桩。
+setEnabled(false);
+await flushMisses();
+
 const intervals: (() => void)[] = [];
 globals["setInterval"] = (handler: () => void) => {
 	intervals.push(handler);
@@ -263,8 +271,16 @@ describe("serializeMisses", () => {
 });
 
 describe("module state", () => {
-	it("starts disabled", () => {
-		expect(isEnabled()).toBe(false);
+	it("starts disabled", async () => {
+		// 「默认关闭」是模块**初始化器**的性质，只能对着全新实例断言：单例在一个
+		// 进程里只初始化一次，别的文件先跑过真实入口时共享单例早已不是初始值
+		// （见文件头对跨文件共享的说明）。带查询串的 import 在 Bun 里是新实例。
+		const freshSpecifier =
+			"../collector.ts?fresh-default-state";
+		const fresh = (await import(
+			freshSpecifier
+		)) as typeof import("../collector.ts");
+		expect(fresh.isEnabled()).toBe(false);
 	});
 
 	it("toggles via setEnabled", () => {
@@ -275,8 +291,8 @@ describe("module state", () => {
 	});
 });
 
-// 模块单例（enabled + 缓冲）在一个文件里是共享状态，故本 describe 必须放在
-// 「starts disabled」之后，且收尾要还原开关——否则状态断言会随用例顺序翻车。
+// 模块单例（enabled + 缓冲）是共享状态，但本 describe 自己建立基线：beforeEach 打开
+// 开关，afterEach 落盘清缓冲 + 还原开关，故与文件内、文件外的用例顺序都无关。
 describe("漏翻缓冲的落盘链路", () => {
 	beforeAll(() => {
 		// 只装一次：真实注册 5 秒定时器 + visibilitychange / pagehide 两个卸载钩子

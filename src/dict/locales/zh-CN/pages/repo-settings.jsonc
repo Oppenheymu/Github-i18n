@@ -576,6 +576,10 @@
 		"The lowest severity level at which code quality reviews need to be resolved before commits can be merged.": "在提交可以合并之前，代码质量审查需要解决的最低严重级别。",
 		"Restrict code coverage": "限制代码覆盖率",
 		"Enforce minimum line coverage thresholds on pull requests. When configured, uploaded coverage data must meet the specified criteria before changes can be merged.": "对拉取请求强制执行最低行覆盖率阈值。配置后，上传的覆盖率数据必须满足指定条件，更改才能合并。",
+		// 上游改写后的同一句（2026-10-07 实机 HTML，FormControl.Caption 单节点）：
+		// 新增「不等待覆盖率上传」与「把覆盖率上传的状态检查设为必需」两句，语义变了故重译；
+		// 首句与上一条逐字相同，译文沿用同一措辞。旧句**有意保留**——它是否仍会渲染未经证实。
+		"Enforce minimum line coverage thresholds on pull requests. This rule evaluates uploaded coverage data but does not wait for coverage uploads. To ensure coverage is evaluated before merging, make each status check associated with a coverage upload a required status check.": "对拉取请求强制执行最低行覆盖率阈值。此规则会评估已上传的覆盖率数据，但不会等待覆盖率上传完成。若要确保在合并前评估覆盖率，请将每个与覆盖率上传关联的状态检查设为必需状态检查。",
 		// Restrict code coverage 的展开面板（两个数字输入框：标签 + 说明句）。
 		// 证据：维护者 2026-09-27 贴出的该面板原始英文 HTML
 		"Minimum line coverage percentage": "最低行覆盖率百分比",

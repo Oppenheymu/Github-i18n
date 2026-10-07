@@ -717,6 +717,30 @@ describe("仓库设置页的 Restrict code coverage 展开面板", () => {
 			"行覆盖率相对默认分支允许下降的最大百分点数。下降幅度超过此数值的拉取请求将被阻止。",
 		);
 	});
+
+	it("translates the rewritten rule caption", () => {
+		// 证据：维护者 2026-10-07 贴出的 /Koishi-CE/tools/settings/rules/new 实机 HTML——
+		// `Restrict code coverage` 的规则说明被上游改写：新增「不等待覆盖率上传」与
+		// 「把覆盖率上传的状态检查设为必需」两句，属**语义变了**，故新收一条键、不加别名。
+		// 节点边界：整句是 `FormControl.Caption` 里的**单个**文本节点，句中无内联拆分
+		expect(
+			translateText(
+				"Enforce minimum line coverage thresholds on pull requests. This rule evaluates uploaded coverage data but does not wait for coverage uploads. To ensure coverage is evaluated before merging, make each status check associated with a coverage upload a required status check.",
+				newView,
+			),
+		).toBe(
+			"对拉取请求强制执行最低行覆盖率阈值。此规则会评估已上传的覆盖率数据，但不会等待覆盖率上传完成。若要确保在合并前评估覆盖率，请将每个与覆盖率上传关联的状态检查设为必需状态检查。",
+		);
+		// 被改写掉的旧句译文继续有效：它是否仍在实机上渲染未经证实，故保留而不是删键
+		expect(
+			translateText(
+				"Enforce minimum line coverage thresholds on pull requests. When configured, uploaded coverage data must meet the specified criteria before changes can be merged.",
+				newView,
+			),
+		).toBe(
+			"对拉取请求强制执行最低行覆盖率阈值。配置后，上传的覆盖率数据必须满足指定条件，更改才能合并。",
+		);
+	});
 });
 
 describe("仓库设置页的「限制谁可以忽略拉取请求审查」面板", () => {

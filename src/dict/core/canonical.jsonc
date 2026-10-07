@@ -2783,6 +2783,12 @@
 				"The lowest severity level at which code quality reviews need to be resolved before commits can be merged.",
 				"Restrict code coverage",
 				"Enforce minimum line coverage thresholds on pull requests. When configured, uploaded coverage data must meet the specified criteria before changes can be merged.",
+				// 上游改写了同一条规则的说明（2026-10-07 维护者贴出的
+				// /Koishi-CE/tools/settings/rules/new 实机 HTML：FormControl.Caption 单节点，
+				// 句中没有内联拆分）。这不是改词而是**语义变了**——多出「不等待覆盖率上传」
+				// 与「把覆盖率上传的状态检查设为必需」两句，故新增键 + 重译，不加别名；
+				// 旧句在上面保留（它是否仍在实机渲染未经证实，处理同构件与日志保留期那次）
+				"Enforce minimum line coverage thresholds on pull requests. This rule evaluates uploaded coverage data but does not wait for coverage uploads. To ensure coverage is evaluated before merging, make each status check associated with a coverage upload a required status check.",
 				// Restrict code coverage 展开面板（两个数字输入框的标签与说明句）
 				"Minimum line coverage percentage",
 				"The absolute minimum line coverage percentage required. Pull requests with line coverage below this threshold will be blocked.",

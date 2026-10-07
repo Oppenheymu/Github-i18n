@@ -1676,6 +1676,16 @@
 					"id": "settings/group-by-product",
 					"pattern": "^Group by: Product$"
 				},
+				// AI 用量页的分组切换器只有 Days / Models 两个取值（2026-09 截图的选中态是
+				// Days，2026-10-07 实机 HTML 的选中态是 Models），与用量页共用同一族规则
+				{
+					"id": "settings/group-by-days",
+					"pattern": "^Group by: Days$"
+				},
+				{
+					"id": "settings/group-by-models",
+					"pattern": "^Group by: Models$"
+				},
 				{
 					"id": "settings/timeframe-current-month",
 					"pattern": "^Timeframe: Current month$"
@@ -1761,6 +1771,57 @@
 				{
 					"id": "settings/ai-credit-cost",
 					"pattern": "^Each GitHub AI credit costs (?<amount>[$][\\d.,]+)\\.$"
+				},
+				// —— AI 用量页的新版汇总卡（2026-10-07 组织路由实机 HTML）——
+				// 「所含点数」卡把「已用 / 总额」渲染成卡片值节点 + 独立节点「/ 0 AI credits」：
+				// 数字随额度变化，「AI credits」是产品计量单位（本模块一律译「AI 点数」）。
+				// 两种可能的切分各收一条：整句成节点（带前导「/ 」）与「/ 」被切成纯符号节点后的
+				// 裸计数（纯符号节点不含拉丁字母、引擎按设计跳过它——那正是留下「/ 」的形态）
+				{
+					"id": "settings/ai-usage-credits-entitlement",
+					"pattern": "^\\/ (?<count>[\\d,]+) AI credits?$"
+				},
+				{
+					"id": "settings/ai-usage-credits-entitlement-bare",
+					"pattern": "^(?<count>[\\d,]+) AI credits?$"
+				},
+				// 额度卡的说明句：「Included AI credits consumed by users in your account. Monthly
+				// limit resets in 25 days on 2026年11月1日.」——日期由 GitHub 按浏览器语言在**客户端**
+				// 格式化（实机已是中文），故这句必然是**含拉丁字母的混合节点**：引擎的脚本守卫只拦
+				// 「整段非拉丁」，混合节点照常进规则。outerHTML 把相邻文本节点拼在一起、看不出切分，
+				// 故按「整句 / 第二句 / 第二句前半 / N days on / days on」五种粒度各收一条；
+				// 纯数字节点（25）与纯符号节点（.）按设计翻不了。
+				// 凡是要求日期在场的形态都**只认「不含拉丁字母」的日期**（`[^A-Za-z]+`）：门禁禁止
+				// pattern 里出现非拉丁字母（输入恒为英文原文），故不能直接写「年 / 月 / 日」；
+				// 这个字符类同时排除掉英文日期（November 1, 2026）——真让它进来就会产出中英残句
+				//（宁可整句保留英文，取舍同 usage-range-* 的跨月组合）
+				{
+					"id": "settings/ai-usage-credits-description",
+					"pattern": "^Included AI credits consumed by users in your account\\. Monthly limit resets in (?<days>\\d+) days? on (?<date>[^A-Za-z]+)\\.$"
+				},
+				{
+					"id": "settings/ai-usage-credits-description-head",
+					"pattern": "^Included AI credits consumed by users in your account\\. Monthly limit resets in$"
+				},
+				{
+					"id": "settings/ai-usage-credits-reset",
+					"pattern": "^Monthly limit resets in (?<days>\\d+) days? on (?<date>[^A-Za-z]+)\\.$"
+				},
+				{
+					"id": "settings/ai-usage-credits-reset-days-on",
+					"pattern": "^Monthly limit resets in (?<days>\\d+) days? on$"
+				},
+				{
+					"id": "settings/ai-usage-credits-reset-head",
+					"pattern": "^Monthly limit resets in$"
+				},
+				{
+					"id": "settings/ai-usage-credits-days-on",
+					"pattern": "^(?<days>\\d+) days? on$"
+				},
+				{
+					"id": "settings/ai-usage-credits-days-on-word",
+					"pattern": "^days? on$"
 				},
 				// —— 预算与提醒页（/account/billing/budgets）——
 				// 标题行「5 Account budgets」：数字随预算条数变化

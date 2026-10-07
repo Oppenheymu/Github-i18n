@@ -1851,6 +1851,37 @@
 				"Additional credits",
 				// 表脚注（AI 点数单价说明，金额随定价变化，故走规则）
 				"Each GitHub AI credit costs $0.01.",
+				// —— AI 用量页的新版卡片（2026-10-07 组织路由实机 HTML 实证）——
+				// 同一页在组织路由（/organizations/<组织>/settings/billing/ai_usage）上渲染的是
+				// **新版**组件族（AIUsagePage / UsageFilters / AIUsageSummaryCard），比 2026-09 的
+				// 截图多出汇总卡、空态标题与「搜索或筛选用量」工具条；节点边界见
+				// src/dict/__tests__/pages/org-settings/billing-ai-usage.test.ts。
+				// 页头「AI usage」仍由 pages/org-settings / pages/settings 的同键提供，不在此登记
+				"Search or filter usage (chart updates as you type)",
+				// 清空按钮的 tooltip：上游把 aria-label 原句前面接了「Clear」，故是另一条键
+				//（若实机把它切成「Clear 」+ 上面那条两个节点，`Clear` 由 global 词条接管）
+				"Clear Search or filter usage (chart updates as you type)",
+				"Filter by user or model",
+				// 联想列表的无障碍名（与 pages/issues / pages/agents 同键同译）
+				"Suggestions",
+				// —— 汇总卡 ——
+				// 「所含点数」卡的进度条 aria-label；卡面数值与「/ 0 AI credits」是动态文本，
+				// 走 core/rules.jsonc 的 settings/ai-usage-credits-entitlement*
+				"Included AI credits progress",
+				// 「额外用量」卡右上角的入口（href 指向 …/settings/billing/budgets）
+				"Edit budget",
+				"Spend on additional AI credits exceeding your included credits.",
+				// 说明句的第二句含「N days on <日期>」（日期由 GitHub 客户端格式化、实机已是中文），
+				// 整句与各种切分都由 settings/ai-usage-credits-description* 覆盖；本键是
+				// 「第一句自己成节点」的那种切分
+				"Included AI credits consumed by users in your account.",
+				// —— 图表空态 ——
+				"No usage found",
+				// 图表上方的状态区（sr-only，role="status"）
+				"No usage data found for the selected filters.",
+				// 图表标题：分组切换器只有 Days / Models 两个取值，各锁一条（与上面的 group-by-* 同族）
+				"Usage grouped by models",
+				"Usage grouped by days",
 				// —— 预算与提醒页（/account/billing/budgets，账单侧栏「Budgets and alerts」进入）——
 				// 键逐字抄自 2026-09 的实机截图（页面需登录，未进开发者模式导出），节点边界见
 				// src/dict/__tests__/pages/settings/billing.test.ts 的 BUDGETS_NODES。

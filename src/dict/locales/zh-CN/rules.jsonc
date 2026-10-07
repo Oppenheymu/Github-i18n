@@ -794,6 +794,9 @@
 		"settings/group-by-none": "分组方式：无",
 		"settings/group-by-repository": "分组方式：仓库",
 		"settings/group-by-product": "分组方式：产品",
+		// AI 用量页的分组切换器（取值只有 Days / Models）
+		"settings/group-by-days": "分组方式：天",
+		"settings/group-by-models": "分组方式：模型",
 		"settings/timeframe-current-month": "时间范围：本月",
 		"settings/timeframe-last-month": "时间范围：上个月",
 		"settings/timeframe-last-3-months": "时间范围：近 3 个月",
@@ -814,6 +817,19 @@
 		"settings/month-year-dec": "$1 年 12 月",
 		// AI 用量页的 AI 点数单价脚注：金额（含美元符号）由捕获组带出，模板里不再另写 $
 		"settings/ai-credit-cost": "每个 GitHub AI 点数费用为 $<amount>。",
+		// AI 用量页汇总卡的额度条（「/ 0 AI credits」）：数字由捕获组带出，
+		// 「AI credits」在本模块一律译「AI 点数」（与静态词条 Included credits / 表脚注同口径）
+		"settings/ai-usage-credits-entitlement": "/ 共 $<count> 个 AI 点数",
+		"settings/ai-usage-credits-entitlement-bare": "共 $<count> 个 AI 点数",
+		// AI 用量页额度卡的说明句：日期由 GitHub 客户端格式化（实机是「2026年11月1日」），
+		// 模板原样带回捕获到的日期；五种切分共用同一套措辞，保证拼接结果逐字一致
+		"settings/ai-usage-credits-description": "你的账户中用户已消耗的所含 AI 点数。每月限额将在 $<days> 天后于 $<date> 重置。",
+		"settings/ai-usage-credits-description-head": "你的账户中用户已消耗的所含 AI 点数。每月限额将在",
+		"settings/ai-usage-credits-reset": "每月限额将在 $<days> 天后于 $<date> 重置。",
+		"settings/ai-usage-credits-reset-days-on": "每月限额将在 $<days> 天后于",
+		"settings/ai-usage-credits-reset-head": "每月限额将在",
+		"settings/ai-usage-credits-days-on": "$<days> 天后于",
+		"settings/ai-usage-credits-days-on-word": "天后于",
 		// 预算与提醒页的标题行计数与预算行金额（金额含美元符号，见上一条的说明）
 		"settings/budget-count": "$<count> 条账户预算",
 		"settings/budget-amount-spent": "已支出 $<amount>",

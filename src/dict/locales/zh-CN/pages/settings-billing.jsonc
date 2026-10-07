@@ -164,6 +164,28 @@
 		"Additional credits": "额外点数",
 		// 表脚注的静态形态（金额变化时由 core/rules.jsonc 的 settings/ai-credit-cost 覆盖）
 		"Each GitHub AI credit costs $0.01.": "每个 GitHub AI 点数费用为 $0.01。",
+		// —— AI 用量页的新版卡片（2026-10-07 组织路由实机 HTML，节点边界见
+		// src/dict/__tests__/pages/org-settings/billing-ai-usage.test.ts）——
+		// 搜索框的可访问名与清空按钮的 tooltip 是同一句话的两种形态（后者多一个 Clear 前缀），
+		// 括号里是上游给「边输边看」的说明，故两处都按同一句译
+		"Search or filter usage (chart updates as you type)": "搜索或筛选用量（输入时图表即时更新）",
+		"Clear Search or filter usage (chart updates as you type)": "清除搜索或筛选用量（输入时图表即时更新）",
+		"Filter by user or model": "按用户或模型筛选",
+		// 联想列表的无障碍名：与 pages/issues / pages/agents 的同键同译
+		"Suggestions": "建议",
+		// 额度进度条的 aria-label（卡面「0 / 0 AI credits」由规则补，见 settings-billing 模块的
+		// ai-usage-credits-entitlement*）
+		"Included AI credits progress": "所含 AI 点数进度",
+		"Edit budget": "编辑预算",
+		"Spend on additional AI credits exceeding your included credits.": "超出所含点数的额外 AI 点数支出。",
+		// 说明句的第一句（第二句含动态天数与日期，走规则）
+		"Included AI credits consumed by users in your account.": "你的账户中用户已消耗的所含 AI 点数。",
+		// 图表空态：标题是「No usage found」，与上面的「No usage」（暂无用量）不是同一句
+		"No usage found": "未找到用量",
+		"No usage data found for the selected filters.": "所选筛选条件下未找到用量数据。",
+		// 图表标题：分组切换器只有 Days / Models 两个取值，各锁一条
+		"Usage grouped by models": "按模型分组的用量",
+		"Usage grouped by days": "按天分组的用量",
 		// —— 预算与提醒页（/account/billing/budgets）——
 		// 键来自 2026-09 的实机截图逐行誊录（页面需登录，未进开发者模式导出），
 		// 节点边界见 src/dict/__tests__/pages/settings/billing.test.ts 的 BUDGETS_NODES。

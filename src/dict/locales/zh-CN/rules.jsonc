@@ -479,6 +479,14 @@
 		"org-settings/discussion-creation-org": "如果启用，所有具有读取访问权限的用户都可以在 $1 的仓库中创建和评论讨论。",
 		// 成员权限页：基础权限确认对话框正文的两个动态计数（成员数 / 仓库数）
 		"org-settings/base-permission-change": "这可能会改变该组织的 $1 名成员在其 $2 个仓库上的权限。",
+		// 组织已屏蔽用户页：备注框下方的剩余字数（数字动态）；与个人设置页的
+		// `settings/characters-remaining` 同 pattern 同模板
+		"org-settings/characters-remaining": "剩余 $1 个字符。",
+		// 屏蔽确认句的用户名是动态值（规则不递归，原样带回）
+		"org-settings/block-user-confirm": "你即将屏蔽：$1",
+		// 屏蔽时长菜单被上游重组成单个文本节点时的两种形态（数字是语言无关的捕获组）
+		"org-settings/block-duration-days": "屏蔽：$1 天",
+		"org-settings/block-duration-forever": "屏蔽：直到我解除屏蔽",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

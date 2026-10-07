@@ -4346,7 +4346,64 @@
 				// 说明段是**单个文本节点**（句内没有链接与 `<strong>`，只有源码换行缩进），
 				// 故整段一条键；按句拆成三条会条条永不命中。
 				"Below are the mannequin reattribution invitations that have been sent within this organization. If the state is \"invited,\" then the user has not yet replied; if it is \"completed,\" then the user has accepted and their contributions have been reattributed, and if it is \"rejected,\" then the user opted not to be credited for that mannequin's contributions.",
-				"No attribution invitations have been sent"
+				"No attribution invitations have been sent",
+				// —— 已屏蔽用户（/organizations/<组织>/settings/blocked_users）——
+				// 页首 `Blocked users` 标题由本模块既有键负责（侧栏项与 H2 同串）。
+				// 本页是**服务端渲染的传统 Primer 页面 + 页尾一个 React partial**
+				//（`blocked-users-table`，同一页里两种渲染形态并存）。
+				//
+				// 这一批的词条在 `pages/settings` 里**早就有一条一模一样的**（个人设置
+				// 的 /settings/blocked_users 页），但那模块的路由 `^/(?:settings|account/billing)`
+				// 不命中 /organizations/**，故必须在 `pages/org-settings` 各收一份、
+				// **逐字同译**——这正是「明明翻译过却漏翻」的典型成因（同
+				// `Subscriptions` / `Payment history` / `Add` 的先例）。
+				// 两页只有两条文案不同：备注框下方那句（本页多出「所有组织管理员和
+				// 版主都能看到此备注」，个人页说的是「仅你自己可见」）与组织侧独有的
+				// **屏蔽时长菜单**（个人页没有这个菜单）。
+				//
+				// 已屏蔽用户的列表 aria-label `results` **有意不收录**：既有两处收录的
+				// 译文互不相同（`pages/settings`「结果」/ `pages/repo-settings`「个结果」），
+				// 证明它按上下文取值、且屏显不可见（同 `billing-managers` 的判定）。
+				"You can block a user to deny them access to repositories and more.",
+				"Learn more about blocking a user",
+				// 区块标题与搜索框的 sr-only 标签是同一串，一条键覆盖两处
+				"Block a user",
+				// 搜索框的 placeholder 与同文案的 sr-only 文本节点是同一个串
+				"Search by username, full name or email address",
+				// 按钮文案 / 对话框标题 / 表单的 aria-label 三处同串，一条键覆盖三处
+				"Block user",
+				// 屏蔽确认对话框：动态用户名那句的**静态形态**（实机初始渲染就是它，
+				// 用户名由 JS 按 `data-text-template` 填进来，见下方规则）
+				"You are about to block:",
+				"Blocking a user prevents the following on all your repositories:",
+				// 三条清单项（项目符号是 SVG 图标，不是文本节点；每条前面那个空格
+				// 由 walker 保留，故实机拼作「 打开议题…」）
+				"opening or commenting on issues or pull requests",
+				"starring, forking, or watching",
+				"adding or editing wiki pages",
+				// —— 屏蔽时长菜单（组织侧独有）——
+				// 按钮标签是**两个节点**：静音的 `Block:` 前缀 + 当前值（初始为
+				// `Until I unblock them`）。菜单项与当前值是同一批串。
+				"Block:",
+				"For 1 day",
+				"For 3 days",
+				"For 7 days",
+				"For 30 days",
+				"Until I unblock them",
+				// 对话框下半部分：开关、备注框与字数
+				"Close all open issues, pull requests, and discussions opened by this user",
+				"Add an optional note",
+				// 本页与个人页**唯一的文案差异**：组织侧这句的结尾不同（故是新键，
+				// 不是 `pages/settings` 那条的别名）
+				"Maximum 250 characters. Please don’t include any personal information such as legal names or email addresses. Markdown is supported. All org admins and moderators can see this note.",
+				// —— 页尾 React partial（blocked-users-table）——
+				// 注意这一块的搜索串与上面那条**不是同一个串**：它带牛津逗号、
+				// 说的是 public email
+				"Currently blocked",
+				"You have not blocked anyone.",
+				// 输入框的 aria-label 与 placeholder 同串
+				"Find blocked users",
+				"Search by username, full name, or public email"
 			]
 		},
 		{

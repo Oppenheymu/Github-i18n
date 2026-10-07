@@ -2071,6 +2071,10 @@
 				"org-settings/roles-count",
 				"org-settings/discussion-creation-org",
 				"org-settings/base-permission-change",
+				"org-settings/characters-remaining",
+				"org-settings/block-user-confirm",
+				"org-settings/block-duration-days",
+				"org-settings/block-duration-forever",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -2219,6 +2223,10 @@
 				"org-settings/roles-count",
 				"org-settings/discussion-creation-org",
 				"org-settings/base-permission-change",
+				"org-settings/characters-remaining",
+				"org-settings/block-user-confirm",
+				"org-settings/block-duration-days",
+				"org-settings/block-duration-forever",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -2410,6 +2418,10 @@
 				},
 				{
 					"key": "Required for certain countries",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Search by username, full name or email address",
 					"module": "pages/settings-billing"
 				},
 				{
@@ -2709,6 +2721,10 @@
 				"org-settings/roles-count",
 				"org-settings/discussion-creation-org",
 				"org-settings/base-permission-change",
+				"org-settings/characters-remaining",
+				"org-settings/block-user-confirm",
+				"org-settings/block-duration-days",
+				"org-settings/block-duration-forever",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",

@@ -2393,6 +2393,36 @@
 				{
 					"id": "org-settings/base-permission-change",
 					"pattern": "^This may change the permission that the organization['’]s ([\\d,]+) members? have on its ([\\d,]+) repositories?\\.$"
+				},
+				// 组织已屏蔽用户页（/organizations/<组织>/settings/blocked_users）的备注框：
+				// 下方会实时更新剩余字数，实机形如 "250 characters remaining."（数字动态、
+				// 单复数同形）。个人设置页（pages/settings）早有一条同 pattern 的
+				// `settings/characters-remaining`，但那条路由不命中 /organizations/**，
+				// 故本模块各收一份（跨模块重复 pattern 合法，同模块内才要求唯一）。
+				{
+					"id": "org-settings/characters-remaining",
+					"pattern": "^(\\d+) characters? remaining\\.$"
+				},
+				// 同一页的屏蔽确认句：实机的 `<strong>` 初始是静态的
+				// `You are about to block: `，用户选定后由 JS 按 `data-text-template`
+				//（`You are about to block: @{username}`）把用户名填进同一个节点——
+				// 静态形态走词条，填好后的动态形态走这条规则，用户名原样带回。
+				{
+					"id": "org-settings/block-user-confirm",
+					"pattern": "^You are about to block: (.+)$"
+				},
+				// 屏蔽时长菜单的**组合形态**：按钮标签初始是两个节点（`Block:` + 当前值，
+				// 见上一条注释里的词条），但上游给这个菜单挂了 `data-dynamic-label` /
+				// `data-dynamic-label-prefix="Block"`，若它把标签重组成**一个节点**
+				// （`Block: For 1 day`），下面两条规则接住——两种渲染形态都不会漏。
+				// `For N day(s)` 用一条规则覆盖四档（数字是语言无关的捕获组，不含残句）。
+				{
+					"id": "org-settings/block-duration-days",
+					"pattern": "^Block: For (\\d+) days?$"
+				},
+				{
+					"id": "org-settings/block-duration-forever",
+					"pattern": "^Block: Until I unblock them$"
 				}
 			]
 		},

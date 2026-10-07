@@ -625,6 +625,40 @@
 		// 译作「状态可以是已创建、分支中已修复或已关闭。」）译成中文，其中「已完成」
 		// 与 global 的 `Completed` 同译。
 		"Below are the mannequin reattribution invitations that have been sent within this organization. If the state is \"invited,\" then the user has not yet replied; if it is \"completed,\" then the user has accepted and their contributions have been reattributed, and if it is \"rejected,\" then the user opted not to be credited for that mannequin's contributions.": "以下是此组织内已发出的模特贡献重新归属邀请。如果状态为“已邀请”，则表示该用户尚未回复；如果状态为“已完成”，则表示该用户已接受，其贡献已完成重新归属；如果状态为“已拒绝”，则表示该用户选择不为该模特的贡献署名。",
-		"No attribution invitations have been sent": "尚未发送任何归属邀请"
+		"No attribution invitations have been sent": "尚未发送任何归属邀请",
+		// —— 已屏蔽用户（/organizations/<组织>/settings/blocked_users）——
+		// 这一批里绝大多数串在 pages/settings（个人设置的 /settings/blocked_users）里
+		// 早已译过，但那条路由 `^/(?:settings|account/billing)` **不命中 /organizations/**，
+		// 故在本模块各收一份并**逐字同译**——同一串在两页有不同的中文才是 bug。
+		"You can block a user to deny them access to repositories and more.": "你可以屏蔽用户，以禁止其访问你的仓库等。",
+		"Learn more about blocking a user": "详细了解如何屏蔽用户",
+		"Block a user": "屏蔽用户",
+		"Search by username, full name or email address": "按用户名、全名或电子邮件地址搜索",
+		"Block user": "屏蔽用户",
+		"You are about to block:": "你即将屏蔽：",
+		"Blocking a user prevents the following on all your repositories:": "屏蔽用户后，会在你的所有仓库中阻止以下操作：",
+		"opening or commenting on issues or pull requests": "打开议题或拉取请求，或对其发表评论",
+		"starring, forking, or watching": "星标、复刻或关注",
+		"adding or editing wiki pages": "添加或编辑 wiki 页面",
+		// 屏蔽时长菜单：按钮标签是「屏蔽：」+ 当前值两个节点，菜单项与当前值同串。
+		// 四档时长按本义只译数字与单位（值节点会被拼在「屏蔽：」之后，
+		// 所以菜单项本身不能再带一遍「屏蔽」）
+		"Block:": "屏蔽：",
+		"For 1 day": "1 天",
+		"For 3 days": "3 天",
+		"For 7 days": "7 天",
+		"For 30 days": "30 天",
+		"Until I unblock them": "直到我解除屏蔽",
+		"Close all open issues, pull requests, and discussions opened by this user": "关闭此用户打开的所有议题、拉取请求和讨论",
+		"Add an optional note": "添加可选备注",
+		// 本页与个人页唯一的文案差异：结尾是「所有组织管理员和版主都能看到此备注」
+		//（个人页那句是「此备注仅你自己可见」，两条是不同的键，不得互相顶替）
+		"Maximum 250 characters. Please don’t include any personal information such as legal names or email addresses. Markdown is supported. All org admins and moderators can see this note.": "最多 250 个字符。请不要包含任何个人信息，例如法定姓名或电子邮箱地址。支持 Markdown。所有组织管理员和版主都能看到此备注。",
+		// 页尾 React partial（blocked-users-table）
+		"Currently blocked": "已屏蔽",
+		"You have not blocked anyone.": "你还没有屏蔽任何人。",
+		"Find blocked users": "查找已屏蔽的用户",
+		// 带牛津逗号的另一条搜索串（与上面那条「…or email address」不是同一个串）
+		"Search by username, full name, or public email": "按用户名、全名或公开电子邮箱搜索"
 	}
 }

@@ -61,6 +61,30 @@ function withWhitespace(node: string): readonly string[] {
 	return [node, `\n        ${node}\n      `];
 }
 
+/**
+ * 把一段实机节点序列按 walker 的语义过一遍：未命中的节点按原样保留，
+ * 命中的节点写回译文并保留其首尾空白（**整节点被判空时不留空白**，与
+ * walker.applyTextNode 的 erased 语义一致），最后拼接成页面上真实看到的那一行。
+ */
+function renderNodes(
+	nodes: readonly string[],
+	view: (typeof VIEWS)[number]["view"],
+): string {
+	return nodes
+		.map((node) => {
+			const translated = translateText(node, view);
+			if (translated === null) return node;
+			if (translated.trim() === "") return translated;
+			const lead = node.slice(
+				0,
+				node.length - node.trimStart().length,
+			);
+			const trail = node.slice(node.trimEnd().length);
+			return `${lead}${translated}${trail}`;
+		})
+		.join("");
+}
+
 describe("组织路由下预算页的模块路由", () => {
 	it("loads the billing module ahead of the org-settings shell", () => {
 		const names = matchModules(
@@ -153,6 +177,32 @@ describe("组织路由下预算页的实机节点边界", () => {
 					`${label}不应被翻译：${JSON.stringify(raw)}`,
 				).toBeNull();
 			}
+		}
+	});
+
+	it("translates the trigger button label and its value node", () => {
+		// 实机渲染「Included usage alerts: 开启」：标签（带冒号）与当前值（On / Off）是两个节点，
+		// 值节点由 pages/org-settings 与 pages/settings 的同键负责，故本模块只补带冒号的标签；
+		// 无论空格落在标签节点的尾部还是值节点的首部，拼接结果都是这一串
+		for (const { label, view } of VIEWS) {
+			expect(
+				translateText("Included usage alerts:", view),
+				`${label}：标签`,
+			).toBe("所含用量提醒：");
+			expect(
+				renderNodes(
+					["Included usage alerts: ", "On"],
+					view,
+				),
+				`${label}：标签 + 值`,
+			).toBe("所含用量提醒： 开启");
+			expect(
+				renderNodes(
+					["Included usage alerts: ", "Off"],
+					view,
+				),
+				`${label}：标签 + 值`,
+			).toBe("所含用量提醒： 关闭");
 		}
 	});
 

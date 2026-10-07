@@ -1906,6 +1906,10 @@
 				"Turn on included usage email alerts",
 				"Turn off included usage email alerts",
 				"This includes Actions, Git LFS, Packages, and Sandbox",
+				// 触发下拉的按钮标签：实机渲染是「Included usage alerts: 开启」——标签与当前值是
+				// **两个节点**（值节点「On」由 pages/org-settings 的「On」译出、句子其余部分是英文），
+				// 故带冒号的标签必须是独立键；不带冒号的那条（Included usage alerts）在此永不命中
+				"Included usage alerts:",
 				// 注意：金额与计数**不在此登记**（「$0 spent」「$0 budget」「5 Account budgets」
 				// 「4 Organization budgets」随数据变化），由 core/rules.jsonc 的
 				// settings/budget-amount-spent / settings/budget-amount-limit /

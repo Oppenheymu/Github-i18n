@@ -211,6 +211,11 @@
 		"Turn on included usage email alerts": "开启所含用量邮件提醒",
 		"Turn off included usage email alerts": "关闭所含用量邮件提醒",
 		"This includes Actions, Git LFS, Packages, and Sandbox": "包含 Actions、Git LFS、Packages 与 Sandbox",
+		// 触发下拉的按钮标签（实机「Included usage alerts: 开启」）：标签与当前值是两个节点，
+		// 值节点（On / Off）由 pages/org-settings 与 pages/settings 的同键负责，这里只补带冒号的标签。
+		// 节点尾随空格由 walker 原样保留，故实机渲染是「所含用量提醒： 开启」（冒号后带一个空格，
+		// 与「用量统计： 2026 年…」同类，属拆分节点的固有形态）
+		"Included usage alerts:": "所含用量提醒：",
 		// —— 许可页（/account/billing/licensing）——
 		// 键来自 2026-09 的实机截图逐行誊录（页面需登录，未进开发者模式导出），
 		// 节点边界见 src/dict/__tests__/pages/settings/billing.test.ts 的 LICENSING_NODES。

@@ -2370,6 +2370,13 @@
 				{
 					"id": "org-settings/page-title",
 					"pattern": "^Settings [\\u00b7\\u2022] (?<page>.+) [\\u00b7\\u2022] (?<org>.+)$"
+				},
+				// 角色分配页（/organizations/<组织>/settings/org_role_assignments/new）的
+				// 「N roles」计数行：实机是**单个文本节点**，条数是动态值（组织有 enterprise
+				// 专属角色时是 11、否则 9），故走规则而不是静态键。单捕获组按约定用 $1。
+				{
+					"id": "org-settings/roles-count",
+					"pattern": "^(\\d+) roles?$"
 				}
 			]
 		},

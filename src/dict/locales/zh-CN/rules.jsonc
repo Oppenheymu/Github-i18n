@@ -473,6 +473,8 @@
 		// —— 组织设置页（/organizations/<组织>/settings/**，模块 pages/org-settings）——
 		// document.title 的中段保留英文（规则不递归），末段是组织名（用户内容）
 		"org-settings/page-title": "设置 · $<page> · $<org>",
+		// 角色分配页的「N roles」计数（条数动态）
+		"org-settings/roles-count": "$1 个角色",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

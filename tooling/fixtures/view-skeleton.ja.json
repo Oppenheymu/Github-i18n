@@ -1853,6 +1853,7 @@
 			],
 			"notTranslated": [
 				"org-settings/page-title",
+				"org-settings/roles-count",
 				"global/seconds-ago",
 				"global/weeks-ago",
 				"global/months-ago",
@@ -1996,6 +1997,7 @@
 			],
 			"notTranslated": [
 				"org-settings/page-title",
+				"org-settings/roles-count",
 				"global/seconds-ago",
 				"global/weeks-ago",
 				"global/months-ago",
@@ -2421,6 +2423,7 @@
 				"settings/sponsoring-none",
 				"settings/article-a",
 				"org-settings/page-title",
+				"org-settings/roles-count",
 				"global/seconds-ago",
 				"global/weeks-ago",
 				"global/months-ago",

@@ -454,6 +454,31 @@
 		"• Create organization owned integrations": "• 创建组织拥有的集成",
 		"• Delete organization owned integrations": "• 删除组织拥有的集成",
 		"• Edit organization owned integrations": "• 编辑组织拥有的集成",
-		"• View all organization owned integrations": "• 查看所有组织拥有的集成"
+		"• View all organization owned integrations": "• 查看所有组织拥有的集成",
+		// —— 组织角色分配页（/organizations/<组织>/settings/org_role_assignments 与 …/new）——
+		// 证据与四条节点边界事实见 core/canonical.jsonc 的同名注释；回归见
+		// src/dict/__tests__/pages/org-settings/org-role-assignments.test.ts。
+		"Assign teams or people an organization role": "为团队或人员指派组织角色",
+		"No organization roles assigned": "尚未指派任何组织角色",
+		// 残句键：实机节点以 `roles` 开头（前半句 `Organization` 已由既有键译作「组织」），
+		// 两节点之间的前导空格由 walker 保留 ⇒ 整句读作「组织 角色尚未指派给任何用户或团队。」
+		"roles have not been assigned to any users or teams.": "角色尚未指派给任何用户或团队。",
+		"Assign role": "指派角色",
+		"Organization roles are used to grant access to subsets of organization settings to teams and members.": "组织角色用于向团队和成员授予部分组织设置的访问权限。",
+		// `Learn more about` 在 global 里是独立短键，但实机节点是**整条链接文本**，故整串收
+		"Learn more about organization roles": "进一步了解组织角色",
+		"Assign role to": "将角色指派给",
+		"Select user or team": "选择用户或团队",
+		"Select role": "选择角色",
+		// 九张角色卡的 tooltip；译文内嵌的角色名与本模块的既有键逐字同译
+		"Info about All-repository read": "关于「所有仓库读取」的信息",
+		"Info about All-repository write": "关于「所有仓库写入」的信息",
+		"Info about All-repository triage": "关于「所有仓库分类」的信息",
+		"Info about All-repository maintain": "关于「所有仓库维护」的信息",
+		"Info about All-repository admin": "关于「所有仓库管理员」的信息",
+		"Info about Apps manager": "关于「应用管理员」的信息",
+		"Info about CI/CD Admin": "关于「CI/CD 管理员」的信息",
+		"Info about Security manager": "关于「安全管理员」的信息",
+		"Info about Open-source license manager": "关于「开源许可管理员」的信息"
 	}
 }

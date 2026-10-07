@@ -4118,7 +4118,52 @@
 				"• Create organization owned integrations",
 				"• Delete organization owned integrations",
 				"• Edit organization owned integrations",
-				"• View all organization owned integrations"
+				"• View all organization owned integrations",
+				// —— 组织角色分配页（/organizations/<组织>/settings/org_role_assignments
+				//    与其 new 子页，2026-10-07 并入）——
+				// 证据：维护者同日贴的两段实机 HTML（列表页整页 + 新建页整页）。采集时扩展仍在
+				// 运行，页面上已是中文的节点即扩展产物：列表页只有 `Role assignments` 与
+				// `Organization`，新建页只有面包屑 `Role assignments`、九张角色卡的标题与说明句、
+				// `Cancel`。本页也**不缺路由**：`org_role_assignments` 挂在 `settings` 前缀下，
+				// 命中 `pages/org-settings` + `global`（`pages/repo-settings` 被自身路由排除）。
+				// 四条节点边界事实（回归见 org-settings/org-role-assignments.test.ts）：
+				//   ① 列表页空态的说明句 `Organization roles have not been assigned to any users
+				//      or teams.` 是**两个相邻文本节点**：`Organization`（既有键已译作「组织」）
+				//      与其余整段。故本模块收的是一条**以 `roles` 开头的残句**，译文必须能接在
+				//      「组织」之后读通；两节点之间由 walker 保留原节点的前导空格（见
+				//      walker.applyTextNode 的 lead / trail），实机因此拼作
+				//      「组织 角色尚未指派给任何用户或团队。」——中间那一个空格是既成事实，
+				//      与 policies 页的「组织规则集将不会强制执行 直到…」同源，不是漏改；
+				//   ② 新建页说明段是**三个文本节点**：正文整句（带尾随空格）+ 链接文本 +
+				//      独立的句号节点（`.` 不含拉丁字母，可翻译判定直接跳过），故句号只能是半角；
+				//   ③ 每张角色卡的 tooltip 是 `Info about <角色名>`（`popover` + `aria-hidden`
+				//      的独立文本节点，hover 时可见）。角色名在这里是上游动态值，规则无法把它
+				//      映射成中文，故九条逐条收成静态键、译文内嵌中文角色名；两条 enterprise
+				//      专属角色（`Enterprise Security Manager` / `Enterprise Open-Source License
+				//      Manager`）本页没有渲染、角色名本身也未收录，故一并留空；
+				//   ④ 角色条数 `9 roles` 是动态值（组织有没有 enterprise 角色会变），故走规则
+				//      `org-settings/roles-count`（`^(\d+) roles?$`）而不是静态键。
+				// `Assign role` 只登记一条：面包屑、页面标题与两个页面的按钮是同一串上游文案。
+				"Assign teams or people an organization role",
+				"No organization roles assigned",
+				"roles have not been assigned to any users or teams.",
+				"Assign role",
+				// —— 新建页（…/org_role_assignments/new）——
+				"Organization roles are used to grant access to subsets of organization settings to teams and members.",
+				"Learn more about organization roles",
+				"Assign role to",
+				"Select user or team",
+				"Select role",
+				// 九张角色卡的 tooltip（角色名与本模块的既有键逐字同译）
+				"Info about All-repository read",
+				"Info about All-repository write",
+				"Info about All-repository triage",
+				"Info about All-repository maintain",
+				"Info about All-repository admin",
+				"Info about Apps manager",
+				"Info about CI/CD Admin",
+				"Info about Security manager",
+				"Info about Open-source license manager"
 			]
 		},
 		{

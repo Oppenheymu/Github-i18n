@@ -2411,6 +2411,10 @@
 				{
 					"key": "VAT/GST ID",
 					"module": "pages/settings-billing"
+				},
+				{
+					"key": "will",
+					"module": "pages/settings-billing"
 				}
 			],
 			"rules": [
@@ -2691,6 +2695,7 @@
 				"settings/included-usage-reset-days-word",
 				"settings/manage-organizations",
 				"settings/sponsoring-none",
+				"settings/article-a",
 				"org-settings/page-title",
 				"global/now",
 				"global/yesterday",
@@ -3912,6 +3917,10 @@
 				},
 				{ "key": "Primary", "module": "pages/settings" },
 				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
 				},
@@ -4228,6 +4237,7 @@
 				"settings/included-usage-reset-days-word",
 				"settings/manage-organizations",
 				"settings/sponsoring-none",
+				"settings/article-a",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -4394,6 +4404,10 @@
 				},
 				{ "key": "Primary", "module": "pages/settings" },
 				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
 				},
@@ -4710,6 +4724,7 @@
 				"settings/included-usage-reset-days-word",
 				"settings/manage-organizations",
 				"settings/sponsoring-none",
+				"settings/article-a",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -4876,6 +4891,10 @@
 				},
 				{ "key": "Primary", "module": "pages/settings" },
 				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
 				},
@@ -5192,6 +5211,7 @@
 				"settings/included-usage-reset-days-word",
 				"settings/manage-organizations",
 				"settings/sponsoring-none",
+				"settings/article-a",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -5358,6 +5378,10 @@
 				},
 				{ "key": "Primary", "module": "pages/settings" },
 				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
 				},
@@ -5674,6 +5698,7 @@
 				"settings/included-usage-reset-days-word",
 				"settings/manage-organizations",
 				"settings/sponsoring-none",
+				"settings/article-a",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -5840,6 +5865,10 @@
 				},
 				{ "key": "Primary", "module": "pages/settings" },
 				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
 				},
@@ -6156,6 +6185,7 @@
 				"settings/included-usage-reset-days-word",
 				"settings/manage-organizations",
 				"settings/sponsoring-none",
+				"settings/article-a",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",

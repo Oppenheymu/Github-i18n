@@ -847,6 +847,9 @@
 		// 赞助订阅页（/settings/billing/subscriptions）：$1 是组织数（动态）
 		"settings/manage-organizations": "除个人账户外，你还管理 $1 个组织。",
 		// 空态：模板里不含撇号，因此与 pattern 的直/弯撇号字符类互不干扰
-		"settings/sponsoring-none": "你目前没有赞助任何人。"
+		"settings/sponsoring-none": "你目前没有赞助任何人。",
+		// 账单管理员邀请页的独立冠词节点：中文用「一位」补上量词
+		//（不是空模板——这里的「A」承载「一位管理员」的语义，清掉会读成「账单管理员是…」）
+		"settings/article-a": "一位"
 	}
 }

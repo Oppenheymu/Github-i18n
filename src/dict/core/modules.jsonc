@@ -57,6 +57,13 @@
 			//     ② 维护者 2026-10-07 贴的付款历史页整页**没有任何中文**——标题
 			//     `Payment history` 是 pages/org-settings 的既有键，若路径里带 `/settings/`
 			//     它必然已被译出，故该页只能落在这一支上（当时只有 global 命中）。
+			//   · 该支的 `billing` 是**前缀匹配**，顺带覆盖了别的组织根路径：
+			//     `/organizations/<组织>/billing_managers/**`（账单管理员邀请页，2026-10-07
+			//     实机确认）与 `/organizations/<组织>/billing_external_emails/**`（表单终点）。
+			//     邀请页的正文正是账单组件文案，靠这个前缀拿到本模块；它的侧栏外壳由
+			//     pages/org-settings 的另一支提供（见下一模块）。**将来若收紧这条正则**
+			//     （例如给 `billing` 补上 `(?:/|$)` 边界），必须把 `billing_managers` 显式写进
+			//     备选项——`org-settings/billing-managers.test.ts` 会立刻报红提醒。
 			// 后三支**不在同一个前缀下**：组织许可页没有 billing 段，非 settings 支连
 			// settings 段都没有——漏掉任一支就整页只吃 global（或只吃 pages/org-settings）
 			// 的零星词条，实机表现分别是「标题中文、正文全英文」与「整页全英文」。
@@ -103,8 +110,16 @@
 			// 挂进 pages/repo-settings 会让两边互相污染，见上一条的排除说明。
 			// 本模块只放组织设置专属词条；`Organization` / `Menu` 这类外壳词条按页面实际
 			// 渲染登记（它们与 pages/settings 同键但路径互斥，不会构成跨模块碰撞）。
+			// 第三支（2026-10-07 并入）：`/organizations/<组织>/billing_managers/**`。
+			// 账单管理员邀请页被 GitHub 放在**组织根**上（不在 `/settings/` 下），但它渲染的是
+			// 同一套设置外壳：实机 HTML 的 `Layout-main-centered-xl` + `Subhead` 面包屑
+			//（`Billing / Add a billing manager`）与 `/settings/billing/*` 各页逐字同款，
+			// 页面侧同样挂着组织设置侧栏。不并入这一支时侧栏会**整块保留英文**——
+			// 账单模块只提供正文（它的路由靠 `billing` 前缀顺带覆盖 `billing_managers`，
+			// 见上一模块的注释），侧栏词条（`Billing and licensing` / `Payment information` …）
+			// 全部只在本模块。
 			"name": "pages/org-settings",
-			"route": "^/(?:organizations|orgs)/[^/]+/settings"
+			"route": "^/(?:organizations|orgs)/[^/]+/(?:settings|billing_managers)"
 		},
 		{
 			"name": "pages/actions",

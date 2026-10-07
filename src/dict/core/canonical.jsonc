@@ -2155,7 +2155,53 @@
 				// 编辑对话框右上角的关闭按钮（`<details-dialog>` 的 aria-label）
 				"Close dialog",
 				"Update",
-				"Switch to invoiced billing"
+				"Switch to invoiced billing",
+				// —— 账单管理员邀请页（/organizations/<组织>/billing_managers/new，2026-10-07 实机 HTML）——
+				// 页面路径由维护者直接给出；**它不在 `/settings/` 下**，靠本模块组织支里
+				// `billing` 的**前缀**命中（`billing_managers` 的前 7 个字符就是 `billing`），
+				// 而侧栏外壳来自 pages/org-settings——后者的路由同日扩了一支
+				//（`…/(?:settings|billing_managers)`），见 core/modules.jsonc。
+				// 节点边界逐字抄自实机 HTML：
+				//   · 标题是「链接 + 一段带斜杠的文本」：`<a>Billing</a>` 与
+				//     `\n         / Add a billing manager\n` 是两个节点，故斜杠必须收进键里
+				//     （`/ Add a billing manager`，整行键「Billing / Add a billing manager」永不命中）；
+				//   · 说明句 `A <strong>billing manager</strong> is a user who…` 是**三个节点**，
+				//     首节点的 `A` 由规则 settings/article-a 译「一位」（见 core/rules.jsonc）；
+				//   · 两组权限清单的标题也被 `<strong>` 拆成「主体 + will / will not + 尾句」，
+				//     尾句的英文是 `have the ability to:` 与 `be able to:`（两个不同的键）；
+				//   · 清单项里只有最后两条带源码换行（`\n          Start, modify…`），归一后同形。
+				"Billing",
+				"/ Add a billing manager",
+				"billing manager",
+				"is a user who manages the billing settings of your organization.",
+				// `will` 与 pages/org-settings 的同名片段**同键同值**（「将」）：那条路由不命中
+				// 本页时它也能独立成立，故不依赖模块顺序，值必须逐字一致
+				"will",
+				"will not",
+				"have the ability to:",
+				"be able to:",
+				"Change the billing plan",
+				"Add, update, or remove payment methods",
+				"View payment history",
+				"Download, and receive receipts",
+				"View a list of billing managers",
+				"Invite additional billing managers",
+				"Remove other existing billing managers",
+				"Start, modify, or cancel sponsorships",
+				"Create or access repositories in your organization",
+				"See private members of your organization",
+				"Be seen in the list of organization members",
+				// 原文里的撇号是**弯撇号** `\u2019`（organization’s），抄录时勿改成直撇号
+				"Use the organization’s payment method",
+				"Enable or manage Copilot",
+				"Purchase, edit, or cancel Marketplace subscriptions",
+				// 邀请表单的搜索框标签与提交按钮。标签与 pages/settings 的同名键**同键同值**
+				//（那条路由不命中 /organizations/**，理由与上一批的 Add / Update 相同）。
+				// 有意不收录：`results`（结果列表的 aria-label）——它是泛化短词，且既有两处
+				// 收录的译文互不相同（pages/settings「结果」/ pages/repo-settings「个结果」），
+				// 证明它按上下文取值，跨页复用会误导；它又不可见，保持英文的代价最小。
+				"Search by username, full name or email address",
+				"Send invitation"
 			]
 		},
 		{

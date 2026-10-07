@@ -2107,6 +2107,20 @@
 				{
 					"id": "settings/sponsoring-none",
 					"pattern": "^You['’]re currently not sponsoring anyone\\.$"
+				},
+				// —— 账单管理员邀请页（/organizations/<组织>/billing_managers/new，2026-10-07 实机 HTML）——
+				// `A <strong>billing manager</strong> is a user who…` 在实机里是**三个文本节点**，
+				// 首节点是**单个大写字母 `A`**（节点原文带源码缩进，归一后就是 `A`）。中文没有冠词，
+				// 留着它只会拼出「A 账单管理员 是…」的中英残句，故译成量词「一位」，实机拼作
+				// 「一位 账单管理员 是管理你组织账单设置的用户。」——节点之间的空格来自源码，
+				// `<strong>` 的粗体把「账单管理员」隔开，读起来正常（不是残句）。
+				// 引擎的可翻译判定是 /[a-z]/i（大小写不敏感，见 src/content/filters.ts），
+				// 单字母 `A` 因此能进规则；纯符号与纯数字节点仍被拦在外面。
+				// 风险如实记在此处：本模块路由下任何**整节点恰为 `A`** 的文本都会变成「一位」；
+				// 实机若出现读不通的「一位」，删规则比加白名单正确（词典无白名单）。
+				{
+					"id": "settings/article-a",
+					"pattern": "^A$"
 				}
 			]
 		},

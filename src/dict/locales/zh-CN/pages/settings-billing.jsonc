@@ -402,6 +402,41 @@
 		"Edit billing email address": "编辑账单邮箱地址",
 		"Close dialog": "关闭对话框",
 		"Update": "更新",
-		"Switch to invoiced billing": "切换到发票结算"
+		"Switch to invoiced billing": "切换到发票结算",
+		// —— 账单管理员邀请页（/organizations/<组织>/billing_managers/new）——
+		// 这一页**不在 `/settings/` 下**，靠本模块组织支里 `billing` 的前缀命中；
+		// 侧栏外壳同日由 pages/org-settings 新扩的一支覆盖（见 core/modules.jsonc）。
+		// 节点边界与拆句形态见 src/dict/__tests__/pages/org-settings/billing-managers.test.ts
+		"Billing": "账单",
+		// 标题的「斜杠 + 页名」是**独立节点**（斜杠在键里），归一后与整行不同形
+		"/ Add a billing manager": "/ 添加账单管理员",
+		// 说明句被 `<strong>` 拆成三段，首段那个孤立的 `A` 由规则 settings/article-a 处理
+		"billing manager": "账单管理员",
+		"is a user who manages the billing settings of your organization.": "是管理你组织账单设置的用户。",
+		// 两组清单标题的中间片段：`Billing managers`（上一批已收）由本章提供，
+		// 尾句两个键不同形，故必须分别登记
+		"will": "将",
+		"will not": "无法",
+		"have the ability to:": "能够执行以下操作：",
+		"be able to:": "执行以下操作：",
+		// 两条清单的项：各自整节点，逐字对应
+		"Change the billing plan": "更改账单套餐",
+		"Add, update, or remove payment methods": "添加、更新或移除付款方式",
+		"View payment history": "查看付款历史",
+		"Download, and receive receipts": "下载并接收收据",
+		"View a list of billing managers": "查看账单管理员列表",
+		"Invite additional billing managers": "邀请更多账单管理员",
+		"Remove other existing billing managers": "移除其他现有账单管理员",
+		"Start, modify, or cancel sponsorships": "发起、修改或取消赞助",
+		"Create or access repositories in your organization": "在你的组织中创建或访问仓库",
+		"See private members of your organization": "查看你组织的私密成员",
+		"Be seen in the list of organization members": "出现在组织成员列表中",
+		"Use the organization’s payment method": "使用组织的付款方式",
+		// 产品名保持原文（与全仓口径一致）
+		"Enable or manage Copilot": "启用或管理 Copilot",
+		"Purchase, edit, or cancel Marketplace subscriptions": "购买、编辑或取消 Marketplace 订阅",
+		// 邀请表单：标签与 pages/settings 同键同值（理由见 core/canonical.jsonc）
+		"Search by username, full name or email address": "按用户名、全名或电子邮件地址搜索",
+		"Send invitation": "发送邀请"
 	}
 }

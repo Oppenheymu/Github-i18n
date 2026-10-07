@@ -2114,7 +2114,48 @@
 				"Manage your organizations",
 				"Connect with the community that builds the tools you use",
 				"Start sponsoring",
-				"Learn more about GitHub Sponsors"
+				"Learn more about GitHub Sponsors",
+				// —— 账单联系人区块（/organizations/<组织>/settings/billing/subscriptions，
+				//    2026-10-07 实机 HTML）——
+				// 这一块是**组织侧独有**的 UI（页面上半部分：账单管理员 + 邮件收件人两张卡），
+				// 个人账单页没有对应的卡片。节点边界逐字抄自实机 HTML：
+				//   · `Billing Contacts` 是 `<h2 class="Subhead-heading Subhead-heading--large">`；
+				//   · 说明句在页面上（`<p>`）与「添加收件人」对话框里（`<span>`）各渲染一次，
+				//     同一个键命中两处；
+				//   · `Add` 在列表头按钮与对话框提交按钮上各出现一次（同一个键）；
+				//   · 对话框标题 `Add billing recipient` 同时是 `<h1 class="sr-only">` 与可见文本，
+				//     两条节点同一个键（sr-only 照常翻译是既定边界）；
+				//   · `Add billing recipient email` 同时是按钮的 aria-label、输入框的 aria-label
+				//     与输入框的 placeholder（属性只走词条查表，属性上不应用规则）；
+				//   · `Primary` 是 `<span class="Label">` 的节点文本，它的悬浮提示是
+				//     `title="Label: Primary"`——与 pages/profile 的 `Label: GitHub Sponsor` 同形。
+				// —— 为什么 `Add` / `Update` / `Primary` / `Close dialog` 要在这里**再收一份** ——
+				// 这四条 pages/settings 早就有、值也逐字相同，但那条路由是 ^/(?:settings|account/billing)，
+				// **不命中 /organizations/**，于是组织账单页上按钮与标签全是英文。这与
+				// `Subscriptions` / `Packages` / `Payment history` 是同一回事：同一个词在个人侧与
+				// 组织侧各由真正显示它的模块提供，值必须逐字一致——骨架把它记成同键赢家
+				//（个人账单探针赢家是 pages/settings，组织账单探针赢家是本模块）。
+				// 有意不收录：`GitHub Sponsors`（产品名，与本模块 Sponsorships 区块同口径）、
+				// `$0.00`（金额）、`oppenheymu@gmail.com`（用户内容）。
+				"Billing Contacts",
+				"Receipts are sent to billing managers and email recipients.",
+				"Billing managers",
+				"Invite",
+				"You have not invited any billing managers",
+				"Email recipients",
+				// 列表头按钮与对话框提交按钮共用（同键同值：见上「再收一份」说明）
+				"Add",
+				"Add billing recipient",
+				"Add billing recipient email",
+				"Billing primary email",
+				// 主邮箱标签：译文与 pages/settings 的同名标签逐字一致
+				"Primary",
+				"Label: Primary",
+				"Edit billing email address",
+				// 编辑对话框右上角的关闭按钮（`<details-dialog>` 的 aria-label）
+				"Close dialog",
+				"Update",
+				"Switch to invoiced billing"
 			]
 		},
 		{

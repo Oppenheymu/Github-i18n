@@ -377,6 +377,31 @@
 		"Manage your organizations": "管理你的组织",
 		"Connect with the community that builds the tools you use": "与构建你所使用工具的社区建立联系",
 		"Start sponsoring": "开始赞助",
-		"Learn more about GitHub Sponsors": "详细了解 GitHub Sponsors"
+		"Learn more about GitHub Sponsors": "详细了解 GitHub Sponsors",
+		// —— 账单联系人区块（/organizations/<组织>/settings/billing/subscriptions）——
+		// 组织侧独有的两张卡：账单管理员与邮件收件人。节点边界见
+		// src/dict/__tests__/pages/org-settings/billing-subscriptions.test.ts。
+		// `Add` / `Update` / `Primary` / `Close dialog` 与 pages/settings **同键同值**：
+		// 那条路由不命中 /organizations/**，组织账单页上的按钮与标签只能由本模块提供
+		//（理由与代价见 core/canonical.jsonc 同一段的注释）
+		"Billing Contacts": "账单联系人",
+		// 页面上（<p>）与对话框里（<span>）各渲染一次，同一个键
+		"Receipts are sent to billing managers and email recipients.": "收据会发送给账单管理员和邮件收件人。",
+		"Billing managers": "账单管理员",
+		"Invite": "邀请",
+		// 空态口吻与同模块其它空态一致（「你尚未…」），不用「您」
+		"You have not invited any billing managers": "你尚未邀请任何账单管理员",
+		"Email recipients": "邮件收件人",
+		"Add": "添加",
+		// 对话框标题（sr-only 的 <h1> 与可见文本）与按钮 / 输入框的无障碍文案
+		"Add billing recipient": "添加账单收件人",
+		"Add billing recipient email": "添加账单收件人邮箱",
+		"Billing primary email": "主要账单邮箱",
+		"Primary": "主邮箱",
+		"Label: Primary": "标签：主邮箱",
+		"Edit billing email address": "编辑账单邮箱地址",
+		"Close dialog": "关闭对话框",
+		"Update": "更新",
+		"Switch to invoiced billing": "切换到发票结算"
 	}
 }

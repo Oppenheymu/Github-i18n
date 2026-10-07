@@ -3894,7 +3894,12 @@
 					"key": "Accessibility",
 					"module": "pages/settings"
 				},
+				{ "key": "Add", "module": "pages/settings" },
 				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
 				{ "key": "Company", "module": "pages/settings" },
 				{
 					"key": "Included credits",
@@ -3905,10 +3910,12 @@
 					"key": "Payment history",
 					"module": "pages/settings"
 				},
+				{ "key": "Primary", "module": "pages/settings" },
 				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
-				}
+				},
+				{ "key": "Update", "module": "pages/settings" }
 			],
 			"rules": [
 				"settings/export-available",
@@ -4369,7 +4376,12 @@
 					"key": "Accessibility",
 					"module": "pages/settings"
 				},
+				{ "key": "Add", "module": "pages/settings" },
 				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
 				{ "key": "Company", "module": "pages/settings" },
 				{
 					"key": "Included credits",
@@ -4380,10 +4392,12 @@
 					"key": "Payment history",
 					"module": "pages/settings"
 				},
+				{ "key": "Primary", "module": "pages/settings" },
 				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
-				}
+				},
+				{ "key": "Update", "module": "pages/settings" }
 			],
 			"rules": [
 				"settings/export-available",
@@ -4844,7 +4858,12 @@
 					"key": "Accessibility",
 					"module": "pages/settings"
 				},
+				{ "key": "Add", "module": "pages/settings" },
 				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
 				{ "key": "Company", "module": "pages/settings" },
 				{
 					"key": "Included credits",
@@ -4855,10 +4874,12 @@
 					"key": "Payment history",
 					"module": "pages/settings"
 				},
+				{ "key": "Primary", "module": "pages/settings" },
 				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
-				}
+				},
+				{ "key": "Update", "module": "pages/settings" }
 			],
 			"rules": [
 				"settings/export-available",
@@ -5319,7 +5340,12 @@
 					"key": "Accessibility",
 					"module": "pages/settings"
 				},
+				{ "key": "Add", "module": "pages/settings" },
 				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
 				{ "key": "Company", "module": "pages/settings" },
 				{
 					"key": "Included credits",
@@ -5330,10 +5356,12 @@
 					"key": "Payment history",
 					"module": "pages/settings"
 				},
+				{ "key": "Primary", "module": "pages/settings" },
 				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
-				}
+				},
+				{ "key": "Update", "module": "pages/settings" }
 			],
 			"rules": [
 				"settings/export-available",
@@ -5794,7 +5822,12 @@
 					"key": "Accessibility",
 					"module": "pages/settings"
 				},
+				{ "key": "Add", "module": "pages/settings" },
 				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
 				{ "key": "Company", "module": "pages/settings" },
 				{
 					"key": "Included credits",
@@ -5805,10 +5838,12 @@
 					"key": "Payment history",
 					"module": "pages/settings"
 				},
+				{ "key": "Primary", "module": "pages/settings" },
 				{
 					"key": "Subscriptions",
 					"module": "pages/settings"
-				}
+				},
+				{ "key": "Update", "module": "pages/settings" }
 			],
 			"rules": [
 				"settings/export-available",

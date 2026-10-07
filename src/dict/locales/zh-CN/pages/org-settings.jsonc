@@ -606,6 +606,25 @@
 		"Member team permissions": "成员团队权限",
 		"Team creation rules": "团队创建规则",
 		"Allow members to create teams": "允许成员创建团队",
-		"If enabled, any member of the organization will be able to create new teams. If disabled, only organization owners can create new teams.": "如果启用，组织中的任何成员都可以创建新团队。如果禁用，只有组织所有者可以创建新团队。"
+		"If enabled, any member of the organization will be able to create new teams. If disabled, only organization owners can create new teams.": "如果启用，组织中的任何成员都可以创建新团队。如果禁用，只有组织所有者可以创建新团队。",
+		// —— 导入/导出：模特页（/organizations/<组织>/settings/import-export）——
+		// `Mannequins` 沿用 GitHub 官方中文文档的译法（docs.github.com/zh 的
+		// 「模特和用户活动」一页把 mannequin 译作「模特」），本页补上「账号」二字
+		// 以免与「时装模特」混淆——它指的是表示被导入贡献作者的占位账号。
+		"Import/Export Navigation": "导入/导出导航",
+		"Mannequins": "模特账号",
+		"Attribution Invitations": "归属邀请",
+		// 搜索框的 placeholder 与 aria-label 是两个不同的串（前者末尾多点），各一条
+		"Search mannequins by login or email...": "按登录名或邮箱搜索模特账号...",
+		"Search mannequins by login or email": "按登录名或邮箱搜索模特账号",
+		"Mannequins represent authors of imported contributions. They do not have profile pages and cannot sign in. Their contributions can be reattributed to other members of your organization.": "模特账号代表被导入贡献的作者。它们没有个人资料页，也无法登录。它们的贡献可以重新归属给你组织中的其他成员。",
+		"There are no mannequins in this organization": "此组织中没有模特账号",
+		// —— 导入/导出：归属邀请页（…/settings/import-export/attribution-invitations）——
+		// 整段是一个文本节点（原文只有源码换行），故一条键；三个状态值按
+		// pages/repo-settings 的先例（`The state can be created, fixed in branch, or closed.`
+		// 译作「状态可以是已创建、分支中已修复或已关闭。」）译成中文，其中「已完成」
+		// 与 global 的 `Completed` 同译。
+		"Below are the mannequin reattribution invitations that have been sent within this organization. If the state is \"invited,\" then the user has not yet replied; if it is \"completed,\" then the user has accepted and their contributions have been reattributed, and if it is \"rejected,\" then the user opted not to be credited for that mannequin's contributions.": "以下是此组织内已发出的模特贡献重新归属邀请。如果状态为“已邀请”，则表示该用户尚未回复；如果状态为“已完成”，则表示该用户已接受，其贡献已完成重新归属；如果状态为“已拒绝”，则表示该用户选择不为该模特的贡献署名。",
+		"No attribution invitations have been sent": "尚未发送任何归属邀请"
 	}
 }

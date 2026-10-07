@@ -4324,7 +4324,29 @@
 				"Member team permissions",
 				"Team creation rules",
 				"Allow members to create teams",
-				"If enabled, any member of the organization will be able to create new teams. If disabled, only organization owners can create new teams."
+				"If enabled, any member of the organization will be able to create new teams. If disabled, only organization owners can create new teams.",
+				// —— 导入/导出：模特页（/organizations/<组织>/settings/import-export）——
+				// 页首 `Import/Export` 标题由本模块既有键负责（同页的侧栏项与 H2 同串）；
+				// 本页是服务端渲染的传统 Primer 页面（`Subhead` + `UnderlineNav` +
+				// `blankslate`），没有内联元素的长句就是一个整文本节点（工具提示的
+				// aria-label 与空态标题都带源码换行缩进，键按 normalizeKey 折叠）。
+				// nav 的 aria-label（属性只走精确命中）
+				"Import/Export Navigation",
+				// 页签与表格表头是同一串，一条键覆盖两处
+				"Mannequins",
+				"Attribution Invitations",
+				// 搜索框的 placeholder 与 aria-label **不是同一个串**：前者末尾多三个点。
+				// 属性只走精确命中，故两条各自登记。
+				"Search mannequins by login or email...",
+				"Search mannequins by login or email",
+				// 表头问号图标的 tooltip（aria-label，原文带尾随换行）
+				"Mannequins represent authors of imported contributions. They do not have profile pages and cannot sign in. Their contributions can be reattributed to other members of your organization.",
+				"There are no mannequins in this organization",
+				// —— 导入/导出：归属邀请页（…/settings/import-export/attribution-invitations）——
+				// 说明段是**单个文本节点**（句内没有链接与 `<strong>`，只有源码换行缩进），
+				// 故整段一条键；按句拆成三条会条条永不命中。
+				"Below are the mannequin reattribution invitations that have been sent within this organization. If the state is \"invited,\" then the user has not yet replied; if it is \"completed,\" then the user has accepted and their contributions have been reattributed, and if it is \"rejected,\" then the user opted not to be credited for that mannequin's contributions.",
+				"No attribution invitations have been sent"
 			]
 		},
 		{

@@ -43,9 +43,11 @@ describe("viewForPath", () => {
 		const zh = viewForPath("/microsoft/vscode", "zh-CN");
 		const ja = viewForPath("/microsoft/vscode", "ja");
 		expect(ja).not.toBe(zh);
-		// ja 是稀疏词典：同一个键在两种语言下必须是不同的视图
+		// 同一个键在两种语言下必须是不同的译文：缓存键漏算语言时会拿到 zh 的值。
+		// 「Code」在 global（Markdown 工具栏）里两种语言都有译文，故这条断言不再依赖
+		// 「ja 尚未翻译该键」这个会随覆盖率增长而失效的前提（2026-10-07 全量同步 ja/global 时踩到）
 		expect(zh.entries.get("Code")).toBe("代码");
-		expect(ja.entries.get("Code")).toBeUndefined();
+		expect(ja.entries.get("Code")).toBe("コード");
 	});
 
 	it("serves exactly the semantics of buildView", () => {

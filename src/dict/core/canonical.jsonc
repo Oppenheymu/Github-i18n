@@ -4176,7 +4176,39 @@
 				"Info about Apps manager",
 				"Info about CI/CD Admin",
 				"Info about Security manager",
-				"Info about Open-source license manager"
+				"Info about Open-source license manager",
+				// —— 组织仓库角色页（/organizations/<组织>/settings/roles，2026-10-07 并入）——
+				// 证据：维护者同日贴的整页实机 HTML。采集时扩展仍在运行，页面上已是中文的节点
+				// （`Repository roles` 标题、五个角色名、横幅的 `Learn more`）都是既有键的产物，
+				// 其余英文才是本批清单。
+				// 节点边界：本页是**服务端渲染的传统 Primer 页面**（`Subhead` + Octicon SVG），
+				// 与 React 空态不同——长句里没有插值项时就是一个整文本节点，故说明句按**整节点**
+				// 收；唯一的例外是 `You can …` 那句，句中 `<a>set the base role</a>` 把句子切成
+				// 文本 / 链接 / 文本三段，故整句与三段碎片不混收（下面三条就是实机的三段）。
+				// 上述边界由 HTML 结构推定（outerHTML 看不出节点边界，见开发文档的采集规程）；
+				// 若实机仍留英文，按 SOP 先 dump 一次 `childNodes` 再改碎片键。
+				// 回归见 org-settings/repository-roles.test.ts。
+				"Pre-defined roles",
+				"Roles are used to grant access and permissions for teams and members.",
+				// `You can` + 链接文本 + 尾段（三段各带源码缩进留下的空白）
+				"You can",
+				"set the base role",
+				"for this organization from one of these roles.",
+				// —— 五个预定义角色的说明句（每句都是 `<span>` 里的单个文本节点）——
+				// 管理员那一行句尾还挂着一个链接，故链接文本单独成键。
+				"Read and clone repositories. Open and comment on issues and pull requests.",
+				"Read permissions plus manage issues and pull requests.",
+				"Triage permissions plus read, clone and push to repositories.",
+				"Write permissions plus manage issues, pull requests and some repository settings.",
+				"Full access to repositories including sensitive and destructive actions.",
+				"Modify Admin Role",
+				// —— 页尾的 Enterprise 升级横幅（`react-partial`，文案与仓库设置页同源）——
+				// 横幅由客户端渲染，同一批文案在被排除清单挡住的
+				// `script[type="application/json"]` 里还有一份（整段 JSON 一起被跳过，不会被翻坏）；
+				// 可见文本走本模块的键。同一条横幅在 pages/repo-settings 里已有同译，逐字沿用。
+				"Create custom roles with GitHub Enterprise",
+				"Enterprise accounts offer organizations more granular control over permissions by allowing you to configure up to 20 custom repository roles. This enables greater control over who and how your users access code and data in your organization.",
+				"Start free for 30 days"
 			]
 		},
 		{

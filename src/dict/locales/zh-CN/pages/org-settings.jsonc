@@ -488,6 +488,27 @@
 		"Info about Apps manager": "关于「应用管理员」的信息",
 		"Info about CI/CD Admin": "关于「CI/CD 管理员」的信息",
 		"Info about Security manager": "关于「安全管理员」的信息",
-		"Info about Open-source license manager": "关于「开源许可管理员」的信息"
+		"Info about Open-source license manager": "关于「开源许可管理员」的信息",
+		// —— 组织仓库角色页（/organizations/<组织>/settings/roles）——
+		// 证据与节点边界事实见 core/canonical.jsonc 的同名注释；回归见
+		// src/dict/__tests__/pages/org-settings/repository-roles.test.ts。
+		"Pre-defined roles": "预定义角色",
+		"Roles are used to grant access and permissions for teams and members.": "角色用于向团队和成员授予访问权与权限。",
+		// `You can …` 被链接切成三段，实机拼作
+		// 「你可以 设置基础角色 为此组织，从下列角色中选择。」（两处空格来自节点首尾空白）
+		"You can": "你可以",
+		"set the base role": "设置基础角色",
+		"for this organization from one of these roles.": "为此组织，从下列角色中选择。",
+		// —— 五个预定义角色的说明句 + 管理员行尾的链接 ——
+		"Read and clone repositories. Open and comment on issues and pull requests.": "读取并克隆仓库。打开并评论议题和拉取请求。",
+		"Read permissions plus manage issues and pull requests.": "读取权限，外加管理议题和拉取请求。",
+		"Triage permissions plus read, clone and push to repositories.": "分类权限，外加读取、克隆并推送到仓库。",
+		"Write permissions plus manage issues, pull requests and some repository settings.": "写入权限，外加管理议题、拉取请求和部分仓库设置。",
+		"Full access to repositories including sensitive and destructive actions.": "对仓库的完全访问权限，包括敏感操作和破坏性操作。",
+		"Modify Admin Role": "修改管理员角色",
+		// —— 页尾的 Enterprise 升级横幅（与 pages/repo-settings 同源，逐字同译）——
+		"Create custom roles with GitHub Enterprise": "使用 GitHub Enterprise 创建自定义角色",
+		"Enterprise accounts offer organizations more granular control over permissions by allowing you to configure up to 20 custom repository roles. This enables greater control over who and how your users access code and data in your organization.": "企业账户为组织提供更细粒度的权限控制，支持配置最多 20 个自定义仓库角色，从而更精细地控制组织中的哪些用户可以访问代码和数据，以及以何种方式访问。",
+		"Start free for 30 days": "免费试用 30 天"
 	}
 }

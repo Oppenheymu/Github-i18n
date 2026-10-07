@@ -456,15 +456,22 @@
 		"• Edit organization owned integrations": "• 编辑组织拥有的集成",
 		"• View all organization owned integrations": "• 查看所有组织拥有的集成",
 		// —— 组织角色分配页（/organizations/<组织>/settings/org_role_assignments 与 …/new）——
-		// 证据与四条节点边界事实见 core/canonical.jsonc 的同名注释；回归见
+		// 证据与五条节点边界事实见 core/canonical.jsonc 的同名注释（节点边界由维护者
+		// 2026-10-07 在实机 console dump `childNodes` 实证）；回归见
 		// src/dict/__tests__/pages/org-settings/org-role-assignments.test.ts。
 		"Assign teams or people an organization role": "为团队或人员指派组织角色",
-		"No organization roles assigned": "尚未指派任何组织角色",
-		// 残句键：实机节点以 `roles` 开头（前半句 `Organization` 已由既有键译作「组织」），
-		// 两节点之间的前导空格由 walker 保留 ⇒ 整句读作「组织 角色尚未指派给任何用户或团队.」。
-		// **键与译文都不带句号**：句号是该节点之后的独立节点（纯符号翻不了），
-		// 故实机末位只能是半角 `.`，与新建页说明段尾句号同源（依据见 canonical 的同名注释）。
-		"roles have not been assigned to any users or teams": "角色尚未指派给任何用户或团队",
+		// 空态标题是**三个文本节点**（`No ` / `organization` / ` roles assigned`）：
+		// 整句键在实机永不命中，只能按碎片收；三段都按本义译（上游若在别处复用同一碎片
+		// 仍然正确），实机拼作「没有 组织 角色已指派」——两处空格来自节点的首尾空白。
+		"No": "没有",
+		"organization": "组织",
+		"roles assigned": "角色已指派",
+		// 空态说明句是**四个文本节点**（`Organization` / ` roles have not been assigned to any ` /
+		// `users or teams` / `.`）：前一段已由既有键译作「组织」，后两段是这里的碎片键；
+		// 首尾空白由 walker 保留 ⇒ 实机拼作「组织 角色尚未指派给任何 用户或团队.」
+		// （末位半角 `.` 是那个独立句号节点，翻不了）。
+		"roles have not been assigned to any": "角色尚未指派给任何",
+		"users or teams": "用户或团队",
 		"Assign role": "指派角色",
 		"Organization roles are used to grant access to subsets of organization settings to teams and members.": "组织角色用于向团队和成员授予部分组织设置的访问权限。",
 		// `Learn more about` 在 global 里是独立短键，但实机节点是**整条链接文本**，故整串收

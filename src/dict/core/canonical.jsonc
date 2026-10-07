@@ -4126,33 +4126,40 @@
 				// `Organization`，新建页只有面包屑 `Role assignments`、九张角色卡的标题与说明句、
 				// `Cancel`。本页也**不缺路由**：`org_role_assignments` 挂在 `settings` 前缀下，
 				// 命中 `pages/org-settings` + `global`（`pages/repo-settings` 被自身路由排除）。
-				// 四条节点边界事实（回归见 org-settings/org-role-assignments.test.ts）：
+				// 五条节点边界事实（2026-10-07 由维护者在实机 console 里 dump `childNodes` 实证；
+				// 回归见 org-settings/org-role-assignments.test.ts）：
 				//   ① 列表页空态的说明句 `Organization roles have not been assigned to any users
-				//      or teams.` 是**两个相邻文本节点**：`Organization`（既有键已译作「组织」）
-				//      与其余整段。故本模块收的是一条**以 `roles` 开头的残句**，译文必须能接在
-				//      「组织」之后读通；两节点之间由 walker 保留原节点的前导空格（见
+				//      or teams.` 是**四个相邻文本节点**：`Organization`（既有键已译作「组织」）、
+				//      ` roles have not been assigned to any `（**首尾各带一个空格**）、
+				//      `users or teams`、独立的句号节点 `.`（纯符号，可翻译判定直接跳过）。
+				//      故本模块收的是**两段碎片键**；walker 保留每个节点的首尾空白（见
 				//      walker.applyTextNode 的 lead / trail），实机因此拼作
-				//      「组织 角色尚未指派给任何用户或团队.」——中间那一个空格是既成事实，
-				//      与 policies 页的「组织规则集将不会强制执行 直到…」同源，不是漏改；
-				//      **末位是半角 `.` 而非中文句号**：该残句节点**不含句号**（句号是独立
-				//      节点、纯符号，可翻译判定直接跳过），与 ③ 的说明段尾句号同源。此结论
-				//      由 2026-10-07 复测反推：新词典已生效（同批的 `Assign teams or people
-				//      an organization role` / `Assign role` 都已译出），而带句号的那条键在
-				//      实机上仍未命中，相邻的 `Organization` 节点却已译出——即该节点必然被走到、
-				//      文本又不含任何不可见字符，唯一差别只能是句号不在节点内；
-				//   ② 新建页说明段是**三个文本节点**：正文整句（带尾随空格）+ 链接文本 +
+				//      「组织 角色尚未指派给任何 用户或团队.」——中间两个空格都是既成事实
+				//      （与 policies 页的「组织规则集将不会强制执行 直到…」同源），不是漏改，
+				//      末位也只能是半角 `.`；
+				//   ② 空态标题 `No organization roles assigned` 同样是**三个相邻文本节点**：
+				//      `No `（带尾随空格）、`organization`（小写，与 pages/profile 的同名键同译，
+				//      保持术语一致）、` roles assigned`（带前导空格）⇒ 整句作为一个节点永不
+				//      命中，只能按碎片收。三段都按**本义**译，好让上游在别的句子里复用同一
+				//      碎片时仍然正确（宁可读起来带空格，也不要错译）；
+				//   ③ 新建页说明段是**三个文本节点**：正文整句（带尾随空格）+ 链接文本 +
 				//      独立的句号节点（`.` 不含拉丁字母，可翻译判定直接跳过），故句号只能是半角；
-				//   ③ 每张角色卡的 tooltip 是 `Info about <角色名>`（`popover` + `aria-hidden`
+				//   ④ 每张角色卡的 tooltip 是 `Info about <角色名>`（`popover` + `aria-hidden`
 				//      的独立文本节点，hover 时可见）。角色名在这里是上游动态值，规则无法把它
 				//      映射成中文，故九条逐条收成静态键、译文内嵌中文角色名；两条 enterprise
 				//      专属角色（`Enterprise Security Manager` / `Enterprise Open-Source License
 				//      Manager`）本页没有渲染、角色名本身也未收录，故一并留空；
-				//   ④ 角色条数 `9 roles` 是动态值（组织有没有 enterprise 角色会变），故走规则
+				//   ⑤ 角色条数 `9 roles` 是动态值（组织有没有 enterprise 角色会变），故走规则
 				//      `org-settings/roles-count`（`^(\d+) roles?$`）而不是静态键。
 				// `Assign role` 只登记一条：面包屑、页面标题与两个页面的按钮是同一串上游文案。
 				"Assign teams or people an organization role",
-				"No organization roles assigned",
-				"roles have not been assigned to any users or teams",
+				// 空态标题的三段碎片（整句永不命中，故不收整句键）
+				"No",
+				"organization",
+				"roles assigned",
+				// 空态说明句的两段碎片（句号是独立节点，翻不了，不收）
+				"roles have not been assigned to any",
+				"users or teams",
 				"Assign role",
 				// —— 新建页（…/org_role_assignments/new）——
 				"Organization roles are used to grant access to subsets of organization settings to teams and members.",

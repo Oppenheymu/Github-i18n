@@ -1899,9 +1899,17 @@
 				"budget",
 				// 行尾溢出菜单按钮的无障碍名（账单页其它列表同样只暴露 aria-label）
 				"Budget options",
+				// —— 所含用量提醒的下拉（2026-10-07 组织预算页实机 HTML）——
+				// 菜单项与每项的说明（ActionList 的 ItemLabel + Description 各自成节点）；
+				// 说明句里的产品名按本仓库口径处理：Actions / Git LFS / Packages / Sandbox 保持原文
+				// （「Packages」在本模块的句子语境里也保持原文，与 Billable spend for Packages… 一致）
+				"Turn on included usage email alerts",
+				"Turn off included usage email alerts",
+				"This includes Actions, Git LFS, Packages, and Sandbox",
 				// 注意：金额与计数**不在此登记**（「$0 spent」「$0 budget」「5 Account budgets」
-				// 随数据变化），由 core/rules.jsonc 的 settings/budget-amount-spent /
-				// settings/budget-amount-limit 与 settings/budget-count 覆盖
+				// 「4 Organization budgets」随数据变化），由 core/rules.jsonc 的
+				// settings/budget-amount-spent / settings/budget-amount-limit /
+				// settings/budget-count / settings/budget-count-org 覆盖
 				// —— 许可页（/account/billing/licensing，账单侧栏「Licensing」进入）——
 				// 键逐字抄自 2026-09 的实机截图（页面需登录，未进开发者模式导出），节点边界见
 				// src/dict/__tests__/pages/settings/billing.test.ts 的 LICENSING_NODES。

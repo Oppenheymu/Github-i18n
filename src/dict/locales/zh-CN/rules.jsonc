@@ -832,6 +832,8 @@
 		"settings/ai-usage-credits-days-on-word": "天后于",
 		// 预算与提醒页的标题行计数与预算行金额（金额含美元符号，见上一条的说明）
 		"settings/budget-count": "$<count> 条账户预算",
+		// 组织账单页的同一处计数（组织路由下上游写作 Organization budgets）
+		"settings/budget-count-org": "$<count> 条组织预算",
 		"settings/budget-amount-spent": "已支出 $<amount>",
 		"settings/budget-amount-limit": "$<amount> 预算",
 		// 许可页「包含」清单里带数量的四条：数值与单位原样保留，只把英文结构换成中文语序

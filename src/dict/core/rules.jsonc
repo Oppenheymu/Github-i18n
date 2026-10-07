@@ -1829,6 +1829,12 @@
 					"id": "settings/budget-count",
 					"pattern": "^(?<count>\\d+) Account budgets?$"
 				},
+				// 同一条计数在组织路由下说「Organization budgets」（2026-10-07 实机 HTML）：
+				// 归属词写死在 pattern 与模板里（模板不支持「捕获组 → 中文」映射）
+				{
+					"id": "settings/budget-count-org",
+					"pattern": "^(?<count>\\d+) Organization budgets?$"
+				},
 				// 预算行的进度文案：「$0 spent」与「$0 budget」两种形态（金额变化，符号写进模板）。
 				// 同 ai-credit-cost：金额连同 $ 一起捕获，模板里不写「$<amount>」前面紧跟字面 $ 的形态
 				{

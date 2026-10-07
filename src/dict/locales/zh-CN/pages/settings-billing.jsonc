@@ -203,6 +203,14 @@
 		"budget": "预算",
 		// 行尾溢出菜单按钮的无障碍名
 		"Budget options": "预算选项",
+		// 所含用量提醒的下拉（2026-10-07 组织预算页实机 HTML）：菜单项是 ActionList 的
+		// ItemLabel，下面的说明句是同一项的 Description，各自成节点。
+		// 「included usage email alerts」与上面的「Included usage alerts」同指一处，措辞保持一致；
+		// 说明句里的产品名保持原文（Git LFS / Sandbox 本模块一贯不译，Packages 在本模块的句子
+		// 语境里同样保持原文，与「Billable spend for Packages…」一致）
+		"Turn on included usage email alerts": "开启所含用量邮件提醒",
+		"Turn off included usage email alerts": "关闭所含用量邮件提醒",
+		"This includes Actions, Git LFS, Packages, and Sandbox": "包含 Actions、Git LFS、Packages 与 Sandbox",
 		// —— 许可页（/account/billing/licensing）——
 		// 键来自 2026-09 的实机截图逐行誊录（页面需登录，未进开发者模式导出），
 		// 节点边界见 src/dict/__tests__/pages/settings/billing.test.ts 的 LICENSING_NODES。

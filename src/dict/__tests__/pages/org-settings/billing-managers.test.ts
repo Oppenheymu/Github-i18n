@@ -10,7 +10,8 @@
 //   ② 外壳：页面上挂着组织设置侧栏（实机 HTML 的 `Layout-main-centered-xl` 与
 //      `/settings/billing/*` 各页同款，`Subhead` 里是 `Billing / Add a billing manager`
 //      这种设置子页面包屑），故同日给 `pages/org-settings` 补了 `billing_managers` 这一支，
-//      否则侧栏会整块保留英文。
+//      否则侧栏会整块保留英文。维护者贴的 HTML 只从 `Layout-main` 开始（侧栏看不到），
+//      所以这一支先按布局取证，**同日再经维护者在实机确认：该页侧栏已是中文**。
 //
 // 本文件锁五件事：
 //   ① 该路径命中 `pages/settings-billing` + `pages/org-settings` + `global`，账单模块在前，

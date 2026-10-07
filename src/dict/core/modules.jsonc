@@ -114,10 +114,12 @@
 			// 账单管理员邀请页被 GitHub 放在**组织根**上（不在 `/settings/` 下），但它渲染的是
 			// 同一套设置外壳：实机 HTML 的 `Layout-main-centered-xl` + `Subhead` 面包屑
 			//（`Billing / Add a billing manager`）与 `/settings/billing/*` 各页逐字同款，
-			// 页面侧同样挂着组织设置侧栏。不并入这一支时侧栏会**整块保留英文**——
-			// 账单模块只提供正文（它的路由靠 `billing` 前缀顺带覆盖 `billing_managers`，
-			// 见上一模块的注释），侧栏词条（`Billing and licensing` / `Payment information` …）
-			// 全部只在本模块。
+			// 页面侧同样挂着组织设置侧栏。**该判断当日已由维护者在实机证实**：补上本支后
+			// 这一页的侧栏为中文（维护者贴的 HTML 只从 `Layout-main` 开始，侧栏看不到，
+			// 故先按布局取证、再以实机确认收口）。
+			// 不并入这一支时侧栏会**整块保留英文**——账单模块只提供正文（它的路由靠
+			// `billing` 前缀顺带覆盖 `billing_managers`，见上一模块的注释），
+			// 侧栏词条（`Billing and licensing` / `Payment information` …）全部只在本模块。
 			"name": "pages/org-settings",
 			"route": "^/(?:organizations|orgs)/[^/]+/(?:settings|billing_managers)"
 		},

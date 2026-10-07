@@ -461,8 +461,10 @@
 		"Assign teams or people an organization role": "为团队或人员指派组织角色",
 		"No organization roles assigned": "尚未指派任何组织角色",
 		// 残句键：实机节点以 `roles` 开头（前半句 `Organization` 已由既有键译作「组织」），
-		// 两节点之间的前导空格由 walker 保留 ⇒ 整句读作「组织 角色尚未指派给任何用户或团队。」
-		"roles have not been assigned to any users or teams.": "角色尚未指派给任何用户或团队。",
+		// 两节点之间的前导空格由 walker 保留 ⇒ 整句读作「组织 角色尚未指派给任何用户或团队.」。
+		// **键与译文都不带句号**：句号是该节点之后的独立节点（纯符号翻不了），
+		// 故实机末位只能是半角 `.`，与新建页说明段尾句号同源（依据见 canonical 的同名注释）。
+		"roles have not been assigned to any users or teams": "角色尚未指派给任何用户或团队",
 		"Assign role": "指派角色",
 		"Organization roles are used to grant access to subsets of organization settings to teams and members.": "组织角色用于向团队和成员授予部分组织设置的访问权限。",
 		// `Learn more about` 在 global 里是独立短键，但实机节点是**整条链接文本**，故整串收

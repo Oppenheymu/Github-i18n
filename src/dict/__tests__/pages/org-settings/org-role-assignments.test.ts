@@ -8,22 +8,32 @@
 // 本文件锁六件事：
 //   ① 两条路径都只命中 `pages/org-settings` + `global`，**不命中** `pages/settings` /
 //      `pages/settings-billing` / `pages/repo-settings`（后者路由显式排除了 organizations）；
-//   ② 18 条新键全部按实机节点原文命中（含 `9 roles` 那条走规则的动态计数）；
-//   ③ 四条节点边界事实：空态说明句是**两个文本节点**、新建页说明段是**三个文本节点**、
-//      tooltip 是独立文本节点、角色条数是动态值；
+//   ② 18 条新键：16 条已由 2026-10-07 的复测实机译出，残句键按下面的推断改成**不带句号**的
+//      一支（待实机复测），空态标题那条整句键实机未命中（见文末「待确认」）；
+//   ③ 四条节点边界事实 + 一条待确认：空态说明句是**两个文本节点**（其后还有独立句号）、
+//      新建页说明段是**三个文本节点**、tooltip 是独立文本节点、角色条数是动态值；
 //   ④ 九条 tooltip 的译文逐字正确（角色名内嵌其中）；
 //   ⑤ 两条 enterprise 专属角色与半角句号节点有意保留英文；
 //   ⑥ 与页面同形的拼接结果（空态说明句、说明段、计数行）逐字正确。
 //
-// 三条必须记住的边界事实：
+// 四条必须记住的边界事实 + 一条待确认：
 //   1. 空态说明句 `Organization roles have not been assigned to any users or teams.` 在实机里
 //      是**两个相邻文本节点**（`Organization` + 其余整段），故本模块收的是一条以 `roles`
 //      开头的**残句**；整句作为一个节点反而永不命中（用例把这个反例也钉住了）；
-//   2. 两节点之间的前导空格由 walker 保留（applyTextNode 的 lead / trail），所以实机拼出来
-//      是「组织 角色尚未指派给任何用户或团队。」——中间那一个空格是既成事实，与 policies 页
-//      的「组织规则集将不会强制执行 直到…」同源，改词条解决不了，别当 bug 反复查；
-//   3. 说明段末尾的句号是**独立节点**（`.` 不含拉丁字母，可翻译判定直接跳过），故中文译文
-//      后面仍跟着半角 `.`；同理，正文节点自带尾随空格——两者都不是漏翻。
+//   2. 该残句**不含末尾句号**（句号是它之后的独立节点，纯符号翻不了）：2026-10-07 复测时
+//      带句号的键在实机仍未命中，而相邻的 `Organization` 已译出——即该节点必然被走到、
+//      文本又没有不可见字符，唯一差别只能是句号不在节点内。故键与译文都不带句号，
+//      实机末位固定是半角 `.`；
+//   3. 两节点之间的前导空格由 walker 保留（applyTextNode 的 lead / trail），所以实机拼出来
+//      是「组织 角色尚未指派给任何用户或团队.」——中间那一个空格是既成事实，与 policies 页
+//      「组织规则集将不会强制执行 直到…」同源，改词条解决不了，别当 bug 反复查；
+//   4. 说明段末尾的句号同理是**独立节点**，中文译文后面仍跟着半角 `.`；正文节点自带尾随
+//      空格——两者都不是漏翻。
+//
+// 待确认：空态标题 `No organization roles assigned` 在 2026-10-07 的复测里**仍是英文**——
+// 该键在词典里存在、单测也命中，实机却不动，说明 h2 同样被上游拆成了多个文本节点
+// （`outerHTML` 看不出边界）。拿到实机节点 dump 后要改成按碎片收；在那之前下面这条
+// 「整句键」的断言只保证词典可用，**不代表实机已覆盖**。
 import { describe, expect, it } from "bun:test";
 import {
 	buildView,
@@ -69,7 +79,7 @@ const NEW_NODES: readonly string[] = [
 	"Assign teams or people an organization role",
 	"No organization roles assigned",
 	// 残句键：整句的其余部分（前半句 `Organization` 由既有键单独命中）
-	"roles have not been assigned to any users or teams.",
+	"roles have not been assigned to any users or teams",
 	// 空态主按钮（新建页的提交按钮与面包屑是同一串文案）
 	"Assign role",
 	// —— 新建页：页首说明段的两个可翻译节点（第三个是半角句号，翻不了）——
@@ -274,8 +284,8 @@ describe("组织角色分配页的动态计数规则", () => {
 
 describe("组织角色分配页的节点切分事实", () => {
 	it("requires the blank-slate sentence to be split in two nodes", () => {
-		// 实机是 `Organization` + ` roles have not been assigned to any users or teams.`
-		// 两个相邻文本节点；整句作为一个节点时**两边的键都不该存在**
+		// 实机是 `Organization` + ` roles have not been assigned to any users or teams` 两个相邻
+		// 文本节点（句号又是其后的第三个节点）；整句作为一个节点时**两边的键都不该存在**
 		expect(
 			translateText(
 				"Organization roles have not been assigned to any users or teams.",
@@ -287,10 +297,19 @@ describe("组织角色分配页的节点切分事实", () => {
 		);
 		expect(
 			translateText(
+				"roles have not been assigned to any users or teams",
+				view,
+			),
+		).toBe("角色尚未指派给任何用户或团队");
+		// 带句号的写法不是实机节点（句号独立成节点），故它不该命中任何键
+		expect(
+			translateText(
 				"roles have not been assigned to any users or teams.",
 				view,
 			),
-		).toBe("角色尚未指派给任何用户或团队。");
+		).toBeNull();
+		// 句号节点本身是纯符号：可翻译判定直接跳过
+		expect(translateText(".", view)).toBeNull();
 	});
 
 	it("keeps the trailing period of the intro as its own node", () => {
@@ -318,14 +337,16 @@ describe("组织角色分配页的节点切分事实", () => {
 });
 
 describe("组织角色分配页的拼接结果", () => {
-	it("renders the blank-slate sentence with the split-node gap", () => {
-		// 两个节点之间的前导空格由 walker 保留 ⇒ 中文里留下一个空格（既成事实）
+	it("renders the blank-slate sentence with the split-node gap and period node", () => {
+		// 三个节点：`Organization` + 残句（带前导空格、不含句号）+ 独立句号。
+		// 前导空格由 walker 保留，句号是纯符号节点原样留下 ⇒ 末位是半角 `.`
 		expect(
 			renderNodes([
 				"Organization",
-				" roles have not been assigned to any users or teams.",
+				" roles have not been assigned to any users or teams",
+				".",
 			]),
-		).toBe("组织 角色尚未指派给任何用户或团队。");
+		).toBe("组织 角色尚未指派给任何用户或团队.");
 	});
 
 	it("renders the intro paragraph with its trailing space and period", () => {

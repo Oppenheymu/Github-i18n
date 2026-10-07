@@ -4132,8 +4132,14 @@
 				//      与其余整段。故本模块收的是一条**以 `roles` 开头的残句**，译文必须能接在
 				//      「组织」之后读通；两节点之间由 walker 保留原节点的前导空格（见
 				//      walker.applyTextNode 的 lead / trail），实机因此拼作
-				//      「组织 角色尚未指派给任何用户或团队。」——中间那一个空格是既成事实，
+				//      「组织 角色尚未指派给任何用户或团队.」——中间那一个空格是既成事实，
 				//      与 policies 页的「组织规则集将不会强制执行 直到…」同源，不是漏改；
+				//      **末位是半角 `.` 而非中文句号**：该残句节点**不含句号**（句号是独立
+				//      节点、纯符号，可翻译判定直接跳过），与 ③ 的说明段尾句号同源。此结论
+				//      由 2026-10-07 复测反推：新词典已生效（同批的 `Assign teams or people
+				//      an organization role` / `Assign role` 都已译出），而带句号的那条键在
+				//      实机上仍未命中，相邻的 `Organization` 节点却已译出——即该节点必然被走到、
+				//      文本又不含任何不可见字符，唯一差别只能是句号不在节点内；
 				//   ② 新建页说明段是**三个文本节点**：正文整句（带尾随空格）+ 链接文本 +
 				//      独立的句号节点（`.` 不含拉丁字母，可翻译判定直接跳过），故句号只能是半角；
 				//   ③ 每张角色卡的 tooltip 是 `Info about <角色名>`（`popover` + `aria-hidden`
@@ -4146,7 +4152,7 @@
 				// `Assign role` 只登记一条：面包屑、页面标题与两个页面的按钮是同一串上游文案。
 				"Assign teams or people an organization role",
 				"No organization roles assigned",
-				"roles have not been assigned to any users or teams.",
+				"roles have not been assigned to any users or teams",
 				"Assign role",
 				// —— 新建页（…/org_role_assignments/new）——
 				"Organization roles are used to grant access to subsets of organization settings to teams and members.",

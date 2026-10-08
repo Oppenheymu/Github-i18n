@@ -36,6 +36,7 @@ import aliasesRaw from "./core/aliases.jsonc";
 import modulesRaw from "./core/modules.jsonc";
 import rulesRaw from "./core/rules.jsonc";
 import jaGlobalRaw from "./locales/ja/global.jsonc";
+import jaDashboardRaw from "./locales/ja/pages/dashboard.jsonc";
 import jaIssuesRaw from "./locales/ja/pages/issues.jsonc";
 import jaSearchRaw from "./locales/ja/pages/search.jsonc";
 import jaRulesRaw from "./locales/ja/rules.jsonc";
@@ -121,6 +122,7 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 			["global", jaGlobalRaw],
 			["pages/issues", jaIssuesRaw],
 			["pages/search", jaSearchRaw],
+			["pages/dashboard", jaDashboardRaw],
 		],
 		rules: jaRulesRaw,
 	},

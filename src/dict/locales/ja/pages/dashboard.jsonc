@@ -1,0 +1,68 @@
+// 日本語・モジュール pages/dashboard：ルートパス（サインイン後のホーム）。
+// 鍵は core/canonical.jsonc にある英語原文との完全一致（綴り違いは門禁が弾く）。
+// 値には日本語の文字体系（漢字 / ひらがな / カタカナ）が必要。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		"Home": "ホーム",
+		"For you": "あなたにおすすめ",
+		"Top repositories": "トップリポジトリ",
+		"Find a repository…": "リポジトリを検索…",
+		"Recent activity": "最近のアクティビティ",
+		"Latest changes": "最新の変更",
+		"Create repository": "リポジトリを作成",
+		// —— Copilot の会話エリア（あいさつ文はユーザー名と時間帯を含むため dashboard/greeting ルールが担当）——
+		"Ask anything or type @ to add context": "何でも質問するか、@ と入力してコンテキストを追加",
+		"Ask anything or type @ to add context with Copilot": "何でも質問するか、@ と入力して Copilot にコンテキストを追加",
+		"Ask": "質問",
+		"Select repositories to attach to conversation": "会話に添付するリポジトリを選択",
+		// 「All repositories」は global が同名同訳で覆うため、ここでは重複登録しない
+		"Add files, and spaces": "ファイルとスペースを追加",
+		"Auto": "自動",
+		"Model:": "モデル：",
+		// —— AutoTierPicker を展開したときの 3 段階（段階名と説明がそれぞれ 1 件）——
+		"Efficiency": "効率",
+		"Prioritizes speed and efficiency": "速度と効率を優先します",
+		"Balance": "バランス",
+		"Balances speed and intelligence": "速度と知能のバランスを取ります",
+		"Intelligence": "知能",
+		"Prioritizes intelligence": "知能を優先します",
+		// トリガーボタンの文字列全体（英語 UI での形）。日本語 UI での「Optimized for: バランス」は
+		// 混在ノードなので、rules の dashboard/optimized-for が「最適化の対象：」に置き換え、
+		// 段階名は GitHub 自身の訳語をそのまま残す
+		"Optimized for: Efficiency": "最適化の対象：効率",
+		"Optimized for: Balance": "最適化の対象：バランス",
+		"Optimized for: Intelligence": "最適化の対象：知能",
+		"Send now": "今すぐ送信",
+		"Debug": "デバッグ",
+		"Agent": "エージェント",
+		"Create issue": "イシューを作成",
+		"Write code": "コードを書く",
+		// —— Copilot 会話エリアのアクションメニューとプロンプト集（core/canonical.jsonc と同順）——
+		"Create a profile README": "プロフィール README を作成",
+		"Generate a simple calculator": "簡単な電卓を生成",
+		"Make a Pong game": "Pong ゲームを作成",
+		"Design a Mermaid architecture overview": "Mermaid のアーキテクチャ概要を設計",
+		"My open pull requests": "自分のオープンなプルリクエスト",
+		"Summarize my latest PR": "最新の PR を要約",
+		// —— /create-issue コマンド一覧の 2 つの説明文（行頭の `/create-issue` ラベルは別ノード）——
+		"First, create a new draft issue. Then ask for additional information to fill out the issue.": "まず新しい下書きイシューを作成します。その後、追加情報を求めてイシューを埋めます。",
+		"First, create an issue with sub issues. Then ask for additional information to fill out these issues.": "まずサブイシュー付きのイシューを作成します。その後、追加情報を求めてこれらのイシューを埋めます。",
+		// 「Git」ランチャーは AGENTS.md の硬性制約 3 に従い**収録しない**：純粋な固有名詞で
+		// （global の同名キーと同形）、収録すると門禁に「訳文が鍵と同形」の循環リスクと判定される。
+		// 未ヒットなら英語のまま残るのが正しい挙動。
+		// —— ランチャーのピルを展開したときのコマンドメニュー：`Git` ピルの 3 件（同順は core/canonical.jsonc）——
+		"Basic Git commands": "基本的な Git コマンド",
+		"Git branching": "Git ブランチ",
+		"Advanced Git commands": "高度な Git コマンド",
+		// —— Copilot アプリのプロモーションバナー ——
+		"The GitHub Copilot app": "GitHub Copilot アプリ",
+		"An agent-driven desktop experience built natively on GitHub.": "GitHub 上にネイティブに構築された、エージェント駆動のデスクトップ体験。",
+		"Download for Windows": "Windows 版をダウンロード",
+		"Dismiss banner": "バナーを閉じる",
+		"The GitHub Copilot app, New": "GitHub Copilot アプリ、新着",
+		// —— イシュー一覧の「すべて表示」リンク（可視テキストと sr-only の後置の 2 ノード）——
+		"View all": "すべて表示",
+		"issues": "イシュー"
+	}
+}

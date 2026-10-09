@@ -38,6 +38,7 @@ import rulesRaw from "./core/rules.jsonc";
 import jaGlobalRaw from "./locales/ja/global.jsonc";
 import jaDashboardRaw from "./locales/ja/pages/dashboard.jsonc";
 import jaIssuesRaw from "./locales/ja/pages/issues.jsonc";
+import jaPullsRaw from "./locales/ja/pages/pulls.jsonc";
 import jaSearchRaw from "./locales/ja/pages/search.jsonc";
 import jaRulesRaw from "./locales/ja/rules.jsonc";
 import zhGlobalRaw from "./locales/zh-CN/global.jsonc";
@@ -120,9 +121,11 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 		locale: "ja",
 		modules: [
 			["global", jaGlobalRaw],
+			// 以下按 core/modules.jsonc 的顺序排列（顺序只影响可读性：视图合并顺序由 core 那份决定）
 			["pages/issues", jaIssuesRaw],
-			["pages/search", jaSearchRaw],
+			["pages/pulls", jaPullsRaw],
 			["pages/dashboard", jaDashboardRaw],
+			["pages/search", jaSearchRaw],
 		],
 		rules: jaRulesRaw,
 	},

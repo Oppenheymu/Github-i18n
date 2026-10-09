@@ -940,7 +940,9 @@
 			"name": "microsoft/vscode/pull/1",
 			"path": "/microsoft/vscode/pull/1",
 			"matched": ["pages/pulls", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Pull request", "module": "pages/pulls" }
+			],
 			"rules": [
 				"pulls/merge-commits-into",
 				"pulls/hidden-items-count",
@@ -1093,7 +1095,9 @@
 			"name": "microsoft/vscode/pulls",
 			"path": "/microsoft/vscode/pulls",
 			"matched": ["pages/pulls", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Pull request", "module": "pages/pulls" }
+			],
 			"rules": [
 				"pulls/merge-commits-into",
 				"pulls/hidden-items-count",

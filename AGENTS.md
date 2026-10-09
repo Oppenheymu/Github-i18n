@@ -83,3 +83,4 @@ bun run pack                    # dist/ 打 zip（Chrome Web Store / Edge Add-on
 2. `git add -A` 后提交，提交信息用简体中文，格式参考现有历史（`feat:` / `fix:` / `docs:` / `chore:` / `build:`，可带 scope 如 `fix(dict):`）。
 3. 提交到主分支 `main`；若当前不在主分支，先切回主分支再提交。
 4. 提交完成后向用户简要说明改了什么与提交哈希。
+5. **与远端同步一律保持线性历史**：本仓的合并规范是**压缩合并**，`main` 上不要出现 merge 提交。需要同步时用 `git pull --rebase`（或 `git fetch` + `git rebase`），**不要用默认的 `git pull`**。若发现自己停在一次冲突的 merge 里（`git status` 显示 `You have unmerged paths`、文件里留着 `<<<<<<<` 标记，`bun run format` 会因此整片报解析错误），先 `git merge --abort` 回到干净状态，再用 rebase / `--squash` 重做；只有快照等生成物冲突时才考虑直接重生成。

@@ -487,6 +487,9 @@
 		// 屏蔽时长菜单被上游重组成单个文本节点时的两种形态（数字是语言无关的捕获组）
 		"org-settings/block-duration-days": "屏蔽：$1 天",
 		"org-settings/block-duration-forever": "屏蔽：直到我解除屏蔽",
+		// 组织交互限制页的拉取请求上限：数字后面那整段（数字本身是独立节点，
+		// 由引擎跳过；前缀走词条，故这里不带前缀）
+		"org-settings/pr-cap-limit": "个拉取请求。草稿拉取请求不计入此上限。",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

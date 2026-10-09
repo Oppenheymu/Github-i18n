@@ -2423,6 +2423,16 @@
 				{
 					"id": "org-settings/block-duration-forever",
 					"pattern": "^Block: Until I unblock them$"
+				},
+				// 组织交互限制页（/organizations/<组织>/settings/interaction_limits）的
+				// 拉取请求上限那一段：「当前上限」那句被 `<strong>数字</strong>` 切成
+				// **三个节点**（前缀 / 纯数字 / 数字之后的整句），前缀由词条覆盖、
+				// 纯数字节点被引擎跳过（不含拉丁字母），故这条规则接的是**第三段**。
+				// 数字是用户可配置的（输入框允许 1–1000），故 `pull request(s)` 的
+				// 单复数用 `s?` 一条覆盖——两种形态都不能留下中英残句。
+				{
+					"id": "org-settings/pr-cap-limit",
+					"pattern": "^open pull requests? at a time in each public repository in this organization\\. Draft pull requests do not count toward this limit\\.$"
 				}
 			]
 		},

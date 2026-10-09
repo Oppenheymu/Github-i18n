@@ -4403,7 +4403,91 @@
 				"You have not blocked anyone.",
 				// 输入框的 aria-label 与 placeholder 同串
 				"Find blocked users",
-				"Search by username, full name, or public email"
+				"Search by username, full name, or public email",
+				// —— 交互限制页（/organizations/<组织>/settings/interaction_limits）——
+				// 这一页的正文与个人设置的 /settings/interaction_limits **几乎逐字相同**，
+				// 而那条路由 `^/(?:settings|account/billing)` 不命中 /organizations/**，
+				// 故本模块各收一份（同 `Subscriptions` / `Payment history` / 已屏蔽用户页
+				// 的先例）。组织侧与个人侧有三处措辞不同，都是**新键、不是别名**：
+				//   `…interact with this organization's repositories.`（单数 organization）
+				//   `…of a repository in this organization…`（两条限制对象说明）
+				//   `…in your organization's public repositories`（链接前那段）
+				// 本页同样是服务端渲染的传统 Primer 页面：长句里没有内联元素时就是一个
+				// 整文本节点（页首那段两句之间只有源码换行，故整段一条键）。
+				//
+				// 页首 H2 **没有出现在维护者贴的整页 HTML 里**（另两页的 H2 都在），
+				// 而本模块既有键 `Interaction limits` 覆盖的是侧栏项与「H2 与侧栏项同串」
+				// 的那种情形，故这里按个人设置页的 `Temporary interaction limits` 再收一条
+				// 兜底——两种可能的 H2 形态都不会漏（实机确认是哪个之后，删掉多余的那条）。
+				"Temporary interaction limits",
+				"Temporarily restrict which external users can interact with your repositories (comment, open issues, or create pull requests) for a configurable period of time. Users who are members of this organization will not be affected by these limits.",
+				"This may be used to force a \"cool-down\" period during heated discussions or prevent unwanted interactions.",
+				// 三段拼接：句子片段 + 链接「公开仓库」+ 以句号起头的尾段
+				//（尾段的译文沿用个人页那份，拼接后正好是「…的 公开仓库中。此处的…」）
+				"Interaction limits may already exist in your organization's",
+				"public repositories",
+				". Any changes here will override those limits.",
+				"Limit to existing users",
+				"Users that have recently created their account will be unable to interact with this organization's repositories.",
+				"Limit to prior contributors",
+				"Users that have not previously committed to the default branch of a repository in this organization will be unable to interact with that repository.",
+				"Limit to repository collaborators",
+				"Users that are not collaborators of a repository in this organization will not be able to interact with that repository.",
+				// 五个短标签（其中 `Organization members` 是组织侧独有的第五个）
+				"New users",
+				"Users",
+				"Contributors",
+				"Collaborators",
+				"Organization members",
+				// 三张卡片的按钮（`Enable` 是它的可见文本，另三条是各自的 aria-label）
+				"Enable",
+				"Enable interaction limits for:",
+				"Enable interaction limit to existing users",
+				"Enable interaction limit to prior contributors",
+				"Enable interaction limit to repository collaborators",
+				// 五档时长选项（三个下拉各一份，固定枚举故收静态键而不是规则）
+				"24 hours",
+				"3 days",
+				"1 week",
+				"1 month",
+				"6 months",
+				// —— 同一页的拉取请求上限（turbo-frame `org-pull-request-creation-cap`）——
+				// 措辞与仓库级子页不同（这里是「此组织的任一公开仓库」），故各自成键；
+				// 「当前上限」那句的后半截含**用户可配置的数字**，走规则
+				//（见 core/rules.jsonc 的 `org-settings/pr-cap-limit`）。
+				"Pull request limits",
+				"Restrict how many pull requests users without write access can have open at one time in any single public repository in this organization. A limit configured on an individual repository overrides this setting. This setting stays in effect until you change it.",
+				"Currently, users without write access can open an unlimited number of pull requests.",
+				"Currently, users without write access can have up to",
+				"Limit open pull requests from users without write access",
+				"Maximum open pull requests per user",
+				"Enter a number from 1 to 1000",
+				// 本页这句说的是 `new pull requests in the repository`（仓库级子页那句
+				// 用的是缩写 `PR`），故与仓库级那条**不是同一个串**
+				"Enter a number from 1 to 1000. Users who have more open pull requests than the above limit will not be able to create new pull requests in the repository.",
+				"Count draft pull requests toward the limit",
+				// —— 代码审查限制页（/organizations/<组织>/settings/code_review_limits）——
+				// 同上一页的处境：正文与个人设置的 /settings/code_review_limits 几乎逐字
+				// 相同，但那条路由拿不到，故各收一份并**逐字同译**。只有页首那句是组织侧
+				// 独有措辞（`in public repositories within this organization`），其余三条
+				// 与个人页同串同译。H2 `Code review limits` 由本模块的侧栏键覆盖。
+				"Restrict users who are permitted to approve or request changes on pull requests in public repositories within this organization.",
+				"Code review limits may already be specified by individual repositories. Any changes here will override those limits until unset.",
+				"Code review limits are currently managed individually for all repositories. Enable limits to permit only users who have explicitly been granted access to each repository to submit reviews that \"approve\" or \"request changes\". Remove limits to allow all users to submit pull request reviews. All users able to submit comment pull request reviews will continue to be able to do so.",
+				"Limit reviews on all repositories",
+				"Remove review limits from all repositories",
+				// —— 版主页（/organizations/<组织>/settings/moderators）——
+				// 本页没有个人设置页的对应物（版主是组织专有概念），五条都是新增。
+				// H2 `Moderators` 由本模块的侧栏键覆盖；说明段两句之间只有源码换行，
+				// 故整段一条键；「最多可添加 10」那句的数字是独立节点（纯数字节点被引擎
+				// 跳过），前后两段各自成键。
+				"You can add organization members or teams as moderators for your organization. Moderators can block and unblock users from the organization, minimize comments, and manage interaction limits for all public organization repositories.",
+				"You may add up to",
+				"members or teams as moderators.",
+				// 输入框的 aria-label 与 placeholder 是两个不同的串，各一条
+				"Add a member or team as a moderator",
+				"Add a member or team",
+				"You don't have any moderators for this organization."
 			]
 		},
 		{

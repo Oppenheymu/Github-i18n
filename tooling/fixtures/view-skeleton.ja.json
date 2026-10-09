@@ -5859,7 +5859,9 @@
 			"name": "microsoft/vscode/actions",
 			"path": "/microsoft/vscode/actions",
 			"matched": ["pages/actions", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Show options", "module": "pages/actions" }
+			],
 			"rules": [
 				"actions/duration-hms",
 				"actions/duration-hm",

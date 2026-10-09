@@ -36,6 +36,7 @@ import aliasesRaw from "./core/aliases.jsonc";
 import modulesRaw from "./core/modules.jsonc";
 import rulesRaw from "./core/rules.jsonc";
 import jaGlobalRaw from "./locales/ja/global.jsonc";
+import jaActionsRaw from "./locales/ja/pages/actions.jsonc";
 import jaCommitsRaw from "./locales/ja/pages/commits.jsonc";
 import jaDashboardRaw from "./locales/ja/pages/dashboard.jsonc";
 import jaIssuesRaw from "./locales/ja/pages/issues.jsonc";
@@ -125,6 +126,7 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 			// 以下按 core/modules.jsonc 的顺序排列（顺序只影响可读性：视图合并顺序由 core 那份决定）
 			["pages/issues", jaIssuesRaw],
 			["pages/pulls", jaPullsRaw],
+			["pages/actions", jaActionsRaw],
 			["pages/dashboard", jaDashboardRaw],
 			["pages/commits", jaCommitsRaw],
 			["pages/search", jaSearchRaw],

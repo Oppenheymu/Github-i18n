@@ -2076,6 +2076,7 @@
 				"org-settings/block-duration-days",
 				"org-settings/block-duration-forever",
 				"org-settings/pr-cap-limit",
+				"org-settings/remaining-count",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -2229,6 +2230,7 @@
 				"org-settings/block-duration-days",
 				"org-settings/block-duration-forever",
 				"org-settings/pr-cap-limit",
+				"org-settings/remaining-count",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -2428,6 +2430,10 @@
 				},
 				{
 					"key": "State/Province",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Update",
 					"module": "pages/settings-billing"
 				},
 				{
@@ -2728,6 +2734,7 @@
 				"org-settings/block-duration-days",
 				"org-settings/block-duration-forever",
 				"org-settings/pr-cap-limit",
+				"org-settings/remaining-count",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",

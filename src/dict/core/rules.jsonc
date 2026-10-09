@@ -2433,6 +2433,15 @@
 				{
 					"id": "org-settings/pr-cap-limit",
 					"pattern": "^open pull requests? at a time in each public repository in this organization\\. Draft pull requests do not count toward this limit\\.$"
+				},
+				// 仓库默认设置页（/organizations/<组织>/settings/repository-defaults）的
+				// 标签名 / 描述输入框下方：上游按 `data-suffix="remaining"` 拼出
+				// 「50 remaining」（数字动态、单复数同形），故走规则。
+				// 与屏蔽用户页那条带句点的 `characters remaining.` 是**不同的形态**，
+				// 两条 pattern 互不覆盖。
+				{
+					"id": "org-settings/remaining-count",
+					"pattern": "^(\\d+) remaining$"
 				}
 			]
 		},

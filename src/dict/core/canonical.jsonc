@@ -4487,7 +4487,101 @@
 				// 输入框的 aria-label 与 placeholder 是两个不同的串，各一条
 				"Add a member or team as a moderator",
 				"Add a member or team",
-				"You don't have any moderators for this organization."
+				"You don't have any moderators for this organization.",
+				// —— 仓库默认设置页（/organizations/<组织>/settings/repository-defaults）——
+				// 证据：维护者 2026-10-09 贴的整页实机 HTML（采集时扩展仍在运行，故
+				// `所有仓库` / `标签` / `描述` / `编辑` / `删除` / `取消` / `加载中` 都已是
+				// 既有键的产物——前者来自 global 的 `All repositories`，其余来自 global）。
+				//
+				// 这一页的前两个区块与**个人设置页 /settings/repositories**（键在
+				// pages/settings，证据是整页截图）几乎逐字相同，而那条路由
+				// `^/(?:settings|account/billing)` 不命中 /organizations/**，故本模块
+				// 各收一份并**逐字同译**（同 Subscriptions / 已屏蔽用户页的先例）。
+				// 组织侧独有的措辞一律是新键：
+				//   `…for new repositories in this organization.`（vs 个人页 personal repositories）
+				//   `…for repositories in this organization.`（vs 个人页 repositories you own）
+				// 后三个区块（Commit signoff / Releases / Repository labels）是组织侧独有
+				// 的新区块，整块新增。
+				//
+				// 有意**不收录**（未命中即保留英文）：
+				//   · 16 个色板按钮的 `aria-label="Color #b60205"` 一类：属性不适用规则，
+				//     且它是带数据值的屏显不可见标签（同 `results` 与装饰性图标 aria-label 的判定）；
+				//   · `data-confirm="Are you sure? Deleting a label will remove as a default…"`
+				//     等 `data-*`（不在引擎翻译的六个属性里）；
+				//   · 标签行里的标签名与描述（`Area: Bun` 等：用户内容）、输入框的 value。
+				// —— Repository default branch 区块 ——
+				"Repository default branch",
+				// 说明段在链接「Learn more about default branches.」处断开，句号属于链接文本
+				"Choose the default branch for new repositories in this organization. You might want to change the default name due to different workflows, or because your integrations still require “master” as the default branch name. You can always change the default branch name on individual repositories.",
+				"Learn more about default branches.",
+				// 输入框的无障碍标签（文本输入框的 value `main` 是用户内容，不收）
+				"Default branch name",
+				"Update",
+				// 提交按钮的 `data-disable-with`（六个可翻译属性之一；省略号是单字符 `…`）
+				"Updating…",
+				// 新建 / 编辑标签表单的保存按钮（`data-disable-with`，三点是三个半角句点）
+				"Saving...",
+				// —— Commit signoff 区块（组织侧独有）——
+				"Commit signoff",
+				// 说明段被 `<a>Developer Certificate of Origin (DCO)</a>` 与第二个链接
+				// 切成五段；`. ` 与收尾的 `.` 两个节点不含拉丁字母，引擎直接跳过，故只登记三段。
+				// 前段译文与 pages/repo-settings 的仓库级那句（`Enabling this setting will require…`）
+				// 用词保持一致。
+				"Choose whether repositories will require contributors to sign off on commits they make through GitHub's web interface. Signing off is a way for contributors to affirm that their commit complies with the repository's terms, commonly the",
+				// 同键在 pages/repo-settings 已有译文（「开发者原创证书（DCO）」），那条路由不命中本页
+				"Developer Certificate of Origin (DCO)",
+				"Learn more about signing off on commits",
+				// 下拉（Rails `<details><summary>`）没有可见标签，按钮文本就是当前值
+				//（`所有仓库` 由 global 的 `All repositories` 覆盖），两个选项各有
+				// 「粗体标签 + 灰色说明」两个节点（隐藏的 `data-filter-item-text` 里还有一份同文本）
+				"Require signoff on web-based commits for all repositories in this organization",
+				"No policy",
+				"Each repository chooses whether to require signoff on web-based commits",
+				// —— Commit comments 区块 ——
+				"Commit comments",
+				"Choose whether",
+				"commit comments",
+				"are enabled or disabled by default for repositories in this organization. Individual repositories can override this default. Existing commit comments are not affected by this setting and will remain viewable, editable, and deletable.",
+				// 按钮里静音的标签（含冒号）+ 当前值两个节点（值也出现在菜单项上）
+				"Commit comments:",
+				"Enabled by default",
+				"Disabled by default",
+				// —— Releases 区块（组织侧独有）——
+				"Releases",
+				// 说明段是**单个文本节点**（句内没有内联元素），整段一条键
+				"Choose whether repositories will publish immutable releases. Immutable releases improve security by disallowing changes to assets and tags after the release is published.",
+				// 三个菜单项：「标签 + 说明」各两个节点；`所有仓库` 由 global 覆盖
+				"Require immutable releases for all repositories",
+				"Selected repositories",
+				"Require immutable releases for specifically selected repositories",
+				"Each repository chooses whether to make releases immutable",
+				// —— Repository labels 区块 ——
+				"Repository labels",
+				"Set the labels that will be included when a new repository is created in this organization.",
+				"Learn more about managing default labels for your organization.",
+				"New label",
+				// 新建 / 编辑标签表单：预览标签的文本是独立节点（`data-default-name` 是属性，不收）
+				"Label preview",
+				"Label name",
+				"Description (optional)",
+				"Color",
+				// 换色按钮与输入框的两个 tool-tip（`sr-only`，照常翻译）
+				"Get a new color",
+				"Hex colors should only contain numbers and letters from a-f",
+				"Choose from default colors:",
+				"Create label",
+				"Save changes",
+				// 空态（`aren’t` 是**弯撇号**，与实机形态逐字一致）
+				"No labels!",
+				"There aren’t any labels for this organization quite yet. Click on the \"New Label\" button above to create one.",
+				// 列表标题的计数行：`<span>15</span>` 与 `<span>labels</span>` 是两个节点
+				//（数字节点被引擎跳过），计数为 1 时上游按 `data-singular-string` 换成单数形态，
+				// 故两种形态都收。译文带量词，拼起来读作「15 个标签」。
+				// 风险如实记在此处：`labels` / `label` 是**小写泛化词**，收它们的唯一理由是
+				// 模块按路由限定在组织设置页（同 `public` / `private` / `settings` 的先例）；
+				// 本页的标签列表里若真有同名的用户标签会被误译，实机遇到就删词条，别加白名单。
+				"labels",
+				"label"
 			]
 		},
 		{

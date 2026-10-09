@@ -728,6 +728,70 @@
 		"members or teams as moderators.": "名成员或团队作为版主。",
 		"Add a member or team as a moderator": "添加成员或团队作为版主",
 		"Add a member or team": "添加成员或团队",
-		"You don't have any moderators for this organization.": "此组织没有任何版主。"
+		"You don't have any moderators for this organization.": "此组织没有任何版主。",
+		// —— 仓库默认设置页（/organizations/<组织>/settings/repository-defaults）——
+		// 前两个区块与个人设置页 /settings/repositories（pages/settings）几乎逐字相同，
+		// 但那条路由不命中 /organizations/**，故在本模块各收一份并**逐字同译**；
+		// 组织侧独有的措辞与后三个区块（Commit signoff / Releases / Repository labels）
+		// 都是新增。节点边界与反例见
+		// src/dict/__tests__/pages/org-settings/repository-defaults.test.ts。
+		"Repository default branch": "仓库默认分支",
+		// 与前缀同译的原句比，只有首句不同（`for new repositories in this organization`）
+		"Choose the default branch for new repositories in this organization. You might want to change the default name due to different workflows, or because your integrations still require “master” as the default branch name. You can always change the default branch name on individual repositories.": "为此组织中的新仓库选择默认分支。由于不同的工作流，或因为你的集成仍需要将 “master” 作为默认分支名，你可能想更改默认名称。你随时可以在单个仓库上更改默认分支名。",
+		"Learn more about default branches.": "详细了解默认分支。",
+		"Default branch name": "默认分支名称",
+		"Update": "更新",
+		"Updating…": "正在更新…",
+		// 新建 / 编辑标签表单的保存按钮（`data-disable-with`）
+		"Saving...": "正在保存...",
+		// —— Commit signoff ——
+		"Commit signoff": "提交签署",
+		// 五段拼接：前段 + 证书链接 + 链接后的 `. `（纯符号，翻不了）+ 说明链接 + 收尾 `.`
+		"Choose whether repositories will require contributors to sign off on commits they make through GitHub's web interface. Signing off is a way for contributors to affirm that their commit complies with the repository's terms, commonly the": "选择仓库是否要求贡献者对他们通过 GitHub 网页界面所做的提交进行签署。签署是贡献者确认其提交符合仓库条款的一种方式，通常为",
+		// 与 pages/repo-settings 的仓库级那句同译（GitHub 官方中文文档把 DCO 译作「开发者原创证书」）
+		"Developer Certificate of Origin (DCO)": "开发者原创证书（DCO）",
+		"Learn more about signing off on commits": "进一步了解提交签署",
+		"Require signoff on web-based commits for all repositories in this organization": "要求此组织中的所有仓库对网页端提交进行签署",
+		// 两个菜单项共用一条标签键（signoff 与 releases 两个下拉里各出现一次）
+		"No policy": "无策略",
+		"Each repository chooses whether to require signoff on web-based commits": "由各个仓库自行决定是否要求对网页端提交进行签署",
+		// —— Commit comments ——
+		"Commit comments": "提交评论",
+		"Choose whether": "选择是否",
+		"commit comments": "提交评论",
+		"are enabled or disabled by default for repositories in this organization. Individual repositories can override this default. Existing commit comments are not affected by this setting and will remain viewable, editable, and deletable.": "在此组织的仓库中默认启用或禁用。各个仓库可以覆盖此默认设置。现有的提交评论不受此设置影响，仍可查看、编辑和删除。",
+		"Commit comments:": "提交评论：",
+		"Enabled by default": "默认启用",
+		"Disabled by default": "默认禁用",
+		// —— Releases（组织侧独有）——
+		"Releases": "发布",
+		// `immutable release` 全页统一译作「不可变发布」（下方三条菜单项同）
+		"Choose whether repositories will publish immutable releases. Immutable releases improve security by disallowing changes to assets and tags after the release is published.": "选择仓库是否发布不可变发布。不可变发布通过禁止在发布后更改资产和标签来提升安全性。",
+		"Require immutable releases for all repositories": "要求所有仓库使用不可变发布",
+		"Selected repositories": "已选仓库",
+		"Require immutable releases for specifically selected repositories": "要求特定选定的仓库使用不可变发布",
+		"Each repository chooses whether to make releases immutable": "由各个仓库自行决定是否使发布不可变",
+		// —— Repository labels ——
+		"Repository labels": "仓库标签",
+		"Set the labels that will be included when a new repository is created in this organization.": "设置在此组织中创建新仓库时将包含的标签。",
+		"Learn more about managing default labels for your organization.": "进一步了解如何管理你组织的默认标签。",
+		"New label": "新建标签",
+		// 新建 / 编辑标签表单（编辑表单默认 hidden，但在 DOM 里，照常翻译）
+		"Label preview": "标签预览",
+		"Label name": "标签名称",
+		"Description (optional)": "描述（可选）",
+		"Color": "颜色",
+		"Get a new color": "获取新颜色",
+		"Hex colors should only contain numbers and letters from a-f": "十六进制颜色只能包含数字与 a-f 之间的字母",
+		"Choose from default colors:": "从默认颜色中选择：",
+		"Create label": "创建标签",
+		"Save changes": "保存更改",
+		// 空态：原文里的 `"New Label"` 指的就是上方那个按钮，译文按本仓对按钮的译法
+		// （「新建标签」）改写指向，避免中文句子里留一个英文按钮名
+		"No labels!": "没有标签！",
+		"There aren’t any labels for this organization quite yet. Click on the \"New Label\" button above to create one.": "此组织还没有任何标签。点击上方的「新建标签」按钮即可创建一个。",
+		// 列表标题的计数行：数字与 `labels` 是两个节点，译文带量词以拼出「15 个标签」
+		"labels": "个标签",
+		"label": "个标签"
 	}
 }

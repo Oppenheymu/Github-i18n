@@ -492,6 +492,8 @@
 		"org-settings/pr-cap-limit": "个拉取请求。草稿拉取请求不计入此上限。",
 		// 仓库默认设置页的标签表单：输入框下方的剩余字数（数字动态）
 		"org-settings/remaining-count": "剩余 $1 个字符",
+		// 组织主题页的页头标题（组织名是动态值，规则不递归，原样带回）
+		"org-settings/topics-heading": "你在 $1 中贡献的仓库",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

@@ -120,8 +120,19 @@
 			// 不并入这一支时侧栏会**整块保留英文**——账单模块只提供正文（它的路由靠
 			// `billing` 前缀顺带覆盖 `billing_managers`，见上一模块的注释），
 			// 侧栏词条（`Billing and licensing` / `Payment information` …）全部只在本模块。
+			// 第四支（2026-10-09 并入）：`/orgs/<组织>/topics`（组织主题页）。它与
+			// `billing_managers` 同属「组织根上的设置页」——**路径不在 `/settings/` 下**，
+			// 但渲染的是同一套设置外壳：页头是上下文切换器（`Switch settings context` +
+			// `Organization` 副标题），页面侧挂着组织设置侧栏。
+			// 证据：2026-10-09 维护者贴的整页截图（装了扩展后仍是中英混排）——页面上中文的
+			// 只有 global 的既有键（`主题` / `代码空间` / `讨论区` / `页码` / `预览` / `公开`），
+			// 侧栏（`General` / `Policies` / `Access` / `Billing and licensing` /
+			// `Member privileges` / `Rulesets` / `Webhooks` …）与外壳整块保留英文，
+			// 即维护者报的「点开此页面翻译会退化」。补上本支后侧栏逐项恢复中文。
+			// **尚未实机复测**：截图能证明页面结构与 global 命中，不能证明补路由后逐项命中
+			//（已请维护者重载 `dist/` 复测；若侧栏仍有英文项，按 popup 清单再补）。
 			"name": "pages/org-settings",
-			"route": "^/(?:organizations|orgs)/[^/]+/(?:settings|billing_managers)"
+			"route": "^/(?:organizations|orgs)/[^/]+/(?:settings|billing_managers|topics)"
 		},
 		{
 			"name": "pages/actions",

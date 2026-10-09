@@ -2442,6 +2442,19 @@
 				{
 					"id": "org-settings/remaining-count",
 					"pattern": "^(\\d+) remaining$"
+				},
+				// 组织主题页（/orgs/<组织>/topics）的页头标题：实机形如
+				// `Koishi-CE repositories you contribute to`（组织名是动态值）。
+				// **节点切分未经实机确认**，故两种形态都覆盖：组织名若是独立节点
+				//（`<a>` / `<span>`），剩下的半句由词条 `repositories you contribute to`
+				// 命中；上游若把整句渲染成**一个文本节点**，只有这条规则接得住
+				//（与 `base-permission-change` / `block-duration-*` 的
+				// 「规则兜整句、词条兜碎片」是同一套做法）。
+				// 捕获组限定成 GitHub 登录名的字符集、整串锚定，避免误伤同页的
+				// 仓库描述（用户内容）——只有整节点恰好是「登录名 + 这半句」才会命中。
+				{
+					"id": "org-settings/topics-heading",
+					"pattern": "^([A-Za-z0-9][A-Za-z0-9-]*) repositories you contribute to$"
 				}
 			]
 		},

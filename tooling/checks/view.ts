@@ -72,6 +72,11 @@ export const PROBE_PATHS: readonly string[] = [
 	// 它同时命中 pages/org-settings，故这条探针同时钉住「账单模块在前、组织设置模块兜底」
 	// 的命中序列、两支之间的同键覆盖与整句日期区间规则的生效情况
 	"/organizations/octocat/settings/billing",
+	// 组织主题页（/orgs/<组织>/topics）：组织设置外壳**不在 /settings/ 前缀下**的第二支
+	// （前一支是 billing_managers）。这条探针钉住「路径变了、命中模块没变」——
+	// 漏掉这一支时侧栏与页头整块保留英文，只有 global 的既有键是中文（2026-10-09
+	// 维护者报「点开此页面翻译会退化」后补）
+	"/orgs/octocat/topics",
 	"/settings/profile",
 	"/settings/accessibility",
 	"/settings/notifications",

@@ -8,7 +8,11 @@
 // 那两批按标签真实嵌套逐条登记，节点边界见
 // src/dict/__tests__/pages/org-settings/profile.test.ts；
 // ③ 同日维护者贴的 `Layout-sidebar` 实机 HTML（侧栏是所有子页共用的外壳），
-// 补齐分组标题与第一批清单没覆盖到的条目，节点边界见同目录的 sidebar.test.ts。
+// 补齐分组标题与第一批清单没覆盖到的条目，节点边界见同目录的 sidebar.test.ts；
+// ④ 2026-10-09 维护者贴的整页截图：**组织主题页 `/orgs/<组织>/topics`**（路由的第四支，
+// 不在 `/settings/` 前缀下）。它本身只有页头标题一条新键，证据价值在于证明
+// 「同一套设置外壳也会挂在组织根路径上」——漏掉路由时整块侧栏保留英文，见
+// src/dict/__tests__/pages/org-settings/topics.test.ts。
 //
 // `Pages` 一条是对 global 的**定点纠正**：global 把 GitHub Pages 的 `Pages` 收成了
 // 「页码」，本模块在自己的路由上覆盖为「页面」；global 那条是否有别的页面证据尚不明确，
@@ -792,6 +796,11 @@
 		"There aren’t any labels for this organization quite yet. Click on the \"New Label\" button above to create one.": "此组织还没有任何标签。点击上方的「新建标签」按钮即可创建一个。",
 		// 列表标题的计数行：数字与 `labels` 是两个节点，译文带量词以拼出「15 个标签」
 		"labels": "个标签",
-		"label": "个标签"
+		"label": "个标签",
+		// —— 组织主题页（/orgs/<组织>/topics，2026-10-09 并入路由）——
+		// 页头标题形如 `Koishi-CE repositories you contribute to`：组织名是独立节点时
+		// 只剩这半句（整句成一个节点时由规则 `org-settings/topics-heading` 兜住）。
+		// 译文按「Koishi-CE 你贡献的仓库」这样的前后拼接读。
+		"repositories you contribute to": "你贡献的仓库"
 	}
 }

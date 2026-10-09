@@ -4581,7 +4581,15 @@
 				// 模块按路由限定在组织设置页（同 `public` / `private` / `settings` 的先例）；
 				// 本页的标签列表里若真有同名的用户标签会被误译，实机遇到就删词条，别加白名单。
 				"labels",
-				"label"
+				"label",
+				// —— 组织主题页（/orgs/<组织>/topics，2026-10-09 并入路由的第四支）——
+				// 页头标题形如 `Koishi-CE repositories you contribute to`（组织名是动态值）。
+				// **节点切分未经实机确认**，故两种形态都覆盖：组织名若是独立节点，剩下的
+				// 半句由下面这条词条命中；整句成一个文本节点时由规则
+				// `org-settings/topics-heading` 兜住（同 `base-permission-change` 的做法）。
+				// 这半句仍是**小写泛化短语**，收它的理由与 `settings` / `labels` 相同
+				//（模块按路由限定在组织设置页）；整节点精确匹配，且同页正文是用户内容。
+				"repositories you contribute to"
 			]
 		},
 		{

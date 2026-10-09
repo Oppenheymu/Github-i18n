@@ -1,0 +1,45 @@
+// 日本語・モジュール pages/commits：/owner/repo 配下のコミット関連サブページの専用エントリ。
+// commits / commit / tags / branches / compare の 5 種類のサブツリーを覆う。
+// 注：ユーザー名・コミットハッシュ・コミットメッセージはリポジトリの内容なので収録しない。
+// 属性にはルールが効かないため（content/walker.ts）、動的な部分を含む属性値にはエントリを置かない。
+// 鍵は core/canonical.jsonc にある英語原文との完全一致（綴り違いは門禁が弾く）。
+// 値には日本語の文字体系（漢字 / ひらがな / カタカナ）が必要。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		// —— ブランチページ：表の列見出しと行内の操作 ——
+		"Ahead": "先行",
+		"Behind": "遅れ",
+		"Check status": "ステータスを確認",
+		"Branch menu": "ブランチメニュー",
+		"Action menu": "操作メニュー",
+		"Copy branch name to clipboard": "ブランチ名をクリップボードにコピー",
+		// —— ブランチページ：セクション見出しと絞り込み ——
+		"Active branches": "アクティブなブランチ",
+		"Stale": "停滞",
+		"View rules": "ルールを表示",
+		"View more branches": "さらにブランチを表示",
+		"Search branches...": "ブランチを検索…",
+		// —— コミット一覧ページ：絞り込みバーの sr-only セクション見出し ——
+		"User selector": "ユーザーセレクター",
+		"Branch selector": "ブランチセレクター",
+		"Datepicker": "日付ピッカー",
+		"All time": "全期間",
+		"Commit history": "コミット履歴",
+		// —— タグページ ——
+		"Notes": "注記",
+		// —— コミット詳細ページ：ファイルツリーと差分ツールバー ——
+		"Expand file tree": "ファイルツリーを展開",
+		"Collapse file tree": "ファイルツリーを折りたたむ",
+		"Collapse file": "ファイルを折りたたむ",
+		"Copy file name to clipboard": "ファイル名をクリップボードにコピー",
+		"Open diff view settings": "差分ビューの設定を開く",
+		"Filter files…": "ファイルを絞り込む…",
+		"Filter options": "フィルターオプション",
+		"Browse the repository at this point in the history": "この時点の履歴でリポジトリを参照",
+		"Browse files": "ファイルを参照",
+		// —— 比較ページ ——
+		"Find a branch": "ブランチを検索",
+		"base repository:": "ベースリポジトリ："
+	}
+}

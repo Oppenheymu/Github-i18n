@@ -36,7 +36,12 @@ import aliasesRaw from "./core/aliases.jsonc";
 import modulesRaw from "./core/modules.jsonc";
 import rulesRaw from "./core/rules.jsonc";
 import jaGlobalRaw from "./locales/ja/global.jsonc";
+import jaActionsRaw from "./locales/ja/pages/actions.jsonc";
+import jaCommitsRaw from "./locales/ja/pages/commits.jsonc";
+import jaDashboardRaw from "./locales/ja/pages/dashboard.jsonc";
 import jaIssuesRaw from "./locales/ja/pages/issues.jsonc";
+import jaPullsRaw from "./locales/ja/pages/pulls.jsonc";
+import jaSearchRaw from "./locales/ja/pages/search.jsonc";
 import jaRulesRaw from "./locales/ja/rules.jsonc";
 import zhGlobalRaw from "./locales/zh-CN/global.jsonc";
 import zhActionsRaw from "./locales/zh-CN/pages/actions.jsonc";
@@ -110,11 +115,21 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 		rules: zhRulesRaw,
 	},
 	{
-		// 日语目前只有样例词条与样例规则：用来跑通双语言结构与门禁，覆盖率不是目标
+		// 日语：规则模板已全量（786/786），词条仍是稀疏覆盖——已翻的模块逐个列在这里，
+		// 没列出的模块 = 尚未翻译（引擎未命中即保留英文，缺文件不是错误）。
+		// 由于规则按模块独立生效，未翻模块的页面会呈现「规则覆盖的动态节点是日语、
+		// 静态词条仍是英语」的混排，这是「先同步规则、后补词条」的中间态，
+		// 详见 docs/guides/development.md 的「稀疏覆盖」一节。
 		locale: "ja",
 		modules: [
 			["global", jaGlobalRaw],
+			// 以下按 core/modules.jsonc 的顺序排列（顺序只影响可读性：视图合并顺序由 core 那份决定）
 			["pages/issues", jaIssuesRaw],
+			["pages/pulls", jaPullsRaw],
+			["pages/actions", jaActionsRaw],
+			["pages/dashboard", jaDashboardRaw],
+			["pages/commits", jaCommitsRaw],
+			["pages/search", jaSearchRaw],
 		],
 		rules: jaRulesRaw,
 	},

@@ -21,10 +21,19 @@
 // 由 engine.test.ts 的「关闭时只清空队列不翻译」与 readEnabled 的默认值把守。
 import { afterAll, describe, expect, it } from "bun:test";
 import { installDom } from "../../test-support/dom.ts";
+import { flushMisses, setEnabled } from "../collector.ts";
 
 const env = installDom();
 
-afterAll(() => {
+afterAll(async () => {
+	// 本文件跑的是**真实入口**：bootstrap 按 storage 打开 collector 的模块单例
+	// （enabled=true，devMode 再装上自动落盘），翻译过程的漏翻还留在内存缓冲里。
+	// 模块单例与 globalThis 一样**跨测试文件共享**，故收尾必须交还基线——否则
+	// collector.test.ts 的「默认关闭」与落盘断言会随文件发现顺序红绿不定：本机
+	// Windows 按目录字母序把 collector 排在前面（一直绿），CI 的 Linux readdir
+	// 顺序把本文件排在前面（2026-10-02 起 CI 一直红）。flush 顺带清空模块缓冲。
+	setEnabled(false);
+	await flushMisses();
 	env.restore();
 });
 

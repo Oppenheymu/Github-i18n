@@ -1,0 +1,69 @@
+// 日本語・モジュール pages/actions：/owner/repo/actions サブツリー——ワークフローのサイドバー、実行一覧、絞り込み、削除確認。
+// 注：ワークフロー名（CI など）・コミットメッセージ・コミットハッシュはリポジトリの内容なので収録しない。
+// 実行時間と実行数は動的テキストなのでルールで覆う。属性（title / aria）にはルールが効かない。
+// 鍵は core/canonical.jsonc にある英語原文との完全一致（綴り違いは門禁が弾く）。
+// 値には日本語の文字体系（漢字 / ひらがな / カタカナ）が必要。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		// —— サイドバー ——
+		"Actions Workflows": "Actions ワークフロー",
+		"Workflows": "ワークフロー",
+		"Attestations": "アテステーション",
+		"Caches": "キャッシュ",
+		"Management": "管理",
+		"Performance metrics": "パフォーマンスメトリクス",
+		"Usage metrics": "使用状況メトリクス",
+		"All workflows": "すべてのワークフロー",
+		"New workflow": "新しいワークフロー",
+		"Show more workflows...": "さらにワークフローを表示…",
+		// —— 実行一覧 ——
+		"Workflow": "ワークフロー",
+		"View workflow file": "ワークフローファイルを表示",
+		"pushed by": "プッシュ元：",
+		"synchronize by": "同期元：",
+		"by": "実行者：",
+		"Commit": "コミット",
+		"Run duration": "実行時間",
+		"Show options": "オプションを表示",
+		"completed successfully:": "正常に完了しました：",
+		// 実行ステータスの aria 接頭辞と結論バッジ（属性値の完全一致で命中させる）
+		"currently running:": "現在実行中：",
+		"queued:": "待機中：",
+		"requires action with the application:": "アプリでの操作が必要：",
+		"Action required": "対応が必要",
+		// —— 絞り込み ——
+		"Filter workflow runs": "ワークフロー実行を絞り込む",
+		"Clear filters": "フィルターをクリア",
+		"Filter by Actor": "実行者で絞り込む",
+		"Filter by Branch": "ブランチで絞り込む",
+		"Filter by Event": "イベントで絞り込む",
+		"Filter by Status": "ステータスで絞り込む",
+		"Filter by Workflow": "ワークフローで絞り込む",
+		"Showing runs from all workflows": "すべてのワークフローの実行を表示しています",
+		"Actor": "実行者",
+		"Event": "イベント",
+		"No matching branches.": "一致するブランチはありません。",
+		"No matching events.": "一致するイベントはありません。",
+		"No matching statuses.": "一致するステータスはありません。",
+		"No matching users.": "一致するユーザーはありません。",
+		"No matching workflows.": "一致するワークフローはありません。",
+		// —— 削除確認 ——
+		"Delete workflow run": "ワークフロー実行を削除",
+		"Are you sure you want to permanently delete this workflow run?": "このワークフロー実行を完全に削除してもよろしいですか？",
+		"This action cannot be undone.": "この操作は取り消せません。",
+		"Yes, delete this workflow run": "はい、このワークフロー実行を削除します",
+		// —— 検索のヒント ——
+		"to exclude": "除外するには",
+		"will be ignored since log searching is not yet available": "ログ検索はまだ利用できないため、無視されます",
+		// —— 変更のお知らせ ——
+		"GitHub Changelog": "GitHub 変更履歴",
+		"Upcoming change to GitHub App installation token format": "GitHub App インストールトークンの形式変更のお知らせ",
+		"GitHub App installation tokens will soon use a new stateless format (ghs_...) and may be longer (~520 characters). Apps with hardcoded length assumptions may break.": "GitHub App のインストールトークンはまもなく新しいステートレス形式（ghs_...）になり、以前より長くなる可能性があります（約 520 文字）。トークンの長さを固定で想定しているアプリは動作しなくなるおそれがあります。",
+		"Validate your apps and workflows with the per-request override header detailed in this": "アプリとワークフローは、この記事で説明されているリクエストごとのオーバーライドヘッダーで検証してください",
+		// —— 半動的な属性：キーに具体的なワークフロー名を含み、現在の値だけを解く（属性にルールは効かない）——
+		"Pin CI": "CI をピン留め",
+		// ワークフローサイドバーのピン留め状態（aria）
+		"pinned": "ピン留め済み"
+	}
+}

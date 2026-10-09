@@ -553,8 +553,11 @@ describe("real dictionaries", () => {
 		const ja = report.find(
 			(entry) => entry.built.locale.id === "ja",
 		);
-		// 日语目前只有样例，覆盖率低但必须被算出来（不是 0 也不是 100）
+		// 日语是稀疏覆盖：既不是 0 也不是 100，且必须报出还有多少模块待译
 		expect(ja?.built.translated).toBeGreaterThan(0);
+		expect(ja?.built.translated).toBeLessThan(
+			ja?.built.total ?? 0,
+		);
 		expect(ja?.text).toContain("待译");
 	});
 

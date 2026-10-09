@@ -1,0 +1,80 @@
+// 日本語・モジュール pages/pulls：/owner/repo/pull と /pulls（一覧・詳細）の専用エントリ。
+// ルートは詳細ページ（/pull/<番号>）と一覧ページ（/pulls）の両方を覆う。
+// 鍵は core/canonical.jsonc にある英語原文との完全一致（綴り違いは門禁が弾く）。
+// 値には日本語の文字体系（漢字 / ひらがな / カタカナ）が必要。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		"Conversation": "会話",
+		"Checks": "チェック",
+		"Files changed": "ファイルの変更",
+		"Merge": "マージ",
+		"Squash and merge": "スカッシュしてマージ",
+		"Rebase and merge": "リベースしてマージ",
+		"Merge pull request": "プルリクエストをマージ",
+		"Close pull request": "プルリクエストをクローズ",
+		"Reopen pull request": "プルリクエストを再オープン",
+		"Request changes": "変更をリクエスト",
+		"Approve": "承認",
+		"Approved": "承認済み",
+		"Submit review": "レビューを送信",
+		"Resolve conversation": "会話を解決",
+		"This branch has no conflicts with the base branch": "このブランチはベースブランチと競合していません",
+		// —— 一覧ページのステータスアイコン（aria-label）——
+		"Open pull request": "オープンなプルリクエスト",
+		"Draft pull request": "下書きのプルリクエスト",
+		// —— 詳細ページのヘッダーとマージバナー ——
+		"Pull request": "プルリクエスト",
+		"Commit message body": "コミットメッセージの本文",
+		"from": "から",
+		"Copy head branch name to clipboard": "ヘッドブランチ名をクリップボードにコピー",
+		// —— タイムラインのイベントとサイドバー ——
+		"mentioned this pull request": "このプルリクエストに言及しました",
+		"added a commit that referenced this pull request": "このプルリクエストを参照するコミットを追加しました",
+		"deleted the": "削除しました",
+		"This comment was marked as outdated.": "このコメントは古いものとしてマークされました。",
+		"No reviews": "レビューはありません",
+		"This user is the author of this pull request.": "このユーザーはこのプルリクエストの作成者です。",
+		// —— レイアウトとペイン ——
+		"Draggable pane splitter": "ドラッグ可能なペインスプリッター",
+		// —— 一覧ページの絞り込みバーと並べ替え（React 版ツールバー）——
+		"Search pull requests": "プルリクエストを検索",
+		"Pull request filters": "プルリクエストのフィルター",
+		"Pull requests display density": "プルリクエストの表示密度",
+		"Comfortable display density": "ゆったりした表示密度",
+		"Compact display density": "コンパクトな表示密度",
+		"Clear filter": "フィルターをクリア",
+		"More items": "その他の項目",
+		"Newest": "新しい順",
+		"descending": "降順",
+		"Assignee": "担当者",
+		"Label": "ラベル",
+		"Reviews": "レビュー",
+		"Filter by assignee": "担当者で絞り込む",
+		"Filter by label": "ラベルで絞り込む",
+		"Filter by reviews": "レビューで絞り込む",
+		"Filter by review: Review required": "レビューで絞り込む：レビューが必要",
+		"Filter by review: Approved": "レビューで絞り込む：承認済み",
+		"Sort by Newest descending": "新しい順（降順）で並べ替え",
+		"Review required": "レビューが必要",
+		"Review required before merging": "マージ前にレビューが必要",
+		// —— 詳細ページのナビゲーションと関連イシュー ——
+		"Pull request navigation": "プルリクエストのナビゲーション",
+		"Link issues": "イシューをリンク",
+		"Successfully merging this pull request may close these issues.": "このプルリクエストを正常にマージすると、これらのイシューがクローズされる場合があります。",
+		// —— 提案の適用に関するヒント（suggestion バナー）——
+		"Add this suggestion to a batch that can be applied as a single commit.": "この提案を、1 つのコミットとしてまとめて適用できるバッチに追加します。",
+		"Applying suggestions on deleted lines is not supported.": "削除された行への提案の適用はサポートされていません。",
+		"Only one suggestion per line can be applied in a batch.": "バッチで適用できる提案は 1 行につき 1 件だけです。",
+		"Outdated suggestions cannot be applied.": "古い提案は適用できません。",
+		"Suggestion cannot be applied right now. Please check back later.": "現在この提案は適用できません。しばらくしてからもう一度お試しください。",
+		"Suggestions cannot be applied from pending reviews.": "保留中のレビューからは提案を適用できません。",
+		"Suggestions cannot be applied on multi-line comments.": "複数行のコメントには提案を適用できません。",
+		"Suggestions cannot be applied while the pull request is closed.": "プルリクエストがクローズされている間は提案を適用できません。",
+		"Suggestions cannot be applied while the pull request is queued to merge.": "プルリクエストがマージ待ちの間は提案を適用できません。",
+		"Suggestions cannot be applied while viewing a subset of changes.": "変更の一部を表示している間は提案を適用できません。",
+		"This suggestion has been applied or marked resolved.": "この提案は適用済みか、解決済みとしてマークされています。",
+		"This suggestion is invalid because no changes were made to the code.": "コードに変更がないため、この提案は無効です。",
+		"You must change the existing code in this line in order to create a valid suggestion.": "有効な提案を作成するには、この行の既存のコードを変更する必要があります。"
+	}
+}

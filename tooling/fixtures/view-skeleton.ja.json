@@ -27,19 +27,16 @@
 			"matched": ["pages/dashboard", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"dashboard/greeting-morning",
 				"dashboard/greeting-afternoon",
 				"dashboard/greeting-evening",
 				"dashboard/optimized-for",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -108,6 +105,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -165,7 +163,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "dashboard",
@@ -173,19 +172,16 @@
 			"matched": ["pages/dashboard", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"dashboard/greeting-morning",
 				"dashboard/greeting-afternoon",
 				"dashboard/greeting-evening",
 				"dashboard/optimized-for",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -254,6 +250,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -311,7 +308,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "octocat",
@@ -319,14 +317,6 @@
 			"matched": ["pages/profile", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"profile/commit-activity-year",
 				"profile/issues-needing-help",
 				"profile/block-or-report",
@@ -362,7 +352,12 @@
 				"profile/short-date-oct",
 				"profile/short-date-nov",
 				"profile/short-date-dec",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -431,6 +426,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -488,7 +484,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode",
@@ -496,21 +493,18 @@
 			"matched": ["pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -579,6 +573,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -636,7 +631,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/issues",
@@ -644,25 +640,22 @@
 			"matched": ["pages/issues", "pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"issues/linked-prs-count",
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"issues/in-repo",
 				"issues/page-title",
 				"issues/on-date",
+				"issues/linked-prs-count",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -731,6 +724,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -788,7 +782,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/issues/1",
@@ -796,25 +791,22 @@
 			"matched": ["pages/issues", "pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"issues/linked-prs-count",
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"issues/in-repo",
 				"issues/page-title",
 				"issues/on-date",
+				"issues/linked-prs-count",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -883,6 +875,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -940,22 +933,17 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/pull/1",
 			"path": "/microsoft/vscode/pull/1",
 			"matched": ["pages/pulls", "pages/repo", "global"],
-			"collisions": [],
-			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
+			"collisions": [
+				{ "key": "Pull request", "module": "pages/pulls" }
 			],
-			"notTranslated": [
+			"rules": [
 				"pulls/merge-commits-into",
 				"pulls/hidden-items-count",
 				"pulls/participants-count",
@@ -968,7 +956,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -1037,6 +1030,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -1094,22 +1088,17 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/pulls",
 			"path": "/microsoft/vscode/pulls",
 			"matched": ["pages/pulls", "pages/repo", "global"],
-			"collisions": [],
-			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
+			"collisions": [
+				{ "key": "Pull request", "module": "pages/pulls" }
 			],
-			"notTranslated": [
+			"rules": [
 				"pulls/merge-commits-into",
 				"pulls/hidden-items-count",
 				"pulls/participants-count",
@@ -1122,7 +1111,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -1191,6 +1185,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -1248,7 +1243,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/settings",
@@ -1260,14 +1256,6 @@
 			],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"repo-settings/sponsor-button",
 				"repo-settings/send-feedback",
 				"repo-settings/branch-protection-count",
@@ -1318,7 +1306,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -1387,6 +1380,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -1444,7 +1438,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/settings/rules",
@@ -1456,14 +1451,6 @@
 			],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"repo-settings/sponsor-button",
 				"repo-settings/send-feedback",
 				"repo-settings/branch-protection-count",
@@ -1514,7 +1501,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -1583,6 +1575,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -1640,7 +1633,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/reported_content",
@@ -1652,14 +1646,6 @@
 			],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"repo-settings/sponsor-button",
 				"repo-settings/send-feedback",
 				"repo-settings/branch-protection-count",
@@ -1710,7 +1696,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -1779,6 +1770,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -1836,7 +1828,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "organizations/octocat/settings/profile",
@@ -1844,14 +1837,6 @@
 			"matched": ["pages/org-settings", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"org-settings/page-title",
 				"org-settings/roles-count",
 				"org-settings/discussion-creation-org",
@@ -1860,9 +1845,12 @@
 				"org-settings/block-user-confirm",
 				"org-settings/block-duration-days",
 				"org-settings/block-duration-forever",
-				"org-settings/pr-cap-limit",
-				"org-settings/remaining-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -1931,6 +1919,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -1988,7 +1977,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": ["org-settings/pr-cap-limit"]
 		},
 		{
 			"name": "organizations/octocat/settings/policies/repositories",
@@ -1996,14 +1986,6 @@
 			"matched": ["pages/org-settings", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"org-settings/page-title",
 				"org-settings/roles-count",
 				"org-settings/discussion-creation-org",
@@ -2012,9 +1994,12 @@
 				"org-settings/block-user-confirm",
 				"org-settings/block-duration-days",
 				"org-settings/block-duration-forever",
-				"org-settings/pr-cap-limit",
-				"org-settings/remaining-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -2083,6 +2068,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -2140,7 +2126,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": ["org-settings/pr-cap-limit"]
 		},
 		{
 			"name": "organizations/octocat/settings/billing",
@@ -2152,14 +2139,6 @@
 			],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"settings/usage-range-same-month-jan",
 				"settings/usage-range-same-month-feb",
 				"settings/usage-range-same-month-mar",
@@ -2446,9 +2425,12 @@
 				"org-settings/block-user-confirm",
 				"org-settings/block-duration-days",
 				"org-settings/block-duration-forever",
-				"org-settings/pr-cap-limit",
-				"org-settings/remaining-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -2517,6 +2499,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -2574,7 +2557,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": ["org-settings/pr-cap-limit"]
 		},
 		{
 			"name": "settings/profile",
@@ -2582,14 +2566,6 @@
 			"matched": ["pages/settings", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"settings/export-available",
 				"settings/owner-organizations",
 				"settings/session-seen-in",
@@ -2623,7 +2599,12 @@
 				"settings/application-account-revoke-notice",
 				"settings/application-api-revoke-notice",
 				"settings/audit-removed-oauth-authorization",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -2692,6 +2673,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -2749,7 +2731,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "settings/accessibility",
@@ -2757,14 +2740,6 @@
 			"matched": ["pages/settings", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"settings/export-available",
 				"settings/owner-organizations",
 				"settings/session-seen-in",
@@ -2798,7 +2773,12 @@
 				"settings/application-account-revoke-notice",
 				"settings/application-api-revoke-notice",
 				"settings/audit-removed-oauth-authorization",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -2867,6 +2847,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -2924,7 +2905,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "settings/notifications",
@@ -2932,14 +2914,6 @@
 			"matched": ["pages/settings", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"settings/export-available",
 				"settings/owner-organizations",
 				"settings/session-seen-in",
@@ -2973,7 +2947,12 @@
 				"settings/application-account-revoke-notice",
 				"settings/application-api-revoke-notice",
 				"settings/audit-removed-oauth-authorization",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -3042,6 +3021,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -3099,7 +3079,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "settings/security",
@@ -3111,14 +3092,6 @@
 			],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"settings/passkey-delete-confirm",
 				"settings/passkey-delete-cancel",
 				"settings/passkey-delete-confirm-button",
@@ -3293,7 +3266,12 @@
 				"settings/application-account-revoke-notice",
 				"settings/application-api-revoke-notice",
 				"settings/audit-removed-oauth-authorization",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -3362,6 +3340,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -3419,7 +3398,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "settings/sessions",
@@ -3427,14 +3407,6 @@
 			"matched": ["pages/settings", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"settings/export-available",
 				"settings/owner-organizations",
 				"settings/session-seen-in",
@@ -3468,7 +3440,12 @@
 				"settings/application-account-revoke-notice",
 				"settings/application-api-revoke-notice",
 				"settings/audit-removed-oauth-authorization",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -3537,6 +3514,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -3594,7 +3572,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "settings/billing",
@@ -3606,14 +3585,6 @@
 			],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"settings/export-available",
 				"settings/owner-organizations",
 				"settings/session-seen-in",
@@ -3925,7 +3896,12 @@
 				"settings/manage-organizations",
 				"settings/sponsoring-none",
 				"settings/article-a",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -3994,6 +3970,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -4051,7 +4028,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "account/billing",
@@ -4063,14 +4041,6 @@
 			],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"settings/export-available",
 				"settings/owner-organizations",
 				"settings/session-seen-in",
@@ -4382,7 +4352,12 @@
 				"settings/manage-organizations",
 				"settings/sponsoring-none",
 				"settings/article-a",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -4451,6 +4426,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -4508,7 +4484,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "account/billing/ai_usage",
@@ -4520,14 +4497,6 @@
 			],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"settings/export-available",
 				"settings/owner-organizations",
 				"settings/session-seen-in",
@@ -4839,7 +4808,12 @@
 				"settings/manage-organizations",
 				"settings/sponsoring-none",
 				"settings/article-a",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -4908,6 +4882,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -4965,7 +4940,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "account/billing/budgets",
@@ -4977,14 +4953,6 @@
 			],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"settings/export-available",
 				"settings/owner-organizations",
 				"settings/session-seen-in",
@@ -5296,7 +5264,12 @@
 				"settings/manage-organizations",
 				"settings/sponsoring-none",
 				"settings/article-a",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -5365,6 +5338,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -5422,7 +5396,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "account/billing/licensing",
@@ -5434,14 +5409,6 @@
 			],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"settings/export-available",
 				"settings/owner-organizations",
 				"settings/session-seen-in",
@@ -5753,7 +5720,12 @@
 				"settings/manage-organizations",
 				"settings/sponsoring-none",
 				"settings/article-a",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -5822,6 +5794,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -5879,22 +5852,17 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/actions",
 			"path": "/microsoft/vscode/actions",
 			"matched": ["pages/actions", "pages/repo", "global"],
-			"collisions": [],
-			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
+			"collisions": [
+				{ "key": "Show options", "module": "pages/actions" }
 			],
-			"notTranslated": [
+			"rules": [
 				"actions/duration-hms",
 				"actions/duration-hm",
 				"actions/duration-ms",
@@ -5911,7 +5879,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -5980,6 +5953,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -6037,7 +6011,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/agents",
@@ -6045,14 +6020,6 @@
 			"matched": ["pages/agents", "pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"agents/sessions-count",
 				"agents/page-title",
 				"repo/commits-count",
@@ -6061,7 +6028,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -6130,6 +6102,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -6187,7 +6160,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/commits",
@@ -6195,14 +6169,6 @@
 			"matched": ["pages/commits", "pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"commits/toggle-commit-message",
 				"commits/lines-changed",
 				"commits/copy-sha",
@@ -6225,7 +6191,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -6294,6 +6265,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -6351,7 +6323,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/discussions",
@@ -6363,21 +6336,18 @@
 			],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -6446,6 +6416,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -6503,7 +6474,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/wiki",
@@ -6511,14 +6483,6 @@
 			"matched": ["pages/wiki", "pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"wiki/edited-page",
 				"wiki/revisions-count",
 				"wiki/more-pages",
@@ -6529,7 +6493,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -6598,6 +6567,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -6655,7 +6625,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/pulse",
@@ -6663,14 +6634,6 @@
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"insights/hours",
 				"insights/days",
 				"insights/weeks",
@@ -6734,7 +6697,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -6803,6 +6771,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -6860,7 +6829,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/graphs",
@@ -6868,14 +6838,6 @@
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"insights/hours",
 				"insights/days",
 				"insights/weeks",
@@ -6939,7 +6901,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -7008,6 +6975,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -7065,7 +7033,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/forks",
@@ -7073,14 +7042,6 @@
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"insights/hours",
 				"insights/days",
 				"insights/weeks",
@@ -7144,7 +7105,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -7213,6 +7179,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -7270,7 +7237,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/security",
@@ -7278,14 +7246,6 @@
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"insights/hours",
 				"insights/days",
 				"insights/weeks",
@@ -7349,7 +7309,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -7418,6 +7383,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -7475,7 +7441,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/projects",
@@ -7483,14 +7450,6 @@
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"insights/hours",
 				"insights/days",
 				"insights/weeks",
@@ -7554,7 +7513,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -7623,6 +7587,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -7680,7 +7645,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/tags",
@@ -7688,14 +7654,6 @@
 			"matched": ["pages/commits", "pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"commits/toggle-commit-message",
 				"commits/lines-changed",
 				"commits/copy-sha",
@@ -7718,7 +7676,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -7787,6 +7750,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -7844,7 +7808,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/branches",
@@ -7852,14 +7817,6 @@
 			"matched": ["pages/commits", "pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"commits/toggle-commit-message",
 				"commits/lines-changed",
 				"commits/copy-sha",
@@ -7882,7 +7839,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -7951,6 +7913,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -8008,7 +7971,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/compare",
@@ -8016,14 +7980,6 @@
 			"matched": ["pages/commits", "pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"commits/toggle-commit-message",
 				"commits/lines-changed",
 				"commits/copy-sha",
@@ -8046,7 +8002,12 @@
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -8115,6 +8076,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -8172,7 +8134,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "search",
@@ -8180,21 +8143,18 @@
 			"matched": ["pages/search", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"search/topic",
 				"search/users-starred-count",
 				"search/stars-count",
 				"search/results-count",
 				"search/on-date",
 				"search/topic-repos-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -8263,6 +8223,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -8320,7 +8281,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "topics",
@@ -8328,21 +8290,18 @@
 			"matched": ["pages/search", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"search/topic",
 				"search/users-starred-count",
 				"search/stars-count",
 				"search/results-count",
 				"search/on-date",
 				"search/topic-repos-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -8411,6 +8370,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -8468,7 +8428,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "features",
@@ -8478,13 +8439,10 @@
 			"rules": [
 				"global/now",
 				"global/yesterday",
+				"global/seconds-ago",
 				"global/minutes-ago",
 				"global/hours-ago",
 				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
-				"global/seconds-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -8553,6 +8511,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -8610,7 +8569,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "pricing",
@@ -8620,13 +8580,10 @@
 			"rules": [
 				"global/now",
 				"global/yesterday",
+				"global/seconds-ago",
 				"global/minutes-ago",
 				"global/hours-ago",
 				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
-				"global/seconds-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -8695,6 +8652,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -8752,7 +8710,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		},
 		{
 			"name": "not-a-real-page/x",
@@ -8760,21 +8719,18 @@
 			"matched": ["pages/repo", "global"],
 			"collisions": [],
 			"rules": [
-				"global/now",
-				"global/yesterday",
-				"global/minutes-ago",
-				"global/hours-ago",
-				"global/days-ago",
-				"global/comments-count"
-			],
-			"notTranslated": [
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
 				"repo/stars-count",
 				"repo/watchers-count",
 				"repo/forks-count",
+				"global/now",
+				"global/yesterday",
 				"global/seconds-ago",
+				"global/minutes-ago",
+				"global/hours-ago",
+				"global/days-ago",
 				"global/weeks-ago",
 				"global/months-ago",
 				"global/years-ago",
@@ -8843,6 +8799,7 @@
 				"global/tasks-count",
 				"global/files-count",
 				"global/forks-count",
+				"global/comments-count",
 				"global/copyright-year",
 				"global/fractional-seconds-ago",
 				"global/fractional-minutes-ago",
@@ -8900,7 +8857,8 @@
 				"global/in-a-week",
 				"global/in-a-month",
 				"global/in-a-year"
-			]
+			],
+			"notTranslated": []
 		}
 	]
 }

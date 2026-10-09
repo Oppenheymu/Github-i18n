@@ -29,7 +29,7 @@ Github-i18n/
 │   │   │   └── canonical.jsonc # 键的权威清单（**仅门禁使用，不进 content 包**）
 │   │   ├── locales/         # 只有译文（稀疏覆盖）
 │   │   │   ├── zh-CN/       # global.jsonc + pages/<页名>.jsonc + rules.jsonc
-│   │   │   └── ja/          # 同上，目前只有样例
+│   │   │   └── ja/          # 同上（规则模板已全量，词条仍稀疏）
 │   │   ├── locales.ts       # 语言元数据：id / 显示名 / 文字系统声明
 │   │   ├── registry.ts      # 数据注册表：core + 各语言 → JSONC 原始数据
 │   │   ├── load.ts          # JSONC → 词典类型（严格编译 + 字段白名单 + 交叉引用）
@@ -102,8 +102,16 @@ content script 以 `run_at: document_start` 注入：
 上面这段是 2026-09 的实测输出，**数字随词典增长，一律以本机跑出来的为准**（这一节只解释口径，不维护数字）。口径说明：
 
 - 「规范键」是 `core/canonical.jsonc` 里 **模块 × 键** 的**槽位数**——同一段英文原文若在两个模块各登记一次就算两处；**去重后的唯一键更少**（当前 2086 个槽位 / 2019 个唯一键），「N / 2086」这类覆盖率数字用的都是槽位数；
-- 「条译文」是各语言实际给出的词条数之和（zh-CN 满覆盖 + ja 样例），不等于规范键数；
+- 「条译文」是各语言实际给出的词条数之和（zh-CN 满覆盖 + ja 的稀疏词条），不等于规范键数；
 - 「条共享规则」是 `core/rules.jsonc` 里 `id` + `pattern` 的条数（语言无关，只有一份），各语言只是给它配模板。
+
+**2026-10-07 起 ja 的中间态：「规则已全量、词条仍稀疏」**。`locales/ja/rules.jsonc` 已按 core 补齐全部 786 条模板
+（`check:view` 的 `notTranslated` 因此全空），但 `locales/ja/**` 的词条只译了一部分模块——**已译模块的权威清单在
+`src/dict/registry.ts` 的 ja 段**（已列的模块名就是已翻译的，没列出的即尚未翻译），本节不重复维护这份名单。
+**规则是按模块独立生效的**（缺模板才是整条不生效），所以还没译词条的模块会出现「规则覆盖到的动态节点是日语、
+静态词条仍是英文」的混排——例如 `/settings/security` 的 2FA 横幅只会译出规则管的那一段。这不是缺陷，而是
+「先同步规则、后补词条」的既定中间态；判断某页是否处于这种状态，看 `bun run check:dict` 的覆盖率与该页有没有词条文件，
+不要看 `notTranslated`（它此时是空的）。
 
 ### 规则为什么按 id 拆
 
@@ -449,11 +457,13 @@ for (const p of probes) {
 
 新增的进程内测试补齐了四个**此前从未被任何测试加载**的模块：`src/content/__tests__/engine.test.ts`（观察器调度）、`src/content/__tests__/index.test.ts`（content 入口装配）、`src/popup/__tests__/popup.test.ts`（popup 全交互）、`src/shared/__tests__/identity.test.ts`（身份标记契约）。凡是需要 DOM 语义的用例（walker / engine / index / popup / collector）**一律从 `src/test-support/dom.ts` 取环境**——devDependency `happy-dom`，**手写 DOM 桩已全部退役**。
 
-`bun test` 的 `globalThis` 与模块注册表**跨测试文件共享**，三条硬约束违反任一条都会让**别的文件**的用例成片变红（2026-10-03 逐一踩过）：
+`bun test` 的 `globalThis` 与模块注册表**跨测试文件共享**，四条硬约束违反任一条都会让**别的文件**的用例成片变红（2026-10-03 逐一踩过，第四条是 2026-10-07 补的）：
 
 1. **不要用 `mock.module`**：它是进程级注册，会泄漏给同一进程里的其他测试文件（实测：入口测试 mock 掉 `collector` / `pages` 后，walker 与全部页面测试找不到真实导出）；
 2. **全局桩一律合并挂载**（`obj["k"] = v`），**禁止整体替换** `globalThis.chrome` / `document`——整体替换会删掉别的测试文件刚装好的命名空间（实测：入口测试的 chrome 桩只有 `i18n`，把 storage 测试的 `chrome.storage` 打掉，12 个用例失败）；
 3. **DOM 只有一份来源**（`src/test-support/dom.ts`）：`walker.ts` 用 `root instanceof Element` 判根节点类型，而 `instanceof` 比的是**类身份**——两个文件各造一个窗口，后装的那份会让先装的那份的节点不再 `instanceof Element`（2026-10-03 用两份内联桩实际踩到，成片用例变红）。该文件同时负责在用例文件收尾 `restore()`：bun 是**按文件**「加载 → 跑 → 下一个」（实测），还原后下一个文件拿到的仍是它自己期望的全局。它自身的行为（嵌套安装的还原、观察留痕、事件钩子留痕且照常派发）由 `src/test-support/dom.test.ts` 钉住（与被测模块平级，遵守「测试与源码同目录」）。
+
+4. **模块单例状态也算共享状态，且「谁改谁收尾」**：`src/content/collector.ts` 的 `enabled` 与漏翻缓冲是模块级的，而 `src/content/__tests__/index.test.ts` 跑的是**真实入口**——bootstrap 会按 storage 把开关打开（`enabled=true`，devMode 再装上自动落盘），翻译过程中的漏翻留在缓冲里。它此前收尾只 `restore()` 了 DOM，单例状态一直漏给后面的文件，于是 `collector.test.ts` 的「starts disabled」与「records text and attribute misses under the current path」**随文件发现顺序红绿**：本机 Windows 按目录字母序把 `collector` 排在 `index` 之前（一直绿），CI 的 Linux `readdir` 顺序正好相反（2026-10-02 起 CI 一直红，两条用例分别是 `Expected: false / Received: true` 与多出 4 条 `/microsoft/vscode` 记录）。修法两条：① 入口测试的 `afterAll` 里 `setEnabled(false)` + `flushMisses()`（flush 顺带清空缓冲）；② `collector.test.ts` 装好桩之后**自建基线**（同样两句），并把「模块默认关闭」改成对**全新实例**断言——带查询串的 `import("../collector.ts?fresh-default-state")` 在 Bun 1.4.2 里确实是新实例（2026-10-07 实测，另见本节末的更正）。
 
 **popup 为什么改用真实 DOM**：popup.ts 顶层的 `assertFound` 在缺元素时直接抛错 → popup **整页空白**，而 `popup.html` 与 `popup.ts` 分属两类文件。写桩 DOM 时，桩里的选择器列表是从 HTML **抄**来的——HTML 改了测试照样全绿。改用 happy-dom 加载真实 HTML 后，删掉或改名任一元素都会当场红灯（实测：把 `#dev-panel` 改名后 popup 测试报「popup 结构不完整：缺少 #dev-panel」）。同一份契约另有一道**零依赖**的静态防线——`check:manifest` 的 `validatePopupSelectors`（只查存在性，不需要 DOM 库）：一道锁结构、一道锁行为，缺一不可。
 
@@ -467,7 +477,7 @@ for (const p of probes) {
 
 另注：content 入口与 popup 都有顶层副作用，**一个进程只会装配一次**，所以有两处覆盖不到，都不是「忘了写」而是结构上做不到：
 
-- 「`enabled` 关闭时不启动观察器」这条反向条件无法再开一个测试文件验证（第二个文件会复用第一次的装配结果，`?query` 也不产生新实例——Bun 实测不支持）。该闸门由 `engine.test.ts` 的「关闭时只清空队列不翻译」与 `readEnabled` 的默认值把守；
+- 「`enabled` 关闭时不启动观察器」这条反向条件无法再开一个测试文件验证（第二个文件静态 import `../index.ts` 会复用第一次的装配结果）。**更正（2026-10-07）**：带查询串的 `import` 在 Bun 1.4.2 里**确实产生新实例**——`collector.test.ts` 用 `../collector.ts?fresh-default-state` 实测，新实例的 `setEnabled` 不影响共享单例（早前「`?query` 也不产生新实例」的结论已不成立）。也就是说这条反向条件在结构上**可以**再开一个文件覆盖（同一个加载器机制），只是本轮没做。该闸门目前仍由 `engine.test.ts` 的「关闭时只清空队列不翻译」与 `readEnabled` 的默认值把守；
 - `popup.ts` 末尾那个 `try { main() } catch` 兜底分支同理（要覆盖它得造出第二个「`main()` 抛错」的装配场景）。它是纯兜底，代价可接受；`popup.ts` 顶层的 `assertFound` 仍在 `main()` 之外抛出，**刻意不吞**（缺元素属打包错误，掩盖它只会让人更难查）。
 
 **已知空缺：`repo-settings`（`/owner/repo/settings`）整页尚未采集**（该页需要登录），所以仓库设置页没有**整页**的实机节点回归——目前它只有三处：`repo-settings/index.test.ts` 覆盖的「Creation allowed by」筛选按钮三节点、2026-10-03 采集的议题创建策略 action-list 与保留期改版文案，`repo-settings/actions.test.ts` 覆盖的 Actions 子页（途径 A 清单），与 `repo-settings/interaction-limits.test.ts` 覆盖的交互限制子页（途径 A 清单）；其余词条靠视图骨架层的保护（命中模块序列 + 碰撞赢家）与词典门禁。

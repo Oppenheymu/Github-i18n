@@ -6642,7 +6642,9 @@
 			"name": "microsoft/vscode/wiki",
 			"path": "/microsoft/vscode/wiki",
 			"matched": ["pages/wiki", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Pages", "module": "pages/wiki" }
+			],
 			"rules": [
 				"wiki/edited-page",
 				"wiki/revisions-count",

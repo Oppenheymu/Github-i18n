@@ -1,0 +1,18 @@
+// 日本語・モジュール pages/wiki：/owner/repo/wiki サブツリー——ウィキのサイドバー、ページ検索、クローン欄。
+// 鍵は core/canonical.jsonc の pages/wiki と同一（証拠コメントはそちらを参照）。
+// 鍵は英語原文と完全一致させること（エンジンはノード単位の完全一致で引く）。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		"Wiki pages": "ウィキページ",
+		// global の "Pages"（ページ）と同訳。このページの Pages はウィキのページ一覧を指すため
+		// 訳語は同じでよいが、両モジュールが同じパスで提供するのでビュー骨格には collisions として
+		// 記録される（zh-CN の wiki も同じ構図：global の「页码」を本モジュールの「页面」で上書き）。
+		"Pages": "ページ",
+		"Find a page or section": "ページまたはセクションを検索",
+		"Find a page or section…": "ページまたはセクションを検索…",
+		"Jump to bottom": "最下部へ移動",
+		"Clone this wiki locally": "このウィキをローカルにクローン",
+		"Clone URL for this wiki": "このウィキのクローン URL"
+	}
+}

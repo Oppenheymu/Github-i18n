@@ -4635,7 +4635,57 @@
 				//（原文节点自带），与仓库级那批同形。
 				"See how rulesets are affecting this",
 				"Enterprise accounts enable you to review commits against rulesets to track pass, fail, or bypass status for greater oversight and understanding.",
-				"Try GitHub Enterprise"
+				"Try GitHub Enterprise",
+				// —— 组织规则集仪表盘页（/organizations/<组织>/settings/rules/dashboard）——
+				// 证据：2026-10-10 维护者贴的实机 outerHTML（`<react-app
+				// app-name="rule-insights-dashboard" initial-path="…/settings/rules/dashboard">`）。
+				// 它**不是**前两页那款 `repos-rules` 应用，故页头、指标卡、图表文案都是新串；
+				// 页面上的对照物是表头的 `仓库`（`Repository` 命中既有键）与搜索按钮的
+				// tooltip「搜索」——说明本模块在这一页确实生效，其余英文才是漏翻。
+				// 图表是 Highcharts：可见的轴标题与图例是文本节点（`Values` / `Actor` /
+				// `Number of bypasses` / `Passes` / `Failures` / `Bypasses`），
+				// 屏显不可见的无障碍描述（clipped 读屏区与 SVG `<desc>`）是动态文本，
+				// 由本模块的 7 条规则接住，措辞逐字沿用 pages/insights 的同款规则。
+				// 不收录（属性 + 动态值，整串永远命中不了；属性不走规则）：
+				// `Toggle series visibility, Chart`、`Show Passes`、`Rule Suites. Interactive
+				// chart.`（系列名拼在串里）、数据点 aria-label（`Saturday, Oct 3, 2026, 0. Passes.`）。
+				"Repository ruleset dashboard",
+				"Filter rule insights dashboard",
+				// 筛选框文案：`Search or filter` 是 placeholder、`Clear filter` 是清除按钮的
+				// tooltip；两条在别的模块各有同译的键（pages/agents / pages/pulls），
+				// 但那些路由都不命中组织设置页，必须在本模块各收一份（同串同译）。
+				"Search or filter",
+				"Clear filter",
+				// —— 图表卡外壳（两张图共用）——
+				"Rule Suites",
+				"Chart options",
+				"Customization settings",
+				"View as data table, Chart",
+				"Interactive chart",
+				"End of interactive chart.",
+				// —— 折线图的轴标题 ——
+				"Values",
+				// —— 指标卡（payload 的 metrics[].name 与 link.displayText）——
+				"Allowed",
+				"Failed",
+				"Bypassed",
+				"in the time period",
+				"View allowed runs",
+				"View failed runs",
+				"View bypassed runs",
+				// —— 柱状图「Bypasses by actor」的标题、说明与轴标题 ——
+				"Actor",
+				"Number of bypasses",
+				"Bypasses by actor",
+				"Members who have bypassed the most",
+				// —— 表「Top repositories by bypasses」——
+				"Top repositories by bypasses",
+				"Displays Rule Bypasses at the Organization, Repository, and Enterprise levels, limited to Active Rules only",
+				// 图例与表头的三组计数名：`Passes` / `Failures` / `Bypasses` 来自 payload 的
+				// `ruleSuites[].name`，同时出现在 SVG 图例、悬浮提示与表头
+				"Passes",
+				"Failures",
+				"Bypasses"
 			]
 		},
 		{

@@ -494,6 +494,15 @@
 		"org-settings/remaining-count": "剩余 $1 个字符",
 		// 组织主题页的页头标题（组织名是动态值，规则不递归，原样带回）
 		"org-settings/topics-heading": "你在 $1 中贡献的仓库",
+		// 组织规则集仪表盘页的两张 Highcharts 图表（屏显不可见的无障碍文案）：
+		// 措辞与 insights/* 的同款规则逐字一致，条数 / 轴数 / 数据范围都是动态值
+		"org-settings/chart-line": "包含 $1 条折线的折线图。",
+		"org-settings/chart-bar": "包含 $1 根柱条的柱状图。",
+		"org-settings/highcharts-credit": "使用 Highcharts $1 创建",
+		"org-settings/chart-x-axis-time": "图表有 $1 条 X 轴，显示时间。数据范围从 $2 到 $3。",
+		"org-settings/chart-y-axis-values": "图表有 $1 条 Y 轴，显示数值。数据范围从 $2 到 $3。",
+		"org-settings/chart-x-axis-actor": "图表有 $1 条 X 轴，显示操作者。",
+		"org-settings/chart-y-axis-bypasses": "图表有 $1 条 Y 轴，显示绕过次数。数据范围从 $2 到 $3。",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

@@ -832,6 +832,46 @@
 		"Repository ruleset insights": "仓库规则集洞察",
 		"See how rulesets are affecting this": "查看规则集如何影响此",
 		"Enterprise accounts enable you to review commits against rulesets to track pass, fail, or bypass status for greater oversight and understanding.": "企业账户让你可以对照规则集审查提交，以跟踪通过、失败或绕过状态，从而获得更强的监督与理解。",
-		"Try GitHub Enterprise": "试用 GitHub Enterprise"
+		"Try GitHub Enterprise": "试用 GitHub Enterprise",
+		// —— 组织规则集仪表盘页（/organizations/<组织>/settings/rules/dashboard）——
+		// 证据：2026-10-10 维护者贴的实机 outerHTML（`<react-app
+		// app-name="rule-insights-dashboard">`，与规则集页/洞察页不是同一款应用）。
+		// 页面已有一半是中文（表头 `仓库`、搜索按钮 tooltip「搜索」），其余英文即本批清单。
+		// Highcharts 的屏显不可见读屏文案走本模块的 7 条规则，不在这里登记。
+		"Repository ruleset dashboard": "仓库规则集仪表盘",
+		// 筛选框的 aria-label 与 sr-only 标签是同一个串；placeholder 在 pages/agents 里
+		// 已有同译（`搜索或筛选`），但那条路由不命中组织设置页，故这里各收一份。
+		"Filter rule insights dashboard": "筛选规则洞察仪表盘",
+		"Search or filter": "搜索或筛选",
+		"Clear filter": "清除筛选",
+		// 图表卡外壳：与 pages/insights 的同款 Highcharts 文案逐字一致（用例把两边钉成相等）
+		"Rule Suites": "规则套件",
+		"Chart options": "图表选项",
+		"Customization settings": "自定义设置",
+		"View as data table, Chart": "以数据表查看，图表",
+		"Interactive chart": "交互式图表",
+		"End of interactive chart.": "交互式图表结束。",
+		// 折线图与柱状图的轴标题（同时是 SVG 里的可见文本）
+		"Values": "数值",
+		"Actor": "操作者",
+		"Number of bypasses": "绕过次数",
+		// 指标卡：payload 的 `metrics[].name` 与 `link.displayText`
+		"Allowed": "已允许",
+		"Failed": "失败",
+		"Bypassed": "已绕过",
+		"in the time period": "在该时间段内",
+		"View allowed runs": "查看已允许的运行",
+		"View failed runs": "查看失败的运行",
+		"View bypassed runs": "查看已绕过的运行",
+		// 柱状图的标题与说明
+		"Bypasses by actor": "按操作者统计的绕过",
+		"Members who have bypassed the most": "绕过次数最多的成员",
+		// 表格的标题与说明，以及表头 / 图例共用的三个计数名
+		//（`Passes` / `Failures` / `Bypasses` 来自 payload 的 `ruleSuites[].name`）
+		"Top repositories by bypasses": "绕过次数最多的仓库",
+		"Displays Rule Bypasses at the Organization, Repository, and Enterprise levels, limited to Active Rules only": "显示组织、仓库和企业层级的规则绕过情况，仅限活动中的规则",
+		"Passes": "通过",
+		"Failures": "失败",
+		"Bypasses": "绕过"
 	}
 }

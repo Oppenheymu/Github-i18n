@@ -1980,7 +1980,12 @@
 			],
 			"notTranslated": [
 				"org-settings/pr-cap-limit",
-				"org-settings/topics-heading"
+				"org-settings/topics-heading",
+				"org-settings/chart-line",
+				"org-settings/chart-x-axis-time",
+				"org-settings/chart-y-axis-values",
+				"org-settings/chart-x-axis-actor",
+				"org-settings/chart-y-axis-bypasses"
 			]
 		},
 		{
@@ -2132,7 +2137,12 @@
 			],
 			"notTranslated": [
 				"org-settings/pr-cap-limit",
-				"org-settings/topics-heading"
+				"org-settings/topics-heading",
+				"org-settings/chart-line",
+				"org-settings/chart-x-axis-time",
+				"org-settings/chart-y-axis-values",
+				"org-settings/chart-x-axis-actor",
+				"org-settings/chart-y-axis-bypasses"
 			]
 		},
 		{
@@ -2566,7 +2576,12 @@
 			],
 			"notTranslated": [
 				"org-settings/pr-cap-limit",
-				"org-settings/topics-heading"
+				"org-settings/topics-heading",
+				"org-settings/chart-line",
+				"org-settings/chart-x-axis-time",
+				"org-settings/chart-y-axis-values",
+				"org-settings/chart-x-axis-actor",
+				"org-settings/chart-y-axis-bypasses"
 			]
 		},
 		{
@@ -2718,7 +2733,12 @@
 			],
 			"notTranslated": [
 				"org-settings/pr-cap-limit",
-				"org-settings/topics-heading"
+				"org-settings/topics-heading",
+				"org-settings/chart-line",
+				"org-settings/chart-x-axis-time",
+				"org-settings/chart-y-axis-values",
+				"org-settings/chart-x-axis-actor",
+				"org-settings/chart-y-axis-bypasses"
 			]
 		},
 		{

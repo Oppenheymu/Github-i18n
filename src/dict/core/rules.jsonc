@@ -2455,6 +2455,44 @@
 				{
 					"id": "org-settings/topics-heading",
 					"pattern": "^([A-Za-z0-9][A-Za-z0-9-]*) repositories you contribute to$"
+				},
+				// 组织规则集仪表盘页（/organizations/<组织>/settings/rules/dashboard）的两张
+				// Highcharts 图表：可见文案（轴标题、图例、指标卡）走词条，**屏显不可见的
+				// 无障碍描述**（clipped 读屏区与 SVG 的 `<desc>`）是动态文本，只能靠规则。
+				// 措辞与 pages/insights 的同款规则逐字一致（同款 Highcharts，读屏文案不能
+				// 一个模块一个说法）；那条路由不命中组织路径，故本模块各收一份
+				//（跨模块重复 pattern 合法，同模块内才要求唯一）。
+				{
+					"id": "org-settings/chart-line",
+					"pattern": "^Line chart with (\\d+) lines?\\.$"
+				},
+				{
+					"id": "org-settings/chart-bar",
+					"pattern": "^Bar chart with (\\d+) bars?\\.$"
+				},
+				{
+					"id": "org-settings/highcharts-credit",
+					"pattern": "^Created with Highcharts ([\\d.]+)$"
+				},
+				// 轴名是**捕获组带不出来的**——规则替换不递归翻译捕获内容，故轴名写死在
+				// 模板里（与 insights/chart-y-axis-contributions 把 `Contributions` 写死同理）。
+				// 折线图：X 轴时间（数据范围的日期由 GitHub 按浏览器语言在客户端格式化，
+				// 形态不可预知，整段捕获）；柱状图：X 轴 `Actor`、Y 轴 `Number of bypasses`。
+				{
+					"id": "org-settings/chart-x-axis-time",
+					"pattern": "^The chart has (\\d+) X ax(?:is|es) displaying Time\\. Data ranges from (.+) to (.+)\\.$"
+				},
+				{
+					"id": "org-settings/chart-y-axis-values",
+					"pattern": "^The chart has (\\d+) Y ax(?:is|es) displaying Values\\. Data ranges from (-?[\\d.]+) to (-?[\\d.]+)\\.$"
+				},
+				{
+					"id": "org-settings/chart-x-axis-actor",
+					"pattern": "^The chart has (\\d+) X ax(?:is|es) displaying Actor\\.$"
+				},
+				{
+					"id": "org-settings/chart-y-axis-bypasses",
+					"pattern": "^The chart has (\\d+) Y ax(?:is|es) displaying Number of bypasses\\. Data ranges from ([\\d.-]+) to ([\\d.-]+)\\.$"
 				}
 			]
 		},

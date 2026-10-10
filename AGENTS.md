@@ -56,6 +56,7 @@ bun run pack                    # dist/ 打 zip（Chrome Web Store / Edge Add-on
 
 - **biome.json 里不能写注释**：出现 `//` 会让 Biome **静默丢弃整个 `overrides` 数组**。
 - **Bun.build 没有 `outfile`**：产物命名靠 `naming` 模板，content 与 popup 按入口分别构建；iife 是硬约束（见硬性约束 5）。
+- **`check:view` 的「尚未翻译的规则」按 pattern 源串判重，不按 id**：跨模块同 pattern 的规则（本仓合法且常见）只要有一个模块在某种语言里给了模板，另一个模块缺模板时**不会**出现在快照的 `notTranslated` 里（2026-10-10 实例：ja 没给 `org-settings/chart-bar` / `org-settings/highcharts-credit` 模板，两条被 `insights/chart-bar` / `insights/highcharts-credit` 的同形 pattern 遮住）——给一种语言补规则模板时按 id 逐条核对，别只看骨架的 `notTranslated`。
 - **`check:view --update` 的行宽判定必须含尾随逗号**：`serializeSkeleton` 自己按 Biome 规则排版，验收标准是 `--update` 之后 `biome check tooling/fixtures/` 零改动；数组**非末位**元素末尾的逗号也算一列，漏算会让「内联正好 60 列」的元素被误判成内联（2026-09-27 在 `collisions` 上首次踩到，此前从未产生过非空 collisions；已修 + 回归用例）。
 - **图标是静态资产，没有生成脚本**：`public/icons/` 下的 `logo-16.jpg` / `logo-32.jpg` / `logo-48.jpg` / `logo-128.jpg` 直接提交在仓库里，改图标就替换这四个文件（四个尺寸都要换）；**改文件名必须同步 `public/manifest.json` 的 `icons` 与 `public/popup.html` 的 `<img src>`**（`check:manifest` 校验引用存在性，漏改即红灯）；`assets/icon.svg` 与 `tooling/gen-icons.ts` 已删除，`bun run icons` 不再存在（历史：曾用无头浏览器 CDP 栅格化 SVG，新版无头浏览器的 `--screenshot` 不支持透明背景，故当时必须走 CDP）。
 - **GitHub 正在渐进迁移 React 重写页面**：类名 / 结构变动导致漏翻或排除失灵属常态，修词条前先修对应排除选择器。

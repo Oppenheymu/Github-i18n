@@ -823,6 +823,15 @@
 		// `New ruleset` 下拉的最后一项：标签 + 说明两个节点
 		//（与 pages/repo-settings 同译，改词两处一起改）
 		"Import a ruleset": "导入规则集",
-		"Choose a JSON file to upload": "选择要上传的 JSON 文件"
+		"Choose a JSON file to upload": "选择要上传的 JSON 文件",
+		// —— 组织规则集洞察页（/organizations/<组织>/settings/rules/insights）——
+		// H1 是单数 `ruleset`，是新串；后三条与 pages/repo-settings 同译（改词两处一起改）。
+		// `See how rulesets are affecting this` 后面跟着由 `sourceType` 决定的节点：
+		// 本页是 `organization`（本模块既有词条「组织」），拼起来读作
+		//「查看规则集如何影响此 组织」（空格是原文节点自带的）。
+		"Repository ruleset insights": "仓库规则集洞察",
+		"See how rulesets are affecting this": "查看规则集如何影响此",
+		"Enterprise accounts enable you to review commits against rulesets to track pass, fail, or bypass status for greater oversight and understanding.": "企业账户让你可以对照规则集审查提交，以跟踪通过、失败或绕过状态，从而获得更强的监督与理解。",
+		"Try GitHub Enterprise": "试用 GitHub Enterprise"
 	}
 }

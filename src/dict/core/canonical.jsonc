@@ -4619,7 +4619,23 @@
 				// `<span>Import a ruleset</span>` 与 `<span>Choose a JSON file to upload</span>`
 				// 各是一个文本节点）。同样逐字沿用 pages/repo-settings 的译法。
 				"Import a ruleset",
-				"Choose a JSON file to upload"
+				"Choose a JSON file to upload",
+				// —— 组织规则集洞察页（/organizations/<组织>/settings/rules/insights）——
+				// 证据：2026-10-10 维护者贴的实机 outerHTML（同一款 `repos-rules` React 应用）。
+				// 页面已有一半是中文：`organization` 与链接的 `Learn more` 命中既有键，
+				// 剩下的四条英文就是本批要补的。其中后三条在 pages/repo-settings 里已有
+				// 同串译文（Actions 策略洞察页 / 规则集页），逐字沿用；H1 是**新串**
+				//（仓库级那条路径至今没有采集证据，故只登记在本模块）。
+				// 注意 H1 用的是单数 `ruleset`（`Repository ruleset insights`），
+				// 与侧栏项 `Ruleset insights`（规则集洞察）不是同串。
+				"Repository ruleset insights",
+				// `See how rulesets are affecting this <名词>` 被 React 拆成两个节点：
+				// 名词由 `sourceType` 决定（组织页是 `organization`，命中本模块既有的小写词条
+				// →「组织」；仓库页是 `repository`），前半句是本条；两段拼起来带一个空格
+				//（原文节点自带），与仓库级那批同形。
+				"See how rulesets are affecting this",
+				"Enterprise accounts enable you to review commits against rulesets to track pass, fail, or bypass status for greater oversight and understanding.",
+				"Try GitHub Enterprise"
 			]
 		},
 		{

@@ -1,0 +1,39 @@
+// 日本語・モジュール pages/agents：/owner/repo/agents サブツリー——エージェントの
+// セッション一覧、絞り込みメニュー、サイドバー。鍵は core/canonical.jsonc の
+// pages/agents と同一（証拠コメントはそちらを参照）。
+//
+// 既訳モジュールと同措辞の鍵（意図的な再利用。別モジュールなので跨いで効かない＝
+// ここにも書かないとこのページでは英語のまま残る）：
+//   "Agent"          pages/dashboard と同じ「エージェント」
+//   "Newest"         pages/issues / pages/pulls と同じ「新しい順」
+//   "Created by me"  pages/issues と同じ「自分が作成」
+// 絞り込みの言い回しは pages/search / pages/pulls / pages/actions に合わせて
+// 「Xで絞り込む」「フィルター」を使う。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		"Agent": "エージェント",
+		"Agent management": "エージェント管理",
+		"Agent navigation": "エージェントのナビゲーション",
+		"Sessions": "セッション",
+		"Active": "アクティブ",
+		"Needs attention": "対応が必要",
+		"Newest": "新しい順",
+		"Created by me": "自分が作成",
+		"Search or filter": "検索またはフィルター",
+		"Configure": "構成",
+		"Customize environment": "環境をカスタマイズ",
+		"Filter sessions": "セッションを絞り込む",
+		"Session filters": "セッションのフィルター",
+		"Task filters": "タスクのフィルター",
+		"Filter by status": "ステータスで絞り込む",
+		"Suggestions": "提案",
+		"Give feedback": "フィードバックを送る",
+		"Toggle sidebar": "サイドバーを切り替え",
+		// 文の断片（前のノードの続き）。AI 製品名は原文のまま
+		"uses AI. Check for mistakes.": "AI を使用しています。誤りがないかご確認ください。",
+		"Reset filters": "フィルターをリセット",
+		"No sessions match your filters": "フィルターに一致するセッションはありません",
+		"Try adjusting your search or filters.": "検索条件またはフィルターを調整してみてください。"
+	}
+}

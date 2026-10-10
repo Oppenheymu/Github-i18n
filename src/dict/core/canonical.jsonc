@@ -4771,6 +4771,9 @@
 				"Is this a production repository?",
 				"How long until data is deleted?",
 				"Is this repository open source?",
+				// 第七组轮换样本（同日只给了一条，标签里没带属性名；
+				// 按页面副标题的措辞推断对应 `data_sensitivity`）
+				"How sensitive is this data?",
 				// —— 同页「Set values」页签（截图 + 整段 HTML，2026-10-10）——
 				// 仓库行右侧的铅笔按钮：`No properties` 是行内文案，
 				// `Edit properties` 是它的 tooltip（同串也是按钮的可访问名，

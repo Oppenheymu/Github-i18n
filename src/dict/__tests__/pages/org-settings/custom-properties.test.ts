@@ -146,6 +146,11 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 		"Is this repository open source?",
 		"这个仓库是开源的吗？",
 	],
+	// 第七组轮换样本
+	[
+		"How sensitive is this data?",
+		"这些数据的敏感程度如何？",
+	],
 ];
 
 /** 本页唯一一条动态文案：`?tab=set-values` 的页头与面包屑末项 */

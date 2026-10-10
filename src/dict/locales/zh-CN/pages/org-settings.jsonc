@@ -933,6 +933,8 @@
 		"Is this a production repository?": "这是生产环境仓库吗？",
 		"How long until data is deleted?": "数据多久后会被删除？",
 		"Is this repository open source?": "这个仓库是开源的吗？",
+		// 第七组轮换样本
+		"How sensitive is this data?": "这些数据的敏感程度如何？",
 		// —— 同页「Set values」页签（截图 + 整段 HTML）——
 		// 仓库行右侧的铅笔按钮：行内文案 + tooltip（同串也是可访问名）
 		"No properties": "没有属性",

@@ -4757,6 +4757,15 @@
 				// 「轮换池只能见过一条收一条」的直接体现（至今九条）。
 				"How protected is the default branch?",
 				"Is this repository maintained?",
+				// 第五组轮换样本（同日另一段 HTML 片段，一次给了五条新串）：
+				// `contains_pii` 一张 + 四条只有描述句、没带属性名的卡片。
+				// `Who owns this repository?` 在同一段里出现了两次（不同卡片撞同一句
+				// 描述），只登记一条。
+				"Are personal identifiers present?",
+				"Who owns this repository?",
+				"Which runtime environment is used?",
+				"Which cloud providers are used?",
+				"Was this repository migrated?",
 				// —— 同页「Set values」页签（截图 + 整段 HTML，2026-10-10）——
 				// 仓库行右侧的铅笔按钮：`No properties` 是行内文案，
 				// `Edit properties` 是它的 tooltip（同串也是按钮的可访问名，

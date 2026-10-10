@@ -922,6 +922,13 @@
 		// 第四组轮换样本（`branch_protection_level` / `active` / `ci`）
 		"How protected is the default branch?": "默认分支的保护程度如何？",
 		"Is this repository maintained?": "这个仓库还在维护吗？",
+		// 第五组轮换样本：`contains_pii` 一张 + 四条只带描述句的卡片
+		//（`Who owns this repository?` 在同一段里出现两次，同串同译）
+		"Are personal identifiers present?": "是否存在个人身份信息？",
+		"Who owns this repository?": "谁拥有这个仓库？",
+		"Which runtime environment is used?": "使用了哪个运行时环境？",
+		"Which cloud providers are used?": "使用了哪些云服务提供商？",
+		"Was this repository migrated?": "这个仓库是迁移过来的吗？",
 		// —— 同页「Set values」页签（截图 + 整段 HTML）——
 		// 仓库行右侧的铅笔按钮：行内文案 + tooltip（同串也是可访问名）
 		"No properties": "没有属性",

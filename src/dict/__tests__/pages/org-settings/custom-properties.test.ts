@@ -19,7 +19,7 @@
 //   ① 路由：命中 pages/org-settings + global，不命中 pages/repo-settings；
 //      新建页的地址 `/organizations/<组织>/settings/custom-property`（**单数**，
 //      即 `New property` 按钮的 href）也在同一条路由下；
-//   ② 页头 / 页签 / 筛选框 / 空态区块 / 「Set values」分支共 24 条键在实机节点上全部命中；
+//   ② 页头 / 页签 / 筛选框 / 空态区块 / 「Set values」分支共 29 条键在实机节点上全部命中；
 //   ③ 属性只走整串精确匹配：`Filter properties`（表单 aria-label 与 sr-only 标签同串）、
 //      `Page selector`（nav 的 aria-label）、`See more suggested properties`
 //      （按钮的 aria-label）三条都要能查到；
@@ -115,6 +115,24 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 		"Is this repository maintained?",
 		"这个仓库还在维护吗？",
 	],
+	// 第五组轮换样本（一段 HTML 里给了五条新描述句，其中一条出现两次）
+	[
+		"Are personal identifiers present?",
+		"是否存在个人身份信息？",
+	],
+	["Who owns this repository?", "谁拥有这个仓库？"],
+	[
+		"Which runtime environment is used?",
+		"使用了哪个运行时环境？",
+	],
+	[
+		"Which cloud providers are used?",
+		"使用了哪些云服务提供商？",
+	],
+	[
+		"Was this repository migrated?",
+		"这个仓库是迁移过来的吗？",
+	],
 ];
 
 /** 本页唯一一条动态文案：`?tab=set-values` 的页头与面包屑末项 */
@@ -166,6 +184,7 @@ const MUST_STAY_ENGLISH: readonly string[] = [
 	"uses_external_packages",
 	"branch_protection_level",
 	"active",
+	"contains_pii",
 	"items",
 	"0",
 	"\u00a0(0)",
@@ -364,6 +383,24 @@ describe("组织自定义属性页的节点切分事实", () => {
 			]),
 		).toBe(
 			"branch_protection_level默认分支的保护程度如何？active这个仓库还在维护吗？ci此仓库使用哪个 CI？",
+		);
+	});
+
+	it("renders the fifth rotating sample", () => {
+		// 第五组：五条新描述句（`Who owns this repository?` 在同一段里出现两次，
+		// 同串同译，只登记一条键）+ 一张卡带属性名
+		expect(
+			renderNodes([
+				"contains_pii",
+				"Are personal identifiers present?",
+				"Who owns this repository?",
+				"Which runtime environment is used?",
+				"Who owns this repository?",
+				"Which cloud providers are used?",
+				"Was this repository migrated?",
+			]),
+		).toBe(
+			"contains_pii是否存在个人身份信息？谁拥有这个仓库？使用了哪个运行时环境？谁拥有这个仓库？使用了哪些云服务提供商？这个仓库是迁移过来的吗？",
 		);
 	});
 

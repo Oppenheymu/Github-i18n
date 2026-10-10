@@ -929,6 +929,10 @@
 		"Which runtime environment is used?": "使用了哪个运行时环境？",
 		"Which cloud providers are used?": "使用了哪些云服务提供商？",
 		"Was this repository migrated?": "这个仓库是迁移过来的吗？",
+		// 第六组轮换样本（deploys_to_production / data_retention_period / open_source）
+		"Is this a production repository?": "这是生产环境仓库吗？",
+		"How long until data is deleted?": "数据多久后会被删除？",
+		"Is this repository open source?": "这个仓库是开源的吗？",
 		// —— 同页「Set values」页签（截图 + 整段 HTML）——
 		// 仓库行右侧的铅笔按钮：行内文案 + tooltip（同串也是可访问名）
 		"No properties": "没有属性",

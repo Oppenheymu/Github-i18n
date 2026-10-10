@@ -19,7 +19,7 @@
 //   ① 路由：命中 pages/org-settings + global，不命中 pages/repo-settings；
 //      新建页的地址 `/organizations/<组织>/settings/custom-property`（**单数**，
 //      即 `New property` 按钮的 href）也在同一条路由下；
-//   ② 页头 / 页签 / 筛选框 / 空态区块 / 「Set values」分支共 29 条键在实机节点上全部命中；
+//   ② 页头 / 页签 / 筛选框 / 空态区块 / 「Set values」分支共 32 条键在实机节点上全部命中；
 //   ③ 属性只走整串精确匹配：`Filter properties`（表单 aria-label 与 sr-only 标签同串）、
 //      `Page selector`（nav 的 aria-label）、`See more suggested properties`
 //      （按钮的 aria-label）三条都要能查到；
@@ -133,6 +133,19 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 		"Was this repository migrated?",
 		"这个仓库是迁移过来的吗？",
 	],
+	// 第六组轮换样本（三张卡都带属性名）
+	[
+		"Is this a production repository?",
+		"这是生产环境仓库吗？",
+	],
+	[
+		"How long until data is deleted?",
+		"数据多久后会被删除？",
+	],
+	[
+		"Is this repository open source?",
+		"这个仓库是开源的吗？",
+	],
 ];
 
 /** 本页唯一一条动态文案：`?tab=set-values` 的页头与面包屑末项 */
@@ -185,6 +198,9 @@ const MUST_STAY_ENGLISH: readonly string[] = [
 	"branch_protection_level",
 	"active",
 	"contains_pii",
+	"deploys_to_production",
+	"data_retention_period",
+	"open_source",
 	"items",
 	"0",
 	"\u00a0(0)",
@@ -401,6 +417,22 @@ describe("组织自定义属性页的节点切分事实", () => {
 			]),
 		).toBe(
 			"contains_pii是否存在个人身份信息？谁拥有这个仓库？使用了哪个运行时环境？谁拥有这个仓库？使用了哪些云服务提供商？这个仓库是迁移过来的吗？",
+		);
+	});
+
+	it("renders the sixth rotating sample", () => {
+		// 第六组：三张卡都带属性名，描述句各一条
+		expect(
+			renderNodes([
+				"deploys_to_production",
+				"Is this a production repository?",
+				"data_retention_period",
+				"How long until data is deleted?",
+				"open_source",
+				"Is this repository open source?",
+			]),
+		).toBe(
+			"deploys_to_production这是生产环境仓库吗？data_retention_period数据多久后会被删除？open_source这个仓库是开源的吗？",
 		);
 	});
 

@@ -19,7 +19,7 @@
 //   ① 路由：命中 pages/org-settings + global，不命中 pages/repo-settings；
 //      新建页的地址 `/organizations/<组织>/settings/custom-property`（**单数**，
 //      即 `New property` 按钮的 href）也在同一条路由下；
-//   ② 页头 / 页签 / 筛选框 / 空态区块 / 「Set values」分支共 22 条键在实机节点上全部命中；
+//   ② 页头 / 页签 / 筛选框 / 空态区块 / 「Set values」分支共 24 条键在实机节点上全部命中；
 //   ③ 属性只走整串精确匹配：`Filter properties`（表单 aria-label 与 sr-only 标签同串）、
 //      `Page selector`（nav 的 aria-label）、`See more suggested properties`
 //      （按钮的 aria-label）三条都要能查到；
@@ -106,6 +106,15 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 		"Are external packages used here?",
 		"这里使用了外部包吗？",
 	],
+	// 第四组轮换样本（`branch_protection_level` / `active` / `ci`）
+	[
+		"How protected is the default branch?",
+		"默认分支的保护程度如何？",
+	],
+	[
+		"Is this repository maintained?",
+		"这个仓库还在维护吗？",
+	],
 ];
 
 /** 本页唯一一条动态文案：`?tab=set-values` 的页头与面包屑末项 */
@@ -155,6 +164,8 @@ const MUST_STAY_ENGLISH: readonly string[] = [
 	"ci",
 	"backup_required",
 	"uses_external_packages",
+	"branch_protection_level",
+	"active",
 	"items",
 	"0",
 	"\u00a0(0)",
@@ -337,6 +348,22 @@ describe("组织自定义属性页的节点切分事实", () => {
 			]),
 		).toBe(
 			"backup_required需要定期备份吗？databases使用了哪些数据库？uses_external_packages这里使用了外部包吗？",
+		);
+	});
+
+	it("renders the fourth rotating sample", () => {
+		// 第四组：两张第一次见的描述句 + 已生效的 `ci` 那一张
+		expect(
+			renderNodes([
+				"branch_protection_level",
+				"How protected is the default branch?",
+				"active",
+				"Is this repository maintained?",
+				"ci",
+				"此仓库使用哪个 CI？",
+			]),
+		).toBe(
+			"branch_protection_level默认分支的保护程度如何？active这个仓库还在维护吗？ci此仓库使用哪个 CI？",
 		);
 	});
 

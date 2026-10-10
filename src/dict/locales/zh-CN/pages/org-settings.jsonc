@@ -919,6 +919,9 @@
 		// `?tab=set-values` 整段实机 HTML 补出的两条（轮换池继续变大）
 		"Are regular backups required?": "需要定期备份吗？",
 		"Are external packages used here?": "这里使用了外部包吗？",
+		// 第四组轮换样本（`branch_protection_level` / `active` / `ci`）
+		"How protected is the default branch?": "默认分支的保护程度如何？",
+		"Is this repository maintained?": "这个仓库还在维护吗？",
 		// —— 同页「Set values」页签（截图 + 整段 HTML）——
 		// 仓库行右侧的铅笔按钮：行内文案 + tooltip（同串也是可访问名）
 		"No properties": "没有属性",

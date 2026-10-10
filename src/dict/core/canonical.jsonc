@@ -4752,6 +4752,11 @@
 				// 照旧不收录）
 				"Are regular backups required?",
 				"Are external packages used here?",
+				// 第四组轮换样本（同日截图）：`branch_protection_level` / `active` /
+				// `ci` 三张卡，其中 `ci` 的译文已生效、另两张是新串——这就是
+				// 「轮换池只能见过一条收一条」的直接体现（至今九条）。
+				"How protected is the default branch?",
+				"Is this repository maintained?",
 				// —— 同页「Set values」页签（截图 + 整段 HTML，2026-10-10）——
 				// 仓库行右侧的铅笔按钮：`No properties` 是行内文案，
 				// `Edit properties` 是它的 tooltip（同串也是按钮的可访问名，

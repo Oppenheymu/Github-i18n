@@ -801,6 +801,24 @@
 		// 页头标题形如 `Koishi-CE repositories you contribute to`：组织名是独立节点时
 		// 只剩这半句（整句成一个节点时由规则 `org-settings/topics-heading` 兜住）。
 		// 译文按「Koishi-CE 你贡献的仓库」这样的前后拼接读。
-		"repositories you contribute to": "你贡献的仓库"
+		"repositories you contribute to": "你贡献的仓库",
+		// —— 组织规则集页（/organizations/<组织>/settings/rules，无规则集时的空态）——
+		// 证据：2026-10-10 维护者贴的实机 outerHTML。本页与仓库级 /owner/repo/settings/rules
+		// 是同一个 React 应用，那条路由不命中组织路径，故这里逐字沿用 pages/repo-settings
+		// 的同串同译（改词必须两处一起改，用例把两边的译文钉成相等）。
+		// 链接在实机渲染成「进一步了解 rulesets.」：React 把它拆成 `Learn more about`
+		//（命中 global 短键）与 `rulesets.` 两段，后者才是真正缺的那条碎片；
+		// 整句键是上游改回单节点时的兜底。
+		"Repository rulesets": "仓库规则集",
+		"You haven't created any rulesets": "你还没有创建任何规则集",
+		"Define whether collaborators can delete or force push and set requirements for any pushes, such as passing status checks or a linear commit history.": "定义协作者是否可以删除或强制推送，并为任何推送设置要求，例如通过状态检查或线性提交历史。",
+		"rulesets.": "规则集。",
+		"Learn more about rulesets.": "进一步了解规则集。",
+		// 页面上的按钮，以及同一个 payload 给的 `New ruleset` 下拉候选
+		//（`supportedTargets` 明列 branch / tag / push）
+		"New ruleset": "新建规则集",
+		"New branch ruleset": "新建分支规则集",
+		"New tag ruleset": "新建标签规则集",
+		"New push ruleset": "新建推送规则集"
 	}
 }

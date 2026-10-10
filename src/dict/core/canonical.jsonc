@@ -4589,7 +4589,32 @@
 				// `org-settings/topics-heading` 兜住（同 `base-permission-change` 的做法）。
 				// 这半句仍是**小写泛化短语**，收它的理由与 `settings` / `labels` 相同
 				//（模块按路由限定在组织设置页）；整节点精确匹配，且同页正文是用户内容。
-				"repositories you contribute to"
+				"repositories you contribute to",
+				// —— 组织规则集页（/organizations/<组织>/settings/rules，无规则集时的空态）——
+				// 证据：2026-10-10 维护者贴的实机 outerHTML（采集时扩展仍在运行：upsell 那半句
+				// `Organization rulesets won't be enforced` 已是中文，其余保留英文）。
+				// 它与仓库级 `/owner/repo/settings/rules` 是**同一个 React 应用**
+				//（`<react-app app-name="repos-rules">`，连 payload 的字段都一样），
+				// 故下列键逐字沿用 pages/repo-settings 的同串同译；那条路由显式排除了
+				// `organizations` / `orgs`，必须在本模块各收一份（同 `Repository default branch`
+				// 与 `Payment information` 的先例）——这就是「明明翻译过却漏翻」的成因。
+				// 节点边界沿用仓库级那批的实证：H1 与空态 H2 各是一个节点；说明段是一个节点
+				//（`Define` 与 payload 的 `upsellInfoMessage` 被 React 合成同一段）；
+				// 链接被拆成 `Learn more about`（命中 global 短键）+ `rulesets.` 两段，
+				// 整句形态同时收一份兜底。
+				"Repository rulesets",
+				"You haven't created any rulesets",
+				"Define whether collaborators can delete or force push and set requirements for any pushes, such as passing status checks or a linear commit history.",
+				"rulesets.",
+				"Learn more about rulesets.",
+				"New ruleset",
+				"New branch ruleset",
+				"New tag ruleset",
+				// 三条下拉候选里只有这一条**仓库级那批没收**（当时截图的 `New ruleset` 下拉
+				// 里没有 push 项）：本页 payload 的 `supported_features.supportedTargets`
+				// 明列 branch / tag / push，`targetDefinitions.*.createButtonText` 也给了
+				// 这三个串，故按 payload 证据一并收下；实机若只渲染前两条，删掉这一条即可。
+				"New push ruleset"
 			]
 		},
 		{

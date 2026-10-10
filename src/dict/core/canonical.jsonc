@@ -4704,7 +4704,42 @@
 				"Suggestions",
 				"Creation date",
 				"Evaluate status",
-				"Creation date, Filter, Creation date"
+				"Creation date, Filter, Creation date",
+				// —— 组织自定义属性页（/organizations/<组织>/settings/custom-properties）——
+				// 证据：2026-10-10 维护者贴的实机 outerHTML（`<react-app
+				// app-name="custom-properties">`）。采集时扩展仍在运行，页面上的
+				// `搜索或筛选`（placeholder）、`建议`（联想列表 aria-label）、`搜索`
+				// （按钮 tooltip）、`更多`（溢出按钮）都已是中文——前两条正是当天
+				// 前一批刚收的键，等于实机确认它们生效；其余英文才是本批清单。
+				// 页面外壳（页头 / 页签 / 筛选框）与「Suggested custom properties」
+				// 空态区块是本模块新串；`Page selector navigation` 与 `Page selector`
+				// 是屏显不可见的无障碍文案（sr-only 标题 + nav 的 aria-label）。
+				// `items` 一条**有意不收录**：上游把溢出按钮渲染成
+				// `<span>More<span class="InternalVisuallyHidden"> items</span></span>`，
+				// 前一段由 global 的 `More` 译作「更多」，后一段是独立文本节点——
+				// 读屏文案因此留成「更多 items」。不收是因为它是泛化短词，且
+				// 本模块的**组织账单页**上真有一个裸 `items` 节点，早已被
+				// `org-settings/billing.test.ts` 列为「必须保持英文」的反例
+				//（词条与规则都是模块级的，无法只对溢出按钮生效，收了就会把
+				// 账单页那个节点一并译掉）；该 span 是 sr-only，视觉上只显示「更多」。
+				// **有意不收录**三张建议卡的**属性名**（`monorepo` / `databases` /
+				// `application_name`）：它们是写进仓库元数据的标识符 / JSON 键，
+				// 上游不会翻译（GitHub 官方中文界面同样保留），用例用反例钉住；
+				// 三张卡的**描述句**是 UI 文案，正常收录。
+				"Repository custom properties",
+				"New property",
+				"Add metadata to your repositories, such as compliance frameworks, data sensitivity, or project details.",
+				"Page selector navigation",
+				"Page selector",
+				"Properties",
+				"Set values",
+				"Filter properties",
+				"Suggested custom properties",
+				"See more suggested properties",
+				"See more",
+				"Is this repository a monorepo?",
+				"Which databases are used?",
+				"What application does this support?"
 			]
 		},
 		{

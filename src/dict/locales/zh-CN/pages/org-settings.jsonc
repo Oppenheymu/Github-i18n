@@ -881,6 +881,34 @@
 		"Suggestions": "建议",
 		"Creation date": "创建日期",
 		"Evaluate status": "评估状态",
-		"Creation date, Filter, Creation date": "创建日期，筛选，创建日期"
+		"Creation date, Filter, Creation date": "创建日期，筛选，创建日期",
+		// —— 组织自定义属性页（/organizations/<组织>/settings/custom-properties）——
+		// 证据：2026-10-10 维护者贴的实机 outerHTML（`app-name="custom-properties"`）。
+		// 贴出的 HTML 里 `搜索或筛选` / `建议` / `搜索` / `更多` 已是中文（前两条正是
+		// 当天前一批刚收的键），其余英文是本批清单。三张建议卡的**属性名**
+		//（`monorepo` / `databases` / `application_name`）是标识符，有意不收录；
+		// 描述句是 UI 文案，正常收。
+		"Repository custom properties": "仓库自定义属性",
+		"New property": "新建属性",
+		"Add metadata to your repositories, such as compliance frameworks, data sensitivity, or project details.": "为你的仓库添加元数据，例如合规框架、数据敏感度或项目详情。",
+		// 屏显不可见的无障碍文案（sr-only 标题 + nav 的 aria-label）
+		"Page selector navigation": "页面选择器导航",
+		"Page selector": "页面选择器",
+		// 两个页签与筛选框
+		"Properties": "属性",
+		"Set values": "设置值",
+		"Filter properties": "筛选属性",
+		// 溢出按钮里那个 sr-only 片段（`More` + ` items` 两个节点）**有意不补**：
+		// `items` 是泛化短词，本模块的组织账单页上真有一个裸 `items` 节点，
+		// 早已被 billing.test.ts 列为「必须保持英文」的反例；词条是模块级的，
+		// 收了就会把账单页那个也译掉。读屏文案因此留成「更多 items」
+		//（视觉上只显示「更多」）。判定理由另见 core/canonical.jsonc。
+		// 空态区块
+		"Suggested custom properties": "建议的自定义属性",
+		"See more suggested properties": "查看更多建议属性",
+		"See more": "查看更多",
+		"Is this repository a monorepo?": "这个仓库是 monorepo 吗？",
+		"Which databases are used?": "使用了哪些数据库？",
+		"What application does this support?": "它支持哪个应用？"
 	}
 }

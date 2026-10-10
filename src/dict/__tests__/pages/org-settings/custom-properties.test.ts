@@ -1,0 +1,261 @@
+// 组织自定义属性页（/organizations/<组织>/settings/custom-properties）实机回归。
+//
+// 证据：2026-10-10 维护者贴的实机 outerHTML（`<react-app app-name="custom-properties">`，
+// 采集时扩展仍在运行）。这次贴出的 HTML 自带**四条对照物**：placeholder 的
+// `搜索或筛选`、联想列表 aria-label 的 `建议`、搜索按钮 tooltip 的 `搜索`、
+// 溢出按钮里的 `更多`——前两条正是同一天前两批刚收的键（`Search or filter` /
+// `Suggestions`），等于实机确认它们真的生效；其余英文才是本批清单。
+//
+// 本文件锁四件事：
+//   ① 路由：命中 pages/org-settings + global，不命中 pages/repo-settings；
+//      新建页的地址 `/organizations/<组织>/settings/custom-property`（**单数**，
+//      即 `New property` 按钮的 href）也在同一条路由下；
+//   ② 页头 / 页签 / 筛选框 / 空态区块共 14 条键在实机节点上全部命中；
+//   ③ 属性只走整串精确匹配：`Filter properties`（表单 aria-label 与 sr-only 标签同串）、
+//      `Page selector`（nav 的 aria-label）、`See more suggested properties`
+//      （按钮的 aria-label）三条都要能查到；
+//   ④ 反例：三张建议卡的**属性名**是标识符（JSON 键）必须保持英文；溢出按钮里的
+//      ` items` **有意不补**（泛化短词，组织账单页上另有一个裸 `items` 节点被列为
+//      反例，词条是模块级的），故读屏文案留成「更多 items」；纯数字与可见性隐藏的
+//      `(0)` 由守卫跳过；组织名是用户内容。
+import { describe, expect, it } from "bun:test";
+import {
+	buildView,
+	matchModules,
+} from "../../../../content/view.ts";
+import { translateText } from "../../../../content/walker.ts";
+import { dictCore, dictForLocale } from "../../../index.ts";
+
+/** 组织自定义属性页（列表 + 空态） */
+const PAGE_PATH =
+	"/organizations/Koishi-CE/settings/custom-properties";
+/** 旧前缀（`/orgs/<组织>/...`），路由里也覆盖着 */
+const LEGACY_PATH =
+	"/orgs/Koishi-CE/settings/custom-properties";
+/** 新建属性页（`New property` 按钮的 href，单数 custom-property） */
+const FORM_PATH =
+	"/organizations/Koishi-CE/settings/custom-property";
+
+const locale = dictForLocale("zh-CN");
+
+const view = buildView(
+	PAGE_PATH,
+	locale,
+	new Map(Object.entries(dictCore.aliases)),
+);
+
+function moduleNames(path: string): readonly string[] {
+	return matchModules(path, locale.modules).map(
+		(module) => module.name,
+	);
+}
+
+/** 实机里仍是英文的文本节点（按页面自上而下的顺序） */
+const NEW_NODES: readonly (readonly [string, string])[] = [
+	// 页头：H1 + 主按钮 + 副标题
+	["Repository custom properties", "仓库自定义属性"],
+	["New property", "新建属性"],
+	[
+		"Add metadata to your repositories, such as compliance frameworks, data sensitivity, or project details.",
+		"为你的仓库添加元数据，例如合规框架、数据敏感度或项目详情。",
+	],
+	// 页签栏：sr-only 标题 + 两个页签（页签后面跟着计数节点与可见性隐藏的 (0)）
+	["Page selector navigation", "页面选择器导航"],
+	["Properties", "属性"],
+	["Set values", "设置值"],
+	// 空态区块：标题 + 按钮 + 三张建议卡
+	["Suggested custom properties", "建议的自定义属性"],
+	["See more", "查看更多"],
+	[
+		"Is this repository a monorepo?",
+		"这个仓库是 monorepo 吗？",
+	],
+	["Which databases are used?", "使用了哪些数据库？"],
+	[
+		"What application does this support?",
+		"它支持哪个应用？",
+	],
+];
+
+/** 可翻译属性（属性只走整串精确匹配，不走规则） */
+const ATTR_KEYS: readonly (readonly [string, string])[] = [
+	["Filter properties", "筛选属性"],
+	["Page selector", "页面选择器"],
+	["See more suggested properties", "查看更多建议属性"],
+];
+
+/** 贴出的 HTML 里已是中文的四处（既有键的产物，用作对照物） */
+const ALREADY_COVERED: readonly (readonly [
+	string,
+	string,
+])[] = [
+	// 本批之前刚收的两条键，这一页的实机 HTML 直接证实它们生效
+	["Search or filter", "搜索或筛选"],
+	["Suggestions", "建议"],
+	["Search", "搜索"],
+	["More", "更多"],
+];
+
+/**
+ * 必须保持英文：三张建议卡的属性名是**标识符**（写进仓库元数据、做 JSON 键用），
+ * 上游不会翻译；`items` 是泛化短词（本模块的组织账单页上另有一个裸 `items`
+ * 节点，billing.test.ts 已把它列为反例——词条是模块级的，收了会连带译掉它）；
+ * 纯数字与可见性隐藏的 `(0)` 不含拉丁字母，守卫直接跳过；组织名是用户内容。
+ */
+const MUST_STAY_ENGLISH: readonly string[] = [
+	"monorepo",
+	"databases",
+	"application_name",
+	"items",
+	"0",
+	"\u00a0(0)",
+	"Koishi-CE",
+];
+
+/** 节点在实机里通常带源码缩进与换行；两种形态都必须命中 */
+function withWhitespace(node: string): readonly string[] {
+	return [node, `\n        ${node}\n      `];
+}
+
+/**
+ * 把一段实机节点序列按 walker 的语义过一遍：未命中的节点按原样保留，
+ * 命中的节点写回译文并保留其首尾空白，最后拼接成页面上真实看到的那一行。
+ */
+function renderNodes(nodes: readonly string[]): string {
+	return nodes
+		.map((node) => {
+			const translated = translateText(node, view);
+			if (translated === null) return node;
+			if (translated.trim() === "") return translated;
+			const lead = node.slice(
+				0,
+				node.length - node.trimStart().length,
+			);
+			const trail = node.slice(node.trimEnd().length);
+			return `${lead}${translated}${trail}`;
+		})
+		.join("");
+}
+
+describe("组织自定义属性页的模块路由", () => {
+	it("loads the org-settings shell with the global fallback", () => {
+		const names = moduleNames(PAGE_PATH);
+		expect(names).toContain("pages/org-settings");
+		expect(names).toContain("global");
+	});
+
+	it("does not match the per-repository module", () => {
+		const names = moduleNames(PAGE_PATH);
+		expect(names).not.toContain("pages/repo-settings");
+		expect(names).not.toContain("pages/settings");
+	});
+
+	it("covers the legacy prefix and the new-property form page", () => {
+		expect(moduleNames(LEGACY_PATH)).toContain(
+			"pages/org-settings",
+		);
+		expect(moduleNames(FORM_PATH)).toContain(
+			"pages/org-settings",
+		);
+	});
+});
+
+describe("组织自定义属性页的实机节点", () => {
+	it("translates every node that the real page still showed in English", () => {
+		for (const [raw, expected] of NEW_NODES) {
+			for (const variant of withWhitespace(raw)) {
+				const translated = translateText(variant, view);
+				expect(
+					translated,
+					`未命中：${JSON.stringify(variant)}`,
+				).not.toBeNull();
+				expect(translated ?? "").toMatch(/[\u4e00-\u9fff]/);
+			}
+			expect(translateText(raw, view)).toBe(expected);
+		}
+	});
+
+	it("translates the accessible names", () => {
+		for (const [raw, expected] of ATTR_KEYS) {
+			expect(
+				translateText(raw, view),
+				`未命中：${JSON.stringify(raw)}`,
+			).toBe(expected);
+		}
+	});
+
+	it("keeps the nodes that were already covered before this batch", () => {
+		for (const [raw, expected] of ALREADY_COVERED) {
+			expect(translateText(raw, view)).toBe(expected);
+		}
+	});
+
+	it("keeps property identifiers and numbers in English", () => {
+		for (const raw of MUST_STAY_ENGLISH) {
+			expect(
+				translateText(raw, view),
+				`不应被翻译：${JSON.stringify(raw)}`,
+			).toBeNull();
+		}
+	});
+});
+
+describe("组织自定义属性页的节点切分事实", () => {
+	it("renders the page header", () => {
+		expect(
+			renderNodes([
+				"Repository custom properties",
+				"New property",
+				"Add metadata to your repositories, such as compliance frameworks, data sensitivity, or project details.",
+			]),
+		).toBe(
+			"仓库自定义属性新建属性为你的仓库添加元数据，例如合规框架、数据敏感度或项目详情。",
+		);
+	});
+
+	it("renders the tab bar with the counter and its hidden duplicate", () => {
+		// 计数节点是纯数字、可见性隐藏的那份是 `\u00a0(0)`：两者都不含拉丁字母，
+		// 引擎按设计跳过，故中文页签后面原样跟着 0 与 (0)
+		expect(
+			renderNodes([
+				"Properties",
+				"0",
+				"\u00a0(0)",
+				"Set values",
+			]),
+		).toBe("属性0\u00a0(0)设置值");
+	});
+
+	it("leaves the overflow button half-translated on purpose", () => {
+		// 实机：`<span>More<span class="InternalVisuallyHidden"> items</span></span>`
+		// 前一段由 global 的 `More` 译出；后一段**有意不收**（`items` 是泛化短词，
+		// 组织账单页上另有一个裸 `items` 节点被列为反例），故读屏文案留成
+		// 「更多 items」——该 span 是 sr-only，视觉上只显示「更多」
+		expect(renderNodes(["More", " items"])).toBe(
+			"更多 items",
+		);
+	});
+
+	it("renders an ice-breaker card with its identifier left alone", () => {
+		expect(
+			renderNodes([
+				"Suggested custom properties",
+				"See more",
+				"monorepo",
+				"Is this repository a monorepo?",
+			]),
+		).toBe(
+			"建议的自定义属性查看更多monorepo这个仓库是 monorepo 吗？",
+		);
+	});
+
+	it("renders the filter form with the already-translated placeholder", () => {
+		expect(
+			renderNodes([
+				"Filter properties",
+				"Search or filter",
+				"搜索",
+			]),
+		).toBe("筛选属性搜索或筛选搜索");
+	});
+});

@@ -819,6 +819,10 @@
 		"New ruleset": "新建规则集",
 		"New branch ruleset": "新建分支规则集",
 		"New tag ruleset": "新建标签规则集",
-		"New push ruleset": "新建推送规则集"
+		"New push ruleset": "新建推送规则集",
+		// `New ruleset` 下拉的最后一项：标签 + 说明两个节点
+		//（与 pages/repo-settings 同译，改词两处一起改）
+		"Import a ruleset": "导入规则集",
+		"Choose a JSON file to upload": "选择要上传的 JSON 文件"
 	}
 }

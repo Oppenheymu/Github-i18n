@@ -4614,7 +4614,12 @@
 				// 里没有 push 项）：本页 payload 的 `supported_features.supportedTargets`
 				// 明列 branch / tag / push，`targetDefinitions.*.createButtonText` 也给了
 				// 这三个串，故按 payload 证据一并收下；实机若只渲染前两条，删掉这一条即可。
-				"New push ruleset"
+				"New push ruleset",
+				// `New ruleset` 下拉里的最后一项（2026-10-10 维护者贴的菜单项 HTML：
+				// `<span>Import a ruleset</span>` 与 `<span>Choose a JSON file to upload</span>`
+				// 各是一个文本节点）。同样逐字沿用 pages/repo-settings 的译法。
+				"Import a ruleset",
+				"Choose a JSON file to upload"
 			]
 		},
 		{

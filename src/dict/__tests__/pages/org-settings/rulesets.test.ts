@@ -82,6 +82,12 @@ const DROPDOWN: readonly (readonly [string, string])[] = [
 	["New tag ruleset", "新建标签规则集"],
 	// 仓库级那批只收了前两条（当时截图的下拉里没有 push 项），本条是 payload 证据
 	["New push ruleset", "新建推送规则集"],
+	// 下拉的最后一项：标签 + 说明两个节点（2026-10-10 维护者贴的菜单项 HTML）
+	["Import a ruleset", "导入规则集"],
+	[
+		"Choose a JSON file to upload",
+		"选择要上传的 JSON 文件",
+	],
 ];
 
 /** 页面上已是中文的节点（既有键的产物，用作对照物） */
@@ -122,6 +128,8 @@ const SHARED_WITH_REPO_PAGE: readonly string[] = [
 	"New ruleset",
 	"New branch ruleset",
 	"New tag ruleset",
+	"Import a ruleset",
+	"Choose a JSON file to upload",
 ];
 
 /** 节点在实机里通常带源码缩进与换行；两种形态都必须命中 */
@@ -272,6 +280,18 @@ describe("组织规则集页的节点切分事实", () => {
 		).toBe(
 			"仓库规则集你还没有创建任何规则集定义协作者是否可以删除或强制推送，并为任何推送设置要求，例如通过状态检查或线性提交历史。 进一步了解 规则集。",
 		);
+	});
+
+	it("renders the import menu item as label plus description", () => {
+		// 实机菜单项：`<span>Import a ruleset</span>` +
+		// `<span>Choose a JSON file to upload</span>` 两个节点（`ActionList` 的
+		// Item.Label / Item.Description）
+		expect(
+			renderNodes([
+				"Import a ruleset",
+				"Choose a JSON file to upload",
+			]),
+		).toBe("导入规则集选择要上传的 JSON 文件");
 	});
 
 	it("renders the upsell line as two nodes, both already translated", () => {

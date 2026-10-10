@@ -909,6 +909,16 @@
 		"See more": "查看更多",
 		"Is this repository a monorepo?": "这个仓库是 monorepo 吗？",
 		"Which databases are used?": "使用了哪些数据库？",
-		"What application does this support?": "它支持哪个应用？"
+		"What application does this support?": "它支持哪个应用？",
+		// 后两条来自维护者 2026-10-10 的复测截图：空态的三张建议卡是**上游轮换
+		// 取样**的（截图那三张与当日 HTML 里的三张不是同一组），故描述句只能
+		// 见过一条收一条；属性名（`compliance_frameworks` / `ci` / …）是标识符，
+		// 有意不收录。
+		"Which compliance frameworks apply?": "适用哪些合规框架？",
+		"Which CI does this repository use?": "此仓库使用哪个 CI？",
+		// —— 同页「Set values」页签（截图证据）——
+		// 仓库行右侧的铅笔按钮：行内文案 + tooltip（同串也是可访问名）
+		"No properties": "没有属性",
+		"Edit properties": "编辑属性"
 	}
 }

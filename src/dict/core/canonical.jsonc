@@ -4723,9 +4723,14 @@
 				//（词条与规则都是模块级的，无法只对溢出按钮生效，收了就会把
 				// 账单页那个节点一并译掉）；该 span 是 sr-only，视觉上只显示「更多」。
 				// **有意不收录**三张建议卡的**属性名**（`monorepo` / `databases` /
-				// `application_name`）：它们是写进仓库元数据的标识符 / JSON 键，
-				// 上游不会翻译（GitHub 官方中文界面同样保留），用例用反例钉住；
-				// 三张卡的**描述句**是 UI 文案，正常收录。
+				// `application_name` / `compliance_frameworks` / `ci` …）：它们是写进
+				// 仓库元数据的标识符 / JSON 键，上游不会翻译（GitHub 官方中文界面
+				// 同样保留），用例用反例钉住；卡片的**描述句**是 UI 文案，正常收录。
+				// 2026-10-10 维护者贴的**截图**（装上本批后复测）补出一条关键事实：
+				// 空态那三张卡是**上游轮换取样**的——截图里的三张是
+				// `compliance_frameworks` / `monorepo` / `ci`，与当日 HTML 里的
+				// `monorepo` / `databases` / `application_name` 不同，故卡片描述句
+				// 只能**见过一条收一条**（下面五条是至今见过的全集，其余等采集）。
 				"Repository custom properties",
 				"New property",
 				"Add metadata to your repositories, such as compliance frameworks, data sensitivity, or project details.",
@@ -4739,7 +4744,17 @@
 				"See more",
 				"Is this repository a monorepo?",
 				"Which databases are used?",
-				"What application does this support?"
+				"What application does this support?",
+				"Which compliance frameworks apply?",
+				"Which CI does this repository use?",
+				// —— 同页「Set values」页签（截图证据 2026-10-10）——
+				// 仓库行右侧的铅笔按钮：`No properties` 是行内文案，
+				// `Edit properties` 是它的 tooltip（同串也是按钮的可访问名，
+				// 一条键覆盖「tooltip 文本节点 / title / aria-label」三种形态）。
+				// 截图只给到这一行，该页签的其余文案（表头、搜索框、批量操作等）
+				// 尚无证据，等维护者贴这一页的 HTML。
+				"No properties",
+				"Edit properties"
 			]
 		},
 		{

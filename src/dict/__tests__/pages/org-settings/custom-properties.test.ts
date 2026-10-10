@@ -5,12 +5,16 @@
 // `搜索或筛选`、联想列表 aria-label 的 `建议`、搜索按钮 tooltip 的 `搜索`、
 // 溢出按钮里的 `更多`——前两条正是同一天前两批刚收的键（`Search or filter` /
 // `Suggestions`），等于实机确认它们真的生效；其余英文才是本批清单。
+// 同日维护者的**复测截图**又补两条：空态那三张建议卡是**上游轮换取样**的（截图里
+// 是 `compliance_frameworks` / `monorepo` / `ci`，与 HTML 里的 `monorepo` /
+// `databases` / `application_name` 不是同一组，故描述句只能见过一条收一条），
+// 外加「Set values」页签里仓库行的 `No properties` + tooltip `Edit properties`。
 //
 // 本文件锁四件事：
 //   ① 路由：命中 pages/org-settings + global，不命中 pages/repo-settings；
 //      新建页的地址 `/organizations/<组织>/settings/custom-property`（**单数**，
 //      即 `New property` 按钮的 href）也在同一条路由下；
-//   ② 页头 / 页签 / 筛选框 / 空态区块共 14 条键在实机节点上全部命中；
+//   ② 页头 / 页签 / 筛选框 / 空态区块 / 「Set values」页签共 18 条键在实机节点上全部命中；
 //   ③ 属性只走整串精确匹配：`Filter properties`（表单 aria-label 与 sr-only 标签同串）、
 //      `Page selector`（nav 的 aria-label）、`See more suggested properties`
 //      （按钮的 aria-label）三条都要能查到；
@@ -75,6 +79,19 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 		"What application does this support?",
 		"它支持哪个应用？",
 	],
+	// 后两条来自维护者的复测截图：空态三张卡是**上游轮换取样**的，
+	// 截图那一组（compliance_frameworks / monorepo / ci）与当日 HTML 里的一组不同
+	[
+		"Which compliance frameworks apply?",
+		"适用哪些合规框架？",
+	],
+	[
+		"Which CI does this repository use?",
+		"此仓库使用哪个 CI？",
+	],
+	// 「Set values」页签里仓库行的文案（截图证据）
+	["No properties", "没有属性"],
+	["Edit properties", "编辑属性"],
 ];
 
 /** 可翻译属性（属性只走整串精确匹配，不走规则） */
@@ -106,6 +123,8 @@ const MUST_STAY_ENGLISH: readonly string[] = [
 	"monorepo",
 	"databases",
 	"application_name",
+	"compliance_frameworks",
+	"ci",
 	"items",
 	"0",
 	"\u00a0(0)",
@@ -257,5 +276,32 @@ describe("组织自定义属性页的节点切分事实", () => {
 				"搜索",
 			]),
 		).toBe("筛选属性搜索或筛选搜索");
+	});
+
+	it("renders the rotating ice-breaker sample from the retest screenshot", () => {
+		// 截图里那一组三张卡与 HTML 里那一组不同 ⇒ 卡片是上游轮换取样的；
+		// 属性名照旧保持英文，只译描述句
+		expect(
+			renderNodes([
+				"compliance_frameworks",
+				"Which compliance frameworks apply?",
+				"ci",
+				"Which CI does this repository use?",
+			]),
+		).toBe(
+			"compliance_frameworks适用哪些合规框架？ci此仓库使用哪个 CI？",
+		);
+	});
+
+	it("renders the set-values row with its edit affordance", () => {
+		// 「Set values」页签：仓库行是 `No properties` + 铅笔按钮的 tooltip
+		expect(
+			renderNodes([
+				"Properties",
+				"Set values",
+				"No properties",
+				"Edit properties",
+			]),
+		).toBe("属性设置值没有属性编辑属性");
 	});
 });

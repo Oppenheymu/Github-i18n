@@ -872,6 +872,15 @@
 		"Displays Rule Bypasses at the Organization, Repository, and Enterprise levels, limited to Active Rules only": "显示组织、仓库和企业层级的规则绕过情况，仅限活动中的规则",
 		"Passes": "通过",
 		"Failures": "失败",
-		"Bypasses": "绕过"
+		"Bypasses": "绕过",
+		// —— 同页的筛选联想菜单（点开筛选框后弹出）——
+		// 证据：维护者随后贴出的该菜单 outerHTML。两项可见文本 + 列表自身的 aria-label
+		//（`Suggestions` 在别的模块里早有同译，那些路由不命中本页）；组合型
+		// aria-label 的逗号按中文习惯写成全角。第二项的 aria-label 尾段像是随筛选值
+		// 变化的动态串，**有意不收录**（判定理由见 core/canonical.jsonc）。
+		"Suggestions": "建议",
+		"Creation date": "创建日期",
+		"Evaluate status": "评估状态",
+		"Creation date, Filter, Creation date": "创建日期，筛选，创建日期"
 	}
 }

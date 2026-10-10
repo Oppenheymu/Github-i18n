@@ -4685,7 +4685,26 @@
 				// `ruleSuites[].name`，同时出现在 SVG 图例、悬浮提示与表头
 				"Passes",
 				"Failures",
-				"Bypasses"
+				"Bypasses",
+				// —— 同页的筛选联想菜单（点开筛选框后弹出的 SuggestionsList）——
+				// 证据：2026-10-10 维护者贴的该菜单 outerHTML。两项都是
+				// `ActionList.Item.Label` 的独立文本节点；`Suggestions` 是列表自身的
+				// aria-label（本模块新收一份，issues / settings-billing / agents 里
+				// 早已有同译的键，那三条路由都不命中组织设置页）。
+				// 组合型 aria-label `Creation date, Filter, Creation date` 一并收下
+				//（先例：pages/repo-settings 的 `Active, Enforcement status`），
+				// 分隔符按中文写成顿号式的逗号。
+				// **有意不收录**第二项的 `Evaluate status, Filter, Evaluate status:
+				// active | evaluate | all`——尾段是「冒号 + 竖线连接的一组值」，
+				// 看着像随当前筛选值变化的动态串（本页只采到一个样本，无法判定是
+				// 否恒定），属性又不走规则；实证它恒定后再收。
+				// 筛选框里**已生效的查询串** `created:>@today-1w` /
+				// `evaluate-status:active` 也不收录：那是 GitHub 自己的查询语法
+				//（翻译会让用户看不懂自己在筛什么），实机亦保持英文。
+				"Suggestions",
+				"Creation date",
+				"Evaluate status",
+				"Creation date, Filter, Creation date"
 			]
 		},
 		{

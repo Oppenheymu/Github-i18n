@@ -95,17 +95,25 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 		"Displays Rule Bypasses at the Organization, Repository, and Enterprise levels, limited to Active Rules only",
 		"显示组织、仓库和企业层级的规则绕过情况，仅限活动中的规则",
 	],
+	// 筛选联想菜单（点开筛选框后弹出）的两项可见文本
+	["Creation date", "创建日期"],
+	["Evaluate status", "评估状态"],
 ];
 
 /**
  * 可翻译属性（属性只走整串精确匹配，不走规则）：
  * 筛选框的 aria-label / sr-only 文本同串、placeholder 在 pages/agents 里另有同译键、
- * SVG 根的 aria-label。
+ * SVG 根的 aria-label、联想列表自身的 aria-label，以及静态的组合型 aria-label。
  */
 const ATTR_KEYS: readonly (readonly [string, string])[] = [
 	["Filter rule insights dashboard", "筛选规则洞察仪表盘"],
 	["Search or filter", "搜索或筛选"],
 	["Interactive chart", "交互式图表"],
+	["Suggestions", "建议"],
+	[
+		"Creation date, Filter, Creation date",
+		"创建日期，筛选，创建日期",
+	],
 ];
 
 /** Highcharts 读屏区的动态文案 → 本模块规则的产物（实机原文逐条誊录） */
@@ -154,8 +162,9 @@ const SHARED_WITH_INSIGHTS: readonly string[] = [
 ];
 
 /**
- * 必须保持英文：拼了动态系列名的属性（属性不走规则）、纯日期 / 纯数字（守卫按设计跳过，
- * 节点里没有拉丁字母）、用户内容。
+ * 必须保持英文：拼了动态系列名的属性（属性不走规则）、筛选框里已生效的查询串
+ * （GitHub 自己的筛选语法，翻了用户就看不懂自己在筛什么）、纯日期 / 纯数字
+ * （守卫按设计跳过，节点里没有拉丁字母）、用户内容。
  */
 const MUST_STAY_ENGLISH: readonly string[] = [
 	// 系列名拼进串里，整串永远命中不了
@@ -164,6 +173,15 @@ const MUST_STAY_ENGLISH: readonly string[] = [
 	"Toggle series visibility, Chart",
 	"Show Passes",
 	"Saturday, Oct 3, 2026, 0. Passes.",
+	// 联想项的组合型 aria-label 里尾段像动态值（冒号 + 竖线连接的一组值），
+	// 本页只采到一个样本，判定为不可收——实证它恒定后再收
+	"Evaluate status, Filter, Evaluate status: active | evaluate | all",
+	// 筛选框里已生效的查询串：`created` / `evaluate-status` 是 GitHub 的筛选键名，
+	// 值是 `>@today-1w` 这样的 DS 语法，翻了只会让人看不懂自己在筛什么
+	"created",
+	"evaluate-status",
+	">@today-1w",
+	"created:>@today-1w evaluate-status:active",
 	// 日期与数字节点：不含拉丁字母，守卫直接跳过
 	"2026-10-03",
 	"0",
@@ -353,5 +371,41 @@ describe("组织规则集仪表盘页的节点切分事实", () => {
 		).toBe(
 			"绕过次数最多的仓库显示组织、仓库和企业层级的规则绕过情况，仅限活动中的规则仓库绕过koishi8",
 		);
+	});
+});
+
+describe("组织规则集仪表盘页的筛选联想菜单", () => {
+	it("translates the two suggestion labels in place", () => {
+		// 实机：两项各是 `ActionList.Item.Label` 里的一个 span 文本节点
+		expect(
+			renderNodes(["Creation date", "Evaluate status"]),
+		).toBe("创建日期评估状态");
+	});
+
+	it("translates the list label and the static combined aria-label", () => {
+		// 列表自身与第一项各有一个 aria-label，都是属性（只走整串精确匹配）
+		expect(translateText("Suggestions", view)).toBe("建议");
+		expect(
+			translateText(
+				"Creation date, Filter, Creation date",
+				view,
+			),
+		).toBe("创建日期，筛选，创建日期");
+	});
+
+	it("keeps the raw filter query and the dynamic aria-label in English", () => {
+		// 查询串是 GitHub 的筛选语法；第二项 aria-label 的尾段看着像随筛选值变化
+		for (const raw of [
+			"Evaluate status, Filter, Evaluate status: active | evaluate | all",
+			"created:>@today-1w evaluate-status:active",
+			"created",
+			"evaluate-status",
+			">@today-1w",
+		]) {
+			expect(
+				translateText(raw, view),
+				`不应被翻译：${JSON.stringify(raw)}`,
+			).toBeNull();
+		}
 	});
 });

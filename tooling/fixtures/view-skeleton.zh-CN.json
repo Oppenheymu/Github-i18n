@@ -2449,6 +2449,10 @@
 					"module": "pages/settings-billing"
 				},
 				{
+					"key": "Suggestions",
+					"module": "pages/settings-billing"
+				},
+				{
 					"key": "Update",
 					"module": "pages/settings-billing"
 				},

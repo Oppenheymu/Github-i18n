@@ -3251,7 +3251,12 @@
 				"pages/settings",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Add account",
+					"module": "pages/settings-security"
+				}
+			],
 			"rules": [
 				"settings/passkey-delete-confirm",
 				"settings/passkey-delete-cancel",

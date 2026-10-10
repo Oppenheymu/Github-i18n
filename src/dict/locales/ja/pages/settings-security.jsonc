@@ -1,0 +1,111 @@
+// 日本語・モジュール pages/settings-security：/settings/security——パスワード変更、
+// パスキー、2 要素認証（認証アプリ / SMS / セキュリティキー / リカバリーコード）、
+// サインイン方法。鍵は core/canonical.jsonc の pages/settings-security と同一
+// （ノード境界と証拠コメントはそちら、および zh-CN 側の同モジュールを参照）。
+//
+// このページのルート（^/settings/security）は pages/settings と重なるが、
+// ja の pages/settings はまだ未訳（968 鍵）。サイドバーと汎用設定の文言は
+// 引き続き英語のまま（規則ベースの動的文言だけが日本語）——これは
+// docs/guides/development.md の「疎なカバレッジ」に書かれた中間状態。
+//
+// 用語は既訳 ja の規則テンプレートに合わせる：
+//   パスキー / 2 要素認証（「二要素」ではない）/ リカバリーコード / セキュリティキー
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		// —— パスワード ——
+		"Change password": "パスワードを変更",
+		"Old password": "現在のパスワード",
+		"New password": "新しいパスワード",
+		"Confirm new password": "新しいパスワードの確認",
+		"Update password": "パスワードを更新",
+		"I forgot my password": "パスワードを忘れた場合",
+		// パスワード強度のヒントは**6 つの独立ノード**（Make sure it's / at least 15
+		// characters / OR / at least 8 characters / including a number / and a lowercase
+		// letter）。日本語は語順が逆（修飾語が名詞の前）なので、後半 3 ノードを
+		// 「8 文字以上で、数字を含み、小文字を含むこと」と続けて 1 文に読ませる：
+		// 「パスワードは 15 文字以上 または 8 文字以上で、 数字を含み、 小文字を含むこと」
+		"Make sure it's": "パスワードは",
+		"at least 15 characters": "15 文字以上",
+		"OR": "または",
+		"at least 8 characters": "8 文字以上で、",
+		"including a number": "数字を含み、",
+		"and a lowercase letter": "小文字を含むこと",
+		"Learn more about strong passwords": "強力なパスワードについて詳しくはこちら",
+		"Less secure": "安全性が低い",
+		"Hide": "非表示",
+		"Show": "表示",
+		// —— パスキー ——
+		"Passkeys": "パスキー",
+		"Add passkey": "パスキーを追加",
+		"Passkey nickname": "パスキーのニックネーム",
+		"Nickname:": "ニックネーム：",
+		"Edit passkey nickname": "パスキーのニックネームを編集",
+		"Cancel changes to passkey nickname": "パスキーのニックネームの変更をキャンセル",
+		"Save changes to passkey nickname": "パスキーのニックネームの変更を保存",
+		"An error occurred while renaming your passkey.": "パスキーの名前変更中にエラーが発生しました。",
+		"Seen from this browser": "このブラウザから確認済み",
+		"Delete passkey?": "パスキーを削除しますか？",
+		"Note: You may continue to see this passkey as an option during sign-in until you also delete it from your browser, device or associated account's password management settings.": "注：ブラウザ、デバイス、または関連付けられたアカウントのパスワード管理設定からもこのパスキーを削除するまでは、サインイン時にこのパスキーが選択肢として表示され続ける場合があります。",
+		"You will no longer be able to use it to sign-in to your account.": "このパスキーを使ってアカウントにサインインできなくなります。",
+		"Passkeys should be used primarily for standalone, password-less authentication.": "パスキーは主に、単独のパスワードレス認証に使用することを想定しています。",
+		"Configured": "設定済み",
+		"Manage": "管理",
+		// —— 2 要素認証 ——
+		"Two-factor authentication adds an additional layer of security to your account by requiring more than just a password to sign in.": "2 要素認証は、サインイン時にパスワード以外の情報も求めることで、アカウントにセキュリティの層を追加します。",
+		"Are you sure you want to disable two-factor authentication?": "2 要素認証を無効にしてもよろしいですか？",
+		"GitHub highly recommends that you keep two-factor authentication enabled on your account. If you need to change your configuration, or generate new recovery codes, you can do that in the settings below.": "GitHub では、アカウントで 2 要素認証を有効にしておくことを強くおすすめします。設定を変更したり、新しいリカバリーコードを生成したりする必要がある場合は、以下の設定で行えます。",
+		"Disable": "無効にする",
+		"Two-factor methods": "2 要素認証の方法",
+		// —— 認証アプリ ——
+		"Authenticator app": "認証アプリ",
+		"Edit Authenticator app": "認証アプリを編集",
+		"Use an authentication app or browser extension to get two-factor authentication codes when prompted.": "認証アプリまたはブラウザ拡張機能を使い、求められたときに 2 要素認証コードを取得します。",
+		"Viewed": "確認済み",
+		// —— SMS ——
+		"SMS/Text message": "SMS/テキストメッセージ",
+		"Add SMS/Text message": "SMS/テキストメッセージを追加",
+		"Get one-time codes sent to your phone via SMS to complete authentication requests. We strongly advise against using SMS because it is susceptible to interception, does not provide resistance against phishing attacks, and deliverability can be unreliable. It is recommended to use an Authenticator app instead of SMS.": "認証リクエストを完了するためのワンタイムコードを、SMS で携帯電話に送信します。SMS は傍受されやすく、フィッシング攻撃への耐性がなく、配信が不安定になることもあるため、使用は強くおすすめしません。SMS の代わりに認証アプリの使用をおすすめします。",
+		// —— セキュリティキー ——
+		"Security keys": "セキュリティキー",
+		"Edit Security keys": "セキュリティキーを編集",
+		"Register new security key": "新しいセキュリティキーを登録",
+		"Security keys are webauthn credentials that can only be used as a second factor of authentication.": "セキュリティキーは、認証の第 2 要素としてのみ使用できる WebAuthn 資格情報です。",
+		"Security key registration failed.": "セキュリティキーの登録に失敗しました。",
+		"This security key has already been registered.": "このセキュリティキーはすでに登録されています。",
+		"This browser doesn't support security keys yet.": "このブラウザはまだセキュリティキーに対応していません。",
+		"Try again": "再試行",
+		"Waiting for input from browser interaction...": "ブラウザの操作による入力を待機しています…",
+		"Enter a nickname for this security key": "このセキュリティキーのニックネームを入力",
+		// —— GitHub Mobile（第 2 要素） ——
+		"Show GitHub Mobile": "GitHub Mobile を表示",
+		"GitHub Mobile can be used for two-factor authentication by installing the GitHub Mobile app and signing in to your account.": "GitHub Mobile アプリをインストールしてアカウントにサインインすると、2 要素認証に GitHub Mobile を使用できます。",
+		// global と同訳（このページの「アカウントを追加」）——同鍵になるので
+		// ビュー骨格に collisions が 1 件増える。zh-CN 側も同じ構図
+		"Add account": "アカウントを追加",
+		"Connect": "接続",
+		"View": "表示",
+		// —— リカバリー ——
+		"Recovery codes": "リカバリーコード",
+		"View Recovery codes": "リカバリーコードを表示",
+		"Recovery codes can be used to access your account in the event you lose access to your device and cannot receive two-factor authentication codes.": "デバイスにアクセスできなくなり、2 要素認証コードを受け取れない場合、リカバリーコードを使ってアカウントにアクセスできます。",
+		"Recovery options": "リカバリーのオプション",
+		"Preferred 2FA method": "優先する 2 要素認証の方法",
+		"Set your preferred method to use for two-factor authentication when signing into GitHub.": "GitHub にサインインするときの 2 要素認証で使用する優先方法を設定します。",
+		"Learn more about two-factor authentication": "2 要素認証について詳しくはこちら",
+		"Learn more about our two-factor authentication initiative": "2 要素認証の取り組みについて詳しくはこちら",
+		// —— サインイン方法と必須化バナー ——
+		"Sign in methods": "サインイン方法",
+		"Sign in with your Apple account": "Apple アカウントでサインイン",
+		"Google sign in method dropdown": "Google のサインイン方法のドロップダウン",
+		"Because of your contributions on GitHub, two-factor authentication is required for your account. Thank you for helping keep the ecosystem safe!": "GitHub でのあなたのコントリビューションにより、あなたのアカウントでは 2 要素認証が必須です。エコシステムの安全性の維持にご協力いただきありがとうございます！",
+		// 必須化バナーは 3 ノード：`Some GitHub users are` + <a>now required</a> + 期限を含む
+		// 長文（後者は settings/two-factor-deadline-* 規則が日本語化済みで、文は
+		// 「追加のセキュリティ対策として 2 要素認証を有効にすることが求められています。…」と始まる）。
+		// そのため 2 番目のリンク文言は文を閉じる「現在必須です。」にした——繋げると
+		// 「一部の GitHub ユーザーは 現在必須です。 追加のセキュリティ対策として…」と読める
+		"Some GitHub users are": "一部の GitHub ユーザーは",
+		"now required": "現在必須です。",
+		"Account security": "アカウントのセキュリティ"
+	}
+}

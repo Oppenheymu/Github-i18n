@@ -2493,6 +2493,16 @@
 				{
 					"id": "org-settings/chart-y-axis-bypasses",
 					"pattern": "^The chart has (\\d+) Y ax(?:is|es) displaying Number of bypasses\\. Data ranges from ([\\d.-]+) to ([\\d.-]+)\\.$"
+				},
+				// 组织自定义属性页的「Set values」分支（`?tab=set-values` → 某个仓库）：
+				// 页头 H1 与面包屑末项都是 `Set properties on <仓库名>`，仓库名是动态值，
+				// 一条规则覆盖两处（不递归，仓库名原样带回）。捕获组限定成仓库名的
+				// 字符集（字母 / 数字 / `.` / `_` / `-`，`koishi-plugin-market-tracker`
+				// 这类名字要能过）并整串锚定，避免把以这半句开头的长句也吃进来
+				//（同 `org-settings/topics-heading` 的做法）。
+				{
+					"id": "org-settings/set-properties-on",
+					"pattern": "^Set properties on ([A-Za-z0-9._-]+)$"
 				}
 			]
 		},

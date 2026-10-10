@@ -9,12 +9,17 @@
 // 是 `compliance_frameworks` / `monorepo` / `ci`，与 HTML 里的 `monorepo` /
 // `databases` / `application_name` 不是同一组，故描述句只能见过一条收一条），
 // 外加「Set values」页签里仓库行的 `No properties` + tooltip `Edit properties`。
+// 再往后维护者贴的 `?tab=set-values` **整段 HTML** 补上该分支的其余文案（仓库列表
+// 筛选框、空态标题）与**第三条**轮换样本（`backup_required` /
+// `uses_external_packages`），并首次出现动态文案：页头与面包屑末项都是
+// `Set properties on <仓库名>`，故本模块新增规则 `org-settings/set-properties-on`
+//（这是本页唯一一条规则，也是本批唯一需要重生成骨架的改动）。
 //
 // 本文件锁四件事：
 //   ① 路由：命中 pages/org-settings + global，不命中 pages/repo-settings；
 //      新建页的地址 `/organizations/<组织>/settings/custom-property`（**单数**，
 //      即 `New property` 按钮的 href）也在同一条路由下；
-//   ② 页头 / 页签 / 筛选框 / 空态区块 / 「Set values」页签共 18 条键在实机节点上全部命中；
+//   ② 页头 / 页签 / 筛选框 / 空态区块 / 「Set values」分支共 22 条键在实机节点上全部命中；
 //   ③ 属性只走整串精确匹配：`Filter properties`（表单 aria-label 与 sr-only 标签同串）、
 //      `Page selector`（nav 的 aria-label）、`See more suggested properties`
 //      （按钮的 aria-label）三条都要能查到；
@@ -92,6 +97,29 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 	// 「Set values」页签里仓库行的文案（截图证据）
 	["No properties", "没有属性"],
 	["Edit properties", "编辑属性"],
+	// `?tab=set-values` 整段 HTML 补出的空态标题、仓库列表筛选框，
+	// 以及两张轮换建议卡的描述句
+	["No properties that match", "没有匹配的属性"],
+	["Search repositories", "搜索仓库"],
+	["Are regular backups required?", "需要定期备份吗？"],
+	[
+		"Are external packages used here?",
+		"这里使用了外部包吗？",
+	],
+];
+
+/** 本页唯一一条动态文案：`?tab=set-values` 的页头与面包屑末项 */
+const HEADING_NODES: readonly (readonly [
+	string,
+	string,
+])[] = [
+	// 页头 H1 与面包屑末项是同一个串，仓库名由路由决定
+	["Set properties on koishi", "设置 koishi 的属性"],
+	["Set properties on tools", "设置 tools 的属性"],
+	[
+		"Set properties on koishi-plugin-market-tracker",
+		"设置 koishi-plugin-market-tracker 的属性",
+	],
 ];
 
 /** 可翻译属性（属性只走整串精确匹配，不走规则） */
@@ -125,9 +153,12 @@ const MUST_STAY_ENGLISH: readonly string[] = [
 	"application_name",
 	"compliance_frameworks",
 	"ci",
+	"backup_required",
+	"uses_external_packages",
 	"items",
 	"0",
 	"\u00a0(0)",
+	"koishi",
 	"Koishi-CE",
 ];
 
@@ -293,6 +324,22 @@ describe("组织自定义属性页的节点切分事实", () => {
 		);
 	});
 
+	it("renders the third rotating sample", () => {
+		// `?tab=set-values` 那段 HTML 里的三张卡：两张第一次见，一张已是中文
+		expect(
+			renderNodes([
+				"backup_required",
+				"Are regular backups required?",
+				"databases",
+				"使用了哪些数据库？",
+				"uses_external_packages",
+				"Are external packages used here?",
+			]),
+		).toBe(
+			"backup_required需要定期备份吗？databases使用了哪些数据库？uses_external_packages这里使用了外部包吗？",
+		);
+	});
+
 	it("renders the set-values row with its edit affordance", () => {
 		// 「Set values」页签：仓库行是 `No properties` + 铅笔按钮的 tooltip
 		expect(
@@ -303,5 +350,47 @@ describe("组织自定义属性页的节点切分事实", () => {
 				"Edit properties",
 			]),
 		).toBe("属性设置值没有属性编辑属性");
+	});
+
+	it("renders the whole set-values form", () => {
+		// 实机：H1（动态仓库名）+ 筛选框 + 空态标题 + 两个按钮（保存 / 取消 已是中文）
+		expect(
+			renderNodes([
+				"Set properties on koishi",
+				"筛选属性",
+				"Search repositories",
+				"No properties that match",
+				"保存",
+				"取消",
+			]),
+		).toBe(
+			"设置 koishi 的属性筛选属性搜索仓库没有匹配的属性保存取消",
+		);
+	});
+});
+
+describe("组织自定义属性页的动态页头", () => {
+	it("rewrites the heading for every repository name", () => {
+		for (const [raw, expected] of HEADING_NODES) {
+			expect(
+				translateText(raw, view),
+				`未命中：${JSON.stringify(raw)}`,
+			).toBe(expected);
+		}
+	});
+
+	it("anchors the rule so neighbouring sentences stay English", () => {
+		// 整串锚定：只有「Set properties on <仓库名>」这半句会被改写
+		for (const raw of [
+			"Set properties on",
+			"Set properties for koishi",
+			"Set properties on koishi now",
+			"set properties on koishi",
+		]) {
+			expect(
+				translateText(raw, view),
+				`不应被翻译：${JSON.stringify(raw)}`,
+			).toBeNull();
+		}
 	});
 });

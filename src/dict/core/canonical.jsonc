@@ -4747,14 +4747,29 @@
 				"What application does this support?",
 				"Which compliance frameworks apply?",
 				"Which CI does this repository use?",
-				// —— 同页「Set values」页签（截图证据 2026-10-10）——
+				// 2026-10-10 维护者贴的 `?tab=set-values` 整段 HTML 又补出两条描述句
+				//（轮换池继续变大，属性名 `backup_required` / `uses_external_packages`
+				// 照旧不收录）
+				"Are regular backups required?",
+				"Are external packages used here?",
+				// —— 同页「Set values」页签（截图 + 整段 HTML，2026-10-10）——
 				// 仓库行右侧的铅笔按钮：`No properties` 是行内文案，
 				// `Edit properties` 是它的 tooltip（同串也是按钮的可访问名，
 				// 一条键覆盖「tooltip 文本节点 / title / aria-label」三种形态）。
-				// 截图只给到这一行，该页签的其余文案（表头、搜索框、批量操作等）
-				// 尚无证据，等维护者贴这一页的 HTML。
+				// 仓库列表的筛选框是 `Search repositories`（placeholder，
+				// 该输入框没有 aria-label）；列表页头 `Set properties on <仓库名>`
+				// 含动态用户名，走本模块的新规则 `org-settings/set-properties-on`
+				//（页头 H1 与面包屑末项是同一个串，一条规则覆盖两处）。
+				// 空态标题 `No properties that match` 是 `Blankslate.Heading`。
+				// 不收录：仓库名 / 仓库描述（用户内容）、payload 里
+				// `additionalFilterProviders` 的 `deployable` / `deployed`
+				//（筛选键名，与筛选框里的查询串同类）。面包屑导航的
+				// `Breadcrumbs` 与首项 `Custom properties` 早有键（global /
+				// 本模块），实机已是中文，正好当对照物。
 				"No properties",
-				"Edit properties"
+				"Edit properties",
+				"No properties that match",
+				"Search repositories"
 			]
 		},
 		{

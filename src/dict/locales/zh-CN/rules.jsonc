@@ -503,6 +503,8 @@
 		"org-settings/chart-y-axis-values": "图表有 $1 条 Y 轴，显示数值。数据范围从 $2 到 $3。",
 		"org-settings/chart-x-axis-actor": "图表有 $1 条 X 轴，显示操作者。",
 		"org-settings/chart-y-axis-bypasses": "图表有 $1 条 Y 轴，显示绕过次数。数据范围从 $2 到 $3。",
+		// 自定义属性页的「Set values」分支：页头与面包屑末项（仓库名是动态值）
+		"org-settings/set-properties-on": "设置 $1 的属性",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

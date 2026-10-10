@@ -916,9 +916,16 @@
 		// 有意不收录。
 		"Which compliance frameworks apply?": "适用哪些合规框架？",
 		"Which CI does this repository use?": "此仓库使用哪个 CI？",
-		// —— 同页「Set values」页签（截图证据）——
+		// `?tab=set-values` 整段实机 HTML 补出的两条（轮换池继续变大）
+		"Are regular backups required?": "需要定期备份吗？",
+		"Are external packages used here?": "这里使用了外部包吗？",
+		// —— 同页「Set values」页签（截图 + 整段 HTML）——
 		// 仓库行右侧的铅笔按钮：行内文案 + tooltip（同串也是可访问名）
 		"No properties": "没有属性",
-		"Edit properties": "编辑属性"
+		"Edit properties": "编辑属性",
+		// 仓库列表筛选框的 placeholder（该输入框没有 aria-label）
+		"Search repositories": "搜索仓库",
+		// 空态标题
+		"No properties that match": "没有匹配的属性"
 	}
 }

@@ -1985,7 +1985,8 @@
 				"org-settings/chart-x-axis-time",
 				"org-settings/chart-y-axis-values",
 				"org-settings/chart-x-axis-actor",
-				"org-settings/chart-y-axis-bypasses"
+				"org-settings/chart-y-axis-bypasses",
+				"org-settings/set-properties-on"
 			]
 		},
 		{
@@ -2142,7 +2143,8 @@
 				"org-settings/chart-x-axis-time",
 				"org-settings/chart-y-axis-values",
 				"org-settings/chart-x-axis-actor",
-				"org-settings/chart-y-axis-bypasses"
+				"org-settings/chart-y-axis-bypasses",
+				"org-settings/set-properties-on"
 			]
 		},
 		{
@@ -2581,7 +2583,8 @@
 				"org-settings/chart-x-axis-time",
 				"org-settings/chart-y-axis-values",
 				"org-settings/chart-x-axis-actor",
-				"org-settings/chart-y-axis-bypasses"
+				"org-settings/chart-y-axis-bypasses",
+				"org-settings/set-properties-on"
 			]
 		},
 		{
@@ -2738,7 +2741,8 @@
 				"org-settings/chart-x-axis-time",
 				"org-settings/chart-y-axis-values",
 				"org-settings/chart-x-axis-actor",
-				"org-settings/chart-y-axis-bypasses"
+				"org-settings/chart-y-axis-bypasses",
+				"org-settings/set-properties-on"
 			]
 		},
 		{

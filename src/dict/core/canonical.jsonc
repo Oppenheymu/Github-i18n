@@ -5102,7 +5102,138 @@
 				"Runner label",
 				"Existing name",
 				"Existing label",
-				"Learn how to use or create custom labels."
+				"Learn how to use or create custom labels.",
+				// —— /settings/actions（组织级「常规 Actions 权限」页）——
+				// 证据：2026-10-11 维护者贴的整段实机 HTML。本页**不缺路由**（挂在 `settings`
+				// 前缀下，命中 `pages/org-settings` + `global`），此前整页只吃 global 的零星词条
+				//（HTML 里的 `所有仓库` / `已选仓库` / `禁用` / `保存` / `运行器` / `已允许` 都是
+				// 既有键生效的对照物），其余英文即本批清单。
+				// 关键事实：仓库级的 `/owner/repo/settings/actions` 早有一整套**同串**词条，但它们
+				// 全在 `pages/repo-settings` 里，而那条路由**排除了 `organizations`/`orgs`**，
+				// 在组织路径上一条都不命中——这就是「明明翻译过却整页英文」的成因。故本模块
+				// **逐字同译**各收一份（跨模块同键同值，骨架不记碰撞；先例是 `Allowed` /
+				// `Selected repositories` / `Blocking a user prevents …`，它们同样在两个分组各登一次）。
+				"General actions permissions",
+				"Choose which repositories are permitted to use GitHub Actions.",
+				"Actions can be run by any repository in the organization",
+				"Actions can only be run by specifically selected repositories",
+				"GitHub Actions is disabled for all repositories in the organization",
+				// 允许的操作与可复用工作流（三个单选项 + 两个复选框 + 允许列表）——
+				// 含组织名的四条（`Allow <org> …` / `Any action … within <org> …`）见
+				// core/rules.jsonc 的 org-settings/actions-* 规则（与仓库级同 pattern、不同 id）。
+				"Allow all actions and reusable workflows",
+				"Any action or reusable workflow can be used, regardless of who authored it or where it is defined.",
+				"Allow actions created by GitHub",
+				"Allow actions by Marketplace",
+				"verified creators",
+				"Allow or block specified actions and reusable workflows",
+				// 允许列表输入框的 placeholder（属性按精确键匹配；`textarea` 虽在排除清单里，
+				// 但 walker 对表单控件仍翻属性——见 src/content/filters.ts 的 FORM_CONTROL_SELECTOR）
+				"Enter a comma-separated list of actions and reusable workflows",
+				"Learn more about allowing specific actions and reusable workflows to run.",
+				"Require actions to be pinned to a full-length commit SHA",
+				// 允许列表下方的示例提示：`!` 与 `*` 各自被 <code> 包住（排除容器内的文本引擎不翻），
+				// 故整段在实机上就是这些碎片节点
+				"Action examples:",
+				"Entire organization or repository examples:",
+				"Reusable workflow examples:",
+				"Wildcards, tags, and SHAs are allowed. Use",
+				"prefix to block.",
+				". By default, only allowed patterns specified in the list can be used. To allow all actions and reusable workflows except those that are explicitly blocked, add a",
+				"wildcard pattern.",
+				// 两条警告横幅（默认 `hidden`，但仍在 DOM 里 ⇒ 隐藏节点照常翻译）
+				"Your list contains a",
+				"wildcard pattern, which will",
+				"allow all actions and reusable workflows",
+				"except those that are explicitly blocked.",
+				"Your list contains",
+				"only blocked patterns",
+				// 运行器（Runners）——
+				"Repository self-hosted runners",
+				"Choose which repositories are allowed to create repository-level self-hosted runners.",
+				"Repo-level self-hosted runners can be used by any repository in the organization",
+				"Repo-level self-hosted runners can be used by specifically selected repositories",
+				"Repo-level self-hosted runners are disabled for all repositories in the organization",
+				// 自定义镜像（Custom images）——独立的 React partial
+				//（`actions-custom-images-retention-policy`，`data-ssr="true"`，随 SSR 一起渲染）
+				"Custom images",
+				"Choose the default settings for custom image retention in this enterprise.",
+				"Maximum versions per image",
+				"versions",
+				"Unused version retention",
+				"Maximum version age",
+				// 三条说明句共用一个前段节点（后面紧跟 `<strong>` 包着的数字），
+				// 数字是纯数字节点、引擎按设计跳过，故「前段 + 后段」两条键覆盖三种句子。
+				// 前段译成「…最大上限为」而不是「…最大上限：」——walker 会保留节点尾随空格，
+				// 用冒号会渲染成「上限： 100」，用「为」则「上限为 100」读得通
+				"Your enterprise has set a maximum limit of",
+				"versions per image.",
+				"days for unused version retention.",
+				"days for maximum version age.",
+				// 标准托管运行器（Standard hosted runners）——
+				"Standard hosted runners",
+				"Choose if repositories are allowed to use standard hosted runner labels. If disabled, hosted runners can only be accessed via a runner group.",
+				"Disable for all repositories",
+				"Note:",
+				"Once disabled you will lose any concurrency settings you have set up.",
+				"For more information on concurrency see our documentation.",
+				// 实时调试（Live debugging）——下拉的当前值 `Not allowed` 与菜单项同串，一条键覆盖两处
+				"Allow live debugging on self-hosted runners. Repositories must individually opt in.",
+				"Not allowed",
+				"Allow live debugging on self-hosted runners",
+				"Do not allow live debugging on self-hosted runners",
+				// 保留期（Retention）——注意组织侧的用词比仓库级多一个 `default`
+				//（`Choose the default repository settings …`），是**另一条键**，不能与仓库级互相顶替
+				"Choose the default repository settings for checks, workflow runs, statuses, artifacts, and logs.",
+				"Check, workflow run, status, artifact and log retention",
+				"days",
+				"days.",
+				"Duration must be 1 or more.",
+				"Duration must be 400 or less",
+				"You can set a maximum limit of",
+				"Save artifact and log retention setting",
+				"Learn more about the check, workflow run, status, artifact and log retention policy.",
+				// 复刻拉取请求工作流（Fork pull request workflows）——
+				// 这一整块在 canonical 里**此前完全没有**（仓库级模块也没收过，见该页注释），全是新键
+				"Fork pull request workflows in private and internal repositories",
+				"These settings apply to private and internal repositories. Repository administrators will only be able to change the settings that are enabled here.",
+				"Run workflows from fork pull requests",
+				"This tells Actions to run workflows from pull requests originating from repository forks. Note that doing so will give maintainers of those forks the ability to use tokens with read permissions on the source repository.",
+				"Send write tokens to workflows from fork pull requests.",
+				// 该说明的两处 <strong>write</strong> 把句子切成三段，中间与结尾各成节点
+				"This tells Actions to send tokens with",
+				"permissions to workflows from pull requests originating from repository forks. Note that doing so will give maintainers of those forks",
+				"permissions against the source repository.",
+				"Send secrets and variables to workflows from fork pull requests.",
+				"This tells Actions to send repository secrets and variables to workflows from pull requests originating from repository forks.",
+				"Require approval for fork pull request workflows.",
+				"Fork pull requests from users without write access will require approval to run workflows.",
+				"Save fork pull request workflows settings",
+				// 拉取请求工作流的批准（Fork pull request approvals）——
+				// 第三条单选项的说明含组织名（动态值）⇒ 走 org-settings/actions-fork-approvals-org 规则；
+				// 其余三条与仓库级同串同译（`setting` 单数与 `settings` 复数各一条键，不能互相顶替）
+				"Approval for running fork pull request workflows from contributors",
+				"Choose which subset of users will require approval before running workflows on their pull requests. Both the pull request author and the actor of the pull request event triggering the workflow will be checked to determine if approval is required. If approval is required, a user with write access to the repository must",
+				"approve the pull request workflow to be run.",
+				"Require approval for all external contributors",
+				"Require approval for first-time contributors who are new to GitHub",
+				"Only users who are both new on GitHub and who have never had a commit or pull request merged into this repository will require approval to run workflows.",
+				"Require approval for first-time contributors",
+				"Only users who have never had a commit or pull request merged into this repository will require approval to run workflows.",
+				"Save fork pull request workflows setting",
+				// 工作流权限（Workflow permissions）——组织侧的说明句以 `in this organization` 收尾，
+				// 与仓库级的 `in this repository` 是两条不同的键
+				"Workflow permissions",
+				"Choose the default permissions granted to the GITHUB_TOKEN when running workflows in this organization. You can specify more granular permissions in the workflow using YAML.",
+				"Learn more about managing permissions.",
+				"Repository administrators will only be able to change the default permissions to a more restrictive setting.",
+				"Read and write permissions",
+				"Workflows have read and write permissions in the repository for all scopes.",
+				"Read repository contents and packages permissions",
+				"Workflows have read permissions in the repository for the contents and packages scopes only.",
+				"Choose whether GitHub Actions can create pull requests or submit approving pull request reviews.",
+				"Allow GitHub Actions to create and approve pull requests",
+				"Save workflow permissions settings"
 			]
 		},
 		{

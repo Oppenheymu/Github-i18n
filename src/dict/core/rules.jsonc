@@ -2550,6 +2550,39 @@
 				{
 					"id": "org-settings/copilot-pair-programmer-intro",
 					"pattern": "^The AI powered pair programmer for your organization\\. Once you complete onboarding, you['’]ll have the ability to manage policies and control which users or teams will have access to$"
+				},
+				// —— 组织级「常规 Actions 权限」页（/organizations/<组织>/settings/actions）——
+				// 五条含**组织名**（动态值）的文案。跨模块同形规则合法（见本文件头部说明），
+				// 那条仓库级路由不命中组织路径，故必须在本模块各收一份。
+				// 「Allow <org>, and select non-<org>, …」必须排在「Allow <org> …」之前：
+				// 后者的 (.+) 是贪婪的，会把前者的整段描述吞进去，首条命中生效的顺序决定成败。
+				{
+					"id": "org-settings/actions-allow-org-selective",
+					"pattern": "^Allow (.+), and select non-.+, actions and reusable workflows$"
+				},
+				{
+					"id": "org-settings/actions-allow-org",
+					"pattern": "^Allow (.+) actions and reusable workflows$"
+				},
+				// 这两条的 pattern 与仓库级**不同形**，别照抄：组织侧的英文把组织名包在
+				// `the … organization` 里（`… within the Koishi-CE organization can be used.`），
+				// 仓库级那句是裸名（`… within Oppenheymu can be used.`，见 repo-settings 的用例）。
+				// 照抄会让 (.+) 把 `the Koishi-CE organization` 整段吞进译文。
+				{
+					"id": "org-settings/actions-org-workflow",
+					"pattern": "^Any action or reusable workflow defined in a repository within the (.+) organization can be used\\.$"
+				},
+				{
+					"id": "org-settings/actions-org-criteria",
+					"pattern": "^Any action or reusable workflow that matches the specified criteria, plus those defined in a repository within the (.+) organization, can be used\\.$"
+				},
+				// 同一页「复刻拉取请求工作流的批准」第三条单选项的说明句。
+				// 仓库级的同款句子是 `… not a member or owner of **this repository** will …`（静态键），
+				// 组织侧换成了 `… of **the repository** and not a member of the <组织> organization …`，
+				// 串并不相同 ⇒ 只能在本模块另起一条规则（那条静态键在组织路径上不命中，用例有反例断言）。
+				{
+					"id": "org-settings/actions-fork-approvals-org",
+					"pattern": "^All users that are not a member or owner of the repository and not a member of the (.+) organization will require approval to run workflows\\.$"
 				}
 			]
 		},

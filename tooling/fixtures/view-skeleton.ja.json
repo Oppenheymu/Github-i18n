@@ -1991,7 +1991,10 @@
 				"org-settings/open-type-options",
 				"org-settings/issue-fields-count",
 				"org-settings/open-field-options",
-				"org-settings/copilot-pair-programmer-intro"
+				"org-settings/copilot-pair-programmer-intro",
+				"org-settings/actions-org-workflow",
+				"org-settings/actions-org-criteria",
+				"org-settings/actions-fork-approvals-org"
 			]
 		},
 		{
@@ -2154,7 +2157,10 @@
 				"org-settings/open-type-options",
 				"org-settings/issue-fields-count",
 				"org-settings/open-field-options",
-				"org-settings/copilot-pair-programmer-intro"
+				"org-settings/copilot-pair-programmer-intro",
+				"org-settings/actions-org-workflow",
+				"org-settings/actions-org-criteria",
+				"org-settings/actions-fork-approvals-org"
 			]
 		},
 		{
@@ -2599,7 +2605,10 @@
 				"org-settings/open-type-options",
 				"org-settings/issue-fields-count",
 				"org-settings/open-field-options",
-				"org-settings/copilot-pair-programmer-intro"
+				"org-settings/copilot-pair-programmer-intro",
+				"org-settings/actions-org-workflow",
+				"org-settings/actions-org-criteria",
+				"org-settings/actions-fork-approvals-org"
 			]
 		},
 		{
@@ -2762,7 +2771,10 @@
 				"org-settings/open-type-options",
 				"org-settings/issue-fields-count",
 				"org-settings/open-field-options",
-				"org-settings/copilot-pair-programmer-intro"
+				"org-settings/copilot-pair-programmer-intro",
+				"org-settings/actions-org-workflow",
+				"org-settings/actions-org-criteria",
+				"org-settings/actions-fork-approvals-org"
 			]
 		},
 		{

@@ -513,6 +513,12 @@
 		"org-settings/open-field-options": "打开 $1 的字段选项",
 		// 组织 Copilot 设置页升级卡的说明段（撇号两种形态由 pattern 的字符类覆盖）
 		"org-settings/copilot-pair-programmer-intro": "为你的组织提供的 AI 驱动结对编程助手。完成入门引导后，你将能够管理策略，并控制哪些用户或团队可以访问",
+		// 组织级「常规 Actions 权限」页：四条含组织名的文案（与 pages/repo-settings 同 pattern、同译）
+		"org-settings/actions-allow-org-selective": "允许 $1 的操作和可复用工作流，并可选择非 $1 的操作和可复用工作流",
+		"org-settings/actions-allow-org": "允许 $1 的操作和可复用工作流",
+		"org-settings/actions-org-workflow": "$1 内仓库中定义的任何操作或可复用工作流都可以使用。",
+		"org-settings/actions-org-criteria": "符合指定条件的任何操作或可复用工作流，加上 $1 内仓库中定义的那些，都可以使用。",
+		"org-settings/actions-fork-approvals-org": "所有不是该仓库成员或所有者、也不是 $1 组织成员的用户，都需要批准才能运行工作流。",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

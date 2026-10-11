@@ -5059,7 +5059,24 @@
 				"Organization custom allowlist",
 				"Allow access to specific domains, IP addresses, or URLs for all repositories in this organization.",
 				"Configure firewall rules for Copilot code review across all repositories in this organization.",
-				"Limit Copilot code review's Internet access to only allow access to allowlisted locations."
+				"Limit Copilot code review's Internet access to only allow access to allowlisted locations.",
+				// —— /settings/copilot/runner_type（组织级运行器类型设置）——
+				// 证据：2026-10-11 维护者贴的整页 HTML（`<react-app app-name="copilot-for-business">`）。
+				// cloud agent / code review 两节共用同一套配置字段。agent_name 是 React 插值，
+				// 实机中产品名已单独翻译、句子两侧仍为英文，故只登记前后片段，不登记整句。
+				// YAML 配置文件名是实际说明内容的一部分，译文保留原样；payload 内的 runner
+				// 类型、标签、分组名称等配置值未在本页渲染，不作为词条收录。
+				"Select the default runner type for",
+				"Repositories in this organization will use the selected runner type unless overridden at the repository level.",
+				"Learn about GitHub Actions runners.",
+				"Runner type configuration",
+				"Select the runner type for",
+				"sessions.",
+				"Standard GitHub runner",
+				"Edit runner type",
+				"Allow repositories to customize the runner type",
+				"When enabled, repositories can specify their own runner via their copilot-setup-steps.yml file.",
+				"When enabled, repositories can specify their own runner via their copilot-code-review.yml file."
 			]
 		},
 		{

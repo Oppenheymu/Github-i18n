@@ -1110,6 +1110,20 @@
 		"Organization custom allowlist": "组织自定义允许列表",
 		"Allow access to specific domains, IP addresses, or URLs for all repositories in this organization.": "允许此组织中的所有仓库访问特定域名、IP 地址或 URL。",
 		"Configure firewall rules for Copilot code review across all repositories in this organization.": "为此组织中的所有仓库配置 Copilot 代码审查的防火墙规则。",
-		"Limit Copilot code review's Internet access to only allow access to allowlisted locations.": "将 Copilot 代码审查的网络访问限制为仅允许访问允许列表中的位置。"
+		"Limit Copilot code review's Internet access to only allow access to allowlisted locations.": "将 Copilot 代码审查的网络访问限制为仅允许访问允许列表中的位置。",
+		// —— /settings/copilot/runner_type（组织级运行器类型设置）——
+		// `agent_name` 由 React 作为独立文本插值；只翻译句首、句尾与静态说明节点。
+		// `copilot-setup-steps.yml` / `copilot-code-review.yml` 是配置文件名，保留原文。
+		"Select the default runner type for": "选择默认运行器类型，适用于",
+		"Repositories in this organization will use the selected runner type unless overridden at the repository level.": "此组织中的仓库将使用所选运行器类型，除非仓库级设置另有指定。",
+		"Learn about GitHub Actions runners.": "了解 GitHub Actions 运行器。",
+		"Runner type configuration": "运行器类型配置",
+		"Select the runner type for": "选择运行器类型，适用于",
+		"sessions.": "会话。",
+		"Standard GitHub runner": "标准 GitHub 运行器",
+		"Edit runner type": "编辑运行器类型",
+		"Allow repositories to customize the runner type": "允许仓库自定义运行器类型",
+		"When enabled, repositories can specify their own runner via their copilot-setup-steps.yml file.": "启用后，仓库可以通过 copilot-setup-steps.yml 文件指定自己的运行器。",
+		"When enabled, repositories can specify their own runner via their copilot-code-review.yml file.": "启用后，仓库可以通过 copilot-code-review.yml 文件指定自己的运行器。"
 	}
 }

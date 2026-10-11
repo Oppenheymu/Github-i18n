@@ -1321,6 +1321,11 @@
 		"No custom properties defined": "未定义自定义属性",
 		"Define custom properties to include them as claims in OIDC tokens.": "定义自定义属性，以将其作为声明包含在 OIDC 令牌中。",
 		"Learn more about repository custom properties.": "进一步了解仓库自定义属性。",
-		"Manage custom properties": "管理自定义属性"
+		"Manage custom properties": "管理自定义属性",
+		// —— /settings/hooks（组织级网络钩子列表页）——
+		// 与 pages/repo-settings 的同串逐字同译（那条路由不命中组织路径）；
+		// 页首说明句走 org-settings/webhooks-intro 规则（与仓库级同 pattern 同模板）
+		"Add webhook": "添加网络钩子",
+		"Webhooks Guide": "网络钩子指南"
 	}
 }

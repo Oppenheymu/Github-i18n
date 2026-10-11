@@ -532,6 +532,11 @@
 		"org-settings/block-user-confirm": "ブロックしようとしています：$1",
 		"org-settings/block-duration-days": "ブロック：$1 日間",
 		"org-settings/block-duration-forever": "ブロック：自分で解除するまで",
+		// 組織側の Webhook 一覧ページの説明文。`repo-settings/webhooks-intro` と
+		// **同じ pattern**（`check:view` の notTranslated は pattern 単位で重複排除するため、
+		// この id を補わなくてもスナップショットには現れない）なので、
+		// 気づかないまま ja だけ英語が残ってしまう。ここで先に埋めておく。
+		"org-settings/webhooks-intro": "Webhook を使用すると、特定のイベントが発生したときに外部サービスへ通知できます。指定したイベントが発生すると、指定した各 URL に POST リクエストを送信します。詳細については、",
 
 		// —— pages/actions（Actions）——
 		"actions/duration-hms": "$1 時間 $2 分 $3 秒",

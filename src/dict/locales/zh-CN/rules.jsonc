@@ -478,6 +478,8 @@
 		"org-settings/actions-policy-insights-title": "设置 · Actions 策略洞察 · $1",
 		// OIDC 配置页的标题没有 `Settings · ` 前缀，页面名写死在模板里
 		"org-settings/oidc-configuration-title": "OIDC 配置 · $1",
+		// 网络钩子列表页的说明句（与 repo-settings/webhooks-intro 同 pattern 同模板）
+		"org-settings/webhooks-intro": "网络钩子让外部服务能在特定事件发生时收到通知。当指定的事件发生时，我们会向你提供的每个 URL 发送 POST 请求。进一步了解我们的",
 		// 组织级运行器列表页每行的活动作业计数
 		"org-settings/active-jobs-count": "$1 个活动作业",
 		// 组织级缓存页：计数行与每个仓库的用量行（数字与体积都是捕获组）

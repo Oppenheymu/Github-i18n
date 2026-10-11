@@ -2392,6 +2392,20 @@
 					"id": "org-settings/oidc-configuration-title",
 					"pattern": "^OIDC Configuration [\\u00b7\\u2022] (.+)$"
 				},
+				// 组织级网络钩子列表页（/organizations/<组织>/settings/hooks）的页首说明句：
+				// 与 repo-settings/webhooks-intro **同 pattern 同模板**（跨模块重复合法，
+				// 仓库那条路由排除 organizations|orgs，组织路径上不命中）。
+				// 2026-10-11 维护者贴的整段 HTML 把两件事一并证实了：① 这句在实机确实是
+				// **单个文本节点**（源码里的换行与缩进由 normalizeKey 折叠，仓库级当初只是「推测」）；
+				// ② 撇号是**直撇号** `we'll`。字符类仍然保留——它与仓库级保持一致，
+				// 上游哪天换成弯撇号两边都不会漏。
+				// 注意：本规则与仓库级同 pattern，故 ja 的 check:view `notTranslated`
+				// **不会**列出它（按 pattern 源串判重，ja 已有仓库级那条的模板）——
+				// 给 ja 补这条模板时别只看骨架清单，要按 id 逐条核对。
+				{
+					"id": "org-settings/webhooks-intro",
+					"pattern": "^Webhooks allow external services to be notified when certain events happen\\. When the specified events happen, we['\\u2019]ll send a POST request to each of the URLs you provide\\. Learn more in our$"
+				},
 				// 组织级运行器列表页（/organizations/<组织>/settings/actions/runners）每行的
 				// 活动作业计数：实机是**单个文本节点**（`0 active jobs`），条数随运行器状态变，
 				// 故走规则；单数 `1 active job` 由 `jobs?` 一并接住。

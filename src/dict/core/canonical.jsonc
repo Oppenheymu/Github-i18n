@@ -5359,7 +5359,19 @@
 				"No custom properties defined",
 				"Define custom properties to include them as claims in OIDC tokens.",
 				"Learn more about repository custom properties.",
-				"Manage custom properties"
+				"Manage custom properties",
+				// —— /settings/hooks（组织级网络钩子列表页）——
+				// 证据：2026-10-11 维护者贴的整段实机 HTML（`#hooks_bucket`——服务端渲染的
+				// ERB 页面，不是 React）。它又是仓库级 `/owner/repo/settings/hooks` 的同款页，
+				// 同串词条同样整包躺在 pages/repo-settings 里（那条路由排除 organizations|orgs）
+				// ⇒ 页头 h1 已是中文的 `网络钩子`（本模块侧栏既有键 `Webhooks`）正是对照物，
+				// 其余英文即本批清单。说明句（`Webhooks allow external services…`）在实机是
+				// **单个文本节点**（源码里的换行与缩进由 normalizeKey 折叠成单空格），
+				// 只被 `<a>Webhooks Guide</a>` 切开一次，链接后面那个 `.` 是独立的纯符号节点
+				//（引擎按设计跳过），故与仓库级一样**走规则**（org-settings/webhooks-intro，
+				// 与 repo-settings 同 pattern 同模板——撇号直弯的容错也一并沿用）。
+				"Add webhook",
+				"Webhooks Guide"
 			]
 		},
 		{

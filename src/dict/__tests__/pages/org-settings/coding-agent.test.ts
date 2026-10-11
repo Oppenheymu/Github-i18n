@@ -5,7 +5,10 @@
 // 是完整句子，实机却是三个相邻的裸文本节点（`With ` / `Copilot cloud agent` / `, developers can …`，
 // 片段之间没有任何元素，粘贴 outerHTML 看不出边界）——照视觉整句登记的整句键永不命中，
 // 第二次粘贴时整句里只剩 `Copilot 云端代理` 一处中文（它的节点恰好等于词条键）即为实证，
-// 故按碎片收录并删掉旧整句键。「部分设置已迁移」里的两句分别被 `Runner type` /
+// 故按碎片收录并删掉旧整句键。同一页的两张代理卡片标题（`Allow Claude coding agent`）
+// 是同一类：代理名由 payload 插值成独立的裸文本节点，贴出来只是 `Allow Claude ` 一句话，
+// 照视觉登记的 `Allow Claude` / `Allow Codex` 两个整句键同样永不命中，已删、改收 `Allow` 碎片。
+// 「部分设置已迁移」里的两句分别被 `Runner type` /
 // `Internet access` 链接切开，链接本身已由本模块既有词条翻译。
 // Claude / Codex、组织名与 payload 标识符保持英文。
 import { describe, expect, it } from "bun:test";
@@ -94,13 +97,12 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 		"Enabling an agent allows it to be mentioned in issues and pull requests, and assigned to issues and open pull requests. Agents can only be triggered by organization members and repository collaborators, and can only be used in this organization's repositories where the cloud agent feature is enabled.",
 		"启用代理后，可在议题和拉取请求中提及该代理，也可将议题和未关闭的拉取请求分配给它。只有组织成员和仓库协作者可以触发代理；且只能在已启用云端代理功能的组织仓库中使用。",
 	],
-	["Allow Claude", "允许 Claude"],
+	["Allow", "允许"],
 	["coding agent", "编程代理"],
 	[
 		"Learn more about Claude on GitHub",
 		"在 GitHub 上详细了解 Claude",
 	],
-	["Allow Codex", "允许 Codex"],
 	[
 		"Learn more about Codex on GitHub",
 		"在 GitHub 上详细了解 Codex",
@@ -202,12 +204,30 @@ describe("组织 Copilot 云端代理设置页的实机节点", () => {
 	});
 
 	it("renders each partner agent heading with its product name", () => {
+		// 标题是 `Allow ` + 代理名 + `coding agent`：代理名由 payload 插值成
+		// 独立的裸文本节点（保持英文），空格跟在哪一边都不影响拼接结果。
 		expect(
-			renderNodes(["Allow Claude ", "coding agent"]),
+			renderNodes([
+				"Allow ",
+				"Claude",
+				" ",
+				"coding agent",
+			]),
 		).toBe("允许 Claude 编程代理");
 		expect(
-			renderNodes(["Allow Codex ", "coding agent"]),
+			renderNodes(["Allow ", "Codex", " ", "coding agent"]),
 		).toBe("允许 Codex 编程代理");
+	});
+
+	it("does not translate the partner agent headings as one node", () => {
+		// 反向钉住：`Allow Claude` / `Allow Codex` 两个整句键已从 canonical 删除
+		// （实机里代理名自成一个节点，整句键永不命中）。上游若改成整节点，这条会变红。
+		for (const raw of ["Allow Claude", "Allow Codex"]) {
+			expect(
+				translateText(raw, view),
+				`不应命中：${raw}`,
+			).toBeNull();
+		}
 	});
 
 	it("renders the intro sentence across its three bare text nodes", () => {

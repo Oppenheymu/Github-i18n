@@ -5005,10 +5005,13 @@
 				"settings page.",
 				"Partner agents",
 				"Enabling an agent allows it to be mentioned in issues and pull requests, and assigned to issues and open pull requests. Agents can only be triggered by organization members and repository collaborators, and can only be used in this organization's repositories where the cloud agent feature is enabled.",
-				"Allow Claude",
+				// 两张代理卡片的标题同理：实机是 `Allow ` + 代理名 + `<span>coding agent</span>`，
+				// 代理名由 payload 插值成**独立的裸文本节点**（`Claude` / `Codex` 保持英文），
+				// 故照视觉登记的 `Allow Claude` / `Allow Codex` 两个整句键永不命中
+				// （第二次实机粘贴里只剩 `编程代理` 一处中文即为实证），已删；只收 `Allow`。
+				"Allow",
 				"coding agent",
 				"Learn more about Claude on GitHub",
-				"Allow Codex",
 				"Learn more about Codex on GitHub"
 			]
 		},

@@ -2363,6 +2363,14 @@
 		{
 			"name": "pages/org-settings",
 			"rules": [
+				// 组织级 Actions 策略页（/organizations/<组织>/settings/actions/rules）的 document.title：
+				// 实机是 `Settings · Actions policies · Koishi-CE`。必须排在下面那条通用规则**之前**，
+				// 否则通用规则先命中、中段页面名只能原样保留英文（同 repo-settings 的
+				// `actions-policies-title`）。静态键只覆盖正文 H1，管不到标题节点。
+				{
+					"id": "org-settings/actions-policies-title",
+					"pattern": "^Settings [\\u00b7\\u2022] Actions policies [\\u00b7\\u2022] (.+)$"
+				},
 				// 组织设置页的 document.title：`Settings · Repository policies · Koishi-CE`。
 				// 中段是页面名（英文：规则不递归，故原样带回）、末段是组织名（用户内容）。
 				// 分隔符在实机是中点，仍用字符类同时覆盖中点与项目符号（与既有规则一致）。

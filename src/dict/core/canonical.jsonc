@@ -5233,7 +5233,23 @@
 				"Workflows have read permissions in the repository for the contents and packages scopes only.",
 				"Choose whether GitHub Actions can create pull requests or submit approving pull request reviews.",
 				"Allow GitHub Actions to create and approve pull requests",
-				"Save workflow permissions settings"
+				"Save workflow permissions settings",
+				// —— /settings/actions/rules（组织级「Actions 策略」页）——
+				// 证据：2026-10-11 维护者贴的实机 HTML（同样是 `<react-app app-name="repos-rules">`，
+				// 与组织规则集页 / 洞察页 / 仪表盘页是**同一个 React 应用**，只是 `supportedTargets`
+				// 换成 `actions`，故说明句与仓库级的不同串——同模板不同文案，各收一份）。
+				// 页面上已是中文的 `你还没有创建任何策略` / `新建策略` / `进一步了解 策略.` /
+				// `组织规则集将不会强制执行 直到…` 都是既有键的对照物（前三条来自
+				// policies/repositories 那批，与本页同串）。
+				// payload 里 `upsellHeaderText` / `protectionsHeading` / `protectionsSubtitle` /
+				// `insightsHeading` 四句**本页没有渲染**，按「只收实机渲染到的值」不收录。
+				// document.title 的中段页面名由规则写死（`org-settings/actions-policies-title`），
+				// 静态键只覆盖正文 H1。
+				"Actions policies",
+				"Define whether actions can run in specific contexts.",
+				"Learn more about pull_request_target restrictions",
+				"On November 2, 2026, GitHub will restrict",
+				"on public repositories by default. To continue allowing the event trigger, configure an Actions policy."
 			]
 		},
 		{

@@ -2067,6 +2067,7 @@
 				{ "key": "Write", "module": "pages/org-settings" }
 			],
 			"rules": [
+				"org-settings/actions-policies-title",
 				"org-settings/page-title",
 				"org-settings/roles-count",
 				"org-settings/discussion-creation-org",
@@ -2240,6 +2241,7 @@
 				{ "key": "Write", "module": "pages/org-settings" }
 			],
 			"rules": [
+				"org-settings/actions-policies-title",
 				"org-settings/page-title",
 				"org-settings/roles-count",
 				"org-settings/discussion-creation-org",
@@ -2767,6 +2769,7 @@
 				"settings/manage-organizations",
 				"settings/sponsoring-none",
 				"settings/article-a",
+				"org-settings/actions-policies-title",
 				"org-settings/page-title",
 				"org-settings/roles-count",
 				"org-settings/discussion-creation-org",
@@ -2940,6 +2943,7 @@
 				{ "key": "Write", "module": "pages/org-settings" }
 			],
 			"rules": [
+				"org-settings/actions-policies-title",
 				"org-settings/page-title",
 				"org-settings/roles-count",
 				"org-settings/discussion-creation-org",

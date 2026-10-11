@@ -1250,6 +1250,14 @@
 		"Workflows have read permissions in the repository for the contents and packages scopes only.": "工作流在仓库中仅对内容与包作用域拥有读取权限。",
 		"Choose whether GitHub Actions can create pull requests or submit approving pull request reviews.": "选择 GitHub Actions 是否可以创建拉取请求或提交批准式拉取请求审查。",
 		"Allow GitHub Actions to create and approve pull requests": "允许 GitHub Actions 创建和批准拉取请求",
-		"Save workflow permissions settings": "保存工作流权限设置"
+		"Save workflow permissions settings": "保存工作流权限设置",
+		// —— /settings/actions/rules（组织级「Actions 策略」页）——
+		// 与 pages/repo-settings 的同串节点逐字同译（那条路由不命中组织路径）；
+		// 说明句与仓库级**不同串**（同一款 `repos-rules` 应用、target 换成 actions）。
+		"Actions policies": "Actions 策略",
+		"Define whether actions can run in specific contexts.": "定义操作是否可以在特定上下文中运行。",
+		"Learn more about pull_request_target restrictions": "进一步了解 pull_request_target 限制",
+		"On November 2, 2026, GitHub will restrict": "2026 年 11 月 2 日，GitHub 将限制",
+		"on public repositories by default. To continue allowing the event trigger, configure an Actions policy.": "在公开仓库中的使用。要继续允许该事件触发器，请配置一个 Actions 策略。"
 	}
 }

@@ -4860,7 +4860,42 @@
 				"Pre-Release Terms",
 				"Enabled",
 				"Cloud sandbox access is not available for organization members.",
-				"Members of this organization can use cloud sandboxes."
+				"Members of this organization can use cloud sandboxes.",
+				// —— /organizations/<组织>/settings/projects（组织级项目设置）——
+				// 证据：2026-10-11 维护者贴的整段实机 HTML（`Layout-main` 起，扩展仍在运行）。
+				// 纯 SSR 页，路由挂在 `settings` 前缀下（表单 `action` 指向组织根上的
+				// `/organizations/<组织>/projects_enabled`，那是提交地址、不是页面地址）。
+				// 对照物：h2 的 `Projects` 命中本模块既有词条「项目」、空态链接的
+				// `Learn more` 由 global 译作「了解更多」，其余英文即本批清单。
+				// 关键切分事实：两条注解里的组织名都是 `<strong>` 节点 ⇒ 动态值是**独立节点**，
+				// 整句键里没有用户名，故本页不需要规则。第一条注解被两个 `<strong>` 夹住，
+				// 中间那个文本节点**同时含第一句的句尾与第二句的开头**
+				//（`organization. Members can create projects … from any`），
+				// normalizeKey 把源码里的换行折成一个空格，两句只能合成一个键。
+				// 中文为此把第二句的 `-owned repository` 拆成「归 … 所有」：
+				// 中段译文收在「任何归」、末段（`-owned repository.`）收在
+				//「所有的仓库中的议题。」，组织名正好落在两个 `<strong>` 之间，
+				// 拼起来读作「……跟踪任何归 Koishi-CE 所有的仓库中的议题。」
+				// 不收录：组织名（用户内容，`<strong>` 里的 `Koishi-CE`）、`action` /
+				// `name`（`organization[organization_projects_enabled]` 一类标识符）、
+				// checkbox 的 `value`（`0` / `1`）、csrf token、SVG 的 `path`。
+				// 另收一条**属性**词条：保存按钮的 `data-disable-with="Saving…"`——
+				// 省略号是**单字符 `…`**，与本模块既有的 `Saving...`（三个半角句点，
+				// 新建 / 编辑标签表单的按钮）**不是同串**，两条各自独立
+				//（同类先例：`Updating…` 也是单字符省略号）。
+				"Projects on GitHub help you organize and prioritize your work. You can create projects for specific feature work, comprehensive roadmaps, or even release checklists.",
+				"Enable Projects for the organization",
+				"This allows members to create projects for the",
+				"organization. Members can create projects to organize and track issues from any",
+				"-owned repository.",
+				"Allow members to change project visibilities for this organization",
+				"If enabled, members with admin permissions on a project can make the project public or private. If disabled, only organization owners can make the project public or private. All projects are private by default.",
+				"Saving…",
+				"Recommended templates",
+				"Customize a selection of recommended project templates for this organization. These templates will be surfaced first when a member of the organization creates a new project.",
+				"Create your first GitHub project template",
+				"Templates can be used to quickly get started with a new project.",
+				"New template"
 			]
 		},
 		{

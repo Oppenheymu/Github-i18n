@@ -991,6 +991,29 @@
 		"Pre-Release Terms": "预发布条款",
 		"Enabled": "启用",
 		"Cloud sandbox access is not available for organization members.": "组织成员无法使用云端沙盒。",
-		"Members of this organization can use cloud sandboxes.": "此组织的成员可以使用云端沙盒。"
+		"Members of this organization can use cloud sandboxes.": "此组织的成员可以使用云端沙盒。",
+		// —— /settings/projects（组织级项目设置）——
+		// 纯 SSR 页；h2 的 `Projects` 由本模块既有词条译出，空态链接的 `Learn more`
+		// 由 global 覆盖。第一条注解被两个 `<strong>`（组织名）夹住，中间那个文本节点
+		// 同时含第一句句尾与第二句开头，中文把 `-owned repository` 拆成「归 … 所有」，
+		// 组织名落在两个 strong 之间，拼起来读作
+		//「这使成员可以为 Koishi-CE 组织创建项目。成员可以创建项目，用于整理和跟踪
+		//  任何归 Koishi-CE 所有的仓库中的议题。」
+		"Projects on GitHub help you organize and prioritize your work. You can create projects for specific feature work, comprehensive roadmaps, or even release checklists.": "GitHub 上的项目可帮助你整理工作并确定优先级。你可以为特定的功能开发、完整的路线图，甚至发布清单创建项目。",
+		"Enable Projects for the organization": "为此组织启用项目",
+		"This allows members to create projects for the": "这使成员可以为",
+		"organization. Members can create projects to organize and track issues from any": "组织创建项目。成员可以创建项目，用于整理和跟踪任何归",
+		"-owned repository.": "所有的仓库中的议题。",
+		"Allow members to change project visibilities for this organization": "允许成员更改此组织的项目可见性",
+		"If enabled, members with admin permissions on a project can make the project public or private. If disabled, only organization owners can make the project public or private. All projects are private by default.": "如果启用，具有项目管理员权限的成员可以将项目设为公开或私有。如果禁用，只有组织所有者可以将项目设为公开或私有。所有项目默认都是私有的。",
+		// 保存按钮的 in-flight 文案（`data-disable-with`，六个可翻译属性之一）：
+		// 单字符省略号，与既有的 `Saving...`（三个半角句点）不是同串
+		"Saving…": "正在保存…",
+		// —— 推荐模板（空态）——
+		"Recommended templates": "推荐模板",
+		"Customize a selection of recommended project templates for this organization. These templates will be surfaced first when a member of the organization creates a new project.": "为此组织自定义一组推荐的项目模板。当组织成员创建新项目时，这些模板会优先显示。",
+		"Create your first GitHub project template": "创建你的第一个 GitHub 项目模板",
+		"Templates can be used to quickly get started with a new project.": "模板可用于快速开始一个新项目。",
+		"New template": "新建模板"
 	}
 }

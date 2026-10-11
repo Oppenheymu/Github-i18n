@@ -1027,6 +1027,13 @@
 		"List of issue types": "议题类型列表",
 		// 同页每行 kebab 菜单的可见项：同菜单的 `Enable` 早已由交互限制页那批收下、
 		// `Edit` / `Delete` 由 global 覆盖，故实机里只剩这一个仍是英文
-		"Disable": "禁用"
+		"Disable": "禁用",
+		// —— /settings/issue-fields（组织级议题字段）——
+		// h2 的 `Issue fields` 由本模块既有词条译出；列表头的计数行与 kebab 按钮的
+		// tooltip 走本模块新增的两条规则。字段名 / 描述 / `title` 都是组织数据
+		//（可改名改描述），有意不收录；列表项的 `aria-label` 含动态字段名、
+		// 属性又不走规则，同样保持英文。
+		"New field": "新建字段",
+		"Issue fields let you define structured data to capture for each issue, helping you keep information consistent across all of your repositories.": "议题字段让你可以为每个议题定义要采集的结构化数据，帮助你在所有仓库中保持信息一致。"
 	}
 }

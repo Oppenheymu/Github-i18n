@@ -2522,6 +2522,22 @@
 				{
 					"id": "org-settings/open-type-options",
 					"pattern": "^Open type options for (.+)$"
+				},
+				// 组织议题字段页（/organizations/<组织>/settings/issue-fields）列表头的计数行：
+				// 实机形如 `4 Issue fields`——**注意大写 I**（与议题类型页的 `3 types`
+				// 只是句式对称、串并不相同），条数跟着组织配置的字段数走，
+				// 单数 `1 Issue field` 也由 `fields?` 一并接住。
+				{
+					"id": "org-settings/issue-fields-count",
+					"pattern": "^(\\d+) Issue fields?$"
+				},
+				// 同页每行 kebab 按钮的 tooltip：实机形如
+				// `Open field options for Priority`（字段名是动态值，原样带回）。
+				// 与议题类型页的 `open-type-options` 只是句式对称——名词不同 ⇒
+				// **两条 pattern**，不能靠改注释共用（同模块内 pattern 还必须唯一）。
+				{
+					"id": "org-settings/open-field-options",
+					"pattern": "^Open field options for (.+)$"
 				}
 			]
 		},

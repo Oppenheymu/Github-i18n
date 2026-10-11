@@ -4926,7 +4926,27 @@
 				// 维护者贴出的正是其中**唯一仍是英文的**那一个节点。
 				// `Disable` 是短动词，但它是菜单动作、且 repo-settings 与
 				// settings-security 两模块早已同译（禁用），本模块一并收。
-				"Disable"
+				"Disable",
+				// —— /organizations/<组织>/settings/issue-fields（组织级议题字段）——
+				// 证据：2026-10-11 维护者贴的整段实机 HTML
+				//（`<react-app app-name="issue-fields-settings">`）。它与议题类型页
+				// **不是同一款应用**，但显然是同一套模板改的：标题区、说明区、列表头 +
+				// 每行 kebab 的句式完全对称（上游连 `<form aria-labelledby="issue-types-heading">`
+				// 这个**指向议题类型页 id 的引用**都照抄了过来，而本页 h2 根本没带那个 id）。
+				// 对照物：h2 的 `Issue fields` 命中本模块既有词条「议题字段」。
+				// 本批两条规则，与议题类型页那两条句式对称但 pattern 不同、各收一条：
+				//   ① 列表头 `4 Issue fields`（**大写 I**，条数跟着组织配置的字段数走，
+				//      单数由 `fields?` 接住）→ `org-settings/issue-fields-count`；
+				//   ② 每行 kebab 按钮的 tooltip `Open field options for <字段名>`
+				//      → `org-settings/open-field-options`。
+				// 不收录（**组织数据 / 用户内容**）：payload `fields[]` 的 `name` 与
+				// `description`（`Priority` / `Start date` / `Target date` / `Effort`
+				// 与四句默认描述，与议题类型页的 `Task` / `Bug` / `Feature` 同类，
+				// 可在页面上改名改描述）；`<a title="Priority">` 的 `title` 也是同一份
+				// 组织数据，一并保持英文。硬边界同上一页：列表项的 `aria-label`
+				//（`Issue field: Priority`）含动态字段名，而属性只走整串精确匹配、不走规则。
+				"New field",
+				"Issue fields let you define structured data to capture for each issue, helping you keep information consistent across all of your repositories."
 			]
 		},
 		{

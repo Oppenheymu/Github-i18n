@@ -508,6 +508,9 @@
 		// 组织议题类型页：列表头计数行与 kebab 按钮 tooltip（类型名按原样带回）
 		"org-settings/issue-types-count": "$1 个类型",
 		"org-settings/open-type-options": "打开 $1 的类型选项",
+		// 议题字段页：列表头计数行与 kebab 按钮 tooltip（字段名按原样带回）
+		"org-settings/issue-fields-count": "$1 个议题字段",
+		"org-settings/open-field-options": "打开 $1 的字段选项",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

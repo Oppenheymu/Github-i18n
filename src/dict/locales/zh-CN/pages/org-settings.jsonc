@@ -1111,6 +1111,8 @@
 		"Allow access to specific domains, IP addresses, or URLs for all repositories in this organization.": "允许此组织中的所有仓库访问特定域名、IP 地址或 URL。",
 		"Configure firewall rules for Copilot code review across all repositories in this organization.": "为此组织中的所有仓库配置 Copilot 代码审查的防火墙规则。",
 		"Limit Copilot code review's Internet access to only allow access to allowlisted locations.": "将 Copilot 代码审查的网络访问限制为仅允许访问允许列表中的位置。",
+		// 防火墙打开后出现的提示条（与 pages/repo-settings 同串同译）。
+		"The firewall will not be enforced on self-hosted runners.": "防火墙不会在自托管运行器上强制执行。",
 		// —— /settings/copilot/runner_type（组织级运行器类型设置）——
 		// `agent_name` 由 React 作为独立文本插值；只翻译句首、句尾与静态说明节点。
 		// `copilot-setup-steps.yml` / `copilot-code-review.yml` 是配置文件名，保留原文。

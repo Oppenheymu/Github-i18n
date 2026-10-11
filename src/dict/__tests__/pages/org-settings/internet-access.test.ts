@@ -73,6 +73,12 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 		"Limit Copilot code review's Internet access to only allow access to allowlisted locations.",
 		"将 Copilot 代码审查的网络访问限制为仅允许访问允许列表中的位置。",
 	],
+	// 防火墙打开后出现的提示条（维护者 2026-10-11 随后贴出的 InlineMessage 片段）；
+	// 与 pages/repo-settings 的同串同译，仓库级那条在组织路径上不命中。
+	[
+		"The firewall will not be enforced on self-hosted runners.",
+		"防火墙不会在自托管运行器上强制执行。",
+	],
 ];
 
 /** 只出现在 aria-label 上的文案（属性同样按精确键匹配） */
@@ -181,6 +187,23 @@ describe("组织 Copilot 网络访问设置页的实机节点", () => {
 		).toBe(
 			"为此组织中的所有仓库配置 Copilot 代码审查的防火墙规则。 " +
 				expectedLink,
+		);
+	});
+
+	it("translates the self-hosted notice exactly like the repository module", () => {
+		// 同一句在仓库级网络访问页早就收过；两条路由互不覆盖，故各收一份并钉成同译。
+		const notice =
+			"The firewall will not be enforced on self-hosted runners.";
+		const repoView = buildView(
+			"/owner/repo/settings/copilot/internet_access",
+			locale,
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText(notice, view)).toBe(
+			"防火墙不会在自托管运行器上强制执行。",
+		);
+		expect(translateText(notice, repoView)).toBe(
+			translateText(notice, view),
 		);
 	});
 });

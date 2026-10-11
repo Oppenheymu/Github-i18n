@@ -5060,6 +5060,9 @@
 				"Allow access to specific domains, IP addresses, or URLs for all repositories in this organization.",
 				"Configure firewall rules for Copilot code review across all repositories in this organization.",
 				"Limit Copilot code review's Internet access to only allow access to allowlisted locations.",
+				// 防火墙打开后新增的提示条（`InlineMessage`，variant=unavailable），整句一个文本节点。
+				// 与 pages/repo-settings 的同串同译——仓库级模块的键在组织路径上不命中，故各收一份。
+				"The firewall will not be enforced on self-hosted runners.",
 				// —— /settings/copilot/runner_type（组织级运行器类型设置）——
 				// 证据：2026-10-11 维护者贴的整页 HTML（`<react-app app-name="copilot-for-business">`）。
 				// cloud agent / code review 两节共用同一套配置字段。agent_name 是 React 插值，

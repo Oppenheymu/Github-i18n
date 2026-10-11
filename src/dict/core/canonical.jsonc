@@ -4946,7 +4946,29 @@
 				// 组织数据，一并保持英文。硬边界同上一页：列表项的 `aria-label`
 				//（`Issue field: Priority`）含动态字段名，而属性只走整串精确匹配、不走规则。
 				"New field",
-				"Issue fields let you define structured data to capture for each issue, helping you keep information consistent across all of your repositories."
+				"Issue fields let you define structured data to capture for each issue, helping you keep information consistent across all of your repositories.",
+				// —— /organizations/<组织>/settings/copilot（组织级 Copilot 设置）——
+				// 证据：2026-10-11 维护者贴的实机 HTML（`Layout-main-centered-xl` + `Subhead`
+				// 外壳，订阅按钮带 `?organization=Koishi-CE` ⇒ 组织页）。
+				// 上游把大标题 `Your AI Pair Programmer` **从单词中间切成了两个 `<h2>`**：
+				// 第一个是本色 `Your AI Pa`、第二个是灰色带左侧竖线的 `ir Programmer`，
+				// 靠第一个 h2 的 `margin-right: -2px` 贴回去拼出一个词的双色效果。
+				// 两个碎片只能各收一条键：中文沿用本仓既有的「结对编程助手」
+				//（见 pages/settings-billing 的 `Your AI pair programmer` /
+				// `Your AI powered pair programmer`），切成「你的 AI 结对」+「编程助手」，
+				// 让双色的分界正好落在词义边界上（实机拼起来读作「你的 AI 结对编程助手」）。
+				// 说明段整段是一个文本节点、且撇号形态无法逐字证实，故走本模块新增规则
+				// `org-settings/copilot-pair-programmer-intro`（pattern 里用 `['’]` 字符类），
+				// 本清单只登记它**后面**那个碎片：`inside your organization.`——
+				// 中文的状语只能留在句尾（碎片顺序是死的：段一 → 链接 → 段二），
+				// 读作「……并控制哪些用户或团队可以访问 GitHub Copilot 在你的组织内。」
+				//（同「更多 items」一类的碎片妥协）。
+				// 不收录：`GitHub Copilot` / `Copilot`（纯专名，canonical 既有注释已定过此约定；
+				// 卡片右侧图片的 `alt="Copilot"` 同样保持英文）、`microsoft-analytics` 元素。
+				"Your AI Pa",
+				"ir Programmer",
+				"inside your organization.",
+				"Enable GitHub Copilot"
 			]
 		},
 		{

@@ -2538,6 +2538,18 @@
 				{
 					"id": "org-settings/open-field-options",
 					"pattern": "^Open field options for (.+)$"
+				},
+				// 组织 Copilot 设置页（/organizations/<组织>/settings/copilot）的升级卡说明段
+				//（整段是**一个文本节点**，下一个节点就是 `<a>GitHub Copilot</a>` 的链接文本）。
+				// 为什么用规则而不是词条：段中有 `you’ll`，**撇号是直是弯无法逐字证实**
+				//（粘贴文本看着是弯撇号，但本仓两种形态都真实存在，见 canonical 里各 7 处），
+				// 故按既有做法用字符类同时覆盖两种写法——先例是
+				// `billing-sponsors/support-button`（`You['’]re currently not sponsoring anyone.`）
+				// 与 `repo-settings/advanced-security-intro`（注释里明写「尚无 HTML 逐字证实」）。
+				// 整串锚定、无捕获组（同 `org-settings/block-duration-forever`）。
+				{
+					"id": "org-settings/copilot-pair-programmer-intro",
+					"pattern": "^The AI powered pair programmer for your organization\\. Once you complete onboarding, you['’]ll have the ability to manage policies and control which users or teams will have access to$"
 				}
 			]
 		},

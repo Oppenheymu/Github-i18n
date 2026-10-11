@@ -1034,6 +1034,16 @@
 		//（可改名改描述），有意不收录；列表项的 `aria-label` 含动态字段名、
 		// 属性又不走规则，同样保持英文。
 		"New field": "新建字段",
-		"Issue fields let you define structured data to capture for each issue, helping you keep information consistent across all of your repositories.": "议题字段让你可以为每个议题定义要采集的结构化数据，帮助你在所有仓库中保持信息一致。"
+		"Issue fields let you define structured data to capture for each issue, helping you keep information consistent across all of your repositories.": "议题字段让你可以为每个议题定义要采集的结构化数据，帮助你在所有仓库中保持信息一致。",
+		// —— /settings/copilot（组织级 Copilot 设置）——
+		// 上游把大标题从单词中间切成两个 `<h2>`（`Your AI Pa` + `ir Programmer`，
+		// 靠负外边距拼出双色效果），中文按既有译法「结对编程助手」在词义边界上切开。
+		// 说明段整段是一个文本节点、且撇号形态无法逐字证实 ⇒ 走本模块新增规则
+		// `org-settings/copilot-pair-programmer-intro`；这里只收它后面那个碎片。
+		// `GitHub Copilot` / `Copilot` 是纯专名，保持英文。
+		"Your AI Pa": "你的 AI 结对",
+		"ir Programmer": "编程助手",
+		"inside your organization.": "在你的组织内。",
+		"Enable GitHub Copilot": "启用 GitHub Copilot"
 	}
 }

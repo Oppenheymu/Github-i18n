@@ -1990,7 +1990,8 @@
 				"org-settings/issue-types-count",
 				"org-settings/open-type-options",
 				"org-settings/issue-fields-count",
-				"org-settings/open-field-options"
+				"org-settings/open-field-options",
+				"org-settings/copilot-pair-programmer-intro"
 			]
 		},
 		{
@@ -2152,7 +2153,8 @@
 				"org-settings/issue-types-count",
 				"org-settings/open-type-options",
 				"org-settings/issue-fields-count",
-				"org-settings/open-field-options"
+				"org-settings/open-field-options",
+				"org-settings/copilot-pair-programmer-intro"
 			]
 		},
 		{
@@ -2596,7 +2598,8 @@
 				"org-settings/issue-types-count",
 				"org-settings/open-type-options",
 				"org-settings/issue-fields-count",
-				"org-settings/open-field-options"
+				"org-settings/open-field-options",
+				"org-settings/copilot-pair-programmer-intro"
 			]
 		},
 		{
@@ -2758,7 +2761,8 @@
 				"org-settings/issue-types-count",
 				"org-settings/open-type-options",
 				"org-settings/issue-fields-count",
-				"org-settings/open-field-options"
+				"org-settings/open-field-options",
+				"org-settings/copilot-pair-programmer-intro"
 			]
 		},
 		{

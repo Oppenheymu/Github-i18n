@@ -511,6 +511,8 @@
 		// 议题字段页：列表头计数行与 kebab 按钮 tooltip（字段名按原样带回）
 		"org-settings/issue-fields-count": "$1 个议题字段",
 		"org-settings/open-field-options": "打开 $1 的字段选项",
+		// 组织 Copilot 设置页升级卡的说明段（撇号两种形态由 pattern 的字符类覆盖）
+		"org-settings/copilot-pair-programmer-intro": "为你的组织提供的 AI 驱动结对编程助手。完成入门引导后，你将能够管理策略，并控制哪些用户或团队可以访问",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

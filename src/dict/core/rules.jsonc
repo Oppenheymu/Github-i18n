@@ -2432,10 +2432,18 @@
 				// 渲染成一个文本节点）由这条规则兜住；ERB 插值把数字拆成独立节点时，由三段
 				// 碎片词条（`This may change the permission that the organization’s` /
 				// `members have on its` / `repositories.`）覆盖——两种切分都不会漏。
-				// 数字里的千位逗号一并覆盖。
+				// 数字里的千位逗号一并覆盖；**两个词的形态都要放宽**，否则「只有一个成员 /
+				// 一个仓库」的组织整句保留英文：
+				//   · 仓库数必须写 `repositor(?:y|ies)`——原来写的 `repositories?` 只折叠末尾的 s，
+				//     匹配不到单数 `repository`（2026-10-11 写缓存页那条规则时踩到同一个坑，
+				//     回头才发现这里也犯了；见 settings/selected-repositories-count）；
+				//   · 成员数单数时动词会变成 `has`，故动词收 `(?:have|has)`。
+				// 采集时该组织是 2 名成员 / 5 个仓库，两种写法渲染出的英文**完全相同**，
+				// 故「上游是否按数量变单复数」无法从本次采集证实；按「两形态都收」的先例
+				// 一并覆盖（不命中即保留英文，不会产出坏译文）。
 				{
 					"id": "org-settings/base-permission-change",
-					"pattern": "^This may change the permission that the organization['’]s ([\\d,]+) members? have on its ([\\d,]+) repositories?\\.$"
+					"pattern": "^This may change the permission that the organization['’]s ([\\d,]+) members? (?:have|has) on its ([\\d,]+) repositor(?:y|ies)\\.$"
 				},
 				// 组织已屏蔽用户页（/organizations/<组织>/settings/blocked_users）的备注框：
 				// 下方会实时更新剩余字数，实机形如 "250 characters remaining."（数字动态、

@@ -4243,6 +4243,14 @@
 				"This may change the permission that the organization’s",
 				"members have on its",
 				"repositories.",
+				// 同一句在**只有一个成员 / 一个仓库**时上游会按数量变单复数（`1 member has` /
+				// `1 repository`，与 `members?` 那处同一个道理）——中文的「名成员」「个仓库」
+				// 都不区分单复数，故两条与上面的复数形态同译。**无法从本次采集证实**：
+				// 采集时该组织是 2 名成员 / 5 个仓库，单复数两种写法渲染出的英文一模一样；
+				// 按「两形态都收」的先例（同 `base-permission-change` / `topics-heading`）一并覆盖，
+				// 不命中即保留英文，没有副作用。
+				"member has on its",
+				"repository.",
 				// —— 仓库创建 ——
 				"Repository creation",
 				"Members will be able to create only selected repository types. Outside collaborators can never create repositories.",

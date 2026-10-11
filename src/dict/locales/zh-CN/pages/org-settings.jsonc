@@ -540,6 +540,9 @@
 		"This may change the permission that the organization’s": "这可能会改变该组织的",
 		"members have on its": "名成员在其",
 		"repositories.": "个仓库上拥有的权限。",
+		// 单数形态（`1 member has` / `1 repository`）：中文不分单复数，故与上面同译
+		"member has on its": "名成员在其",
+		"repository.": "个仓库上拥有的权限。",
 		// 仓库创建
 		"Repository creation": "仓库创建",
 		"Members will be able to create only selected repository types. Outside collaborators can never create repositories.": "成员只能创建选定的仓库类型。外部协作者永远不能创建仓库。",

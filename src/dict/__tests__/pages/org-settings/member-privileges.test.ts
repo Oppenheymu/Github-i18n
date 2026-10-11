@@ -379,6 +379,16 @@ describe("组织成员权限页的动态值规则", () => {
 		).toBe(
 			"这可能会改变该组织的 1,234 名成员在其 5 个仓库上的权限。",
 		);
+		// 单数形态：只有一个成员 / 一个仓库时上游会渲染 `1 member` / `1 repository`
+		//（`repositories?` 当年在这里匹配不上单数，2026-10-11 才修成 repositor(?:y|ies)）
+		expect(
+			translateText(
+				"This may change the permission that the organization’s 1 member has on its 1 repository.",
+				view,
+			),
+		).toBe(
+			"这可能会改变该组织的 1 名成员在其 1 个仓库上的权限。",
+		);
 		// 锚定：没有计数的形态不该命中（它也不是上游的文案）
 		expect(
 			translateText(
@@ -402,6 +412,14 @@ describe("组织成员权限页的动态值规则", () => {
 		);
 		expect(translateText("repositories.", view)).toBe(
 			"个仓库上拥有的权限。",
+		);
+		// 句尾与中段在**只有一个成员 / 一个仓库**时是单数形态，中文与复数同译
+		//（中文不区分单复数；两种形态都收的理由见 canonical 注释）
+		expect(translateText("repository.", view)).toBe(
+			translateText("repositories.", view),
+		);
+		expect(translateText("member has on its", view)).toBe(
+			translateText("members have on its", view),
 		);
 	});
 });

@@ -2371,6 +2371,16 @@
 					"id": "org-settings/actions-policies-title",
 					"pattern": "^Settings [\\u00b7\\u2022] Actions policies [\\u00b7\\u2022] (.+)$"
 				},
+				// 组织级 Actions 策略**洞察**页
+				//（/organizations/<组织>/settings/actions/rules/insights）的 document.title。
+				// 维护者只贴了该页的 H1（`Actions policy insights`），标题的形态是**按同款应用推断**的
+				//（列表页实测为 `Settings · <H1> · <组织>`）——万一上游另起名，本规则不命中、
+				// 由下面的通用规则兜底，不会产出坏译文（只多一条永不生效的规则）。
+				// 两条专用规则的 pattern 互不重叠（`policies` 与 `policy insights`），顺序无关。
+				{
+					"id": "org-settings/actions-policy-insights-title",
+					"pattern": "^Settings [\\u00b7\\u2022] Actions policy insights [\\u00b7\\u2022] (.+)$"
+				},
 				// 组织设置页的 document.title：`Settings · Repository policies · Koishi-CE`。
 				// 中段是页面名（英文：规则不递归，故原样带回）、末段是组织名（用户内容）。
 				// 分隔符在实机是中点，仍用字符类同时覆盖中点与项目符号（与既有规则一致）。

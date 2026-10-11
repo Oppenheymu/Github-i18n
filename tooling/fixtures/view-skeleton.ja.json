@@ -1980,6 +1980,7 @@
 			],
 			"notTranslated": [
 				"org-settings/actions-policies-title",
+				"org-settings/actions-policy-insights-title",
 				"org-settings/pr-cap-limit",
 				"org-settings/topics-heading",
 				"org-settings/chart-line",
@@ -2147,6 +2148,7 @@
 			],
 			"notTranslated": [
 				"org-settings/actions-policies-title",
+				"org-settings/actions-policy-insights-title",
 				"org-settings/pr-cap-limit",
 				"org-settings/topics-heading",
 				"org-settings/chart-line",
@@ -2596,6 +2598,7 @@
 			],
 			"notTranslated": [
 				"org-settings/actions-policies-title",
+				"org-settings/actions-policy-insights-title",
 				"org-settings/pr-cap-limit",
 				"org-settings/topics-heading",
 				"org-settings/chart-line",
@@ -2763,6 +2766,7 @@
 			],
 			"notTranslated": [
 				"org-settings/actions-policies-title",
+				"org-settings/actions-policy-insights-title",
 				"org-settings/pr-cap-limit",
 				"org-settings/topics-heading",
 				"org-settings/chart-line",

@@ -8,8 +8,10 @@
 //
 // 页面上已是中文的四处都是既有键的对照物：`你还没有创建任何策略`（h2）、`新建策略`（按钮）、
 // `进一步了解 策略.`（说明段的链接）与 `组织规则集将不会强制执行 直到…`（升级提示）。
-// payload 里的 `upsellHeaderText` / `protectionsHeading` / `protectionsSubtitle` /
-// `insightsHeading` 四句**本页没有渲染**，按「只收实机渲染到的值」保持英文。
+// payload 里的 `upsellHeaderText` / `protectionsHeading` / `protectionsSubtitle` 三句
+// **本页没有渲染**，按「只收实机渲染到的值」保持英文；同 payload 的 `insightsHeading`
+// （`Actions policy insights`）在本页也不渲染，但它是**洞察子页的 H1**（维护者同日单独贴出），
+// 故照常收录——见文件末尾的「策略洞察页」一组。
 import { describe, expect, it } from "bun:test";
 import {
 	buildView,
@@ -24,6 +26,11 @@ const PAGE_PATH =
 /** 旧前缀（`/orgs/<组织>/...`），路由也应覆盖 */
 const LEGACY_PATH =
 	"/orgs/Koishi-CE/settings/actions/rules";
+/** 组织级 Actions **策略洞察**页（同一个 React 应用的 insights 子页） */
+const INSIGHTS_PATH =
+	"/organizations/Koishi-CE/settings/actions/rules/insights";
+const INSIGHTS_LEGACY_PATH =
+	"/orgs/Koishi-CE/settings/actions/rules/insights";
 /** 仓库级的同款页面：同串词条在这里，用于断言两边逐字同译 */
 const REPO_PATH =
 	"/Oppenheymu/Github-i18n/settings/actions/rules";
@@ -79,7 +86,6 @@ const MUST_STAY_ENGLISH: readonly string[] = [
 	"Protect your most important actions workflows",
 	"Workflow execution protections",
 	"GitHub features such as Dependabot, code scanning, Codespaces prebuilds, and Pages are exempt from these protections.",
-	"Actions policy insights",
 	"repos-rules",
 	"supportedTargets",
 	"createButtonText",
@@ -207,6 +213,65 @@ describe("组织级 Actions 策略页的 document.title", () => {
 			translateText(
 				"Settings · Actions policies · Koishi-CE",
 				repoView,
+			),
+		).toBe("设置 · Actions 策略 · Koishi-CE");
+	});
+});
+
+// 同一个 React 应用的 insights 子页。维护者 2026-10-11 只贴了它的 H1
+// （`<h1 …>Actions policy insights</h1>`），故本组的证据面就是这一条串
+// 加上「与列表页同款应用」的推断（标题形态）。
+describe("组织级 Actions 策略洞察页", () => {
+	it("matches the same modules as the policies page", () => {
+		expect(moduleNames(INSIGHTS_PATH)).toEqual(
+			moduleNames(PAGE_PATH),
+		);
+		expect(moduleNames(INSIGHTS_LEGACY_PATH)).toContain(
+			"pages/org-settings",
+		);
+	});
+
+	it("translates the H1 exactly like the repository module", () => {
+		for (const path of [
+			INSIGHTS_PATH,
+			INSIGHTS_LEGACY_PATH,
+		]) {
+			const pageView = buildView(path, locale, aliases);
+			expect(
+				translateText("Actions policy insights", pageView),
+			).toBe("Actions 策略洞察");
+		}
+		expect(
+			translateText("Actions policy insights", repoView),
+		).toBe("Actions 策略洞察");
+	});
+
+	it("keeps the three similar headings apart", () => {
+		// 侧栏项（`Policy insights`）、组织规则集洞察页的 H1（`Repository ruleset insights`）
+		// 与本页 H1 是三条互不相同的串，各有各的译文，不得互相顶替
+		expect(translateText("Policy insights", view)).toBe(
+			"策略洞察",
+		);
+		expect(
+			translateText("Repository ruleset insights", view),
+		).toBe("仓库规则集洞察");
+		expect(
+			translateText("Actions policy insights", view),
+		).toBe("Actions 策略洞察");
+	});
+
+	it("spells the insights page name in the document.title", () => {
+		expect(
+			translateText(
+				"Settings · Actions policy insights · Koishi-CE",
+				view,
+			),
+		).toBe("设置 · Actions 策略洞察 · Koishi-CE");
+		// 两条专用规则的 pattern 互不重叠：列表页的标题仍走自己那条
+		expect(
+			translateText(
+				"Settings · Actions policies · Koishi-CE",
+				view,
 			),
 		).toBe("设置 · Actions 策略 · Koishi-CE");
 	});

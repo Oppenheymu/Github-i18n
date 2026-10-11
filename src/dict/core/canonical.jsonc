@@ -5241,15 +5241,23 @@
 				// 页面上已是中文的 `你还没有创建任何策略` / `新建策略` / `进一步了解 策略.` /
 				// `组织规则集将不会强制执行 直到…` 都是既有键的对照物（前三条来自
 				// policies/repositories 那批，与本页同串）。
-				// payload 里 `upsellHeaderText` / `protectionsHeading` / `protectionsSubtitle` /
-				// `insightsHeading` 四句**本页没有渲染**，按「只收实机渲染到的值」不收录。
+				// payload 里 `upsellHeaderText` / `protectionsHeading` / `protectionsSubtitle` 三句
+				// **本页没有渲染**，按「只收实机渲染到的值」不收录；同 payload 的 `insightsHeading`
+				// （`Actions policy insights`）在本页也不渲染，但它是**洞察子页的 H1**
+				//（维护者 2026-10-11 单独贴出），故照常收录（见下）。
 				// document.title 的中段页面名由规则写死（`org-settings/actions-policies-title`），
 				// 静态键只覆盖正文 H1。
 				"Actions policies",
 				"Define whether actions can run in specific contexts.",
 				"Learn more about pull_request_target restrictions",
 				"On November 2, 2026, GitHub will restrict",
-				"on public repositories by default. To continue allowing the event trigger, configure an Actions policy."
+				"on public repositories by default. To continue allowing the event trigger, configure an Actions policy.",
+				// —— /settings/actions/rules/insights（组织级「Actions 策略洞察」页）——
+				// 证据：2026-10-11 维护者贴出的该页 H1 `<h1 …>Actions policy insights</h1>`。
+				// 注意侧栏项是同页的 `Policy insights`（本模块既有键，译「策略洞察」）、
+				// 组织规则集洞察页的 H1 是 `Repository ruleset insights`（另一条既有键）——
+				// 三条**互不同串**，故各收一份（与仓库级逐字同译）。
+				"Actions policy insights"
 			]
 		},
 		{

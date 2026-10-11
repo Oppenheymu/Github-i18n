@@ -1258,6 +1258,10 @@
 		"Define whether actions can run in specific contexts.": "定义操作是否可以在特定上下文中运行。",
 		"Learn more about pull_request_target restrictions": "进一步了解 pull_request_target 限制",
 		"On November 2, 2026, GitHub will restrict": "2026 年 11 月 2 日，GitHub 将限制",
-		"on public repositories by default. To continue allowing the event trigger, configure an Actions policy.": "在公开仓库中的使用。要继续允许该事件触发器，请配置一个 Actions 策略。"
+		"on public repositories by default. To continue allowing the event trigger, configure an Actions policy.": "在公开仓库中的使用。要继续允许该事件触发器，请配置一个 Actions 策略。",
+		// —— /settings/actions/rules/insights（组织级「Actions 策略洞察」页）——
+		// H1 与侧栏项 `Policy insights`、组织规则集洞察页的 `Repository ruleset insights`
+		// 是三条不同的串；本模块此前只收过后者两条。
+		"Actions policy insights": "Actions 策略洞察"
 	}
 }

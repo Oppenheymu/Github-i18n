@@ -4838,7 +4838,29 @@
 				"Organization ownership",
 				"All codespaces created by your organization’s members on your organization’s repositories are owned by the organization",
 				"User ownership",
-				"All codespaces created by your organization’s members on your organization’s repositories are owned by the creating member"
+				"All codespaces created by your organization’s members on your organization’s repositories are owned by the creating member",
+				// —— /organizations/<组织>/settings/sandboxes（组织级沙盒设置）——
+				// 证据：2026-10-11 维护者贴的整段实机 HTML（`Layout-main` 起，扩展仍在运行）。
+				// 本页是**纯 SSR**（Rails 表单，无 react-partial），路由挂在 `settings`
+				// 前缀下、不缺路径，缺的只有下面 6 条本页专属文案 + 一个 `Enabled`。
+				// 页面上自带两条对照物：h2 的 `Sandboxes` 命中本模块既有词条「沙盒」，
+				// 更关键的是**第一个单选项的标签 `Disabled` 已是「禁用」**——那正是
+				// 上一批（组织代码空间设置页）刚登记的键，等于实机确认它跨页生效
+				//（同一模块的另一个页面），而第二个单选项的 `Enabled` 仍是英文 ⇒ 本批补齐。
+				// 条款句被 `<a>` 切成三段，且**末段只有一个句点**（`Pre-Release Terms</a>.`）：
+				// 纯符号节点不含拉丁字母、被守卫按设计跳过，故中文末尾原样留着半角句点，
+				// 译文的断句只能落在前两段里（读作「如果启用了预览功能，即表示你同意预发布条款.」）。
+				// 不收录：radio 的 `value`（`disabled` / `all_members`）、表单 `action` /
+				// `name` / `type` / `autocomplete`（标识符）、csrf token 与
+				// `_method=put`（表单值；`disabled` 与既有的 `Disabled` 大小写不同、
+				// 查表大小写敏感，故不会误伤单选项的 value）、组织名（用户内容）。
+				"Cloud sandbox access",
+				"Manage cloud sandbox access for your organization's members.",
+				"If preview features are enabled, you agree to the",
+				"Pre-Release Terms",
+				"Enabled",
+				"Cloud sandbox access is not available for organization members.",
+				"Members of this organization can use cloud sandboxes."
 			]
 		},
 		{

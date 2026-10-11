@@ -978,6 +978,19 @@
 		"Organization ownership": "组织所有权",
 		"All codespaces created by your organization’s members on your organization’s repositories are owned by the organization": "组织成员在你的组织仓库上创建的所有代码空间都归组织所有",
 		"User ownership": "用户所有权",
-		"All codespaces created by your organization’s members on your organization’s repositories are owned by the creating member": "组织成员在你的组织仓库上创建的所有代码空间都归创建它的成员所有"
+		"All codespaces created by your organization’s members on your organization’s repositories are owned by the creating member": "组织成员在你的组织仓库上创建的所有代码空间都归创建它的成员所有",
+		// —— /settings/sandboxes（组织级沙盒设置）——
+		// 纯 SSR 页；h2 的 `Sandboxes` 由本模块既有词条译出，第一个单选项的标签
+		// `Disabled` 也已是「禁用」（上一批新收的键，实机确认跨页生效），本批补
+		// 第二项的 `Enabled`（与 settings / repo-settings / insights 同译）。
+		// 条款句被 `<a>` 切成三段，末段只有一个句点：纯符号节点被守卫跳过，
+		// 故中文末尾原样留半角句点，读作「如果启用了预览功能，即表示你同意预发布条款.」
+		"Cloud sandbox access": "云端沙盒访问",
+		"Manage cloud sandbox access for your organization's members.": "管理组织成员访问云端沙盒的权限。",
+		"If preview features are enabled, you agree to the": "如果启用了预览功能，即表示你同意",
+		"Pre-Release Terms": "预发布条款",
+		"Enabled": "启用",
+		"Cloud sandbox access is not available for organization members.": "组织成员无法使用云端沙盒。",
+		"Members of this organization can use cloud sandboxes.": "此组织的成员可以使用云端沙盒。"
 	}
 }

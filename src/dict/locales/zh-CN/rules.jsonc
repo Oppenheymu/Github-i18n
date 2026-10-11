@@ -478,6 +478,9 @@
 		"org-settings/actions-policy-insights-title": "设置 · Actions 策略洞察 · $1",
 		// 组织级运行器列表页每行的活动作业计数
 		"org-settings/active-jobs-count": "$1 个活动作业",
+		// 组织级缓存页：计数行与每个仓库的用量行（数字与体积都是捕获组）
+		"org-settings/caches-summary": "$1 个仓库，共 $2 个活动缓存",
+		"org-settings/cache-usage": "$2 中的 $1 • $3 个活动缓存",
 		// 角色分配页的「N roles」计数（条数动态）
 		"org-settings/roles-count": "$1 个角色",
 		// 成员权限页：仓库讨论说明句里的组织名是动态值（规则不递归，原样带回）

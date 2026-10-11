@@ -1287,6 +1287,14 @@
 		"Group": "组",
 		"All repositories, excluding public repositories": "所有仓库，公开仓库除外",
 		// 默认组的组名：链接文字、徽标文字与徽标的 title 属性三处同串（与 pages/repo-settings 同译）
-		"Default": "默认"
+		"Default": "默认",
+		// —— /settings/actions/caches（组织级缓存页）——
+		// 页头 `缓存`（既有键 Caches）与搜索框的 `搜索仓库`（既有键 Search repositories）已是中文。
+		"You can use caches for dependencies and other commonly reused files to speed up your workflows. The data on this page have at least 5 minutes of latency.": "你可以用缓存存放依赖项和其他经常复用的文件，以加速工作流。此页数据至少有 5 分钟的延迟。",
+		"Learn more about caches": "进一步了解缓存",
+		// 排序按钮的前缀与当前值是两个相邻节点；下拉候选项与当前值同串
+		"Sort:": "排序：",
+		"Largest size": "最大大小",
+		"Smallest size": "最小大小"
 	}
 }

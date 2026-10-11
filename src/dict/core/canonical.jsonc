@@ -5297,7 +5297,22 @@
 				"New runner group",
 				"Group",
 				"All repositories, excluding public repositories",
-				"Default"
+				"Default",
+				// —— /settings/actions/caches（组织级缓存页）——
+				// 证据：2026-10-11 维护者贴的整段实机 HTML。本页**不缺路由**（挂在 `settings`
+				// 前缀下）；页头 h2 `缓存`（既有键 `Caches`）、搜索框的 `placeholder` 与
+				// `aria-label` 都是 `搜索仓库`（既有键 `Search repositories`）、仓库名右侧的
+				// `公开` 徽标（global 的 `Public`）都是既有键的对照物，其余英文即本批清单。
+				// 两处动态值走规则（core/rules.jsonc 的 org-settings/caches-summary 与
+				// org-settings/cache-usage）：计数行与「已用 / 上限」行都是**单个文本节点**，
+				// 数字与体积无法用静态键覆盖。
+				"You can use caches for dependencies and other commonly reused files to speed up your workflows. The data on this page have at least 5 minutes of latency.",
+				"Learn more about caches",
+				// 排序按钮：前缀与当前值在实机是**两个相邻文本节点**（`Sort:` / `Largest size`），
+				// 下拉里的两个候选项与当前值同串，故三条键覆盖按钮与菜单
+				"Sort:",
+				"Largest size",
+				"Smallest size"
 			]
 		},
 		{

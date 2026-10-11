@@ -2388,6 +2388,24 @@
 					"id": "org-settings/active-jobs-count",
 					"pattern": "^(\\d+) active jobs?$"
 				},
+				// 组织级缓存页（/organizations/<组织>/settings/actions/caches）的计数行：
+				// 实机是**单个文本节点**（`1 repository with 12 active caches`），两个数字都是
+				// 动态值（仓库数与缓存数）。单复数写法按单词的实际形态来：
+				// `repositories?` 只折叠末尾的 s、匹配不到单数 `repository`，必须写
+				// `repositor(?:y|ies)`（同 settings/selected-repositories-count 那条的坑）；
+				// `caches?` 是规则变化（cache → caches），可以照常折叠。
+				{
+					"id": "org-settings/caches-summary",
+					"pattern": "^(\\d+) repositor(?:y|ies) with (\\d+) active caches?$"
+				},
+				// 同页每个仓库的用量行：`722 MB out of 10 GB • 12 active caches`——
+				// 两个体积值与缓存数都是动态值，整行同样是**单个文本节点**。
+				// 单位部分写成 `[KMG]?B`：小到字节时上游渲染的是 `0 B`（没有 K/M/G 前缀）。
+				// 分隔符按本仓惯例用字符类同时覆盖中点与项目符号。
+				{
+					"id": "org-settings/cache-usage",
+					"pattern": "^([\\d.]+ [KMG]?B) out of ([\\d.]+ [KMG]?B) [\\u2022\\u00b7] (\\d+) active caches?$"
+				},
 				// 组织设置页的 document.title：`Settings · Repository policies · Koishi-CE`。
 				// 中段是页面名（英文：规则不递归，故原样带回）、末段是组织名（用户内容）。
 				// 分隔符在实机是中点，仍用字符类同时覆盖中点与项目符号（与既有规则一致）。

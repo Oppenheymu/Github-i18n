@@ -62,6 +62,20 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 		"When enabled, repositories can specify their own runner via their copilot-code-review.yml file.",
 		"启用后，仓库可以通过 copilot-code-review.yml 文件指定自己的运行器。",
 	],
+	// —— 同页「Edit runner type」对话框（维护者 2026-10-11 贴出的第二段 HTML）——
+	[
+		"Edit runner type for Copilot cloud agent",
+		"编辑 Copilot 云端代理的运行器类型",
+	],
+	["Labeled runner", "带标签的运行器"],
+	[
+		"Copilot cloud agent will use standard GitHub runners.",
+		"Copilot 云端代理将使用标准 GitHub 运行器。",
+	],
+	[
+		"Copilot cloud agent will use labeled GitHub or self-hosted runners that you may define.",
+		"Copilot 云端代理将使用带标签的 GitHub 运行器，或你可自行定义的自托管运行器。",
+	],
 ];
 
 /** 产品名、组织名、YAML 文件名和 payload 字段保持原文 */
@@ -187,6 +201,26 @@ describe("组织 Copilot 运行器类型设置页的实机节点", () => {
 			]),
 		).toBe(
 			"启用后，仓库可以通过 copilot-code-review.yml 文件指定自己的运行器。",
+		);
+	});
+
+	it("renders the Edit runner type dialog and both runner options", () => {
+		// 第一项的 label 由既有键 `Standard GitHub runner` 译出（贴出的 HTML 里已是中文），
+		// 两条 description 都以产品名 `Copilot cloud agent` 开头、是完整节点。
+		expect(
+			renderNodes([
+				"Edit runner type for Copilot cloud agent",
+				"Standard GitHub runner",
+				"Copilot cloud agent will use standard GitHub runners.",
+				"Labeled runner",
+				"Copilot cloud agent will use labeled GitHub or self-hosted runners that you may define.",
+			]),
+		).toBe(
+			"编辑 Copilot 云端代理的运行器类型" +
+				"标准 GitHub 运行器" +
+				"Copilot 云端代理将使用标准 GitHub 运行器。" +
+				"带标签的运行器" +
+				"Copilot 云端代理将使用带标签的 GitHub 运行器，或你可自行定义的自托管运行器。",
 		);
 	});
 });

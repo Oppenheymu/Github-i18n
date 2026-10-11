@@ -1124,6 +1124,12 @@
 		"Edit runner type": "编辑运行器类型",
 		"Allow repositories to customize the runner type": "允许仓库自定义运行器类型",
 		"When enabled, repositories can specify their own runner via their copilot-setup-steps.yml file.": "启用后，仓库可以通过 copilot-setup-steps.yml 文件指定自己的运行器。",
-		"When enabled, repositories can specify their own runner via their copilot-code-review.yml file.": "启用后，仓库可以通过 copilot-code-review.yml 文件指定自己的运行器。"
+		"When enabled, repositories can specify their own runner via their copilot-code-review.yml file.": "启用后，仓库可以通过 copilot-code-review.yml 文件指定自己的运行器。",
+		// —— 同页「Edit runner type」对话框（标题 + 两个运行器选项）——
+		// 第一项的 label `Standard GitHub runner` 由上面那条既有键译出，这里补标题与第二项。
+		"Edit runner type for Copilot cloud agent": "编辑 Copilot 云端代理的运行器类型",
+		"Labeled runner": "带标签的运行器",
+		"Copilot cloud agent will use standard GitHub runners.": "Copilot 云端代理将使用标准 GitHub 运行器。",
+		"Copilot cloud agent will use labeled GitHub or self-hosted runners that you may define.": "Copilot 云端代理将使用带标签的 GitHub 运行器，或你可自行定义的自托管运行器。"
 	}
 }

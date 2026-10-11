@@ -5076,7 +5076,15 @@
 				"Edit runner type",
 				"Allow repositories to customize the runner type",
 				"When enabled, repositories can specify their own runner via their copilot-setup-steps.yml file.",
-				"When enabled, repositories can specify their own runner via their copilot-code-review.yml file."
+				"When enabled, repositories can specify their own runner via their copilot-code-review.yml file.",
+				// —— 同页「Edit runner type」对话框（`Dialog.Title` + 两个 ActionList 选项）——
+				// 证据：2026-10-11 维护者贴出的三段实机 HTML。第一项的 label `Standard GitHub
+				// runner` 已是中文（上面那条既有键生效），其余即本批清单；两项的 description
+				// 都以 `Copilot cloud agent`（产品名）开头，是**完整文本节点**、按整句收。
+				"Edit runner type for Copilot cloud agent",
+				"Labeled runner",
+				"Copilot cloud agent will use standard GitHub runners.",
+				"Copilot cloud agent will use labeled GitHub or self-hosted runners that you may define."
 			]
 		},
 		{

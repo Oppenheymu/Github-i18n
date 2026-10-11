@@ -1095,6 +1095,21 @@
 		"Default (Balanced)": "默认（均衡）",
 		"Advanced": "高级",
 		"Only allow Copilot code review to be triggered by authorized users": "仅允许经授权的用户触发 Copilot 代码审查",
-		"When enabled, Copilot review requests require a Copilot license from this organization or its enterprise.": "启用后，Copilot 审查请求需要此组织或其企业提供 Copilot 许可证。"
+		"When enabled, Copilot review requests require a Copilot license from this organization or its enterprise.": "启用后，Copilot 审查请求需要此组织或其企业提供 Copilot 许可证。",
+		// —— /settings/copilot/internet_access（组织级网络访问设置）——
+		// Cloud agent 与 code review 两区块复用相同的防火墙、允许列表与自定义规则文案。
+		"Configure firewall rules for Copilot cloud agent across all repositories in this organization.": "为此组织中的所有仓库配置 Copilot 云端代理的防火墙规则。",
+		"Learn more about customizing network access.": "进一步了解自定义网络访问。",
+		"Enable firewall": "启用防火墙",
+		"Limit Copilot cloud agent's Internet access to only allow access to allowlisted locations.": "将 Copilot 云端代理的网络访问限制为仅允许访问允许列表中的位置。",
+		"Recommended allowlist": "推荐的允许列表",
+		"Allow access to locations frequently used to install tools, packages, and dependencies.": "允许访问安装工具、软件包和依赖时常用的位置。",
+		"Learn more about the recommended allowlist": "进一步了解推荐的允许列表",
+		"Allow repository custom rules": "允许仓库使用自定义规则",
+		"Allow repository administrators to add their own custom allowlist rules in addition to the organization allowlist.": "允许仓库管理员在组织允许列表之外添加自定义允许列表规则。",
+		"Organization custom allowlist": "组织自定义允许列表",
+		"Allow access to specific domains, IP addresses, or URLs for all repositories in this organization.": "允许此组织中的所有仓库访问特定域名、IP 地址或 URL。",
+		"Configure firewall rules for Copilot code review across all repositories in this organization.": "为此组织中的所有仓库配置 Copilot 代码审查的防火墙规则。",
+		"Limit Copilot code review's Internet access to only allow access to allowlisted locations.": "将 Copilot 代码审查的网络访问限制为仅允许访问允许列表中的位置。"
 	}
 }

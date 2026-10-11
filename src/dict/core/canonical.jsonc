@@ -5040,7 +5040,26 @@
 				"Default (Balanced)",
 				"Advanced",
 				"Only allow Copilot code review to be triggered by authorized users",
-				"When enabled, Copilot review requests require a Copilot license from this organization or its enterprise."
+				"When enabled, Copilot review requests require a Copilot license from this organization or its enterprise.",
+				// —— /settings/copilot/internet_access（组织级网络访问设置）——
+				// 证据：2026-10-11 维护者贴的整页 HTML（`<react-app app-name="copilot-internet-access-settings">`）。
+				// Cloud agent 与 code review 两区块使用同一套字段；相同文案只登记一份。
+				// 两段说明分别被文档链接切开；`aria-label` 也单独登记，因为属性按精确键翻译。
+				// `firewallConfiguration` 的 enabled / rules 等 payload 值没有作为可见文案渲染，
+				// 不收录；页面上的 `由各仓库决定` / `启用` / `推荐` 等已由既有键覆盖。
+				"Configure firewall rules for Copilot cloud agent across all repositories in this organization.",
+				"Learn more about customizing network access.",
+				"Enable firewall",
+				"Limit Copilot cloud agent's Internet access to only allow access to allowlisted locations.",
+				"Recommended allowlist",
+				"Allow access to locations frequently used to install tools, packages, and dependencies.",
+				"Learn more about the recommended allowlist",
+				"Allow repository custom rules",
+				"Allow repository administrators to add their own custom allowlist rules in addition to the organization allowlist.",
+				"Organization custom allowlist",
+				"Allow access to specific domains, IP addresses, or URLs for all repositories in this organization.",
+				"Configure firewall rules for Copilot code review across all repositories in this organization.",
+				"Limit Copilot code review's Internet access to only allow access to allowlisted locations."
 			]
 		},
 		{

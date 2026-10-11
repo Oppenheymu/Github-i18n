@@ -76,6 +76,37 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 		"Copilot cloud agent will use labeled GitHub or self-hosted runners that you may define.",
 		"Copilot 云端代理将使用带标签的 GitHub 运行器，或你可自行定义的自托管运行器。",
 	],
+	// —— 同页 code review 的对话框与「带标签的运行器」表单（2026-10-11 第三段 HTML）——
+	// 表单里的 `运行器类型` 与按钮上的 `带标签的运行器` 已是中文（既有键 + 上面那条生效）。
+	[
+		"Edit runner type for Copilot code review",
+		"编辑 Copilot 代码审查的运行器类型",
+	],
+	[
+		"Copilot code review will use standard GitHub runners.",
+		"Copilot 代码审查将使用标准 GitHub 运行器。",
+	],
+	[
+		"Copilot code review will use labeled GitHub or self-hosted runners that you may define.",
+		"Copilot 代码审查将使用带标签的 GitHub 运行器，或你可自行定义的自托管运行器。",
+	],
+	["Runner information", "运行器信息"],
+	[
+		"You must provide a runner group name and/or label.",
+		"你必须提供运行器组名称和/或标签。",
+	],
+	["Runner group name", "运行器组名称"],
+	["Runner label", "运行器标签"],
+	[
+		"Learn how to use or create custom labels.",
+		"了解如何使用或创建自定义标签。",
+	],
+];
+
+/** 只出现在属性上的文案（`placeholder` 在可翻译属性白名单内，按精确键翻译） */
+const ATTR_NODES: readonly (readonly [string, string])[] = [
+	["Existing name", "现有名称"],
+	["Existing label", "现有标签"],
 ];
 
 /** 产品名、组织名、YAML 文件名和 payload 字段保持原文 */
@@ -222,5 +253,39 @@ describe("组织 Copilot 运行器类型设置页的实机节点", () => {
 				"带标签的运行器" +
 				"Copilot 云端代理将使用带标签的 GitHub 运行器，或你可自行定义的自托管运行器。",
 		);
+	});
+
+	it("renders the code review dialog and its labeled runner form", () => {
+		// 与上面那段结构相同、代理名换成 code review；表单只在选中「带标签的运行器」后展开。
+		expect(
+			renderNodes([
+				"Edit runner type for Copilot code review",
+				"Copilot code review will use standard GitHub runners.",
+				"Copilot code review will use labeled GitHub or self-hosted runners that you may define.",
+				"Runner information",
+				"You must provide a runner group name and/or label.",
+				"Runner group name",
+				"Runner label",
+				"Learn how to use or create custom labels.",
+			]),
+		).toBe(
+			"编辑 Copilot 代码审查的运行器类型" +
+				"Copilot 代码审查将使用标准 GitHub 运行器。" +
+				"Copilot 代码审查将使用带标签的 GitHub 运行器，或你可自行定义的自托管运行器。" +
+				"运行器信息" +
+				"你必须提供运行器组名称和/或标签。" +
+				"运行器组名称" +
+				"运行器标签" +
+				"了解如何使用或创建自定义标签。",
+		);
+	});
+
+	it("translates the labeled runner placeholders", () => {
+		for (const [raw, expected] of ATTR_NODES) {
+			expect(
+				translateText(raw, view),
+				`未命中：${JSON.stringify(raw)}`,
+			).toBe(expected);
+		}
 	});
 });

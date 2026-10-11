@@ -5087,7 +5087,22 @@
 				"Edit runner type for Copilot cloud agent",
 				"Labeled runner",
 				"Copilot cloud agent will use standard GitHub runners.",
-				"Copilot cloud agent will use labeled GitHub or self-hosted runners that you may define."
+				"Copilot cloud agent will use labeled GitHub or self-hosted runners that you may define.",
+				// —— 同一页 code review 那个对话框（同样的两段结构，代理名换成 code review）——
+				// 证据：2026-10-11 维护者第三次贴出的实机 HTML。按钮上的 `运行器类型` 与
+				// `带标签的运行器` 已是中文（既有键 + 本批前一条生效），其余即本清单；
+				// 选「带标签的运行器」后展开的表单里，两个 placeholder 也按精确键收
+				//（`placeholder` 在可翻译属性白名单内，但属性只走词条、不走规则）。
+				"Edit runner type for Copilot code review",
+				"Copilot code review will use standard GitHub runners.",
+				"Copilot code review will use labeled GitHub or self-hosted runners that you may define.",
+				"Runner information",
+				"You must provide a runner group name and/or label.",
+				"Runner group name",
+				"Runner label",
+				"Existing name",
+				"Existing label",
+				"Learn how to use or create custom labels."
 			]
 		},
 		{

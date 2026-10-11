@@ -1132,6 +1132,17 @@
 		"Edit runner type for Copilot cloud agent": "编辑 Copilot 云端代理的运行器类型",
 		"Labeled runner": "带标签的运行器",
 		"Copilot cloud agent will use standard GitHub runners.": "Copilot 云端代理将使用标准 GitHub 运行器。",
-		"Copilot cloud agent will use labeled GitHub or self-hosted runners that you may define.": "Copilot 云端代理将使用带标签的 GitHub 运行器，或你可自行定义的自托管运行器。"
+		"Copilot cloud agent will use labeled GitHub or self-hosted runners that you may define.": "Copilot 云端代理将使用带标签的 GitHub 运行器，或你可自行定义的自托管运行器。",
+		// —— 同页 code review 的对话框（结构相同、代理名换成 code review）与标签运行器表单 ——
+		"Edit runner type for Copilot code review": "编辑 Copilot 代码审查的运行器类型",
+		"Copilot code review will use standard GitHub runners.": "Copilot 代码审查将使用标准 GitHub 运行器。",
+		"Copilot code review will use labeled GitHub or self-hosted runners that you may define.": "Copilot 代码审查将使用带标签的 GitHub 运行器，或你可自行定义的自托管运行器。",
+		"Runner information": "运行器信息",
+		"You must provide a runner group name and/or label.": "你必须提供运行器组名称和/或标签。",
+		"Runner group name": "运行器组名称",
+		"Runner label": "运行器标签",
+		"Existing name": "现有名称",
+		"Existing label": "现有标签",
+		"Learn how to use or create custom labels.": "了解如何使用或创建自定义标签。"
 	}
 }

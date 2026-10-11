@@ -60,6 +60,9 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 	],
 	// 列表头的上限提示（产品常量，按静态键收；全角括号同 `(Private)` 一类片段）
 	["(max 25)", "（最多 25）"],
+	// 每行 kebab 菜单的可见项（`ActionList.Item.Label`）：同菜单的 Enable / Edit /
+	// Delete 早就有键，故维护者复测时贴出的正是唯一仍是英文的那一个
+	["Disable", "禁用"],
 ];
 
 /** 属性键（`aria-label` 只走整串精确匹配） */
@@ -257,5 +260,17 @@ describe("组织议题类型页的节点切分事实", () => {
 		).toBe(
 			"TaskA specific piece of work打开 Task 的类型选项",
 		);
+	});
+
+	it("renders the kebab menu items", () => {
+		// 菜单里的四项：`Edit` / `Delete` 由 global 覆盖、`Enable` 由本模块的
+		// 交互限制页那批覆盖（类型被停用后菜单换成它），本批只补了 `Disable`。
+		// 顺带钉住 `Disable`（菜单动作）与 `Disabled`（状态标签）是两条不同的键
+		expect(renderNodes(["Edit", "Disable", "Delete"])).toBe(
+			"编辑禁用删除",
+		);
+		expect(renderNodes(["Enable"])).toBe("启用");
+		expect(translateText("Disable", view)).toBe("禁用");
+		expect(translateText("Disabled", view)).toBe("禁用");
 	});
 });

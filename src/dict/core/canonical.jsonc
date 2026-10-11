@@ -4918,7 +4918,15 @@
 				"New type",
 				"Customize your issue types. Issue types can be used to classify and manage issues in your repositories.",
 				"(max 25)",
-				"List of issue types"
+				"List of issue types",
+				// 同页每行 kebab 菜单里的可见项：实机是 `ActionList.Item.Label`
+				//（`<span class="prc-ActionList-ItemLabel">Disable</span>`）。
+				// 同一菜单的另三项早有键——`Enable` 来自本模块的**交互限制页**那批、
+				// `Edit` / `Delete` 来自 global——所以实机里那三项已是中文，
+				// 维护者贴出的正是其中**唯一仍是英文的**那一个节点。
+				// `Disable` 是短动词，但它是菜单动作、且 repo-settings 与
+				// settings-security 两模块早已同译（禁用），本模块一并收。
+				"Disable"
 			]
 		},
 		{

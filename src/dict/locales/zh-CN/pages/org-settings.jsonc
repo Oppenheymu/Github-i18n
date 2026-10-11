@@ -1024,6 +1024,9 @@
 		"New type": "新建类型",
 		"Customize your issue types. Issue types can be used to classify and manage issues in your repositories.": "自定义你的议题类型。议题类型可用于对仓库中的议题进行分类和管理。",
 		"(max 25)": "（最多 25）",
-		"List of issue types": "议题类型列表"
+		"List of issue types": "议题类型列表",
+		// 同页每行 kebab 菜单的可见项：同菜单的 `Enable` 早已由交互限制页那批收下、
+		// `Edit` / `Delete` 由 global 覆盖，故实机里只剩这一个仍是英文
+		"Disable": "禁用"
 	}
 }

@@ -1014,6 +1014,16 @@
 		"Customize a selection of recommended project templates for this organization. These templates will be surfaced first when a member of the organization creates a new project.": "为此组织自定义一组推荐的项目模板。当组织成员创建新项目时，这些模板会优先显示。",
 		"Create your first GitHub project template": "创建你的第一个 GitHub 项目模板",
 		"Templates can be used to quickly get started with a new project.": "模板可用于快速开始一个新项目。",
-		"New template": "新建模板"
+		"New template": "新建模板",
+		// —— /settings/issue-types（组织级议题类型）——
+		// 独立 React 应用（`app-name="issue-types"`）；h2 的 `Issue types` 由本模块
+		// 既有词条译出。列表头的计数行与 kebab 按钮的 tooltip 是动态文案，走本模块
+		// 新增的两条规则（见 locales/zh-CN/rules.jsonc）。
+		// 列表里的 `Task` / `Bug` / `Feature` 与它们的描述是**组织数据**（可改名改描述），
+		// 有意不收录；列表项的 `aria-label` 含动态类型名、属性又不走规则，同样保持英文。
+		"New type": "新建类型",
+		"Customize your issue types. Issue types can be used to classify and manage issues in your repositories.": "自定义你的议题类型。议题类型可用于对仓库中的议题进行分类和管理。",
+		"(max 25)": "（最多 25）",
+		"List of issue types": "议题类型列表"
 	}
 }

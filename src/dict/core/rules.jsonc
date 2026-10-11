@@ -2503,6 +2503,25 @@
 				{
 					"id": "org-settings/set-properties-on",
 					"pattern": "^Set properties on ([A-Za-z0-9._-]+)$"
+				},
+				// 组织议题类型页（/organizations/<组织>/settings/issue-types）列表头的计数行：
+				// 实机形如 `3 types`（组织配置了几个议题类型就显示几），单数 `1 type`
+				// 也要接住——`types?` 只折叠末尾的 s，两种形态都匹配（同 `roles-count`；
+				// 反例是 `settings/selected-repositories-count` 注释里那个
+				// `repositories?` 的坑，写法要按单词实际形态来）。
+				{
+					"id": "org-settings/issue-types-count",
+					"pattern": "^(\\d+) types?$"
+				},
+				// 同页每个类型行右侧 kebab 按钮的 tooltip：实机形如
+				// `Open type options for Task`（类型名是动态值，原样带回）。
+				// 它是**文本节点**（`<span data-component="Tooltip">`），故规则接得住；
+				// 同一元素上的 `aria-labelledby` 只是引用，不需要另收。
+				// 紧邻的列表项 `aria-label`（`"Task" Issue type list item`）也含动态类型名，
+				// 但属性只走整串精确匹配、不走规则，故那一条只能保持英文。
+				{
+					"id": "org-settings/open-type-options",
+					"pattern": "^Open type options for (.+)$"
 				}
 			]
 		},

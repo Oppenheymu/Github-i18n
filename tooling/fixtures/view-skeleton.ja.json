@@ -1986,7 +1986,9 @@
 				"org-settings/chart-y-axis-values",
 				"org-settings/chart-x-axis-actor",
 				"org-settings/chart-y-axis-bypasses",
-				"org-settings/set-properties-on"
+				"org-settings/set-properties-on",
+				"org-settings/issue-types-count",
+				"org-settings/open-type-options"
 			]
 		},
 		{
@@ -2144,7 +2146,9 @@
 				"org-settings/chart-y-axis-values",
 				"org-settings/chart-x-axis-actor",
 				"org-settings/chart-y-axis-bypasses",
-				"org-settings/set-properties-on"
+				"org-settings/set-properties-on",
+				"org-settings/issue-types-count",
+				"org-settings/open-type-options"
 			]
 		},
 		{
@@ -2584,7 +2588,9 @@
 				"org-settings/chart-y-axis-values",
 				"org-settings/chart-x-axis-actor",
 				"org-settings/chart-y-axis-bypasses",
-				"org-settings/set-properties-on"
+				"org-settings/set-properties-on",
+				"org-settings/issue-types-count",
+				"org-settings/open-type-options"
 			]
 		},
 		{
@@ -2742,7 +2748,9 @@
 				"org-settings/chart-y-axis-values",
 				"org-settings/chart-x-axis-actor",
 				"org-settings/chart-y-axis-bypasses",
-				"org-settings/set-properties-on"
+				"org-settings/set-properties-on",
+				"org-settings/issue-types-count",
+				"org-settings/open-type-options"
 			]
 		},
 		{

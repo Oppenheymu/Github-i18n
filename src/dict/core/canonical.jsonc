@@ -4895,7 +4895,30 @@
 				"Customize a selection of recommended project templates for this organization. These templates will be surfaced first when a member of the organization creates a new project.",
 				"Create your first GitHub project template",
 				"Templates can be used to quickly get started with a new project.",
-				"New template"
+				"New template",
+				// —— /organizations/<组织>/settings/issue-types（组织级议题类型）——
+				// 证据：2026-10-11 维护者贴的整段实机 HTML（`<react-app app-name="issue-types">`，
+				// 又是独立 React 应用；路由照旧由 `settings` 前缀命中本模块）。
+				// 对照物：h2 的 `Issue types` 命中本模块既有词条「议题类型」。
+				// 本页有**两条动态文案**，故本批带两条规则：
+				//   ① 列表头 `3 types`（条数跟着组织配置的类型数走）→ `org-settings/issue-types-count`；
+				//   ② 每行 kebab 按钮的 tooltip `Open type options for <类型名>`
+				//      → `org-settings/open-type-options`（实机里第一个 tooltip 正展开着、
+				//      还带着算好的坐标，是**可见**文案；它是文本节点，规则接得住）。
+				// `(max 25)` 是产品常量（每个组织最多 25 个类型），按静态键收；
+				// 中文用全角括号（同 `(Private)` / `(not recommended)` 一类片段的既定写法）。
+				// 不收录（**组织数据 / 用户内容**）：payload `issueTypes[]` 的 `name` 与
+				// `description`——`Task` / `Bug` / `Feature` 及其三句默认描述都存在组织里、
+				// 可在页面上改名改描述，与自定义属性页的属性名同类；收了既会跟用户自己起的
+				// 名字打架，也会污染本模块里任何同名的文本节点。
+				// 另一条硬边界：列表项的 `aria-label`（`"Task" Issue type list item`）含动态
+				// 类型名，而属性只走整串精确匹配、**不走规则**，故只能保持英文
+				//（同 `Rule Suites. Interactive chart.` 那一类）。`data-testid`（类型 id）
+				// 与 `_r_1_` 一类生成 id 同样不收。
+				"New type",
+				"Customize your issue types. Issue types can be used to classify and manage issues in your repositories.",
+				"(max 25)",
+				"List of issue types"
 			]
 		},
 		{

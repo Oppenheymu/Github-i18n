@@ -4968,7 +4968,48 @@
 				"Your AI Pa",
 				"ir Programmer",
 				"inside your organization.",
-				"Enable GitHub Copilot"
+				"Enable GitHub Copilot",
+				// —— /settings/copilot/coding_agent（组织级云端代理设置）——
+				// 证据：2026-10-11 维护者贴的整页 HTML。此页是同一 org-settings 路由下的
+				// 独立 React 页面；SSR payload 中的组织名、代理名与开关状态都是数据，保持原文。
+				// 顶部那句 `With Copilot cloud agent, developers can … to iterate.` 在实机是
+				// **三个相邻的裸文本节点**（`With ` + `Copilot cloud agent` + `, developers can …`，
+				// 片段之间没有任何元素，粘贴 outerHTML 看不出边界），故按碎片收录；照视觉整句
+				// 登记的整句键永不命中——同日的第二次实机粘贴（只剩 `Copilot 云端代理` 一处中文）
+				// 即该死键的直接证据，旧整句键已从 canonical 删除。
+				// 仓库访问说明、自动化风险说明与第三方代理介绍是完整文本节点；迁移提示被链接
+				// 拆成两段，链接 `Runner type` / `Internet access` 已由本模块既有词条翻译。
+				// `With` 是泛化短词，收入本模块的唯一理由是路由限定在组织设置页（同 `public` /
+				// `private` 的先例，先例还有 pages/marketing 与 pages/repo-settings 的同键同译）。
+				// Claude / Codex / GitHub 等产品名保留英文；两张代理卡片共享 `coding agent` 节点。
+				"Copilot cloud agent",
+				"No Copilot cloud agent access",
+				"You can enable Copilot cloud agent for other users, but you won't be able to assign tasks to Copilot because you don't have a Copilot Pro, Copilot Pro+, Copilot Business or Copilot Enterprise license.",
+				"Buy or request a seat",
+				"With",
+				", developers can delegate tasks to Copilot, freeing them to focus on the creative, complex, and high-impact work that matters most. Simply assign a task to Copilot, wait for the agent to request review, then leave feedback on the pull request to iterate.",
+				"Learn more in the docs.",
+				"Repository access",
+				"Choose which repositories Copilot cloud agent should be enabled in. To be able to assign an issue to Copilot, the user must have access to Copilot cloud agent and it must be enabled for the repository.",
+				"Automations",
+				"Allow automations",
+				"When enabled, users with repository write access can create automations that automatically run agents on a schedule or in response to events like new issues or updated pull requests.",
+				"Let repositories decide",
+				"Only allow automations to be triggered by users with write access",
+				"Recommended",
+				"When enabled, automations will only run if the user triggering the event has write access to the repository. When disabled, users can create automations that listen for events triggered by users without write access.",
+				"Allowing automations to be triggered by users without write access to the repository increases risk of prompt injection attacks, where an untrusted user can cause an agent to take actions in the repository using the agent's permissions.",
+				"Some settings have moved",
+				"Runner type configuration has moved to its own",
+				"Internet access configuration has moved to its own",
+				"settings page.",
+				"Partner agents",
+				"Enabling an agent allows it to be mentioned in issues and pull requests, and assigned to issues and open pull requests. Agents can only be triggered by organization members and repository collaborators, and can only be used in this organization's repositories where the cloud agent feature is enabled.",
+				"Allow Claude",
+				"coding agent",
+				"Learn more about Claude on GitHub",
+				"Allow Codex",
+				"Learn more about Codex on GitHub"
 			]
 		},
 		{

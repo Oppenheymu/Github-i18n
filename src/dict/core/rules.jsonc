@@ -2381,6 +2381,13 @@
 					"id": "org-settings/actions-policy-insights-title",
 					"pattern": "^Settings [\\u00b7\\u2022] Actions policy insights [\\u00b7\\u2022] (.+)$"
 				},
+				// 组织级运行器列表页（/organizations/<组织>/settings/actions/runners）每行的
+				// 活动作业计数：实机是**单个文本节点**（`0 active jobs`），条数随运行器状态变，
+				// 故走规则；单数 `1 active job` 由 `jobs?` 一并接住。
+				{
+					"id": "org-settings/active-jobs-count",
+					"pattern": "^(\\d+) active jobs?$"
+				},
 				// 组织设置页的 document.title：`Settings · Repository policies · Koishi-CE`。
 				// 中段是页面名（英文：规则不递归，故原样带回）、末段是组织名（用户内容）。
 				// 分隔符在实机是中点，仍用字符类同时覆盖中点与项目符号（与既有规则一致）。

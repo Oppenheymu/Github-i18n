@@ -2069,6 +2069,7 @@
 			"rules": [
 				"org-settings/actions-policies-title",
 				"org-settings/actions-policy-insights-title",
+				"org-settings/active-jobs-count",
 				"org-settings/page-title",
 				"org-settings/roles-count",
 				"org-settings/discussion-creation-org",
@@ -2244,6 +2245,7 @@
 			"rules": [
 				"org-settings/actions-policies-title",
 				"org-settings/actions-policy-insights-title",
+				"org-settings/active-jobs-count",
 				"org-settings/page-title",
 				"org-settings/roles-count",
 				"org-settings/discussion-creation-org",
@@ -2773,6 +2775,7 @@
 				"settings/article-a",
 				"org-settings/actions-policies-title",
 				"org-settings/actions-policy-insights-title",
+				"org-settings/active-jobs-count",
 				"org-settings/page-title",
 				"org-settings/roles-count",
 				"org-settings/discussion-creation-org",
@@ -2948,6 +2951,7 @@
 			"rules": [
 				"org-settings/actions-policies-title",
 				"org-settings/actions-policy-insights-title",
+				"org-settings/active-jobs-count",
 				"org-settings/page-title",
 				"org-settings/roles-count",
 				"org-settings/discussion-creation-org",

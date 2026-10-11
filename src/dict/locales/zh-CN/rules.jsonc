@@ -476,6 +476,8 @@
 		// Actions 策略页与策略洞察页的标题把页面名写死（通用规则只能原样带回英文页面名）
 		"org-settings/actions-policies-title": "设置 · Actions 策略 · $1",
 		"org-settings/actions-policy-insights-title": "设置 · Actions 策略洞察 · $1",
+		// 组织级运行器列表页每行的活动作业计数
+		"org-settings/active-jobs-count": "$1 个活动作业",
 		// 角色分配页的「N roles」计数（条数动态）
 		"org-settings/roles-count": "$1 个角色",
 		// 成员权限页：仓库讨论说明句里的组织名是动态值（规则不递归，原样带回）

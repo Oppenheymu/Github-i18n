@@ -5257,7 +5257,32 @@
 				// 注意侧栏项是同页的 `Policy insights`（本模块既有键，译「策略洞察」）、
 				// 组织规则集洞察页的 H1 是 `Repository ruleset insights`（另一条既有键）——
 				// 三条**互不同串**，故各收一份（与仓库级逐字同译）。
-				"Actions policy insights"
+				"Actions policy insights",
+				// —— /settings/actions/runners（组织级运行器列表页）——
+				// 证据：2026-10-11 维护者贴的整段实机 HTML。本页**不缺路由**（挂在 `settings`
+				// 前缀下）；页头 h2 `运行器`、表头 `运行器` / `状态`、搜索表单的
+				// `aria-label="运行器"` 都是既有键的对照物，其余英文即本批清单。
+				// 与仓库级的 /owner/repo/settings/actions/runners 同串的只有两条
+				//（`Learn more about self-hosted runners` / `New self-hosted runner`），
+				// 其余是组织侧独有措辞——尤其页首说明句：仓库级**只有第一句**，
+				// 组织侧在后面多接了一句，故是两条不同的键（整节点精确匹配，短键不会命中长节点）。
+				"Includes all runners across self-hosted and GitHub-hosted runners.",
+				"Host your own runners and customize the environment used to run jobs in your GitHub Actions workflows. Runners added to this organization can be used to process jobs in multiple repositories in your organization.",
+				"Learn more about self-hosted runners",
+				"Search runners",
+				"New runner",
+				"New self-hosted runner",
+				"Bring your own infrastructure",
+				"New GitHub-hosted runner",
+				// 该行被 `<br>` 切成两段（`&` 收在前段末尾，`<br>` 后面那段带前导空格）
+				"Pay-as-you-go, customizable, secure, scaled &",
+				"managed by GitHub",
+				"Only available on paid Team or Enterprise plans",
+				// 列表里 GitHub 托管运行器那一行：标题是链接，说明句被 `<a>Learn more.</a>`
+				// 切开（句号在链接**内部**），故两条各成键
+				"Standard GitHub-hosted runners",
+				"Ready-to-use runners managed by GitHub.",
+				"Learn more."
 			]
 		},
 		{

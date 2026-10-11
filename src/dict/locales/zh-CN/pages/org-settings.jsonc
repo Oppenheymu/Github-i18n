@@ -1262,6 +1262,23 @@
 		// —— /settings/actions/rules/insights（组织级「Actions 策略洞察」页）——
 		// H1 与侧栏项 `Policy insights`、组织规则集洞察页的 `Repository ruleset insights`
 		// 是三条不同的串；本模块此前只收过后者两条。
-		"Actions policy insights": "Actions 策略洞察"
+		"Actions policy insights": "Actions 策略洞察",
+		// —— /settings/actions/runners（组织级运行器列表页）——
+		// 与仓库级同串的两条（`Learn more about self-hosted runners` / `New self-hosted runner`）
+		// 逐字同译；页首说明句组织侧多一句，是另一条键（短的不会命中长的）。
+		"Includes all runners across self-hosted and GitHub-hosted runners.": "包含自托管运行器与 GitHub 托管运行器中的所有运行器。",
+		"Host your own runners and customize the environment used to run jobs in your GitHub Actions workflows. Runners added to this organization can be used to process jobs in multiple repositories in your organization.": "托管你自己的运行器，并自定义在你的 GitHub Actions 工作流中运行作业所使用的环境。添加到此组织的运行器可用于处理组织内多个仓库中的作业。",
+		"Learn more about self-hosted runners": "进一步了解自托管运行器",
+		"Search runners": "搜索运行器",
+		"New runner": "新建运行器",
+		"New self-hosted runner": "新建自托管运行器",
+		"Bring your own infrastructure": "自带基础设施",
+		"New GitHub-hosted runner": "新建 GitHub 托管运行器",
+		"Pay-as-you-go, customizable, secure, scaled &": "按量付费、可自定义、安全、可扩展，",
+		"managed by GitHub": "由 GitHub 管理",
+		"Only available on paid Team or Enterprise plans": "仅在付费的 Team 或 Enterprise 方案中可用",
+		"Standard GitHub-hosted runners": "标准 GitHub 托管运行器",
+		"Ready-to-use runners managed by GitHub.": "由 GitHub 管理的即用型运行器。",
+		"Learn more.": "了解更多。"
 	}
 }

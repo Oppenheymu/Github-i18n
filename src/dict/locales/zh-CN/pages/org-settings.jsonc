@@ -942,6 +942,42 @@
 		// 仓库列表筛选框的 placeholder（该输入框没有 aria-label）
 		"Search repositories": "搜索仓库",
 		// 空态标题
-		"No properties that match": "没有匹配的属性"
+		"No properties that match": "没有匹配的属性",
+		// —— /settings/codespaces（组织级代码空间设置）——
+		// 本页是 SSR 表单 + 独立的 `codespaces-organization-ownership-setting`
+		// react-partial 两套应用拼起来的；引号形态按实机逐字抄（SSR 段直角、
+		// React 段弯），理由见 core/canonical.jsonc 同段注释。
+		// 顶部 flash：`<a>` 把整句切成三个节点，中文按碎片重排后读作
+		//「要管理代码空间所有权设置，请 升级你的方案 以启用你的组织。」
+		"To manage Codespace ownership settings, please": "要管理代码空间所有权设置，请",
+		"upgrade your plan": "升级你的方案",
+		"to enable your organization.": "以启用你的组织。",
+		// 正文区块标题与说明句
+		"Codespaces access": "代码空间访问",
+		"Manage access to GitHub Codespaces for your organization's members on private and internal repositories. Codespaces are always available on public repositories.": "管理组织成员在私有和内部仓库上访问 GitHub 代码空间的权限。代码空间在公共仓库上始终可用。",
+		// 条款句同样被 `<a>` 切成三段，中文按原语序接续：
+		//「启用代码空间即表示你同意 GitHub 的附加产品与功能条款并代表你的组织认可这些条款。」
+		"By enabling Codespaces, you agree to GitHub’s": "启用代码空间即表示你同意 GitHub 的",
+		"additional products and features terms": "附加产品与功能条款",
+		"and approve of these terms on behalf of your organization.": "并代表你的组织认可这些条款。",
+		// 单选组：`Disabled` 与既有三个模块（settings / repo-settings / insights）同译
+		"Disabled": "禁用",
+		"Disable GitHub Codespaces for all organization owned private and internal repositories": "对所有组织拥有的私有和内部仓库禁用 GitHub 代码空间",
+		"Enable for specific members or teams": "为特定成员或团队启用",
+		"Enable GitHub Codespaces for specific organization members or teams on all organization owned private and internal repositories": "为特定组织成员或团队在所有组织拥有的私有和内部仓库上启用 GitHub 代码空间",
+		"Enable for all members": "为所有成员启用",
+		"Enable GitHub Codespaces for all organization members on all organization owned private and internal repositories": "为所有组织成员在所有组织拥有的私有和内部仓库上启用 GitHub 代码空间",
+		"Enable for all members and outside collaborators": "为所有成员和外部协作者启用",
+		"Enable GitHub Codespaces for all organization members and outside collaborators on all organization owned private and internal repositories": "为所有组织成员和外部协作者在所有组织拥有的私有和内部仓库上启用 GitHub 代码空间",
+		// 保存按钮的可访问名（按钮可见文案 `Save` 早已由 global 译出）
+		"Save user access settings": "保存用户访问设置",
+		// —— 同页的 react-partial（代码空间所有权）——
+		// 标签里内嵌 `<p class="note">`，DOM 上是**两个文本节点**：标签名与注解各自成键
+		"Codespace ownership": "代码空间所有权",
+		"Control who owns codespaces created by your organization’s members on organization owned repositories. Codespace ownership dictates who is billed for usage, whose policies apply, and where audit logs are sent.": "控制组织成员在组织拥有的仓库上创建的代码空间归谁所有。代码空间所有权决定由谁支付用量费用、适用哪些策略，以及审计日志发送到哪里。",
+		"Organization ownership": "组织所有权",
+		"All codespaces created by your organization’s members on your organization’s repositories are owned by the organization": "组织成员在你的组织仓库上创建的所有代码空间都归组织所有",
+		"User ownership": "用户所有权",
+		"All codespaces created by your organization’s members on your organization’s repositories are owned by the creating member": "组织成员在你的组织仓库上创建的所有代码空间都归创建它的成员所有"
 	}
 }

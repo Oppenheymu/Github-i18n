@@ -4791,7 +4791,54 @@
 				"No properties",
 				"Edit properties",
 				"No properties that match",
-				"Search repositories"
+				"Search repositories",
+				// —— /organizations/<组织>/settings/codespaces（组织级代码空间设置）——
+				// 证据：2026-10-11 维护者贴的整段实机 HTML（`Layout-main` 起，扩展仍在运行）。
+				// 本页是**两套应用**拼起来的：SSR 表单（Rails，`organization[...]` 命名）
+				// 加一个独立的 `<react-partial partial-name="codespaces-organization-ownership-setting">`
+				//（payload 里带 `submitUrl` / `currentValue`），故「代码空间访问」与
+				//「代码空间所有权」两块要一起收（同款判据见 docs 里 app-name 那一节）。
+				// 页面上自带对照物：h2 的 `Codespaces` 已由 global 译出、两个 `Save`
+				// 按钮（SSR 与 react-partial 各一个）都已是「保存」——说明扩展在本页生效，
+				// 其余英文才是清单。
+				// **引号形态按实机逐字抄，不能统一**：SSR 段用直角撇号
+				//（`your organization's members`，那条正文说明句），React 段用弯撇号
+				//（`your organization’s members`，所有权区块的三条）。两种形态在本仓
+				// 都真实存在（canonical 里各 7 处），抄错一个字符该节点就永不命中。
+				// 顶部 flash 与「同意条款」句都被 `<a>` 切成三个文本节点，故按碎片收：
+				// 链接文本（`upgrade your plan` / `additional products and features terms`）
+				// 各自成键，中文语序在碎片内部重排（flash 的「请 … 以启用」
+				// 与条款句的「代表你的组织」都只能落到其中一段）。
+				// 不收录：radio 的 `value`（`disabled` / `selected_users` / `all_users` /
+				// `all_users_and_outside_collaborators`）与 `name` / `id` /
+				// `aria-describedby`（表单值、标识符）、payload 的 `submitUrl` 与
+				// `currentValue`（`user` 是状态值）、React 的 `_r_1m_` 一类生成 id、
+				// 产品名 `GitHub`、组织名（用户内容）。`Disabled` 是泛化短词，
+				// 但它是本页单选组第一项的**可见标签**，且已在 settings /
+				// repo-settings / insights 三个模块同译（禁用），故本模块一并收。
+				"To manage Codespace ownership settings, please",
+				"upgrade your plan",
+				"to enable your organization.",
+				"Codespaces access",
+				"Manage access to GitHub Codespaces for your organization's members on private and internal repositories. Codespaces are always available on public repositories.",
+				"By enabling Codespaces, you agree to GitHub’s",
+				"additional products and features terms",
+				"and approve of these terms on behalf of your organization.",
+				"Disabled",
+				"Disable GitHub Codespaces for all organization owned private and internal repositories",
+				"Enable for specific members or teams",
+				"Enable GitHub Codespaces for specific organization members or teams on all organization owned private and internal repositories",
+				"Enable for all members",
+				"Enable GitHub Codespaces for all organization members on all organization owned private and internal repositories",
+				"Enable for all members and outside collaborators",
+				"Enable GitHub Codespaces for all organization members and outside collaborators on all organization owned private and internal repositories",
+				"Save user access settings",
+				"Codespace ownership",
+				"Control who owns codespaces created by your organization’s members on organization owned repositories. Codespace ownership dictates who is billed for usage, whose policies apply, and where audit logs are sent.",
+				"Organization ownership",
+				"All codespaces created by your organization’s members on your organization’s repositories are owned by the organization",
+				"User ownership",
+				"All codespaces created by your organization’s members on your organization’s repositories are owned by the creating member"
 			]
 		},
 		{

@@ -5012,7 +5012,35 @@
 				"Allow",
 				"coding agent",
 				"Learn more about Claude on GitHub",
-				"Learn more about Codex on GitHub"
+				"Learn more about Codex on GitHub",
+				// —— /settings/copilot/code_review（组织级代码审查设置）——
+				// 证据：2026-10-11 维护者贴的整页 HTML（`<react-app app-name="copilot-code-review-org-settings"`，
+				// payload 带 learnMoreUrl / approvalsSettings / defaultEffortLevelSettings）。
+				// 它是同路由下的独立 React 应用；页面上已是中文的 `预览` / `新建` / 开关的
+				// `开启` / `关闭` 与 `在文档中了解详情。` 是既有键生效的对照物，其余英文即本批清单。
+				// 顶部介绍与 `coding_agent` 页同款（`With ` + 术语 + 尾句），故**两种切分都收**：
+				// 整句键兜「一个节点」的形态，`With`（上一批已有）+ `Copilot code review` +
+				// 逗号起头的尾句碎片兜「三节点」的形态——本页 app 与 coding_agent 页同族、
+				// 句式一致，实机大概率是后者，**实机确认后删掉多余的那条**（同 `base-permission-change`
+				// / `topics-heading` 的双形态兜底做法）。
+				// 有意**不收录**（payload 里给了但贴出的 HTML 没渲染，等实机点开下拉再收）：
+				// modeOptions 另外三组 label / description、repositorySelectionTitle /
+				// repositorySelectionDescription、effort level 的 `Lite` / `Balanced` / `Max`
+				// 与三条 description（`Default (Balanced)` 里的 `Balanced` 是本批唯一渲染到的形态）。
+				"Copilot code review",
+				"With Copilot code review, you can get a thorough, automated first pass on every pull request — catching bugs and surfacing suggestions early, and freeing your team to focus on the changes that need human judgment. Copilot reviews pull requests across your organization's repositories and leaves its feedback as inline comments for authors to address.",
+				", you can get a thorough, automated first pass on every pull request — catching bugs and surfacing suggestions early, and freeing your team to focus on the changes that need human judgment. Copilot reviews pull requests across your organization's repositories and leaves its feedback as inline comments for authors to address.",
+				"Approvals",
+				"Allow Copilot to approve pull requests",
+				"Choose where Copilot can approve pull requests and where those approvals can count toward merge requirements.",
+				"Disabled everywhere",
+				"Review effort",
+				"Default review effort level",
+				"The depth of analysis Copilot uses for repositories that have not selected their own review effort level.",
+				"Default (Balanced)",
+				"Advanced",
+				"Only allow Copilot code review to be triggered by authorized users",
+				"When enabled, Copilot review requests require a Copilot license from this organization or its enterprise."
 			]
 		},
 		{

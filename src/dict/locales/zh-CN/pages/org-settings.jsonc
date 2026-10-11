@@ -1279,6 +1279,14 @@
 		"Only available on paid Team or Enterprise plans": "仅在付费的 Team 或 Enterprise 方案中可用",
 		"Standard GitHub-hosted runners": "标准 GitHub 托管运行器",
 		"Ready-to-use runners managed by GitHub.": "由 GitHub 管理的即用型运行器。",
-		"Learn more.": "了解更多。"
+		"Learn more.": "了解更多。",
+		// —— /settings/actions/runner-groups（组织级运行器组列表页）——
+		"Control access to your runners by specifying the repositories that are able to use your shared organization runners. New runners will be automatically assigned to the default group if no other group is specified.": "通过指定能够使用你的共享组织运行器的仓库，来控制对运行器的访问。如果未指定其他组，新建的运行器将自动分配到默认组。",
+		"Search runner groups": "搜索运行器组",
+		"New runner group": "新建运行器组",
+		"Group": "组",
+		"All repositories, excluding public repositories": "所有仓库，公开仓库除外",
+		// 默认组的组名：链接文字、徽标文字与徽标的 title 属性三处同串（与 pages/repo-settings 同译）
+		"Default": "默认"
 	}
 }

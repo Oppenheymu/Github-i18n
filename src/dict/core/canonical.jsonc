@@ -5282,7 +5282,22 @@
 				// 切开（句号在链接**内部**），故两条各成键
 				"Standard GitHub-hosted runners",
 				"Ready-to-use runners managed by GitHub.",
-				"Learn more."
+				"Learn more.",
+				// —— /settings/actions/runner-groups（组织级运行器组列表页）——
+				// 证据：2026-10-11 维护者贴的整段实机 HTML。本页**不缺路由**（挂在 `settings`
+				// 前缀下）；页头 h2 `运行器组`、搜索表单的 `aria-label="运行器组"` 与表头第二列的
+				// `运行器` 都是既有键的对照物，其余英文即本批清单。
+				// `Default` 是 GitHub 自动创建的默认运行器组名——**链接文字、徽标文字与徽标的
+				// `title` 属性三处同串，一条键覆盖三处**（属性只走词条查表）。在本模块它是
+				// **泛化短词**，收它的两条理由：模块按路由限定在组织设置页；pages/repo-settings
+				// 早就有同键同译（那边是规则集严重级别下拉的 `Default`）。实机若出现读不通的
+				// 「默认」就删词条，而不是加白名单。
+				"Control access to your runners by specifying the repositories that are able to use your shared organization runners. New runners will be automatically assigned to the default group if no other group is specified.",
+				"Search runner groups",
+				"New runner group",
+				"Group",
+				"All repositories, excluding public repositories",
+				"Default"
 			]
 		},
 		{

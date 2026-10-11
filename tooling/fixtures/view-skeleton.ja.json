@@ -1981,6 +1981,7 @@
 			"notTranslated": [
 				"org-settings/actions-policies-title",
 				"org-settings/actions-policy-insights-title",
+				"org-settings/oidc-configuration-title",
 				"org-settings/active-jobs-count",
 				"org-settings/caches-summary",
 				"org-settings/cache-usage",
@@ -2152,6 +2153,7 @@
 			"notTranslated": [
 				"org-settings/actions-policies-title",
 				"org-settings/actions-policy-insights-title",
+				"org-settings/oidc-configuration-title",
 				"org-settings/active-jobs-count",
 				"org-settings/caches-summary",
 				"org-settings/cache-usage",
@@ -2605,6 +2607,7 @@
 			"notTranslated": [
 				"org-settings/actions-policies-title",
 				"org-settings/actions-policy-insights-title",
+				"org-settings/oidc-configuration-title",
 				"org-settings/active-jobs-count",
 				"org-settings/caches-summary",
 				"org-settings/cache-usage",
@@ -2776,6 +2779,7 @@
 			"notTranslated": [
 				"org-settings/actions-policies-title",
 				"org-settings/actions-policy-insights-title",
+				"org-settings/oidc-configuration-title",
 				"org-settings/active-jobs-count",
 				"org-settings/caches-summary",
 				"org-settings/cache-usage",

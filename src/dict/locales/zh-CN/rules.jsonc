@@ -476,6 +476,8 @@
 		// Actions 策略页与策略洞察页的标题把页面名写死（通用规则只能原样带回英文页面名）
 		"org-settings/actions-policies-title": "设置 · Actions 策略 · $1",
 		"org-settings/actions-policy-insights-title": "设置 · Actions 策略洞察 · $1",
+		// OIDC 配置页的标题没有 `Settings · ` 前缀，页面名写死在模板里
+		"org-settings/oidc-configuration-title": "OIDC 配置 · $1",
 		// 组织级运行器列表页每行的活动作业计数
 		"org-settings/active-jobs-count": "$1 个活动作业",
 		// 组织级缓存页：计数行与每个仓库的用量行（数字与体积都是捕获组）

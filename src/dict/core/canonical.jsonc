@@ -5320,7 +5320,46 @@
 				// 下拉里的两个候选项与当前值同串，故三条键覆盖按钮与菜单
 				"Sort:",
 				"Largest size",
-				"Smallest size"
+				"Smallest size",
+				// —— /settings/actions/oidc-configuration（组织级 OIDC 配置页）——
+				// 证据：2026-10-11 维护者贴的整段实机 HTML（`<react-app
+				// app-name="actions-oidc-configuration">`）。本页**不缺路由**，但正文
+				// 整块英文——根因还是那条：同串词条在 pages/repo-settings（仓库级
+				// `/owner/repo/settings/actions/oidc-configuration` 早已收过），而那条路由
+				// **排除 organizations|orgs**，故组织路径上一条都不命中。
+				// 与仓库级同串的八条逐字同译（`OIDC configuration` / `Subject claim` /
+				// `Customize…` 两条 / `Learn more…` 两条 / `Save subject claim` /
+				// `Use immutable subject claim`）；仓库级有、本页**没有渲染**的
+				//（`Default subject claim prefix` / `Copy subject claim prefix` /
+				// `Use default template` / `Automatically enabled for this repository…`）
+				// 不在此登记——它们只属于仓库页那套「不可变声明已自动启用」的状态。
+				"OIDC configuration",
+				"Subject claim",
+				"Customize claims included in the OIDC token.",
+				"Customize the subject (sub) claim in the OIDC token, used to identify the workflow run context.",
+				"Learn more about OIDC tokens.",
+				"Learn more about immutable subject claims.",
+				"Save subject claim",
+				"Use immutable subject claim",
+				// 组织侧独有（仓库页那支的模板字段是只读的，没有这个标签与两段说明）
+				"Subject claim template",
+				// 模板变量示例 `repo, context, ref` 是**提交值**（用户照抄进输入框的
+				// 变量名），翻译即误伤，**有意不收录**；它是 textarea 的 placeholder，
+				// 属性只走词条查表，未登记就保留英文。
+				"Order-dependent list of comma-separated template variables.",
+				"List of available template variables.",
+				"Improve security by including unique identifiers in the subject claim, ensuring that trust policies cannot be assumed by a different repository or organization with the same name.",
+				// —— 同页下半段「Custom property claims」（无自定义属性时的空态）——
+				// 这几条在组织自定义属性页（`/settings/custom-properties`）里**没有同串**：
+				// 那页用的是 `Repository custom properties` / `Suggested custom properties`；
+				// `Custom properties` 是侧栏项（早已收录），与本段的 `Custom property claims`
+				// 是两条不同的串。
+				"Custom property claims",
+				"Specify which custom properties should be included as claims in the OIDC token.",
+				"No custom properties defined",
+				"Define custom properties to include them as claims in OIDC tokens.",
+				"Learn more about repository custom properties.",
+				"Manage custom properties"
 			]
 		},
 		{

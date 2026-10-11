@@ -1298,6 +1298,29 @@
 		// 排序按钮的前缀与当前值是两个相邻节点；下拉候选项与当前值同串
 		"Sort:": "排序：",
 		"Largest size": "最大大小",
-		"Smallest size": "最小大小"
+		"Smallest size": "最小大小",
+		// —— /settings/actions/oidc-configuration（组织级 OIDC 配置页）——
+		// 与 pages/repo-settings 的同串节点逐字同译（那条路由不命中组织路径）；
+		// 仓库级独有的四条状态文案（`Default subject claim prefix` 等）本页没有渲染，不在此收。
+		"OIDC configuration": "OIDC 配置",
+		"Subject claim": "主题声明",
+		"Customize claims included in the OIDC token.": "自定义 OIDC 令牌中包含的声明。",
+		"Customize the subject (sub) claim in the OIDC token, used to identify the workflow run context.": "自定义 OIDC 令牌中的主题（sub）声明，用于标识工作流运行上下文。",
+		"Learn more about OIDC tokens.": "进一步了解 OIDC 令牌。",
+		"Learn more about immutable subject claims.": "进一步了解不可变主题声明。",
+		"Save subject claim": "保存主题声明",
+		"Use immutable subject claim": "使用不可变主题声明",
+		// 组织侧独有：模板字段的标签与两段说明（模板变量示例是提交值，有意不收录）
+		"Subject claim template": "主题声明模板",
+		"Order-dependent list of comma-separated template variables.": "顺序相关的、以逗号分隔的模板变量列表。",
+		"List of available template variables.": "可用模板变量列表。",
+		"Improve security by including unique identifiers in the subject claim, ensuring that trust policies cannot be assumed by a different repository or organization with the same name.": "通过在主题声明中包含唯一标识符来提升安全性，确保信任策略不会被同名的其他仓库或组织冒用。",
+		// 「Custom property claims」空态（与自定义属性页的 `Repository custom properties` 不同串）
+		"Custom property claims": "自定义属性声明",
+		"Specify which custom properties should be included as claims in the OIDC token.": "指定哪些自定义属性应作为声明包含在 OIDC 令牌中。",
+		"No custom properties defined": "未定义自定义属性",
+		"Define custom properties to include them as claims in OIDC tokens.": "定义自定义属性，以将其作为声明包含在 OIDC 令牌中。",
+		"Learn more about repository custom properties.": "进一步了解仓库自定义属性。",
+		"Manage custom properties": "管理自定义属性"
 	}
 }

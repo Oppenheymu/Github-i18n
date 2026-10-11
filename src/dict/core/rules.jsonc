@@ -2381,6 +2381,17 @@
 					"id": "org-settings/actions-policy-insights-title",
 					"pattern": "^Settings [\\u00b7\\u2022] Actions policy insights [\\u00b7\\u2022] (.+)$"
 				},
+				// 组织级 OIDC 配置页（/organizations/<组织>/settings/actions/oidc-configuration）
+				// 的 document.title：实机是 `OIDC Configuration · Koishi-CE`——**没有**
+				// `Settings · ` 前缀（与上两条不同），故通用规则兜不住它，中段页面名会整条保留英文。
+				// 大写 C 只出现在标题上：正文 H1 是小写形态的 `OIDC configuration`，
+				// 走静态键，两条互不干扰（仓库级那页也一直是这两种大小写并存）。
+				// 仓库级同款页面的标题形态**尚未采集**，故规则只挂在本模块；万一上游用的是
+				// 另一种写法，本规则不命中、标签页保留英文，不会产出坏译文。
+				{
+					"id": "org-settings/oidc-configuration-title",
+					"pattern": "^OIDC Configuration [\\u00b7\\u2022] (.+)$"
+				},
 				// 组织级运行器列表页（/organizations/<组织>/settings/actions/runners）每行的
 				// 活动作业计数：实机是**单个文本节点**（`0 active jobs`），条数随运行器状态变，
 				// 故走规则；单数 `1 active job` 由 `jobs?` 一并接住。

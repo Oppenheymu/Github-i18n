@@ -3,12 +3,25 @@
 // 证据：2026-10-11 维护者贴出的 code-quality React 页面 HTML。页头「代码质量」与
 // Upsell 链接「了解更多」已经是中文；两段介绍文案分别在链接处拆成文本节点。
 // payload 里的组织名、规则定义、仓库选择器配置都是设置数据，不作为页面文案登记。
-import { describe, expect, it } from "bun:test";
+import {
+	afterAll,
+	beforeAll,
+	describe,
+	expect,
+	it,
+} from "bun:test";
 import {
 	buildView,
 	matchModules,
 } from "../../../../content/view.ts";
-import { translateText } from "../../../../content/walker.ts";
+import {
+	translateText,
+	translateTree,
+} from "../../../../content/walker.ts";
+import {
+	type DomEnvironment,
+	installDom,
+} from "../../../../test-support/dom.ts";
 import { dictCore, dictForLocale } from "../../../index.ts";
 
 const PAGE_PATH =
@@ -19,6 +32,16 @@ const view = buildView(
 	locale,
 	new Map(Object.entries(dictCore.aliases)),
 );
+
+let dom: DomEnvironment;
+
+beforeAll(() => {
+	dom = installDom();
+});
+
+afterAll(() => {
+	dom.restore();
+});
 
 const NEW_NODES: readonly (readonly [string, string])[] = [
 	[
@@ -126,6 +149,24 @@ describe("组织 Code Quality 设置页的实机节点", () => {
 			]),
 		).toBe(
 			"主动扫描最佳实践，减少缺陷、提升可读性，并让测试、协作和扩展更轻松，以确保代码库可靠、易维护且高效。启用此功能将产生 Actions 分钟费用。",
+		);
+	});
+
+	it("translates the FAQ text node before its already translated link", () => {
+		const root = dom.document.createElement("div");
+		root.className =
+			"color-fg-muted CodeQualitySettingsFaq-module__FAQContent__gxmDf";
+		root.innerHTML =
+			'GitHub will perform a point-in-time scan of the default branch of the repository, reporting back code quality findings and suggestions to developers. It will also proactively start scanning pull requests for code quality issues. To enable code coverage reports, you will need to manually commit a workflow file, once code quality is enabled. <a href="https://docs.github.com/code-security/how-tos/maintain-quality-code/set-up-code-coverage">了解如何配置代码覆盖率</a>';
+		dom.document.body.append(root);
+
+		expect(root.childNodes).toHaveLength(2);
+		expect(translateTree(root, view)).toBe(1);
+		expect(root.firstChild?.textContent).toBe(
+			"GitHub 会对仓库的默认分支进行一次扫描，并向开发者报告代码质量问题和建议。GitHub 还会主动开始扫描拉取请求中的代码质量问题。启用代码质量后，如需生成代码覆盖率报告，你需要手动提交一个工作流文件。 ",
+		);
+		expect(root.querySelector("a")?.textContent).toBe(
+			"了解如何配置代码覆盖率",
 		);
 	});
 

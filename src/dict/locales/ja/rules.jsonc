@@ -537,6 +537,9 @@
 		// この id を補わなくてもスナップショットには現れない）なので、
 		// 気づかないまま ja だけ英語が残ってしまう。ここで先に埋めておく。
 		"org-settings/webhooks-intro": "Webhook を使用すると、特定のイベントが発生したときに外部サービスへ通知できます。指定したイベントが発生すると、指定した各 URL に POST リクエストを送信します。詳細については、",
+		"org-settings/dependabot-rules-enabled-count": "$<count> 件のルールが有効",
+		// 個人設定ページの同 pattern を別モジュールでも使用するため id ごとに明示する
+		"org-settings/no-recoverable-packages": "$1 で復元可能なパッケージは見つかりませんでした。",
 
 		// —— pages/actions（Actions）——
 		"actions/duration-hms": "$1 時間 $2 分 $3 秒",

@@ -2406,6 +2406,12 @@
 					"id": "org-settings/webhooks-intro",
 					"pattern": "^Webhooks allow external services to be notified when certain events happen\\. When the specified events happen, we['\\u2019]ll send a POST request to each of the URLs you provide\\. Learn more in our$"
 				},
+				// 组织安全分析页（/organizations/<组织>/settings/security_analysis）的
+				// Dependabot 规则数量。与 repo-settings 同 pattern，但模块路由互斥，故需单独模板。
+				{
+					"id": "org-settings/dependabot-rules-enabled-count",
+					"pattern": "^(?<count>[\\d,]+) rules? enabled$"
+				},
 				// 组织级运行器列表页（/organizations/<组织>/settings/actions/runners）每行的
 				// 活动作业计数：实机是**单个文本节点**（`0 active jobs`），条数随运行器状态变，
 				// 故走规则；单数 `1 active job` 由 `jobs?` 一并接住。
@@ -2659,6 +2665,37 @@
 				{
 					"id": "org-settings/actions-fork-approvals-org",
 					"pattern": "^All users that are not a member or owner of the repository and not a member of the (.+) organization will require approval to run workflows\\.$"
+				},
+				// 组织软件包设置页的空状态：组织名是动态值；与个人设置页的同 pattern 规则
+				// 重复，因为 pages/settings 不命中组织路径。
+				{
+					"id": "org-settings/no-recoverable-packages",
+					"pattern": "^No recoverable packages were found for (.+)\\.$"
+				},
+				// 组织双因素认证页中直接包含组织名的动态句子（组织名原样带回）。
+				{
+					"id": "org-settings/two-factor-require-org",
+					"pattern": "^Require two-factor authentication for everyone in the (.+) organization\\.$"
+				},
+				{
+					"id": "org-settings/two-factor-confirm-disable-org",
+					"pattern": "^Are you sure you want to remove the two-factor authentication for all users in (.+)\\?$"
+				},
+				{
+					"id": "org-settings/two-factor-disabled-org",
+					"pattern": "^Two-factor authentication will no longer be required to access any resources in the (.+) organization\\.$"
+				},
+				{
+					"id": "org-settings/two-factor-required-secure-org",
+					"pattern": "^Users will be required to set up two-factor authentication using a secure method in order to access the (.+) organization\\.$"
+				},
+				{
+					"id": "org-settings/two-factor-required-org",
+					"pattern": "^Users will be required to set up two-factor authentication in order to access the (.+) organization\\.$"
+				},
+				{
+					"id": "org-settings/two-factor-secure-disabled-org",
+					"pattern": "^Secure methods of two-factor authentication will no longer be required to access any organization's resources in the (.+) organization\\.$"
 				}
 			]
 		},

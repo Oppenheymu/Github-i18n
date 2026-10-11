@@ -5371,7 +5371,156 @@
 				//（引擎按设计跳过），故与仓库级一样**走规则**（org-settings/webhooks-intro，
 				// 与 repo-settings 同 pattern 同模板——撇号直弯的容错也一并沿用）。
 				"Add webhook",
-				"Webhooks Guide"
+				"Webhooks Guide",
+				// —— /settings/discussions（组织级讨论设置页）——
+				// 证据：2026-10-11 维护者贴出的整段实机 HTML。标题、说明、复选框标签、
+				// 仓库选择提示与四条说明各为完整文本节点；搜索框的 placeholder 和
+				// aria-label 同串，属性各自查表翻译。底部 Save 已译为「保存」，不重复收录。
+				"Discussions for your organization",
+				"Setting up Discussions for your organization will allow you to broadcast updates, answer questions, and hold conversations for the entire organization.",
+				"Enable discussions for this organization",
+				"Choose a source repository that will host the discussions.",
+				"All discussions on the source repository will be surfaced to the organization Discussions tab.",
+				"Permissions from the repository will be applied to the organization Discussions. By default, all members of the organization will be able to create and comment on discussions.",
+				"Members can now share updates or ask questions to the entire organization.",
+				"For more information, see our documentation.",
+				"Choose a repository",
+				"Search for a repository",
+				// —— /settings/packages（组织级软件包设置页）——
+				// 证据：2026-10-11 维护者贴出的整段实机 HTML。个人设置页已有四条同串
+				//（Packages permissions / Inherit access… / NuGet 说明 / Search deleted packages），
+				// 但 pages/settings 不命中组织路径，故在此同译复用。组织空状态含动态组织名，
+				// 单独走 org-settings/no-recoverable-packages 规则。
+				"Packages permissions",
+				"Package creation",
+				"Members will be able to publish only the selected visibility types for packages and containers. Outside collaborators can never publish packages or containers.",
+				"Members will be able to create public packages, visible to anyone.",
+				"Members will be able to create private packages, visible to organization members with permission.",
+				"Internal",
+				"Members will be able to create internal packages, visible to all organization/enterprise members.",
+				"Inherit access from source repository",
+				"Default package settings",
+				"This setting will be applied to new Container, npm, rubygems and NuGet packages.",
+				"Deleted packages",
+				"These are packages that have been previously deleted belonging to this organization. You can restore a package deleted within the last 30 days.",
+				"Search deleted packages",
+				// —— /settings/pages_verified_domains（组织 Pages 已验证域名页）——
+				// 证据：2026-10-11 维护者贴出的实机 HTML。Verified domains / Add a domain /
+				// Verify domains… 已在个人设置模块收录，但 pages/settings 不命中组织路径，故复收。
+				"Verified domains",
+				"Add a domain",
+				"There are no verified domains for this organization.",
+				"Verify domains to restrict who can publish GitHub Pages on them.",
+				// —— /settings/two_factor_enforcement（组织双因素认证设置页）——
+				// 证据：2026-10-11 维护者贴出的整段实机 HTML。组织名在 require / 确认句和
+				// 对话框正文里是动态文本或 <strong> 用户内容；只收静态片段，动态整句走下方规则。
+				// 页面中已是中文的 Save / Confirm / Enterprise 文档链接保持原样，不重复收录。
+				"Two-factor authentication",
+				"Two-factor authentication adds another level of security for your organization.",
+				"Learn more about requiring two-factor authentication in your organization.",
+				"Organization members who do not have two-factor authentication enabled will be unable to access resources owned by the",
+				"organization, but will remain a member of",
+				"until they update their settings. Outside collaborators who do not have two-factor authentication enabled will be removed from the organization and notified.",
+				"Only allow secure two-factor methods",
+				"Users can only use secure two-factor methods: authenticator apps, passkeys, security keys, and the GitHub mobile app.",
+				"Existing members will lose access to organization resources if they disable two-factor authentication. Outside collaborators will be removed from the organization if they disable two-factor authentication.",
+				"Users' two-factor authentication methods will not be affected.",
+				"Secure your data and people with GitHub Enterprise",
+				"SAML single sign-on (SSO)",
+				"SAML single sign-on (SSO) gives GitHub Enterprise accounts a way to control and secure access to organization resources like repositories, issues, and pull requests.",
+				"SSH certificate authorities",
+				"With an SSH certificate authority, enterprise accounts can provide SSH certificates that members can use to access your resources with Git.",
+				"Certified for compliance",
+				"GitHub Enterprise Cloud is certified for SOC 1 Type 2, SOC 2 Type 2, FedRAMP LiSaaS. Enterprise customers can download these reports, and more, at any time.",
+				"Team Synchronization",
+				"Enable and disable team synchronization between your identity provider (IdP) and your organizations on GitHub Enterprise accounts.",
+				"IP allow list",
+				"GitHub Enterprise accounts can restrict access to private organization assets by configuring an allow list for specific IP addresses.",
+				"Close dialog",
+				"View organization membership",
+				"to see which users will be impacted.",
+				// —— /settings/security_products（组织 Advanced Security 空态页）——
+				// 证据：2026-10-11 维护者贴出的 security-products-enablement 实机 HTML。
+				// 横幅正文在链接处拆成两个节点；标题 Information 虽为 sr-only 仍是 DOM 文本，
+				// 会由 walker 翻译。页头「高级安全」与「了解更多」已是中文，不重复登记。
+				"Information",
+				"This organization does not have GitHub Advanced Security, which is free for public repositories and billed per active committer for private and internal repositories. To apply configurations with GitHub Advanced Security features to private repositories,",
+				"upgrade to GitHub Advanced Security.",
+				"Dismiss banner",
+				"Set up Advanced Security",
+				"Manage Secret scanning, Code scanning and Dependabot.",
+				"Set up",
+				// —— /settings/code-quality（组织 Code Quality 介绍与 FAQ）——
+				// 证据：2026-10-11 维护者贴出的 code-quality 实机 HTML。促销说明与 FAQ
+				// 的两处链接分别切开文本节点；仅收实际渲染的标题、说明、问题与答案。
+				"Find and fix code quality issues like code coverage, maintainability risks, reliability problems, and more. Get quality insights directly in your development workflow with Copilot-powered autofix.",
+				"Build resilient code, at scale",
+				"Ensure your codebases are reliable, maintainable, and efficient by proactively scanning for best practices, reducing bugs, improving readability, and enabling easier testing, collaboration, and scalability. Enabling this feature will incur charges in",
+				"action minutes.",
+				"Enable Code Quality",
+				"Frequently asked questions",
+				"What happens once I turn on code quality scanning?",
+				"GitHub will perform a point-in-time scan of the default branch of the repository, reporting back code quality findings and suggestions to developers. It will also proactively start scanning pull requests for code quality issues. To enable code coverage reports, you will need to manually commit a workflow file, once code quality is enabled.",
+				"Learn how to configure code coverage",
+				"Does Code Quality use AI?",
+				"Along with standard findings that are detected using the default CodeQL query suite, Code Quality also uses AI to detect additional findings, labeled as AI findings.",
+				"What quality rules and languages are supported?",
+				"We will support quality rules and languages found in this",
+				"open source repository",
+				". The languages supported with CodeQL for standard findings are: C#, Java, JavaScript/TypeScript, Python, Ruby, and Go. Other languages may be scanned with AI, but will not generate standard findings with CodeQL.",
+				// —— /settings/security_analysis（组织全局 Advanced Security 设置）——
+				// 证据：2026-10-11 维护者贴出的 SSR HTML。运行器类型表单、代码扫描开关、
+				// Secret scanning 与 Dependabot 仓库访问说明都在同一页；已中文的设置项不复收。
+				"Global Advanced Security settings",
+				"Global Advanced Security settings are enabled for all repositories in this organization where the parent feature is enabled. By enabling these features, you're granting us permission to perform read-only analysis on your organization's repositories.",
+				"Dependabot rules",
+				"Create your own custom rules and manage alert presets.",
+				"Configure dependabot rules",
+				"Grouped security updates",
+				"Groups all available updates that resolve a Dependabot alert into one pull request (per package manager and directory of requirement manifests). This option may be overridden by group rules specified in dependabot.yml -",
+				"Learn how to group updates.",
+				"Select the runner type used by Dependabot for scans and version and security updates.",
+				"Edit runner type for Dependabot",
+				"Dependabot will use standard GitHub runners to run scans",
+				"Dependabot will use labeled GitHub or self-hosted runners that you may define.",
+				"Optional runner information",
+				"Provide any existing runner information you would like to use for Dependabot.",
+				"Verify spelling matches an existing runner group to ensure proper setup.",
+				"The",
+				"label is used by default. Learn how to",
+				"use or create custom labels",
+				"Verify spelling matches an existing label to ensure proper setup.",
+				"Save runner selection",
+				"Code scanning",
+				"Recommend the extended query suite for repositories enabling default setup",
+				"The extended query includes the default suite, plus lower severity and precision queries.",
+				"Copilot Autofix",
+				"Suggest fixes for CodeQL alerts using AI. CodeQL default or advanced setup must be enabled for this feature to work. Agentic fixes use AI Credits. Learn more about the",
+				"limitations of autofix code suggestions",
+				"AI Scan for pull requests",
+				"Run AI code scan on pull requests. Only applies for non-CodeQL languages.",
+				"Learn more about AI Scan",
+				"A Copilot license is required to use AI Scan.",
+				"Set up Copilot",
+				"Keep scheduled scans running every 30 days for inactive repositories",
+				"Inactive repositories are repositories with no pushes or pull requests in the last 6 months. Applies only to repositories using code scanning default setup.",
+				"Expand CodeQL analysis",
+				"Expand CodeQL to recognize more libraries and frameworks in repositories using CodeQL default setup.",
+				"Configure CodeQL model packs",
+				"Configure",
+				"Secret scanning",
+				"Push protection",
+				"Add a resource link in the CLI and web UI when a commit is blocked",
+				"Link will show in addition to",
+				"the message GitHub displays",
+				"Save link",
+				"Grant Dependabot access to repositories",
+				"To update dependencies, Dependabot accesses all public and selected private repositories. The contents of these repositories become visible to all users in your organization through Dependabot updates. Consider using private registries if you don't want to share these repositories with everyone in your organization.",
+				"Select repositories",
+				"Select",
+				"repositories",
+				"Choose",
+				"repositories Dependabot can access."
 			]
 		},
 		{

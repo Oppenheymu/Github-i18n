@@ -487,3 +487,13 @@ describe("pages/profile 的个人主页侧栏编辑资料表单", () => {
 		).toBe("你可以 @mention 其他用户和组织来链接他们。");
 	});
 });
+
+describe("pages/profile 的贡献日历月份标签", () => {
+	it("keeps the two-column October label on one line", () => {
+		// 用户提供的 /Oppenheymu 实机 DOM 显示最后一个 October 标签 colspan=2；
+		// 去掉空格仍允许浏览器在数字与汉字间折行，故用零宽 WORD JOINER 禁止断行。
+		expect(translateText("Oct", view)).toBe("10\u2060月");
+		// 贡献动态中的全称月份仍保留常规排版。
+		expect(translateText("October", view)).toBe("10 月");
+	});
+});

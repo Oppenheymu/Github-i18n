@@ -480,8 +480,19 @@
 		"org-settings/oidc-configuration-title": "OIDC 配置 · $1",
 		// 网络钩子列表页的说明句（与 repo-settings/webhooks-intro 同 pattern 同模板）
 		"org-settings/webhooks-intro": "网络钩子让外部服务能在特定事件发生时收到通知。当指定的事件发生时，我们会向你提供的每个 URL 发送 POST 请求。进一步了解我们的",
+		// 组织级软件包设置页空状态（组织名动态；同个人软件包设置页的 pattern）
+		"org-settings/no-recoverable-packages": "未找到 $1 的可恢复软件包。",
+		// 组织双因素认证设置页：组织名称均为动态捕获值
+		"org-settings/two-factor-require-org": "为 $1 组织中的所有人启用双因素认证。",
+		"org-settings/two-factor-confirm-disable-org": "确定要取消对 $1 的所有用户的双因素认证要求吗？",
+		"org-settings/two-factor-disabled-org": "$1 组织的所有资源将不再要求使用双因素认证才能访问。",
+		"org-settings/two-factor-required-secure-org": "用户必须设置双因素认证并使用安全方式，才能访问 $1 组织。",
+		"org-settings/two-factor-required-org": "用户必须设置双因素认证才能访问 $1 组织。",
+		"org-settings/two-factor-secure-disabled-org": "访问 $1 组织的资源将不再要求使用安全的双因素认证方式。",
 		// 组织级运行器列表页每行的活动作业计数
 		"org-settings/active-jobs-count": "$1 个活动作业",
+		// 组织安全分析页：Dependabot 规则数量
+		"org-settings/dependabot-rules-enabled-count": "已启用 $<count> 条规则",
 		// 组织级缓存页：计数行与每个仓库的用量行（数字与体积都是捕获组）
 		"org-settings/caches-summary": "$1 个仓库，共 $2 个活动缓存",
 		"org-settings/cache-usage": "$2 中的 $1 • $3 个活动缓存",

@@ -128,6 +128,17 @@
 		"Archive": "归档",
 		// 组织页的 `Actions` 与仓库设置同措辞（同一批侧栏项），排除注入后由本模块自己提供
 		"Actions": "Actions 工作流",
+		// —— 组织部署密钥策略页：说明在链接处拆分，禁用提示被组织名节点拆分 ——
+		"Deploy keys use an SSH key to grant readonly or write access to a single repository. If you have a more complex project or want more fine-grain control over permissions, consider using a GitHub App instead. For more information, see": "部署密钥使用 SSH 密钥，为单个仓库授予只读或写入权限。如果项目更复杂，或需要更精细地控制权限，可以考虑改用 GitHub App。有关详情，请参阅",
+		"the GitHub Apps documentation": "GitHub Apps 文档",
+		". Please note that deploy keys are not protected by a passphrase and can be a security risk if your server is compromised. For more information on deploy keys, see": "。请注意，部署密钥没有密码短语保护；如果服务器遭到入侵，可能会带来安全风险。有关部署密钥的详情，请参阅",
+		"managing deploy keys": "管理部署密钥",
+		"Deploy keys are not allowed to be created and used within this organization. Cloning public repositories will be unaffected by this policy.": "此组织不允许创建和使用部署密钥。此策略不会影响克隆公开仓库。",
+		"Deploy keys are allowed to be created and used within this organization.": "允许在此组织中创建和使用部署密钥。",
+		"use deploy keys. Disabling deploy keys may break existing workflows.": "使用部署密钥。禁用部署密钥可能会导致现有工作流无法正常运行。",
+		"Are you sure you want to disable deploy keys?": "确定要禁用部署密钥吗？",
+		"Existing deploy keys in": "现有部署密钥（",
+		"will disabled.": "）将被禁用。",
 		// —— 组织资料表单 ——
 		"Organization display name": "组织显示名称",
 		"Email (will be public)": "电子邮箱（将公开）",

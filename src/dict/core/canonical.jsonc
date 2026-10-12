@@ -3761,6 +3761,19 @@
 				// 组织页的 `Actions` 与仓库设置同措辞（同一批侧栏项），
 				// 排除 repo-settings 注入后由本模块自己提供，避免实机出现两种译法。
 				"Actions",
+				// —— 组织部署密钥策略页（/organizations/<组织>/settings/deploy_keys）——
+				// 证据：2026-10-12 维护者贴出的页面 HTML。说明段在两个链接处分成三段；
+				// 禁用提示也被组织名加粗节点切开。计数「0 个仓库」已是中文，只收其后的英文节点。
+				"Deploy keys use an SSH key to grant readonly or write access to a single repository. If you have a more complex project or want more fine-grain control over permissions, consider using a GitHub App instead. For more information, see",
+				"the GitHub Apps documentation",
+				". Please note that deploy keys are not protected by a passphrase and can be a security risk if your server is compromised. For more information on deploy keys, see",
+				"managing deploy keys",
+				"Deploy keys are not allowed to be created and used within this organization. Cloning public repositories will be unaffected by this policy.",
+				"Deploy keys are allowed to be created and used within this organization.",
+				"use deploy keys. Disabling deploy keys may break existing workflows.",
+				"Are you sure you want to disable deploy keys?",
+				"Existing deploy keys in",
+				"will disabled.",
 				// —— 组织资料表单（/organizations/<组织>/settings/profile）——
 				"Organization display name",
 				"Email (will be public)",

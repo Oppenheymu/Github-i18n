@@ -21,7 +21,11 @@
 // 由 engine.test.ts 的「关闭时只清空队列不翻译」与 readEnabled 的默认值把守。
 import { afterAll, describe, expect, it } from "bun:test";
 import { installDom } from "../../test-support/dom.ts";
-import { flushMisses, setEnabled } from "../collector.ts";
+import {
+	flushMisses,
+	MISS_LOG_REVISION,
+	setEnabled,
+} from "../collector.ts";
 
 const env = installDom();
 
@@ -151,6 +155,12 @@ describe("content 入口的启动装配", () => {
 			"visibilitychange",
 		);
 		expect(env.hooks.window).toContain("pagehide");
+	});
+
+	it("resets legacy misses after the collector semantics change", () => {
+		expect(storageData.get("missLogRevision")).toBe(
+			MISS_LOG_REVISION,
+		);
 	});
 });
 

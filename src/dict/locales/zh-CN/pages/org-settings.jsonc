@@ -1399,6 +1399,8 @@
 		"Frequently asked questions": "常见问题",
 		"What happens once I turn on code quality scanning?": "开启代码质量扫描后会发生什么？",
 		"GitHub will perform a point-in-time scan of the default branch of the repository, reporting back code quality findings and suggestions to developers. It will also proactively start scanning pull requests for code quality issues. To enable code coverage reports, you will need to manually commit a workflow file, once code quality is enabled.": "GitHub 会对仓库的默认分支进行一次扫描，并向开发者报告代码质量问题和建议。GitHub 还会主动开始扫描拉取请求中的代码质量问题。启用代码质量后，如需生成代码覆盖率报告，你需要手动提交一个工作流文件。",
+		"GitHub will perform a point-in-time scan of the default branch of the repository, reporting back code quality findings and suggestions to developers. It will also proactively start scanning pull requests for code quality issues.": "GitHub 会对仓库的默认分支进行一次扫描，并向开发者报告代码质量问题和建议。GitHub 还会主动开始扫描拉取请求中的代码质量问题。",
+		"To enable code coverage reports, you will need to manually commit a workflow file, once code quality is enabled.": "启用代码质量后，如需生成代码覆盖率报告，你需要手动提交一个工作流文件。",
 		"Learn how to configure code coverage": "了解如何配置代码覆盖率",
 		"Does Code Quality use AI?": "代码质量会使用 AI 吗？",
 		"Along with standard findings that are detected using the default CodeQL query suite, Code Quality also uses AI to detect additional findings, labeled as AI findings.": "除了使用默认 CodeQL 查询套件检测标准问题外，代码质量还会使用 AI 检测其他问题，并将其标记为 AI 发现。",

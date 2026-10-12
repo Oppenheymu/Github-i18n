@@ -472,7 +472,7 @@ for (const p of probes) {
 | `org-settings/pages.test.ts` | `/organizations/<组织>/settings/pages_verified_domains` | 组织 Pages 已验证域名页（**证据是维护者贴出的实机 HTML**）。`Verified domains`、`Add a domain` 与 `Verify domains…` 在个人设置模块已有同串，但组织路由不命中 `pages/settings`，故在本模块同译复收；空状态的组织名是固定短语的一部分，没有动态值。 |
 | `org-settings/two-factor-enforcement.test.ts` | `/organizations/<组织>/settings/two_factor_enforcement` | 组织双因素认证设置页（**证据是维护者贴出的整段实机 HTML**）。主体通知在 `<strong>` 处拆成三段，组织名保留用户内容；要求状态与确认对话框有动态组织名，使用本模块规则。Enterprise 介绍区按 HTML 的文本节点登记，已为中文的按钮与文档链接不重复收录。 |
 | `org-settings/security-products.test.ts` | `/organizations/<组织>/settings/security_products` | 组织 Advanced Security 配置空态页（证据：维护者贴出的 security-products-enablement 实机 HTML）。信息横幅标题位于 sr-only 容器，仍是可翻译文本；横幅正文在链接处拆成两个节点，回归锁住该边界。页头与「了解更多」已是中文；payload 的组织名、仓库名与设置数据不收录。 |
-| `org-settings/code-quality.test.ts` | `/organizations/<组织>/settings/code-quality` | 组织 Code Quality 介绍页与 FAQ（证据：维护者贴出的 code-quality React 页面 HTML）。两段说明各在链接处拆成多个文本节点；回归锁住节点边界、整段 FAQ 答案与已中文化的页头。payload 中的组织名、仓库规则定义与选择器数据不作为页面文案登记。 |
+| `org-settings/code-quality.test.ts` | `/organizations/<组织>/settings/code-quality` | 组织 Code Quality 介绍页与 FAQ（证据：维护者贴出的 code-quality React 页面 HTML 和开发者模式导出）。FAQ 答案实机出现过整句单节点及两段分离节点两种形态；分别登记并回归，保留链接边界与已中文化的页头。payload 中的组织名、仓库规则定义与选择器数据不作为页面文案登记。 |
 | `org-settings/security-analysis.test.ts` | `/organizations/<组织>/settings/security_analysis` | 组织全局 Advanced Security 设置页（证据：维护者贴出的 SSR HTML）。回归覆盖 Dependabot 规则摘要、运行器类型对话框、代码扫描与 Secret scanning 设置、仓库访问说明，以及分组标签/代码/链接造成的文本节点切分。规则数量走动态计数规则；实机已是中文的运行器、标签和开关状态不重复登记，`dependabot` 运行器标签按用户配置数据保留原样。 |
 | `org-settings/webhooks.test.ts` | `/organizations/<组织>/settings/hooks` | 组织级**网络钩子列表页**（**证据是维护者 2026-10-11 贴的整段实机 HTML**，`#hooks_bucket`——**服务端渲染的 ERB 页**，不是 React 重写页）。它又是「组织路径上 `pages/repo-settings` 不命中」这条根因的实例，页头 h1 已是中文的 `网络钩子`（本模块侧栏既有键 `Webhooks`）正是对照物，其余英文即本批清单。补 2 条键 + 1 条规则：`Add webhook`（按钮文字）、`Webhooks Guide`（链接文字，两条都与仓库级同串逐字同译），说明句走新规则 `org-settings/webhooks-intro`（与 `repo-settings/webhooks-intro` **同 pattern 同模板**——跨模块重复合法）。四条边界事实：① 说明句在实机是**单个文本节点**：源码里它被换行与缩进拆成四行、中间没有任何元素，`normalizeKey` 折叠空白后才命中规则——仓库级当初只是**推测**，本次由 HTML 证实，故用例直接拿**带换行缩进的原文**断言；又因为 walker 保留节点首尾空白，那个节点译出来前面带着 `\n    `（HTML 里折叠成一个空格、观感无碍），用例另断一条「trim 后读作一整句」，免得下次有人把它当漏翻；② 链接后面那个 `.` 是**独立的纯符号节点**（引擎跳过），故中文以「…进一步了解我们的 网络钩子指南.」收尾；③ 撇号这次拿到了 HTML 证据：是**直撇号** `we'll`，但本模块沿用仓库级的字符类 `['’]`（两种都接得住），用例把弯撇号形态也断言一遍；④ 本页按钮指向的 `/settings/hooks/new`（新建页）**本次没有 HTML**，故那一整页表单（`Payload URL` / `Content type` / `Secret` / `SSL verification` …）仍只躺在 pages/repo-settings 里，组织路径上照旧整页英文——拿到 HTML 时按同串逐条补一份即可。另记一条**门禁看不见的坑**：新规则与仓库级**同 pattern**，而 `check:view` 的 `notTranslated` 按 pattern 源串判重 ⇒ **ja 的骨架里根本不会列出它**（ja 早就给仓库级那条写了模板），补上 ja 模板后它才出现在 ja 的**生效规则序列**里；也就是说「跨模块同 pattern 的规则」是唯一一类**门禁不会替你发现**的 ja 缺口，本批顺手把这条 ja 模板补齐（ja 其余新规则都能在骨架上看到，故仍维持稀疏） |
 | `repo.test.ts` | `/owner/repo` 及子页 | 仓库页（导航、文件列表、README 与 README.md 的区分；侧栏星标 / 关注 / 复刻三个计数走 `repo/*-count` 规则，数字随仓库变化，另收 `4.1k` / `1,234` 这类缩写形态） |
@@ -658,10 +658,11 @@ popup 底部的「开发者模式」开关**默认关闭**，用于系统性发�
 
 ### 收集范围与导出格式
 
-- 文本节点：未命中静态词条与正则规则的可见 UI 文本（trim 后原文）；
-- 属性：`title` / `aria-label` / `placeholder` / `alt` 未命中词条的原值（引擎另外还翻译按钮类 `value` / `data-disable-with`，共 6 项；收集时这两项归到 `aria-label` 这一类，故 `MissKind` 只有 4 个属性名）；
-- 记录的 `text` 就是「GitHub 渲染的精确英文原文」，可直接作为 canonical 候选键（`kind: "text"` 为文本节点，其余 kind 为属性名）；
-- 缓冲上限 300 条、落盘上限 500 条（满了保留先收集的），同键累加出现次数、`path` 取首次出现页面的 pathname。
+- 文本节点：未命中静态词条与正则规则、且**不含非拉丁字母**的可见 UI 文本（trim 后原文）；已经含中文等文字的混合节点不收集，避免把 GitHub 已翻译的术语、用户名称和中英混排标签当成整条漏翻；
+- 属性：`title` / `aria-label` / `placeholder` / `alt` 未命中词条的原值；含非拉丁字母的混合属性同样跳过（引擎另外还翻译按钮类 `value` / `data-disable-with`，共 6 项；收集时这两项归到 `aria-label` 这一类，故 `MissKind` 只有 4 个属性名）；
+- `text` 是未命中的候选文案，不保证应该翻译：GitHub 品牌、产品名、缩写和用户名可能有意保留英文，登记前仍需结合页面判断；
+- 缓冲上限 300 条、落盘上限 500 条（满了保留先收集的）；同一 DOM 节点在同一路径下反复扫描只计一次，`count` 表示跨采集页面实例累计的节点数。相同文案在不同 pathname 分开记录；
+- 采集语义升级时会重置旧版日志，避免旧版扫描次数和混合语言记录混入新导出；手动开始一轮新采集仍可在 popup 点「清空」。
 
 导出 JSON 结构（排序：path 升序 → count 降序 → text 升序）：
 

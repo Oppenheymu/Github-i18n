@@ -5461,6 +5461,8 @@
 				"Frequently asked questions",
 				"What happens once I turn on code quality scanning?",
 				"GitHub will perform a point-in-time scan of the default branch of the repository, reporting back code quality findings and suggestions to developers. It will also proactively start scanning pull requests for code quality issues. To enable code coverage reports, you will need to manually commit a workflow file, once code quality is enabled.",
+				"GitHub will perform a point-in-time scan of the default branch of the repository, reporting back code quality findings and suggestions to developers. It will also proactively start scanning pull requests for code quality issues.",
+				"To enable code coverage reports, you will need to manually commit a workflow file, once code quality is enabled.",
 				"Learn how to configure code coverage",
 				"Does Code Quality use AI?",
 				"Along with standard findings that are detected using the default CodeQL query suite, Code Quality also uses AI to detect additional findings, labeled as AI findings.",

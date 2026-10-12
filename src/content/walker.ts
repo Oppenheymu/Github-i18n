@@ -140,7 +140,7 @@ function applyTextNode(
 	if (translated === null) {
 		// 未命中词典与规则：开发者模式下记录 trimmed 原文
 		// （可翻译判定已滤掉空白 / 非拉丁字母 / 超长，排除容器由调用方整树跳过）
-		if (isTranslatableText(value)) recordText(value);
+		if (isTranslatableText(value)) recordText(node, value);
 		return false;
 	}
 	const erased = translated.trim() === "";
@@ -184,6 +184,7 @@ function applyAttrs(
 			// value / data-disable-with 是按钮文案，归到 aria-label 一类（MissKind 是
 			// 开发者日志的维度，不为按钮文案单开一类，避免 storage 结构跟着变）
 			recordAttr(
+				element,
 				name === "value" || name === "data-disable-with"
 					? "aria-label"
 					: name,

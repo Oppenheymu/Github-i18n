@@ -93,10 +93,12 @@ function item(overrides: Partial<MissItem> = {}): MissItem {
 
 describe("missKey", () => {
 	it("separates kinds sharing the same text", () => {
-		expect(missKey("text", "Star")).not.toBe(
-			missKey("title", "Star"),
+		expect(missKey("text", "Star", "/repo")).not.toBe(
+			missKey("title", "Star", "/repo"),
 		);
-		expect(missKey("text", "Star")).toBe("text\u0000Star");
+		expect(missKey("text", "Star", "/repo")).toBe(
+			'["/repo","text","Star"]',
+		);
 	});
 });
 
@@ -105,18 +107,16 @@ describe("upsertMiss", () => {
 		const buffer = new Map<string, MissItem>();
 		upsertMiss(buffer, "text", "Star", "/repo", 10);
 		expect(buffer.size).toBe(1);
-		expect(buffer.get(missKey("text", "Star"))).toEqual(
-			item({ text: "Star", path: "/repo" }),
-		);
+		expect(
+			buffer.get(missKey("text", "Star", "/repo")),
+		).toEqual(item({ text: "Star", path: "/repo" }));
 	});
 
-	it("accumulates count and keeps the first path", () => {
+	it("keeps the same text separate for different paths", () => {
 		const buffer = new Map<string, MissItem>();
 		upsertMiss(buffer, "text", "Star", "/repo/pulls", 10);
 		upsertMiss(buffer, "text", "Star", "/repo/issues", 10);
-		expect(buffer.get(missKey("text", "Star"))).toEqual(
-			item({ text: "Star", path: "/repo/pulls", count: 2 }),
-		);
+		expect(buffer.size).toBe(2);
 	});
 
 	it("distinguishes kinds of the same text", () => {
@@ -135,20 +135,30 @@ describe("upsertMiss", () => {
 		expect(buffer.size).toBe(2);
 		upsertMiss(buffer, "text", "First", "/repo", 2);
 		expect(
-			buffer.get(missKey("text", "First"))?.count,
+			buffer.get(missKey("text", "First", "/repo"))?.count,
 		).toBe(2);
 	});
 });
 
 describe("mergeMissLogs", () => {
-	it("accumulates counts and keeps the persisted path", () => {
+	it("keeps counts separate across paths", () => {
 		const existing = [item({ path: "/repo", count: 3 })];
 		const incoming = [
 			item({ path: "/repo/pulls", count: 2 }),
 		];
 		const merged = mergeMissLogs(existing, incoming, 10);
-		expect(merged).toEqual([
-			item({ path: "/repo", count: 5 }),
+		expect(merged).toEqual(existing.concat(incoming));
+	});
+
+	it("accumulates counts for the same path", () => {
+		const existing = [
+			item({ path: "/repo/pulls", count: 3 }),
+		];
+		const incoming = [
+			item({ path: "/repo/pulls", count: 2 }),
+		];
+		expect(mergeMissLogs(existing, incoming, 10)).toEqual([
+			item({ path: "/repo/pulls", count: 5 }),
 		]);
 	});
 
@@ -313,9 +323,16 @@ describe("漏翻缓冲的落盘链路", () => {
 
 	it("records text and attribute misses under the current path", async () => {
 		// 调用方传来的文本可能带首尾空白（walker 传的是 trimmed 原文，这里防回归）
-		recordText("  Untranslated  ");
-		recordText("Untranslated");
-		recordAttr("placeholder", "Ask anything");
+		const firstNode = env.document.createTextNode(
+			"  Untranslated  ",
+		);
+		const secondNode =
+			env.document.createTextNode("Untranslated");
+		const input = env.document.createElement("input");
+		recordText(firstNode, "  Untranslated  ");
+		recordText(firstNode, "Untranslated");
+		recordText(secondNode, "Untranslated");
+		recordAttr(input, "placeholder", "Ask anything");
 		await flushMisses();
 		expect(stored.get("missLog")).toEqual([
 			{
@@ -333,10 +350,39 @@ describe("漏翻缓冲的落盘链路", () => {
 		]);
 	});
 
+	it("counts unique nodes once and ignores mixed-language nodes", async () => {
+		const repeated =
+			env.document.createTextNode("Untranslated");
+		const mixed = env.document.createTextNode(
+			"Actions 工作流",
+		);
+		const mixedAttr = env.document.createElement("button");
+		recordText(repeated, "Untranslated");
+		recordText(repeated, "Untranslated");
+		recordText(mixed, "Actions 工作流");
+		recordAttr(mixedAttr, "aria-label", "打开 Copilot…");
+		await flushMisses();
+		expect(stored.get("missLog")).toEqual([
+			{
+				kind: "text",
+				text: "Untranslated",
+				path: "/owner/repo/pulls",
+				count: 1,
+			},
+		]);
+	});
+
 	it("ignores records while disabled", async () => {
 		setEnabled(false);
-		recordText("Untranslated");
-		recordAttr("title", "Untranslated");
+		recordText(
+			env.document.createTextNode("Untranslated"),
+			"Untranslated",
+		);
+		recordAttr(
+			env.document.createElement("div"),
+			"title",
+			"Untranslated",
+		);
 		await flushMisses();
 		// 缓冲为空 → 连一次 storage 写都没有（关闭即零开销，改动也不落盘）
 		expect(stored.size).toBe(0);
@@ -363,21 +409,33 @@ describe("漏翻缓冲的落盘链路", () => {
 				count: 1,
 			},
 		]);
-		recordText("Untranslated");
-		recordText("Fresh");
+		recordText(
+			env.document.createTextNode("Untranslated"),
+			"Untranslated",
+		);
+		recordText(
+			env.document.createTextNode("Fresh"),
+			"Fresh",
+		);
 		await flushMisses();
-		// 同键累加且 path 保留首次，新键追加在后
+		// 同一路径同文案累加，不同路径彼此独立；新键追加在后
 		expect(stored.get("missLog")).toEqual([
 			{
 				kind: "text",
 				text: "Untranslated",
 				path: "/old",
-				count: 4,
+				count: 3,
 			},
 			{
 				kind: "title",
 				text: "Kept",
 				path: "/old",
+				count: 1,
+			},
+			{
+				kind: "text",
+				text: "Untranslated",
+				path: "/owner/repo/pulls",
 				count: 1,
 			},
 			{
@@ -390,7 +448,10 @@ describe("漏翻缓冲的落盘链路", () => {
 	});
 
 	it("flushes on the 5 second interval", async () => {
-		recordText("Untranslated");
+		recordText(
+			env.document.createTextNode("Untranslated"),
+			"Untranslated",
+		);
 		expect(stored.size).toBe(0);
 		intervals.at(-1)?.();
 		await env.tick();
@@ -398,7 +459,10 @@ describe("漏翻缓冲的落盘链路", () => {
 	});
 
 	it("flushes when the page becomes hidden", async () => {
-		recordText("Untranslated");
+		recordText(
+			env.document.createTextNode("Untranslated"),
+			"Untranslated",
+		);
 		Object.defineProperty(env.document, "visibilityState", {
 			value: "hidden",
 			configurable: true,
@@ -411,7 +475,10 @@ describe("漏翻缓冲的落盘链路", () => {
 	});
 
 	it("flushes when the page is unloaded", async () => {
-		recordText("Untranslated");
+		recordText(
+			env.document.createTextNode("Untranslated"),
+			"Untranslated",
+		);
 		env.window.dispatchEvent(env.createEvent("pagehide"));
 		await env.tick();
 		expect(stored.has("missLog")).toBe(true);

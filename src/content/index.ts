@@ -11,6 +11,7 @@ import {
 } from "../shared/identity.ts";
 import {
 	effectiveLocale,
+	ensureMissLogRevision,
 	readDevMode,
 	readEnabled,
 	readLocale,
@@ -18,6 +19,7 @@ import {
 	watchToggles,
 } from "../shared/storage.ts";
 import {
+	MISS_LOG_REVISION,
 	setEnabled as setCollectorEnabled,
 	startAutoFlush,
 } from "./collector.ts";
@@ -49,6 +51,7 @@ async function bootstrap(): Promise<void> {
 		readDevMode(),
 		readLocale(),
 	]);
+	await ensureMissLogRevision(MISS_LOG_REVISION);
 	targetLocale = effectiveLocale(
 		selectedLocale,
 		chrome.i18n.getUILanguage(),

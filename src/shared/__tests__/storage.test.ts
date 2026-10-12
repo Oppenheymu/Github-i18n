@@ -10,6 +10,7 @@
 import { beforeEach, describe, expect, it } from "bun:test";
 import {
 	effectiveLocale,
+	ensureMissLogRevision,
 	readDevMode,
 	readEnabled,
 	readLocale,
@@ -191,6 +192,29 @@ describe("readMissLog", () => {
 		];
 		await writeMissLog(items);
 		expect(await readMissLog()).toEqual(items);
+	});
+});
+
+describe("ensureMissLogRevision", () => {
+	it("clears old collection data once when semantics change", async () => {
+		stub.data.set("missLog", [
+			{ kind: "text", text: "Old", path: "/x", count: 9 },
+		]);
+		await ensureMissLogRevision(2);
+		expect(await readMissLog()).toEqual([]);
+		expect(stub.data.get("missLogRevision")).toBe(2);
+
+		const current = [
+			{
+				kind: "text" as const,
+				text: "Current",
+				path: "/x",
+				count: 1,
+			},
+		];
+		await writeMissLog(current);
+		await ensureMissLogRevision(2);
+		expect(await readMissLog()).toEqual(current);
 	});
 });
 

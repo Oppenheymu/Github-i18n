@@ -22,10 +22,10 @@
 		"message": "开发者模式"
 	},
 	"devHint": {
-		"message": "收集本站未翻译文本，仅存本地；默认关闭，开启前零收集。"
+		"message": "收集未匹配的英文界面文案候选，仅存本地；品牌名和用户名等可能应保留英文。默认关闭，开启前零收集。"
 	},
 	"devCount": {
-		"message": "已收集 $COUNT$ 条",
+		"message": "候选文案 $COUNT$ 条",
 		"placeholders": {
 			"count": {
 				"content": "$1",

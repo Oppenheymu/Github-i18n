@@ -22,10 +22,10 @@
 		"message": "Developer mode"
 	},
 	"devHint": {
-		"message": "Collects untranslated text on GitHub pages and keeps it on this device only. Off by default: nothing is collected before you turn it on."
+		"message": "Collects unmatched Latin-script UI text candidates on GitHub pages and keeps them on this device only. Brand names and usernames may be intentional. Off by default."
 	},
 	"devCount": {
-		"message": "Collected $COUNT$ items",
+		"message": "$COUNT$ text candidates collected",
 		"placeholders": {
 			"count": {
 				"content": "$1",

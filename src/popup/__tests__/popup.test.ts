@@ -83,7 +83,7 @@ const MESSAGES = new Map<string, string>([
 	["localeAuto", "自动"],
 	["devTitle", "开发者模式"],
 	["devHint", "开发者说明"],
-	["devCount", "未翻译 $1 条"],
+	["devCount", "候选文案 $1 条"],
 	["devCopy", "复制"],
 	["devClear", "清空"],
 	["devCopied", "已复制"],
@@ -292,7 +292,7 @@ describe("popup 的开发者区块", () => {
 			element("#dev-panel").classList.contains("hidden"),
 		).toBe(false);
 		expect(element("#dev-count").textContent).toBe(
-			"未翻译 0 条",
+			"候选文案 0 条",
 		);
 	});
 
@@ -316,7 +316,7 @@ describe("popup 的开发者区块", () => {
 			},
 		});
 		expect(element("#dev-count").textContent).toBe(
-			"未翻译 2 条",
+			"候选文案 2 条",
 		);
 	});
 
@@ -352,7 +352,7 @@ describe("popup 的开发者区块", () => {
 		await tick();
 		expect(storageData.get("missLog")).toEqual([]);
 		expect(element("#dev-count").textContent).toBe(
-			"未翻译 0 条",
+			"候选文案 0 条",
 		);
 	});
 

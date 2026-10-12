@@ -12,6 +12,7 @@ const ENABLED_KEY = "enabled";
 const DEV_MODE_KEY = "devMode";
 const LOCALE_KEY = "locale";
 const MISS_LOG_KEY = "missLog";
+const MISS_LOG_REVISION_KEY = "missLogRevision";
 
 /** 需要整页刷新联动的开关键（content script 侧任一变化即 reload） */
 export type ToggleKey = "enabled" | "devMode";
@@ -143,6 +144,23 @@ export async function writeMissLog(
 ): Promise<void> {
 	await chrome.storage.local.set({
 		[MISS_LOG_KEY]: [...items],
+	});
+}
+
+/**
+ * 采集语义变化时清掉旧日志，避免把旧版重复扫描计数和混合文本继续导出。
+ * 版本相同则保留跨页面累积的记录。
+ */
+export async function ensureMissLogRevision(
+	revision: number,
+): Promise<void> {
+	const data = await chrome.storage.local.get(
+		MISS_LOG_REVISION_KEY,
+	);
+	if (data[MISS_LOG_REVISION_KEY] === revision) return;
+	await chrome.storage.local.set({
+		[MISS_LOG_KEY]: [],
+		[MISS_LOG_REVISION_KEY]: revision,
 	});
 }
 

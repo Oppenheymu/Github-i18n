@@ -68,6 +68,14 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 		"GitHub 会对仓库的默认分支进行一次扫描，并向开发者报告代码质量问题和建议。GitHub 还会主动开始扫描拉取请求中的代码质量问题。启用代码质量后，如需生成代码覆盖率报告，你需要手动提交一个工作流文件。",
 	],
 	[
+		"GitHub will perform a point-in-time scan of the default branch of the repository, reporting back code quality findings and suggestions to developers. It will also proactively start scanning pull requests for code quality issues.",
+		"GitHub 会对仓库的默认分支进行一次扫描，并向开发者报告代码质量问题和建议。GitHub 还会主动开始扫描拉取请求中的代码质量问题。",
+	],
+	[
+		"To enable code coverage reports, you will need to manually commit a workflow file, once code quality is enabled.",
+		"启用代码质量后，如需生成代码覆盖率报告，你需要手动提交一个工作流文件。",
+	],
+	[
 		"Learn how to configure code coverage",
 		"了解如何配置代码覆盖率",
 	],
@@ -168,6 +176,34 @@ describe("组织 Code Quality 设置页的实机节点", () => {
 		expect(root.querySelector("a")?.textContent).toBe(
 			"了解如何配置代码覆盖率",
 		);
+	});
+
+	it("translates the FAQ when React splits it into two text nodes", () => {
+		const root = dom.document.createElement("div");
+		root.className =
+			"color-fg-muted CodeQualitySettingsFaq-module__FAQContent__gxmDf";
+		root.append(
+			dom.document.createTextNode(
+				"GitHub will perform a point-in-time scan of the default branch of the repository, reporting back code quality findings and suggestions to developers. It will also proactively start scanning pull requests for code quality issues.",
+			),
+			dom.document.createTextNode(
+				"To enable code coverage reports, you will need to manually commit a workflow file, once code quality is enabled. ",
+			),
+		);
+		const link = dom.document.createElement("a");
+		link.textContent = "了解如何配置代码覆盖率";
+		root.append(link);
+		dom.document.body.append(root);
+
+		expect(root.childNodes).toHaveLength(3);
+		expect(translateTree(root, view)).toBe(2);
+		expect(root.childNodes[0]?.textContent).toBe(
+			"GitHub 会对仓库的默认分支进行一次扫描，并向开发者报告代码质量问题和建议。GitHub 还会主动开始扫描拉取请求中的代码质量问题。",
+		);
+		expect(root.childNodes[1]?.textContent).toBe(
+			"启用代码质量后，如需生成代码覆盖率报告，你需要手动提交一个工作流文件。 ",
+		);
+		expect(link.textContent).toBe("了解如何配置代码覆盖率");
 	});
 
 	it("keeps the already translated heading and dynamic organization data", () => {

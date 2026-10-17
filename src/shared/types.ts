@@ -129,6 +129,16 @@ export interface MissItem {
 	 * 而「该不该收、收在哪个模块」恰恰取决于元素种类。空串 = 取不到元素（游离文本节点）。
 	 */
 	readonly context: string;
+	/**
+	 * 记录时所在「整行」的拼合文本（见 collector.describeBlock）。
+	 *
+	 * 存在理由：GitHub 的长句被 `<strong>` / `<a>` 切成多个文本节点，日志里每条只是一段
+	 * 碎片。不知道碎片之间的顺序时，`changed and there have been` / `pushed to` / `main`
+	 * 这类记录只能整批丢弃——这正是「导出的日志远不如贴 HTML 好用」的根因。`block` 是
+	 * 记录时那一行**全部文本**（已译的兄弟节点显示中文），拼起来就能看出句子的原貌。
+	 * 空串 = 这一行就是该节点自己（整节点即整句，键可直接收）。
+	 */
+	readonly block: string;
 	/** 累计出现次数 */
 	readonly count: number;
 }

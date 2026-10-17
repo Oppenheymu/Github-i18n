@@ -6,11 +6,14 @@ import { describe, expect, it } from "bun:test";
 import {
 	classify,
 	formatReport,
+	groupBlocks,
+	isFragmentOfBlock,
 	isUserContent,
 	loadCore,
 	loadLocaleDict,
 	type MissExportItem,
 	parseExport,
+	reconstructBlock,
 	userContentReason,
 } from "./miss-report.ts";
 
@@ -21,6 +24,7 @@ const ACTIONS_SECRETS =
 	"/Koishi-CE/koishi/settings/secrets/actions";
 const CODE_QUALITY =
 	"/Koishi-CE/koishi/settings/code-quality";
+const PULSE = "/Koishi-CE/koishi/pulse";
 
 const item = (
 	overrides: Partial<MissExportItem> = {},
@@ -29,6 +33,7 @@ const item = (
 	kind: "text",
 	path: ACTIONS_SECRETS,
 	context: "th",
+	block: "",
 	count: 1,
 	...overrides,
 });
@@ -39,20 +44,24 @@ const verdictOf = (entry: MissExportItem): string =>
 describe("parseExport", () => {
 	it("accepts the current schema and keeps the context", () => {
 		const parsed = parseExport({
-			schema: "github-zh-misses/2",
+			schema: "github-zh-misses/3",
 			exportedAt: "2026-10-17T12:54:04.355Z",
+			dropped: 4,
 			items: [
 				{
 					text: "Value",
 					kind: "text",
 					path: "/x",
 					context: "th",
+					block: "Value 3",
 					count: 2,
 				},
 			],
 		});
-		expect(parsed.schema).toBe("github-zh-misses/2");
+		expect(parsed.schema).toBe("github-zh-misses/3");
 		expect(parsed.items[0]?.context).toBe("th");
+		expect(parsed.items[0]?.block).toBe("Value 3");
+		expect(parsed.dropped).toBe(4);
 	});
 
 	it("accepts a version 1 export, whose items have no context", () => {
@@ -68,6 +77,9 @@ describe("parseExport", () => {
 			],
 		});
 		expect(parsed.items[0]?.context).toBe("");
+		// 2 版没有 block、3 版才加 dropped：缺了就退化，不整份拒收
+		expect(parsed.items[0]?.block).toBe("");
+		expect(parsed.dropped).toBe(0);
 	});
 
 	it("fails loudly on a broken export", () => {
@@ -288,6 +300,95 @@ describe("classify", () => {
 	});
 });
 
+describe("isFragmentOfBlock", () => {
+	it("spots a fragment of a longer sentence", () => {
+		expect(
+			isFragmentOfBlock(
+				item({
+					text: "pushed to",
+					path: PULSE,
+					block:
+						"3 authors changed and there have been 12 commits pushed to main",
+				}),
+				"pushed to",
+			),
+		).toBe(true);
+	});
+
+	it("does not treat a whole label as a fragment", () => {
+		// 空块 = 这一行就是该节点自己（`<th>Value</th>`、`<h3>Active issues</h3>`）；
+		// 块与自身相等同样不算碎片。判错了报告会把每个整标签都标成碎片
+		expect(
+			isFragmentOfBlock(
+				item({ text: "Traffic", path: PULSE }),
+				"Traffic",
+			),
+		).toBe(false);
+		expect(
+			isFragmentOfBlock(
+				item({
+					text: "Traffic",
+					path: PULSE,
+					block: "Traffic 12",
+				}),
+				"Traffic",
+			),
+		).toBe(true);
+	});
+});
+
+describe("reconstructBlock", () => {
+	it("puts the fragments back in the order they occupy in the block", () => {
+		// 日志里没有节点顺序（排序键只有 path / count / text），块文本的拼接顺序
+		// 就是文档顺序，因此「在块里最先出现」的那条就是句首那条
+		const layout = reconstructBlock(
+			"3 authors changed and there have been 12 commits pushed to main",
+			["main", "pushed to", "changed and there have been"],
+		);
+		expect(layout.marked).toBe(
+			"3 authors ⟦1⟧ 12 commits ⟦2⟧ ⟦3⟧",
+		);
+		// 序号按**出现顺序**编（1 = 句首那段），order 给出对应的输入下标
+		expect(layout.order).toEqual([2, 1, 0]);
+		expect(layout.missing).toEqual([]);
+	});
+
+	it("reports fragments the block no longer contains", () => {
+		// 块被 240 字截断时，尾部碎片在块里找不到——要标出来而不是静默丢掉
+		const layout = reconstructBlock("Only the head", [
+			"Only",
+			"a tail that was cut off",
+		]);
+		expect(layout.marked).toBe("⟦1⟧ the head");
+		expect(layout.order).toEqual([0]);
+		expect(layout.missing).toEqual([1]);
+	});
+});
+
+describe("groupBlocks", () => {
+	it("groups the fragments of one sentence and skips standalone labels", () => {
+		const block =
+			"3 authors changed and there have been 12 commits pushed to main";
+		const rows = classify(
+			[
+				item({
+					text: "changed and there have been",
+					path: PULSE,
+					block,
+				}),
+				item({ text: "pushed to", path: PULSE, block }),
+				item({ text: "Traffic", path: PULSE, block: "" }),
+			],
+			dict,
+			aliases,
+		);
+		const groups = groupBlocks(rows);
+		expect(groups).toHaveLength(1);
+		expect(groups[0]?.block).toBe(block);
+		expect(groups[0]?.rows).toHaveLength(2);
+	});
+});
+
 describe("formatReport", () => {
 	it("says so explicitly when nothing is actionable", () => {
 		const rows = classify(
@@ -367,5 +468,68 @@ describe("formatReport", () => {
 			"同形异义：页头「键入」/ 设置页正文「类型」",
 		);
 		expect(report).toContain("架构上限 1 / 噪声 0");
+	});
+
+	it("restores the sentence the fragments were cut from", () => {
+		// 这一节就是本轮的核心：它替代了「让维护者贴整页 HTML」那一步
+		const block =
+			"3 authors changed and there have been 12 commits pushed to main";
+		const rows = classify(
+			[
+				item({
+					text: "changed and there have been",
+					path: PULSE,
+					block,
+				}),
+				item({ text: "pushed to", path: PULSE, block }),
+			],
+			dict,
+			aliases,
+		);
+		const report = formatReport(rows, {
+			file: "misses.json",
+			exportedAt: "",
+			schema: "github-zh-misses/3",
+		});
+		expect(report).toContain("整句还原 1 块");
+		expect(report).toContain(
+			"「3 authors ⟦1⟧ 12 commits ⟦2⟧ main」",
+		);
+		// 标记行把块内序号与记录对起来：⟦1⟧ 就是句首那段
+		expect(report).toMatch(
+			/⟦1⟧ text\s+th\s+"changed and there have been"/,
+		);
+		expect(report).toMatch(/⟦2⟧ text\s+th\s+"pushed to"/);
+		expect(report).not.toContain("没有 block 字段");
+	});
+
+	it("says the log predates the sentence blocks", () => {
+		// 2 版日志没有 block：此时「碎片」只能靠词形猜，报告必须点明而不是装作没事
+		const rows = classify(
+			[item({ text: "Totally new label" })],
+			dict,
+			aliases,
+		);
+		const report = formatReport(rows, {
+			file: "misses.json",
+			exportedAt: "",
+			schema: "github-zh-misses/2",
+		});
+		expect(report).toContain("没有 block 字段");
+		expect(report).toContain("重新导出一次");
+	});
+
+	it("reports how many records the caps swallowed", () => {
+		const rows = classify(
+			[item({ text: "Totally new label" })],
+			dict,
+			aliases,
+		);
+		const report = formatReport(rows, {
+			file: "misses.json",
+			exportedAt: "",
+			dropped: 5,
+		});
+		expect(report).toContain("另有 5 条超出上限没进日志");
 	});
 });

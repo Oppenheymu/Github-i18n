@@ -15,11 +15,13 @@ import {
 	readDevMode,
 	readEnabled,
 	readLocale,
+	readMissDropped,
 	readMissLog,
 	watchMissLog,
 	writeDevMode,
 	writeEnabled,
 	writeLocale,
+	writeMissDropped,
 	writeMissLog,
 } from "../shared/storage.ts";
 import type { MissItem } from "../shared/types.ts";
@@ -95,6 +97,8 @@ const localeSelect = assertFound(
 
 /** 当前漏翻日志缓存：watchMissLog 实时同步，复制时同步序列化（用户手势内完成剪贴板写入） */
 let misses: readonly MissItem[] = [];
+/** 因上限被丢弃的累计条数：随导出一起交出去，避免「刚好 N 条」与「被截断」混淆 */
+let dropped = 0;
 
 /**
  * 初始化语言选择器：第一项是「自动」（值空串 → storage 里删除该键），
@@ -149,6 +153,7 @@ function flashCopyButton(text: string): void {
 /** 初始化开发者区块：读漏翻日志与开关状态 */
 async function initDev(): Promise<void> {
 	misses = await readMissLog();
+	dropped = await readMissDropped();
 	renderDev(await readDevMode());
 }
 
@@ -201,7 +206,11 @@ function main(): void {
 		renderDev(devToggle.checked);
 	});
 	devCopy.addEventListener("click", () => {
-		const json = serializeMisses(misses, new Date());
+		const json = serializeMisses(
+			misses,
+			new Date(),
+			dropped,
+		);
 		void navigator.clipboard.writeText(json).then(
 			() => flashCopyButton(msg("devCopied")),
 			() => flashCopyButton(msg("devCopyFailed")),
@@ -209,8 +218,10 @@ function main(): void {
 	});
 	devClear.addEventListener("click", () => {
 		misses = [];
+		dropped = 0;
 		renderDev(devToggle.checked);
 		void writeMissLog([]);
+		void writeMissDropped(0);
 	});
 }
 

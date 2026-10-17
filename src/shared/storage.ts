@@ -13,6 +13,7 @@ const DEV_MODE_KEY = "devMode";
 const LOCALE_KEY = "locale";
 const MISS_LOG_KEY = "missLog";
 const MISS_LOG_REVISION_KEY = "missLogRevision";
+const MISS_DROPPED_KEY = "missLogDropped";
 
 /** 需要整页刷新联动的开关键（content script 侧任一变化即 reload） */
 export type ToggleKey = "enabled" | "devMode";
@@ -115,9 +116,11 @@ function narrowMissLog(value: unknown): MissItem[] {
 			text?: unknown;
 			path?: unknown;
 			context?: unknown;
+			block?: unknown;
 			count?: unknown;
 		};
-		const { kind, text, path, context, count } = record;
+		const { kind, text, path, context, block, count } =
+			record;
 		if (
 			!isMissKind(kind) ||
 			typeof text !== "string" ||
@@ -128,12 +131,14 @@ function narrowMissLog(value: unknown): MissItem[] {
 			count < 1
 		)
 			continue;
-		// context 是后加字段：旧记录（或外部手改的导出）缺它时退化为空串，不丢整条
+		// context / block 是后加字段：旧记录（或外部手改的导出）缺它们时退化为空串，
+		// 不丢整条——`block` 为空只意味着「这一行就是该节点自己」或「旧版没采到」
 		items.push({
 			kind,
 			text,
 			path,
 			context: typeof context === "string" ? context : "",
+			block: typeof block === "string" ? block : "",
 			count,
 		});
 	}
@@ -156,6 +161,33 @@ export async function writeMissLog(
 }
 
 /**
+ * 读取「因上限被丢弃」的累计条数；脏数据（负数 / 非数字）一律按 0。
+ *
+ * 存在理由：缓冲与落盘都有上限，超限的记录**不会**进 missLog。旧版不说，
+ * 面板就会永远停在 500 条，看不出「刚好 500」与「被截断」的区别（审计 C-2）。
+ */
+export async function readMissDropped(): Promise<number> {
+	const data = await chrome.storage.local.get(
+		MISS_DROPPED_KEY,
+	);
+	const value = data[MISS_DROPPED_KEY];
+	return typeof value === "number" &&
+		Number.isFinite(value) &&
+		value > 0
+		? Math.trunc(value)
+		: 0;
+}
+
+/** 写入丢弃计数（content flush 累加、popup 清空时归零） */
+export async function writeMissDropped(
+	count: number,
+): Promise<void> {
+	await chrome.storage.local.set({
+		[MISS_DROPPED_KEY]: Math.max(0, Math.trunc(count)),
+	});
+}
+
+/**
  * 采集语义变化时清掉旧日志，避免把旧版重复扫描计数和混合文本继续导出。
  * 版本相同则保留跨页面累积的记录。
  */
@@ -169,6 +201,8 @@ export async function ensureMissLogRevision(
 	await chrome.storage.local.set({
 		[MISS_LOG_KEY]: [],
 		[MISS_LOG_REVISION_KEY]: revision,
+		// 丢弃计数与新日志一起归零，否则新会话会继承上一版的「另有 N 条」
+		[MISS_DROPPED_KEY]: 0,
 	});
 }
 

@@ -259,7 +259,7 @@ site|security|team|events|about|contact)(?:/|$))[^/]+
 
 ### 三、采集途径
 
-**途径 A（首选）：popup 的开发者模式。** 开启后正常浏览目标页，等落盘（每 5 秒 / 页面隐藏时），回 popup 点「复制」得到 `github-zh-misses/2` JSON，直接粘进会话。优点是自带 `path`、`context` 与 `count`（出现次数多的先补），且**每条记录就是一个文本节点**——节点边界比 `outerHTML` 和截图都准。缺点是约九成记录是用户内容、产品名与动态值，**先跑 `bun run report:misses` 分拣再动手**（见「把日志变成清单」）。
+**途径 A（首选）：popup 的开发者模式。** 开启后正常浏览目标页，等落盘（每 5 秒 / 页面隐藏时），回 popup 点「复制」得到 `github-zh-misses/3` JSON，直接粘进会话。优点是自带 `path`、`context`、`block` 与 `count`（出现次数多的先补），且**每条记录就是一个文本节点**——节点边界比 `outerHTML` 和截图都准；`block` 是那一行的完整拼合文本，被 `<a>` / `<strong>` 切开的句子能**按块内顺序拼回原句**（见「把日志变成清单」的「整句还原」）。缺点是约九成记录是用户内容、产品名与动态值，**先跑 `bun run report:misses` 分拣再动手**。
 
 **途径 B（节点边界）：Console 采集片段。** 在目标页按 F12 → Console → 先执行一次 `allow pasting`（Edge / Chrome 的粘贴保护）→ 粘贴下面整段。它一次性打出该页**全部文本节点**（含真实空白与父元素，便于识别 `sr-only` / 组件结构）、**六个可翻译属性**、以及**扩展自身的排除判定**（`script` / `style` / `noscript` / `textarea` 等，见了直接忽略）。
 
@@ -312,7 +312,7 @@ dump.join("\n");
 
 | 拿到的形态 | 特征 | 处理 |
 | --- | --- | --- |
-| 途径 A 导出 JSON（`{"schema":"github-zh-misses/2",…}`） | `text` / `kind` / `path` / `context` / `count` | 这是**未命中清单**，先用 `bun run report:misses` 分拣（见「把日志变成清单」），再逐条登记；不能据此判断拆分 |
+| 途径 A 导出 JSON（`{"schema":"github-zh-misses/3",…}`） | `text` / `kind` / `path` / `context` / `block` / `count`（+ 顶层 `dropped`） | 这是**未命中清单**，先用 `bun run report:misses` 分拣（见「把日志变成清单」）；3 版起 `block` 给出每条碎片所在的整行，报告会把它还原成摘句，**不必再为判断拆分去贴整页 HTML**。2 版及更早没有 `block`，那时只能靠 HTML / Console |
 | 途径 B Console 输出 | `TEXT "…" \|\|\| <tag class="…">` / `ATTR …` / `EXCLUDED …` | 节点边界与真实空白以此为准；`EXCLUDED` 直接跳过 |
 | 整页 HTML（DevTools 复制 outerHTML） | 结构完整 | 可据 `<strong>` / `<a>` / `<div class="note">` 的嵌套判断拆分点 |
 | 截图 | 只有视觉 | **不能作为登记键的唯一依据**（换行、缩进、纯符号节点的存在与否都看不出来），只用于核对数量与语义 |
@@ -671,22 +671,36 @@ popup 底部的「开发者模式」开关**默认关闭**，用于系统性发�
 - 文本节点：未命中静态词条与正则规则、且**不含非拉丁字母**的可见 UI 文本（trim 后原文）；已经含中文等文字的混合节点不收集，避免把 GitHub 已翻译的术语、用户名称和中英混排标签当成整条漏翻；
 - 属性：`title` / `aria-label` / `placeholder` / `alt` 未命中词条的原值；含非拉丁字母的混合属性同样跳过（引擎另外还翻译按钮类 `value` / `data-disable-with`，共 6 项；收集时这两项归到 `aria-label` 这一类，故 `MissKind` 只有 4 个属性名）；
 - `context` 是记录时所在元素的上下文标签（`tag` 或 `tag.首类名`，如 `th`、`button.prc-Button-ButtonBase-9n-Xk`）：光看 `Value` / `Last updated` 这类短文案分不清它是表头、按钮还是表单标签，而「该不该收、收在哪个模块」正取决于元素种类。文本节点取父元素、属性取元素本身；游离节点为空串；类名只取第一个，CSS Modules 的哈希尾巴不清洗（清洗规则本身会成为新的维护点）；
+- `block` 是记录时所在**整行**的拼合文本（块边界见 `collector.describeBlock`：优先最近的 `p` / `li` / `td` / `th` / `h1`–`h6` / `label` / `button` 等块级容器，其次是不含块级后代的裸 `div`，都没有则取 ≤240 字的最大祖先文本）：
+  - **空串 = 这一行就是该节点自己**，即整节点即整句，键可以直接收（表头、按钮、卡片标题都是这种）；
+  - 非空 = 这一行还有别的文本，这条记录只是其中一段碎片；报告会把它还原成摘句（见「整句还原」）；
+  - 块文本里**已译的兄弟节点显示中文**（翻译按文档序推进，记录时前面的兄弟已经换掉了）。这不影响判断——要看的是未翻节点之间的顺序；块里出现中文反而是「这段已经补过了」的信号；
+  - `block` 参与去重键：同一段文案出现在五个不同句子里时会有五条记录（旧版糊成一条 `×4 and`，只剩第一句的上下文）；
 - `text` 是未命中的候选文案，不保证应该翻译：GitHub 品牌、产品名、缩写和用户名可能有意保留英文，登记前仍需结合页面判断；
-- 缓冲上限 300 条、落盘上限 500 条（满了保留先收集的）；同一 DOM 节点在同一路径下反复扫描只计一次，`count` 表示跨采集页面实例累计的节点数。相同文案在不同 pathname 分开记录；
-- 采集语义升级（`MISS_LOG_REVISION`，当前 `3`）时会重置旧版日志，避免旧版扫描次数和混合语言记录混入新导出；手动开始一轮新采集仍可在 popup 点「清空」。
+- 缓冲上限 1200 条、落盘上限 4000 条（满了保留先收集的）。旧版是 300 / 500 且**超限静默丢弃**——洞察页一页就能攒三百余条，先逛的那页会把配额占满、后一页一条都进不来（审计 C-2）。现在超限部分计入 `dropped`，随导出交出去、报告里点明条数；
+- 同一 DOM 节点在同一路径下反复扫描只计一次，`count` 表示跨采集页面实例累计的节点数。相同文案在不同 pathname 分开记录；
+- 采集语义升级（`MISS_LOG_REVISION`，当前 `4`）时会重置旧版日志与 `dropped` 计数，避免旧版扫描次数和混合语言记录混入新导出；手动开始一轮新采集仍可在 popup 点「清空」。
 
 导出 JSON 结构（排序：path 升序 → count 降序 → text 升序）：
 
-> `schema` 的版本号与采集语义绑定：`2` 版在每条记录里加了 `context`，`1` 版没有。
-> 旧导出不会被拒绝——`parseExport` 对缺失的 `context` 按空串补，`report:misses` 照样能跑；
-> 只是少了「这条文案长在哪种元素上」这层信息。
+> `schema` 的版本号与采集语义绑定：`1` 版只有 `text/kind/path/count`；`2` 版加了 `context`；`3` 版加了 `block` 与顶层 `dropped`。
+> 旧导出不会被拒绝——`parseExport` 对缺失的 `context` / `block` 按空串补、`dropped` 按 0 补，`report:misses` 照样能跑；
+> 缺 `block` 时报告会明确写出「这份日志看不到整句，重新导出一次」。
 
 ```json
 {
-  "schema": "github-zh-misses/2",
+  "schema": "github-zh-misses/3",
   "exportedAt": "2026-10-17T12:54:04.355Z",
+  "dropped": 0,
   "items": [
-    { "text": "Organization secrets", "kind": "text", "path": "/Koishi-CE/koishi/settings/secrets/actions", "context": "h3", "count": 3 }
+    {
+      "text": "pushed to",
+      "kind": "text",
+      "path": "/Koishi-CE/koishi/pulse",
+      "context": "span",
+      "block": "1 author changed and there have been 3 commits pushed to main in the last week",
+      "count": 1
+    }
   ]
 }
 ```
@@ -712,14 +726,43 @@ bun run report:misses ~/Downloads/misses.json
 | `dynamic` | 含数字 | 静态键覆盖不了；**属性值连正则规则都不生效**（见下） |
 | `candidate` | 以上都不中 | 才轮到登记：按 `path` 分组、按 `count` 降序，并给出建议模块 |
 
+### 整句还原（3 版日志的 `block`）
+
+报告在候选清单之后会打印「整句还原 N 块」：把同一 `path`、同一 `block` 的记录按**在块里出现的
+先后顺序**拼回原句，未翻的节点用 `⟦1⟧` `⟦2⟧` … 标出位置，下面逐条列出对应的记录：
+
+```
+整句还原 4 块（⟦n⟧ = 该块里未翻的节点，按块内顺序拼回原句；已译的兄弟节点显示中文）：
+  /Koishi-CE/koishi/pulse
+    「1 author ⟦1⟧ 3 commits ⟦2⟧ main ⟦3⟧」
+      ⟦1⟧ text  span.inner__HNzkM0  "changed and there have been"
+      ⟦2⟧ text  span                "pushed to"
+      ⟦3⟧ text  span                "in the last week"
+```
+
+这一段就是原先「贴整页 HTML」才拿得到的信息，**分拣碎片前先读它**：
+
+- 句子原貌在手，才能写出**能直接拼起来**的译文：`pushed to` → 「推送到了」、`main` 是分支名不翻、
+  `in the last week` → 「在过去一周内」，拼出来是「…名作者在过去一周内发生了变化，已有 3 次提交推送到了 main」；
+- 只有一条记录、`block` 为空串的块不会出现在这一节（那就是整节点，键直接收）；
+- `⟦?⟧` 表示这条记录在块文本里找不到：块被 240 字截断，或记录之后那段文本又变过（滚动加载、`<relative-time>` 重渲染）。这类先看同一块里其它节点，别硬猜；
+- 块文本里出现中文是正常的：翻译按文档序推进，记录时前面的兄弟节点已经换掉了。它反而能告诉你「这段已经补过、缺的只是后半句」；
+- 一份日志最多渲染 24 块，超出会提示分批采集——一趟逛太多页时先「清空」再采。
+
 2026-10-17 用真实日志校准过：约 200 条里 10 条是候选（组织级机密区块、表格列头、仓库头部状态组件），
 其余是用户内容 110+、产品名 30+、动态值 20+、文档标题 12、快捷键 1。
 同日第二份日志（洞察的 `/pulse` 与 `/graphs/contributors`，三百余条）给出的是另一类结论：
 候选只有 **20 条**（新版侧栏 7 条、Pulse 概览卡 6 条、Highcharts 卡片标题与读屏文案 7 条），
 其余是 Highcharts 数据点 / `title` 上的绝对时间（动态值，属性还不应用规则）、用户名与提交信息（用户内容）、
 以及被 `<strong>` / `<a>` 切开的摘要句碎片（**不能单收**，理由见「采集实机渲染文本」第 1 条与第 5 条）。
-这两份日志一起校准出三条新启发式：约定式提交信息、`path` 里的组织名 / 仓库名、头像 `alt`。
-后者只有 2 版日志的 `context` 能判——词形上 `M. Oppenheymu` 与真标签 `People` 分辨不开。
+**这份日志正是加 `block` 的直接原因**：2 版把它压缩到 20 条候选，剩下两百多条碎片因为看不出语序而
+只能整批丢弃——而它们大多是**能译的单节点**（`changed and there have been`、`pushed to`、
+`in the last week`），只是缺上下文时不敢下笔。3 版把同一批日志交给「整句还原」后，这些碎片变成了
+可开工的条目（这也是「导出的日志比不上贴 HTML」这个抱怨的正面回答）。
+这两份日志一起校准出三条启发式：约定式提交信息、`path` 里的组织名 / 仓库名、头像 `alt`。
+后者只有 2 版起的 `context` 能判——词形上 `M. Oppenheymu` 与真标签 `People` 分辨不开。
+另有一条来自审计 C-2 的修复：日志头部会写「另有 N 条超出上限没进日志」——看到它就该先
+在 popup 点「清空」再重导，而不是拿这份不完整的清单当全量。
 
 **日志里必然存在、但架构上永远不可覆盖的一类**（别反复怀疑「是不是漏了」）：
 

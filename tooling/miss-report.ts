@@ -1,4 +1,4 @@
-// 漏翻报告：把开发者模式导出的 `github-zh-misses/2` 日志变成一份能直接开工的清单。
+// 漏翻报告：把开发者模式导出的 `github-zh-misses/3` 日志变成一份能直接开工的清单。
 //
 // 为什么需要它：日志是「所有未命中的可翻译文本」的原始集合，实测约九成是用户内容、
 // 产品名、动态值与文档标题（分类依据见 docs/guides/development.md 的「漏翻日志」一节）。
@@ -11,6 +11,10 @@
 //   别的模块已收录  → 路由互斥（先把「组织页有、仓库页没有」这类漏翻暴露出来）
 //   本路径已收录    → 导出之后词典更新过，属于「已修复」
 //   其余            → 候选，按路由给出建议模块
+//
+// 3 版日志多了一维 `block`（整行拼合文本）：长句被 `<a>` / `<strong>` 切开后，
+// 每条记录只是一段碎片，而「整句还原」一节会把这些碎片按块内顺序拼回原句
+// （⟦n⟧ 标出每段的位置）——这就是「贴 HTML」原先提供的、日志里缺失的那层信息。
 //
 // 零依赖 bun 直跑；判定逻辑导出为纯函数供测试复用；失败置 exitCode = 1。
 //
@@ -38,12 +42,14 @@ import type {
 
 // —— 日志的读取与形状校验 ——
 
-/** 日志里的一条记录（context 是 2 版才有的字段，1 版缺失时按空串处理） */
+/** 日志里的一条记录（context 是 2 版字段、block 是 3 版字段，缺失时按空串处理） */
 export interface MissExportItem {
 	readonly text: string;
 	readonly kind: string;
 	readonly path: string;
 	readonly context: string;
+	/** 记录时所在整行的拼合文本；空串 = 这一行就是该节点自己 */
+	readonly block: string;
 	readonly count: number;
 }
 
@@ -51,6 +57,8 @@ export interface MissExportItem {
 export interface MissExport {
 	readonly schema: string;
 	readonly exportedAt: string;
+	/** 被上限吃掉、没能进 items 的条数（3 版才有） */
+	readonly dropped: number;
 	readonly items: readonly MissExportItem[];
 }
 
@@ -67,8 +75,9 @@ function describe(value: unknown): string {
 /**
  * 校验并归一化导出文件。
  *
- * 宽容度是刻意的：只认 schema 前缀与条目必需字段，context 缺失按空串补——
- * 维护者可能导出的是旧版（1 版没有 context），不该因为少一个字段就整份拒收。
+ * 宽容度是刻意的：只认 schema 前缀与条目必需字段，context / block 缺失按空串补、
+ * dropped 缺失按 0 补——维护者可能导出的是旧版（1 版没有 context、2 版没有 block），
+ * 不该因为少一个字段就整份拒收；报告里会点明「这份日志看不到整句」。
  */
 export function parseExport(raw: unknown): MissExport {
 	if (
@@ -81,6 +90,7 @@ export function parseExport(raw: unknown): MissExport {
 	const record = raw as {
 		schema?: unknown;
 		exportedAt?: unknown;
+		dropped?: unknown;
 		items?: unknown;
 	};
 	const schema = record.schema;
@@ -112,6 +122,7 @@ export function parseExport(raw: unknown): MissExport {
 			kind?: unknown;
 			path?: unknown;
 			context?: unknown;
+			block?: unknown;
 			count?: unknown;
 		};
 		const { text, kind, path, count } = item;
@@ -138,6 +149,8 @@ export function parseExport(raw: unknown): MissExport {
 				typeof item.context === "string"
 					? item.context
 					: "",
+			block:
+				typeof item.block === "string" ? item.block : "",
 			count,
 		});
 	});
@@ -147,6 +160,12 @@ export function parseExport(raw: unknown): MissExport {
 			typeof record.exportedAt === "string"
 				? record.exportedAt
 				: "",
+		dropped:
+			typeof record.dropped === "number" &&
+			Number.isFinite(record.dropped) &&
+			record.dropped > 0
+				? Math.trunc(record.dropped)
+				: 0,
 		items,
 	};
 }
@@ -218,7 +237,12 @@ export interface ReportRow {
 	/** candidate = 建议模块；knownElsewhere / fixed = 收录它的模块 */
 	readonly modules: readonly string[];
 	readonly reason: string;
+	/** 这条文本只是所在整行的一块碎片（只有 3 版的 block 判得出） */
+	readonly fragment: boolean;
 }
+
+/** 判定结果（fragment 由 classifyRow 统一补上，各分支不必重复写） */
+type Decision = Omit<ReportRow, "fragment">;
 
 /** 产品名：全仓一致的「不翻译」清单（词典不收，未命中即保留英文） */
 export const PRODUCT_NAMES: ReadonlySet<string> = new Set([
@@ -395,10 +419,38 @@ export function classify(
 	return rows;
 }
 
+/**
+ * 这条记录是不是所在整行的一块碎片：块文本比它长、且包含它。
+ *
+ * 只看「包含」就够：整节点自带块级容器时（`<h3>Active issues</h3>`、`<th>Value</th>`），
+ * `describeBlock` 返回空串（这一行就是它自己），于是卡片里那一堆独立标签**不会**
+ * 被误判成碎片——这条规则的正确性依赖采集侧「块边界 = 块级容器」，两处必须一起看。
+ */
+export function isFragmentOfBlock(
+	item: MissExportItem,
+	text: string,
+): boolean {
+	const block = normalizeKey(item.block);
+	return (
+		block !== "" && block !== text && block.includes(text)
+	);
+}
+
 function classifyRow(
 	item: MissExportItem,
 	index: DictIndex,
 ): ReportRow {
+	const text = normalizeKey(item.text);
+	return {
+		...decide(item, index),
+		fragment: isFragmentOfBlock(item, text),
+	};
+}
+
+function decide(
+	item: MissExportItem,
+	index: DictIndex,
+): Decision {
 	const text = normalizeKey(item.text);
 	if (PRODUCT_NAMES.has(text)) {
 		return {
@@ -470,7 +522,147 @@ function classifyRow(
 	};
 }
 
+// —— 整句还原（3 版日志的 block） ——
+
+/** 一个整句块：同一 path 下 `block` 文本相同的记录 */
+export interface BlockGroup {
+	readonly path: string;
+	readonly block: string;
+	readonly rows: readonly ReportRow[];
+}
+
+/** 报告里最多渲染多少个整句块（再多就该分批采集或先清空） */
+const BLOCK_REPORT_MAX = 24;
+
+/**
+ * 把记录按「整行」聚起来：只有同一 path、同一 block 的记录才是同一句话。
+ *
+ * 只保留**值得看**的块：块里有两条以上记录（说明句子被切开过），或其中一条只是碎片。
+ * 单条且不是碎片的块没有新增信息——它已经在候选 / 噪声小节里列过了。
+ */
+export function groupBlocks(
+	rows: readonly ReportRow[],
+): BlockGroup[] {
+	const groups = new Map<
+		string,
+		{ path: string; block: string; rows: ReportRow[] }
+	>();
+	for (const row of rows) {
+		const block = normalizeKey(row.item.block);
+		if (block === "") continue;
+		const key = `${row.item.path}\u0000${block}`;
+		const group = groups.get(key);
+		if (group === undefined) {
+			groups.set(key, {
+				path: row.item.path,
+				block,
+				rows: [row],
+			});
+		} else {
+			group.rows.push(row);
+		}
+	}
+	return [...groups.values()]
+		.filter(
+			(group) =>
+				group.rows.length >= 2 ||
+				group.rows.some((row) => row.fragment),
+		)
+		.sort((a, b) => {
+			if (a.path !== b.path)
+				return a.path < b.path ? -1 : 1;
+			if (a.rows.length !== b.rows.length)
+				return b.rows.length - a.rows.length;
+			return a.block < b.block
+				? -1
+				: a.block > b.block
+					? 1
+					: 0;
+		});
+}
+
+/** 一次整句还原的结果 */
+export interface BlockLayout {
+	/** 块文本，未翻节点所在位置被替换成 ⟦1⟧ / ⟦2⟧ … */
+	readonly marked: string;
+	/** 标记序号对应的记录下标（`marked` 里第 n 个 ⟦n⟧ ↔ order[n - 1]） */
+	readonly order: readonly number[];
+	/** 块文本里找不到的记录下标（块被 240 字截断，或记录已被翻译掉） */
+	readonly missing: readonly number[];
+}
+
+/**
+ * 把碎片按块内顺序拼回整句：反复挑「从当前位置起最先出现」的那条记录。
+ *
+ * 为什么用贪心而不是按记录顺序排：日志里**没有节点顺序**（排序键只有 path / count /
+ * text），而块文本是按文档序拼接的，所以「在块里出现的位置」就是节点顺序。
+ * 同一段文本在块里出现两次时各自消费一次，结果仍然稳定。
+ */
+export function reconstructBlock(
+	block: string,
+	texts: readonly string[],
+): BlockLayout {
+	const source = normalizeKey(block);
+	const pending = texts
+		.map((text, index) => ({
+			text: normalizeKey(text),
+			index,
+		}))
+		.filter((entry) => entry.text !== "");
+	const order: number[] = [];
+	let cursor = 0;
+	let marked = "";
+	while (pending.length > 0) {
+		let pick = -1;
+		let at = Number.POSITIVE_INFINITY;
+		for (let i = 0; i < pending.length; i++) {
+			const entry = pending[i];
+			if (entry === undefined) continue;
+			const found = source.indexOf(entry.text, cursor);
+			if (found === -1 || found >= at) continue;
+			at = found;
+			pick = i;
+		}
+		if (pick === -1) break;
+		const [entry] = pending.splice(pick, 1);
+		if (entry === undefined) break;
+		const prefix = source.slice(cursor, at);
+		marked += prefix;
+		// 标记两侧留一个空格，但紧贴标点时不留（`⟦2⟧, and` 比 `⟦2⟧ , and` 顺眼）
+		if (marked !== "" && !/\s$/.test(marked)) marked += " ";
+		marked += `⟦${order.length + 1}⟧`;
+		const next = source[at + entry.text.length];
+		if (
+			next !== undefined &&
+			!/[\s,.;:!?，。；：、)\]]/.test(next)
+		) {
+			marked += " ";
+		}
+		order.push(entry.index);
+		cursor = at + entry.text.length;
+	}
+	marked += source.slice(cursor);
+	return {
+		marked: marked.replace(/\s+/g, " ").trim(),
+		order,
+		missing: pending.map((entry) => entry.index),
+	};
+}
+
 // —— 报告渲染 ——
+
+/** 一行记录的统一排版（各小节共用） */
+function formatRow(row: ReportRow, suffix: string): string {
+	return `    ×${String(row.item.count).padEnd(3)} ${row.item.kind.padEnd(11)} ${(row.item.context || "-").padEnd(24)} ${JSON.stringify(row.item.text)} ${suffix}`.trimEnd();
+}
+
+/** 整句还原里的一行：行首是块内序号，其余与普通行一致 */
+function formatMarkedRow(
+	position: number,
+	row: ReportRow,
+): string {
+	return `      ⟦${position}⟧ ${row.item.kind.padEnd(11)} ${(row.item.context || "-").padEnd(24)} ${JSON.stringify(row.item.text)}`.trimEnd();
+}
 
 /** 把判定结果渲染成一份可读报告（无记录时也要有明确结论） */
 export function formatReport(
@@ -478,6 +670,10 @@ export function formatReport(
 	meta: {
 		readonly file: string;
 		readonly exportedAt: string;
+		/** 日志的 schema（形如 github-zh-misses/3）；旧版没有 block 时报告要说明 */
+		readonly schema?: string;
+		/** 被上限吃掉、没能进这份日志的条数 */
+		readonly dropped?: number;
 	},
 ): string {
 	const lines: string[] = [];
@@ -501,10 +697,25 @@ export function formatReport(
 	);
 
 	lines.push(`漏翻报告：${meta.file}`);
+	const head = `导出：${meta.exportedAt || "（未提供）"}；记录 ${rows.length} 条`;
 	lines.push(
-		`导出：${meta.exportedAt || "（未提供）"}；记录 ${rows.length} 条`,
+		meta.dropped !== undefined && meta.dropped > 0
+			? `${head}（另有 ${meta.dropped} 条超出上限没进日志：先在 popup 点「清空」再重导一次）`
+			: head,
 	);
 	lines.push("");
+
+	if (
+		!rows.some((row) => normalizeKey(row.item.block) !== "")
+	) {
+		lines.push(
+			`⚠️ 这份日志（${meta.schema ?? "未知 schema"}）没有 block 字段：看不到整句，被行内标签切开的碎片只能靠猜。`,
+		);
+		lines.push(
+			"   更新扩展后重新导出一次即可——新版每条记录都带整行拼合文本。",
+		);
+		lines.push("");
+	}
 
 	if (candidates.length === 0) {
 		lines.push(
@@ -520,6 +731,51 @@ export function formatReport(
 		});
 	}
 	lines.push("");
+
+	const blocks = groupBlocks(rows);
+	if (blocks.length > 0) {
+		const shown = blocks.slice(0, BLOCK_REPORT_MAX);
+		lines.push(
+			`整句还原 ${blocks.length} 块（⟦n⟧ = 该块里未翻的节点，按块内顺序拼回原句；已译的兄弟节点显示中文）：`,
+		);
+		let currentPath = "";
+		for (const group of shown) {
+			if (group.path !== currentPath) {
+				lines.push(`  ${group.path}`);
+				currentPath = group.path;
+			}
+			const layout = reconstructBlock(
+				group.block,
+				group.rows.map((row) => row.item.text),
+			);
+			lines.push(`    「${layout.marked}」`);
+			for (const [
+				position,
+				index,
+			] of layout.order.entries()) {
+				const row = group.rows[index];
+				if (row === undefined) continue;
+				lines.push(
+					`${formatMarkedRow(position + 1, row)}${
+						row.fragment ? "" : "（整节点）"
+					}`,
+				);
+			}
+			for (const index of layout.missing) {
+				const row = group.rows[index];
+				if (row === undefined) continue;
+				lines.push(
+					`      ⟦?⟧ ${row.item.kind.padEnd(11)} ${(row.item.context || "-").padEnd(24)} ${JSON.stringify(row.item.text)}（块里找不到：块被 240 字截断，或记录之后这段文本又变过）`,
+				);
+			}
+		}
+		if (blocks.length > shown.length) {
+			lines.push(
+				`    …（其余 ${blocks.length - shown.length} 块省略：先「清空」再重导一次，或分批采集）`,
+			);
+		}
+		lines.push("");
+	}
 
 	if (structural.length > 0) {
 		lines.push(
@@ -543,7 +799,7 @@ export function formatReport(
 			(row) =>
 				`← ${row.modules.join("、")}${
 					isFragmentLike(normalizeKey(row.item.text))
-						? "（⚠️ 单个小写单词，多半是被行内标签切开的碎片，先要整句再补）"
+						? "（⚠️ 单个小写单词，多半是被行内标签切开的碎片，先看「整句还原」再补）"
 						: ""
 				}`,
 		);
@@ -588,9 +844,15 @@ function appendGroup(
 		for (const row of [...list].sort(
 			(a, b) => b.item.count - a.item.count,
 		)) {
-			lines.push(
-				`    ×${String(row.item.count).padEnd(3)} ${row.item.kind.padEnd(11)} ${(row.item.context || "-").padEnd(24)} ${JSON.stringify(row.item.text)} ${suffix(row)}`.trimEnd(),
-			);
+			const extra = suffix(row);
+			// 只有「要不要收」还没定的两类才提示碎片：架构上限已经下过结论了
+			const fragment =
+				row.fragment &&
+				(row.verdict === "candidate" ||
+					row.verdict === "knownElsewhere")
+					? `${extra === "" ? "" : " "}（碎片，见「整句还原」）`
+					: "";
+			lines.push(formatRow(row, `${extra}${fragment}`));
 		}
 	}
 }
@@ -649,6 +911,8 @@ async function main(): Promise<void> {
 			formatReport(rows, {
 				file,
 				exportedAt: exported.exportedAt,
+				schema: exported.schema,
+				dropped: exported.dropped,
 			}),
 		);
 	} catch (error) {

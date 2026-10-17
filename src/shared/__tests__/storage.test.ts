@@ -14,12 +14,14 @@ import {
 	readDevMode,
 	readEnabled,
 	readLocale,
+	readMissDropped,
 	readMissLog,
 	watchLocale,
 	watchToggles,
 	writeDevMode,
 	writeEnabled,
 	writeLocale,
+	writeMissDropped,
 	writeMissLog,
 } from "../storage.ts";
 import type { MissItem } from "../types.ts";
@@ -175,6 +177,7 @@ describe("readMissLog", () => {
 				text: "Save",
 				path: "/x",
 				context: "",
+				block: "",
 				count: 2,
 			},
 			{
@@ -182,13 +185,14 @@ describe("readMissLog", () => {
 				text: "Search",
 				path: "/y",
 				context: "",
+				block: "",
 				count: 3,
 			},
 		] satisfies MissItem[]);
 	});
 
 	it("defaults a missing or malformed context to an empty string", async () => {
-		// context 是后加字段：旧日志与手改过的导出缺它时不能整条丢掉
+		// context / block 是后加字段：旧日志与手改过的导出缺它们时不能整条丢掉
 		stub.data.set("missLog", [
 			{ kind: "text", text: "Save", path: "/x", count: 2 },
 			{
@@ -196,6 +200,7 @@ describe("readMissLog", () => {
 				text: "Star",
 				path: "/x",
 				context: 7,
+				block: 7,
 				count: 1,
 			},
 			{
@@ -203,6 +208,7 @@ describe("readMissLog", () => {
 				text: "Value",
 				path: "/x",
 				context: "th",
+				block: "Value 12",
 				count: 1,
 			},
 		]);
@@ -212,6 +218,7 @@ describe("readMissLog", () => {
 				text: "Save",
 				path: "/x",
 				context: "",
+				block: "",
 				count: 2,
 			},
 			{
@@ -219,6 +226,7 @@ describe("readMissLog", () => {
 				text: "Star",
 				path: "/x",
 				context: "",
+				block: "",
 				count: 1,
 			},
 			{
@@ -226,6 +234,7 @@ describe("readMissLog", () => {
 				text: "Value",
 				path: "/x",
 				context: "th",
+				block: "Value 12",
 				count: 1,
 			},
 		] satisfies MissItem[]);
@@ -244,6 +253,7 @@ describe("readMissLog", () => {
 				text: "Save",
 				path: "/x",
 				context: "button",
+				block: "Save your changes",
 				count: 1,
 			},
 		];
@@ -252,14 +262,41 @@ describe("readMissLog", () => {
 	});
 });
 
+describe("漏翻日志的丢弃计数", () => {
+	it("defaults to 0 and rejects junk", async () => {
+		expect(await readMissDropped()).toBe(0);
+		for (const junk of [
+			-3,
+			Number.NaN,
+			Number.POSITIVE_INFINITY,
+			"12",
+			null,
+		]) {
+			stub.data.set("missLogDropped", junk);
+			expect(await readMissDropped()).toBe(0);
+		}
+	});
+
+	it("round-trips through writeMissDropped", async () => {
+		await writeMissDropped(7);
+		expect(await readMissDropped()).toBe(7);
+		// 负数按 0 落盘（上限被撑大时不该出现负的「丢失条数」）
+		await writeMissDropped(-1);
+		expect(stub.data.get("missLogDropped")).toBe(0);
+	});
+});
+
 describe("ensureMissLogRevision", () => {
 	it("clears old collection data once when semantics change", async () => {
 		stub.data.set("missLog", [
 			{ kind: "text", text: "Old", path: "/x", count: 9 },
 		]);
+		stub.data.set("missLogDropped", 4);
 		await ensureMissLogRevision(2);
 		expect(await readMissLog()).toEqual([]);
 		expect(stub.data.get("missLogRevision")).toBe(2);
+		// 新采集语义下旧的丢弃计数也失效，否则会继承上一版的「另有 N 条」
+		expect(await readMissDropped()).toBe(0);
 
 		const current = [
 			{
@@ -267,6 +304,7 @@ describe("ensureMissLogRevision", () => {
 				text: "Current",
 				path: "/x",
 				context: "p",
+				block: "Current",
 				count: 1,
 			},
 		];

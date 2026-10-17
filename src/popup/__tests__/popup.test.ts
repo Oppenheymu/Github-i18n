@@ -325,7 +325,7 @@ describe("popup 的开发者区块", () => {
 		await tick();
 		expect(clipboardWrites).toHaveLength(1);
 		expect(clipboardWrites[0]).toContain(
-			'"schema": "github-zh-misses/2"',
+			'"schema": "github-zh-misses/3"',
 		);
 		// 导出里带 context：没有它就无法判断 `Value` 这类短文案长在哪种元素上
 		expect(clipboardWrites[0]).toContain('"context": ""');
@@ -353,6 +353,8 @@ describe("popup 的开发者区块", () => {
 		fire("#dev-clear", "click");
 		await tick();
 		expect(storageData.get("missLog")).toEqual([]);
+		// 丢弃计数也一起归零，否则下一轮采集会继承上一轮的「另有 N 条」
+		expect(storageData.get("missLogDropped")).toBe(0);
 		expect(element("#dev-count").textContent).toBe(
 			"候选文案 0 条",
 		);

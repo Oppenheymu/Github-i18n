@@ -12,11 +12,14 @@
 //   ② `title` 属性上的绝对时间（`Oct 12, 2026, 19:33 GMT+8`）——属性只做精确匹配；
 //   ③ 数据点 aria-label（`Sunday, Aug 23, 2026, 170. Commits.`）——纯动态值，
 //      且属性不应用正则规则，架构上救不了；
-//   ④ 摘要句的碎片（`and` / `have` / `to` / `main` / `by` / `people` / `s` / `items`…）——
-//      它们是同一个句子被 `<strong>` / `<a>` 切开的连词与量词，**不能单独收**：
-//      单收会在中英混排里乱插词（`and` 收成「和」就会在每个句子里插一个「和」）。
-//      整句形态要等可见文本贴出来再按节点补；这份日志只能证明「碎片存在」，
-//      证明不了「整句长什么样」，所以本轮**故意不补**。
+//   ④ 摘要句的**孤立连词**（`have` / `to` / `pushed` / `main` / `by`）——单收会在
+//      中英混排里乱插词，正确做法是把连词并进相邻片段。
+//
+// 2026-10-17 晚维护者补贴了 /pulse 的**可见文本**，摘要句的节点顺序第一次可见：
+// `Excluding merges, ` + `3` + ` authors` + ` have pushed ` + `23 commits` +
+// ` to main and ` + `23 commits` + ` to all branches.`，第二句同理。于是这一组
+// 从「故意不补」升级为**按节点补碎片、再用拼回的整句回归**（见「拼回整句」用例）。
+// 仍然不收的只剩上面 ④ 里的真·孤立词，以及用户名 / 属性 / 数据点那三类。
 import { describe, expect, it } from "bun:test";
 import { buildView } from "../../../content/view.ts";
 import { translateText } from "../../../content/walker.ts";
@@ -27,6 +30,13 @@ const aliases = new Map(Object.entries(dictCore.aliases));
 /** 本页路径命中的模块：pages/insights + pages/repo + global */
 const view = buildView(
 	"/Koishi-CE/koishi/graphs/contributors",
+	dictForLocale("zh-CN"),
+	aliases,
+);
+
+/** Pulse 明细页（摘要句只在 /pulse 上渲染；模块与 graphs 同属 pages/insights） */
+const pulseView = buildView(
+	"/Koishi-CE/koishi/pulse",
 	dictForLocale("zh-CN"),
 	aliases,
 );
@@ -46,6 +56,27 @@ const settingsView = buildView(
 /** 实机节点在源码里通常带换行与缩进；两种形态都必须命中 */
 function withWhitespace(node: string): readonly string[] {
 	return [node, `\n        ${node}\n      `];
+}
+
+/**
+ * 按引擎行为渲染一串文本节点：逐节点翻译，命中时保留原文首尾空白。
+ * 摘要句在实机就是被 `<strong>` / `<a>` 切开的独立节点，只有按节点拼回去才能
+ * 验证中文语序——一条一条断言看不出整句是否通顺（空格是中英混排的既有形态，
+ * 见 org-settings 的 `and` 先例）。
+ */
+function renderNodes(nodes: readonly string[]): string {
+	return nodes
+		.map((raw) => {
+			const translated = translateText(raw, view);
+			if (translated === null) return raw;
+			const lead = raw.slice(
+				0,
+				raw.length - raw.trimStart().length,
+			);
+			const trail = raw.slice(raw.trimEnd().length);
+			return `${lead}${translated}${trail}`;
+		})
+		.join("");
 }
 
 /** 洞察侧栏（五个子页共用；`nav.menu` 的 aria-label 单独一条） */
@@ -143,6 +174,96 @@ describe("洞察页的实机节点边界", () => {
 		}
 	});
 
+	it("translates the Y-axis screen-reader sentence of the committers chart", () => {
+		// 实机文案：轴名是系列名 Commits（页面上的轴标题已单独译为「提交」）
+		expect(
+			translateText(
+				"The chart has 1 Y axis displaying Commits. Data ranges from 3 to 14.",
+				view,
+			),
+		).toBe(
+			"图表有 1 条 Y 轴，显示提交。数据范围从 3 到 14。",
+		);
+		// 通用形态兜住别的系列名：系列名原样保留，句子仍是中文
+		expect(
+			translateText(
+				"The chart has 2 Y axes displaying Issues. Data ranges from 0 to 5.",
+				view,
+			),
+		).toBe(
+			"图表有 2 条 Y 轴，显示 Issues 系列。数据范围从 0 到 5。",
+		);
+	});
+
+	it("translates the pulse period header without mistaking the year for the end day", () => {
+		// 2026-10-17 实机 bug：模板引用了 $4（endYear），渲染成
+		// 「2026 年 10 月 10 日 – 2026 日」；结束日必须用 $3（endDay）
+		expect(
+			translateText(
+				"October 10, 2026 – October 17, 2026",
+				pulseView,
+			),
+		).toBe("2026 年 10 月 10 日 – 17 日");
+	});
+
+	it("reassembles the pulse summary sentence from its split nodes", () => {
+		// 第一句：`Excluding merges, 3 authors have pushed 23 commits to main and
+		// 23 commits to all branches.`
+		expect(
+			renderNodes([
+				"Excluding merges, ",
+				"3",
+				" authors",
+				" have pushed ",
+				"23 commits",
+				" to main and ",
+				"23 commits",
+				" to all branches.",
+			]),
+		).toBe(
+			"不含合并提交， 3 位作者 共推送了 23 次提交 到 main 分支，另有 23 次提交 推送到所有分支。",
+		);
+		// 第二句：`On main, 106 files have changed and there have been
+		// 2,119 additions and 602 deletions.`
+		expect(
+			renderNodes([
+				"On main, ",
+				"106",
+				" files",
+				" have changed and there have been ",
+				"2,119",
+				" ",
+				"additions",
+				" and ",
+				"602",
+				" ",
+				"deletions",
+			]),
+		).toBe(
+			"在 main 分支上， 106 个文件 有改动，其中 2,119 行新增 和 602 行删除。",
+		);
+		// 节点边界可能变成整节点（React 有时把计数与量词放进同一个文本节点）：
+		// `3 authors` 走规则、`106 files` 走 global 的既有规则，译文必须与碎片一致
+		expect(translateText("3 authors", pulseView)).toBe(
+			"3 位作者",
+		);
+		expect(translateText("106 files", pulseView)).toBe(
+			"106 个文件",
+		);
+	});
+
+	it("reassembles the merged-pull-requests heading", () => {
+		// `13` + ` pull requests merged by ` + `2` + ` people`（实机 HTML 的 h3）
+		expect(
+			renderNodes([
+				"13",
+				" pull requests merged by ",
+				"2",
+				" people",
+			]),
+		).toBe("13 个拉取请求由 2 人合并");
+	});
+
 	it("renders the navigator aria-label through the existing rule", () => {
 		// 这条**已经**有规则（`insights/navigator-*`）：日志里出现它不是因为漏翻，
 		// 而是导出发生在词典更新之前。锁住它是为了防止有人把规则当死代码删掉
@@ -192,29 +313,21 @@ describe("洞察页里「日志有、词典不该收」的节点", () => {
 		}
 	});
 
-	it("keeps the split summary words out of the dictionary", () => {
-		// 反例的意义：这些词一收，就会在**所有**中英混排的句子里乱插；
-		// 正确做法是把连词并进相邻片段（见 docs/guides/development.md 的边界事实第 1 条），
-		// 而那需要整句的节点顺序——只能由维护者贴可见文本
+	it("keeps the still-isolated split words out of the dictionary", () => {
+		// 摘要句的碎片已按节点补齐（见「拼回整句」用例）；这里只留**真正孤立**的
+		// 虚词：单收它们会在任意中英混排句子里乱插词，正确做法永远是并进相邻片段。
+		// `pull requests merged`（缺 `by`）与 `, excluding merge commits` 是别的页面的
+		// 半句，同样不该由本模块接
 		for (const node of [
-			"and",
 			"have",
 			"to",
 			"On",
 			"pushed",
 			"main",
 			"by",
-			"people",
-			"authors",
 			"s",
 			"items",
-			"additions",
-			"deletions",
-			"files",
 			"pull requests merged",
-			"to all branches.",
-			"changed and there have been",
-			"Excluding merges,",
 			", excluding merge commits",
 		]) {
 			expect(translateText(node, view), node).toBeNull();

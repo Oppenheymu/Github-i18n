@@ -3001,6 +3001,24 @@
 					"id": "insights/range-long-december",
 					"pattern": "^December (?<startDay>\\d{1,2}), (?<startYear>\\d{4}) \\u2013 December (?<endDay>\\d{1,2}), (?<endYear>\\d{4})$"
 				},
+				// Pulse 摘要句的节点边界（2026-10-17 实机 HTML）：整句被 <strong> / <a>
+				// 切成独立文本节点——`Excluding merges,` / `3` / ` authors` / ` have pushed ` /
+				// `23 commits` / ` to main and ` / `23 commits` / ` to all branches.`，第二句同理。
+				// 节点顺序就是语序，所以这里只接「带分支名 / 带计数」的节点；固定片段
+				// （Excluding merges, / have pushed / authors / files / additions …）走本模块
+				// 的静态词条（locales/zh-CN/pages/insights.jsonc）。
+				{
+					"id": "insights/branch-to",
+					"pattern": "^to ([A-Za-z0-9._/-]+) and$"
+				},
+				{
+					"id": "insights/branch-on",
+					"pattern": "^On ([A-Za-z0-9._/-]+),$"
+				},
+				{
+					"id": "insights/authors-count",
+					"pattern": "^([\\d,]+) authors?$"
+				},
 				// 图表轴刻度：年月（Aug 2026 → 2026 年 8 月）
 				{
 					"id": "insights/month-year-jan",
@@ -3112,6 +3130,16 @@
 				{
 					"id": "insights/chart-y-axis-contributions",
 					"pattern": "^The chart has (?<axisCount>\\d+) Y ax(?:is|es) displaying Contributions\\. Data ranges from (?<from>-?[\\d.]+) to (?<to>-?[\\d.]+)\\.$"
+				},
+				// 「提交最多的贡献者」卡片的读屏文案：轴名是系列名 Commits（页面上轴标题
+				// 已译为「提交」），先精确收一条，再用通用形态兜住别的系列名（$2 原样保留）
+				{
+					"id": "insights/chart-y-axis-commits",
+					"pattern": "^The chart has (\\d+) Y ax(?:is|es) displaying Commits\\. Data ranges from (-?[\\d.]+) to (-?[\\d.]+)\\.$"
+				},
+				{
+					"id": "insights/chart-y-axis-series",
+					"pattern": "^The chart has (\\d+) Y ax(?:is|es) displaying (.+)\\. Data ranges from (-?[\\d.]+) to (-?[\\d.]+)\\.$"
 				},
 				{
 					"id": "insights/chart-y-axis-navigator",

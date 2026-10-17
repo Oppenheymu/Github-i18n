@@ -489,7 +489,7 @@ for (const p of probes) {
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |
 | `pulls.test.ts` | `/owner/repo/pulls` | 拉取请求列表页 |
 | `insights-security.test.ts` | `/owner/repo/security` | 仓库安全概览页（**证据是维护者 2026-09-27 贴的实机 HTML**：顶部 Scorecard / Code scanning 横幅被 `<a>status page</a>` 切成三段；七个功能行的标题与状态是两个节点，但**项目符号 `•` 落在标题节点内部**，故带 ` •` 的形态由本模块各收一条——裸标题 `Security policy` 仍由 pages/repo 提供，两条各自独立；`View alerts` 这类短链接在源码里带 16 空格缩进，键按 normalizeKey 折叠空白） |
-| `insights-pulse.test.ts` | `/owner/repo/pulse`、`/owner/repo/graphs/contributors` | 洞察页的**新版侧栏**（`nav.menu` 的 aria-label + `a.js-selected-navigation-item` 的可见文本，pulse / graphs / forks / security / projects 五支共用，补一次覆盖五页）与 Pulse 概览卡、Highcharts 卡片标题 / 读屏文案（**证据是维护者 2026-10-17 贴的 `github-zh-misses/2` 导出**，三百余条记录）。`People` / `Dependency graph` 与 pages/profile、pages/settings **同键同译**（那两条路由不命中洞察页，必须各收一份），用例直接断言两份视图译文相等。四类「日志里有、但故意不收」：用户名 / 机器人名 / 提交信息、`title` 上的绝对时间、数据点 aria-label（`Sunday, Aug 23, 2026, 170. Commits.`）、被 `<strong>` / `<a>` 切开的摘要句碎片（`and` / `have` / `to` / `main` / `by` / `people` / `s` / `items`…——单收会在中英混排里乱插词，整句要等可见文本贴出来再按节点补） |
+| `insights-pulse.test.ts` | `/owner/repo/pulse`、`/owner/repo/graphs/contributors` | 洞察页的**新版侧栏**（`nav.menu` 的 aria-label + `a.js-selected-navigation-item` 的可见文本，pulse / graphs / forks / security / projects 五支共用，补一次覆盖五页）与 Pulse 概览卡、Highcharts 卡片标题 / 读屏文案（**证据是维护者 2026-10-17 贴的 `github-zh-misses/2` 导出**，三百余条记录）。`People` / `Dependency graph` 与 pages/profile、pages/settings **同键同译**（那两条路由不命中洞察页，必须各收一份），用例直接断言两份视图译文相等。三类「日志里有、但故意不收」：用户名 / 机器人名 / 提交信息、`title` 上的绝对时间、数据点 aria-label（`Sunday, Aug 23, 2026, 170. Commits.`）；另有**真·孤立词**（`have` / `to` / `main` / `by`…）仍不收。**摘要句碎片原本也在「不收」之列**（单收会在中英混排里乱插词），2026-10-17 晚维护者贴出 `/pulse` 可见文本后改为**按节点收**：`Excluding merges,` / `authors` / `have pushed` / `to all branches.` / `files` / `have changed and there have been` / `additions` / `and` / `deletions` / `people` 等 12 条静态键 + `to <分支> and` / `On <分支>,` / `<n> authors` 三条规则；用例把节点顺序拼回整句（「不含合并提交， 3 位作者 共推送了 23 次提交 到 main 分支，另有 23 次提交 推送到所有分支。」）与「13 个拉取请求由 2 人合并」，并顺带抓出区间模板把 `$3`（endDay）写成 `$4`（endYear）的实机 bug——页头曾渲染成「2026 年 10 月 10 日 – 2026 日」 |
 | `global.test.ts` | 任意路径 | 全站外壳、动态时间文本与仓库可见性标签（`Public` / `Private` / `Public template` / `Private template` / `Public archive` / `Archived`——标签是独立节点、「可见性 + 类型」固定短语，故整族归 global，仓库页与个人主页共用；`Public template` 的证据是维护者 2026-10-02 在 `?tab=repositories` 贴的 `Label Label--secondary` 片段）；另有**头部搜索占位符**的 `kbd` 断句回归：`Type / to search` 三段节点，整句键（单节点形态）生效、两段碎片必须保持英文（同形异义论证见上文第 5 条） |
 
 除上表外的用例都不再是「实机节点」而是纯逻辑回归：`src/content/__tests__/pages.test.ts`（视图单槽缓存：缓存键写错会表现为「换页后一半英文」）、`src/shared/__tests__/storage.test.ts`（storage 脏数据收窄与开关 / 语言监听）、`src/dict/__tests__/locales.test.ts`（`resolveLocale` 对 `zh-Hans-CN` / `zh_TW` / `en-US` 的归属），另有门禁自身与构建脚本的测试（`tooling/checks/__tests__/`、`tooling/pipeline/build.test.ts`）。
@@ -721,7 +721,7 @@ bun run report:misses ~/Downloads/misses.json
 | `product` | 产品名清单（`GitHub` / `Copilot` / `Dependabot` / `OIDC` / `CodeQL` / `GitHub Apps` / `GitHub Actions`） | 有意保留英文 |
 | `structural` | `STRUCTURAL` 清单：同形异义（`Type`）/ 被 `<kbd>` 断句的碎片（`to search`） | **架构上限，任何模块都不要收**（论证见上文「五类边界事实」第 5 条） |
 | `fixed` | 本路径当前已能命中 | 导出之后词典更新过，无需处理 |
-| `knownElsewhere` | 只在**别的模块**收录过 | **路由互斥**：本路径拿不到，考虑在本模块也收一份——组织页 / 仓库页那类漏翻全靠它暴露。⚠️ 若文案是**单个小写单词**（`and` / `to` / `by`），报告会额外提示：这类词多半是被行内标签切开的碎片（`and` 真在三个设置模块里各收过一条，是拼句用的），补进摘要页只会变成「…和…和…」——先要整句的可见文本 |
+| `knownElsewhere` | 只在**别的模块**收录过 | **路由互斥**：本路径拿不到，考虑在本模块也收一份——组织页 / 仓库页那类漏翻全靠它暴露。⚠️ 若文案是**单个小写单词**（`and` / `to` / `by`），报告会额外提示：这类词多半是被行内标签切开的碎片（`public` 就只在 `pages/org-settings` 收过一条，是拼句用的），补进摘要页只会变成「…和…和…」——**先按 `block` 读整句再决定**（`/pulse` 的摘要句碎片已于 2026-10-17 按节点补齐，同一份日志重跑会判「已修复」） |
 | `userContent` | 全大写标识符、长随机串、`owner/repo`、`@提及`、小写单词或快捷键、日期样式、纯数字、含 `·` 的文档标题、约定式提交信息（`chore(deps): …`）、**本页 `path` 里的组织名 / 仓库名**、**头像 `alt` 上的显示名** | 用户内容，不该进词典 |
 | `dynamic` | 含数字 | 静态键覆盖不了；**属性值连正则规则都不生效**（见下） |
 | `candidate` | 以上都不中 | 才轮到登记：按 `path` 分组、按 `count` 降序，并给出建议模块 |
@@ -754,11 +754,17 @@ bun run report:misses ~/Downloads/misses.json
 同日第二份日志（洞察的 `/pulse` 与 `/graphs/contributors`，三百余条）给出的是另一类结论：
 候选只有 **20 条**（新版侧栏 7 条、Pulse 概览卡 6 条、Highcharts 卡片标题与读屏文案 7 条），
 其余是 Highcharts 数据点 / `title` 上的绝对时间（动态值，属性还不应用规则）、用户名与提交信息（用户内容）、
-以及被 `<strong>` / `<a>` 切开的摘要句碎片（**不能单收**，理由见「采集实机渲染文本」第 1 条与第 5 条）。
+以及被 `<strong>` / `<a>` 切开的摘要句碎片（当时只能整批留着——**光有碎片不能单收**，理由见「采集实机渲染文本」第 1 条与第 5 条；拿到可见文本后已按节点补齐，见下）。
 **这份日志正是加 `block` 的直接原因**：2 版把它压缩到 20 条候选，剩下两百多条碎片因为看不出语序而
 只能整批丢弃——而它们大多是**能译的单节点**（`changed and there have been`、`pushed to`、
 `in the last week`），只是缺上下文时不敢下笔。3 版把同一批日志交给「整句还原」后，这些碎片变成了
 可开工的条目（这也是「导出的日志比不上贴 HTML」这个抱怨的正面回答）。
+**同日收尾**：维护者随后贴出 `/pulse` 的可见文本，摘要句的节点顺序第一次可见，于是这批碎片**真的补了**——
+`Excluding merges,` / `authors` / `have pushed` / `to all branches.` / `files` / `have changed and there
+have been` / `additions` / `and` / `deletions` / `people` 等 12 条静态键，加 `to <分支> and` /
+`On <分支>,` / `<n> authors` 三条规则；`insights-pulse.test.ts` 按节点拼回整句并钉住。同一次还修掉区间
+模板的 `$4`→`$3`——页头曾把结束日渲染成结束年份（「2026 年 10 月 10 日 – 2026 日」），这也是只有拿到
+可见文本才看得见的 bug。
 这两份日志一起校准出三条启发式：约定式提交信息、`path` 里的组织名 / 仓库名、头像 `alt`。
 后者只有 2 版起的 `context` 能判——词形上 `M. Oppenheymu` 与真标签 `People` 分辨不开。
 另有一条来自审计 C-2 的修复：日志头部会写「另有 N 条超出上限没进日志」——看到它就该先

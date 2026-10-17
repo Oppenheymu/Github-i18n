@@ -15,6 +15,29 @@
 		"Period:": "时间段：",
 		"Open pull requests": "打开的拉取请求",
 		"commits": "次提交",
+		// —— Pulse 摘要句的碎片（2026-10-17 实机 HTML）——
+		// 整句是「Excluding merges, 3 authors have pushed 23 commits to main and 23 commits
+		// to all branches. On main, 106 files have changed and there have been 2,119
+		// additions and 602 deletions.」，被 <strong> / <a> 切成独立文本节点后每段只剩
+		// 半个短语。节点顺序就是语序，所以每段只补「本段该有的中文」，拼回去才是通顺
+		// 的整句（回归见 insights-pulse.test.ts 的「拼回整句」用例）。
+		// `authors` / `files` / `people` / `and` 是小写泛化词，只因为本模块按路由限定
+		// （pulse|graphs|forks|security|projects）、且实机在这几句里确实独立成节点才敢收；
+		// 不要把它们挪进 global——那会在全站的中英混排句子里乱插词。
+		"Excluding merges,": "不含合并提交，",
+		"authors": "位作者",
+		"have pushed": "共推送了",
+		"to all branches.": "推送到所有分支。",
+		"files": "个文件",
+		"have changed and there have been": "有改动，其中",
+		"additions": "行新增",
+		"and": "和",
+		"deletions": "行删除。",
+		// 已合并拉取请求的分组标题同样是「计数 + 文本 + 计数 + 文本」四段：
+		// `13` + ` pull requests merged by ` + `2` + ` people`（单数形态另收一份）
+		"pull requests merged by": "个拉取请求由",
+		"pull request merged by": "个拉取请求由",
+		"people": "人合并",
 		// —— Pulse 概览卡（新版卡片：可见标签与进度条的 aria-label 是两个节点）——
 		// 证据：维护者 2026-10-17 贴的 `github-zh-misses/2` 导出（/pulse 与
 		// /graphs/contributors 两页）。五条标签在实机里既有 `div.mt-2` 里的可见文本，

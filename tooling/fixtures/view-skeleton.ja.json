@@ -6994,6 +6994,8 @@
 				"insights/chart-x-axis-time",
 				"insights/chart-x-axis-navigator",
 				"insights/chart-y-axis-contributions",
+				"insights/chart-y-axis-commits",
+				"insights/chart-y-axis-series",
 				"insights/chart-y-axis-navigator",
 				"insights/chart-combination-series",
 				"insights/k-suffix",
@@ -7139,7 +7141,11 @@
 				"global/in-a-month",
 				"global/in-a-year"
 			],
-			"notTranslated": []
+			"notTranslated": [
+				"insights/branch-to",
+				"insights/branch-on",
+				"insights/authors-count"
+			]
 		},
 		{
 			"name": "microsoft/vscode/graphs",
@@ -7200,6 +7206,8 @@
 				"insights/chart-x-axis-time",
 				"insights/chart-x-axis-navigator",
 				"insights/chart-y-axis-contributions",
+				"insights/chart-y-axis-commits",
+				"insights/chart-y-axis-series",
 				"insights/chart-y-axis-navigator",
 				"insights/chart-combination-series",
 				"insights/k-suffix",
@@ -7345,7 +7353,11 @@
 				"global/in-a-month",
 				"global/in-a-year"
 			],
-			"notTranslated": []
+			"notTranslated": [
+				"insights/branch-to",
+				"insights/branch-on",
+				"insights/authors-count"
+			]
 		},
 		{
 			"name": "microsoft/vscode/forks",
@@ -7406,6 +7418,8 @@
 				"insights/chart-x-axis-time",
 				"insights/chart-x-axis-navigator",
 				"insights/chart-y-axis-contributions",
+				"insights/chart-y-axis-commits",
+				"insights/chart-y-axis-series",
 				"insights/chart-y-axis-navigator",
 				"insights/chart-combination-series",
 				"insights/k-suffix",
@@ -7551,7 +7565,11 @@
 				"global/in-a-month",
 				"global/in-a-year"
 			],
-			"notTranslated": []
+			"notTranslated": [
+				"insights/branch-to",
+				"insights/branch-on",
+				"insights/authors-count"
+			]
 		},
 		{
 			"name": "microsoft/vscode/security",
@@ -7612,6 +7630,8 @@
 				"insights/chart-x-axis-time",
 				"insights/chart-x-axis-navigator",
 				"insights/chart-y-axis-contributions",
+				"insights/chart-y-axis-commits",
+				"insights/chart-y-axis-series",
 				"insights/chart-y-axis-navigator",
 				"insights/chart-combination-series",
 				"insights/k-suffix",
@@ -7757,7 +7777,11 @@
 				"global/in-a-month",
 				"global/in-a-year"
 			],
-			"notTranslated": []
+			"notTranslated": [
+				"insights/branch-to",
+				"insights/branch-on",
+				"insights/authors-count"
+			]
 		},
 		{
 			"name": "microsoft/vscode/projects",
@@ -7818,6 +7842,8 @@
 				"insights/chart-x-axis-time",
 				"insights/chart-x-axis-navigator",
 				"insights/chart-y-axis-contributions",
+				"insights/chart-y-axis-commits",
+				"insights/chart-y-axis-series",
 				"insights/chart-y-axis-navigator",
 				"insights/chart-combination-series",
 				"insights/k-suffix",
@@ -7963,7 +7989,11 @@
 				"global/in-a-month",
 				"global/in-a-year"
 			],
-			"notTranslated": []
+			"notTranslated": [
+				"insights/branch-to",
+				"insights/branch-on",
+				"insights/authors-count"
+			]
 		},
 		{
 			"name": "microsoft/vscode/tags",

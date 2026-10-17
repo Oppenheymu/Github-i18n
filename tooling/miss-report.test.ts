@@ -256,15 +256,17 @@ describe("classify", () => {
 	});
 
 	it("warns when a one-word fragment is covered only by other modules", () => {
-		// `and` 在设置模块里确实各收过一条（拼句用），于是报告会建议「本模块也收一份」——
-		// 而洞察页的 `and` 是被 <a>/<strong> 切开的连词，补了就会在每个句子里插一个「和」。
-		// 这一条提醒是 2026-10-17 的洞察日志逼出来的。
+		// `public` 只在设置模块里收过一条（拼句用），pulse 路径拿不到，于是报告会建议
+		// 「本模块也收一份」——而洞察页上的这类单字多做连词 / 量词，补了就会在每个
+		// 句子里乱插词。这一条提醒是 2026-10-17 的洞察日志逼出来的。
+		// （原来的例子是 `and`：它已按节点补进 pages/insights 的摘要句，现在应判「已修复」，
+		//  见下方归档用例。）
 		const rows = classify(
 			[
 				item({
-					text: "and",
+					text: "public",
 					path: "/Koishi-CE/koishi/pulse",
-					context: "span",
+					context: "strong",
 				}),
 			],
 			dict,
@@ -272,6 +274,30 @@ describe("classify", () => {
 		);
 		expect(rows[0]?.verdict).toBe("knownElsewhere");
 		expect(rows[0]?.reason).toContain("碎片");
+	});
+
+	it("marks the pulse summary fragments as fixed once the nodes are collected", () => {
+		// 2026-10-17 晚：维护者贴出 /pulse 可见文本，`and` / `authors` / `additions`
+		// 等片段按节点补进 pages/insights；同一份日志重跑时必须从「路由互斥」变成「已修复」，
+		// 否则维护者会以为还得再补一遍
+		for (const text of [
+			"and",
+			"authors",
+			"additions",
+			"deletions",
+			"files",
+			"people",
+			"have pushed",
+			"to all branches.",
+			"Excluding merges,",
+		]) {
+			const rows = classify(
+				[item({ text, path: "/Koishi-CE/koishi/pulse" })],
+				dict,
+				aliases,
+			);
+			expect(rows[0]?.verdict, text).toBe("fixed");
+		}
 	});
 
 	it("keeps product names, user content and dynamic values out of the list", () => {
@@ -437,9 +463,9 @@ describe("formatReport", () => {
 		const rows = classify(
 			[
 				item({
-					text: "and",
+					text: "public",
 					path: "/Koishi-CE/koishi/pulse",
-					context: "span",
+					context: "strong",
 				}),
 			],
 			dict,

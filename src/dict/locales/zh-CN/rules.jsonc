@@ -591,18 +591,30 @@
 		"insights/projects-title": "项目 · $1 · GitHub",
 		"insights/pulse-title": "活跃概览 · $1 · GitHub",
 		"insights/overview-title": "概览 · $1 · GitHub",
-		"insights/range-long-january": "$2 年 1 月 $1 日 – $4 日",
-		"insights/range-long-february": "$2 年 2 月 $1 日 – $4 日",
-		"insights/range-long-march": "$2 年 3 月 $1 日 – $4 日",
-		"insights/range-long-april": "$2 年 4 月 $1 日 – $4 日",
-		"insights/range-long-may": "$2 年 5 月 $1 日 – $4 日",
-		"insights/range-long-june": "$2 年 6 月 $1 日 – $4 日",
-		"insights/range-long-july": "$2 年 7 月 $1 日 – $4 日",
-		"insights/range-long-august": "$2 年 8 月 $1 日 – $4 日",
-		"insights/range-long-september": "$2 年 9 月 $1 日 – $4 日",
-		"insights/range-long-october": "$2 年 10 月 $1 日 – $4 日",
-		"insights/range-long-november": "$2 年 11 月 $1 日 – $4 日",
-		"insights/range-long-december": "$2 年 12 月 $1 日 – $4 日",
+		// Pulse 周期区间：pattern 的四组依次是 startDay / startYear / endDay / endYear，
+		// 模板里的结束日必须引用 $3（endDay）。2026-10-17 实机曾渲染成
+		// 「2026 年 10 月 10 日 – 2026 日」——$4 是 endYear，错把年份当日期，
+		// 与 `settings/usage-range-*` 的「9 月 1 日 – 30 日」写法也不一致，本轮修正。
+		"insights/range-long-january": "$2 年 1 月 $1 日 – $3 日",
+		"insights/range-long-february": "$2 年 2 月 $1 日 – $3 日",
+		"insights/range-long-march": "$2 年 3 月 $1 日 – $3 日",
+		"insights/range-long-april": "$2 年 4 月 $1 日 – $3 日",
+		"insights/range-long-may": "$2 年 5 月 $1 日 – $3 日",
+		"insights/range-long-june": "$2 年 6 月 $1 日 – $3 日",
+		"insights/range-long-july": "$2 年 7 月 $1 日 – $3 日",
+		"insights/range-long-august": "$2 年 8 月 $1 日 – $3 日",
+		"insights/range-long-september": "$2 年 9 月 $1 日 – $3 日",
+		"insights/range-long-october": "$2 年 10 月 $1 日 – $3 日",
+		"insights/range-long-november": "$2 年 11 月 $1 日 – $3 日",
+		"insights/range-long-december": "$2 年 12 月 $1 日 – $3 日",
+		// Pulse 摘要句里的分支名片段（节点顺序就是语序，模板只补本段该有的中文）：
+		// `23 commits to main and 23 commits` 的 `to <分支> and`、
+		// `On main, 106 files` 的 `On <分支>,`。分支名捕获后原样带回。
+		"insights/branch-to": "到 $1 分支，另有",
+		"insights/branch-on": "在 $1 分支上，",
+		// 同一句的 `3 authors`：实机通常被 <strong> 拆成 `3` + ` authors`（静态词条
+		// `authors` 接住），这里兜住未被拆开的整节点形态
+		"insights/authors-count": "$1 位作者",
 		"insights/month-year-jan": "$1 年 1 月",
 		"insights/month-year-feb": "$1 年 2 月",
 		"insights/month-year-mar": "$1 年 3 月",
@@ -630,6 +642,11 @@
 		"insights/chart-x-axis-time": "图表有 $1 条 X 轴，显示时间。数据范围从 $2 到 $3。",
 		"insights/chart-x-axis-navigator": "图表有 $1 条 X 轴，显示时间与导航器 X 轴。",
 		"insights/chart-y-axis-contributions": "图表有 $1 条 Y 轴，显示贡献。数据范围从 $2 到 $3。",
+		// Pulse「提交最多的贡献者」卡片：轴名是系列名 Commits（页面上的轴标题已译为
+		// 「提交」），实机读屏文案为 `The chart has 1 Y axis displaying Commits. …`。
+		// 先按 Commits 精确收一条，再用通用形态兜住别的系列名（$2 原样保留）。
+		"insights/chart-y-axis-commits": "图表有 $1 条 Y 轴，显示提交。数据范围从 $2 到 $3。",
+		"insights/chart-y-axis-series": "图表有 $1 条 Y 轴，显示 $2 系列。数据范围从 $3 到 $4。",
 		"insights/chart-y-axis-navigator": "图表有 $1 条 Y 轴，显示贡献与导航器 Y 轴。",
 		"insights/chart-combination-series": "包含 $1 个数据系列的组合图。",
 		"insights/k-suffix": "$1 千",

@@ -40,6 +40,7 @@ import jaActionsRaw from "./locales/ja/pages/actions.jsonc";
 import jaAgentsRaw from "./locales/ja/pages/agents.jsonc";
 import jaCommitsRaw from "./locales/ja/pages/commits.jsonc";
 import jaDashboardRaw from "./locales/ja/pages/dashboard.jsonc";
+import jaInsightsRaw from "./locales/ja/pages/insights.jsonc";
 import jaIssuesRaw from "./locales/ja/pages/issues.jsonc";
 import jaPullsRaw from "./locales/ja/pages/pulls.jsonc";
 import jaRepoRaw from "./locales/ja/pages/repo.jsonc";
@@ -136,6 +137,7 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 			["pages/dashboard", jaDashboardRaw],
 			["pages/commits", jaCommitsRaw],
 			["pages/wiki", jaWikiRaw],
+			["pages/insights", jaInsightsRaw],
 			["pages/search", jaSearchRaw],
 			["pages/repo", jaRepoRaw],
 		],

@@ -1,0 +1,123 @@
+// 日本語・モジュール pages/insights：/owner/repo 配下のインサイトとツール系サブページ専用エントリ。
+// 対象は pulse / graphs / forks / security / projects の各サブツリー。
+// 注：ユーザー名 / リポジトリ名 / GHSA 番号 / アドバイザリのタイトルは内容なので収録しない。
+// 絶対日付（Sep 23, 2026 など）は全サイト共通の動的書式で、全サイト規則が扱う。
+// チャート軸の目盛り（Aug 2026 / Aug 10）と同月の期間表記はインサイトのチャート専用書式。
+// ページタイトルのリポジトリ名と読み上げ属性のユーザー名も原文のまま残す。
+// 鍵は core/canonical.jsonc にある英語原文との完全一致（綴り違いは門禁が弾く）。
+// 値には日本語の文字体系（漢字 / ひらがな / カタカナ）が必要。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		// —— Pulse 動的ページ ——
+		// 小文字の `merged` は global の状態バッジ群へ移した（ページをまたぐ共用ラベル）ため、
+		// 本モジュールでは重複登録しない。
+		"Period:": "期間：",
+		"Open pull requests": "オープンなプルリクエスト",
+		"commits": "コミット",
+		// —— インサイトのサイドバー ——
+		"Code frequency": "コード頻度",
+		"Community standards": "コミュニティ基準",
+		// —— Forks フォーク一覧 ——
+		"Created": "作成日",
+		"Recently updated": "最近更新された",
+		"Most starred": "スターが多い順",
+		"Open issues": "オープンなイシュー",
+		"Starred": "スター付き",
+		"Sort:": "並べ替え：",
+		"Filter by period": "期間で絞り込む",
+		"Filter by repository type": "リポジトリの種類で絞り込む",
+		"Repository type:": "リポジトリの種類：",
+		"Archived repositories": "アーカイブ済みリポジトリ",
+		"Forks of other forks": "他のフォークのフォーク",
+		"Inactive": "非アクティブ",
+		"Repositories with push activity": "プッシュのアクティビティがあるリポジトリ",
+		"Repositories with no push activity": "プッシュのアクティビティがないリポジトリ",
+		"Repositories with at least 1 star": "1 つ以上のスターがあるリポジトリ",
+		"Switch to tree view": "ツリー表示に切り替え",
+		// 鍵は normalizeKey 後の単一空格の形で書く（実機の改行とインデントは
+		// エンジンが畳み込むため、鍵に改行を入れると永久に命中しない）
+		"Any repository that has not been created or updated during this period will be excluded.": "この期間中に作成も更新もされていないリポジトリは除外されます。",
+		// —— graphs のチャート（contributors など）——
+		"Contributions": "コントリビューション",
+		"Period": "期間",
+		"Last 3 months": "過去 3 か月",
+		"Crunching the latest data, just for you. Hang tight…": "最新のデータを準備しています。しばらくお待ちください…",
+		"End of interactive chart.": "インタラクティブチャートの終わりです。",
+		"View as data table, Chart": "データテーブルとして表示、チャート",
+		"Interactive chart": "インタラクティブチャート",
+		"Interactive chart.": "インタラクティブチャート。",
+		// 直後にブランチ名のノードが続く断片
+		"Contributions per week to": "週あたりのコントリビューション：",
+		", line counts have been omitted because commit count exceeds 10,000.": "、コミット数が 10,000 を超えるため行数の表示は省略されています。",
+		"Chart": "チャート",
+		"Chart options": "チャートのオプション",
+		"Customization settings": "カスタマイズ設定",
+		"commit": "コミット",
+		// 実機ではユーザー名ノードの直後にある所有格の断片
+		"'s Commits": "のコミット",
+		// 直後に日付のノードが続く断片
+		"Weekly from": "週次、開始日：",
+		"over time": "の推移",
+		// —— チャートの読み上げ属性（属性は文字列全体の完全一致のみで、規則は効かない）——
+		"Axis zoom": "軸のズーム",
+		"Start, percent": "開始、パーセント",
+		"End, percent": "終了、パーセント",
+		"Commits over time Axis zoom": "コミットの推移 軸のズーム",
+		// —— Security セキュリティアドバイザリ ——
+		"published": "公開",
+		"Published advisory": "公開済みのアドバイザリ",
+		"GitHub Advisory Database": "GitHub アドバイザリデータベース",
+		"High": "高",
+		"Moderate": "中",
+		"Critical": "重大",
+		"Severity: high": "重要度：高",
+		"Severity: moderate": "重要度：中",
+		"Severity: critical": "重要度：重大",
+		// 実機では 3 ノードに分かれる（"… related to" + パッケージ名 + "in the" + DB 名 + "."）。
+		// 前段を「に関連する…詳細は、」、後段を「に掲載されています」にして語順を保つ
+		"Learn more about advisories related to": "に関連するアドバイザリの詳細は、",
+		"in the": "に掲載されています",
+		// —— Security 概要ページ（/owner/repo/security）——
+		// 上部バナーは pages/repo-settings の Code scanning バナーと同文・同訳（あちらはこの
+		// ルートに命中しないため、本モジュールにも 1 件ずつ収録し訳文を揃える）。
+		// 見出しノードの内部に中黒 `•` が含まれるため、訳文でもそのまま残す
+		// （描画は「セキュリティポリシー • 有効」）。`View alerts` のような短いリンク文は
+		// 独立したノードなので、説明文とは別のエントリにする。
+		"Code scanning: one or more analysis tools are reporting problems": "コードスキャン：1 つ以上の分析ツールが問題を報告しています",
+		"Scorecard is reporting warnings. Check the": "Scorecard が警告を報告しています。",
+		"status page": "ステータスページ",
+		"for help.": "をご確認ください。",
+		"Security policy •": "セキュリティポリシー •",
+		"Enabled": "有効",
+		"View how to securely report security vulnerabilities for this repository": "このリポジトリのセキュリティ脆弱性を安全に報告する方法を表示",
+		"View security policy": "セキュリティポリシーを表示",
+		"Security advisories •": "セキュリティアドバイザリ •",
+		"View or disclose security advisories for this repository": "このリポジトリのセキュリティアドバイザリを表示または公開",
+		"View security advisories": "セキュリティアドバイザリを表示",
+		"Private vulnerability reporting •": "プライベートな脆弱性レポート •",
+		"Allow users to privately report potential security vulnerabilities": "ユーザーが潜在的なセキュリティ脆弱性を非公開で報告できるようにする",
+		"See reported vulnerabilities": "報告された脆弱性を表示",
+		"Dependabot alerts •": "Dependabot アラート •",
+		"Get notified when one of your dependencies has a vulnerability": "依存関係のいずれかに脆弱性があると通知を受け取る",
+		"View Dependabot alerts": "Dependabot アラートを表示",
+		"Code scanning alerts •": "コードスキャンアラート •",
+		"Automatically detect common vulnerability and coding errors": "一般的な脆弱性とコーディングエラーを自動的に検出",
+		"View alerts": "アラートを表示",
+		"Secret scanning alerts •": "シークレットスキャンアラート •",
+		"Get notified when a secret is pushed to this repository": "シークレットがこのリポジトリにプッシュされると通知を受け取る",
+		"View detected secrets": "検出されたシークレットを表示",
+		"Code quality findings •": "コード品質の検出結果 •",
+		"Disabled": "無効",
+		"Automatically detect code quality issues in your codebase": "コードベースのコード品質の問題を自動的に検出",
+		"Enable code quality": "コード品質を有効にする",
+		// —— Projects プロジェクト ——
+		"Templates": "テンプレート",
+		"Repository projects": "リポジトリのプロジェクト",
+		"Filter projects by state": "状態でプロジェクトを絞り込む",
+		"Loading projects": "プロジェクトを読み込み中",
+		"Search projects": "プロジェクトを検索",
+		"Search by name…": "名前で検索…",
+		"updated": "更新日"
+	}
+}

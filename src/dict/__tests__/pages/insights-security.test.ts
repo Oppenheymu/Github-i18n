@@ -82,6 +82,31 @@ const NODES: readonly (readonly [string, string])[] = [
 	["Enable code quality", "启用代码质量"],
 ];
 
+/**
+ * 复刻 walker 的「保留首尾空白」语义（applyTextNode 把 lead / trail 留在节点上）。
+ * zh-CN 与日语两条视图共用：拼接结果读不读得通，是「节点被拆开」这件事的唯一证据。
+ */
+function renderNodes(
+	nodes: readonly string[],
+	dictionaryView: ReturnType<typeof buildView>,
+): string {
+	return nodes
+		.map((node) => {
+			const translated = translateText(
+				node,
+				dictionaryView,
+			);
+			if (translated === null) return node;
+			const lead = node.slice(
+				0,
+				node.length - node.trimStart().length,
+			);
+			const trail = node.slice(node.trimEnd().length);
+			return `${lead}${translated}${trail}`;
+		})
+		.join("");
+}
+
 describe("仓库安全概览页的实机节点边界", () => {
 	it("translates every node the maintainer pasted", () => {
 		for (const [node, expected] of NODES) {
@@ -126,25 +151,15 @@ describe("仓库安全概览页的实机节点边界", () => {
 
 	it("keeps the three-part banner readable when joined", () => {
 		// 复刻 walker 的「保留首尾空白」语义（applyTextNode 把 lead / trail 留在节点上）
-		const render = (nodes: readonly string[]) =>
-			nodes
-				.map((node) => {
-					const translated = translateText(node, view);
-					if (translated === null) return node;
-					const lead = node.slice(
-						0,
-						node.length - node.trimStart().length,
-					);
-					const trail = node.slice(node.trimEnd().length);
-					return `${lead}${translated}${trail}`;
-				})
-				.join("");
 		expect(
-			render([
-				"Scorecard is reporting warnings. Check the ",
-				"status page",
-				" for help.",
-			]),
+			renderNodes(
+				[
+					"Scorecard is reporting warnings. Check the ",
+					"status page",
+					" for help.",
+				],
+				view,
+			),
 		).toBe(
 			"Scorecard 正在报告警告。请查看 状态页面 以获取帮助。",
 		);
@@ -160,5 +175,58 @@ describe("仓库安全概览页的实机节点边界", () => {
 
 	it("keeps the repository owner in english", () => {
 		expect(translateText("Koishi-CE", view)).toBeNull();
+	});
+});
+
+/**
+ * 日语视图：同一条路径（pages/insights + pages/repo + global）。
+ *
+ * 守的是「pages/insights 已登记进 registry 的 ja 段」以及两条拆节点句子的日语语序：
+ * 日语词条是稀疏覆盖，漏登记时构件不报错、整页静默保留英文，故用同一份实机清单锁一次。
+ */
+const jaView = buildView(
+	"/Koishi-CE/koishi/security",
+	dictForLocale("ja"),
+	new Map(Object.entries(dictCore.aliases)),
+);
+
+describe("仓库安全概览页的日语覆盖（pages/insights）", () => {
+	it("translates every pasted node into japanese", () => {
+		for (const [node] of NODES) {
+			const translated = translateText(node, jaView);
+			expect(
+				translated,
+				`未命中：${JSON.stringify(node)}`,
+			).not.toBeNull();
+			expect(translated ?? "").toMatch(
+				/[\u3040-\u30ff\u4e00-\u9fff]/,
+			);
+		}
+	});
+
+	it("keeps the three-part banner readable when joined", () => {
+		// 日语把前段收成完整句、后段收成「をご確認ください。」，中间仍是链接文本节点
+		expect(
+			renderNodes(
+				[
+					"Scorecard is reporting warnings. Check the ",
+					"status page",
+					" for help.",
+				],
+				jaView,
+			),
+		).toBe(
+			"Scorecard が警告を報告しています。 ステータスページ をご確認ください。",
+		);
+	});
+
+	it("keeps the bullet inside the title node", () => {
+		// 带 ` •` 的形态是本模块的词条，裸标题来自 pages/repo——两条各自独立、译法一致
+		expect(translateText("Security policy", jaView)).toBe(
+			"セキュリティポリシー",
+		);
+		expect(translateText("Security policy •", jaView)).toBe(
+			"セキュリティポリシー •",
+		);
 	});
 });

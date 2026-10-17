@@ -57,6 +57,17 @@ const NODES: readonly (readonly [string, string])[] = [
 		"控制 Copilot 审查拉取请求时的分析深度。",
 	],
 	["Default (Balanced)", "默认（均衡）"],
+	// 下拉展开态（2026-10-17 实机）：默认项说明、三个选项标签与三条说明
+	[
+		"Use the default review effort level",
+		"使用默认审查力度级别",
+	],
+	["Lite", "轻量"],
+	["Efficient review, low cost", "高效审查，低成本"],
+	["Deep analysis, moderate cost", "深度分析，中等成本"],
+	["Max", "最高"],
+	["Most thorough, high cost", "最彻底，高成本"],
+	["Coming soon", "即将推出"],
 	["Approvals", "批准"],
 	[
 		"Allow Copilot to approve pull requests",
@@ -201,15 +212,13 @@ describe("仓库设置页的 Copilot 代码审查子页的实机节点边界", (
 	});
 
 	it("keeps product names and user content in english", () => {
-		// 专名与未渲染的下拉选项都不收录，未命中即保留英文
+		// 专名不收录，未命中即保留英文
 		for (const raw of [
 			"Copilot",
 			"GitHub",
 			"Visual Studio Code",
 			"Oppenheymu",
 			"Github-i18n",
-			"Lite",
-			"Max",
 		]) {
 			expect(
 				translateText(raw, view),
@@ -218,7 +227,7 @@ describe("仓库设置页的 Copilot 代码审查子页的实机节点边界", (
 		}
 	});
 
-	it("translates the bare Balanced option only when it stands alone", () => {
+	it("translates the review effort options apart from the collapsed value", () => {
 		// `Balanced` 是本模块既有键（另一处的选项值），下拉展开后单独成节点时会被译出；
 		// 收起态的按钮文本是 `Default (Balanced)` 整节点，走上面那条独立键，两者互不干扰
 		expect(translateText("Balanced", view)).toBe("均衡");

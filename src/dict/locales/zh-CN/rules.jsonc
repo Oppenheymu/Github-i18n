@@ -425,6 +425,7 @@
 		"repo-settings/branch-protection-count": "$1 条分支保护规则",
 		"repo-settings/star-count": "$1 星标",
 		"repo-settings/watcher-count": "$1 名关注者",
+		"repo-settings/collaborators-count": "$1 位协作者",
 		"repo-settings/delete-repo": "删除 $1",
 		"repo-settings/make-private": "将 $1 设为私有",
 		"repo-settings/settings-title": "设置：$1",

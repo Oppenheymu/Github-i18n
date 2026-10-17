@@ -420,6 +420,9 @@
 		"When enabled, automations will only run if the user triggering the event has write access to the repository. When disabled, users can create automations that listen for events triggered by users without write access.": "启用后，仅当触发事件的用户对仓库有写权限时自动化才会运行。停用后，用户可以创建监听无写权限用户所触发事件的自动化。",
 		"Allowing automations to be triggered by users without write access to the repository increases risk of prompt injection attacks, where an untrusted user can cause an agent to take actions in the repository using the agent's permissions.": "允许无仓库写权限的用户触发自动化会增加提示注入攻击的风险：不受信任的用户可能借代理的权限让其在仓库中执行操作。",
 		"Allowing GitHub Actions workflows to run without approval may allow unreviewed code written by Copilot to gain write access to your repository or access your GitHub Actions secrets.": "允许 GitHub Actions 工作流无需批准即可运行，可能让 Copilot 编写、未经审查的代码获得仓库写权限或访问你的 GitHub Actions 机密。",
+		// 2026-10-17 实机新增的写入范围策略（Automations 区块）
+		"Limit automation writes to the triggering resource": "将自动化写入限制在触发它的资源",
+		"When enabled, automation runs can only change the issue, pull request, or discussion that triggered them, and anything they create. Scheduled runs can only change what they create. Automation authors cannot turn this off.": "启用后，自动化运行只能更改触发它们的议题、拉取请求或讨论，以及它们创建的任何内容。计划运行只能更改它们创建的内容。自动化作者无法关闭此设置。",
 		// —— Copilot：网络访问（settings/copilot/internet_access）——
 		"Enable firewall": "启用防火墙",
 		"Recommended": "推荐",
@@ -462,6 +465,14 @@
 		"Review effort level": "审查力度级别",
 		"Controls the depth of analysis when Copilot reviews pull requests.": "控制 Copilot 审查拉取请求时的分析深度。",
 		"Default (Balanced)": "默认（均衡）",
+		// 下拉展开态（2026-10-17 实机）：`Balanced` 走本模块既有键「均衡」
+		"Use the default review effort level": "使用默认审查力度级别",
+		"Lite": "轻量",
+		"Efficient review, low cost": "高效审查，低成本",
+		"Deep analysis, moderate cost": "深度分析，中等成本",
+		"Max": "最高",
+		"Most thorough, high cost": "最彻底，高成本",
+		"Coming soon": "即将推出",
 		"Approvals": "批准",
 		"Allow Copilot to approve pull requests": "允许 Copilot 批准拉取请求",
 		"When enabled, Copilot can approve pull requests, and those approvals can count toward merge requirements.": "启用后，Copilot 可以批准拉取请求，且这些批准可以计入合并要求。",
@@ -497,6 +508,11 @@
 		// 列表页（/settings/rules）与溢出菜单 ——
 		"Export ruleset": "导出规则集",
 		"Delete ruleset": "删除规则集",
+		// 2026-10-17 实机：菜单标签被拆成 `Export` + `ruleset` / `Delete` + `ruleset`，
+		// 整句键失效；`Delete` 由 global 提供，故只需补 `Export` 与 `ruleset` 两条碎片。
+		"Ruleset menu": "规则集菜单",
+		"Export": "导出",
+		"ruleset": "规则集",
 		"New ruleset": "新建规则集",
 		"New branch ruleset": "新建分支规则集",
 		"New tag ruleset": "新建标签规则集",
@@ -1238,6 +1254,31 @@
 		"Block commits that contain": "阻止包含",
 		"supported secrets": "受支持的机密",
 		"Disable push protection": "禁用推送保护",
+		// —— 2026-10-17 上游改版后的安全分析新串（旧句保留在上面）——
+		"Dependency Scanning": "依赖项扫描",
+		"Understand the packages this repository depends on and secure its": "了解此仓库依赖的软件包，并保护其",
+		"software supply chain": "软件供应链",
+		"Identify and understand your project's dependencies.": "识别并了解你项目的依赖项。",
+		"Keep your dependencies secure and up-to-date with": "让依赖项保持安全与最新，请使用",
+		"Learn more about Dependabot (opens in a new tab)": "进一步了解 Dependabot（在新标签页中打开）",
+		"Learn more about software supply chain security (opens in a new tab)": "进一步了解软件供应链安全（在新标签页中打开）",
+		"Receive alerts when vulnerabilities are detected in your dependencies.": "当你的依赖项中检测到漏洞时接收警报。",
+		"Dependabot auto-triage rules": "Dependabot 自动分类规则",
+		"Define rules for security updates and auto-dismissals on Dependabot alerts.": "为 Dependabot 警报定义安全更新与自动忽略规则。",
+		"Automatically open pull requests for alerts with a patch. For advanced configuration, disable this setting and use": "为有可用补丁的警报自动打开拉取请求。如需高级配置，请禁用此设置并使用",
+		"Group security updates into one pull request per package manager and manifest directory. For advanced configuration, disable this setting and use dependabot.yml.": "按包管理器和清单目录将安全更新合并到一个拉取请求中。如需高级配置，请禁用此设置并使用 dependabot.yml。",
+		"Automatically open pull requests when new versions of your dependencies are available by": "当依赖项有新版本可用时，自动打开拉取请求，方法是",
+		"configuring your dependabot.yml file": "配置你的 dependabot.yml 文件",
+		"Edit dependabot.yml": "编辑 dependabot.yml",
+		"Malware alerts": "恶意软件警报",
+		"Code Security": "代码安全",
+		"Identify code security findings using AI.": "使用 AI 识别代码安全问题。",
+		"Learn more about AI scan": "进一步了解 AI 扫描",
+		"Generate security findings for non-CodeQL languages using AI.": "使用 AI 为 CodeQL 之外的语言生成安全发现。",
+		"Agentic autofix": "代理式自动修复",
+		"Assign code scanning alerts to Copilot to create a fix and open a pull request. This feature consumes AI credits.": "将代码扫描警报分配给 Copilot，以创建修复并打开拉取请求。此功能会消耗 AI 点数。",
+		"Agentic autofix enablement": "代理式自动修复启用状态",
+		"Continuously monitor this repository to prevent secret exposures and protect credentials. GitHub will always send alerts to partners for detected secrets in public repositories.": "持续监控此仓库，以防止机密泄露并保护凭据。对于在公开仓库中检测到的机密，GitHub 始终会向合作伙伴发送警报。",
 		// —— Dependabot 规则列表页（/owner/repo/settings/dependabot_rules）——
 		// 证据：维护者 2026-09-27 提供的实机 outerHTML。面包屑与页头复用本模块已有的
 		// 「Advanced Security」「Dependabot rules」，状态标签复用「启用 / 禁用」。

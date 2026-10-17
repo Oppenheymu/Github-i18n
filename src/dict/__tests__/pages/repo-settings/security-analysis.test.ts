@@ -278,6 +278,80 @@ const NODES: readonly (readonly [string, string])[] = [
 	["Block commits that contain", "阻止包含"],
 	["supported secrets", "受支持的机密"],
 	["Disable push protection", "禁用推送保护"],
+	// —— 2026-10-17 上游改版后的新节点 ——
+	// 旧节点仍保留在上面（是否仍渲染于灰度形态未经证实）；这里是与当日实机逐字一致的新串
+	["Dependency Scanning", "依赖项扫描"],
+	[
+		"Understand the packages this repository depends on and secure its",
+		"了解此仓库依赖的软件包，并保护其",
+	],
+	["software supply chain", "软件供应链"],
+	[
+		"Identify and understand your project's dependencies.",
+		"识别并了解你项目的依赖项。",
+	],
+	[
+		"Keep your dependencies secure and up-to-date with",
+		"让依赖项保持安全与最新，请使用",
+	],
+	[
+		"Learn more about Dependabot (opens in a new tab)",
+		"进一步了解 Dependabot（在新标签页中打开）",
+	],
+	[
+		"Learn more about software supply chain security (opens in a new tab)",
+		"进一步了解软件供应链安全（在新标签页中打开）",
+	],
+	[
+		"Receive alerts when vulnerabilities are detected in your dependencies.",
+		"当你的依赖项中检测到漏洞时接收警报。",
+	],
+	[
+		"Dependabot auto-triage rules",
+		"Dependabot 自动分类规则",
+	],
+	[
+		"Define rules for security updates and auto-dismissals on Dependabot alerts.",
+		"为 Dependabot 警报定义安全更新与自动忽略规则。",
+	],
+	[
+		"Automatically open pull requests for alerts with a patch. For advanced configuration, disable this setting and use",
+		"为有可用补丁的警报自动打开拉取请求。如需高级配置，请禁用此设置并使用",
+	],
+	[
+		"Group security updates into one pull request per package manager and manifest directory. For advanced configuration, disable this setting and use dependabot.yml.",
+		"按包管理器和清单目录将安全更新合并到一个拉取请求中。如需高级配置，请禁用此设置并使用 dependabot.yml。",
+	],
+	[
+		"Automatically open pull requests when new versions of your dependencies are available by",
+		"当依赖项有新版本可用时，自动打开拉取请求，方法是",
+	],
+	[
+		"configuring your dependabot.yml file",
+		"配置你的 dependabot.yml 文件",
+	],
+	["Edit dependabot.yml", "编辑 dependabot.yml"],
+	["Malware alerts", "恶意软件警报"],
+	["Code Security", "代码安全"],
+	[
+		"Identify code security findings using AI.",
+		"使用 AI 识别代码安全问题。",
+	],
+	["Learn more about AI scan", "进一步了解 AI 扫描"],
+	[
+		"Generate security findings for non-CodeQL languages using AI.",
+		"使用 AI 为 CodeQL 之外的语言生成安全发现。",
+	],
+	["Agentic autofix", "代理式自动修复"],
+	[
+		"Assign code scanning alerts to Copilot to create a fix and open a pull request. This feature consumes AI credits.",
+		"将代码扫描警报分配给 Copilot，以创建修复并打开拉取请求。此功能会消耗 AI 点数。",
+	],
+	["Agentic autofix enablement", "代理式自动修复启用状态"],
+	[
+		"Continuously monitor this repository to prevent secret exposures and protect credentials. GitHub will always send alerts to partners for detected secrets in public repositories.",
+		"持续监控此仓库，以防止机密泄露并保护凭据。对于在公开仓库中检测到的机密，GitHub 始终会向合作伙伴发送警报。",
+	],
 ];
 
 /** 产品与技术名、分支名与用户内容：整节点不收录，必须保持英文 */
@@ -453,6 +527,77 @@ describe("仓库设置页的安全分析子页的实机节点边界", () => {
 			]),
 		).toBe(
 			"对于在公开仓库中检测到的机密，GitHub 始终会向合作伙伴发送警报。 进一步了解合作伙伴模式",
+		);
+	});
+
+	it("reassembles the sentences rewritten by the 2026-10-17 layout", () => {
+		// Dependency Scanning 说明：前段 + software supply chain 链接 + 纯符号句点
+		expect(
+			renderNodes([
+				"Understand the packages this repository depends on and secure its ",
+				"software supply chain",
+				".",
+			]),
+		).toBe("了解此仓库依赖的软件包，并保护其 软件供应链.");
+		// Dependabot 区块：说明 + 链接（专名保持英文）+ 纯符号句点
+		expect(
+			renderNodes([
+				"Keep your dependencies secure and up-to-date with ",
+				"Dependabot",
+				".",
+			]),
+		).toBe("让依赖项保持安全与最新，请使用 Dependabot.");
+		// Dependabot 安全更新：新前段 + 既有 `Dependabot rules` 链接
+		expect(
+			renderNodes([
+				"Automatically open pull requests for alerts with a patch. For advanced configuration, disable this setting and use ",
+				"Dependabot rules",
+				".",
+			]),
+		).toBe(
+			"为有可用补丁的警报自动打开拉取请求。如需高级配置，请禁用此设置并使用 Dependabot 规则.",
+		);
+		// Dependabot 版本更新：新前段 + dependabot.yml 链接 + 纯符号句点
+		expect(
+			renderNodes([
+				"Automatically open pull requests when new versions of your dependencies are available by ",
+				"configuring your dependabot.yml file",
+				".",
+			]),
+		).toBe(
+			"当依赖项有新版本可用时，自动打开拉取请求，方法是 配置你的 dependabot.yml 文件.",
+		);
+		// AI 扫描：新说明 + Learn more about AI scan 链接
+		expect(
+			renderNodes([
+				"Identify code security findings using AI. ",
+				"Learn more about AI scan",
+				".",
+			]),
+		).toBe(
+			"使用 AI 识别代码安全问题。 进一步了解 AI 扫描.",
+		);
+		// 机密保护：两句在同一节点（上游把旧的两节点合并），链接独占一个节点
+		expect(
+			renderNodes([
+				"Continuously monitor this repository to prevent secret exposures and protect credentials. GitHub will always send alerts to partners for detected secrets in public repositories. ",
+				"Learn more about partner patterns",
+				".",
+			]),
+		).toBe(
+			"持续监控此仓库，以防止机密泄露并保护凭据。对于在公开仓库中检测到的机密，GitHub 始终会向合作伙伴发送警报。 进一步了解合作伙伴模式.",
+		);
+	});
+
+	it("folds the source newlines inside the merged secret-protection sentence", () => {
+		// 实机里两句之间只有换行缩进，键按 normalizeKey 折叠后的单行形态写
+		expect(
+			translateText(
+				"Continuously monitor this repository to prevent secret exposures and protect credentials.\n        GitHub will always send alerts to partners for detected secrets in public repositories.",
+				view,
+			),
+		).toBe(
+			"持续监控此仓库，以防止机密泄露并保护凭据。对于在公开仓库中检测到的机密，GitHub 始终会向合作伙伴发送警报。",
 		);
 	});
 

@@ -2150,6 +2150,12 @@
 					"id": "repo-settings/watcher-count",
 					"pattern": "^([\\d,]+) watcher$"
 				},
+				// Access 子页顶部的计数链接（2026-10-17 实机：`1 collaborator`）。
+				// 与 star / watcher 一样只覆盖 GitHub 实际渲染的单复数两种词形。
+				{
+					"id": "repo-settings/collaborators-count",
+					"pattern": "^([\\d,]+) collaborators?$"
+				},
 				// 带仓库名的动态标题（仅匹配 owner/repo 形态，避免泛化误伤）。
 				// owner/repo 不含空白，故作否定字符类里加上 \s：否则规则集页的
 				// `Delete include of <分支模式>` 会被它当成 owner/repo 抢先命中，

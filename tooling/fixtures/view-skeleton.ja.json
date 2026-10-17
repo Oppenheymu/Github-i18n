@@ -1449,7 +1449,7 @@
 				"global/in-a-month",
 				"global/in-a-year"
 			],
-			"notTranslated": []
+			"notTranslated": ["repo-settings/collaborators-count"]
 		},
 		{
 			"name": "microsoft/vscode/settings/rules",
@@ -1646,7 +1646,7 @@
 				"global/in-a-month",
 				"global/in-a-year"
 			],
-			"notTranslated": []
+			"notTranslated": ["repo-settings/collaborators-count"]
 		},
 		{
 			"name": "microsoft/vscode/reported_content",
@@ -1843,7 +1843,7 @@
 				"global/in-a-month",
 				"global/in-a-year"
 			],
-			"notTranslated": []
+			"notTranslated": ["repo-settings/collaborators-count"]
 		},
 		{
 			"name": "organizations/octocat/settings/profile",

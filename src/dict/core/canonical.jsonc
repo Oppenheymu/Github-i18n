@@ -2625,6 +2625,10 @@
 				"When enabled, automations will only run if the user triggering the event has write access to the repository. When disabled, users can create automations that listen for events triggered by users without write access.",
 				"Allowing automations to be triggered by users without write access to the repository increases risk of prompt injection attacks, where an untrusted user can cause an agent to take actions in the repository using the agent's permissions.",
 				"Allowing GitHub Actions workflows to run without approval may allow unreviewed code written by Copilot to gain write access to your repository or access your GitHub Actions secrets.",
+				// 2026-10-17 实机新增的写入范围策略（`sweagentd-write-scope-policy`），
+				// 与上面三条同属 Automations 区块；开关标签与说明各一个文本节点。
+				"Limit automation writes to the triggering resource",
+				"When enabled, automation runs can only change the issue, pull request, or discussion that triggered them, and anything they create. Scheduled runs can only change what they create. Automation authors cannot turn this off.",
 				// —— Copilot：网络访问（settings/copilot/internet_access）——
 				"Enable firewall",
 				"Recommended",
@@ -2676,6 +2680,16 @@
 				"Review effort level",
 				"Controls the depth of analysis when Copilot reviews pull requests.",
 				"Default (Balanced)",
+				// 下拉展开态（2026-10-17 实机）：菜单项的标签与说明各自成节点；
+				// `Balanced` 由本模块既有键命中（「均衡」），这里只补其余三个标签与三条说明，
+				// 外加默认项说明与 `Max` 上的 `Coming soon` 标签。
+				"Use the default review effort level",
+				"Lite",
+				"Efficient review, low cost",
+				"Deep analysis, moderate cost",
+				"Max",
+				"Most thorough, high cost",
+				"Coming soon",
 				"Approvals",
 				"Allow Copilot to approve pull requests",
 				"When enabled, Copilot can approve pull requests, and those approvals can count toward merge requirements.",
@@ -2713,6 +2727,15 @@
 				// —— 列表页（/settings/rules）与溢出菜单 ——
 				"Export ruleset",
 				"Delete ruleset",
+				// 2026-10-17 实机（规则集详情页右上角「…」菜单）：上游把菜单标签拆成了
+				// `Export` + `ruleset` / `Delete` + `ruleset` 两个文本节点。证据是实机渲染出
+				// 「删除 ruleset」——`Delete` 由 global 命中，`ruleset` 未收录；同理
+				// `Export` 在本模块没有词条（pages/settings 那条路由不命中仓库设置），
+				// 整句键因此双双失效。补两条碎片键 + 按钮的 tooltip / aria-label。
+				// `ruleset` 是小写泛化短词，风险面被本模块路由限死在 /owner/repo/settings/**。
+				"Ruleset menu",
+				"Export",
+				"ruleset",
 				"New ruleset",
 				"New branch ruleset",
 				"New tag ruleset",
@@ -3490,6 +3513,41 @@
 				"Block commits that contain",
 				"supported secrets",
 				"Disable push protection",
+				// —— 2026-10-17 上游改版后的安全分析新串 ——
+				// 证据：维护者 2026-10-17 贴的整页实机 HTML（classic 版，页面已装扩展）。
+				// 上游重写了区块标题与大量说明句：新增 `Dependency Scanning` / `Code Security`
+				// 两个 h3、`Malware alerts` / `Dependabot auto-triage rules` / `Agentic autofix`
+				// 三个小标题，并把 Dependency graph / Dependabot alerts / Dependabot security
+				// updates / Grouped security updates / Dependabot version updates 的说明句整段换掉。
+				// 旧句**保留在上面**（是否仍渲染于灰度形态未经证实，先按「两种形态都收」处理），
+				// 这里是与实机逐字一致的新键。已译节点（`依赖项关系图` / `Dependabot 警报` /
+				// `Dependabot 安全更新` / `分组安全更新` / `Dependabot 版本更新` / `CodeQL 分析` /
+				// `AI 扫描` / `Copilot 自动修复` / `保护规则` / `机密保护` / `推送保护` 等）
+				// 是既有键的产物，不再重复登记。
+				"Dependency Scanning",
+				"Understand the packages this repository depends on and secure its",
+				"software supply chain",
+				"Identify and understand your project's dependencies.",
+				"Keep your dependencies secure and up-to-date with",
+				"Learn more about Dependabot (opens in a new tab)",
+				"Learn more about software supply chain security (opens in a new tab)",
+				"Receive alerts when vulnerabilities are detected in your dependencies.",
+				"Dependabot auto-triage rules",
+				"Define rules for security updates and auto-dismissals on Dependabot alerts.",
+				"Automatically open pull requests for alerts with a patch. For advanced configuration, disable this setting and use",
+				"Group security updates into one pull request per package manager and manifest directory. For advanced configuration, disable this setting and use dependabot.yml.",
+				"Automatically open pull requests when new versions of your dependencies are available by",
+				"configuring your dependabot.yml file",
+				"Edit dependabot.yml",
+				"Malware alerts",
+				"Code Security",
+				"Identify code security findings using AI.",
+				"Learn more about AI scan",
+				"Generate security findings for non-CodeQL languages using AI.",
+				"Agentic autofix",
+				"Assign code scanning alerts to Copilot to create a fix and open a pull request. This feature consumes AI credits.",
+				"Agentic autofix enablement",
+				"Continuously monitor this repository to prevent secret exposures and protect credentials. GitHub will always send alerts to partners for detected secrets in public repositories.",
 				// —— Dependabot 规则列表页（/owner/repo/settings/dependabot_rules）——
 				// 依据：维护者 2026-09-27 提供的实机 outerHTML。面包屑与页头（Advanced Security /
 				// Dependabot rules）与 Enabled / Disabled 都已在上面的安全分析分组里登记过，此处不重复。

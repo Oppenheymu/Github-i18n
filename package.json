@@ -15,6 +15,7 @@
         "check:dict": "bun tooling/checks/dict.ts",
         "check:manifest": "bun tooling/checks/manifest.ts",
         "check:view": "bun tooling/checks/view.ts",
+        "report:misses": "bun tooling/miss-report.ts",
         "test": "bun test",
         "pack": "bun tooling/pipeline/pack.ts"
     },

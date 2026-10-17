@@ -259,7 +259,7 @@ site|security|team|events|about|contact)(?:/|$))[^/]+
 
 ### 三、采集途径
 
-**途径 A（首选）：popup 的开发者模式。** 开启后正常浏览目标页，等落盘（每 5 秒 / 页面隐藏时），回 popup 点「复制」得到 `github-zh-misses/1` JSON，直接粘进会话。优点是自带 `path` 与 `count`（出现次数多的先补）。**注意它只含「未命中」的文本与属性**，所以「哪些节点被拆开了」要靠途径 B 补。
+**途径 A（首选）：popup 的开发者模式。** 开启后正常浏览目标页，等落盘（每 5 秒 / 页面隐藏时），回 popup 点「复制」得到 `github-zh-misses/2` JSON，直接粘进会话。优点是自带 `path`、`context` 与 `count`（出现次数多的先补），且**每条记录就是一个文本节点**——节点边界比 `outerHTML` 和截图都准。缺点是约九成记录是用户内容、产品名与动态值，**先跑 `bun run report:misses` 分拣再动手**（见「把日志变成清单」）。
 
 **途径 B（节点边界）：Console 采集片段。** 在目标页按 F12 → Console → 先执行一次 `allow pasting`（Edge / Chrome 的粘贴保护）→ 粘贴下面整段。它一次性打出该页**全部文本节点**（含真实空白与父元素，便于识别 `sr-only` / 组件结构）、**六个可翻译属性**、以及**扩展自身的排除判定**（`script` / `style` / `noscript` / `textarea` 等，见了直接忽略）。
 
@@ -312,7 +312,7 @@ dump.join("\n");
 
 | 拿到的形态 | 特征 | 处理 |
 | --- | --- | --- |
-| 途径 A 导出 JSON（`{"schema":"github-zh-misses/1",…}`） | 只有 `text` / `kind` / `path` / `count` | 这是**未命中清单**，逐条登记；不能据此判断拆分 |
+| 途径 A 导出 JSON（`{"schema":"github-zh-misses/2",…}`） | `text` / `kind` / `path` / `context` / `count` | 这是**未命中清单**，先用 `bun run report:misses` 分拣（见「把日志变成清单」），再逐条登记；不能据此判断拆分 |
 | 途径 B Console 输出 | `TEXT "…" \|\|\| <tag class="…">` / `ATTR …` / `EXCLUDED …` | 节点边界与真实空白以此为准；`EXCLUDED` 直接跳过 |
 | 整页 HTML（DevTools 复制 outerHTML） | 结构完整 | 可据 `<strong>` / `<a>` / `<div class="note">` 的嵌套判断拆分点 |
 | 截图 | 只有视觉 | **不能作为登记键的唯一依据**（换行、缩进、纯符号节点的存在与否都看不出来），只用于核对数量与语义 |
@@ -430,7 +430,7 @@ for (const p of probes) {
 | `repo-settings/copilot-coding-agent.test.ts` | `/owner/repo/settings/copilot/coding_agent` | 仓库级 Copilot 云端代理页的**新增策略**（**证据是维护者 2026-10-17 贴的实机 HTML 片段**：`sweagentd-write-scope-policy`）。补 `Limit automation writes to the triggering resource` 与其三段式说明——它与既有 Automations 区块同页同组，旧键（`Allow automations` 等）必须照常命中 |
 | `repo-settings/rulesets-menu.test.ts` | `/owner/repo/settings/rules/<id>`（右上角「…」菜单） | 规则集菜单（**证据是维护者 2026-10-17 贴的菜单 HTML + 截图**）。这一页是「明明翻译过却漏翻」的典型：整句键 `Export ruleset` / `Delete ruleset` 早就在词典里，但上游把菜单项拆成了 `Export` + `ruleset` / `Delete` + `ruleset` 两个文本节点，实机渲染出「删除 ruleset」就是直接证据（`Delete` 由 global 命中、`ruleset` 未收录）。补碎片键 `Export` / `ruleset` 与 tooltip `Ruleset menu`，用例同时钉住整句键仍可用（上游若回滚成单节点会直接命中）与拼接结果 |
 | `repo-settings/security-analysis.test.ts` | `/owner/repo/settings/security_analysis` | 安全分析子页（**2026-09-27 的 classic 版 outerHTML + 2026-10-17 维护者贴的整页实机 HTML**）。2026-10-17 上游**重写了整页文案**：新增 `Dependency Scanning` / `Code Security` 两个 h3、`Malware alerts` / `Dependabot auto-triage rules` / `Agentic autofix` 三个小标题，并把 Dependency graph / Dependabot alerts / Dependabot security updates / Grouped security updates / Dependabot version updates 的说明句整段换掉；`Continuously monitor …protect credentials.` 与既有 `GitHub will always send alerts…` 还被**合并进同一个文本节点**。旧句全部保留（是否仍渲染于灰度形态未经证实），新串逐条登记；用例分「旧版节点」「改版新节点」「改版拼接」「合并句的内部换行」四组钉住 |
-| `repo-settings/keys-secrets.test.ts` | `/owner/repo/settings/keys`、`/owner/repo/settings/secrets/{actions,agents,codespaces,dependabot}`（外加 `…/variables/actions`） | 部署密钥页与四支机密页（**证据是维护者 2026-09-27 与 2026-10-17 贴出的实机 HTML**）。各页说明句都断在 `<strong>加密</strong>` 处：前段只译到 `that are`，「的凭据 / 的环境变量」必须写在加密之后的节点里，拼接后才读得通——Codespaces 页的尾节点还把句点与下一句并成一段（`. Secrets are not passed to forks.`），Dependabot 页的 `<b>collaborator</b>` 单独成节点，故小写单数 `collaborator` 也按角色名收录（与既有复数键同译；计数规则 `repo-settings/collaborators-count` 只认「数字 + 词」，两者互不干扰）。机密页与变量页的 React 区块成对（secrets → variables），改一处要同步另一处。2026-10-17 又由**开发者模式导出的漏翻日志**（`github-zh-misses/1`）补上组织仓库多出的「Organization secrets / Organization variables」只读区块（表头 + 空态 + 跳转按钮）与表格列头 `Last updated` / `Value`——同一批日志里九成是用户内容、产品名与动态值，用例专门断言那些**必须保持英文** |
+| `repo-settings/keys-secrets.test.ts` | `/owner/repo/settings/keys`、`/owner/repo/settings/secrets/{actions,agents,codespaces,dependabot}`（外加 `…/variables/actions`） | 部署密钥页与四支机密页（**证据是维护者 2026-09-27 与 2026-10-17 贴出的实机 HTML**）。各页说明句都断在 `<strong>加密</strong>` 处：前段只译到 `that are`，「的凭据 / 的环境变量」必须写在加密之后的节点里，拼接后才读得通——Codespaces 页的尾节点还把句点与下一句并成一段（`. Secrets are not passed to forks.`），Dependabot 页的 `<b>collaborator</b>` 单独成节点，故小写单数 `collaborator` 也按角色名收录（与既有复数键同译；计数规则 `repo-settings/collaborators-count` 只认「数字 + 词」，两者互不干扰）。机密页与变量页的 React 区块成对（secrets → variables），改一处要同步另一处。2026-10-17 又由**开发者模式导出的漏翻日志**（`github-zh-misses/2`，先用 `bun run report:misses` 分拣）补上组织仓库多出的「Organization secrets / Organization variables」只读区块（表头 + 空态 + 跳转按钮）与表格列头 `Last updated` / `Value`——同一批日志里九成是用户内容、产品名与动态值，用例专门断言那些**必须保持英文** |
 | `repo-settings/code-quality.test.ts` | `/owner/repo/settings/code-quality` | 组织仓库的 Code quality 设置页（**证据是维护者 2026-10-17 贴出的 Koishi-CE/koishi 实机 HTML**）。组织级同页的文案与译文早在 `org-settings/code-quality.test.ts` 登记过，但**两条路由互斥**——仓库级路径命中 `pages/repo-settings`，拿不到组织模块的词条，于是整页又变回英文，本文件按同一批译文各收一份。三条边界事实：① 上游同日改写了 FAQ，代码覆盖率从「手动提交工作流文件」变成「打开 PR 合并 AI 生成的工作流 YAML」，两条答案各自拆成「前句 + `<span>` 后句」；② 本页按钮是小写 q 的 `Enable code quality`，组织页那条大写 Q 的键在本模块不存在（用例反向钉住）；③ 另收同次采集的两条周边文案——组织策略横幅的前两段（`<b>组织名</b>` 两侧，后三段与部署密钥页 `We recommend using` 那组同键同译）与被政策锁住的 `Alert dismissals require submitting a request to …`（与 `Actors must submit requests to dismiss an alert.` 是两种不同措辞）。**没有新规则**，故 `check:view` 快照不动 |
 | `org-settings/profile.test.ts` | `/organizations/<组织>/settings/profile` | 组织资料页（**证据是途径 A 导出的漏翻清单**，2026-10-03：侧栏 49 项、设置外壳与表单标签全部命中，预览标签的 title / aria-label 同串也锁住。这一页同时是**路由排除的回归**：排除前整包仓库设置词条会注入组织设置页（实机把 `Actions` 译成「Actions 工作流」是仓库模块干的），排除后这两条由本模块自己提供、措辞保持一致。国家 / 地区下拉的名称、社交平台品牌名、产品名（Dependabot / Copilot / OIDC）与组织名都按反例断言保持英文。同日晚些时候维护者又贴了该页**下半页**（产品内消息 / Patreon / GitHub Developer Program / 服务条款 / 危险区域三个对话框）的实机 HTML，由第二组用例按标签真实嵌套登记——含被 `<strong>` 切开的 `We` + `will`、`Please type` + 组织名 + `to confirm.`、`Deleting the` + 组织名 + ` organization will delete…`，以及 `data-disable-with="Accepting terms..."` 和四组 aria-label / placeholder 属性） |
 | `org-settings/policies-repositories.test.ts` | `/organizations/<组织>/settings/policies/repositories` | 组织仓库策略页（同一条途径 A 清单：页面标题 `Settings · Repository policies · Koishi-CE` 走 `org-settings/page-title` 规则，中段页面名保留英文、末段组织名原样带回；rulesets 提示是**同一句被链接拆开**的两段，拼接后读作「组织规则集将不会强制执行 直到你将此组织账户升级为 GitHub Team。」；国家 / 地区下拉按维护者拍板暂不收录。同日维护者又贴了该页**实机 HTML 与截图**，锁住空态（`You haven't created any policies` → 「你还没有创建任何策略」、`New policy` → 「新建策略」，与 pages/repo-settings 的 Actions 策略页同键同义）与被 React 拆开的「进一步了解 policies.」链接——`Learn more about` 由 global 的短键命中、剩下的片段漏翻，而 outerHTML 把相邻文本节点拼在一起输出、看不出片段含不含句点，故 `policies` / `policies.` / `Learn more about policies.` 三种形态都收） |
@@ -641,7 +641,7 @@ Added on Mar 6, 2026
 
 ### 批量补词条
 
-从开发者模式导出的 JSON 往往一次带来几百条待补词条。路径是纯数据追加：先按模块把键登记进 `core/canonical.jsonc`，再往 `locales/<语言>/` 的对应文件追加键值对。不必担心「重复键被静默覆盖」——单文件重复键由 Biome 报错，跨模块同键异译由模块顺序决定（见 `registry.ts` 注释）。
+从开发者模式导出的 JSON 往往一次带来几百条记录。先跑 `bun run report:misses` 分拣（见「把日志变成清单」），剩下的候选再按模块登记：先把键写进 `core/canonical.jsonc`，再往 `locales/<语言>/` 的对应文件追加键值对。不必担心「重复键被静默覆盖」——单文件重复键由 Biome 报错，跨模块同键异译由模块顺序决定（见 `registry.ts` 注释）。
 
 ## 手工加载与调试
 
@@ -668,24 +668,54 @@ popup 底部的「开发者模式」开关**默认关闭**，用于系统性发�
 
 - 文本节点：未命中静态词条与正则规则、且**不含非拉丁字母**的可见 UI 文本（trim 后原文）；已经含中文等文字的混合节点不收集，避免把 GitHub 已翻译的术语、用户名称和中英混排标签当成整条漏翻；
 - 属性：`title` / `aria-label` / `placeholder` / `alt` 未命中词条的原值；含非拉丁字母的混合属性同样跳过（引擎另外还翻译按钮类 `value` / `data-disable-with`，共 6 项；收集时这两项归到 `aria-label` 这一类，故 `MissKind` 只有 4 个属性名）；
+- `context` 是记录时所在元素的上下文标签（`tag` 或 `tag.首类名`，如 `th`、`button.prc-Button-ButtonBase-9n-Xk`）：光看 `Value` / `Last updated` 这类短文案分不清它是表头、按钮还是表单标签，而「该不该收、收在哪个模块」正取决于元素种类。文本节点取父元素、属性取元素本身；游离节点为空串；类名只取第一个，CSS Modules 的哈希尾巴不清洗（清洗规则本身会成为新的维护点）；
 - `text` 是未命中的候选文案，不保证应该翻译：GitHub 品牌、产品名、缩写和用户名可能有意保留英文，登记前仍需结合页面判断；
 - 缓冲上限 300 条、落盘上限 500 条（满了保留先收集的）；同一 DOM 节点在同一路径下反复扫描只计一次，`count` 表示跨采集页面实例累计的节点数。相同文案在不同 pathname 分开记录；
-- 采集语义升级时会重置旧版日志，避免旧版扫描次数和混合语言记录混入新导出；手动开始一轮新采集仍可在 popup 点「清空」。
+- 采集语义升级（`MISS_LOG_REVISION`，当前 `3`）时会重置旧版日志，避免旧版扫描次数和混合语言记录混入新导出；手动开始一轮新采集仍可在 popup 点「清空」。
 
 导出 JSON 结构（排序：path 升序 → count 降序 → text 升序）：
 
-> `schema` 字段里的 `github-zh-misses/1` 是**故意保留的旧名**：它是用户粘贴回来的 JSON 里的字段值，
-> 改名会让已经导出的旧数据无法被识别。仓库改名不影响它。
+> `schema` 的版本号与采集语义绑定：`2` 版在每条记录里加了 `context`，`1` 版没有。
+> 旧导出不会被拒绝——`parseExport` 对缺失的 `context` 按空串补，`report:misses` 照样能跑；
+> 只是少了「这条文案长在哪种元素上」这层信息。
 
 ```json
 {
-  "schema": "github-zh-misses/1",
-  "exportedAt": "2026-09-25T12:00:00.000Z",
+  "schema": "github-zh-misses/2",
+  "exportedAt": "2026-10-17T12:54:04.355Z",
   "items": [
-    { "text": "Some English Text", "kind": "text", "path": "/owner/repo/pulls", "count": 3 }
+    { "text": "Organization secrets", "kind": "text", "path": "/Koishi-CE/koishi/settings/secrets/actions", "context": "h3", "count": 3 }
   ]
 }
 ```
+
+### 把日志变成清单（`bun run report:misses`）
+
+原始日志**不是待办清单**：它只保证「这条文本没命中词典」，分不清它是漏翻、用户内容还是产品名。
+`tooling/miss-report.ts` 把判断固化成规则，先分拣再动手：
+
+```bash
+bun run report:misses ~/Downloads/misses.json
+```
+
+判定顺序与理由（命中即停，实现见 `classifyRow`）：
+
+| 判定 | 触发条件 | 处理 |
+| --- | --- | --- |
+| `product` | 产品名清单（`GitHub` / `Copilot` / `Dependabot` / `OIDC` / `CodeQL` / `GitHub Apps` / `GitHub Actions`） | 有意保留英文 |
+| `fixed` | 本路径当前已能命中 | 导出之后词典更新过，无需处理 |
+| `knownElsewhere` | 只在**别的模块**收录过 | **路由互斥**：本路径拿不到，考虑在本模块也收一份——组织页 / 仓库页那类漏翻全靠它暴露 |
+| `userContent` | 全大写标识符、长随机串、`owner/repo`、`@提及`、小写单词或快捷键、日期样式、纯数字、含 `·` 的文档标题 | 用户内容，不该进词典 |
+| `dynamic` | 含数字 | 静态键覆盖不了；**属性值连正则规则都不生效**（见下） |
+| `candidate` | 以上都不中 | 才轮到登记：按 `path` 分组、按 `count` 降序，并给出建议模块 |
+
+2026-10-17 用真实日志校准过：约 200 条里 10 条是候选（组织级机密区块、表格列头、仓库头部状态组件），
+其余是用户内容 110+、产品名 30+、动态值 20+、文档标题 12、快捷键 1。
+
+**日志里必然存在、但架构上永远不可覆盖的一类**（别反复怀疑「是不是漏了」）：
+
+- 动态属性值：`7 / 7 checks OK`、`Repository starred by 7 people, including you`、`Copy value of APP_PRIVATE_KEY`、`Delete GITLAB_TOKEN`。属性翻译只走**精确命中**、不应用正则规则（防表单标识符被改坏），这些串只能永远保留英文；
+- 用户内容：机密名、仓库名、组织名、用户名。`text` 里出现它们不是漏翻。
 
 ## 隐私
 

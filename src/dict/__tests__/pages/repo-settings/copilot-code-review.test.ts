@@ -22,6 +22,8 @@ const view = buildView(
 
 /** 实机节点原文 → 期望译文 */
 const NODES: readonly (readonly [string, string])[] = [
+	// 侧栏当前项：`<span class="ActionListItem-label">Code review</span>`（大写 C、小写 r）
+	["Code review", "代码审查"],
 	[
 		"With Copilot code review, you can add Copilot as a reviewer to your pull requests, including drafts. You can also select lines in Visual Studio Code and ask Copilot to review and comment on specific sections.",
 		"借助 Copilot 代码审查，你可以将 Copilot 添加为拉取请求的审查者，包括草稿拉取请求。你还可以在 Visual Studio Code 中选择代码行，让 Copilot 审查并评论特定代码段。",
@@ -182,6 +184,26 @@ describe("仓库设置页的 Copilot 代码审查子页的实机节点边界", (
 		]);
 		expect(rendered.trim()).toBe(
 			"启用后， 外部 Copilot 许可证 无法在此仓库内运行 Copilot 审查。",
+		);
+	});
+
+	it("translates the sidebar label despite the source newlines", () => {
+		// 实机该 span 的 innerHTML 自带换行与缩进（`\n          Code review\n        `），
+		// 靠引擎的 normalizeKey（trim + 折叠空白）命中；若哪天有人把它改写成
+		// 带多个空格的键，这条会先红
+		expect(
+			translateText(
+				"\n          Code review\n        ",
+				view,
+			),
+		).toBe("代码审查");
+		// 三条只差大小写 / 后缀的键各走各的：侧栏当前项、global 的大写 R 版本、
+		// 同模块的 `Code review limits`
+		expect(translateText("Code Review", view)).toBe(
+			"代码审查",
+		);
+		expect(translateText("Code review limits", view)).toBe(
+			"代码审查限制",
 		);
 	});
 

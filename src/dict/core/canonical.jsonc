@@ -2257,6 +2257,10 @@
 				"Cloud agent",
 				"Internet access",
 				"MCP servers",
+				// 2026-10-17 实机侧栏（`ActionListItem-label`）：Copilot 分组下的 `Code review`
+				// 与 global 的 `Code Review` 只差一个字母的大小写，是两条不同的键（大小写敏感、
+				// 整节点精确匹配），故必须在本模块另收一份，否则该侧栏项恒为英文
+				"Code review",
 				"Integrations",
 				"GitHub Apps",
 				"Security and quality",

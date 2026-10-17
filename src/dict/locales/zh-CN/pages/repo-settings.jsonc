@@ -60,6 +60,9 @@
 		"Cloud agent": "云端代理",
 		"Internet access": "网络访问",
 		"MCP servers": "MCP 服务器",
+		// 侧栏 Copilot 分组的当前页项（`Code review`，小写 r）——与 global 的 `Code Review`
+		// 是两条键，同译「代码审查」；与同模块的 `Code review limits`（代码审查限制）互不干扰
+		"Code review": "代码审查",
 		"Integrations": "集成",
 		"GitHub Apps": "GitHub 应用",
 		"Security and quality": "安全与质量",

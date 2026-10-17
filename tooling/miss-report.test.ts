@@ -11,6 +11,7 @@ import {
 	loadLocaleDict,
 	type MissExportItem,
 	parseExport,
+	userContentReason,
 } from "./miss-report.ts";
 
 const dict = loadLocaleDict("zh-CN");
@@ -108,6 +109,19 @@ describe("isUserContent", () => {
 		}
 	});
 
+	it("recognises commit subjects as user content", () => {
+		// 2026-10-17 的洞察日志里出现的形态：`chore(deps): bump …`。
+		// 不含数字的那种（`fix: typo`）旧判定会落进候选，正是会骗人去收的一条
+		for (const raw of [
+			"chore(deps): bump cac from 7.0.0 to 7.0.1",
+			"chore(deps-dev): bump jsdom from 30.1.1 to 30.1.2",
+			"chore(deps): bump the all-dependencies group with 10 updates",
+			"fix: typo",
+		]) {
+			expect(isUserContent(raw), raw).toBe(true);
+		}
+	});
+
 	it("leaves real UI labels alone", () => {
 		for (const raw of [
 			"Value",
@@ -186,6 +200,68 @@ describe("classify", () => {
 		expect(rows[0]?.modules).toEqual([]);
 	});
 
+	it("uses the record's path and context to spot the owner, the repo and avatar names", () => {
+		// 2 版日志的 `context` 就是为这一类准备的：`Koishi-CE` 是路径里的组织名，
+		// `M. Oppenheymu` 是头像的 alt；两者词形上都是「单个大写开头的词」，
+		// 光看文本与 `People` 这种真标签分辨不开
+		const rows = classify(
+			[
+				item({
+					text: "Koishi-CE",
+					path: "/Koishi-CE/koishi/graphs/contributors",
+					context: "span",
+				}),
+				item({
+					text: "M. Oppenheymu",
+					kind: "alt",
+					path: "/Koishi-CE/koishi/pulse",
+					context: "img.prc-Avatar-Avatar-0xaUi",
+				}),
+			],
+			dict,
+			aliases,
+		);
+		expect(rows.map((row) => row.verdict)).toEqual([
+			"userContent",
+			"userContent",
+		]);
+		expect(rows[0]?.reason).toContain("组织名");
+		expect(rows[1]?.reason).toContain("头像");
+	});
+
+	it("does not mistake a deeper path segment for user content", () => {
+		// 只认 owner / repo 两段：`contributors` 是路径第三段。
+		// 这里直接断言判定的**规则**（该词本身已在词典里，用 classify 会被「已修复」遮住）
+		expect(
+			userContentReason(
+				item({
+					text: "Contributors",
+					path: "/Koishi-CE/koishi/graphs/contributors",
+				}),
+				"Contributors",
+			),
+		).toBeUndefined();
+	});
+
+	it("warns when a one-word fragment is covered only by other modules", () => {
+		// `and` 在设置模块里确实各收过一条（拼句用），于是报告会建议「本模块也收一份」——
+		// 而洞察页的 `and` 是被 <a>/<strong> 切开的连词，补了就会在每个句子里插一个「和」。
+		// 这一条提醒是 2026-10-17 的洞察日志逼出来的。
+		const rows = classify(
+			[
+				item({
+					text: "and",
+					path: "/Koishi-CE/koishi/pulse",
+					context: "span",
+				}),
+			],
+			dict,
+			aliases,
+		);
+		expect(rows[0]?.verdict).toBe("knownElsewhere");
+		expect(rows[0]?.reason).toContain("碎片");
+	});
+
 	it("keeps product names, user content and dynamic values out of the list", () => {
 		expect(verdictOf(item({ text: "GitHub" }))).toBe(
 			"product",
@@ -254,6 +330,25 @@ describe("formatReport", () => {
 		expect(report).toContain(
 			"合计：候选 2 / 路由互斥 1 / 已修复 0",
 		);
+	});
+
+	it("warns about one-word fragments inside the mutual-exclusion list", () => {
+		const rows = classify(
+			[
+				item({
+					text: "and",
+					path: "/Koishi-CE/koishi/pulse",
+					context: "span",
+				}),
+			],
+			dict,
+			aliases,
+		);
+		const report = formatReport(rows, {
+			file: "misses.json",
+			exportedAt: "",
+		});
+		expect(report).toContain("单个小写单词");
 	});
 
 	it("lists the architectural limits apart from the candidate list", () => {

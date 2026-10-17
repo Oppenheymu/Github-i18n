@@ -5952,7 +5952,26 @@
 				"Period:",
 				"Open pull requests",
 				"commits",
+				// —— Pulse 概览卡（新版卡片；可见文本与进度条 aria-label 同串同译）——
+				// 证据：维护者 2026-10-17 的 `github-zh-misses/2` 导出（/pulse 与
+				// /graphs/contributors 两页）。
+				"Active issues",
+				"Closed issues",
+				"New issues",
+				"Active pull requests",
+				"Merged pull requests",
+				"View merged pull requests",
 				// —— 洞察侧栏 ——
+				// 同一侧栏在 pulse / graphs / forks / security / projects 五支上渲染，
+				// 故补一次覆盖五页；`People` / `Dependency graph` 与 pages/profile、
+				// pages/settings 同键同译（那两条路由不命中洞察页，必须各收一份）。
+				"Traffic",
+				"People",
+				"Dependency graph",
+				"Network",
+				"Admin insights",
+				"Actions performance metrics",
+				"Actions usage metrics",
 				"Code frequency",
 				"Community standards",
 				// —— Forks 复刻列表 ——
@@ -5994,6 +6013,16 @@
 				"'s Commits",
 				"Weekly from",
 				"over time",
+				// 图表卡片标题是整句（`Commits over time. Interactive chart.`），与纯图表
+				// 区域的 `Interactive chart.` 碎片是两条键；Highcharts 的数据点
+				// aria-label（`Sunday, Aug 23, 2026, 170. Commits.`）含动态值，不收录。
+				"Contributions:",
+				"Top committers",
+				"Commits over time. Interactive chart.",
+				"Top committers. Interactive chart.",
+				"Start of selected range",
+				"End of selected range",
+				"The chart has 1 X axis displaying categories.",
 				// —— 图表读屏属性（属性只做整串精确匹配，不带规则）——
 				"Axis zoom",
 				"Start, percent",

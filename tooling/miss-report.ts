@@ -265,6 +265,11 @@ const DATE_LIKE = /^[A-Z][a-z]{2} \d{1,2}, \d{4}/;
 const NUMBER_LIKE = /^[\d\s.,:+-]+$/;
 /** 文档标题：`Actions secrets · Koishi-CE/koishi` */
 const DOC_TITLE = /·/;
+/**
+ * 提交信息（Conventional Commits）：`chore(deps): bump cac from 7.0.0 to 7.0.1`、
+ * `fix: typo`。这类串常常不含数字，落进候选就会骗人去收一条**永远不该翻译**的提交信息。
+ */
+const COMMIT_SUBJECT = /^[a-z][a-z0-9-]*(?:\([^)]*\))?!?: /;
 
 /** 这条文案是否明显是用户内容 / 标识符 / 快捷键（不该进词典） */
 export function isUserContent(text: string): boolean {
@@ -276,8 +281,66 @@ export function isUserContent(text: string): boolean {
 		MENTION.test(text) ||
 		LOWER_WORDS.test(text) ||
 		DATE_LIKE.test(text) ||
-		NUMBER_LIKE.test(text)
+		NUMBER_LIKE.test(text) ||
+		COMMIT_SUBJECT.test(text)
 	);
+}
+
+/** 路径里的 owner / repo（`/Koishi-CE/koishi/graphs/contributors` → Koishi-CE、koishi） */
+export function pathOwnerRepo(
+	path: string,
+): readonly string[] {
+	const [owner = "", repo = ""] = path.split("/").slice(1);
+	return [owner, repo].filter((part) => part !== "");
+}
+
+/** 这段文本是不是本页路径里的组织名 / 仓库名（大小写不敏感） */
+function isOwnerOrRepo(
+	item: MissExportItem,
+	text: string,
+): boolean {
+	const lower = text.toLowerCase();
+	return pathOwnerRepo(item.path).some(
+		(part) => part.toLowerCase() === lower,
+	);
+}
+
+/** 图片 alt 上的显示名：头像的 alt 是用户名 / 显示名（`Oppenheymu`、`M. Oppenheymu`） */
+function isAvatarAlt(item: MissExportItem): boolean {
+	return (
+		item.kind === "alt" && /^img(?:\.|$)/.test(item.context)
+	);
+}
+
+/**
+ * 像「被行内标签切开的碎片」：单个小写单词（`and` / `to` / `by`）或单字符（`s`）。
+ *
+ * 这一判定只用于给 `knownElsewhere` **加一句提醒**，不改判定：`and` 这类词在设置模块里
+ * 确实各收过一条（拼句用），所以报告会建议「本模块也收一份」——而那正是会让摘要句
+ * 变成「…和…和…」的那一步。看到这条提醒就该回去要整句的可见文本。
+ */
+export function isFragmentLike(text: string): boolean {
+	return (
+		/^[a-z]{1,8}$/.test(text) || /^[A-Za-z]$/.test(text)
+	);
+}
+
+/**
+ * 用户内容的具体来路：报告里要能说清「为什么这不是漏翻」。
+ * 四类词形判定在 `isUserContent`，另两类要靠记录里的 `path` / `context`——
+ * 这正是 2 版日志带上 `context` 的用处。
+ */
+export function userContentReason(
+	item: MissExportItem,
+	text: string,
+): string | undefined {
+	if (isUserContent(text))
+		return "用户内容 / 标识符 / 快捷键，不该进词典";
+	if (isOwnerOrRepo(item, text))
+		return "就是本页路径里的组织名 / 仓库名";
+	if (isAvatarAlt(item))
+		return "图片 alt 上的显示名 / 登录名（头像）";
+	return undefined;
 }
 
 /** 词条索引：合并视图 + 每个键由哪些模块提供（用于「路由互斥」判定） */
@@ -371,15 +434,18 @@ function classifyRow(
 			item,
 			verdict: "knownElsewhere",
 			modules: owners,
-			reason: "别的模块已收录，本路径拿不到（路由互斥）",
+			reason: isFragmentLike(text)
+				? "别的模块已收录，本路径拿不到（路由互斥）；**单个小写单词多是被行内标签切开的碎片**，先要整句再决定"
+				: "别的模块已收录，本路径拿不到（路由互斥）",
 		};
 	}
-	if (isUserContent(text)) {
+	const userReason = userContentReason(item, text);
+	if (userReason !== undefined) {
 		return {
 			item,
 			verdict: "userContent",
 			modules: [],
-			reason: "用户内容 / 标识符 / 快捷键，不该进词典",
+			reason: userReason,
 		};
 	}
 	if (/\d/.test(text)) {
@@ -474,7 +540,12 @@ export function formatReport(
 		appendGroup(
 			lines,
 			elsewhere,
-			(row) => `← ${row.modules.join("、")}`,
+			(row) =>
+				`← ${row.modules.join("、")}${
+					isFragmentLike(normalizeKey(row.item.text))
+						? "（⚠️ 单个小写单词，多半是被行内标签切开的碎片，先要整句再补）"
+						: ""
+				}`,
 		);
 		lines.push("");
 	}

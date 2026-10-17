@@ -15,7 +15,30 @@
 		"Period:": "时间段：",
 		"Open pull requests": "打开的拉取请求",
 		"commits": "次提交",
-		// —— 洞察侧栏 ——
+		// —— Pulse 概览卡（新版卡片：可见标签与进度条的 aria-label 是两个节点）——
+		// 证据：维护者 2026-10-17 贴的 `github-zh-misses/2` 导出（/pulse 与
+		// /graphs/contributors 两页）。五条标签在实机里既有 `div.mt-2` 里的可见文本，
+		// 也有 `span.prc-ProgressBar-ProgressBarItem` 上的 aria-label，同串同译。
+		"Active issues": "活跃的议题",
+		"Closed issues": "已关闭的议题",
+		"New issues": "新建议题",
+		"Active pull requests": "活跃的拉取请求",
+		"Merged pull requests": "已合并的拉取请求",
+		"View merged pull requests": "查看已合并的拉取请求",
+		// —— 洞察侧栏（`nav.menu` + `a.js-selected-navigation-item`，五个洞察子页共用）——
+		// 证据同上（两侧栏项在 /graphs/contributors 与 /pulse 上逐字相同）。
+		// `People` 与 `Dependency graph` 在 pages/profile、pages/settings 里早有词条，
+		// 但那两条路由不命中洞察页，故本模块各收一份、译文逐字一致（`Payment history` 先例）；
+		// 写成不同译文会让 check:view 的「同键异译赢家」第一次非空，且没有任何收益。
+		"Traffic": "流量",
+		"People": "成员",
+		"Dependency graph": "依赖项关系图",
+		"Network": "网络",
+		// 侧栏分组标题是 `nav.menu` 的 aria-label（属性只走精确命中）
+		"Admin insights": "管理洞察",
+		"Actions performance metrics": "Actions 性能指标",
+		"Actions usage metrics": "Actions 用量指标",
+		// —— 洞察侧栏（旧版）——
 		"Code frequency": "代码频率",
 		"Community standards": "社区标准",
 		// —— Forks 复刻列表 ——
@@ -55,6 +78,20 @@
 		"'s Commits": " 的提交",
 		"Weekly from": "每周，自",
 		"over time": "随时间变化",
+		// —— 图表卡片标题与 Highcharts 读屏文案（2026-10-17 导出）——
+		// 卡片标题在实机是**整句**（`Commits over time. Interactive chart.`），
+		// 已有的 `Interactive chart.` 碎片只在纯图表区域的节点上命中，卡片标题必须整句收；
+		// 这两个整句与 `Title. Interactive chart.` 的拼接结果逐字相同，译文也保持一致。
+		// 不收录：`Commits, series 1 of 2. Bar series with 8 bars. Y axis, Contributions.
+		// X axis, Time.` 与 `Navigator 1, series 2 of 2 with 8 data points. …`——它们含
+		// 数据点个数与轴 id，属动态值（属性又只做精确匹配，收了也永远不命中）。
+		"Contributions:": "贡献：",
+		"Top committers": "提交最多的贡献者",
+		"Commits over time. Interactive chart.": "随时间变化的提交。交互式图表。",
+		"Top committers. Interactive chart.": "提交最多的贡献者。交互式图表。",
+		"Start of selected range": "所选范围的起点",
+		"End of selected range": "所选范围的终点",
+		"The chart has 1 X axis displaying categories.": "图表有 1 个 X 轴，显示类别。",
 		// —— 图表读屏属性（属性只做整串精确匹配，不带规则）——
 		"Axis zoom": "坐标轴缩放",
 		"Start, percent": "起点，百分比",

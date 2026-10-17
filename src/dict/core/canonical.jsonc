@@ -3646,6 +3646,26 @@
 				"Repository variables",
 				"This repository has no variables.",
 				"New repository variable",
+				// —— Agents / Codespaces / Dependabot 三个机密页（/owner/repo/settings/secrets/<scope>）——
+				// 依据：维护者 2026-10-17 贴出的三页实机 HTML（页面带着本扩展渲染，故
+				// 「机密」「变量」「仓库机密」「此仓库没有机密。」「新建仓库机密」都是既有词条的
+				// 产物，不是待补节点）。
+				// 节点边界：Codespaces 与 Dependabot 两页的说明句都断在 `<strong>加密</strong>`
+				// 处——前段只到 `that are`，加密之后的「的凭据 / 的环境变量」在下一节点里；
+				// Codespaces 页的尾节点还把句点与下一句并成一段（`. Secrets are not passed to
+				// forks.`），Dependabot 页的 `<b>collaborator</b>` 单独成节点，故小写单数
+				// `collaborator` 也按角色名收录（与既有的复数键同译）。
+				"Agents secrets and variables",
+				"Anyone with collaborator access to this repository can use these secrets and variables for the Copilot cloud agent.",
+				"Codespaces secrets",
+				"Development environment secrets are environment variables that are",
+				". Secrets are not passed to forks.",
+				"Secrets are not passed to forks.",
+				"Dependabot secrets",
+				"Secrets are credentials that are",
+				". Anyone with",
+				"collaborator",
+				"access to this repository can use these secrets for Dependabot.",
 				// —— 环境页的列表说明 + 新建页 + 配置页 ——
 				// （/owner/repo/settings/environments、…/environments/new、…/environments/<id>）
 				// 依据：维护者 2026-09-27 提供的实机 outerHTML（三处页面片段）。列表页的空态三句

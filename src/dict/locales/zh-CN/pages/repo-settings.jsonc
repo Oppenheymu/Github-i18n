@@ -1371,6 +1371,21 @@
 		"Repository variables": "仓库变量",
 		"This repository has no variables.": "此仓库没有变量。",
 		"New repository variable": "新建仓库变量",
+		// —— Agents / Codespaces / Dependabot 三个机密页（/owner/repo/settings/secrets/<scope>）——
+		// 与 Actions 机密页同一套拆节点写法：说明句断在 `<strong>加密</strong>` 处，前段只译到
+		// 「机密是经过」，加密之后的「的凭据 / 的环境变量」写进下一节点，拼接后读得通。
+		// `Agents` 沿用侧栏词条（「代理」）；`Dependabot` 是产品名，保留英文。
+		"Agents secrets and variables": "代理机密与变量",
+		"Anyone with collaborator access to this repository can use these secrets and variables for the Copilot cloud agent.": "任何对此仓库有协作者访问权限的人都可以将这些机密与变量用于 Copilot 云端代理。",
+		"Codespaces secrets": "代码空间机密",
+		"Development environment secrets are environment variables that are": "开发环境机密是经过",
+		". Secrets are not passed to forks.": "的环境变量。机密不会传递给复刻。",
+		"Secrets are not passed to forks.": "机密不会传递给复刻。",
+		"Dependabot secrets": "Dependabot 机密",
+		"Secrets are credentials that are": "机密是经过",
+		". Anyone with": "的凭据。任何具有",
+		"collaborator": "协作者",
+		"access to this repository can use these secrets for Dependabot.": "访问权限的人都可以将这些机密用于 Dependabot。",
 		// —— 环境页的列表说明（/owner/repo/settings/environments 底部）——
 		"You can configure environments with protection rules, variables, and secrets.": "你可以为环境配置保护规则、变量和机密。",
 		"Learn more about configuring environments.": "进一步了解如何配置环境。",

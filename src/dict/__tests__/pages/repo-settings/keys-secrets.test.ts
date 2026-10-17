@@ -3,6 +3,12 @@
 //   /owner/repo/settings/secrets/actions   Actions 机密（与 /settings/variables/actions
 //                                          共用页头与页签，故 Variables 页签也在这里验证）
 //
+// 2026-10-17 追加三支同级机密页（维护者贴出的实机 HTML）：
+//   /owner/repo/settings/secrets/agents       Agents 机密与变量
+//   /owner/repo/settings/secrets/codespaces   Codespaces 机密
+//   /owner/repo/settings/secrets/dependabot   Dependabot 机密
+// 三页的页头说明都断在 `<strong>加密</strong>` 处，拆节点写法与 Actions 页一致。
+//
 // 边界强度：**实机 outerHTML 实证**（2026-09-27 维护者提供，页面带着本扩展渲染）。
 // 因此实机里的「部署密钥」「GitHub 应用」已是既有词条的产物，不是待补节点——调试时别把它们
 // 当成「中文节点混进清单」。
@@ -40,6 +46,27 @@ const secretsView = buildView(
 /** /Oppenheymu/Github-i18n/settings/variables/actions 命中的模块视图 */
 const variablesView = buildView(
 	"/Oppenheymu/Github-i18n/settings/variables/actions",
+	dict,
+	aliases,
+);
+
+/** /Oppenheymu/Github-i18n/settings/secrets/agents 命中的模块视图 */
+const agentsSecretsView = buildView(
+	"/Oppenheymu/Github-i18n/settings/secrets/agents",
+	dict,
+	aliases,
+);
+
+/** /Oppenheymu/Github-i18n/settings/secrets/codespaces 命中的模块视图 */
+const codespacesSecretsView = buildView(
+	"/Oppenheymu/Github-i18n/settings/secrets/codespaces",
+	dict,
+	aliases,
+);
+
+/** /Oppenheymu/Github-i18n/settings/secrets/dependabot 命中的模块视图 */
+const dependabotSecretsView = buildView(
+	"/Oppenheymu/Github-i18n/settings/secrets/dependabot",
 	dict,
 	aliases,
 );
@@ -138,6 +165,59 @@ const MUST_STAY_ENGLISH: readonly string[] = [
 	"GitHub",
 	"Oppenheymu",
 	"Github-i18n",
+];
+
+/** Agents 机密与变量页的节点（实机 HTML 的页头、页签与 React 区块） */
+const AGENTS_NODES: readonly (readonly [string, string])[] =
+	[
+		["Agents secrets and variables", "代理机密与变量"],
+		[
+			"Anyone with collaborator access to this repository can use these secrets and variables for the Copilot cloud agent.",
+			"任何对此仓库有协作者访问权限的人都可以将这些机密与变量用于 Copilot 云端代理。",
+		],
+		// nav 的 aria-label 与两个页签（与 Actions 页同串，本模块内复用同一批键）
+		["Secrets or variables tab", "机密或变量标签页"],
+		["Secrets", "机密"],
+		["Variables", "变量"],
+		// React 区块：实机里已是中文，锁住不让上游改版悄悄回退
+		["Repository secrets", "仓库机密"],
+		["This repository has no secrets.", "此仓库没有机密。"],
+		["New repository secret", "新建仓库机密"],
+	];
+
+/** Codespaces 机密页：说明句断在 `<strong>加密</strong>` 处，尾节点把句点与下一句并在一起 */
+const CODESPACES_NODES: readonly (readonly [
+	string,
+	string,
+])[] = [
+	["Codespaces secrets", "代码空间机密"],
+	[
+		"Development environment secrets are environment variables that are",
+		"开发环境机密是经过",
+	],
+	[
+		". Secrets are not passed to forks.",
+		"的环境变量。机密不会传递给复刻。",
+	],
+];
+
+/** Dependabot 机密页：`<b>collaborator</b>` 单独成节点，故小写单数也按角色名收录 */
+const DEPENDABOT_NODES: readonly (readonly [
+	string,
+	string,
+])[] = [
+	["Dependabot secrets", "Dependabot 机密"],
+	["Secrets are credentials that are", "机密是经过"],
+	[". Anyone with", "的凭据。任何具有"],
+	["collaborator", "协作者"],
+	[
+		"access to this repository can use these secrets for Dependabot.",
+		"访问权限的人都可以将这些机密用于 Dependabot。",
+	],
+	[
+		"Secrets are not passed to forks.",
+		"机密不会传递给复刻。",
+	],
 ];
 
 /** 节点在实机里通常带源码缩进与换行；两种形态都必须命中 */
@@ -278,5 +358,87 @@ describe("仓库设置页的 Actions 机密与变量页的实机节点边界", (
 				).toBe(expected);
 			}
 		}
+	});
+});
+
+/** 三个并列机密页共用的断言：一组「视图 + 实机节点」 */
+function expectNodesTranslated(
+	view: ReturnType<typeof buildView>,
+	nodes: readonly (readonly [string, string])[],
+): void {
+	for (const [node, expected] of nodes) {
+		for (const variant of withWhitespace(node)) {
+			expect(
+				translateText(variant, view),
+				`节点 ${JSON.stringify(variant)}`,
+			).toBe(expected);
+		}
+	}
+}
+
+describe("仓库设置页的 Agents / Codespaces / Dependabot 机密页", () => {
+	it("translates every node of the three scoped secrets pages", () => {
+		// 证据：维护者 2026-10-17 贴出的三页实机 HTML（三页共用一个模板，
+		// 只有页头与说明句换词；`仓库机密` / `此仓库没有机密。` / `新建仓库机密`
+		// 在实机里已是中文，属既有词条，这里一并锁住）
+		expectNodesTranslated(agentsSecretsView, AGENTS_NODES);
+		expectNodesTranslated(
+			codespacesSecretsView,
+			CODESPACES_NODES,
+		);
+		expectNodesTranslated(
+			dependabotSecretsView,
+			DEPENDABOT_NODES,
+		);
+	});
+
+	it("reassembles the sentences split around the encrypted word", () => {
+		// 两页的说明句都断在 `<strong>加密</strong>` 处：前段只译到「机密是经过」，
+		// 「的凭据 / 的环境变量」必须写在加密之后的节点里，拼接后才读得通
+		expect(
+			renderNodes(
+				[
+					"Development environment secrets are environment variables that are",
+					"加密",
+					". Secrets are not passed to forks.",
+				],
+				codespacesSecretsView,
+			),
+		).toBe(
+			"开发环境机密是经过加密的环境变量。机密不会传递给复刻。",
+		);
+		expect(
+			renderNodes(
+				[
+					"Secrets are credentials that are",
+					"加密",
+					". Anyone with",
+					"collaborator",
+					"access to this repository can use these secrets for Dependabot.",
+				],
+				dependabotSecretsView,
+			),
+		).toBe(
+			"机密是经过加密的凭据。任何具有协作者访问权限的人都可以将这些机密用于 Dependabot。",
+		);
+	});
+
+	it("keeps the three headers apart from the Actions one", () => {
+		// 四个机密页共用模板，页头是各自的整节点键；`Codespaces` 单词由 global 兜底
+		for (const view of [
+			agentsSecretsView,
+			codespacesSecretsView,
+			dependabotSecretsView,
+		]) {
+			expect(
+				translateText(
+					"Actions secrets and variables",
+					view,
+				),
+			).toBe("Actions 机密与变量");
+		}
+		expect(
+			translateText("Codespaces", codespacesSecretsView),
+		).toBe("代码空间");
 	});
 });

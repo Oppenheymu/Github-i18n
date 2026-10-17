@@ -31,15 +31,18 @@ describe("仓库设置 Access 子页的计数链接", () => {
 	});
 
 	it("leaves the bare word to the static entries", () => {
-		// 侧栏项 `Collaborators`（大写）走静态词条；小写复数是规则集横幅的既有碎片键；
-		// 小写单数没有词条，也不会命中计数规则
+		// 侧栏项 `Collaborators`（大写）走静态词条；小写复数与单数都是角色词，
+		// 同译「协作者」——单数是 Dependabot 机密页说明句里 `<b>collaborator</b>`
+		// 那个独立节点（2026-10-17 补收），计数规则只认「数字 + 词」故互不干扰
 		expect(translateText("Collaborators", view)).toBe(
 			"协作者",
 		);
 		expect(translateText("collaborators", view)).toBe(
 			"协作者",
 		);
-		expect(translateText("collaborator", view)).toBeNull();
+		expect(translateText("collaborator", view)).toBe(
+			"协作者",
+		);
 	});
 
 	it("does not touch the filter link text", () => {

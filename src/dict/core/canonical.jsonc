@@ -5952,12 +5952,15 @@
 				"Period:",
 				"Open pull requests",
 				"commits",
-				// —— Pulse 摘要句的碎片（2026-10-17 实机 HTML）——
-				// 整句被 <strong> / <a> 切成独立文本节点后，每段只剩半个短语；节点顺序
-				// 就是语序，故这些片段各收一条，拼回去才是通顺的中文（回归见
-				// insights-pulse.test.ts）。`authors` / `files` / `people` / `and` 是
-				// 小写泛化词，只因为本模块按路由限定、且实机在这几句里独立成节点才收，
-				// 不得挪进 global。
+				// —— Pulse 摘要句与分组标题的碎片（2026-10-17 实机 HTML）——
+				// GitHub 的 React i18n 把计数、复数标签与分支名插值成裸文本节点，连接词
+				// 各自成节点；节点顺序就是语序，故这些片段各收一条（回归见
+				// insights-pulse.test.ts）。`authors` / `files` / `people` / `and` /
+				// `to` / `On` 是泛化短词，只因为本模块按路由限定、且实机在这几句里
+				// 独立成节点才收，不得挪进 global。
+				// `pull requests` / `merged by` / `person` 是 2026-10-17 22:35 那张
+				// 「13 pull requests merged by 2 人合并」逼出来的：整句键在实机永不命中，
+				// 复数标签是独立节点；整句键保留作单节点形态的兜底。
 				"Excluding merges,",
 				"authors",
 				"have pushed",
@@ -5967,9 +5970,15 @@
 				"additions",
 				"and",
 				"deletions",
+				"to",
+				"On",
+				"pull requests",
+				"pull request",
+				"merged by",
+				"people",
+				"person",
 				"pull requests merged by",
 				"pull request merged by",
-				"people",
 				// —— Pulse 概览卡（新版卡片；可见文本与进度条 aria-label 同串同译）——
 				// 证据：维护者 2026-10-17 的 `github-zh-misses/2` 导出（/pulse 与
 				// /graphs/contributors 两页）。

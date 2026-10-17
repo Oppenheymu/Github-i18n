@@ -206,30 +206,43 @@ describe("洞察页的实机节点边界", () => {
 		).toBe("2026 年 10 月 10 日 – 17 日");
 	});
 
-	it("reassembles the pulse summary sentence from its split nodes", () => {
+	it("reassembles the pulse summary sentence from its interpolated nodes", () => {
+		// 实机是**每个占位符一个裸文本节点**（计数、复数标签、分支名各自成节点），
+		// 连接词夹在中间也各自成节点——`outerHTML` 里完全看不出这些边界。
 		// 第一句：`Excluding merges, 3 authors have pushed 23 commits to main and
 		// 23 commits to all branches.`
 		expect(
 			renderNodes([
 				"Excluding merges, ",
 				"3",
-				" authors",
+				" ",
+				"authors",
 				" have pushed ",
-				"23 commits",
-				" to main and ",
-				"23 commits",
+				"23",
+				" ",
+				"commits",
+				" to ",
+				"main",
+				" and ",
+				"23",
+				" ",
+				"commits",
 				" to all branches.",
 			]),
 		).toBe(
-			"不含合并提交， 3 位作者 共推送了 23 次提交 到 main 分支，另有 23 次提交 推送到所有分支。",
+			"不含合并提交， 3 位作者 共推送了 23 次提交 到 main 和 23 次提交 推送到所有分支。",
 		);
-		// 第二句：`On main, 106 files have changed and there have been
-		// 2,119 additions and 602 deletions.`
+		// 第二句：`On main, 106 files have changed and there have been 2,119
+		// additions and 602 deletions.`——分支名 `main` 与逗号（只有标点、不可翻译）
+		// 都是独立节点，所以中文里会看到一个半角逗号
 		expect(
 			renderNodes([
-				"On main, ",
+				"On ",
+				"main",
+				", ",
 				"106",
-				" files",
+				" ",
+				"files",
 				" have changed and there have been ",
 				"2,119",
 				" ",
@@ -240,10 +253,15 @@ describe("洞察页的实机节点边界", () => {
 				"deletions",
 			]),
 		).toBe(
-			"在 main 分支上， 106 个文件 有改动，其中 2,119 行新增 和 602 行删除。",
+			"在 main, 106 个文件 有改动，其中 2,119 行新增 和 602 行删除。",
 		);
-		// 节点边界可能变成整节点（React 有时把计数与量词放进同一个文本节点）：
-		// `3 authors` 走规则、`106 files` 走 global 的既有规则，译文必须与碎片一致
+		// 上游若把整段渲染回一个文本节点，规则与 global 的既有键仍然兜住
+		expect(translateText(" to main and ", pulseView)).toBe(
+			"到 main 分支，另有",
+		);
+		expect(translateText("On main,", pulseView)).toBe(
+			"在 main 分支上，",
+		);
 		expect(translateText("3 authors", pulseView)).toBe(
 			"3 位作者",
 		);
@@ -252,16 +270,25 @@ describe("洞察页的实机节点边界", () => {
 		);
 	});
 
-	it("reassembles the merged-pull-requests heading", () => {
-		// `13` + ` pull requests merged by ` + `2` + ` people`（实机 HTML 的 h3）
+	it("reassembles the merged-pull-requests heading from its interpolated nodes", () => {
+		// 实机（2026-10-17 22:35）：`13` + ` ` + `pull requests` + ` merged by ` +
+		// `2` + ` ` + `people`。整句键 `pull requests merged by` 在实机永不命中，
+		// 只有 ` people` 被译出（「2 人合并」）——正好反证标签与连接词都是独立节点
 		expect(
 			renderNodes([
 				"13",
-				" pull requests merged by ",
+				" ",
+				"pull requests",
+				" merged by ",
 				"2",
-				" people",
+				" ",
+				"people",
 			]),
-		).toBe("13 个拉取请求由 2 人合并");
+		).toBe("13 个拉取请求 由 2 人合并");
+		// 整段单节点形态的兜底
+		expect(
+			translateText(" pull requests merged by ", pulseView),
+		).toBe("个拉取请求由");
 	});
 
 	it("renders the navigator aria-label through the existing rule", () => {
@@ -314,14 +341,12 @@ describe("洞察页里「日志有、词典不该收」的节点", () => {
 	});
 
 	it("keeps the still-isolated split words out of the dictionary", () => {
-		// 摘要句的碎片已按节点补齐（见「拼回整句」用例）；这里只留**真正孤立**的
-		// 虚词：单收它们会在任意中英混排句子里乱插词，正确做法永远是并进相邻片段。
-		// `pull requests merged`（缺 `by`）与 `, excluding merge commits` 是别的页面的
-		// 半句，同样不该由本模块接
+		// 摘要句与已合并标题的碎片已按节点补齐（见「拼回整句」用例）；这里只留
+		// **真正孤立**的虚词：单收它们会在任意中英混排句子里乱插词。`to` / `On`
+		// 不在此列——它们只在「分支名被插值切开」的固定句式里出现，已随该句式
+		// 一起收进本模块（模块按路由限定，见 insights.jsonc 的注释）。
 		for (const node of [
 			"have",
-			"to",
-			"On",
 			"pushed",
 			"main",
 			"by",

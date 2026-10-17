@@ -5,6 +5,7 @@
 // 人工逐条判断的成本比「让维护者贴整页 HTML」还高，所以把判断固化成规则：
 //
 //   产品名          → 有意保留英文
+//   同形异义 / 断句  → 架构上限，收了必然在别处译错（见 STRUCTURAL）
 //   动态值          → 静态键覆盖不了；属性值连规则都不生效（架构上限）
 //   用户内容        → 机密名 / 仓库 / 组织 / 用户名 / 日期样式，绝不该进词典
 //   别的模块已收录  → 路由互斥（先把「组织页有、仓库页没有」这类漏翻暴露出来）
@@ -199,6 +200,7 @@ export function loadLocaleDict(locale: string): LocaleDict {
  * product        产品名，有意保留英文
  * userContent    用户内容 / 标识符 / 快捷键，不该进词典
  * dynamic        含动态值；属性值连正则规则都不生效
+ * structural     同形异义 / 被 `<kbd>` 断句：架构上限，任何模块都不要收
  */
 export type Verdict =
 	| "candidate"
@@ -206,7 +208,8 @@ export type Verdict =
 	| "fixed"
 	| "product"
 	| "userContent"
-	| "dynamic";
+	| "dynamic"
+	| "structural";
 
 /** 一条判定好了的记录 */
 export interface ReportRow {
@@ -227,6 +230,24 @@ export const PRODUCT_NAMES: ReadonlySet<string> = new Set([
 	"GitHub Apps",
 	"GitHub Actions",
 ]);
+
+/**
+ * 架构上不可译的短词：**不是待办**，任何模块都不要收。
+ *
+ * 只登记「收了会更糟」的两类，且必须在 value 里说清是哪一类：
+ *   · 同形异义：同一个英文词在不同 DOM 区域要译成不同的词，而引擎只按整节点文本
+ *     查询、拿不到区域，收了就必然有一处译错（`Type`）；
+ *   · 被排除元素断句：整句被 `<kbd>` 之类切成几段，只译其中一段只剩中英残句
+ *     （`to search`）。两段的完整论证见 zh-CN 的 `global.jsonc` 注释。
+ *
+ * **不要往这里加「暂时还没翻译的普通词条」**——那些正是候选该出现的地方。
+ * 这张表越长，日志分拣就越像在自欺欺人。
+ */
+export const STRUCTURAL: ReadonlyMap<string, string> =
+	new Map([
+		["Type", "同形异义：页头「键入」/ 设置页正文「类型」"],
+		["to search", "kbd 断句的后半段，只译它会留中英残句"],
+	]);
 
 /** 全大写标识符：机密名 / 变量名（`APP_PRIVATE_KEY`、`TURBO_TEAM`） */
 const UPPER_IDENTIFIER = /^[A-Z][A-Z0-9_]*$/;
@@ -324,6 +345,18 @@ function classifyRow(
 			reason: "产品名，有意保留英文",
 		};
 	}
+	// 必须排在 owners 判定之前：`Type` 在 pages/settings 与 pages/repo-settings 里
+	// 都有一条「类型」，落到 knownElsewhere 会给维护者「本模块也收一份」的错误暗示，
+	// 而那正是会印出「类型 / 以搜索」的那一步。
+	const structural = STRUCTURAL.get(text);
+	if (structural !== undefined) {
+		return {
+			item,
+			verdict: "structural",
+			modules: [],
+			reason: structural,
+		};
+	}
 	const owners = index.owners.get(text) ?? [];
 	if (index.matched.has(text)) {
 		return {
@@ -391,6 +424,9 @@ export function formatReport(
 	const fixed = rows.filter(
 		(row) => row.verdict === "fixed",
 	);
+	const structural = rows.filter(
+		(row) => row.verdict === "structural",
+	);
 	const noise = rows.filter(
 		(row) =>
 			row.verdict === "product" ||
@@ -419,6 +455,18 @@ export function formatReport(
 	}
 	lines.push("");
 
+	if (structural.length > 0) {
+		lines.push(
+			`架构上限 ${structural.length} 条（不是待办，任何模块都不要收）：`,
+		);
+		appendGroup(
+			lines,
+			structural,
+			(row) => `（${row.reason}）`,
+		);
+		lines.push("");
+	}
+
 	if (elsewhere.length > 0) {
 		lines.push(
 			`路由互斥 ${elsewhere.length} 条（别的模块已收录，本路径拿不到）：`,
@@ -445,7 +493,7 @@ export function formatReport(
 	);
 	lines.push("");
 	lines.push(
-		`合计：候选 ${candidates.length} / 路由互斥 ${elsewhere.length} / 已修复 ${fixed.length} / 噪声 ${noise.length}`,
+		`合计：候选 ${candidates.length} / 路由互斥 ${elsewhere.length} / 已修复 ${fixed.length} / 架构上限 ${structural.length} / 噪声 ${noise.length}`,
 	);
 	return lines.join("\n");
 }

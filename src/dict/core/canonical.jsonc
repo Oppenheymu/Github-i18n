@@ -7114,9 +7114,12 @@
 				"Feature preview",
 				"Help",
 				"Search or jump to…",
+				// 头部搜索按钮的占位句：实机是 `Type ` + `<kbd>/</kbd>` + ` to search` 三个节点，
+				// 整句键只在「上游渲染成单个节点」时命中。两段碎片**故意不登记**——`Type` 是
+				// 同形异义词（页头读作「键入」、设置页正文读作「类型」），只收后半段会留下
+				// 「Type / 以搜索」这种中英残句。理由与处置见 zh-CN 的 global.jsonc 注释。
 				"Type / to search",
 				"Open quick search dialog, type / to search",
-				"to search",
 				"forward slash",
 				"g then n",
 				"g then d",

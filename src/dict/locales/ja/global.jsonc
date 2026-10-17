@@ -26,7 +26,10 @@
 		"Search or jump to…": "検索またはジャンプ…",
 		"Type / to search": "/ と入力して検索",
 		"Open quick search dialog, type / to search": "クイック検索ダイアログを開き、/ と入力して検索します",
-		"to search": "検索するには",
+		// 実機のヘッダーは `Type ` + `<kbd>/</kbd>` + ` to search` の 3 ノードに割れている。
+		// 断片（`Type` / `to search`）は登録しない——`Type` はヘッダーでは「入力」、
+		// 設定ページ本文では「タイプ」の同形異義で、同じページに両方が存在するため
+		// どちらかを必ず誤訳する（詳細は zh-CN の global.jsonc のコメント）。
 		"forward slash": "スラッシュ",
 		"g then n": "g の後に n",
 		"g then d": "g の後に d",

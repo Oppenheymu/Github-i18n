@@ -373,12 +373,13 @@ for (const p of probes) {
 }
 ```
 
-再配合 Elements 面板右键节点 → Copy → Copy outerHTML，就能看到完整的拆分明细。四类必须记住的边界事实：
+再配合 Elements 面板右键节点 → Copy → Copy outerHTML，就能看到完整的拆分明细。五类必须记住的边界事实：
 
 1. **`<kbd>` / `<code>` / `<pre>` / `<textarea>` / `.markdown-body` 等容器被整棵排除**（`src/content/filters.ts`），其中的文本节点绝不翻译；`kbd` 之间的连词（如 `and`）若单独成节点，**不要收录**——它与别的模块同键时会互相顶替（本模块在前会压过对方），正确做法是把连词并进相邻片段；
 2. **`sr-only` 文本照常翻译**（它不在排除清单里），所以像 `alt upAlt↑` 这种「无障碍文本 + `<kbd>` 序列」在实机里是三段以上，键要按段收；翻译时按视觉意图处理即可（例如 `按 Alt ↑`）；
 3. **纯符号 / 纯数字节点翻不了**：可翻译判定要求「含至少一个拉丁字母」（`isTranslatableText`），所以单独的 `.`、`↑`、`1.2` 永远保持原样——**不要为它们收词条**（收了也不会生效，只会变成 canonical 里的死键）；
 4. **查询键会 trim + 折叠空白**（`walker.ts` 的 `normalizeKey`），故键里不要写源码缩进；但**不换行空格 `\u00a0` 会被 trim 掉**，按实际文本收键时按「无前导空格」的形态写（本次实测：`"\u00a0to paste a link…"` 收不中，`"to paste a link…"` 才中）。
+5. **同形异义短词不能收，哪怕它就在你眼前漏着**：同一个英文词若在不同 DOM 区域要译成不同的词，整节点匹配无法区分（引擎拿不到区域），收了必然有一处译错。首个实例是头部搜索按钮的 `Type`——实机是 `Type ` + `<kbd>/</kbd>` + ` to search` **三个节点**，维护者 2026-10-17 贴出的渲染结果是「Type / 以进行搜索」（` to search` 命中了碎片词条，`Type` 留英文）。处置：**整块保留英文**（整句键 `Type / to search` 留着，上游哪天渲染成单节点时自然生效），并删掉 `to search` 那条碎片键——只译后半段只会得到中英残句。`Type` 之所以收不得：它在页头读作「键入」，在 `pages/settings` / `pages/repo-settings` 的正文里读作「类型」（两条既有键），而**页头与正文在同一个页面上同时存在**，模块优先级只能按页面分、分不了区域；收了它，设置页页头就会印出「类型 / 以搜索」。两个词都已登记进 `tooling/miss-report.ts` 的 `STRUCTURAL`，漏翻日志不会再把它们列成候选（`Type` 还会被 `knownElsewhere` 撞上——它「在别处收着」，是最容易把人骗进坑的一条）。
 
 ### 实机节点边界测试（把抓下来的节点锁进仓库）
 
@@ -488,7 +489,7 @@ for (const p of probes) {
 | `issues.test.ts` | `/owner/repo/issues` | 议题列表页 |
 | `pulls.test.ts` | `/owner/repo/pulls` | 拉取请求列表页 |
 | `insights-security.test.ts` | `/owner/repo/security` | 仓库安全概览页（**证据是维护者 2026-09-27 贴的实机 HTML**：顶部 Scorecard / Code scanning 横幅被 `<a>status page</a>` 切成三段；七个功能行的标题与状态是两个节点，但**项目符号 `•` 落在标题节点内部**，故带 ` •` 的形态由本模块各收一条——裸标题 `Security policy` 仍由 pages/repo 提供，两条各自独立；`View alerts` 这类短链接在源码里带 16 空格缩进，键按 normalizeKey 折叠空白） |
-| `global.test.ts` | 任意路径 | 全站外壳、动态时间文本与仓库可见性标签（`Public` / `Private` / `Public template` / `Private template` / `Public archive` / `Archived`——标签是独立节点、「可见性 + 类型」固定短语，故整族归 global，仓库页与个人主页共用；`Public template` 的证据是维护者 2026-10-02 在 `?tab=repositories` 贴的 `Label Label--secondary` 片段） |
+| `global.test.ts` | 任意路径 | 全站外壳、动态时间文本与仓库可见性标签（`Public` / `Private` / `Public template` / `Private template` / `Public archive` / `Archived`——标签是独立节点、「可见性 + 类型」固定短语，故整族归 global，仓库页与个人主页共用；`Public template` 的证据是维护者 2026-10-02 在 `?tab=repositories` 贴的 `Label Label--secondary` 片段）；另有**头部搜索占位符**的 `kbd` 断句回归：`Type / to search` 三段节点，整句键（单节点形态）生效、两段碎片必须保持英文（同形异义论证见上文第 5 条） |
 
 除上表外的用例都不再是「实机节点」而是纯逻辑回归：`src/content/__tests__/pages.test.ts`（视图单槽缓存：缓存键写错会表现为「换页后一半英文」）、`src/shared/__tests__/storage.test.ts`（storage 脏数据收窄与开关 / 语言监听）、`src/dict/__tests__/locales.test.ts`（`resolveLocale` 对 `zh-Hans-CN` / `zh_TW` / `en-US` 的归属），另有门禁自身与构建脚本的测试（`tooling/checks/__tests__/`、`tooling/pipeline/build.test.ts`）。
 
@@ -703,6 +704,7 @@ bun run report:misses ~/Downloads/misses.json
 | 判定 | 触发条件 | 处理 |
 | --- | --- | --- |
 | `product` | 产品名清单（`GitHub` / `Copilot` / `Dependabot` / `OIDC` / `CodeQL` / `GitHub Apps` / `GitHub Actions`） | 有意保留英文 |
+| `structural` | `STRUCTURAL` 清单：同形异义（`Type`）/ 被 `<kbd>` 断句的碎片（`to search`） | **架构上限，任何模块都不要收**（论证见上文「五类边界事实」第 5 条） |
 | `fixed` | 本路径当前已能命中 | 导出之后词典更新过，无需处理 |
 | `knownElsewhere` | 只在**别的模块**收录过 | **路由互斥**：本路径拿不到，考虑在本模块也收一份——组织页 / 仓库页那类漏翻全靠它暴露 |
 | `userContent` | 全大写标识符、长随机串、`owner/repo`、`@提及`、小写单词或快捷键、日期样式、纯数字、含 `·` 的文档标题 | 用户内容，不该进词典 |
@@ -716,6 +718,7 @@ bun run report:misses ~/Downloads/misses.json
 
 - 动态属性值：`7 / 7 checks OK`、`Repository starred by 7 people, including you`、`Copy value of APP_PRIVATE_KEY`、`Delete GITLAB_TOKEN`。属性翻译只走**精确命中**、不应用正则规则（防表单标识符被改坏），这些串只能永远保留英文；
 - 用户内容：机密名、仓库名、组织名、用户名。`text` 里出现它们不是漏翻。
+- 同形异义短词：头部搜索占位符的 `Type`（页头读作「键入」，设置页正文读作「类型」，同页共存），以及被 `<kbd>` 断开的碎片 `to search`——论证与处置见「采集实机渲染文本」第 5 条。它们**不会**出现在候选里：`STRUCTURAL` 判定在 `knownElsewhere` 之前，`Type` 不会再被「别的模块收过」这条提示骗你补一份。
 
 ## 隐私
 

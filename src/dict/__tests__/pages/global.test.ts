@@ -252,3 +252,44 @@ describe("global 模块的仓库可见性标签", () => {
 		}
 	});
 });
+
+/**
+ * 头部搜索按钮的占位文案：`Type ` + `<kbd>/</kbd>` + ` to search`。
+ *
+ * 维护者 2026-10-17 贴的实机 DOM（`span.prc-Button-Label` 里套
+ * `span.placeholder__…`）渲染成「Type / 以进行搜索」——`<kbd>` 被整棵排除，
+ * 于是只有后半段 ` to search` 命中了一条碎片词条，前半段 `Type` 保留英文。
+ *
+ * 这一组用例锁住**最终决定**（三个断言缺一不可）：
+ *   1. 整句键仍然有效：上游若把占位文案渲染成单个文本节点，一次命中；
+ *   2. 两段碎片在 zh-CN 里**必须**保持英文：收了 `Type` 就会在设置页页头
+ *      印出「类型 / 以搜索」（`Type` 同形异义，见 zh-CN 的 global.jsonc 注释），
+ *      只收 `to search` 则会印出中英残句；
+ *   3. 同形异义的另一面：设置页路径上 `Type` 仍由 pages/settings 译作「类型」。
+ *      第 2 条一旦失败，通常就是有人把这条「顺手」收进了 global。
+ */
+describe("global 模块的搜索占位符（kbd 断句）", () => {
+	/** 设置页路径：pages/settings 在 global 之前，故 `Type` 由它胜出 */
+	const settingsView = buildView(
+		"/settings/profile",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	it("translates the whole placeholder when it is a single node", () => {
+		expect(translateText("Type / to search", view)).toBe(
+			"输入 / 以搜索",
+		);
+	});
+
+	it("leaves both halves in english, so the header never reads half-chinese", () => {
+		expect(translateText("Type", view)).toBeNull();
+		expect(translateText("to search", view)).toBeNull();
+	});
+
+	it("keeps the settings module's own Type label", () => {
+		expect(translateText("Type", settingsView)).toBe(
+			"类型",
+		);
+	});
+});

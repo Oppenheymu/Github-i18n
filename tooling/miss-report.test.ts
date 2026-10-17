@@ -158,6 +158,34 @@ describe("classify", () => {
 		);
 	});
 
+	it("never turns structurally untranslatable words into candidates", () => {
+		// 头部搜索占位符被 <kbd>/</kbd> 断成 `Type ` + ` to search` 两段，两条都不能收：
+		// `Type` 在设置页正文里读作「类型」（在别处收着），只收 `to search` 会留下
+		// 「Type / 以搜索」这种中英残句。判定必须压过 knownElsewhere——否则报告会
+		// 提示「本模块也收一份」，而那正是会印错的那一步。
+		const rows = classify(
+			[
+				item({
+					text: "Type",
+					path: "/Koishi-CE/koishi",
+					context: "span.placeholder__MIdoN6",
+				}),
+				item({
+					text: "to search",
+					path: "/Koishi-CE/koishi",
+					context: "span.placeholder__MIdoN6",
+				}),
+			],
+			dict,
+			aliases,
+		);
+		expect(rows.map((row) => row.verdict)).toEqual([
+			"structural",
+			"structural",
+		]);
+		expect(rows[0]?.modules).toEqual([]);
+	});
+
 	it("keeps product names, user content and dynamic values out of the list", () => {
 		expect(verdictOf(item({ text: "GitHub" }))).toBe(
 			"product",
@@ -226,5 +254,23 @@ describe("formatReport", () => {
 		expect(report).toContain(
 			"合计：候选 2 / 路由互斥 1 / 已修复 0",
 		);
+	});
+
+	it("lists the architectural limits apart from the candidate list", () => {
+		const rows = classify(
+			[item({ text: "Type", path: "/Koishi-CE/koishi" })],
+			dict,
+			aliases,
+		);
+		const report = formatReport(rows, {
+			file: "misses.json",
+			exportedAt: "",
+		});
+		expect(report).toContain("候选 0 条");
+		expect(report).toContain("架构上限 1 条");
+		expect(report).toContain(
+			"同形异义：页头「键入」/ 设置页正文「类型」",
+		);
+		expect(report).toContain("架构上限 1 / 噪声 0");
 	});
 });

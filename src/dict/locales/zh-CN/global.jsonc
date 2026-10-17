@@ -25,9 +25,24 @@
 		"Feature preview": "功能预览",
 		"Help": "帮助",
 		"Search or jump to…": "搜索或跳转到…",
+		// 头部搜索按钮的占位文案。实机（2026-10 的 React 头部）是**三个节点**：
+		//   `Type ` + `<kbd class="kbd__…">/</kbd>` + ` to search`
+		// `<kbd>` 被整棵排除（src/content/filters.ts），故整句键在实机上永不命中，
+		// 能命中的只有 `Type` 与 `to search` 两段碎片。
+		//
+		// 两段碎片**都不收**，这是刻意的（维护者 2026-10-17 贴 `Type / 以进行搜索` 的
+		// 实机 DOM 后确认的结论）：
+		//   1. `Type` 同形异义——它在这里读作「键入」，而在 pages/settings 与
+		//      pages/repo-settings 的正文里读作「类型」（两条既有键）。引擎只按整节点
+		//      文本查询、拿不到 DOM 区域，而页头与正文**在同一个页面上同时存在**，
+		//      模块优先级只能按页面分、分不了区域：收了 `Type` 就必然有一处译错
+		//      （设置页页头会变成「类型 / 以搜索」）。
+		//   2. 只收后半段会得到「Type / 以搜索」——中英残句比整句英文更糟。
+		// 故整句保留英文；整句键留着，等上游哪天渲染成单个节点时自然生效。
+		// `Type` / `to search` 已登记进 tooling/miss-report.ts 的 STRUCTURAL，
+		// 漏翻日志不会再把它们列成候选。
 		"Type / to search": "输入 / 以搜索",
 		"Open quick search dialog, type / to search": "打开快速搜索对话框，输入 / 进行搜索",
-		"to search": "以进行搜索",
 		"forward slash": "正斜杠",
 		"g then n": "g 然后 n",
 		"g then d": "g 然后 d",

@@ -74,6 +74,9 @@
 		"Activity": "アクティビティ",
 		"Watchers": "ウォッチャー",
 		"Report repository": "リポジトリを報告",
+		// —— コミットステータス（リポジトリヘッダー。設定ページ上部でも描画される）——
+		"Loading status checks…": "ステータスチェックを読み込み中…",
+		"CI status of latest commit": "最新のコミットの CI ステータス",
 		// —— スター / ウォッチ / コミュニティ標準 ——
 		"You must be signed in to star a repository": "リポジトリにスターを付けるにはサインインが必要です",
 		"You must be signed in to change notification settings": "通知設定を変更するにはサインインが必要です",

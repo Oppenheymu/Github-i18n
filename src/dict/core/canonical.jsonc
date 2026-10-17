@@ -3646,6 +3646,20 @@
 				"Repository variables",
 				"This repository has no variables.",
 				"New repository variable",
+				// —— 组织级机密 / 变量的只读区块（组织仓库的 Actions 机密与变量页）——
+				// 证据：维护者 2026-10-17 导出的漏翻日志（`/Koishi-CE/koishi/settings/secrets/*`
+				// 与 `…/variables/actions`）。仓库属于组织时，页面在「仓库机密 / 仓库变量」之外
+				// 多出两个只读区块：表头 + 空态 + 跳转按钮。
+				// 同批还补了表格列头 `Last updated` 与 `Value`：前者与 pages/profile 的同名
+				// 排序项是两条互不相干的键（那边译「最近更新」，本页是列头，译「最后更新」）。
+				"Organization secrets",
+				"Manage organization secrets",
+				"There are no organization secrets available to this repository.",
+				"Organization variables",
+				"Manage organization variables",
+				"There are no organization variables available to this repository.",
+				"Last updated",
+				"Value",
 				// —— Agents / Codespaces / Dependabot 三个机密页（/owner/repo/settings/secrets/<scope>）——
 				// 依据：维护者 2026-10-17 贴出的三页实机 HTML（页面带着本扩展渲染，故
 				// 「机密」「变量」「仓库机密」「此仓库没有机密。」「新建仓库机密」都是既有词条的
@@ -7037,6 +7051,13 @@
 				"Activity",
 				"Watchers",
 				"Report repository",
+				// —— 仓库头部的提交状态组件 ——
+				// 证据：维护者 2026-10-17 导出的漏翻日志（来源是 /Koishi-CE/koishi/settings/secrets/*，
+				// 设置页顶部的仓库头部同样命中本模块）。动态值（`7 / 7 checks OK`、
+				// `Repository starred by 7 people, including you`）走不了静态键，且属性值
+				// 不应用正则规则，故有意不收录。
+				"Loading status checks…",
+				"CI status of latest commit",
 				// —— 星标 / 关注 / 社区标准 ——
 				"You must be signed in to star a repository",
 				"You must be signed in to change notification settings",

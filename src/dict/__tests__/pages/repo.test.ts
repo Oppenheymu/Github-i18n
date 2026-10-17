@@ -77,6 +77,9 @@ const REPO_NODES: readonly string[] = [
 	"Contributors",
 	"Languages",
 	"Report repository",
+	// —— 提交状态组件（仓库头部；设置页顶部也会渲染，2026-10-17 由漏翻日志补收）——
+	"Loading status checks…",
+	"CI status of latest commit",
 ];
 
 /** 用户内容 / 仓库元数据：一律保留英文（未收录即不命中） */

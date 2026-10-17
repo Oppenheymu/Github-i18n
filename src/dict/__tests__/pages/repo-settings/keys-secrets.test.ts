@@ -442,3 +442,90 @@ describe("仓库设置页的 Agents / Codespaces / Dependabot 机密页", () => 
 		).toBe("代码空间");
 	});
 });
+
+/**
+ * 组织仓库的 Actions 机密页视图。
+ * 证据：维护者 2026-10-17 从开发者模式导出的 `github-zh-misses/1` 日志，path 即本页。
+ */
+const orgSecretsView = buildView(
+	"/Koishi-CE/koishi/settings/secrets/actions",
+	dict,
+	aliases,
+);
+
+/** 日志里唯一有译文价值的几条：组织级只读区块与表格列头 */
+const ORG_SCOPE_NODES: readonly (readonly [
+	string,
+	string,
+])[] = [
+	["Organization secrets", "组织机密"],
+	["Manage organization secrets", "管理组织机密"],
+	[
+		"There are no organization secrets available to this repository.",
+		"此仓库没有可用的组织机密。",
+	],
+	["Organization variables", "组织变量"],
+	["Manage organization variables", "管理组织变量"],
+	[
+		"There are no organization variables available to this repository.",
+		"此仓库没有可用的组织变量。",
+	],
+	["Last updated", "最后更新"],
+	["Value", "值"],
+];
+
+describe("组织仓库的 Actions 机密与变量页多出的只读区块", () => {
+	it("translates the organization sections the miss export surfaced", () => {
+		expectNodesTranslated(orgSecretsView, ORG_SCOPE_NODES);
+	});
+
+	it("leaves the rest of the export in english by design", () => {
+		// 日志里九成是这几类：用户内容（机密名 / 仓库 / 组织 / 用户名 / OAuth client id）、
+		// 产品名、动态值（日期、计数、星标数）与 `X · Owner/repo` 形式的文档标题。
+		// 它们「未命中」是正确行为而不是漏翻——这条用例就是这条纪律的回归保护。
+		for (const raw of [
+			// 用户内容
+			"APP_PRIVATE_KEY",
+			"CODECOV_TOKEN",
+			"GITLAB_TOKEN",
+			"APP_CLIENT_ID",
+			"GITLAB_REPO",
+			"TURBO_TEAM",
+			"Iv23livw6MVbKOSp3ayS",
+			"Koishi-CE",
+			"koishi-ce/koishi",
+			"oppenheymu",
+			"M. Oppenheymu",
+			// 产品名
+			"GitHub",
+			"Copilot",
+			"Dependabot",
+			"OIDC",
+			// 动态值：属性不做正则替换，静态键无从覆盖
+			"Oct 6, 2026, 20:39 GMT+8",
+			"7 / 7 checks OK",
+			"Repository starred by 7 people, including you",
+			// 逐条动作的 tooltip 里嵌着机密名，整句键等于把用户内容抄进词典
+			"Copy value of APP_CLIENT_ID",
+			"Delete APP_PRIVATE_KEY",
+			"Edit GITLAB_REPO",
+			// 文档标题带仓库名
+			"Actions secrets · Koishi-CE/koishi",
+			// 快捷键提示
+			"alt shift r",
+		]) {
+			expect(
+				translateText(raw, orgSecretsView),
+				`不应被翻译：${JSON.stringify(raw)}`,
+			).toBeNull();
+		}
+	});
+
+	it("keeps the column header apart from the profile sort option", () => {
+		// 同名不同义：pages/profile 的 `Last updated` 是排序项（「最近更新」），
+		// 本模块的是表格列头（「最后更新」）。两条路由互斥，翻译各按本页语义取
+		expect(
+			translateText("Last updated", orgSecretsView),
+		).toBe("最后更新");
+	});
+});

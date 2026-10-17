@@ -1371,6 +1371,17 @@
 		"Repository variables": "仓库变量",
 		"This repository has no variables.": "此仓库没有变量。",
 		"New repository variable": "新建仓库变量",
+		// —— 组织级机密 / 变量的只读区块（组织仓库的 Actions 机密与变量页）——
+		// 2026-10-17 由漏翻日志补收：组织仓库的页面在仓库机密之外多出两个只读区块
+		// （表头 + 空态 + 跳转按钮），另有表格列头 `Last updated` / `Value`
+		"Organization secrets": "组织机密",
+		"Manage organization secrets": "管理组织机密",
+		"There are no organization secrets available to this repository.": "此仓库没有可用的组织机密。",
+		"Organization variables": "组织变量",
+		"Manage organization variables": "管理组织变量",
+		"There are no organization variables available to this repository.": "此仓库没有可用的组织变量。",
+		"Last updated": "最后更新",
+		"Value": "值",
 		// —— Agents / Codespaces / Dependabot 三个机密页（/owner/repo/settings/secrets/<scope>）——
 		// 与 Actions 机密页同一套拆节点写法：说明句断在 `<strong>加密</strong>` 处，前段只译到
 		// 「机密是经过」，加密之后的「的凭据 / 的环境变量」写进下一节点，拼接后读得通。

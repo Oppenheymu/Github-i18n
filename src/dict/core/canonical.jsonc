@@ -2653,6 +2653,48 @@
 				"You can configure your own MCP servers by adding JSON configuration below. MCP servers can optionally access secrets defined in the repository's",
 				"and",
 				"environment.",
+				// —— Copilot：代码审查（settings/copilot/code_review）——
+				// 证据：维护者 2026-10-17 贴的整页实机 HTML（`<react-app app-name="copilot-code-review-repo-settings">`，
+				// URL 为 /Oppenheymu/Github-i18n/settings/copilot/code_review）。采集时扩展仍在运行，
+				// 页面上已是中文的 `Copilot 代码审查` / `MCP 服务器` / `开` / `新建` / `预览` 都是既有键的产物。
+				// 本页正文由 React 组件渲染，四条说明段被行内链接切成多个文本节点，故按节点边界逐段收：
+				//   顶部说明 / `Learn more about Copilot code reviews.`
+				//   MCP 说明 / `When enabled, Copilot can call MCP tools configured in` + 链接 + `during code reviews.`
+				//   自定义指令说明 / `Copilot references` + 链接 + `when reviewing pull requests.`
+				//   授权用户说明 / `When enabled,` + 链接 + `cannot run a Copilot review within this repository.`
+				// 与组织级同页（pages/org-settings）文案重合的键（`Approvals` / `Advanced` / `Default (Balanced)` 等）
+				// 在本模块各收一份并**同译**：两条路由互斥，组织级那条拿不到本模块的词条。
+				// 下拉展开后的 `Lite` / `Balanced` / `Max` 与三条说明未渲染（本轮只拿到收起态），故不收录。
+				"With Copilot code review, you can add Copilot as a reviewer to your pull requests, including drafts. You can also select lines in Visual Studio Code and ask Copilot to review and comment on specific sections.",
+				"Learn more about Copilot code reviews.",
+				"No Copilot code review access",
+				"Copilot code review isn't enabled for your account, but these settings still apply to people who have access to Copilot code review.",
+				"Configure Copilot code review",
+				"Allow Copilot to use MCP tools when reviewing pull requests",
+				"When enabled, Copilot can call MCP tools configured in",
+				"during code reviews.",
+				"Review effort level",
+				"Controls the depth of analysis when Copilot reviews pull requests.",
+				"Default (Balanced)",
+				"Approvals",
+				"Allow Copilot to approve pull requests",
+				"When enabled, Copilot can approve pull requests, and those approvals can count toward merge requirements.",
+				"Manage Copilot code review automations",
+				"Use rulesets to automatically request reviews and more.",
+				"Learn how to set up rulesets.",
+				"No rulesets",
+				"View all rulesets",
+				"Automate Copilot code reviews",
+				"Create ruleset for default branch",
+				"Advanced",
+				"Use custom instructions when reviewing pull requests",
+				"Copilot references",
+				"repository custom instructions",
+				"when reviewing pull requests.",
+				"Only allow Copilot code review to be triggered by authorized users",
+				"When enabled,",
+				"external Copilot licenses",
+				"cannot run a Copilot review within this repository.",
 				// —— 规则集（/owner/repo/settings/rules 与 /owner/repo/settings/rules/<id>）——
 				// 证据：维护者 2026-09-27 导出的漏翻清单（path 全为 /settings/rules/24064311）
 				// ＋ 两张实机截图（列表页与「New ruleset」下拉）。本模块此前**没有任何**规则集词条，

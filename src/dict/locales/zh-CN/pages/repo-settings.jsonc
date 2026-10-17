@@ -1486,6 +1486,31 @@
 		// 功能处于「已启用」状态时按钮的 aria-label 是 Enable 方向，与个人仓库版收的串不同
 		"Enable malware alerts": "启用恶意软件警报",
 		"Enable Dependabot version updates": "启用 Dependabot 版本更新",
-		"Enable private vulnerability reporting": "启用私密漏洞报告"
+		"Enable private vulnerability reporting": "启用私密漏洞报告",
+		// —— Code quality 页（/owner/repo/settings/code-quality）——
+		// 与组织级同页（pages/org-settings）逐条同译；该页的 FAQ 已被上游改写：
+		// 代码覆盖率改成「打开 PR 合并 AI 生成的工作流 YAML」，故两条答案的 `<span>` 后句
+		// 是本页新词条（组织页那两条旧串原样保留，等它的实机证据再决定去留）
+		"Build resilient code, at scale": "大规模构建可靠的代码",
+		"Ensure your codebases are reliable, maintainable, and efficient by proactively scanning for best practices, reducing bugs, improving readability, and enabling easier testing, collaboration, and scalability. Enabling this feature will incur charges in": "主动扫描最佳实践，减少缺陷、提升可读性，并让测试、协作和扩展更轻松，以确保代码库可靠、易维护且高效。启用此功能将产生",
+		"action minutes.": "Actions 分钟费用。",
+		"Enable code quality": "启用代码质量",
+		"Frequently asked questions": "常见问题",
+		"What happens once I turn on code quality scanning?": "开启代码质量扫描后会发生什么？",
+		"GitHub will perform a point-in-time scan of the default branch of the repository, reporting back code quality findings and suggestions to developers. It will also proactively start scanning pull requests for code quality issues.": "GitHub 会对仓库的默认分支进行一次扫描，并向开发者报告代码质量问题和建议。GitHub 还会主动开始扫描拉取请求中的代码质量问题。",
+		"A pull request will also be opened to merge an AI-generated workflow YAML file that is needed to enable code coverage analysis.": "此外还会打开一个拉取请求，以合并启用代码覆盖率分析所需的 AI 生成工作流 YAML 文件。",
+		"Does Code Quality use AI?": "代码质量会使用 AI 吗？",
+		"Along with standard findings that are detected using the default CodeQL query suite, Code Quality also uses AI to detect additional findings, labeled as AI findings.": "除了使用默认 CodeQL 查询套件检测标准问题外，代码质量还会使用 AI 检测其他问题，并将其标记为 AI 发现。",
+		"Additionally, to enable code coverage analysis, a workflow YAML file is generated using AI that will need to be reviewed and merged manually from the pull request that is opened.": "此外，为启用代码覆盖率分析，系统会使用 AI 生成一个工作流 YAML 文件，该文件需要从打开的拉取请求中手动审查并合并。",
+		"What quality rules and languages are supported?": "支持哪些质量规则和编程语言？",
+		"We will support quality rules and languages found in this": "我们将支持此",
+		"open source repository": "开源仓库",
+		". The languages supported with CodeQL for standard findings are: C#, Java, JavaScript/TypeScript, Python, Ruby, and Go. Other languages may be scanned with AI, but will not generate standard findings with CodeQL.": "中包含的质量规则和编程语言。CodeQL 标准发现支持的语言包括：C#、Java、JavaScript/TypeScript、Python、Ruby 和 Go。其他语言可能会由 AI 扫描，但不会生成 CodeQL 标准发现。",
+		// —— 组织策略横幅与政策锁定说明 ——
+		// 横幅：`此页面上的某些设置无法更改，因为存在` + 组织名 + `策略。我们建议改用`
+		// + `GitHub 应用` + `，以便更精细地控制仓库并获得` + `更强的安全性` + `.`
+		"Some settings on this page can't be changed because of a": "此页面上的某些设置无法更改，因为存在",
+		"policy. We recommend using": "策略。我们建议改用",
+		"Alert dismissals require submitting a request to organization owners or security managers.": "忽略警报需要向组织所有者或安全管理员提交请求。"
 	}
 }

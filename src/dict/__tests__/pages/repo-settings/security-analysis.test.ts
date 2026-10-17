@@ -652,6 +652,12 @@ const ORG_NODES: readonly (readonly [string, string])[] = [
 		"Protected direct alert dismissal enablement",
 		"受保护的直接忽略警报启用状态",
 	],
+	// 组织仓库版被政策锁住时，`ControlGroup-item-description` 换成另一句措辞
+	// （2026-10-17 组织仓库实机：开关本身不可改，说明为什么需要走申请）
+	[
+		"Alert dismissals require submitting a request to organization owners or security managers.",
+		"忽略警报需要向组织所有者或安全管理员提交请求。",
+	],
 	// —— Code scanning 顶部告警横幅 ——
 	[
 		"Code scanning: one or more analysis tools are reporting problems",

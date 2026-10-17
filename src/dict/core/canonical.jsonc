@@ -3773,7 +3773,39 @@
 				"These members always see code scanning, Dependabot, and secret scanning alerts.",
 				"Enable malware alerts",
 				"Enable Dependabot version updates",
-				"Enable private vulnerability reporting"
+				"Enable private vulnerability reporting",
+				// —— Code quality 页（/owner/repo/settings/code-quality，React 整页）——
+				// 依据：维护者 2026-10-17 提供的 Koishi-CE/koishi 实机 HTML（页面已加载扩展，
+				// 故页头 `代码质量` 与 Upsell 链接的 `了解更多` 是既有词条的产物）。
+				// 组织级同页（/organizations/<组织>/settings/code-quality）的文案与译文早已登记在
+				// pages/org-settings，但两条路由互斥，本模块必须各收一份。
+				// 上游同日改写了 FAQ：代码覆盖率不再要求「手动提交工作流文件」，而是
+				// 「打开一个 PR 合并 AI 生成的工作流 YAML」，两条答案各自拆成「前句 + `<span>` 后句」。
+				// 按钮文案是 `Enable code quality`（小写 q），与组织页的 `Enable Code Quality` 不同串。
+				"Build resilient code, at scale",
+				"Ensure your codebases are reliable, maintainable, and efficient by proactively scanning for best practices, reducing bugs, improving readability, and enabling easier testing, collaboration, and scalability. Enabling this feature will incur charges in",
+				"action minutes.",
+				"Enable code quality",
+				"Frequently asked questions",
+				"What happens once I turn on code quality scanning?",
+				"GitHub will perform a point-in-time scan of the default branch of the repository, reporting back code quality findings and suggestions to developers. It will also proactively start scanning pull requests for code quality issues.",
+				"A pull request will also be opened to merge an AI-generated workflow YAML file that is needed to enable code coverage analysis.",
+				"Does Code Quality use AI?",
+				"Along with standard findings that are detected using the default CodeQL query suite, Code Quality also uses AI to detect additional findings, labeled as AI findings.",
+				"Additionally, to enable code coverage analysis, a workflow YAML file is generated using AI that will need to be reviewed and merged manually from the pull request that is opened.",
+				"What quality rules and languages are supported?",
+				"We will support quality rules and languages found in this",
+				"open source repository",
+				". The languages supported with CodeQL for standard findings are: C#, Java, JavaScript/TypeScript, Python, Ruby, and Go. Other languages may be scanned with AI, but will not generate standard findings with CodeQL.",
+				// —— 组织策略横幅与政策锁定说明（2026-10-17 同一次采集）——
+				// 横幅被 `<b>组织名</b>` 切成「前缀 + 组织名 + 中段」；中段之后的 `GitHub 应用` /
+				// `instead for fine grained control over repositories and` / `enhanced security`
+				// 与部署密钥页那组同键同译（见本模块上面的 `We recommend using`），故只补前两段。
+				"Some settings on this page can't be changed because of a",
+				"policy. We recommend using",
+				// Advanced Security 页在组织仓库上被政策锁住的开关说明（`ControlGroup-item-description`），
+				// 与上面的 `Actors must submit requests to dismiss an alert.` 是两种不同措辞
+				"Alert dismissals require submitting a request to organization owners or security managers."
 			]
 		},
 		{

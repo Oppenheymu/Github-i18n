@@ -170,12 +170,63 @@ describe("readMissLog", () => {
 			null,
 		]);
 		expect(await readMissLog()).toEqual([
-			{ kind: "text", text: "Save", path: "/x", count: 2 },
+			{
+				kind: "text",
+				text: "Save",
+				path: "/x",
+				context: "",
+				count: 2,
+			},
 			{
 				kind: "placeholder",
 				text: "Search",
 				path: "/y",
+				context: "",
 				count: 3,
+			},
+		] satisfies MissItem[]);
+	});
+
+	it("defaults a missing or malformed context to an empty string", async () => {
+		// context 是后加字段：旧日志与手改过的导出缺它时不能整条丢掉
+		stub.data.set("missLog", [
+			{ kind: "text", text: "Save", path: "/x", count: 2 },
+			{
+				kind: "title",
+				text: "Star",
+				path: "/x",
+				context: 7,
+				count: 1,
+			},
+			{
+				kind: "text",
+				text: "Value",
+				path: "/x",
+				context: "th",
+				count: 1,
+			},
+		]);
+		expect(await readMissLog()).toEqual([
+			{
+				kind: "text",
+				text: "Save",
+				path: "/x",
+				context: "",
+				count: 2,
+			},
+			{
+				kind: "title",
+				text: "Star",
+				path: "/x",
+				context: "",
+				count: 1,
+			},
+			{
+				kind: "text",
+				text: "Value",
+				path: "/x",
+				context: "th",
+				count: 1,
 			},
 		] satisfies MissItem[]);
 	});
@@ -188,7 +239,13 @@ describe("readMissLog", () => {
 
 	it("round-trips through writeMissLog", async () => {
 		const items: MissItem[] = [
-			{ kind: "text", text: "Save", path: "/x", count: 1 },
+			{
+				kind: "text",
+				text: "Save",
+				path: "/x",
+				context: "button",
+				count: 1,
+			},
 		];
 		await writeMissLog(items);
 		expect(await readMissLog()).toEqual(items);
@@ -209,6 +266,7 @@ describe("ensureMissLogRevision", () => {
 				kind: "text" as const,
 				text: "Current",
 				path: "/x",
+				context: "p",
 				count: 1,
 			},
 		];

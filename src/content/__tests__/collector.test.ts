@@ -15,6 +15,7 @@ import {
 import {
 	flushMisses,
 	isEnabled,
+	type MissDraft,
 	mergeMissLogs,
 	missKey,
 	recordAttr,
@@ -86,6 +87,7 @@ function item(overrides: Partial<MissItem> = {}): MissItem {
 		kind: "text",
 		text: "Some English Text",
 		path: "/owner/repo",
+		context: "",
 		count: 1,
 		...overrides,
 	};
@@ -93,49 +95,82 @@ function item(overrides: Partial<MissItem> = {}): MissItem {
 
 describe("missKey", () => {
 	it("separates kinds sharing the same text", () => {
-		expect(missKey("text", "Star", "/repo")).not.toBe(
-			missKey("title", "Star", "/repo"),
+		expect(missKey("text", "Star", "/repo", "")).not.toBe(
+			missKey("title", "Star", "/repo", ""),
 		);
-		expect(missKey("text", "Star", "/repo")).toBe(
-			'["/repo","text","Star"]',
+		expect(missKey("text", "Star", "/repo", "")).toBe(
+			'["/repo","text","Star",""]',
 		);
+	});
+
+	it("separates element contexts sharing the same text", () => {
+		// 同一个 `Value` 可能长在表头（th）与表单标签（label）里，两处本该分开判断
+		expect(
+			missKey("text", "Value", "/repo", "th"),
+		).not.toBe(missKey("text", "Value", "/repo", "label"));
 	});
 });
 
 describe("upsertMiss", () => {
+	const draft = (
+		overrides: Partial<MissDraft> = {},
+	): MissDraft => ({
+		kind: "text",
+		text: "Star",
+		path: "/repo",
+		context: "",
+		...overrides,
+	});
+
 	it("inserts a new entry with count 1", () => {
 		const buffer = new Map<string, MissItem>();
-		upsertMiss(buffer, "text", "Star", "/repo", 10);
+		upsertMiss(buffer, draft(), 10);
 		expect(buffer.size).toBe(1);
 		expect(
-			buffer.get(missKey("text", "Star", "/repo")),
+			buffer.get(missKey("text", "Star", "/repo", "")),
 		).toEqual(item({ text: "Star", path: "/repo" }));
 	});
 
 	it("keeps the same text separate for different paths", () => {
 		const buffer = new Map<string, MissItem>();
-		upsertMiss(buffer, "text", "Star", "/repo/pulls", 10);
-		upsertMiss(buffer, "text", "Star", "/repo/issues", 10);
+		upsertMiss(buffer, draft({ path: "/repo/pulls" }), 10);
+		upsertMiss(buffer, draft({ path: "/repo/issues" }), 10);
 		expect(buffer.size).toBe(2);
 	});
 
 	it("distinguishes kinds of the same text", () => {
 		const buffer = new Map<string, MissItem>();
-		upsertMiss(buffer, "text", "Star", "/repo", 10);
-		upsertMiss(buffer, "title", "Star", "/repo", 10);
+		upsertMiss(buffer, draft(), 10);
+		upsertMiss(buffer, draft({ kind: "title" }), 10);
+		expect(buffer.size).toBe(2);
+	});
+
+	it("distinguishes element contexts of the same text", () => {
+		const buffer = new Map<string, MissItem>();
+		upsertMiss(
+			buffer,
+			draft({ text: "Value", context: "th" }),
+			10,
+		);
+		upsertMiss(
+			buffer,
+			draft({ text: "Value", context: "label" }),
+			10,
+		);
 		expect(buffer.size).toBe(2);
 	});
 
 	it("drops new keys at cap but still counts existing ones", () => {
 		const buffer = new Map<string, MissItem>();
-		upsertMiss(buffer, "text", "First", "/repo", 2);
-		upsertMiss(buffer, "text", "Second", "/repo", 2);
+		upsertMiss(buffer, draft({ text: "First" }), 2);
+		upsertMiss(buffer, draft({ text: "Second" }), 2);
 		expect(buffer.size).toBe(2);
-		upsertMiss(buffer, "text", "Third", "/repo", 2);
+		upsertMiss(buffer, draft({ text: "Third" }), 2);
 		expect(buffer.size).toBe(2);
-		upsertMiss(buffer, "text", "First", "/repo", 2);
+		upsertMiss(buffer, draft({ text: "First" }), 2);
 		expect(
-			buffer.get(missKey("text", "First", "/repo"))?.count,
+			buffer.get(missKey("text", "First", "/repo", ""))
+				?.count,
 		).toBe(2);
 	});
 });
@@ -233,7 +268,7 @@ describe("sortMisses", () => {
 });
 
 describe("serializeMisses", () => {
-	it("emits the github-zh-misses/1 schema in sorted key order", () => {
+	it("emits the github-zh-misses/2 schema in sorted key order", () => {
 		const json = serializeMisses(
 			[item({ text: "Zeta", path: "/b", count: 1 })],
 			new Date("2026-09-25T12:00:00.000Z"),
@@ -245,10 +280,11 @@ describe("serializeMisses", () => {
 				text: string;
 				kind: string;
 				path: string;
+				context: string;
 				count: number;
 			}[];
 		};
-		expect(parsed.schema).toBe("github-zh-misses/1");
+		expect(parsed.schema).toBe("github-zh-misses/2");
 		expect(parsed.exportedAt).toBe(
 			"2026-09-25T12:00:00.000Z",
 		);
@@ -257,6 +293,7 @@ describe("serializeMisses", () => {
 				text: "Zeta",
 				kind: "text",
 				path: "/b",
+				context: "",
 				count: 1,
 			},
 		]);
@@ -339,12 +376,14 @@ describe("漏翻缓冲的落盘链路", () => {
 				kind: "text",
 				text: "Untranslated",
 				path: "/owner/repo/pulls",
+				context: "",
 				count: 2,
 			},
 			{
 				kind: "placeholder",
 				text: "Ask anything",
 				path: "/owner/repo/pulls",
+				context: "input",
 				count: 1,
 			},
 		]);
@@ -367,6 +406,7 @@ describe("漏翻缓冲的落盘链路", () => {
 				kind: "text",
 				text: "Untranslated",
 				path: "/owner/repo/pulls",
+				context: "",
 				count: 1,
 			},
 		]);
@@ -424,24 +464,28 @@ describe("漏翻缓冲的落盘链路", () => {
 				kind: "text",
 				text: "Untranslated",
 				path: "/old",
+				context: "",
 				count: 3,
 			},
 			{
 				kind: "title",
 				text: "Kept",
 				path: "/old",
+				context: "",
 				count: 1,
 			},
 			{
 				kind: "text",
 				text: "Untranslated",
 				path: "/owner/repo/pulls",
+				context: "",
 				count: 1,
 			},
 			{
 				kind: "text",
 				text: "Fresh",
 				path: "/owner/repo/pulls",
+				context: "",
 				count: 1,
 			},
 		]);

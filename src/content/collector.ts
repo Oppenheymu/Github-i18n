@@ -15,8 +15,13 @@ import { hasNonLatinLetter } from "./filters.ts";
 export const BUFFER_CAP = 300;
 /** storage 落盘上限：满了保留先收集的 */
 export const MISS_LOG_CAP = 500;
-/** 采集语义版本；变更 count / 筛选规则时清掉旧格式产生的历史记录。 */
-export const MISS_LOG_REVISION = 2;
+/**
+ * 采集语义版本；变更 count / 筛选规则 / 记录字段时清掉旧格式产生的历史记录。
+ * 3：记录里新增 context（元素上下文），与 2 的条目不再是同一份数据。
+ */
+export const MISS_LOG_REVISION = 3;
+/** 上下文标签上限：只用来判断元素种类，不追求完整选择器 */
+const CONTEXT_MAX = 64;
 
 // 模块单例状态（开关变化靠整页刷新重建，无需运行时切换缓冲）
 let enabled = false;
@@ -33,39 +38,71 @@ export function setEnabled(value: boolean): void {
 	enabled = value;
 }
 
-/** 缓冲键包含路径，避免同一文案跨页面时把次数和 path 错误合并。 */
+/** 缓冲键包含路径与上下文，避免同一文案跨页面 / 跨元素种类时把次数和 path 错误合并。 */
 export function missKey(
 	kind: MissKind,
 	text: string,
 	path: string,
+	context: string,
 ): string {
-	return JSON.stringify([path, kind, text]);
+	return JSON.stringify([path, kind, text, context]);
 }
 
 /**
- * 把一条未命中记录 upsert 进缓冲：相同路径、类型和文案累加 count。
+ * 生成一条未翻译记录的上下文标签：`tag` 或 `tag.首类名`。
+ *
+ * 只取**第一个** class 词：它通常就是组件名（`prc-Button-ButtonBase-9n-Xk`），足够把
+ * `<th>` 表头、`<label>` 标签、`<button>` 按钮区分开；CSS Modules 的哈希尾巴随部署变化，
+ * 但那不影响判断元素种类，故不做清洗（清洗规则本身会成为新的维护点）。
+ * 文本节点取父元素（属性的 target 本身就是元素）。
+ */
+export function describeContext(node: Node): string {
+	const element =
+		node.nodeType === 1
+			? (node as Element)
+			: node.parentElement;
+	if (!element) return "";
+	const tag = element.tagName.toLowerCase();
+	const first = element.classList?.[0] ?? "";
+	const raw = first === "" ? tag : `${tag}.${first}`;
+	return raw.length <= CONTEXT_MAX
+		? raw
+		: raw.slice(0, CONTEXT_MAX);
+}
+
+/** 一条新记录的四个标识字段（count 由缓冲/合并逻辑维护） */
+export interface MissDraft {
+	readonly kind: MissKind;
+	readonly text: string;
+	readonly path: string;
+	readonly context: string;
+}
+
+/**
+ * 把一条未命中记录 upsert 进缓冲：相同路径、类型、文案与上下文累加 count。
  * 达到 cap 后丢弃新增键（已存在键的 count 仍累加）。纯函数，不改调用方以外的状态。
  */
 export function upsertMiss(
 	buffer: Map<string, MissItem>,
-	kind: MissKind,
-	text: string,
-	path: string,
+	draft: MissDraft,
 	cap: number,
 ): boolean {
-	const key = missKey(kind, text, path);
+	const key = missKey(
+		draft.kind,
+		draft.text,
+		draft.path,
+		draft.context,
+	);
 	const existing = buffer.get(key);
 	if (existing !== undefined) {
 		buffer.set(key, {
-			kind: existing.kind,
-			text: existing.text,
-			path: existing.path,
+			...existing,
 			count: existing.count + 1,
 		});
 		return true;
 	}
 	if (buffer.size >= cap) return false;
-	buffer.set(key, { kind, text, path, count: 1 });
+	buffer.set(key, { ...draft, count: 1 });
 	return true;
 }
 
@@ -84,7 +121,8 @@ function recordNode(
 	const normalized = text.trim();
 	if (!isCandidateMiss(normalized)) return;
 	const path = location.pathname;
-	const key = missKey(kind, normalized, path);
+	const context = describeContext(node);
+	const key = missKey(kind, normalized, path, context);
 	let seen = observedNodes.get(node);
 	if (seen === undefined) {
 		seen = new Set();
@@ -92,7 +130,11 @@ function recordNode(
 	}
 	if (seen.has(key)) return;
 	if (
-		!upsertMiss(buffer, kind, normalized, path, BUFFER_CAP)
+		!upsertMiss(
+			buffer,
+			{ kind, text: normalized, path, context },
+			BUFFER_CAP,
+		)
 	)
 		return;
 	seen.add(key);
@@ -124,18 +166,26 @@ export function mergeMissLogs(
 	const merged = new Map<string, MissItem>();
 	for (const item of existing) {
 		merged.set(
-			missKey(item.kind, item.text, item.path),
+			missKey(
+				item.kind,
+				item.text,
+				item.path,
+				item.context,
+			),
 			item,
 		);
 	}
 	for (const item of incoming) {
-		const key = missKey(item.kind, item.text, item.path);
+		const key = missKey(
+			item.kind,
+			item.text,
+			item.path,
+			item.context,
+		);
 		const prior = merged.get(key);
 		if (prior !== undefined) {
 			merged.set(key, {
-				kind: prior.kind,
-				text: prior.text,
-				path: prior.path,
+				...prior,
 				count: prior.count + item.count,
 			});
 			continue;
@@ -158,19 +208,20 @@ export function sortMisses(
 	});
 }
 
-/** 序列化为导出 JSON（schema github-zh-misses/1），排序规则见 sortMisses */
+/** 序列化为导出 JSON（schema github-zh-misses/2），排序规则见 sortMisses */
 export function serializeMisses(
 	items: readonly MissItem[],
 	exportedAt: Date,
 ): string {
 	return JSON.stringify(
 		{
-			schema: "github-zh-misses/1",
+			schema: "github-zh-misses/2",
 			exportedAt: exportedAt.toISOString(),
 			items: sortMisses(items).map((item) => ({
 				text: item.text,
 				kind: item.kind,
 				path: item.path,
+				context: item.context,
 				count: item.count,
 			})),
 		},

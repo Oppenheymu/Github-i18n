@@ -115,13 +115,20 @@ export type MissKind =
 	| "placeholder"
 	| "alt";
 
-/** 开发者模式收集的一条未翻译记录（kind + text 唯一，text 即词典候选键） */
+/** 开发者模式收集的一条未翻译记录（kind + text + path + context 唯一，text 即词典候选键） */
 export interface MissItem {
 	readonly kind: MissKind;
 	/** GitHub 实际渲染的英文原文精确串（trim 后） */
 	readonly text: string;
 	/** 首次出现页面的 location.pathname */
 	readonly path: string;
+	/**
+	 * 记录时所在元素的上下文标签（`tag[.首类名]`，见 collector.describeContext）。
+	 *
+	 * 存在理由：光看 `Value` / `Last updated` 这类短文案分不清它是表头、按钮还是表单标签，
+	 * 而「该不该收、收在哪个模块」恰恰取决于元素种类。空串 = 取不到元素（游离文本节点）。
+	 */
+	readonly context: string;
 	/** 累计出现次数 */
 	readonly count: number;
 }

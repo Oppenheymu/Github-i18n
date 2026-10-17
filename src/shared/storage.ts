@@ -114,9 +114,10 @@ function narrowMissLog(value: unknown): MissItem[] {
 			kind?: unknown;
 			text?: unknown;
 			path?: unknown;
+			context?: unknown;
 			count?: unknown;
 		};
-		const { kind, text, path, count } = record;
+		const { kind, text, path, context, count } = record;
 		if (
 			!isMissKind(kind) ||
 			typeof text !== "string" ||
@@ -127,7 +128,14 @@ function narrowMissLog(value: unknown): MissItem[] {
 			count < 1
 		)
 			continue;
-		items.push({ kind, text, path, count });
+		// context 是后加字段：旧记录（或外部手改的导出）缺它时退化为空串，不丢整条
+		items.push({
+			kind,
+			text,
+			path,
+			context: typeof context === "string" ? context : "",
+			count,
+		});
 	}
 	return items;
 }

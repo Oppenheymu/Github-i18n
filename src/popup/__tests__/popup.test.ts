@@ -325,8 +325,10 @@ describe("popup 的开发者区块", () => {
 		await tick();
 		expect(clipboardWrites).toHaveLength(1);
 		expect(clipboardWrites[0]).toContain(
-			'"schema": "github-zh-misses/1"',
+			'"schema": "github-zh-misses/2"',
 		);
+		// 导出里带 context：没有它就无法判断 `Value` 这类短文案长在哪种元素上
+		expect(clipboardWrites[0]).toContain('"context": ""');
 		const copy = element("#dev-copy") as HTMLButtonElement;
 		expect(copy.textContent).toBe("已复制");
 		expect(copy.disabled).toBe(true);

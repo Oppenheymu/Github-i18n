@@ -1,0 +1,112 @@
+// 日本語・モジュール pages/repo：/owner/repo 配下（ほぼ全サブページ）のリポジトリ骨格。
+// 対象はリポジトリのトップ、ファイル一覧、リリース、コミット署名の各 UI。
+// 注：このモジュールの route は最も汎用的なので、他のモジュールのエントリが常に優先される
+// （キーごとに「先着順」でマージされる）。
+// 鍵は core/canonical.jsonc にある英語原文との完全一致（綴り違いは門禁が弾く）。
+// 値には日本語の文字体系（漢字 / ひらがな / カタカナ）が必要。
+//
+// 意図的に収録しない鍵：`README` / `Readme`。実機ではファイル名そのものの描画であり、
+// 日本語 UI でも原表記のままが正しい。翻訳すると「値 = 鍵」になり防ループ門禁に触れるため、
+// 未収録（= 英語のまま）が正しい扱い。zh-CN 側は「自述文件」と訳しているが、
+// 日本語には対応する定訳がないためここでは収録しない。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		// —— リポジトリのタブ / ナビゲーション ——
+		"Code": "コード",
+		"Actions": "アクション",
+		"Projects": "プロジェクト",
+		"Wiki": "ウィキ",
+		"Security and quality": "セキュリティと品質",
+		"Insights": "インサイト",
+		// —— コードタブの操作 ——
+		"Clone": "クローン",
+		"Download ZIP": "ZIP をダウンロード",
+		"Open with GitHub Desktop": "GitHub Desktop で開く",
+		"Go to file": "ファイルへ移動",
+		"Add file": "ファイルを追加",
+		"Create new file": "新しいファイルを作成",
+		"Upload files": "ファイルをアップロード",
+		"Switch branches/tags": "ブランチ / タグを切り替え",
+		"Branch": "ブランチ",
+		"Branches": "ブランチ",
+		"Tags": "タグ",
+		"Releases": "リリース",
+		"Packages": "パッケージ",
+		"Deployments": "デプロイ",
+		"Environments": "環境",
+		"Pulse": "パルス",
+		"Commits": "コミット",
+		"History": "履歴",
+		// 日本語 UI に定訳がないツール名は、原語を残したうえで動作を添える
+		// （値 = 鍵にすると防ループ門禁に触れるため、そのままは収録できない）
+		"Blame": "Blame 表示",
+		"Raw": "Raw 表示",
+		"Copy raw file": "Raw ファイルをコピー",
+		"Download raw file": "Raw ファイルをダウンロード",
+		"Permalink": "パーマリンク",
+		"Languages": "言語",
+		"About": "概要",
+		"Compare": "比較",
+		"Create pull request": "プルリクエストを作成",
+		"Commit changes": "変更をコミット",
+		"Propose changes": "変更を提案",
+		// —— リポジトリのナビゲーションとファイル一覧 ——
+		"Not available": "利用できません",
+		"Additional navigation options": "その他のナビゲーションオプション",
+		"Name": "名前",
+		"This path skips through empty directories": "このパスは空のディレクトリをスキップします",
+		"View commit history for this file.": "このファイルのコミット履歴を表示します。",
+		// —— リポジトリのトップ（ファイル領域と About サイドバー）——
+		"Latest commit": "最新のコミット",
+		"Last commit message": "最新のコミットメッセージ",
+		"Last commit date": "最新のコミット日時",
+		"Folders and files": "フォルダとファイル",
+		"View all files": "すべてのファイルを表示",
+		"Repository files": "リポジトリのファイル",
+		"Repository files navigation": "リポジトリのファイルのナビゲーション",
+		"Outline": "アウトライン",
+		"Open more actions menu": "その他の操作メニューを開く",
+		"Go to Branches page": "ブランチページへ移動",
+		"Go to Tags page": "タグページへ移動",
+		"Custom properties": "カスタムプロパティ",
+		"Used by": "使用先",
+		"Activity": "アクティビティ",
+		"Watchers": "ウォッチャー",
+		"Report repository": "リポジトリを報告",
+		// —— スター / ウォッチ / コミュニティ標準 ——
+		"You must be signed in to star a repository": "リポジトリにスターを付けるにはサインインが必要です",
+		"You must be signed in to change notification settings": "通知設定を変更するにはサインインが必要です",
+		"Contributors": "コントリビューター",
+		"Code of conduct": "行動規範",
+		"Contributing": "コントリビューションガイド",
+		"Security policy": "セキュリティポリシー",
+		"MIT license": "MIT ライセンス",
+		// —— リリースページ（releases）——
+		"Latest": "最新",
+		"Assets": "アセット",
+		"Choose a tag to compare": "比較するタグを選択",
+		"View all tags": "すべてのタグを表示",
+		// ユーザー名ノードの直後に続く断片なので「が…」で始める
+		"released this": "がリリースしました",
+		"All reactions": "すべてのリアクション",
+		"Tag": "タグ",
+		"Commit": "コミット",
+		"Releases and Tags": "リリースとタグ",
+		"Jump to release": "リリースへ移動",
+		"Release list": "リリース一覧",
+		"Release list navigation": "リリース一覧のナビゲーション",
+		"Release list pagination": "リリース一覧のページネーション",
+		// —— コミット署名のバッジとツールチップ ——
+		"Verified": "検証済み",
+		"Verified commit signature": "検証済みのコミット署名",
+		// 実機では 1 文が 2 ノードに分割される（"… GitHub’s" + "verified signature"）。
+		// 日本語は語順を前後入れ替えず、前段を「… GitHub の」、後段を「検証済み署名で…」に合わせる
+		"This commit was created on GitHub.com and signed with GitHub’s": "このコミットは GitHub.com で作成され、GitHub の",
+		"verified signature": "検証済み署名で署名されています",
+		"GPG key ID:": "GPG キー ID：",
+		"Learn about vigilant mode": "ビジラントモードについて",
+		"main branch": "main ブランチ",
+		"commits by Copilot": "Copilot によるコミット"
+	}
+}

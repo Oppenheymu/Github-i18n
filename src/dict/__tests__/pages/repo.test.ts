@@ -106,6 +106,19 @@ const USER_CONTENT: readonly string[] = [
 	"package.json",
 ];
 
+/**
+ * 日语视图：同一批节点必须全部落到日语译文。
+ *
+ * 这条用例守的是「pages/repo 已登记进 registry 的 ja 段」这件事本身——日语词条是
+ * 稀疏覆盖，漏登记时构件不会报错，整页只会静默保留英文（门禁的覆盖率也只掉几个点），
+ * 故用实机节点清单锁一次。
+ */
+const jaView = buildView(
+	"/microsoft/vscode",
+	dictForLocale("ja"),
+	new Map(Object.entries(dictCore.aliases)),
+);
+
 /** 节点在实机里通常带源码缩进与换行；两种形态都必须命中 */
 function withWhitespace(node: string): readonly string[] {
 	return [node, `\n        ${node}\n      `];
@@ -183,5 +196,32 @@ describe("仓库页的实机节点边界", () => {
 				`不应被翻译：${JSON.stringify(raw)}`,
 			).toBeNull();
 		}
+	});
+});
+
+describe("仓库页的日语覆盖（pages/repo）", () => {
+	it("translates every repository node into japanese", () => {
+		for (const node of REPO_NODES) {
+			// `Readme` 是文件名本身的渲染，日语有意不收录（见 ja/pages/repo.jsonc 的模块头注），
+			// 由下一条用例单独断言，故这里跳过
+			if (node === "Readme") continue;
+			for (const variant of withWhitespace(node)) {
+				const translated = translateText(variant, jaView);
+				expect(
+					translated,
+					`未命中：${JSON.stringify(variant)}`,
+				).not.toBeNull();
+				expect(translated ?? "").toMatch(
+					/[\u3040-\u30ff\u4e00-\u9fff]/,
+				);
+			}
+		}
+	});
+
+	it("leaves the README label in english on purpose", () => {
+		// 日本語には README の定訳がない。訳すと「値 = 鍵」になり防ループ門禁に触れるため、
+		// 未収録（= 英語のまま）が正しい扱い——zh-CN が「自述文件」と訳しているのとは判断が違う
+		expect(translateText("README", jaView)).toBeNull();
+		expect(translateText("Readme", jaView)).toBeNull();
 	});
 });

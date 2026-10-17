@@ -491,7 +491,9 @@
 			"name": "microsoft/vscode",
 			"path": "/microsoft/vscode",
 			"matched": ["pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"repo/commits-count",
 				"repo/reactions-count",
@@ -638,7 +640,9 @@
 			"name": "microsoft/vscode/issues",
 			"path": "/microsoft/vscode/issues",
 			"matched": ["pages/issues", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"issues/in-repo",
 				"issues/page-title",
@@ -789,7 +793,9 @@
 			"name": "microsoft/vscode/issues/1",
 			"path": "/microsoft/vscode/issues/1",
 			"matched": ["pages/issues", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"issues/in-repo",
 				"issues/page-title",
@@ -941,6 +947,7 @@
 			"path": "/microsoft/vscode/pull/1",
 			"matched": ["pages/pulls", "pages/repo", "global"],
 			"collisions": [
+				{ "key": "Code", "module": "pages/repo" },
 				{ "key": "Pull request", "module": "pages/pulls" }
 			],
 			"rules": [
@@ -1096,6 +1103,7 @@
 			"path": "/microsoft/vscode/pulls",
 			"matched": ["pages/pulls", "pages/repo", "global"],
 			"collisions": [
+				{ "key": "Code", "module": "pages/repo" },
 				{ "key": "Pull request", "module": "pages/pulls" }
 			],
 			"rules": [
@@ -1254,7 +1262,9 @@
 				"pages/repo",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"repo-settings/sponsor-button",
 				"repo-settings/send-feedback",
@@ -1449,7 +1459,9 @@
 				"pages/repo",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"repo-settings/sponsor-button",
 				"repo-settings/send-feedback",
@@ -1644,7 +1656,9 @@
 				"pages/repo",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"repo-settings/sponsor-button",
 				"repo-settings/send-feedback",
@@ -6142,6 +6156,8 @@
 			"path": "/microsoft/vscode/actions",
 			"matched": ["pages/actions", "pages/repo", "global"],
 			"collisions": [
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Commit", "module": "pages/actions" },
 				{ "key": "Show options", "module": "pages/actions" }
 			],
 			"rules": [
@@ -6300,7 +6316,9 @@
 			"name": "microsoft/vscode/agents",
 			"path": "/microsoft/vscode/agents",
 			"matched": ["pages/agents", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"agents/sessions-count",
 				"agents/page-title",
@@ -6449,7 +6467,9 @@
 			"name": "microsoft/vscode/commits",
 			"path": "/microsoft/vscode/commits",
 			"matched": ["pages/commits", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"commits/toggle-commit-message",
 				"commits/lines-changed",
@@ -6616,7 +6636,9 @@
 				"pages/repo",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"repo/commits-count",
 				"repo/reactions-count",
@@ -6764,6 +6786,7 @@
 			"path": "/microsoft/vscode/wiki",
 			"matched": ["pages/wiki", "pages/repo", "global"],
 			"collisions": [
+				{ "key": "Code", "module": "pages/repo" },
 				{ "key": "Pages", "module": "pages/wiki" }
 			],
 			"rules": [
@@ -6916,7 +6939,9 @@
 			"name": "microsoft/vscode/pulse",
 			"path": "/microsoft/vscode/pulse",
 			"matched": ["pages/insights", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"insights/hours",
 				"insights/days",
@@ -7120,7 +7145,9 @@
 			"name": "microsoft/vscode/graphs",
 			"path": "/microsoft/vscode/graphs",
 			"matched": ["pages/insights", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"insights/hours",
 				"insights/days",
@@ -7324,7 +7351,9 @@
 			"name": "microsoft/vscode/forks",
 			"path": "/microsoft/vscode/forks",
 			"matched": ["pages/insights", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"insights/hours",
 				"insights/days",
@@ -7528,7 +7557,9 @@
 			"name": "microsoft/vscode/security",
 			"path": "/microsoft/vscode/security",
 			"matched": ["pages/insights", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"insights/hours",
 				"insights/days",
@@ -7732,7 +7763,9 @@
 			"name": "microsoft/vscode/projects",
 			"path": "/microsoft/vscode/projects",
 			"matched": ["pages/insights", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"insights/hours",
 				"insights/days",
@@ -7936,7 +7969,9 @@
 			"name": "microsoft/vscode/tags",
 			"path": "/microsoft/vscode/tags",
 			"matched": ["pages/commits", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"commits/toggle-commit-message",
 				"commits/lines-changed",
@@ -8099,7 +8134,9 @@
 			"name": "microsoft/vscode/branches",
 			"path": "/microsoft/vscode/branches",
 			"matched": ["pages/commits", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"commits/toggle-commit-message",
 				"commits/lines-changed",
@@ -8262,7 +8299,9 @@
 			"name": "microsoft/vscode/compare",
 			"path": "/microsoft/vscode/compare",
 			"matched": ["pages/commits", "pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"commits/toggle-commit-message",
 				"commits/lines-changed",
@@ -9001,7 +9040,9 @@
 			"name": "not-a-real-page/x",
 			"path": "/not-a-real-page/x",
 			"matched": ["pages/repo", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Code", "module": "pages/repo" }
+			],
 			"rules": [
 				"repo/commits-count",
 				"repo/reactions-count",

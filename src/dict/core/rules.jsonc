@@ -2870,13 +2870,6 @@
 				{
 					"id": "commits/on-dec",
 					"pattern": "^Commits on Dec (?<day>\\d{1,2}), (?<year>\\d{4})$"
-				},
-				// 分支页每行右侧的关联拉取请求计数（`col-3 … text-right` 里的独立节点，
-				// 实机 2026-10-18 贴出的 `2 pull requests`）。数字是动态的，只能走规则；
-				// 单复数折叠，与 issues/linked-prs-count 同一手法。
-				{
-					"id": "commits/branch-pull-requests",
-					"pattern": "^([\\d,]+) pull requests?$"
 				}
 			]
 		},
@@ -3412,6 +3405,17 @@
 				{
 					"id": "repo/forks-count",
 					"pattern": "^([\\d.,k]+) forks?$"
+				},
+				// 分支行尾的关联拉取请求计数（2026-10-18 维护者贴出的实机片段：
+				// `span.col-3 … text-right` 里只有 `2 pull requests` 一个文本节点）。
+				// 数字是动态的，静态词条结构上覆盖不了 ⇒ 只能走规则。
+				// **放在 pages/repo 而不是 pages/commits**：那份 DOM 只给了行结构、没给
+				// 页面地址，而本模块覆盖 /owner/repo/** 的任意子页，无论它渲染在
+				// /branches 还是别处都能接住（同一 pattern 若两处都收，会变成两条
+				// 同义规则、谁先命中全看模块顺序）。
+				{
+					"id": "repo/pull-requests-count",
+					"pattern": "^([\\d,]+) pull requests?$"
 				}
 			]
 		},

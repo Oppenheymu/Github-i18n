@@ -228,3 +228,73 @@ describe("仓库页的日语覆盖（pages/repo）", () => {
 		expect(translateText("Readme", jaView)).toBeNull();
 	});
 });
+
+/**
+ * 分支行尾的关联拉取请求计数（实机 2026-10-18 维护者贴的
+ * `span.col-3 … text-right` 里只有 `2 pull requests` 一个文本节点）。
+ *
+ * 数字是动态的，静态词条结构上覆盖不了 ⇒ 走规则 `repo/pull-requests-count`。
+ * 规则落在 pages/repo 而不是 pages/commits：那份 DOM 只给了行结构、没给页面地址，
+ * 而本模块覆盖 `/owner/repo/**` 的任意子页——`/branches` 与仓库根路径都能接住，
+ * 不必赌它渲染在哪个子页上。
+ */
+describe("仓库页行尾的拉取请求计数", () => {
+	/** 分支页视图（pages/commits + pages/repo + global） */
+	const branchesView = buildView(
+		"/microsoft/vscode/branches",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	it("translates the count on every repository path", () => {
+		for (const current of [view, branchesView]) {
+			expect(
+				translateText("2 pull requests", current),
+			).toBe("2 个拉取请求");
+			expect(translateText("1 pull request", current)).toBe(
+				"1 个拉取请求",
+			);
+			// 四位数带千分位
+			expect(
+				translateText("1,024 pull requests", current),
+			).toBe("1,024 个拉取请求");
+		}
+	});
+
+	it("normalizes the source indentation the real node carries", () => {
+		expect(
+			translateText(
+				"\n          2 pull requests\n        ",
+				branchesView,
+			),
+		).toBe("2 个拉取请求");
+	});
+
+	it("does not swallow the number through a bare phrase entry", () => {
+		// 没有词条 → 保持英文；收它只会剩「个拉取请求」，数字被吃掉
+		expect(
+			translateText("pull requests", branchesView),
+		).toBeNull();
+		// 规则两端锚定，带尾巴的句子不归它管
+		expect(
+			translateText(
+				"2 pull requests were merged",
+				branchesView,
+			),
+		).toBeNull();
+	});
+
+	it("has a japanese template", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/branches",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("2 pull requests", japanese)).toBe(
+			"2 件のプルリクエスト",
+		);
+		expect(translateText("1 pull request", japanese)).toBe(
+			"1 件のプルリクエスト",
+		);
+	});
+});

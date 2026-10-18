@@ -575,8 +575,6 @@
 		"commits/on-oct": "$2 年 10 月 $1 日的提交",
 		"commits/on-nov": "$2 年 11 月 $1 日的提交",
 		"commits/on-dec": "$2 年 12 月 $1 日的提交",
-		// 分支页每行右侧的关联拉取请求计数（数字由捕获组带回）
-		"commits/branch-pull-requests": "$1 个拉取请求",
 		"wiki/edited-page": "$1 编辑了此页面",
 		"wiki/revisions-count": "$1 次修订",
 		"wiki/more-pages": "显示另外 $1 个页面…",
@@ -703,6 +701,8 @@
 		"repo/stars-count": "$1 个星标",
 		"repo/watchers-count": "$1 人在关注",
 		"repo/forks-count": "$1 个复刻",
+		// 分支行尾的关联拉取请求计数（数字由捕获组带回，单复数同一模板）
+		"repo/pull-requests-count": "$1 个拉取请求",
 		"global/now": "刚刚",
 		"global/yesterday": "昨天",
 		"global/seconds-ago": "$1 秒前",

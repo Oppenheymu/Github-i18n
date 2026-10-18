@@ -24,12 +24,16 @@
 		"Feature preview": "機能プレビュー",
 		"Help": "ヘルプ",
 		"Search or jump to…": "検索またはジャンプ…",
-		"Type / to search": "/ と入力して検索",
-		"Open quick search dialog, type / to search": "クイック検索ダイアログを開き、/ と入力して検索します",
 		// 実機のヘッダーは `Type ` + `<kbd>/</kbd>` + ` to search` の 3 ノードに割れている。
 		// 断片（`Type` / `to search`）は登録しない——`Type` はヘッダーでは「入力」、
 		// 設定ページ本文では「タイプ」の同形異義で、同じページに両方が存在するため
-		// どちらかを必ず誤訳する（詳細は zh-CN の global.jsonc のコメント）。
+		// どちらかを必ず誤訳する。その代わり**構造が成立するとき**（親要素が
+		// `テキスト + <kbd> + テキスト` の 3 子ノード）は、エンジンが kbd 自身の
+		// テキストをアンカーに文全体のキーを左右へ切り戻す（`/ と入力して検索` →
+		// 空文字列 + `<kbd>/</kbd>` + ` と入力して検索`。詳細は src/content/walker.ts の
+		// applyKbdLabel と zh-CN の global.jsonc のコメント）。
+		"Type / to search": "/ と入力して検索",
+		"Open quick search dialog, type / to search": "クイック検索ダイアログを開き、/ と入力して検索します",
 		"forward slash": "スラッシュ",
 		"g then n": "g の後に n",
 		"g then d": "g の後に d",

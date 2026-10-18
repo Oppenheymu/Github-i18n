@@ -256,17 +256,20 @@ describe("global 模块的仓库可见性标签", () => {
 /**
  * 头部搜索按钮的占位文案：`Type ` + `<kbd>/</kbd>` + ` to search`。
  *
- * 维护者 2026-10-17 贴的实机 DOM（`span.prc-Button-Label` 里套
- * `span.placeholder__…`）渲染成「Type / 以进行搜索」——`<kbd>` 被整棵排除，
- * 于是只有后半段 ` to search` 命中了一条碎片词条，前半段 `Type` 保留英文。
+ * 这里锁的是**词典层**的决定：整句键有效，两段碎片**没有词条**。碎片收不得——
+ * `Type` 同形异义（页头读作「键入」、设置页正文读作「类型」，同页共存），
+ * 只收后半段则只剩中英残句「Type / 以搜索」（维护者 2026-10-17 实机贴图确认）。
  *
- * 这一组用例锁住**最终决定**（三个断言缺一不可）：
- *   1. 整句键仍然有效：上游若把占位文案渲染成单个文本节点，一次命中；
- *   2. 两段碎片在 zh-CN 里**必须**保持英文：收了 `Type` 就会在设置页页头
- *      印出「类型 / 以搜索」（`Type` 同形异义，见 zh-CN 的 global.jsonc 注释），
- *      只收 `to search` 则会印出中英残句；
+ * 实机并不会因此留英文：引擎在「文本 + `<kbd>` + 文本」三段结构成立时，用整句键
+ * 按 kbd 自身的文本切分回填（`输入 / 以搜索` → `输入 ` + `<kbd>/</kbd>` + ` 以搜索`）。
+ * 切分规则、kbd 保护与「设置页正文的 Type 不受影响」由
+ * `src/content/__tests__/walker.test.ts` 的「三段标签」一组锁住；本文件只守词典侧。
+ *
+ * 三个断言缺一不可：
+ *   1. 整句键仍然有效（回填与上游单节点形态都靠它）；
+ *   2. 两段碎片在 zh-CN 的词典里**必须查不到**：第 2 条一旦失败，通常就是有人
+ *      把这条「顺手」收进了 global（设置页立刻会出现「类型 / 以搜索」）；
  *   3. 同形异义的另一面：设置页路径上 `Type` 仍由 pages/settings 译作「类型」。
- *      第 2 条一旦失败，通常就是有人把这条「顺手」收进了 global。
  */
 describe("global 模块的搜索占位符（kbd 断句）", () => {
 	/** 设置页路径：pages/settings 在 global 之前，故 `Type` 由它胜出 */
@@ -282,7 +285,7 @@ describe("global 模块的搜索占位符（kbd 断句）", () => {
 		);
 	});
 
-	it("leaves both halves in english, so the header never reads half-chinese", () => {
+	it("keeps both halves out of the dictionary, so Type stays unambiguous", () => {
 		expect(translateText("Type", view)).toBeNull();
 		expect(translateText("to search", view)).toBeNull();
 	});

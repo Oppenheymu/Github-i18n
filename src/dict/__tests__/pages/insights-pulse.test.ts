@@ -359,8 +359,10 @@ describe("洞察页里「日志有、词典不该收」的节点", () => {
 		}
 	});
 
-	it("keeps the search placeholder english, as decided for the kbd-split surface", () => {
-		// 同一条结论的另一处证据：这页的日志里它也是 `span.placeholder__MIdoN6` 的 `Type`
+	it("keeps the search placeholder fragments out of the dictionary", () => {
+		// 实机是 `span.placeholder__MIdoN6` 里的 `Type ` + `<kbd>/</kbd>` + ` to search`：
+		// 整句由引擎按三段结构回填（见 walker.test.ts 的「三段标签」），两个**碎片**
+		// 仍然不能收——`Type` 在设置页正文另有「类型」，收了就必然有一处译错
 		expect(translateText("Type", view)).toBeNull();
 		expect(translateText("to search", view)).toBeNull();
 	});

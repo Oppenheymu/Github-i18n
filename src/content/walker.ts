@@ -135,6 +135,9 @@ function applyTextNode(
 	node: Text,
 	view: DictView,
 ): boolean {
+	// 三段标签先按整句回填（`Type ` + `<kbd>` + ` to search`）：两个碎片各自查表
+	// 永远命中不了整句，而它们的整句键在结构成立时才有效——见 applyKbdLabel。
+	if (applyKbdLabel(node, view)) return true;
 	const value = node.nodeValue ?? "";
 	const translated = translateText(value, view);
 	if (translated === null) {
@@ -161,6 +164,105 @@ function applyTextNode(
 	if (next === value) return false;
 	node.nodeValue = next;
 	return true;
+}
+
+/** 译文里的字母 / 数字：锚点被这类字符包住时说明它是别的词的一部分，不能切 */
+const WORD_CHAR = /[\p{L}\p{N}]/u;
+
+/**
+ * 在译文里定位 kbd 锚点（`Type / to search` 的 `/`）的唯一位置；找不到或不唯一返回 -1。
+ *
+ * 锚点必须**独立出现**（前后是空白 / 标点 / 串边界）——否则 `K` 会切在 `Kubernetes`
+ * 中间。宁可不切（退回整块英文）也不切错。
+ */
+function anchorIndex(
+	translated: string,
+	anchor: string,
+): number {
+	const at = translated.indexOf(anchor);
+	if (at < 0) return -1;
+	// 出现多次时无法判断哪一处对应按键：例如译文里另有同名字符
+	if (translated.indexOf(anchor, at + anchor.length) >= 0)
+		return -1;
+	const before = at === 0 ? "" : (translated[at - 1] ?? "");
+	const after = translated[at + anchor.length] ?? "";
+	if (WORD_CHAR.test(before) || WORD_CHAR.test(after))
+		return -1;
+	return at;
+}
+
+/**
+ * 「三段标签」的整句回填：`文本 + <kbd> + 文本`（实机：头部搜索按钮的占位句
+ * `Type ` + `<kbd>/</kbd>` + ` to search`，见 zh-CN 的 global.jsonc）。
+ *
+ * 为什么需要它：`<kbd>` 在排除清单里（filters.ts），两个文本节点各自只等于
+ * `Type` / `to search`，整句键在这两个碎片上查不到；而两段碎片又不能
+ * 单独收——`Type` 同形异义（页头读作「键入」、设置页正文读作「类型」），收了它
+ * 设置页页头会印出「类型 / 以搜索」。这里以 **kbd 自身的文本为锚点**把整句译文
+ * 切回左右两个文本节点：`输入 / 以搜索` → `输入 ` + `<kbd>/</kbd>` + ` 以搜索`。
+ * 上下文来自**结构**而不是 DOM 区域，故同一个 `Type` 词条仍可安全地留给设置页正文。
+ *
+ * 两条安全边界：
+ *   1. 只写左右两个文本节点的 `nodeValue`，**不新增 / 删除节点**——React 仍持有
+ *      这两个节点，换子节点会让它的协调器在卸载时抛 `NotFoundError`；
+ *   2. 只在父元素**恰好三个子节点、中间是 `<kbd>`** 时生效，且锚点必须独立出现一次
+ *      （见 anchorIndex）；任何一条不满足就原样返回，交给单节点查表。
+ */
+function applyKbdLabel(
+	node: Text,
+	view: DictView,
+): boolean {
+	const parent = node.parentElement;
+	if (parent === null || parent.childNodes.length !== 3)
+		return false;
+	const before = parent.childNodes[0];
+	const keycap = parent.childNodes[1];
+	const after = parent.childNodes[2];
+	if (
+		before === undefined ||
+		keycap === undefined ||
+		after === undefined ||
+		before.nodeType !== Node.TEXT_NODE ||
+		after.nodeType !== Node.TEXT_NODE ||
+		!(keycap instanceof Element) ||
+		keycap.tagName !== "KBD" ||
+		(node !== before && node !== after)
+	) {
+		return false;
+	}
+	const anchor = (keycap.textContent ?? "").trim();
+	if (anchor === "") return false;
+	const translated = lookup(
+		view,
+		normalizeKey(parent.textContent ?? ""),
+	);
+	if (translated === undefined) return false;
+	const at = anchorIndex(translated, anchor);
+	if (at < 0) return false;
+	const prefix = translated.slice(0, at);
+	const suffix = translated.slice(at + anchor.length);
+	// 译文只剩按键本身时不动：那会把整块标签清空
+	if (prefix.trim() === "" && suffix.trim() === "")
+		return false;
+	const beforeValue = before.nodeValue ?? "";
+	const afterValue = after.nodeValue ?? "";
+	const nextBefore = `${beforeValue.slice(
+		0,
+		beforeValue.length - beforeValue.trimStart().length,
+	)}${prefix}`;
+	const nextAfter = `${suffix}${afterValue.slice(
+		afterValue.trimEnd().length,
+	)}`;
+	let changed = false;
+	if (beforeValue !== nextBefore) {
+		(before as Text).nodeValue = nextBefore;
+		changed = true;
+	}
+	if (afterValue !== nextAfter) {
+		(after as Text).nodeValue = nextAfter;
+		changed = true;
+	}
+	return changed;
 }
 
 /** 精确命中词条才替换元素属性值，同样保留首尾空白 */

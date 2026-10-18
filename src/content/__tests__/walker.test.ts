@@ -416,3 +416,172 @@ describe("translateTree 的同值写入守卫", () => {
 		);
 	});
 });
+
+// —— 三段标签：`文本 + <kbd> + 文本` 的整句回填 ——
+//
+// 实机形态（2026-10-18 维护者贴的 DOM）：头部搜索按钮的占位句被 `<kbd>/</kbd>`
+// 断成 `Type ` / ` to search` 两个文本节点。`<kbd>` 在排除清单里，两个碎片各自
+// 查表永远命中不了整句；而碎片单独收录又会撞上 `Type` 的同形异义（设置页正文读作
+// 「类型」，与页头同页共存）。整句回填用**结构**（恰好一个 kbd）提供上下文，
+// 故这一组用例与 dict 层的 `global.test.ts` 分工：那边锁「碎片没有词条」，
+// 这边锁「整句在实机结构上真的能落下来」。
+describe("三段标签的整句回填", () => {
+	const headerView: DictView = {
+		entries: new Map([
+			["Type / to search", "输入 / 以搜索"],
+			// 设置页正文的既有键：同一个单词在别处的另一种译法
+			["Type", "类型"],
+		]),
+		aliases: new Map(),
+		rules: [],
+	};
+
+	interface LabelParts {
+		readonly label: HTMLElement;
+		readonly keycap: HTMLElement;
+		readonly before: Text;
+		readonly after: Text;
+	}
+
+	/** 复刻 `span.placeholder__…` 下的三段结构 */
+	function makeLabel(parent: HTMLElement): LabelParts {
+		const label = env.document.createElement("span");
+		const before = makeText(label, "Type ");
+		const keycap = env.document.createElement("kbd");
+		keycap.textContent = "/";
+		label.appendChild(keycap);
+		const after = makeText(label, " to search");
+		parent.appendChild(label);
+		return { label, keycap, before, after };
+	}
+
+	it("writes the sentence back into the two text nodes around the keycap", () => {
+		const root = makeRoot();
+		const { label, keycap, before, after } =
+			makeLabel(root);
+		translateTree(root, headerView);
+		// 左侧若按单节点查表会命中 `Type` → 「类型」，这里必须是整句的前半段
+		expect(before.nodeValue).toBe("输入 ");
+		expect(after.nodeValue).toBe(" 以搜索");
+		// 按键本身不动（排除清单照旧保护它），元素也还在（只改文本，不换子节点）
+		expect(keycap.textContent).toBe("/");
+		expect(label.querySelectorAll("kbd")).toHaveLength(1);
+		expect(label.textContent).toBe("输入 / 以搜索");
+	});
+
+	it("keeps the settings page's own Type translation intact", () => {
+		// 页头与正文在同一个页面上同时存在：回填只认结构，不影响正文的 `Type`
+		const root = makeRoot();
+		const { label } = makeLabel(root);
+		const body = env.document.createElement("dt");
+		body.textContent = "Type";
+		root.appendChild(body);
+		translateTree(root, headerView);
+		expect(label.textContent).toBe("输入 / 以搜索");
+		expect(body.textContent).toBe("类型");
+	});
+
+	it("preserves the whitespace outside the label", () => {
+		const root = makeRoot();
+		const label = env.document.createElement("span");
+		const before = makeText(label, "\n  Type ");
+		const keycap = env.document.createElement("kbd");
+		keycap.textContent = "/";
+		label.appendChild(keycap);
+		const after = makeText(label, " to search\n");
+		root.appendChild(label);
+		translateTree(root, headerView);
+		expect(before.nodeValue).toBe("\n  输入 ");
+		expect(after.nodeValue).toBe(" 以搜索\n");
+	});
+
+	it("supports translations where the keycap comes first", () => {
+		// 日语把按键读在最前：`/ と入力して検索` → 左侧节点整个变空
+		const japanese: DictView = {
+			entries: new Map([
+				["Type / to search", "/ と入力して検索"],
+			]),
+			aliases: new Map(),
+			rules: [],
+		};
+		const root = makeRoot();
+		const { label, before, after } = makeLabel(root);
+		translateTree(root, japanese);
+		expect(before.nodeValue).toBe("");
+		expect(after.nodeValue).toBe(" と入力して検索");
+		expect(label.textContent).toBe("/ と入力して検索");
+	});
+
+	it("is idempotent", async () => {
+		const root = makeRoot();
+		const { label } = makeLabel(root);
+		translateTree(root, headerView);
+		const second = await probeWrites(root, () =>
+			translateTree(root, headerView),
+		);
+		expect(second.result).toBe(0);
+		expect(second.records).toEqual([]);
+		expect(label.textContent).toBe("输入 / 以搜索");
+	});
+
+	it("leaves the label alone when the whole sentence has no entry", () => {
+		// 碎片没有词条时不得「顺手」译半段：整块保持英文
+		const empty: DictView = {
+			entries: new Map(),
+			aliases: new Map(),
+			rules: [],
+		};
+		const root = makeRoot();
+		const { label } = makeLabel(root);
+		translateTree(root, empty);
+		expect(label.textContent).toBe("Type / to search");
+	});
+
+	it("refuses to split when the anchor is part of a larger word", () => {
+		// 锚点必须独立出现：`K` 落在 `Kubernetes` 里时不能切
+		const view: DictView = {
+			entries: new Map([
+				["Press K to search", "按 Kubernetes 搜索"],
+			]),
+			aliases: new Map(),
+			rules: [],
+		};
+		const root = makeRoot();
+		const label = env.document.createElement("span");
+		makeText(label, "Press ");
+		const keycap = env.document.createElement("kbd");
+		keycap.textContent = "K";
+		label.appendChild(keycap);
+		makeText(label, " to search");
+		root.appendChild(label);
+		translateTree(root, view);
+		expect(label.textContent).toBe("Press K to search");
+	});
+
+	it("leaves labels with several keycaps alone", () => {
+		// 多个按键时无法用单个锚点切分：整块交给单节点查表（这里没有词条，保持英文）
+		const view: DictView = {
+			entries: new Map([
+				["Press Ctrl + K to search", "按 Ctrl + K 搜索"],
+			]),
+			aliases: new Map(),
+			rules: [],
+		};
+		const root = makeRoot();
+		const label = env.document.createElement("span");
+		makeText(label, "Press ");
+		const firstKey = env.document.createElement("kbd");
+		firstKey.textContent = "Ctrl";
+		label.appendChild(firstKey);
+		makeText(label, " + ");
+		const secondKey = env.document.createElement("kbd");
+		secondKey.textContent = "K";
+		label.appendChild(secondKey);
+		makeText(label, " to search");
+		root.appendChild(label);
+		translateTree(root, view);
+		expect(label.textContent).toBe(
+			"Press Ctrl + K to search",
+		);
+	});
+});

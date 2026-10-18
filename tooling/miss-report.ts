@@ -266,6 +266,10 @@ export const PRODUCT_NAMES: ReadonlySet<string> = new Set([
  *
  * **不要往这里加「暂时还没翻译的普通词条」**——那些正是候选该出现的地方。
  * 这张表越长，日志分拣就越像在自欺欺人。
+ *
+ * 注意：头部那一处**已经不再漏**——引擎在「`文本` + `<kbd>` + `文本`」三段结构上
+ * 用整句键切分回填（`src/content/walker.ts` 的 `applyKbdLabel`）。这两条留在这里，
+ * 拦的是「把碎片收进词典」这个动作本身，而不是页头的漏翻。
  */
 export const STRUCTURAL: ReadonlyMap<string, string> =
 	new Map([

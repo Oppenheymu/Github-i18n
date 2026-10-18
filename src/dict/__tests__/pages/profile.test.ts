@@ -371,6 +371,57 @@ describe("pages/profile 的私有贡献摘要", () => {
 });
 
 /**
+ * 行尾的拉取请求计数（2026-10-18 维护者两次贴出的实机 DOM，第二次补了页面地址
+ * `https://github.com/Oppenheymu`）。
+ *
+ * 实机片段逐字如下——`span` 里只有 `2 pull requests` 一个文本节点，两侧是源码的
+ * 换行缩进（`normalizeKey` 折叠空白后才等于规则的输入）：
+ *
+ *     <span class="col-3 flex-shrink-0 f6 color-fg-muted width-auto text-right">
+ *               2 pull requests
+ *             </span>
+ *
+ * 数字是动态的 ⇒ 只能走规则 `global/pull-requests-count`
+ * （`^([\d,]+) pull requests?$`，单复数折叠、带千分位）。本页命中 pages/profile + global，
+ * 规则由 global 提供——**前两版把同一 pattern 挂在 pages/commits / pages/repo 上都没生效**，
+ * 就是因为页面其实是这个（个人主页）：那段 DOM 只给了行结构、没给页面地址，
+ * 按「仓库页的行」去猜就把整条修复挂错了模块。本组用例就是那两次误判的回归保护。
+ */
+describe("pages/profile 行尾的拉取请求计数", () => {
+	it("translates the reported node, indentation included", () => {
+		expect(
+			translateText(
+				"\n          2 pull requests\n        ",
+				view,
+			),
+		).toBe("2 个拉取请求");
+		expect(translateText("1 pull request", view)).toBe(
+			"1 个拉取请求",
+		);
+	});
+
+	it("leaves the bare phrase and longer sentences alone", () => {
+		// 裸短语若被收成词条，数字节点会单独留下、整行渲染成「个拉取请求」；
+		// 规则两端锚定，带尾巴的句子不归它管（不产出中英残句）
+		expect(translateText("pull requests", view)).toBeNull();
+		expect(
+			translateText("2 pull requests were merged", view),
+		).toBeNull();
+	});
+
+	it("has a japanese template", () => {
+		const japanese = buildView(
+			"/Oppenheymu",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("2 pull requests", japanese)).toBe(
+			"2 件のプルリクエスト",
+		);
+	});
+});
+
+/**
  * 个人主页左侧栏的**内联「编辑资料」表单**（仅本人访问自己的主页时渲染）。
  *
  * 事故背景（2026-10-06 维护者报「补了没生效」）：这一批文案此前只登记在

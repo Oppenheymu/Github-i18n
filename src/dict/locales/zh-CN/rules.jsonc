@@ -701,8 +701,6 @@
 		"repo/stars-count": "$1 个星标",
 		"repo/watchers-count": "$1 人在关注",
 		"repo/forks-count": "$1 个复刻",
-		// 分支行尾的关联拉取请求计数（数字由捕获组带回，单复数同一模板）
-		"repo/pull-requests-count": "$1 个拉取请求",
 		"global/now": "刚刚",
 		"global/yesterday": "昨天",
 		"global/seconds-ago": "$1 秒前",
@@ -727,6 +725,8 @@
 		"global/private-repos-count": "$1 个私有仓库",
 		"global/repos-count": "$1 个仓库",
 		"global/commits-count": "$1 次提交",
+		// 行尾的关联拉取请求计数（数字由捕获组带回，单复数同一模板）
+		"global/pull-requests-count": "$1 个拉取请求",
 		"global/contributors-count": "$1 位贡献者",
 		"global/members-count": "$1 名成员",
 		"global/files-changed": "$1 个文件发生变更",

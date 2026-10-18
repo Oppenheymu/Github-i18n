@@ -700,7 +700,6 @@
 		"repo/stars-count": "$1 件のスター",
 		"repo/watchers-count": "$1 人がウォッチ中",
 		"repo/forks-count": "$1 件のフォーク",
-		"repo/pull-requests-count": "$1 件のプルリクエスト",
 
 		// —— global（全ページ共通）——
 		"global/now": "たった今",
@@ -727,6 +726,7 @@
 		"global/private-repos-count": "$1 個のプライベートリポジトリ",
 		"global/repos-count": "$1 個のリポジトリ",
 		"global/commits-count": "$1 件のコミット",
+		"global/pull-requests-count": "$1 件のプルリクエスト",
 		"global/contributors-count": "$1 人のコントリビューター",
 		"global/members-count": "$1 人のメンバー",
 		"global/files-changed": "$1 個のファイルを変更",

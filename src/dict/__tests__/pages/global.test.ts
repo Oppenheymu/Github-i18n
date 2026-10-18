@@ -212,6 +212,62 @@ describe("global 模块的实机节点边界", () => {
 });
 
 /**
+ * 行尾的关联拉取请求计数（「数字 + 名词」的通用计数行）。
+ *
+ * 实机证据：维护者 2026-10-18 两次贴出同一段 DOM，第二次补了页面地址
+ * `https://github.com/Oppenheymu`（个人主页）：
+ * `<span class="col-3 flex-shrink-0 f6 color-fg-muted width-auto text-right">`
+ * 里只有 `2 pull requests` **一个文本节点**（节点边界与页面来源的回归见
+ * `profile.test.ts` 的「行尾的拉取请求计数」一组）。
+ *
+ * 前两版分别把这份 pattern 挂在 pages/commits 与 pages/repo 上，实机都不生效——
+ * 那段 DOM 只给了行结构、没给页面地址，而真正的页面命中 pages/profile；
+ * 计数行本身又是 GitHub 的通用部件，故**改挂 global**：任何路径都接住，
+ * 也不必为同一 pattern 在每个模块各收一份（同 `global/commits-count` 一类计数的做法）。
+ *
+ * 三条断言缺一不可：
+ *   1. 数字动态 ⇒ 只能走规则（静态词条收不了任意数字）；千分位与单复数都要接住；
+ *   2. 本视图必须查不到裸短语 `pull requests`：收了它，数字节点会单独留下、
+ *      整行渲染成「个拉取请求」；
+ *   3. 规则两端锚定，带尾巴的句子不归它管，不产出中英残句。
+ */
+describe("global 模块的拉取请求计数", () => {
+	it("translates the count node on a non-profile path too", () => {
+		// 用仓库页视图断言「挂在 global 上」这件事：个人主页由 profile.test.ts 守
+		expect(translateText("2 pull requests", view)).toBe(
+			"2 个拉取请求",
+		);
+		expect(translateText("1 pull request", view)).toBe(
+			"1 个拉取请求",
+		);
+		expect(translateText("1,024 pull requests", view)).toBe(
+			"1,024 个拉取请求",
+		);
+	});
+
+	it("does not swallow the number through a bare phrase entry", () => {
+		expect(translateText("pull requests", view)).toBeNull();
+		expect(
+			translateText("2 pull requests were merged", view),
+		).toBeNull();
+	});
+
+	it("has a japanese template", () => {
+		const japanese = buildView(
+			"/microsoft/vscode",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("2 pull requests", japanese)).toBe(
+			"2 件のプルリクエスト",
+		);
+		expect(translateText("1 pull request", japanese)).toBe(
+			"1 件のプルリクエスト",
+		);
+	});
+});
+
+/**
  * 仓库名后的可见性标签（`Label Label--secondary`）。
  *
  * 实机证据：维护者 2026-10-02 在 `/Oppenheymu?tab=repositories` 贴的

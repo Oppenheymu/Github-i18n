@@ -3405,17 +3405,6 @@
 				{
 					"id": "repo/forks-count",
 					"pattern": "^([\\d.,k]+) forks?$"
-				},
-				// 分支行尾的关联拉取请求计数（2026-10-18 维护者贴出的实机片段：
-				// `span.col-3 … text-right` 里只有 `2 pull requests` 一个文本节点）。
-				// 数字是动态的，静态词条结构上覆盖不了 ⇒ 只能走规则。
-				// **放在 pages/repo 而不是 pages/commits**：那份 DOM 只给了行结构、没给
-				// 页面地址，而本模块覆盖 /owner/repo/** 的任意子页，无论它渲染在
-				// /branches 还是别处都能接住（同一 pattern 若两处都收，会变成两条
-				// 同义规则、谁先命中全看模块顺序）。
-				{
-					"id": "repo/pull-requests-count",
-					"pattern": "^([\\d,]+) pull requests?$"
 				}
 			]
 		},
@@ -3525,6 +3514,18 @@
 				{
 					"id": "global/commits-count",
 					"pattern": "^([\\d,]+) commits?$"
+				},
+				// 行尾的关联拉取请求计数（2026-10-18 维护者两次贴出的实机片段：
+				// `span.col-3 flex-shrink-0 f6 color-fg-muted width-auto text-right`
+				// 里只有 `2 pull requests` 一个文本节点，页面是 https://github.com/Oppenheymu）。
+				// 数字是动态的，静态词条结构上覆盖不了 ⇒ 只能走规则。**归 global 而不是页面模块**：
+				// 这种「数字 + 名词」的计数行是 GitHub 的通用部件，个人主页（pages/profile）
+				// 与仓库子页（pages/repo）都可能渲染，而维护者只给了这一行的结构、没有给完整页面；
+				// 挂在 global 上任何路径都能接住，也不必为同一 pattern 在每个模块各收一份
+				// （同 global/commits-count 一类计数的既有做法）。
+				{
+					"id": "global/pull-requests-count",
+					"pattern": "^([\\d,]+) pull requests?$"
 				},
 				{
 					"id": "global/contributors-count",

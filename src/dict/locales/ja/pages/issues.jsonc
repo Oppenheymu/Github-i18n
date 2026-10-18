@@ -1,21 +1,91 @@
-// 日本語・モジュール pages/issues（サンプル）
-// 鍵は core/canonical.jsonc の英語原文と完全一致させること。
+// 日本語・モジュール pages/issues：/owner/repo/issues（一覧と詳細ページ）専用のエントリ。
+// 対象は 2 階層のリポジトリパス配下の issues サブツリー。
+// 注：クエリ構文のトークン（is:open、sort:comments-desc など）は収録しない。
+// 「View X profile」「N comments」のような動的値を含む属性も収録しない
+// （属性値は静的詞条の完全一致だけで、正規表現ルールは適用されない。src/content/walker.ts）。
+// 鍵は core/canonical.jsonc にある英語原文との完全一致（綴り違いは門禁が弾く）。
+// 値には日本語の文字体系（漢字 / ひらがな / カタカナ）が必要。
 {
 	"$schema": "../../../types/dict.schema.json",
 	"entries": {
+		// —— 一覧行のメタ情報（ステータスバッジとオープン日時）——
+		"opened": "オープン",
+		"Status: Open.": "ステータス：オープン。",
+		"Status: Closed (completed).": "ステータス：クローズ（完了）。",
+		"More information available below.": "詳細は以下で確認できます。",
+		"new release": "新しいリリース",
+		// —— サイドバーナビゲーションと保存済みビュー ——
 		"Assigned to me": "自分に割り当て",
 		"Created by me": "自分が作成",
 		"Mentioned": "メンションされた",
 		"Recent activity": "最近のアクティビティ",
 		"Views": "ビュー",
 		"Types": "タイプ",
+		"Open Issues sidebar navigation": "イシューサイドバーナビゲーションを開く",
+		"Issues sidebar navigation": "イシューサイドバーナビゲーション",
+		"Collapse sidebar": "サイドバーを折りたたむ",
+		// —— 検索と絞り込み ——
+		"Search Issues": "イシューを検索",
+		"Suggestions": "候補",
+		"Issue filters": "イシューフィルター",
+		"Filter all issues": "すべてのイシューを絞り込む",
+		"Filter by author": "作成者で絞り込む",
+		"Filter by milestones": "マイルストーンで絞り込む",
+		"Filter by projects": "プロジェクトで絞り込む",
+		"Filter by assignees": "担当者で絞り込む",
+		"Filter by issue type": "イシュータイプで絞り込む",
+		"Filter by labels": "ラベルで絞り込む",
+		", descending": "、降順",
+		// —— 一覧の並べ替えメニューと新規作成入口 ——
 		"Newest": "新しい順",
 		"Oldest": "古い順",
 		"Most commented": "コメントが多い順",
 		"Least commented": "コメントが少ない順",
+		"Recently updated": "最近更新された",
+		"Least recently updated": "更新が古い順",
 		"New label": "新しいラベル",
 		"New milestone": "新しいマイルストーン",
+		// —— 詳細ページの操作ボタン ——
 		"Close issue": "イシューを閉じる",
-		"Reopen issue": "イシューを再オープン"
+		"Reopen issue": "イシューを再オープン",
+		"Submit new issue": "新しいイシューを送信",
+		"Assign yourself": "自分を担当者に設定",
+		// —— ピン留めイシューと作成制限 ——
+		"Issue creation is restricted in this repository": "このリポジトリではイシューの作成が制限されています",
+		"Drag and drop pinned issues list.": "ピン留めしたイシュー一覧をドラッグ＆ドロップします。",
+		// —— ラベルの説明（絞り込み一覧 / ツールチップで表示）——
+		"Request for new features or functionality": "新機能や機能性のリクエスト",
+		"Issue identified by VS Code Team member as probable bug": "VS Code チームのメンバーがバグの可能性があると判断したイシュー",
+		"Issues found in a recent release of VS Code": "VS Code の最近のリリースで見つかった問題",
+		"VS Code keybinding issues": "VS Code のキーバインドに関する問題",
+		"Editor column selection issues": "エディターの列選択に関する問題",
+		"Code quality issues": "コード品質に関する問題",
+		"Editor basic functionality": "エディターの基本機能",
+		"General VS Code workbench layout issues": "VS Code ワークベンチのレイアウトに関する一般的な問題",
+		"General terminal issues that don't fall under another label": "他のラベルに該当しないターミナルの一般的な問題",
+		"Issue identified as 'upstream' component related (exists outside of VS Code)": "「上流」コンポーネントに関連すると判断されたイシュー（VS Code の外部に存在）",
+		"Issue is under discussion for relevance, priority, approach": "関連性、優先度、アプローチについて議論中のイシュー",
+		"Issues and items related to Electron": "Electron に関連するイシューと項目",
+		"Issues concerning extensions": "拡張機能に関する問題",
+		"Issues with VS Code on Linux": "Linux 上の VS Code に関する問題",
+		"Native OS integration issues": "ネイティブ OS 統合に関する問題",
+		"This is an upstream issue that has been reported upstream": "これは上流に報告済みの上流イシューです",
+		"VS Code installation and upgrade system issues": "VS Code のインストールとアップグレードシステムに関する問題",
+		"VS Code on Windows issues": "Windows 上の VS Code に関する問題",
+		"Explorer widget issues": "エクスプローラーのウィジェットに関する問題",
+		"File glob engine": "ファイル glob エンジン",
+		"Issue requires more information from poster": "投稿者からの追加情報が必要なイシュー",
+		"VS Code configuration, settings": "VS Code の構成と設定",
+		"Editor Right-To-Left or Bi-Di issues": "エディターの右から左、または双方向テキストに関する問題",
+		"Editor rendering issues": "エディターのレンダリングに関する問題",
+		"File I/O": "ファイル I/O",
+		"Function, method and class parameter hint widget": "関数、メソッド、クラスのパラメーターヒントウィジェット",
+		"Issues regarding network proxies": "ネットワークプロキシに関する問題",
+		"Multi-root (multiple folders) issues": "マルチルート（複数フォルダー）に関する問題",
+		"Remote system operations issues": "リモートシステム操作に関する問題",
+		"Typescript support issues": "TypeScript サポートに関する問題",
+		"VS Code editor tab issues": "VS Code エディターのタブに関する問題",
+		// —— ドラッグ＆ドロップの補助説明（鍵はエンジンの空白正規化に合わせて半角空白 1 個）——
+		"To pick up a draggable item, press the space bar. While dragging, use the arrow keys to move the item. Press space again to drop the item in its new position, or press escape to cancel.": "ドラッグ可能な項目を選択するにはスペースキーを押します。ドラッグ中は方向キーで項目を移動します。もう一度スペースキーを押すと新しい位置にドロップし、Esc キーを押すとキャンセルします。"
 	}
 }

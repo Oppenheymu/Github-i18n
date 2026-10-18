@@ -580,6 +580,8 @@
 		"commits/on-oct": "$2年10月$1日のコミット",
 		"commits/on-nov": "$2年11月$1日のコミット",
 		"commits/on-dec": "$2年12月$1日のコミット",
+		// ブランチ一覧の行末にある関連プルリクエスト数（数字はキャプチャから）
+		"commits/branch-pull-requests": "$1 件のプルリクエスト",
 
 		// —— pages/wiki（Wiki）——
 		"wiki/edited-page": "$1 がこのページを編集しました",

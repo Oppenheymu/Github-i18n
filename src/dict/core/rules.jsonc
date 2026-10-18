@@ -2870,6 +2870,13 @@
 				{
 					"id": "commits/on-dec",
 					"pattern": "^Commits on Dec (?<day>\\d{1,2}), (?<year>\\d{4})$"
+				},
+				// 分支页每行右侧的关联拉取请求计数（`col-3 … text-right` 里的独立节点，
+				// 实机 2026-10-18 贴出的 `2 pull requests`）。数字是动态的，只能走规则；
+				// 单复数折叠，与 issues/linked-prs-count 同一手法。
+				{
+					"id": "commits/branch-pull-requests",
+					"pattern": "^([\\d,]+) pull requests?$"
 				}
 			]
 		},

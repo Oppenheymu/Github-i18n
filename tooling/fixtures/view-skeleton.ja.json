@@ -8788,7 +8788,9 @@
 			"name": "features",
 			"path": "/features",
 			"matched": ["pages/marketing", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Free", "module": "pages/marketing" }
+			],
 			"rules": [
 				"global/now",
 				"global/yesterday",
@@ -8929,7 +8931,9 @@
 			"name": "pricing",
 			"path": "/pricing",
 			"matched": ["pages/marketing", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Free", "module": "pages/marketing" }
+			],
 			"rules": [
 				"global/now",
 				"global/yesterday",

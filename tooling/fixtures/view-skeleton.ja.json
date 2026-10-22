@@ -2855,7 +2855,14 @@
 			"name": "settings/profile",
 			"path": "/settings/profile",
 			"matched": ["pages/settings", "global"],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Appearance", "module": "pages/settings" },
+				{ "key": "Company", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -3029,7 +3036,14 @@
 			"name": "settings/accessibility",
 			"path": "/settings/accessibility",
 			"matched": ["pages/settings", "global"],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Appearance", "module": "pages/settings" },
+				{ "key": "Company", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -3203,7 +3217,14 @@
 			"name": "settings/notifications",
 			"path": "/settings/notifications",
 			"matched": ["pages/settings", "global"],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Appearance", "module": "pages/settings" },
+				{ "key": "Company", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -3383,9 +3404,15 @@
 			],
 			"collisions": [
 				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Add account",
 					"module": "pages/settings-security"
-				}
+				},
+				{ "key": "Appearance", "module": "pages/settings" },
+				{ "key": "Company", "module": "pages/settings" }
 			],
 			"rules": [
 				"settings/passkey-delete-confirm",
@@ -3701,7 +3728,14 @@
 			"name": "settings/sessions",
 			"path": "/settings/sessions",
 			"matched": ["pages/settings", "global"],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Appearance", "module": "pages/settings" },
+				{ "key": "Company", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -3879,7 +3913,38 @@
 				"pages/settings-billing",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Add", "module": "pages/settings" },
+				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
+				{ "key": "Packages", "module": "pages/settings" },
+				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
+				{ "key": "Primary", "module": "pages/settings" },
+				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
+					"key": "Subscriptions",
+					"module": "pages/settings"
+				},
+				{ "key": "Update", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -4335,7 +4400,38 @@
 				"pages/settings-billing",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Add", "module": "pages/settings" },
+				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
+				{ "key": "Packages", "module": "pages/settings" },
+				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
+				{ "key": "Primary", "module": "pages/settings" },
+				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
+					"key": "Subscriptions",
+					"module": "pages/settings"
+				},
+				{ "key": "Update", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -4791,7 +4887,38 @@
 				"pages/settings-billing",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Add", "module": "pages/settings" },
+				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
+				{ "key": "Packages", "module": "pages/settings" },
+				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
+				{ "key": "Primary", "module": "pages/settings" },
+				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
+					"key": "Subscriptions",
+					"module": "pages/settings"
+				},
+				{ "key": "Update", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -5247,7 +5374,38 @@
 				"pages/settings-billing",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Add", "module": "pages/settings" },
+				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
+				{ "key": "Packages", "module": "pages/settings" },
+				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
+				{ "key": "Primary", "module": "pages/settings" },
+				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
+					"key": "Subscriptions",
+					"module": "pages/settings"
+				},
+				{ "key": "Update", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -5703,7 +5861,38 @@
 				"pages/settings-billing",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Add", "module": "pages/settings" },
+				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
+				{ "key": "Packages", "module": "pages/settings" },
+				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
+				{ "key": "Primary", "module": "pages/settings" },
+				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
+					"key": "Subscriptions",
+					"module": "pages/settings"
+				},
+				{ "key": "Update", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",

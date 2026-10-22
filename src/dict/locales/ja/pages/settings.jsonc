@@ -1,0 +1,1224 @@
+// 日本語・モジュール pages/settings：/settings/** と /account/billing/** のアカウント設定。
+// プロフィール、タイムゾーン、外観、アクセシビリティ、通知、メール、セッション、SSH / GPG、
+// 認証情報・開発者設定、ブロックしたユーザー、インタラクション制限、コードスペース、Copilot、
+// セキュリティ分析、アプリの認可、監査ログまでを覆う。請求・ライセンスは pages/settings-billing。
+// 鍵は core/canonical.jsonc の pages/settings と同一（ノード境界と根拠は zh-CN 側を参照）。
+// タイムゾーン名は pages/profile の既訳と同一（同じ選択肢が両ページに現れるため）。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		"Public profile": "公開プロフィール",
+		"Account": "アカウント",
+		"Appearance": "外観",
+		"Accessibility": "アクセシビリティ",
+		"Emails": "メール",
+		"Password and authentication": "パスワードと認証",
+		"Two-factor authentication": "2 要素認証",
+		"SSH and GPG keys": "SSH と GPG キー",
+		"Saved replies": "保存済みの返信",
+		"Billing and plans": "請求とプラン",
+		"Developer settings": "開発者設定",
+		"Danger Zone": "危険な領域",
+		"Update profile": "プロフィールを更新",
+		// —— 公開プロフィールのフォーム（/settings/profile）——
+		"Name": "名前",
+		"Your name may appear around GitHub where you contribute or are mentioned. You can remove it at any time.": "GitHub 上でコントリビュートした場所やメンションされた場所に、あなたの名前が表示されることがあります。いつでも削除できます。",
+		"Public email": "公開メールアドレス",
+		"You can manage verified email addresses in your email settings": "確認済みのメールアドレスはメール設定で管理できます。",
+		// 「email settings」はリンク → 分割時はリンク前の断片だけが残る。訳文は「：」で終え、リンクテキストにつなげる
+		"You can manage verified email addresses in your": "確認済みのメールアドレスはこちらの設定で管理できます：",
+		"Bio": "自己紹介",
+		// 自己紹介入力欄の placeholder / aria-label
+		"Add a bio": "自己紹介を追加",
+		"Pronouns": "代名詞",
+		"Don't specify": "指定しない",
+		// 代名詞ドロップダウンの「カスタム」項目
+		"Custom": "カスタム",
+		"URL": "ウェブサイト",
+		// 上流でプロフィールの URL フィールドが Website に改名された。訳文は旧キー URL と同一（組織プロフィールページは旧キーのまま）
+		"Website": "ウェブサイト",
+		"Social accounts": "ソーシャルアカウント",
+		// ソーシャルアカウント行のフォールバックアイコン（svg の <title> / aria-label）。pages/org-settings と同じ訳
+		"Social account": "ソーシャルアカウント",
+		// 属性項目（aria-label）：ソーシャルアカウント入力欄に番号ごとに 1 つずつある
+		"Link to social profile 1": "ソーシャルプロフィールへのリンク 1",
+		"Link to social profile 2": "ソーシャルプロフィールへのリンク 2",
+		"Link to social profile 3": "ソーシャルプロフィールへのリンク 3",
+		"Link to social profile 4": "ソーシャルプロフィールへのリンク 4",
+		// `<strong>@mention</strong>` による分割：You can / @mention / 残り；
+		// 3 番目の断片はソースの改行インデントを含むため、まとめて 1 項目にする（@mention 自体は英語のまま）。
+		// 訳文の末尾に**空白を入れない**：walker は元ノードの先頭空白を保持するため、空白を付けると二重になる
+		"You can": "あなたは",
+		"other users and organizations to link to them.": "で他のユーザーや組織をリンクできます。",
+		"You can @mention other users and organizations to link to them.": "あなたは @メンションで他のユーザーや組織をリンクできます。",
+		"Company": "会社",
+		// 会社のヒント文も `<strong>@mention</strong>` で分割される（You can / @mention / 末尾）。
+		// 末尾の訳文は「あなたは @mention 」の直後からそのまま読めるようにする——walker は元ノードの先頭空白を保持するので、
+		// 実機では「あなたは @mention で会社の GitHub 組織をリンクできます。」と連結される。
+		"You can @mention your company’s GitHub organization to link it.": "あなたは @メンションで会社の GitHub 組織をリンクできます。",
+		"your company’s GitHub organization to link it.": "で会社の GitHub 組織をリンクできます。",
+		"Location": "場所",
+		"Display current local time": "現在の現地時刻を表示",
+		"Other users will see the time difference from their local time.": "他のユーザーには、自分の現地時刻との時差が表示されます。",
+		"Time zone": "タイムゾーン",
+		// —— タイムゾーンドロップダウンの全オプション ——
+		// キーは実機 HTML の `<option>` テキストから逐字転記。GMT オフセットの接頭辞はそのまま残し、
+		// 日本語名は Windows / ブラウザーの日本語 UI で一般的な地名に合わせる。
+		"(GMT-12:00) International Date Line West": "(GMT-12:00) 国際日付変更線の西",
+		"(GMT-11:00) American Samoa": "(GMT-11:00) アメリカ領サモア",
+		"(GMT-11:00) Midway Island": "(GMT-11:00) ミッドウェー島",
+		"(GMT-10:00) Hawaii": "(GMT-10:00) ハワイ",
+		"(GMT-09:00) Alaska": "(GMT-09:00) アラスカ",
+		"(GMT-08:00) Pacific Time (US & Canada)": "(GMT-08:00) 太平洋時間（米国・カナダ）",
+		"(GMT-08:00) Tijuana": "(GMT-08:00) ティフアナ",
+		"(GMT-07:00) Arizona": "(GMT-07:00) アリゾナ",
+		"(GMT-07:00) Mazatlan": "(GMT-07:00) マサトラン",
+		"(GMT-07:00) Mountain Time (US & Canada)": "(GMT-07:00) 山岳部時間（米国・カナダ）",
+		"(GMT-06:00) Central America": "(GMT-06:00) 中央アメリカ",
+		"(GMT-06:00) Central Time (US & Canada)": "(GMT-06:00) 中部時間（米国・カナダ）",
+		"(GMT-06:00) Chihuahua": "(GMT-06:00) チワワ",
+		"(GMT-06:00) Guadalajara": "(GMT-06:00) グアダラハラ",
+		"(GMT-06:00) Mexico City": "(GMT-06:00) メキシコシティ",
+		"(GMT-06:00) Monterrey": "(GMT-06:00) モンテレイ",
+		"(GMT-06:00) Saskatchewan": "(GMT-06:00) サスカチュワン",
+		"(GMT-05:00) Bogota": "(GMT-05:00) ボゴタ",
+		"(GMT-05:00) Eastern Time (US & Canada)": "(GMT-05:00) 東部時間（米国・カナダ）",
+		"(GMT-05:00) Indiana (East)": "(GMT-05:00) インディアナ（東部）",
+		"(GMT-05:00) Lima": "(GMT-05:00) リマ",
+		"(GMT-05:00) Quito": "(GMT-05:00) キト",
+		"(GMT-04:00) Atlantic Time (Canada)": "(GMT-04:00) 大西洋時間（カナダ）",
+		"(GMT-04:00) Caracas": "(GMT-04:00) カラカス",
+		"(GMT-04:00) Georgetown": "(GMT-04:00) ジョージタウン",
+		"(GMT-04:00) La Paz": "(GMT-04:00) ラパス",
+		"(GMT-04:00) Puerto Rico": "(GMT-04:00) プエルトリコ",
+		"(GMT-04:00) Santiago": "(GMT-04:00) サンティアゴ",
+		"(GMT-03:30) Newfoundland": "(GMT-03:30) ニューファンドランド",
+		"(GMT-03:00) Asuncion": "(GMT-03:00) アスンシオン",
+		"(GMT-03:00) Brasilia": "(GMT-03:00) ブラジリア",
+		"(GMT-03:00) Buenos Aires": "(GMT-03:00) ブエノスアイレス",
+		"(GMT-03:00) Montevideo": "(GMT-03:00) モンテビデオ",
+		"(GMT-02:00) Greenland": "(GMT-02:00) グリーンランド",
+		"(GMT-02:00) Mid-Atlantic": "(GMT-02:00) 中部大西洋",
+		"(GMT-01:00) Azores": "(GMT-01:00) アゾレス諸島",
+		"(GMT-01:00) Cape Verde Is.": "(GMT-01:00) カーボベルデ諸島",
+		"(GMT+00:00) Edinburgh": "(GMT+00:00) エディンバラ",
+		"(GMT+00:00) Lisbon": "(GMT+00:00) リスボン",
+		"(GMT+00:00) London": "(GMT+00:00) ロンドン",
+		"(GMT+00:00) Monrovia": "(GMT+00:00) モンロビア",
+		"(GMT+00:00) UTC": "(GMT+00:00) 協定世界時",
+		"(GMT+01:00) Amsterdam": "(GMT+01:00) アムステルダム",
+		"(GMT+01:00) Belgrade": "(GMT+01:00) ベオグラード",
+		"(GMT+01:00) Berlin": "(GMT+01:00) ベルリン",
+		"(GMT+01:00) Bern": "(GMT+01:00) ベルン",
+		"(GMT+01:00) Bratislava": "(GMT+01:00) ブラチスラバ",
+		"(GMT+01:00) Brussels": "(GMT+01:00) ブリュッセル",
+		"(GMT+01:00) Budapest": "(GMT+01:00) ブダペスト",
+		"(GMT+01:00) Casablanca": "(GMT+01:00) カサブランカ",
+		"(GMT+01:00) Copenhagen": "(GMT+01:00) コペンハーゲン",
+		"(GMT+01:00) Dublin": "(GMT+01:00) ダブリン",
+		"(GMT+01:00) Ljubljana": "(GMT+01:00) リュブリャナ",
+		"(GMT+01:00) Madrid": "(GMT+01:00) マドリード",
+		"(GMT+01:00) Paris": "(GMT+01:00) パリ",
+		"(GMT+01:00) Prague": "(GMT+01:00) プラハ",
+		"(GMT+01:00) Rome": "(GMT+01:00) ローマ",
+		"(GMT+01:00) Sarajevo": "(GMT+01:00) サラエボ",
+		"(GMT+01:00) Skopje": "(GMT+01:00) スコピエ",
+		"(GMT+01:00) Stockholm": "(GMT+01:00) ストックホルム",
+		"(GMT+01:00) Vienna": "(GMT+01:00) ウィーン",
+		"(GMT+01:00) Warsaw": "(GMT+01:00) ワルシャワ",
+		"(GMT+01:00) West Central Africa": "(GMT+01:00) 西中央アフリカ",
+		"(GMT+01:00) Zagreb": "(GMT+01:00) ザグレブ",
+		"(GMT+01:00) Zurich": "(GMT+01:00) チューリッヒ",
+		"(GMT+02:00) Athens": "(GMT+02:00) アテネ",
+		"(GMT+02:00) Bucharest": "(GMT+02:00) ブカレスト",
+		"(GMT+02:00) Cairo": "(GMT+02:00) カイロ",
+		"(GMT+02:00) Harare": "(GMT+02:00) ハラレ",
+		"(GMT+02:00) Helsinki": "(GMT+02:00) ヘルシンキ",
+		"(GMT+02:00) Jerusalem": "(GMT+02:00) エルサレム",
+		"(GMT+02:00) Kaliningrad": "(GMT+02:00) カリーニングラード",
+		"(GMT+02:00) Kyiv": "(GMT+02:00) キーウ",
+		"(GMT+02:00) Pretoria": "(GMT+02:00) プレトリア",
+		"(GMT+02:00) Riga": "(GMT+02:00) リガ",
+		"(GMT+02:00) Sofia": "(GMT+02:00) ソフィア",
+		"(GMT+02:00) Tallinn": "(GMT+02:00) タリン",
+		"(GMT+02:00) Vilnius": "(GMT+02:00) ビリニュス",
+		"(GMT+03:00) Baghdad": "(GMT+03:00) バグダッド",
+		"(GMT+03:00) Istanbul": "(GMT+03:00) イスタンブール",
+		"(GMT+03:00) Kuwait": "(GMT+03:00) クウェート",
+		"(GMT+03:00) Minsk": "(GMT+03:00) ミンスク",
+		"(GMT+03:00) Moscow": "(GMT+03:00) モスクワ",
+		"(GMT+03:00) Nairobi": "(GMT+03:00) ナイロビ",
+		"(GMT+03:00) Riyadh": "(GMT+03:00) リヤド",
+		"(GMT+03:00) St. Petersburg": "(GMT+03:00) サンクトペテルブルク",
+		"(GMT+03:00) Volgograd": "(GMT+03:00) ボルゴグラード",
+		"(GMT+03:30) Tehran": "(GMT+03:30) テヘラン",
+		"(GMT+04:00) Abu Dhabi": "(GMT+04:00) アブダビ",
+		"(GMT+04:00) Baku": "(GMT+04:00) バクー",
+		"(GMT+04:00) Muscat": "(GMT+04:00) マスカット",
+		"(GMT+04:00) Samara": "(GMT+04:00) サマラ",
+		"(GMT+04:00) Tbilisi": "(GMT+04:00) トビリシ",
+		"(GMT+04:00) Yerevan": "(GMT+04:00) エレバン",
+		"(GMT+04:30) Kabul": "(GMT+04:30) カブール",
+		"(GMT+05:00) Almaty": "(GMT+05:00) アルマトイ",
+		"(GMT+05:00) Astana": "(GMT+05:00) アスタナ",
+		"(GMT+05:00) Ekaterinburg": "(GMT+05:00) エカテリンブルク",
+		"(GMT+05:00) Islamabad": "(GMT+05:00) イスラマバード",
+		"(GMT+05:00) Karachi": "(GMT+05:00) カラチ",
+		"(GMT+05:00) Tashkent": "(GMT+05:00) タシケント",
+		"(GMT+05:30) Chennai": "(GMT+05:30) チェンナイ",
+		"(GMT+05:30) Kolkata": "(GMT+05:30) コルカタ",
+		"(GMT+05:30) Mumbai": "(GMT+05:30) ムンバイ",
+		"(GMT+05:30) New Delhi": "(GMT+05:30) ニューデリー",
+		"(GMT+05:30) Sri Jayawardenepura": "(GMT+05:30) スリジャヤワルダナプラ",
+		"(GMT+05:45) Kathmandu": "(GMT+05:45) カトマンズ",
+		"(GMT+06:00) Dhaka": "(GMT+06:00) ダッカ",
+		"(GMT+06:00) Urumqi": "(GMT+06:00) ウルムチ",
+		"(GMT+06:30) Rangoon": "(GMT+06:30) ヤンゴン",
+		"(GMT+07:00) Bangkok": "(GMT+07:00) バンコク",
+		"(GMT+07:00) Hanoi": "(GMT+07:00) ハノイ",
+		"(GMT+07:00) Jakarta": "(GMT+07:00) ジャカルタ",
+		"(GMT+07:00) Krasnoyarsk": "(GMT+07:00) クラスノヤルスク",
+		"(GMT+07:00) Novosibirsk": "(GMT+07:00) ノボシビルスク",
+		"(GMT+08:00) Beijing": "(GMT+08:00) 北京",
+		"(GMT+08:00) Chongqing": "(GMT+08:00) 重慶",
+		"(GMT+08:00) Hong Kong": "(GMT+08:00) 香港",
+		"(GMT+08:00) Irkutsk": "(GMT+08:00) イルクーツク",
+		"(GMT+08:00) Kuala Lumpur": "(GMT+08:00) クアラルンプール",
+		"(GMT+08:00) Perth": "(GMT+08:00) パース",
+		"(GMT+08:00) Singapore": "(GMT+08:00) シンガポール",
+		"(GMT+08:00) Taipei": "(GMT+08:00) 台北",
+		"(GMT+08:00) Ulaanbaatar": "(GMT+08:00) ウランバートル",
+		"(GMT+09:00) Osaka": "(GMT+09:00) 大阪",
+		"(GMT+09:00) Sapporo": "(GMT+09:00) 札幌",
+		"(GMT+09:00) Seoul": "(GMT+09:00) ソウル",
+		"(GMT+09:00) Tokyo": "(GMT+09:00) 東京",
+		"(GMT+09:00) Yakutsk": "(GMT+09:00) ヤクーツク",
+		"(GMT+09:30) Adelaide": "(GMT+09:30) アデレード",
+		"(GMT+09:30) Darwin": "(GMT+09:30) ダーウィン",
+		"(GMT+10:00) Brisbane": "(GMT+10:00) ブリスベン",
+		"(GMT+10:00) Canberra": "(GMT+10:00) キャンベラ",
+		"(GMT+10:00) Guam": "(GMT+10:00) グアム",
+		"(GMT+10:00) Hobart": "(GMT+10:00) ホバート",
+		"(GMT+10:00) Melbourne": "(GMT+10:00) メルボルン",
+		"(GMT+10:00) Port Moresby": "(GMT+10:00) ポートモレスビー",
+		"(GMT+10:00) Sydney": "(GMT+10:00) シドニー",
+		"(GMT+10:00) Vladivostok": "(GMT+10:00) ウラジオストク",
+		"(GMT+11:00) Magadan": "(GMT+11:00) マガダン",
+		"(GMT+11:00) New Caledonia": "(GMT+11:00) ニューカレドニア",
+		"(GMT+11:00) Solomon Is.": "(GMT+11:00) ソロモン諸島",
+		"(GMT+11:00) Srednekolymsk": "(GMT+11:00) スレドネコリムスク",
+		"(GMT+12:00) Auckland": "(GMT+12:00) オークランド",
+		"(GMT+12:00) Fiji": "(GMT+12:00) フィジー",
+		"(GMT+12:00) Kamchatka": "(GMT+12:00) カムチャツカ",
+		"(GMT+12:00) Marshall Is.": "(GMT+12:00) マーシャル諸島",
+		"(GMT+12:00) Wellington": "(GMT+12:00) ウェリントン",
+		"(GMT+12:45) Chatham Is.": "(GMT+12:45) チャタム諸島",
+		"(GMT+13:00) Nuku'alofa": "(GMT+13:00) ヌクアロファ",
+		"(GMT+13:00) Samoa": "(GMT+13:00) サモア",
+		"(GMT+13:00) Tokelau Is.": "(GMT+13:00) トケラウ諸島",
+		// ORCID 公式はこの識別子を ORCID iD と呼ぶ（大文字小文字は固定）。日本語では「ORCID iD（識別子）」とする。
+		// **キーと同形の "ORCID iD" にしてはならない**：エンジンが毎回ヒットして同じ値を繰り返し書き込み、
+		// nodeValue の変更が観測器を自己発火させて無限ループになる（チェックも直接エラーにする。tooling/checks/dict.ts を参照）
+		"ORCID iD": "ORCID iD（識別子）",
+		// 表示切り替えの label（短い文言。下の全文説明とは別のキー）
+		"Display your ORCID iD": "ORCID iD を表示",
+		"ORCID provides a persistent identifier - an ORCID iD - that distinguishes you from other researchers. Learn more at ORCID.org.": "ORCID は、あなたを他の研究者と区別する永続的な識別子（ORCID iD）を提供しています。詳しくは ORCID.org をご覧ください。",
+		// 「ORCID.org」はリンク → 文全体がリンク位置で分割され、リンク前の断片が単独の項目になる
+		"ORCID provides a persistent identifier - an ORCID iD - that distinguishes you from other researchers. Learn more at": "ORCID は、あなたを他の研究者と区別する永続的な識別子（ORCID iD）を提供しています。詳しくは",
+		"All of the fields on this page are optional and can be deleted at any time, and by filling them out, you're giving us consent to share this data wherever your user profile appears. Please see our privacy statement to learn more about how we use this information.": "このページのすべての項目は任意で、いつでも削除できます。記入すると、ユーザープロフィールが表示される場所でこのデータを共有することに同意したものとみなされます。この情報の利用方法については、プライバシーステートメントをご覧ください。",
+		// 「privacy statement」はリンク → 文全体がリンク位置で分割され、リンク前の断片が単独の項目になる
+		"All of the fields on this page are optional and can be deleted at any time, and by filling them out, you're giving us consent to share this data wherever your user profile appears. Please see our": "このページのすべての項目は任意で、いつでも削除できます。記入すると、ユーザープロフィールが表示される場所でこのデータを共有することに同意したものとみなされます。この情報の利用方法については、",
+		"privacy statement": "プライバシーステートメント",
+		// —— プロフィール画像と「コントリビューションとアクティビティ」——
+		"Profile picture": "プロフィール画像",
+		"Contributions & activity": "コントリビューションとアクティビティ",
+		"Make profile private and hide activity": "プロフィールを非公開にしてアクティビティを隠す",
+		"Enabling this will hide your contributions and activity from your GitHub profile and from social features like followers, stars, feeds, leaderboards and releases.": "これを有効にすると、GitHub プロフィールや、フォロワー、スター、フィード、リーダーボード、リリースなどのソーシャル機能から、あなたのコントリビューションとアクティビティが隠されます。",
+		"Include private contributions on my profile": "プロフィールにプライベートコントリビューションを含める",
+		"Your contribution graph, achievements, and activity overview will show your private contributions without revealing any repository or organization information. Read more.": "コントリビューショングラフ、実績、アクティビティの概要には、リポジトリや組織の情報を明かすことなく、プライベートコントリビューションが表示されます。詳しくはこちら。",
+		// 「Read more」はリンク → 文全体がリンク位置で分割され、リンク前の断片が単独の項目になる
+		"Your contribution graph, achievements, and activity overview will show your private contributions without revealing any repository or organization information.": "コントリビューショングラフ、実績、アクティビティの概要には、リポジトリや組織の情報を明かすことなく、プライベートコントリビューションが表示されます。",
+		"Read more.": "詳しくはこちら。",
+		// —— プロフィール設定（実績の表示）——
+		"Profile settings": "プロフィール設定",
+		"Show Achievements on my profile": "プロフィールに実績を表示する",
+		"Your achievements will be shown on your profile.": "あなたの実績はプロフィールに表示されます。",
+		"Update preferences": "設定を更新",
+		// —— GitHub Developer Program ——
+		"GitHub Developer Program": "GitHub 開発者プログラム",
+		"Building an application, service, or tool that integrates with GitHub? Join the GitHub Developer Program, or read more about it at our GitHub developer program.": "GitHub と連携するアプリ、サービス、ツールを開発していますか？ GitHub 開発者プログラムに参加するか、GitHub 開発者プログラムの詳細をご覧ください。",
+		// 説明文は「GitHub Docs」リンクで 2 ノードに分割される：リンク前の断片 + リンクテキスト + リンク後の全文
+		"GitHub Docs": "GitHub ドキュメント",
+		"has guides, API and webhook references, information about creating GitHub Apps and other resources for building applications that integrate with GitHub. Make sure your contact information is up-to-date below. Thanks for being a member!": "には、ガイド、API と webhook のリファレンス、GitHub Apps の作成に関する情報、GitHub と連携するアプリを構築するためのその他のリソースがあります。以下で連絡先情報が最新であることを確認してください。メンバーになっていただきありがとうございます！",
+		"Support email address": "サポート用メールアドレス",
+		"An email address where GitHub users can contact you for support.": "GitHub ユーザーがサポートのためにあなたへ連絡できるメールアドレスです。",
+		"Product or company website": "製品または会社のウェブサイト",
+		"The URL for the product, company, or service that integrates with GitHub.": "GitHub と連携する製品、会社、またはサービスの URL です。",
+		"Update contact information": "連絡先情報を更新",
+		"Leave the program": "プログラムを退出",
+		// メール行末尾の「削除」ボタン
+		"Remove": "削除",
+		// —— 求職プロフィールとトレンドの設定 ——
+		"Jobs profile": "求職プロフィール",
+		"Available for hire": "求職中",
+		"Save jobs profile": "求職プロフィールを保存",
+		"Trending settings": "トレンド設定",
+		"Preferred spoken language": "優先言語",
+		"Chinese": "中国語",
+		// 説明文は「Trending Repositories」リンクで分割される：リンク前は on で終わり、リンクテキストが単独の項目になる
+		"We'll use this language preference to filter the trending repository lists on": "この言語設定は、次のページのトレンドリポジトリ一覧の絞り込みに使用されます：",
+		"our Trending Repositories page": "トレンドリポジトリページ",
+		"Save Trending settings": "トレンド設定を保存",
+		// —— 本ページ右側のナビゲーションとアカウントセクション（pages/repo-settings の用語に合わせる）——
+		"Your personal account": "あなたの個人アカウント",
+		"Billing and licensing": "請求とライセンス",
+		"Payment information": "支払い情報",
+		"Payment history": "支払い履歴",
+		"Budgets and alerts": "予算とアラート",
+		"Additional billing details": "追加の請求詳細",
+		"Sponsorship log": "スポンサーシップの記録",
+		"Scheduled reminders": "スケジュールされたリマインダー",
+		"Education benefits": "教育特典",
+		"Blocked users": "ブロックしたユーザー",
+		"Security log": "セキュリティログ",
+		"Applications": "アプリケーション",
+		"Integrations": "インテグレーション",
+		"Code, planning, and automation": "コード、計画、自動化",
+		"Interaction limits": "インタラクションの制限",
+		"Code review limits": "コードレビューの制限",
+		"Archives": "アーカイブ",
+		// —— ページレベルの属性とメニュー ——
+		"Settings menu": "設定メニュー",
+		"Select settings context": "設定のコンテキストを選択",
+		// —— プロフィール画像のアップロードと画像検証 ——
+		"Remove photo": "写真を削除",
+		"Please upload a picture smaller than 1 MB.": "1 MB 未満の画像をアップロードしてください。",
+		"We only support PNG, GIF, or JPG pictures.": "PNG、GIF、JPG 形式の画像のみに対応しています。",
+		"File contents don’t match the file extension.": "ファイルの内容が拡張子と一致しません。",
+		"Please upload a picture smaller than 10,000x10,000.": "10,000×10,000 未満の画像をアップロードしてください。",
+		"Something went really wrong and we can’t process that picture.": "重大な問題が発生し、この画像を処理できません。",
+		"This file is empty.": "このファイルは空です。",
+		// —— 公開プロフィールフォームの補足 ——
+		"Select a verified email to display": "表示する確認済みメールアドレスを選択",
+		"No Preference": "希望なし",
+		"Connect your ORCID iD": "ORCID iD を連携",
+		// —— ORCID セクション（連携後にのみ描画される。根拠は実機のスクリーンショット + 実機 HTML）——
+		// 連携済みの案内は HTML の実際の分割に合わせて 2 つの断片キーに分ける。連結結果：
+		// 「連携済みの ORCID iD は <識別子>、アカウントは @<ユーザー名>。」
+		// （識別子と @ユーザー名は <strong> 内の動的な値 / ユーザーコンテンツなので英語のまま）
+		"You have a connected ORCID iD": "連携済みの ORCID iD は",
+		"for the account": "、アカウントは",
+		"Display your ORCID iD on your GitHub profile": "GitHub プロフィールに ORCID iD を表示する",
+		"Disconnecting your ORCID iD may affect areas of your profile where your ORCID iD is displayed.": "ORCID iD の連携を解除すると、ORCID iD が表示されているプロフィールの領域に影響する場合があります。",
+		"Disconnect your ORCID iD": "ORCID iD の連携を解除",
+		"Trending Repositories": "トレンドリポジトリ",
+		// —— 説明文がリンクで分割され、単独ノードになった断片 ——
+		"email settings": "メール設定",
+		"to learn more about how we use this information.": "をご覧ください。",
+		// —— アカウント管理（/settings/admin）——
+		// 実機のノード境界 a：文の前半全体が 1 つのテキストノード（Change はリンクではない）——
+		// これが /settings/admin の現状で、下の断片キーだけではこれを取りこぼす
+		"Change username": "ユーザー名を変更",
+		"Changing your username can have": "ユーザー名を変更すると、",
+		// 実機のノード境界 b：Change が独立したリンクになる場合の断片（別のレンダリングに対応）
+		"Change": "変更",
+		"your username can have": "ユーザー名を変更すると、",
+		"unintended side effects": "意図しない副作用が生じる可能性があります。",
+		"Changing your username can have unintended side effects.": "ユーザー名を変更すると、意図しない副作用が生じる可能性があります。",
+		"Looking to manage account security settings? You can find them in the": "アカウントのセキュリティ設定を管理しますか？ 次の場所で確認できます：",
+		"page.": "ページ。",
+		"Link Patreon account": "Patreon アカウントを連携",
+		"Connect a Patreon account for": "メンテナーをスポンサーするために、",
+		"to sponsor maintainers with. Get recognition on GitHub for sponsorships made on Patreon when the sponsored person has linked Patreon and GitHub, too, and has a public GitHub Sponsors profile.": "の Patreon アカウントを連携します。Patreon で行ったスポンサーシップについて、スポンサーされた相手も Patreon と GitHub を連携していて、公開の GitHub Sponsors プロフィールを持っている場合は、GitHub で認定を受けられます。",
+		"Export account data": "アカウントデータをエクスポート",
+		"Export all repositories and profile metadata for": "すべてのリポジトリとプロフィールメタデータをエクスポートするアカウント：",
+		"Exports will be available for 7 days.": "エクスポートは 7 日間利用できます。",
+		"Successor settings": "後継者設定",
+		// 実機のノード境界：192 文字のノード（ユーザー名のプレーンテキストを含み、"Successor," で終わる）+ <span> の末尾 + 全文
+		"By clicking \"Add Successor\" below, I acknowledge that I am the owner of the @Oppenheymu account, and am authorizing GitHub to transfer content within that account to my GitHub Successor,": "下の「後継者を追加」をクリックすると、私は @Oppenheymu アカウントの所有者であり、そのアカウント内のコンテンツを下で指定する GitHub 後継者に移転することを GitHub に許可することに同意します。",
+		", in the event of my death. I understand that this appointment of a successor does not override legally binding next-of-kin rules or estate laws of any relevant jurisdiction, and does not create a binding will.": "この移転は私の死亡時に効力を生じます。私は、この後継者の指定が、関連する法域の法的拘束力のある近親者規則や相続法に優先するものではなく、拘束力のある遺言を作成するものでもないことを理解しています。",
+		"account, and am authorizing GitHub to transfer content within that account to my GitHub Successor, designated below, in the event of my death. I understand that this appointment of a successor does not override legally binding next-of-kin rules or estate laws of any relevant jurisdiction, and does not create a binding will.": "アカウントの所有者であり、私の死亡時に、そのアカウント内のコンテンツを下で指定する GitHub 後継者に移転することを GitHub に許可します。私は、この後継者の指定が、関連する法域の法的拘束力のある近親者規則や相続法に優先するものではなく、拘束力のある遺言を作成するものでもないことを理解しています。",
+		"Learn more about account successors.": "アカウントの後継者について詳しくはこちら。",
+		"Add Successor": "後継者を追加",
+		"Search by username, full name, or email address": "ユーザー名、氏名、メールアドレスで検索",
+		"You have not designated a successor.": "後継者を指定していません。",
+		"Delete account": "アカウントを削除",
+		"Your account is currently an owner in these organizations": "あなたのアカウントは現在、次の組織のオーナーです",
+		// 実機のノード境界：`You must <a>…</a>, <a>…</a>, or <a>…</a> before you can delete your user.`
+		"You must remove yourself from these organizations, transfer ownership, or delete these organizations before you can delete your user.": "ユーザーを削除するには、まずこれらの組織から自分を削除するか、所有権を移転するか、これらの組織を削除する必要があります。",
+		"You must": "ユーザーを削除するには、まず",
+		"remove yourself from these organizations": "これらの組織から自分を削除するか、",
+		"transfer ownership": "所有権を移転するか、",
+		"delete these organizations": "これらの組織を削除する",
+		"before you can delete your user.": "必要があります。",
+		// —— ボタン ——
+		"Connect with Patreon": "Patreon と連携",
+		"Start export": "エクスポートを開始",
+		"Delete your account": "アカウントを削除する",
+		// —— 外観（/settings/appearance）——
+		// 本ページの 2 つのドロップダウンと 2 つのセグメントコントロールの「現在値」自体が独立したテキストノード
+		// （Rails の <details><summary> 構造）のため、テーマ名と「オン / オフ」をそれぞれ 1 項目にする。
+		// テーマ名の protanopia / deuteranopia / tritanopia は色覚障害の臨床名。
+		// 日本語 UI では「1 型・2 型色覚」「3 型色覚」と表記する（GitHub 公式日本語ドキュメントの用語）。
+		"Theme preferences": "テーマの設定",
+		"Choose how GitHub looks to you. Select a single theme, or sync with your system and automatically switch between day and night themes. Selections are applied immediately and saved automatically.": "GitHub の表示方法を選択します。単一のテーマを選ぶか、システムと同期して昼間と夜間のテーマを自動的に切り替えることができます。選択内容はすぐに適用され、自動的に保存されます。",
+		"Theme mode": "テーマモード",
+		"Single theme": "単一テーマ",
+		"Sync with system": "システムと同期",
+		"GitHub theme will match your system active settings": "GitHub のテーマはシステムの現在の設定に合わせて切り替わります",
+		"Light theme": "ライトテーマ",
+		"This theme will be active when your system is set to “light mode”": "システムが「ライトモード」に設定されているときにこのテーマが有効になります",
+		"Dark theme": "ダークテーマ",
+		"This theme will be active when your system is set to “dark mode”": "システムが「ダークモード」に設定されているときにこのテーマが有効になります",
+		"Selected theme:": "選択中のテーマ：",
+		"Light default": "ライト（デフォルト）",
+		"Light protanopia and deuteranopia": "ライト（1 型・2 型色覚）",
+		"Light tritanopia": "ライト（3 型色覚）",
+		"Dark default": "ダーク（デフォルト）",
+		"Dark protanopia and deuteranopia": "ダーク（1 型・2 型色覚）",
+		"Dark tritanopia": "ダーク（3 型色覚）",
+		"Soft dark": "ソフトダーク",
+		"Contrast": "コントラスト",
+		"Increase contrast": "コントラストを上げる",
+		"Enable high contrast for light or dark mode (or both) based on your system settings": "システム設定に基づいて、ライトモードまたはダークモード（あるいはその両方）の高コントラストを有効にします",
+		"Light mode": "ライトモード",
+		"Dark mode": "ダークモード",
+		// セグメントコントロール / スイッチの 2 状態：本ページでは「オン / オフ」を使う（リポジトリ設定ページも同じ表記）
+		"Off": "オフ",
+		"On": "オン",
+		"Preferred default emoji skin tone": "絵文字のデフォルトの肌の色",
+		// 選択肢のテキストには emoji の接頭辞が付く。訳文でも emoji と元の空白を保持する
+		"👋 Neutral": "👋 ニュートラル",
+		"👋🏻 Light Skin Tone": "👋🏻 ライト",
+		"👋🏼 Medium-Light Skin Tone": "👋🏼 ややライト",
+		"👋🏽 Medium Skin Tone": "👋🏽 ミディアム",
+		"👋🏾 Medium-Dark Skin Tone": "👋🏾 ややダーク",
+		"👋🏿 Dark Skin Tone": "👋🏿 ダーク",
+		"Tab size preference": "タブサイズの設定",
+		"Choose the number of spaces a tab is equal to when rendering code": "コード表示時にタブが何個のスペースに相当するかを選択します",
+		"4 (Default)": "4（デフォルト）",
+		"Markdown editor font preference": "Markdown エディターのフォント設定",
+		"Font preference for plain text editors that support Markdown styling (e.g. pull request and issue descriptions, comments.)": "Markdown スタイルに対応するプレーンテキストエディター（プルリクエストやイシューの説明、コメントなど）のフォント設定",
+		"Use a fixed-width (monospace) font when editing Markdown": "Markdown の編集時に固定幅（等幅）フォントを使用する",
+		// —— アクセシビリティ（/settings/accessibility）——
+		// 鍵は GitHub が実際にレンダリングするテキストと 1 文字単位で一致させる必要があります。このページの長い説明文は実機では複数のノード
+		// （リンク、`<kbd>`、`sr-only` がそれぞれ別ノード）に分割されるため、文全体の鍵は決して命中しません。ノードごとに分割して収録する必要があります。
+		// 断片の訳文はそのまま連結できるようにします。先頭の空白は walker が元のノードから保持するため、キーと区切る必要がある場合は訳文の末尾に空白を残します。
+		// キー名と固有名詞は一切訳しません：Ctrl / ⇧ / V / Alt / ↑ / g / n / ? / Markdown / URL / GitHub。
+		"Accessibility settings": "アクセシビリティ設定",
+		"General": "一般",
+		// 「Character keys」は修飾キーを使わない単一文字のショートカットを指します（GitHub 公式ドキュメントでは character keys）。
+		"Keyboard shortcuts": "キーボードショートカット",
+		"Character keys": "文字キー",
+		// 実機の境界（文全体は決して現れません）：Enable + <a>GitHub shortcuts</a> + that don't use … the
+		//   + <kbd>g</kbd> + <kbd>n</kbd> + and + shortcut to navigate notifications, or
+		//   + <span class="sr-only">question mark</span> + <kbd aria-hidden="true">?</kbd> + to view …
+		// 断片のみを収録します。文全体の鍵は実機では決して現れず、残しておくと断片の鍵と互いに上書きし合います（同じノードで誤った方に命中します）。
+		"Enable": "有効にする",
+		"GitHub shortcuts": "GitHub ショートカット",
+		// 断片の訳文は「例えば」で終えます。前の文との区切りは元ノードの末尾の空白が担保します
+		"that don't use modifier keys in their activation. For example, the": "これらのショートカットは、アクティベーション時に修飾キーを使用しません。例えば",
+		// "and" は実機では独立したノードです（<kbd>g</kbd><kbd>n</kbd> の間の and）。pages/repo-settings
+		// の "and"（MCP の文 "…the repository's and environment." で使う「と」）と同鍵ですが、本モジュールが先に来るため
+		// /settings のサブツリーでのみそれを上書きし、リポジトリ設定ページには影響しません（そのパスでは本モジュールが命中しません）。
+		// 訳文に末尾空白は付けません。隣接ノードのソース上の空白がそのまま保持されます（「例えば  gn などの ショートカット…」になります）。
+		"and": "などの",
+		"shortcut to navigate notifications, or": "ショートカットで通知に移動したり、",
+		"to view context relevant shortcuts.": "でコンテキストに関連するショートカットを表示できます。",
+		"Motion": "モーション",
+		"Autoplay animated images": "アニメーション画像を自動再生",
+		"Select whether animated images should play automatically.": "アニメーション画像を自動的に再生するかどうかを選択します。",
+		"Follow system": "システムに従う",
+		"Adopts your system preference for reduced motion": "システムのモーション低減設定に従います",
+		"Enabled": "有効",
+		"Automatically plays animated images": "アニメーション画像を自動的に再生します",
+		"Disabled": "無効",
+		"Prevents animated images from playing automatically": "アニメーション画像の自動再生を防ぎます",
+		"Content": "コンテンツ",
+		"Link underlines": "リンクの下線",
+		"Toggle the visibility of underlines on links that are adjacent to text.": "テキストに隣接するリンクの下線の表示を切り替えます。",
+		"Hide link underlines": "リンクの下線を非表示",
+		"Show link underlines": "リンクの下線を表示",
+		"Hovercards": "ホバーカード",
+		// 実機の境界：<a href="...using-hover-cards-on-github-docs">Hovercards</a> + preview information …
+		// 「Hovercards」はリンクテキストとセクション見出しの両方を兼ねます（同形の二役）。リンク後の説明文は独立したノードです。
+		"Hovercards preview information about other parts of GitHub.": "ホバーカードでは、GitHub の他の部分の情報をプレビューします。",
+		"preview information about other parts of GitHub.": "では、GitHub の他の部分の情報をプレビューします。",
+		"Show hovercards": "ホバーカードを表示",
+		// 実機の境界：Enable previewing … using + <span class="sr-only">alt up</span>
+		//   + <kbd>Alt</kbd> + <kbd>↑</kbd> + .
+		// 末尾の断片は記号のみのノード "." で、「翻訳可能判定」（ラテン文字を含む必要がある）により直接スキップされるため、
+		// 常に英語のピリオドのままです。このノードの語条は収録しないでください（収録しても効きません）。
+		"Enable previewing link content via mouse hover or keyboard focus before navigation. Move focus to hovercard content using": "ナビゲーションの前に、マウスのホバーまたはキーボードのフォーカスでリンクの内容をプレビューできるようにします。ホバーカードの内容にフォーカスを移動するには、次を使用します：",
+		"Editor settings": "エディタ設定",
+		"URL paste behavior": "URL 貼り付け時の動作",
+		// 実機の境界：Select if … You can use + <span class="sr-only">control shift and V</span>
+		//   + <kbd>Ctrl</kbd> + " " + <kbd>⇧</kbd> + " " + <kbd>V</kbd> + to paste a link …
+		// 末尾の断片は非改行スペース（\u00a0）で始まりますが、クエリ鍵の trim で取り除かれるため、鍵は先頭空白なしの形で収録します。
+		"Select if URLs should be formatted on paste. You can use": "貼り付け時に URL をフォーマットするかどうかを選択します。逆の方法でリンクを貼り付けるには、",
+		"to paste a link in the opposite way.": "を使用します。",
+		"Formatted link": "フォーマット済みリンク",
+		"Pasting a URL while having text selected will format to a Markdown link": "テキストを選択した状態で URL を貼り付けると、Markdown リンクとしてフォーマットされます",
+		"Plain text": "プレーンテキスト",
+		"Pasting a URL while having text selected will replace the text": "テキストを選択した状態で URL を貼り付けると、テキストが置き換えられます",
+		"Assistive technology hints": "支援技術のヒント",
+		"Add or remove instructions for how to operate complex controls.": "複雑なコントロールの操作方法に関する説明を追加または削除します。",
+		"Enable screen reader hint": "スクリーンリーダーのヒントを有効にする",
+		"Disable screen reader hint": "スクリーンリーダーのヒントを無効にする",
+		// —— 各セクションとページ全体の保存ボタン ——
+		"Save keyboard shortcut preferences": "キーボードショートカットの設定を保存",
+		"Save motion preferences": "モーションの設定を保存",
+		"Save content preferences": "コンテンツの設定を保存",
+		"Save hovercard preferences": "ホバーカードの設定を保存",
+		"Save editor settings": "エディタ設定を保存",
+		"Save assistive technology hint preferences": "支援技術のヒントの設定を保存",
+		// —— 通知設定（/settings/notifications）——
+		// 鍵は開発者モードで書き出した実機のテキストノードから 1 文字ずつ転記しました（2026-09 時点の同ページのセッション）。ノード境界は
+		// src/dict/__tests__/pages/settings/notifications.test.ts を参照。このページの説明文は多くがリンクで分割されており、
+		// 分割した断片はそのまま連結できる必要があります（walker は元ノードの前後の空白を保持するため、訳文側に前後の空白を付けません）。
+		"Notification Settings": "通知設定",
+		"Default notifications email": "デフォルトの通知メール",
+		"Choose where you'd like emails to be sent. You can add more email addresses. Use custom routes to specify different email addresses to be used for individual organizations.": "メールの送信先を選択します。メールアドレスはさらに追加できます。カスタムルーティングを使用すると、組織ごとに使用するメールアドレスを個別に指定できます。",
+		"Custom routing": "カスタムルーティング",
+		"Subscriptions": "サブスクリプション",
+		// 「View watched repositories」はリンクで、説明文とは別ノードのため、それぞれ別の語条にします
+		"Notifications for all repositories, teams, or conversations you're watching.": "ウォッチしているすべてのリポジトリ、チーム、会話の通知。",
+		"View watched repositories": "ウォッチ中のリポジトリを表示",
+		"Participating, @mentions and custom": "参加、@メンション、カスタム",
+		"Notifications for the conversations you are participating in, or if someone cites you with an @mention. Also for all activity when subscribed to specific events.": "参加している会話の通知、または誰かが @メンションであなたに言及したときの通知。特定のイベントを購読している場合は、そのすべてのアクティビティも通知されます。",
+		// 「Customize email updates」はメール設定をさらに展開する入口です。中国語では「メール通知」と訳しており、直訳の「メール更新」より役割に近いためです
+		"Customize email updates": "メール通知をカスタマイズ",
+		"Choose which additional events you'll receive emails for when participating or watching.": "参加またはウォッチしているときに、どの追加イベントのメールを受け取るかを選択します。",
+		// 実機では「Customize email updates」の横に、選択済みイベントの要約文字列が表示されます（順序は固定で、文字列全体が 1 ノード）
+		"Reviews, Pushes, Comments": "レビュー、プッシュ、コメント",
+		"Ignored repositories": "無視したリポジトリ",
+		"You'll never be notified.": "通知は届きません。",
+		"View ignored repositories": "無視したリポジトリを表示",
+		"System": "システム",
+		// セクション見出しは GitHub Actions です。pages/repo の同鍵の訳は「操作」（そこでは別の意味）ですが、
+		// 本モジュールが先に来るため、/settings のサブツリーでは「アクション」と表示されます
+		"Actions": "アクション",
+		// 実機の境界：`… set up with <a>GitHub Actions</a>.`——リンクの後は記号のみの "."（翻訳不可）で、
+		// 日本語では語順の制約から「リポジトリ…通知」の部分をリンクの前に置くしかないため、末尾の断片は「対象です：」で終えます
+		"Notifications for workflow runs on repositories set up with": "ワークフロー実行の通知は、次のツールで設定されたリポジトリが対象です：",
+		"Dependabot alerts: New vulnerabilities": "Dependabot アラート：新しい脆弱性",
+		// 実機の境界：`When you're given access to <a>Dependabot alerts</a> automatically receive …`
+		"When you're given access to": "アクセス権を付与された場合の通知：",
+		"automatically receive notifications when a new vulnerability is found in one of your dependencies.": "。依存関係のいずれかに新しい脆弱性が見つかると、自動的に通知を受け取ります。",
+		// 「Dependabot alerts」は前の文ではリンクとして独立したノードになります。純粋な固有名詞なので Dependabot は原文のまま残します
+		"Dependabot alerts": "Dependabot アラート",
+		"Dependabot alerts: Email digest": "Dependabot アラート：メールダイジェスト",
+		"Email a regular summary of Dependabot alerts for up to 10 of your repositories.": "最大 10 個のリポジトリについて、Dependabot アラートの定期的な概要をメールで送信します。",
+		"Security campaign emails": "セキュリティキャンペーンのメール",
+		"Receive email notifications about security campaigns in repositories where you have access to security alerts.": "セキュリティアラートにアクセスできるリポジトリで、セキュリティキャンペーンに関するメール通知を受け取ります。",
+		"Agent sessions": "エージェントセッション",
+		"Notifications for agent sessions that you started.": "あなたが開始したエージェントセッションの通知。",
+		// デプロイキーの引用符：原文は一重引用符ですが、日本語では「」を使います
+		"'Deploy key' alert email": "「デプロイキー」アラートメール",
+		"When you are given admin permissions to an organization, automatically receive notifications when a new deploy key is added.": "組織の管理者権限を付与されると、新しいデプロイキーが追加されたときに自動的に通知を受け取ります。",
+		"In-product messages": "製品内メッセージ",
+		"Get tips, solutions and exclusive offers from GitHub about products, services and events we think you might find interesting.": "GitHub が興味を持ちそうな製品、サービス、イベントについて、ヒントやソリューション、限定オファーを提供します。",
+		// —— 通知チャネルのコントロール（要約行 / ドロップダウン / ダイアログ）——
+		// 要約行は "Notify me:" + "on <チャネル一覧>" の 2 ノードです。チャネルの順序は常に GitHub → Email → CLI なので、
+		// 組み合わせごとに 1 条ずつ収録します。"on CLI" 単独の訳文は日本語文字を含められない（ゲートの要件）ため収録せず、英語のままにします
+		"Notify me:": "通知先：",
+		"on GitHub": "GitHub 上",
+		"on Email": "メール",
+		"on GitHub, Email": "GitHub 上、メール",
+		"on GitHub, CLI": "GitHub 上、CLI",
+		"on Email, CLI": "メール、CLI",
+		"on GitHub, Email, CLI": "GitHub 上、メール、CLI",
+		// チャネルのダイアログで「失敗したワークフローについてのみ通知」を選ぶと、要約行の末尾に付加される注記
+		"Failed workflows only": "失敗したワークフローのみ",
+		"Select notification channels": "通知チャネルを選択",
+		"On GitHub": "GitHub 上",
+		// 「Email」はチャネルのチェックボックスの文言です。CLI は純粋な略語なので原文のまま残します
+		"Email": "メール",
+		"Only notify for failed workflows": "失敗したワークフローについてのみ通知",
+		// Dependabot メールダイジェストの頻度ドロップダウン
+		"Don't send": "送信しない",
+		"Send weekly": "毎週送信",
+		"Send daily": "毎日送信",
+		// —— 設定ページの外枠：設定範囲の切り替えと左側のサイドバー（同じ収集時の実機ノード）——
+		// これらの短いラベルは設定ページ共通のナビゲーション文言で、鍵自体に曖昧さはありません。pages/repo-settings の
+		// 同鍵の訳と揃えています（Access / Moderation / Cloud agent / Type / Features）
+		"User settings": "ユーザー設定",
+		"Switch": "切り替え",
+		"context": "コンテキスト",
+		"settings": "設定",
+		"Menu": "メニュー",
+		"Type": "種類",
+		"AI usage": "AI 使用量",
+		"Cloud agent": "クラウドエージェント",
+		"Credentials": "認証情報",
+		"Moderation": "モデレーション",
+		"Sessions": "セッション",
+		"Access": "アクセス",
+		"Licensing": "ライセンス",
+		"Features": "機能",
+		"Usage": "使用量",
+		// 教育特典ページ（/settings/education/benefits）。カードの見出し「Education Benefits」は **B が大文字**で、
+		// 設定サイドバーの「Education benefits」（b が小文字）とは別の鍵であり、それぞれに訳文があります
+		"GitHub Education": "GitHub 教育",
+		"Free GitHub developer resources for students and teachers": "学生と教師向けの無料の GitHub 開発者リソース",
+		"Get Copilot for free, 180 monthly Codespaces hours for cloud coding, unlimited private repositories with GitHub Pro or Team, and dozens of premium tools in the Student Developer Pack.": "Copilot を無料で利用でき、クラウドコーディング用の Codespaces を毎月 180 時間、GitHub Pro または Team による無制限のプライベートリポジトリ、さらに Student Developer Pack の数十種類のプレミアムツールを利用できます。",
+		"Education Benefits": "教育特典",
+		"Complete a teacher or student application to unlock tools and resources for your educational journey.": "教師または学生向けの申請を完了すると、学習に役立つツールとリソースを利用できるようになります。",
+		"Start an application": "申請を開始",
+		// —— メール設定（/settings/emails）——
+		// 鍵は開発者モードで書き出した実機ノード + メンテナが収集したすべてのテキストノード / 属性 + 全ページのスクリーンショットに基づきます。
+		// ノード境界（どの長文が <strong> / <a> で分割されるか）は src/dict/__tests__/pages/settings/emails.test.ts を参照
+		"Email settings": "メール設定",
+		"Emails you can use to sign in to your account. Verified emails can be used as the author or committer addresses for web-based Git operations, e.g. edits and merges.": "アカウントへのサインインに使用できるメールアドレスです。検証済みのメールアドレスは、Web ベースの Git 操作（編集やマージなど）の作成者またはコミッターのアドレスとして使用できます。",
+		"You have a single verified email associated with your GitHub account. Add an additional verified email address in case you lose access to your primary email.": "GitHub アカウントに関連付けられている検証済みのメールアドレスは 1 つだけです。メインのメールアドレスにアクセスできなくなった場合に備えて、検証済みのメールアドレスを追加しておくことをおすすめします。",
+		"Primary": "メイン",
+		"Verified": "検証済み",
+		"This email address is the default for GitHub notifications, such as replies to issues, pull requests, and similar activity.": "このメールアドレスは、イシューへの返信やプルリクエストなどの GitHub 通知のデフォルトの送信先です。",
+		"Manage email": "メールを管理",
+		"Manage email preferences": "メールの設定を管理",
+		"Connected to Google": "Google に接続済み",
+		"Disconnect from Google": "Google との接続を解除",
+		// ダイアログの文ではメールアドレスがプレーンテキストノードとしてレンダリングされるため、リンク前の断片のみを収録します。
+		// 訳文の末尾に空白は付けません。元ノードの末尾の空白がそのまま保持され、メールアドレスと「from your…」の間が詰まりません
+		"This will disconnect": "これにより、",
+		"Disconnect": "接続を解除",
+		"Add email address": "メールアドレスを追加",
+		"Email address": "メールアドレス",
+		"Add": "追加",
+		"Primary email address": "メインのメールアドレス",
+		"Select an email to be used for account-related notifications and can be used for password reset.": "アカウント関連の通知に使用するメールアドレスを選択します。パスワードのリセットにも使用できます。",
+		"Select email to become primary": "メインにするメールアドレスを選択",
+		"Backup email address": "バックアップメールアドレス",
+		"Your backup GitHub email address will be used as an additional destination for security-relevant account notifications and can also be used for password resets.": "バックアップの GitHub メールアドレスは、セキュリティ関連のアカウント通知の追加の送信先として使用され、パスワードのリセットにも使用できます。",
+		"Allow all verified emails": "すべての検証済みメールを許可",
+		"Only allow primary email": "メインのメールのみ許可",
+		"Select email to become backup": "バックアップにするメールアドレスを選択",
+		"Keep my email addresses private": "メールアドレスを非公開にする",
+		"We’ll remove your public profile email and use": "公開プロフィールのメールアドレスを削除し、",
+		"when performing web-based Git operations (e.g. edits and merges) and sending email on your behalf. If you want command line Git operations to use your private email you must": "を、Web ベースの Git 操作（編集やマージなど）の実行時と、あなたの代理としてメールを送信するときに使用します。コマンドラインの Git 操作でプライベートメールを使用する場合は、",
+		"set your email in Git": "Git でメールアドレスを設定する必要があります",
+		"Previously authored commits associated with a public email will remain public.": "公開メールアドレスに関連付けられた、以前に作成されたコミットは公開のまま残ります。",
+		// 設定サイドバーで長らく英語のままの「Packages」：同鍵は他のモジュールにもありますが、
+		// 本モジュールが先に来て /settings のサブツリーで勝つため、ここでは「パッケージ」と表示されます。
+		// 同じ区画の「Copilot」は収録しません（純粋な固有名詞は訳さないのが既存の取り決めで、未命中なら英語のまま残ります）
+		"Packages": "パッケージ",
+		// —— セッションページ（/settings/sessions）——
+		// 鍵は開発者モードで書き出した未翻訳リストと、拡張機能なしの元の英語スクリーンショットの照合に基づきます。
+		// ノード境界、連結結果、反例は src/dict/__tests__/pages/settings/sessions.test.ts を参照
+		"Web sessions": "Web セッション",
+		"This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.": "アカウントにログインしたデバイスの一覧です。心当たりのないセッションはすべて取り消してください。",
+		"active": "アクティブ",
+		"Your current session": "現在のセッション",
+		"Microsoft Edge on Windows": "Windows 上の Microsoft Edge",
+		"GitHub Mobile sessions": "GitHub Mobile のセッション",
+		// 説明文の第 1 段落は "or you can" で終わります。訳文も同様に「…取り消すか、」で終え、
+		// リンクノード「取り消す」と第 3 段落を繋げると 1 つの完全な文になります
+		"This is a list of devices that have logged into your account via the GitHub Mobile app. Revoke any session that you do not recognize or you can": "GitHub Mobile アプリ経由でアカウントにログインしたデバイスの一覧です。心当たりのないセッションを取り消すか、",
+		"revoke": "GitHub Mobile アプリの認可を取り消す",
+		"your GitHub Mobile app authorization to sign out of all your devices.": "と、すべてのデバイスからサインアウトできます。",
+		"Revoke": "取り消す",
+		// ラベルと日付の間の元の空白は walker が保持するため、訳文には前後の空白を付けません
+		"Registered -": "登録日 -",
+		"Last accessed -": "最終アクセス日 -",
+		"Last used for authentication -": "最終認証日 -",
+		"Never used": "未使用",
+		// —— SSH / GPG キーページ（/settings/keys）——
+		// 鍵は同様に、開発者モードで書き出した未翻訳リストと、拡張機能なしの元の英語スクリーンショットの照合に基づきます。
+		// ノード境界、連結結果、反例は src/dict/__tests__/pages/settings/keys.test.ts を参照
+		// —— SSH keys セクション ——
+		"SSH keys": "SSH キー",
+		"New SSH key": "新しい SSH キー",
+		"There are no SSH keys associated with your account.": "アカウントに関連付けられている SSH キーはありません。",
+		// 説明文は 2 つのリンクで 4 つの断片に分かれており、断片ごとに連結できます
+		"Check out our guide to": "次のガイドを参照してください：",
+		"connecting to GitHub using SSH keys": "SSH キーを使用した GitHub への接続",
+		"or troubleshoot": "または",
+		"common SSH problems": "一般的な SSH の問題のトラブルシューティング",
+		// —— GPG keys セクション ——
+		"GPG keys": "GPG キー",
+		"New GPG key": "新しい GPG キー",
+		"This is a list of GPG keys associated with your account. Remove any keys that you do not recognize.": "アカウントに関連付けられている GPG キーの一覧です。心当たりのないキーはすべて削除してください。",
+		// フィールドラベル：日本語では全角コロンを使います（原文のコロンもノード内にあります）
+		"Email address:": "メールアドレス：",
+		"Key ID:": "キー ID：",
+		"Subkeys:": "サブキー：",
+		// 「Added <日付>」：日付ノードは global/short-date-* の規則で訳されるため、ここではラベルだけを訳します
+		"Added": "追加日",
+		"Learn how to": "方法を確認してください：",
+		"generate a GPG key and add it to your account": "GPG キーを生成してアカウントに追加する",
+		// —— GPG キー削除の確認ダイアログ ——
+		// 3 つの断片を連結すると「この操作は 取り消せません 。…」になります（<strong>cannot</strong> の両側の空白は隣接ノードが保持します）
+		"Are you sure you want to delete this GPG key?": "この GPG キーを削除してもよろしいですか？",
+		"This action": "この操作は",
+		"cannot": "取り消せません。",
+		"be undone. This will permanently delete the GPG key, and if you’d like to use it in the future, you will need to upload it again.": "これにより GPG キーが完全に削除されます。将来また使用したい場合は、もう一度アップロードする必要があります。",
+		"I understand, delete this GPG key": "理解しました。この GPG キーを削除します",
+		"Commits you signed with this key may become unverified after removing it.": "このキーで署名したコミットは、キーを削除すると未検証になる可能性があります。",
+		"Learn more about persistent commit signature verification.": "永続的なコミット署名の検証について詳しくはこちら",
+		// —— ビジラントモードのセクション ——
+		"Vigilant mode": "ビジラントモード",
+		"Flag unsigned commits as unverified": "署名されていないコミットを未検証としてフラグ付けする",
+		"Enable Vigilant mode": "ビジラントモードを有効にする",
+		"This will include any commit attributed to your account but not signed with your GPG or S/MIME key.": "これには、あなたのアカウントに帰属するが、GPG または S/MIME キーで署名されていないすべてのコミットが含まれます。",
+		"Note that this will include your existing unsigned commits.": "これには既存の署名されていないコミットも含まれることに注意してください。",
+		"Learn about vigilant mode": "ビジラントモードについて",
+		// —— 認証情報 / 開発者設定ファミリー（/settings/credentials、apps、developers、tokens、
+		// personal-access-tokens）——
+		// 鍵は開発者モードで書き出した未翻訳リストに基づきます（5 つのパスをそれぞれ 1 回ずつ収集）。
+		// ノード境界、連結結果、反例は src/dict/__tests__/pages/settings/credentials.test.ts を参照
+		// —— /settings/credentials（認証情報の概要）——
+		"View and manage all the credentials generated or authorized by your personal account.": "個人アカウントによって生成または承認されたすべての認証情報を表示および管理します。",
+		"Authorized GitHub Apps": "承認済みの GitHub アプリ",
+		"GitHub Apps that have been authorized to access your account.": "アカウントへのアクセスが承認されている GitHub アプリ。",
+		"Authorized OAuth apps": "承認済みの OAuth アプリ",
+		"OAuth apps that have been authorized to access your account.": "アカウントへのアクセスが承認されている OAuth アプリ。",
+		"Fine-grained personal access tokens": "きめ細かい個人アクセストークン",
+		"Fine-grained personal access tokens generated by your personal account.": "個人アカウントによって生成されたきめ細かい個人アクセストークン。",
+		"Personal access tokens (classic)": "個人アクセストークン（クラシック）",
+		"Personal access tokens (classic) generated by your personal account.": "個人アカウントによって生成された個人アクセストークン（クラシック）。",
+		"SSH keys associated with your account.": "アカウントに関連付けられている SSH キー。",
+		// —— 開発者設定の外枠（サイドバーとページタイトル）——
+		"Developer Settings": "開発者設定",
+		"Personal access tokens": "個人アクセストークン",
+		"Fine-grained tokens": "きめ細かいトークン",
+		"Tokens (classic)": "トークン（クラシック）",
+		"OAuth Apps": "OAuth アプリ",
+		"GitHub Apps": "GitHub アプリ",
+		// —— /settings/developers（OAuth アプリ一覧）——
+		"Developer applications": "開発者アプリケーション",
+		"New OAuth app": "新しい OAuth アプリ",
+		"No OAuth apps": "OAuth アプリはありません",
+		"OAuth apps are used to access the GitHub API. Read the docs to find out more.": "OAuth アプリは GitHub API へのアクセスに使用されます。詳細についてはドキュメントをお読みください。",
+		"View documentation": "ドキュメントを表示",
+		// —— /settings/personal-access-tokens（きめ細かいトークン）——
+		"Fine-grained Personal Access Tokens": "きめ細かい個人アクセストークン",
+		"Need an API token for scripts or testing? Generate a personal access token for quick access to the GitHub API.": "スクリプトやテスト用の API トークンが必要ですか？個人アクセストークンを生成すると、GitHub API にすばやくアクセスできます。",
+		"No fine-grained tokens created": "きめ細かいトークンはまだ作成されていません",
+		// —— /settings/tokens（クラシックトークン）——
+		"Personal Access Tokens (Classic)": "個人アクセストークン（クラシック）",
+		// 3 つの断片を連結すると「…Basic 認証で API に認証することもできます.」になります
+		// （文末の "." は記号のみのノードで、翻訳できず収録もしません）
+		"Personal access tokens (classic) function like ordinary OAuth access tokens. They can be used instead of a password for Git over HTTPS, or can be used to": "個人アクセストークン（クラシック）は、通常の OAuth アクセストークンと同様に機能します。HTTPS 経由の Git でパスワードの代わりに使用することも、",
+		"authenticate to the API over Basic Authentication": "Basic 認証で API に認証することもできます",
+		// リンク「GitHub API」は英語のまま残します（純粋な固有名詞と略語で、訳文に日本語文字を含められないため）
+		"Tokens you have generated that can be used to access the": "生成したトークンは、次のものへのアクセスに使用できます：",
+		"Generate new token": "新しいトークンを生成",
+		"Generate new token (classic)": "新しいトークンを生成（クラシック）",
+		// 有効期限の状態と「最終使用」の区分
+		"Expires": "有効期限",
+		"Expired": "期限切れ",
+		"This token has no expiration date": "このトークンには有効期限がありません",
+		"Last used within the last week": "過去 1 週間以内に使用",
+		"Last used within the last 2 months": "過去 2 か月以内に使用",
+		"Last used within the last 6 months": "過去 6 か月以内に使用",
+		"Fine-grained, repo-scoped": "きめ細かい、リポジトリ単位",
+		"For general use": "一般的な用途向け",
+		// —— トークン削除のダイアログ ——
+		"Are you sure you want to delete this token?": "このトークンを削除してもよろしいですか？",
+		"I understand, delete this token": "理解しました。このトークンを削除します",
+		"Any applications or scripts using this token will no longer be able to access the GitHub API. You cannot undo this action.": "このトークンを使用しているアプリケーションやスクリプトは、GitHub API にアクセスできなくなります。この操作は取り消せません。",
+		"Close dialog": "ダイアログを閉じる",
+		"Confirm token deletion": "トークンの削除を確認",
+		// —— 権限スコープチップの title（識別子自体は英語のまま）——
+		"Full control of private repositories": "プライベートリポジトリの完全制御",
+		"Full control of audit log": "監査ログの完全制御",
+		"Full control of codespaces": "コードスペースの完全制御",
+		"Full control of enterprises": "エンタープライズの完全制御",
+		"Full control of github copilot settings and seat assignments": "GitHub Copilot の設定とシート割り当ての完全制御",
+		"Full control of organization hooks": "組織フックの完全制御",
+		"Full control of orgs and teams, read and write org projects": "組織とチームの完全制御、組織プロジェクトの読み書き",
+		"Full control of projects": "プロジェクトの完全制御",
+		"Full control of public user gpg keys": "ユーザーの公開 GPG キーの完全制御",
+		"Full control of public user ssh signing keys": "ユーザーの公開 SSH 署名キーの完全制御",
+		"Full control of repository hooks": "リポジトリフックの完全制御",
+		"Full control of user public keys": "ユーザーの公開キーの完全制御",
+		"Read access of projects": "プロジェクトへの読み取りアクセス",
+		"Read and write team discussions": "チームディスカッションの読み書き",
+		"Update all user data": "すべてのユーザーデータを更新",
+		"Update github action workflows": "GitHub Actions ワークフローを更新",
+		"Access notifications": "通知にアクセス",
+		"Create gists": "Gist を作成",
+		"Delete packages from github package registry": "GitHub Packages レジストリからパッケージを削除",
+		"Upload packages to github package registry": "GitHub Packages レジストリにパッケージをアップロード",
+		"Delete repositories": "リポジトリを削除",
+		"Write org hosted compute network configurations": "組織がホストするコンピュートネットワーク構成を書き込む",
+		// —— インタラクション制限 / コードレビュー制限 / ブロックしたユーザー / 組織 ——
+		// 鍵は開発者モードでエクスポートした未翻訳リスト（4 つの path）に由来する。
+		// ノード境界、連結結果、反例は src/dict/__tests__/pages/settings/limits.test.ts を参照。
+		// —— /settings/blocked_users（ブロックしたユーザー）——
+		"Block a user": "ユーザーをブロック",
+		// pages/profile の同じ鍵の訳と揃える（パスは排他。同じ鍵に別の訳を当てる仕組みは registry.ts を参照）。
+		"Block user": "ユーザーをブロック",
+		"You can block a user to deny them access to repositories and more.": "ユーザーをブロックすると、そのユーザーによるリポジトリなどへのアクセスを拒否できます。",
+		"Learn more about blocking a user": "ユーザーのブロックについて詳しくはこちら",
+		"Search by username, full name or email address": "ユーザー名、フルネーム、またはメールアドレスで検索",
+		"You are about to block:": "ブロックしようとしているユーザー：",
+		"Blocking a user prevents the following on all your repositories:": "ユーザーをブロックすると、あなたのすべてのリポジトリで次のことができなくなります：",
+		"opening or commenting on issues or pull requests": "イシューやプルリクエストを開く、またはコメントする",
+		"adding or editing wiki pages": "wiki ページを追加または編集する",
+		"follow your account's public activity": "あなたのアカウントの公開アクティビティをフォローする",
+		"starring, forking, or watching": "スターを付ける、フォークする、ウォッチする",
+		"send you notifications by @mentioning your username in public repositories": "公開リポジトリでユーザー名を @ メンションして通知を送る",
+		"invite you as a collaborator to their repositories": "自分のリポジトリのコラボレーターとしてあなたを招待する",
+		"Additionally, blocked users are not able to:": "さらに、ブロックされたユーザーは次のことができません：",
+		"Close all open issues, pull requests, and discussions opened by this user": "このユーザーが開いたすべての未解決のイシュー、プルリクエスト、ディスカッションをクローズする",
+		"Add an optional note": "任意のメモを追加",
+		"Maximum 250 characters. Please don’t include any personal information such as legal names or email addresses. Markdown is supported. This note will only be visible to you.": "最大 250 文字。法的な氏名やメールアドレスなどの個人情報を含めないでください。Markdown に対応しています。このメモはあなたにのみ表示されます。",
+		"Warn me when blocked users have contributed to a repository": "ブロックしたユーザーがリポジトリにコントリビュートしたときに警告する",
+		"We will show this warning each time you visit a repository where someone you blocked has committed code, unless you own the repository or have also contributed a commit. This warning does not restrict your access.": "ブロックしたユーザーがコードをコミットしたリポジトリにアクセスするたびに、この警告を表示します。ただし、そのリポジトリを所有している場合や、あなた自身もコミットしている場合は除きます。この警告によってアクセスが制限されることはありません。",
+		"Currently blocked": "現在ブロック中",
+		"You have not blocked anyone.": "まだ誰もブロックしていません。",
+		"Find blocked users": "ブロックしたユーザーを検索",
+		"Search by username, full name, or public email": "ユーザー名、フルネーム、または公開メールアドレスで検索",
+		// 検索結果領域の aria-label。同じ鍵は pages/repo-settings では件数の接尾辞「件の結果」で、
+		// ここでは独立したアクセシビリティラベルとして「結果」の方が自然（パスは排他）。
+		"results": "結果",
+		// —— /settings/interaction_limits（一時的なインタラクション制限）——
+		"Temporary interaction limits": "一時的なインタラクション制限",
+		"Temporarily restrict which external users can interact with your repositories (comment, open issues, or create pull requests) for a configurable period of time.": "設定できる一定の期間、どの外部ユーザーがあなたのリポジトリとやり取り（コメント、イシューの作成、プルリクエストの作成）できるかを一時的に制限します。",
+		"Enable interaction limits for:": "次の対象にインタラクション制限を有効にする：",
+		"Limit to existing users": "既存のユーザーに限定",
+		"Users that have recently created their account will be unable to interact with your repositories.": "最近アカウントを作成したユーザーは、あなたのリポジトリとやり取りできなくなります。",
+		"Limit to prior contributors": "過去のコントリビューターに限定",
+		"Users that have not previously committed to the default branch of one of your repositories will be unable to interact with that repository.": "これまであなたのいずれかのリポジトリのデフォルトブランチにコミットしたことがないユーザーは、そのリポジトリとやり取りできなくなります。",
+		"Limit to repository collaborators": "リポジトリのコラボレーターに限定",
+		"Users that are not collaborators of one of your repositories will not be able to interact with that repository.": "あなたのいずれかのリポジトリのコラボレーターでないユーザーは、そのリポジトリとやり取りできなくなります。",
+		// 3 つの短いラベル。pages/search の「Users」、pages/repo の「Contributors」、
+		// pages/repo-settings の「Collaborators」と同じ訳にする（それら 3 つのルートは /settings に一致しない）。
+		"New users": "新規ユーザー",
+		"Users": "ユーザー",
+		"Contributors": "コントリビューター",
+		"Collaborators": "コラボレーター",
+		// 5 段階の期間オプション（固定の列挙なので、規則ではなく静的キーとして収録）。
+		"24 hours": "24 時間",
+		"3 days": "3 日",
+		"1 week": "1 週間",
+		"1 month": "1 か月",
+		"6 months": "6 か月",
+		"This may be used to force a \"cool-down\" period during heated discussions or prevent unwanted interactions.": "これは、白熱した議論の最中に「クールダウン」期間を強制したり、望ましくないインタラクションを防いだりするために使用できます。",
+		"Enable interaction limit to existing users": "既存のユーザーに対するインタラクション制限を有効にする",
+		"Enable interaction limit to prior contributors": "過去のコントリビューターに対するインタラクション制限を有効にする",
+		"Enable interaction limit to repository collaborators": "リポジトリのコラボレーターに対するインタラクション制限を有効にする",
+		// 3 ノードの連結：文の断片 + リンク「公開リポジトリ」+ 句点で始まる末尾の断片。
+		"Interaction limits may already exist in your account's": "インタラクション制限は、あなたのアカウントの",
+		"public repositories": "公開リポジトリ",
+		". Any changes here will override those limits.": "にすでに存在する場合があります。ここでの変更はそれらの制限を上書きします。",
+		// —— /settings/code_review_limits（コードレビュー制限）——
+		"Restrict users who are permitted to approve or request changes on pull requests in your public repositories.": "公開リポジトリのプルリクエストで、承認や変更のリクエストを行えるユーザーを制限します。",
+		"Code review limits are currently managed individually for all repositories. Enable limits to permit only users who have explicitly been granted access to each repository to submit reviews that \"approve\" or \"request changes\". Remove limits to allow all users to submit pull request reviews. All users able to submit comment pull request reviews will continue to be able to do so.": "コードレビュー制限は現在、すべてのリポジトリで個別に管理されています。制限を有効にすると、各リポジトリへのアクセスを明示的に許可されたユーザーだけが「承認」または「変更をリクエスト」するレビューを送信できます。制限を解除すると、すべてのユーザーがプルリクエストのレビューを送信できるようになります。コメント形式のプルリクエストレビューを送信できるユーザーは、引き続き送信できます。",
+		"Limit reviews on all repositories": "すべてのリポジトリでレビューを制限",
+		"Remove review limits from all repositories": "すべてのリポジトリからレビュー制限を解除",
+		"Code review limits may already be specified by individual repositories. Any changes here will override those limits until unset.": "コードレビュー制限は、個々のリポジトリで既に指定されている場合があります。ここでの変更は、制限が解除されるまでそれらを上書きします。",
+		// —— /settings/organizations（組織）——
+		"Your personal account cannot be converted to an organization. You must create a new organization and transfer your repositories and projects to it instead. You can then rename your personal account and the organization if you want your organization to have the same name that you are currently using for your personal account.": "個人アカウントを組織に変換することはできません。代わりに新しい組織を作成し、リポジトリとプロジェクトをそこに移す必要があります。組織に現在の個人アカウントと同じ名前を使いたい場合は、その後で個人アカウントと組織の名前を変更できます。",
+		"Move work to an organization": "作業を組織に移す",
+		"Move to an organization": "組織に移す",
+		"Compare plans": "プランを比較",
+		"2FA required": "2 要素認証が必要",
+		// ボタンの文言は自身の aria-label と同じ文字列。退出確認ダイアログの文は組織名を含むため規則で処理する。
+		"Leave": "退出",
+		"Leave organization": "組織を退出",
+		// —— /settings/enterprises（エンタープライズの空状態。根拠は実機の HTML 原文）——
+		// アポストロフィは**直線アポストロフィ**。鍵は実機の形のまま書き、中国語組版用の ’ に変えないこと。
+		"You don't have any enterprises": "エンタープライズがまだありません",
+		"Designed for businesses or teams who collaborate on GitHub.com": "GitHub.com で共同作業を行う企業やチーム向けに設計されています",
+		"Start free for 30 days": "30 日間無料で開始",
+		"Learn more about enterprises": "エンタープライズについて詳しくはこちら",
+		// —— /settings/repositories（リポジトリのデフォルト設定。根拠はページ全体のスクリーンショット + 同種コンポーネントの既存の実測）——
+		"Repository default branch": "リポジトリのデフォルトブランチ",
+		// 段落はリンクで分割されている。前半の訳は句点で終わり、リンク（句点を含む）は独立したエントリにする。
+		"Choose the default branch for your new personal repositories. You might want to change the default name due to different workflows, or because your integrations still require “master” as the default branch name. You can always change the default branch name on individual repositories.": "新しい個人リポジトリのデフォルトブランチを選択します。ワークフローの違いや、連携サービスが依然として “master” をデフォルトブランチ名として必要としているために、デフォルト名を変更したい場合があります。デフォルトブランチ名は、個々のリポジトリでいつでも変更できます。",
+		"Learn more about default branches.": "デフォルトブランチについて詳しくはこちら。",
+		"Update": "更新",
+		"Commit comments": "コミットコメント",
+		// 3 ノードの連結：〜するかどうか + コミットコメント + 所有リポジトリでのデフォルトの有効・無効。…
+		"Choose whether": "あなたが所有するリポジトリで",
+		"commit comments": "コミットコメントを",
+		"are enabled or disabled by default for repositories you own. Individual repositories can override this default. Existing commit comments are not affected by this setting and will remain viewable, editable, and deletable.": "デフォルトで有効にするか無効にするかを選択します。各リポジトリではこのデフォルトを上書きできます。既存のコミットコメントはこの設定の影響を受けず、引き続き表示、編集、削除できます。",
+		// ドロップダウンのラベル（コロンを含む）と 2 つの選択値。ラベルのノードと値のノードを分けて収録し、
+		// /settings/appearance の "Selected theme:" + テーマ名と同じ形にしている。
+		"Commit comments:": "コミットコメント：",
+		"Enabled by default": "デフォルトで有効",
+		"Disabled by default": "デフォルトで無効",
+		// —— /settings/codespaces（コードスペースの個人設定）——
+		// 鍵は開発者モードでエクスポートした未翻訳リストに由来する。ノード境界と反例は
+		// src/dict/__tests__/pages/settings/codespaces.test.ts を参照。
+		"GitHub Codespaces": "GitHub コードスペース",
+		// —— エディターの設定 ——
+		"Editor preference": "エディターの設定",
+		// 3 ノードの連結：…が必要 + 製品名（英語のまま）+ と + 製品名（英語のまま）+ 拡張機能。
+		"Connect to the cloud from your local desktop client. Requires": "ローカルのデスクトップクライアントからクラウドに接続します。必要なのは",
+		"with the": "と",
+		"extension.": "拡張機能です。",
+		"Edit and preview changes straight from the browser.": "ブラウザから直接、変更を編集してプレビューできます。",
+		"Edit and run notebooks from the browser with JupyterLab.": "JupyterLab を使って、ブラウザからノートブックを編集・実行できます。",
+		"Deprecated": "非推奨",
+		// —— ホストイメージのバージョン設定 ——
+		"Host image version preference": "ホストイメージのバージョン設定",
+		"Stable": "安定版",
+		"Always use the latest stable configuration.": "常に最新の安定版構成を使用します。",
+		"Beta": "ベータ版",
+		"Use a beta image configuration when available. Otherwise, use the latest stable configuration.": "ベータ版のイメージ構成が利用可能な場合はそれを使用します。それ以外の場合は、最新の安定版構成を使用します。",
+		"The host image defines the operating system in which development containers run. These images receive periodic upgrades for security, functionality, and performance. GitHub Codespaces offers early access to beta images to ensure compatibility with existing development container configurations. Any codespace created or resumed after changing this setting will use the specified image configuration.": "ホストイメージは、開発コンテナが動作するオペレーティングシステムを定義します。これらのイメージには、セキュリティ、機能、パフォーマンスのための定期的なアップグレードが提供されます。GitHub コードスペースは、既存の開発コンテナ構成との互換性を確保するため、ベータ版イメージへの早期アクセスを提供しています。この設定を変更した後に作成または再開したコードスペースは、指定したイメージ構成を使用します。",
+		"Learn more about host images": "ホストイメージについて詳しくはこちら",
+		// —— デフォルトのアイドルタイムアウト ——
+		"Default idle timeout": "デフォルトのアイドルタイムアウト",
+		"A codespace will suspend after a period of inactivity. You can specify a default idle timeout value, which will apply to all codespaces created after the default is changed. You will be charged for the entire time your codespace is running, even if it is idle. The maximum value is": "コードスペースは、一定時間操作がないと中断されます。デフォルトのアイドルタイムアウト値を指定でき、デフォルトの変更後に作成されるすべてのコードスペースに適用されます。コードスペースがアイドル状態でも、実行時間全体に対して課金されます。最大値は",
+		"minutes (4 hours).": "分（4 時間）です。",
+		// 数値入力欄の右側にある単位ラベル。
+		"minutes": "分",
+		"Timeout must be 5 minutes or more.": "タイムアウトは 5 分以上である必要があります。",
+		"Timeout must be 240 minutes or less.": "タイムアウトは 240 分以下である必要があります。",
+		// —— デフォルトの保持期間 ——
+		"Default retention period": "デフォルトの保持期間",
+		"Inactive codespaces are automatically deleted 30 days after the last time they were stopped. A shorter retention period can be set, and will apply to all codespaces created going forward. The default and maximum value is": "非アクティブなコードスペースは、最後に停止されてから 30 日後に自動的に削除されます。より短い保持期間を設定でき、今後作成されるすべてのコードスペースに適用されます。デフォルト値と最大値は",
+		"days.": "日です。",
+		"days": "日",
+		"Retention period must be between 0 and 30 days.": "保持期間は 0 日から 30 日までの間で指定する必要があります。",
+		"Retention period must be 30 days or less.": "保持期間は 30 日以下である必要があります。",
+		"Learn about retention setting": "保持期間の設定について",
+		// —— リージョン ——
+		"Region": "リージョン",
+		"Choose your default region": "デフォルトのリージョンを選択",
+		"Your default region will be used to designate compute resources to your codespaces. GitHub can set your region automatically based on your location, or you can set it yourself. Codespaces are deployed to a subset of Azure regions.": "デフォルトのリージョンは、コードスペースにコンピュートリソースを割り当てるために使用されます。GitHub はあなたの場所に基づいてリージョンを自動的に設定できますが、自分で設定することもできます。コードスペースは Azure リージョンの一部にデプロイされます。",
+		"Set automatically": "自動で設定",
+		"Set manually": "手動で設定",
+		"We will determine the closest available region based on your location (IP address) at codespace creation time.": "コードスペースの作成時に、あなたの場所（IP アドレス）に基づいて最も近い利用可能なリージョンを決定します。",
+		"Australia": "オーストラリア",
+		"Europe West": "西ヨーロッパ",
+		"Southeast Asia": "東南アジア",
+		"US East": "米国東部",
+		"US West": "米国西部",
+		// —— アクセスとセキュリティ ——
+		"Access and security": "アクセスとセキュリティ",
+		"Codespaces you create for your personal account can either be restricted to accessing the repository it was opened for, or granted read access to other repositories you own.": "個人アカウント用に作成したコードスペースは、開いた対象のリポジトリへのアクセスのみに制限するか、所有する他のリポジトリへの読み取りアクセスを付与するかを選べます。",
+		"Limit access of personal Codespaces to the repository they were opened for": "個人用コードスペースのアクセスを、開いた対象のリポジトリに制限する",
+		"All Codespaces can access other repositories I own": "すべてのコードスペースが、所有する他のリポジトリにアクセスできる",
+		"Personal Codespaces created for specific repositories can access other repositories I own": "特定のリポジトリ用に作成した個人用コードスペースが、所有する他のリポジトリにアクセスできる",
+		// —— GPG 検証と設定同期 ——
+		"GPG verification": "GPG 検証",
+		"Codespaces can have GPG commit signing capabilities so that GitHub can verify that commits made in the codespace come from a trusted source. When enabled, this setting will be applied to your list of trusted repositories.": "コードスペースに GPG コミット署名機能を持たせることができ、GitHub はコードスペースで作成されたコミットが信頼できるソースに由来することを検証できます。有効にすると、この設定は信頼済みリポジトリの一覧に適用されます。",
+		"GPG signing will be available in Codespaces": "コードスペースで GPG 署名が利用可能になります",
+		"GPG signing and VS Code Settings Sync will be available for codespaces for all repositories": "すべてのリポジトリのコードスペースで、GPG 署名と VS Code 設定同期が利用可能になります",
+		"GPG signing and VS Code Settings Sync will be available for codespaces from the selected repositories": "選択したリポジトリのコードスペースで、GPG 署名と VS Code 設定同期が利用可能になります",
+		"Settings Sync": "設定同期",
+		"By enabling, your codespaces will be able to pull from VS Code Settings Sync service and push only for the trusted repositories you specify. Only enable this for repositories that you trust.": "有効にすると、コードスペースは VS Code 設定同期サービスから取得でき、指定した信頼済みリポジトリにのみプッシュできます。信頼できるリポジトリに対してのみ有効にしてください。",
+		"VS Code Settings Sync will be available in Codespaces": "コードスペースで VS Code 設定同期が利用可能になります",
+		// —— 信頼済みリポジトリ（リポジトリ選択ツール）——
+		"Trusted repositories": "信頼済みリポジトリ",
+		"The following repositories will be referenced by GPG verification and Settings Sync.": "以下のリポジトリは、GPG 検証と設定同期によって参照されます。",
+		"GPG and VS Code Settings Sync will be available for Codespaces from these repositories.": "これらのリポジトリのコードスペースでは、GPG と VS Code 設定同期が利用可能になります。",
+		"Select repository": "リポジトリを選択",
+		"Selected repositories": "選択したリポジトリ",
+		"No matching repositories.": "一致するリポジトリがありません。",
+		// —— 削除の警告 ——
+		"Warning notifications for codespace deletions will be enabled": "コードスペースの削除に関する警告通知が有効になります",
+		"When enabled, you will receive emails when your codespaces are nearing deletion due to inactivity.": "有効にすると、コードスペースが非アクティブのためまもなく削除される際にメールが届きます。",
+		// —— Dotfiles ——
+		// 見出しは英単語 1 語。global の "Gists": "Gist コードスニペット" と同じ手法で、
+		// （英単語 + 日本語の説明）として扱う。
+		"Dotfiles": "dotfiles 設定",
+		"Automatically install dotfiles": "dotfiles を自動的にインストール",
+		"Codespaces can automatically install your dotfiles into every codespace you create.": "コードスペースは、作成するすべてのコードスペースに dotfiles を自動的にインストールできます。",
+		"Learn how to set up your dotfiles for Codespaces.": "コードスペース用の dotfiles の設定方法についてはこちら。",
+		// —— シークレット ——
+		"Secrets": "シークレット",
+		"Codespace user secrets": "コードスペースのユーザーシークレット",
+		"New secret": "新しいシークレット",
+		"Submit": "送信",
+		"Development environment secrets are environment variables that are encrypted. They are available to any codespace you create using repositories with access to that secret.": "開発環境のシークレットは、暗号化された環境変数です。そのシークレットにアクセスできるリポジトリを使って作成したコードスペースから利用できます。",
+		"There are no Codespace secrets.": "コードスペースのシークレットはありません。",
+		// —— /settings/packages（パッケージの個人設定）——
+		// 鍵は開発者モードでエクスポートした未翻訳リストに由来する。ノード境界と反例は
+		// src/dict/__tests__/pages/settings/packages.test.ts を参照。
+		"Packages permissions": "パッケージの権限",
+		"Inherit access from source repository": "ソースリポジトリからアクセスを継承",
+		"Default Package Setting": "デフォルトのパッケージ設定",
+		"This setting will be applied to new Container, npm, rubygems and NuGet packages.": "この設定は、新しい Container、npm、rubygems、NuGet パッケージに適用されます。",
+		"Deleted Packages": "削除済みのパッケージ",
+		"These are packages that have been previously deleted belonging to you. You can restore a package deleted within the last 30 days.": "これらは以前に削除された、あなたに属するパッケージです。過去 30 日以内に削除されたパッケージは復元できます。",
+		// aria-label と placeholder が 1 つの鍵を共有している。
+		"Search deleted packages": "削除済みのパッケージを検索",
+		// —— /settings/copilot/features（Copilot 機能の設定）——
+		// 鍵は開発者モードでエクスポートした未翻訳リストに由来する。ノード境界と断片の連結は
+		// src/dict/__tests__/pages/settings/copilot-features.test.ts を参照。
+		// —— プランと使用量 ——
+		"Get Copilot from an organization": "組織から Copilot を利用する",
+		"Organizations can provide their members (including you) and their teams access to GitHub Copilot.": "組織は、そのメンバー（あなたを含む）とチームに GitHub Copilot へのアクセスを提供できます。",
+		"Buy Copilot Business": "Copilot Business を購入",
+		"Upgrade plan": "プランをアップグレード",
+		"Upgrade your Copilot plan for higher usage limits, premium models, AI reviews and more.": "Copilot プランをアップグレードすると、より高い使用量上限、プレミアムモデル、AI レビューなどを利用できます。",
+		// pages/settings-billing の同じ鍵の訳と揃える。
+		"Included credits": "含まれるクレジット",
+		// —— 表示設定と入口 ——
+		"Visibility": "表示設定",
+		"Show Copilot": "Copilot を表示",
+		"Enable Copilot for all GitHub features, including navigation bar, search, and dashboard.": "ナビゲーションバー、検索、ダッシュボードを含むすべての GitHub 機能で Copilot を有効にします。",
+		"When disabled, Copilot will be hidden and unavailable. This setting does not apply to Copilot search on GitHub Docs.": "無効にすると、Copilot は非表示になり利用できなくなります。この設定は GitHub Docs の Copilot 検索には適用されません。",
+		"Dashboard Entry Point": "ダッシュボードのエントリポイント",
+		"Allows instant chatting when landing on GitHub.com": "GitHub.com を開いたとたんにチャットを始められます",
+		"Copilot Chat in GitHub.com": "GitHub.com の Copilot Chat",
+		"You can use Copilot Chat in GitHub.com. Preview features are only available for paid licenses.": "GitHub.com で Copilot Chat を使用できます。プレビュー機能は有償ライセンスでのみ利用できます。",
+		"Learn more about Copilot in GitHub.com": "GitHub.com の Copilot について詳しくはこちら",
+		// —— 各機能のステータスバッジ ——
+		"Allowed": "許可",
+		"Blocked": "ブロック中",
+		"Coming soon": "近日公開",
+		"You will have access to the feature": "この機能を利用できるようになります",
+		"You won't have access to the feature": "この機能を利用できません",
+		// —— クラウドエージェント / アプリ / CLI ——
+		"Copilot cloud agent": "Copilot クラウドエージェント",
+		"Delegate tasks to Copilot cloud agent in repositories where it is enabled": "Copilot クラウドエージェントが有効なリポジトリで、タスクを Copilot に委任します",
+		"GitHub Copilot app": "GitHub Copilot アプリ",
+		"It can take up to 30 minutes for the changes to take effect. Restart your code editor for the changes to take effect immediately.": "変更が反映されるまで最大 30 分かかる場合があります。コードエディターを再起動すると、変更がすぐに反映されます。",
+		"GitHub Copilot for assistance in terminal": "ターミナルでの支援を行う GitHub Copilot",
+		"GitHub Copilot for assistance in GitHub Desktop": "GitHub Desktop での支援を行う GitHub Copilot",
+		"Copilot in GitHub Desktop": "GitHub Desktop の Copilot",
+		// —— コミットメッセージとインライン候補 ——
+		"Copilot-generated commit messages": "Copilot が生成するコミットメッセージ",
+		"Allow Copilot to suggest commit messages when you make changes on GitHub.com.": "GitHub.com で変更を加えたときに、Copilot がコミットメッセージを提案できるようにします。",
+		"Learn more about Copilot-generated commit messages.": "Copilot が生成するコミットメッセージについて詳しくはこちら。",
+		"Inline suggestions": "インライン候補",
+		"Suggestions matching public code": "公開コードと一致する候補",
+		// 説明文はリンクの位置で分割されている。リンクのテキストは次のエントリ群を参照。
+		"Copilot can allow or block suggestions matching public code. Learn more about": "Copilot は、公開コードと一致する候補を許可またはブロックできます。詳しくは",
+		"GitHub Copilot will show suggestions matching public code.": "GitHub Copilot は、公開コードと一致する候補を表示します。",
+		"GitHub Copilot won't show suggestions matching public code.": "GitHub Copilot は、公開コードと一致する候補を表示しません。",
+		// —— ウェブ検索 ——
+		"Copilot can search the web": "Copilot はウェブを検索できます",
+		"Copilot can answer questions about new trends and give improved answers, via Bing. See": "Copilot は Bing を通じて、新しいトレンドに関する質問に回答し、より良い回答を提供できます。参照：",
+		// —— MCP ——
+		"MCP servers in Copilot": "Copilot の MCP サーバー",
+		"Connect MCP servers to Copilot in all Copilot editors and Copilot cloud agent.": "すべての Copilot エディターと Copilot クラウドエージェントで、MCP サーバーを Copilot に接続します。",
+		// —— 自動モデル選択（4 ノードの連結）——
+		"Copilot Auto model selection": "Copilot の自動モデル選択",
+		"Evaluation models in Copilot auto model selection": "Copilot の自動モデル選択における評価モデル",
+		"If enabled, you may be served": "有効にすると、",
+		"evaluation models": "評価モデル",
+		// 連結すると「…評価モデルが提供される場合があります。提供元：Copilot の自動モデル選択」になる。
+		"through": "が提供される場合があります。提供元：",
+		// —— Copilot Spaces（有効時 / 無効時の対になる説明）——
+		"Copilot Spaces Individual Access": "Copilot Spaces の個人アクセス",
+		"Copilot Spaces Individual Sharing": "Copilot Spaces の個人共有",
+		"If enabled, you can view and create": "有効にすると、次のものを表示・作成できます：",
+		"If enabled, you can create individually owned": "有効にすると、次のものを自分で作成できます：",
+		"If enabled, you can share individually owned": "有効にすると、次のものを共有できます：",
+		// 3 ノードを連結すると「…Copilot Spaces。無効にすると、…」になる。
+		". When disabled, you cannot view or create any Copilot Spaces.": "。無効にすると、Copilot Spaces を表示・作成できません。",
+		". When disabled, you cannot create individual spaces.": "。無効にすると、個人スペースを作成できません。",
+		". When disabled, you cannot share individual spaces.": "。無効にすると、個人スペースを共有できません。",
+		// —— インラインのコード候補 ——
+		"If enabled you can use": "有効にすると、次を使用できます：",
+		"code suggestions": "コード候補",
+		// —— GitHub 以外のリポジトリのセマンティックインデックス ——
+		"Semantic indexing for Non-GitHub Repositories": "GitHub 以外のリポジトリのセマンティックインデックス作成",
+		"You can use the": "次のものを使うと、",
+		"to index your non-GitHub repositories in VSCode.": "VSCode で GitHub 以外のリポジトリにインデックスを作成できます。",
+		"You can use": "次のものを使用できます：",
+		// —— データの使用とプライバシー ——
+		"Allow GitHub to use my data for AI model training": "GitHub が私のデータを AI モデルのトレーニングに使用することを許可する",
+		"Allow GitHub to collect and use my Inputs, Outputs, and associated context to train and improve AI models. Read more in the": "GitHub が私の入力、出力、および関連するコンテキストを収集して AI モデルのトレーニングと改善に使用することを許可します。詳しくは次をご覧ください：",
+		"GitHub's Privacy Statement": "GitHub プライバシーステートメント",
+		"Microsoft Privacy Statement": "Microsoft プライバシーステートメント",
+		"Privacy Statement": "プライバシーステートメント",
+		"For more information about the data your organization receives regarding your use of GitHub Copilot, please review": "組織があなたの GitHub Copilot の使用状況に関して受け取るデータの詳細については、次をご確認ください：",
+		"Learn more.": "詳しくはこちら。",
+		// —— クラウドアクセスポリシーと新バージョンの説明 ——
+		"Enables access to Copilot in the cloud, including GitHub.com and GitHub Mobile. This policy replaces previous Copilot Chat and Copilot cloud agent policies.": "GitHub.com や GitHub Mobile を含むクラウドで Copilot へのアクセスを有効にします。このポリシーは、以前の Copilot Chat および Copilot クラウドエージェントのポリシーに代わるものです。",
+		// 実機のノードは ". " で始まる（前の文の句点もそのノードに含まれる）。
+		". Enforcement begins July 27th, 2026 in version 1.1 of the GitHub Copilot app. The Copilot CLI policy continues to govern the GitHub Copilot App until version 1.1": "。この適用は 2026 年 7 月 27 日から GitHub Copilot アプリのバージョン 1.1 で開始されます。バージョン 1.1 までは、Copilot CLI ポリシーが引き続き GitHub Copilot アプリを規制します",
+		// —— /settings/copilot/coding_agent（クラウドエージェント）——
+		"Repository access": "リポジトリへのアクセス",
+		"With Copilot cloud agent, you can delegate tasks to Copilot, freeing you to focus on the creative, complex, and high-impact work that matters most. Simply assign an issue to Copilot, wait for the agent to request your review, then leave feedback on the pull request to iterate.": "Copilot クラウドエージェントを使うと、タスクを Copilot に委任できるため、創造的で複雑、かつ影響の大きい重要な作業に集中できます。イシューを Copilot に割り当て、エージェントがレビューを依頼してくるのを待ち、プルリクエストにフィードバックを残して繰り返すだけです。",
+		"Choose which repositories Copilot cloud agent should be enabled in. Copilot cloud agent will only be available where it is enabled for the repository and in the Copilot license policies.": "Copilot クラウドエージェントを有効にするリポジトリを選択します。Copilot クラウドエージェントは、リポジトリと Copilot ライセンスポリシーの両方で有効になっている場合にのみ利用できます。",
+		"You can enable Copilot cloud agent for other users, but you won't be able to assign tasks to Copilot because you don't have a Copilot Pro, Copilot Pro+, Copilot Business or Copilot Enterprise license.": "他のユーザーに対して Copilot クラウドエージェントを有効にできますが、Copilot Pro、Copilot Pro+、Copilot Business、Copilot Enterprise のいずれかのライセンスがないため、Copilot にタスクを割り当てることはできません。",
+		"Learn more in the docs.": "詳しくはドキュメントをご覧ください。",
+		// —— /settings/pages（検証済みドメイン）——
+		"Verified domains": "検証済みドメイン",
+		"There are no verified domains.": "検証済みドメインはありません。",
+		"Verify domains to restrict who can publish GitHub Pages on them.": "ドメインを検証して、そのドメインで GitHub Pages を公開できるユーザーを制限します。",
+		"Add a domain": "ドメインを追加",
+		// —— /settings/replies（保存した返信）——
+		// エディターのツールバーと添付コンポーネントの文言は global（サイト共通コンポーネント）にあるため、ここにはこのページ固有の文言だけを収録する。
+		"Add a saved reply": "保存した返信を追加",
+		"Add saved reply": "保存した返信を追加",
+		"Add your saved reply": "保存した返信を入力",
+		"Create a new saved reply": "新しい保存した返信を作成",
+		"Select a reply": "返信を選択",
+		"Saved reply title": "保存した返信のタイトル",
+		"Add a short title to your reply": "返信に短いタイトルを追加",
+		"Saved replies are re-usable text snippets that you can use throughout GitHub comment fields. Saved replies can save you time if you’re often typing similar responses.": "保存した返信は、GitHub のコメント欄全体で再利用できるテキストの断片です。似たような返信をよく入力する場合、保存した返信を使うと時間を節約できます。",
+		"No saved replies yet.": "保存した返信はまだありません。",
+		"Learn more about working with saved replies": "保存した返信の使い方について詳しくはこちら",
+		// SavedReply はコード内のモデル名なので、そのまま残す。
+		"There was an error creating your SavedReply.": "SavedReply の作成中にエラーが発生しました。",
+		// —— /settings/security_analysis（セキュリティと分析）——
+		// 鍵は開発者モードでエクスポートした未翻訳リストに由来する。ノード境界と反例は
+		// src/dict/__tests__/pages/settings/security-analysis.test.ts を参照。
+		"Security & analysis": "セキュリティと分析",
+		// —— ページ単位の説明 ——
+		"Security and analysis features help keep your repositories secure and updated.": "セキュリティと分析の機能は、リポジトリを安全かつ最新の状態に保つのに役立ちます。",
+		"Security and analysis features help keep your repositories secure and updated. By enabling these features, you're granting us permission to perform read-only analysis on your repositories.": "セキュリティと分析の機能は、リポジトリを安全かつ最新の状態に保つのに役立ちます。これらの機能を有効にすると、リポジトリに対して読み取り専用の分析を実行する権限を当社に付与することになります。",
+		"Security and analysis features help keep you secure and updated, wherever you are.": "セキュリティと分析の機能は、どこにいても安全かつ最新の状態を保つのに役立ちます。",
+		// —— 共通の切り替え文言 ——
+		"Enable by default for new repositories": "新しいリポジトリでデフォルトで有効にする",
+		"Automatically enable for new repositories": "新しいリポジトリで自動的に有効にする",
+		"Enable by default for new private repositories": "新しいプライベートリポジトリでデフォルトで有効にする",
+		"Enable by default for new public repositories": "新しい公開リポジトリでデフォルトで有効にする",
+		"Automatically enable for new public repositories": "新しい公開リポジトリで自動的に有効にする",
+		"Enable all": "すべて有効にする",
+		"Disable all": "すべて無効にする",
+		"User": "ユーザー",
+		// —— 依存関係グラフ ——
+		"Dependency graph": "依存関係グラフ",
+		"Understand your dependencies.": "依存関係を把握できます。",
+		"Enable dependency graph": "依存関係グラフを有効にする",
+		"Disable dependency graph": "依存関係グラフを無効にする",
+		"Enable all dependency graph": "すべての依存関係グラフを有効にする",
+		"Disable all dependency graph": "すべての依存関係グラフを無効にする",
+		// —— Dependabot アラートとセキュリティ更新 ——
+		"Enable Dependabot alerts": "Dependabot アラートを有効にする",
+		"Disable Dependabot alerts": "Dependabot アラートを無効にする",
+		"Enable all Dependabot alerts": "すべての Dependabot アラートを有効にする",
+		"Disable all Dependabot alerts": "すべての Dependabot アラートを無効にする",
+		"Dependabot security updates": "Dependabot セキュリティ更新",
+		"Enable Dependabot security updates": "Dependabot セキュリティ更新を有効にする",
+		"Disable Dependabot security updates": "Dependabot セキュリティ更新を無効にする",
+		"Enable all Dependabot security updates": "すべての Dependabot セキュリティ更新を有効にする",
+		"Disable all Dependabot security updates": "すべての Dependabot セキュリティ更新を無効にする",
+		"Keep your dependencies secure and up-to-date.": "依存関係を安全かつ最新の状態に保ちます。",
+		"Receive alerts for vulnerabilities that affect your dependencies and manually generate Dependabot pull requests to resolve these vulnerabilities.": "依存関係に影響する脆弱性のアラートを受け取り、Dependabot のプルリクエストを手動で生成してこれらの脆弱性を修正します。",
+		"Enabling this option will result in Dependabot automatically attempting to open pull requests to resolve every open Dependabot alert with an available patch.": "このオプションを有効にすると、Dependabot は、利用可能なパッチがある未解決の Dependabot アラートすべてに対して、プルリクエストを開いて解決しようと自動的に試みます。",
+		"Learn more about Dependabot": "Dependabot について詳しくはこちら",
+		"Configure alert notifications": "アラート通知を設定",
+		// —— グループ化されたセキュリティ更新 ——
+		"Grouped security updates": "グループ化されたセキュリティ更新",
+		"Enable grouped security updates": "グループ化されたセキュリティ更新を有効にする",
+		"Disable grouped security updates": "グループ化されたセキュリティ更新を無効にする",
+		"Enable all grouped security updates": "すべてのグループ化されたセキュリティ更新を有効にする",
+		"Disable all grouped security updates": "すべてのグループ化されたセキュリティ更新を無効にする",
+		"Learn how to group updates.": "更新をグループ化する方法についてはこちら。",
+		// 同上。原文は「 -」で終わるため、訳文もそのまま写す。
+		"Groups all available updates that resolve a Dependabot alert into one pull request (per package manager and directory of requirement manifests). This option may be overridden by group rules specified in dependabot.yml -": "Dependabot アラートを解決する利用可能なすべての更新を、1 つのプルリクエストにグループ化します（パッケージマネージャーと要件マニフェストのディレクトリごと）。このオプションは、dependabot.yml で指定されたグループルールによって上書きされる場合があります -",
+		// —— Dependabot のセルフホスト ——
+		"Dependabot on self-hosted runners": "セルフホストランナーでの Dependabot",
+		"Run Dependabot security and version updates on self-hosted Actions runners.": "セルフホストの Actions ランナーで Dependabot のセキュリティ更新とバージョン更新を実行します。",
+		"Enable dependabot self-hosted": "Dependabot のセルフホストを有効にする",
+		"Disable dependabot self-hosted": "Dependabot のセルフホストを無効にする",
+		"Enable all dependabot self-hosted": "すべての Dependabot セルフホストを有効にする",
+		"Disable all dependabot self-hosted": "すべての Dependabot セルフホストを無効にする",
+		// —— 非公開の脆弱性レポート（pages/marketing の同じ鍵の訳と揃える）——
+		"Private vulnerability reporting": "非公開の脆弱性レポート",
+		"Allow your community to privately report potential security vulnerabilities to maintainers and repository owners.": "コミュニティが、潜在的なセキュリティ脆弱性をメンテナーやリポジトリ所有者に非公開で報告できるようにします。",
+		"Enable private vulnerability reporting": "非公開の脆弱性レポートを有効にする",
+		"Disable private vulnerability reporting": "非公開の脆弱性レポートを無効にする",
+		"Enable all private vulnerability reporting": "すべての非公開の脆弱性レポートを有効にする",
+		"Disable all private vulnerability reporting": "すべての非公開の脆弱性レポートを無効にする",
+		"Learn more about private vulnerability reporting": "非公開の脆弱性レポートについて詳しくはこちら",
+		// —— プッシュ保護（あなた自身向け）——
+		"Push protection for yourself": "あなた自身に対するプッシュ保護",
+		// 3 ノードの連結：次を含むコミットをブロック + サポート対象のシークレット + （GitHub 上のすべての公開リポジトリが対象）。
+		"Block commits that contain": "次のものを含むコミットをブロック：",
+		"supported secrets": "サポート対象のシークレット",
+		"across all public repositories on GitHub.": "（GitHub 上のすべての公開リポジトリが対象）。",
+		"Disable push protection": "プッシュ保護を無効にする",
+		"Disable push protection for yourself": "自分自身のプッシュ保護を無効にする",
+		"Pushes that contain secrets will not be blocked.": "シークレットを含むプッシュはブロックされません。",
+		// —— 各機能の「すべて有効にする / すべて無効にする」の確認文 ——
+		"You're about to enable dependency graph on all your private repositories.": "すべてのプライベートリポジトリで依存関係グラフを有効にしようとしています。",
+		"You're about to disable dependency graph on all your private repositories. This will also disable Dependabot alerts and Dependabot security updates on those repositories.": "すべてのプライベートリポジトリで依存関係グラフを無効にしようとしています。これにより、それらのリポジトリで Dependabot アラートと Dependabot セキュリティ更新も無効になります。",
+		"You're about to enable Dependabot alerts on all your repositories. Alerts require the dependency graph, so we'll also turn that on for all repositories. No notifications will be sent while Dependabot alerts are being enabled.": "すべてのリポジトリで Dependabot アラートを有効にしようとしています。アラートには依存関係グラフが必要なため、すべてのリポジトリでそれも有効にします。Dependabot アラートの有効化中は通知は送信されません。",
+		"You're about to disable Dependabot alerts on all your repositories. This will also disable Dependabot security updates on those repositories.": "すべてのリポジトリで Dependabot アラートを無効にしようとしています。これにより、それらのリポジトリで Dependabot セキュリティ更新も無効になります。",
+		"You're about to enable Dependabot security updates on all your repositories. Dependabot security updates require the dependency graph and Dependabot alerts, so we'll also turn that on for all repositories.": "すべてのリポジトリで Dependabot セキュリティ更新を有効にしようとしています。Dependabot セキュリティ更新には依存関係グラフと Dependabot アラートが必要なため、すべてのリポジトリでそれらも有効にします。",
+		"You're about to disable Dependabot security updates on all your repositories.": "すべてのリポジトリで Dependabot セキュリティ更新を無効にしようとしています。",
+		"You're about to enable grouped security updates on all your repositories. Grouped security updates require the dependency graph, Dependabot alerts, Dependabot security updates and Dependabot security updates, so we'll also turn that on for all repositories.": "すべてのリポジトリでグループ化されたセキュリティ更新を有効にしようとしています。グループ化されたセキュリティ更新には、依存関係グラフ、Dependabot アラート、Dependabot セキュリティ更新、および Dependabot セキュリティ更新が必要なため、すべてのリポジトリでそれらも有効にします。",
+		"You're about to disable grouped security updates on all your repositories.": "すべてのリポジトリでグループ化されたセキュリティ更新を無効にしようとしています。",
+		"You're about to enable dependabot self-hosted on all your repositories. Dependabot self-hosted depends on Dependabot on Actions so we'll also turn that on for all repositories.": "すべてのリポジトリで Dependabot セルフホストを有効にしようとしています。Dependabot セルフホストは Actions 上の Dependabot に依存しているため、すべてのリポジトリでそれも有効にします。",
+		"You're about to disable dependabot self-hosted on all your repositories.": "すべてのリポジトリで Dependabot セルフホストを無効にしようとしています。",
+		// —— /settings/installations（インストール済みの GitHub Apps）——
+		"Installed GitHub Apps": "インストール済みの GitHub Apps",
+		"My GitHub Apps": "自分の GitHub Apps",
+		"Visit Marketplace": "Marketplace にアクセス",
+		"No installed GitHub Apps": "インストール済みの GitHub Apps はありません",
+		"You have no GitHub Apps installed on this account.": "このアカウントには GitHub Apps がインストールされていません。",
+		// —— /settings/applications（承認済みの OAuth アプリ）——
+		// アプリ名を含む文全体は規則で処理する（zh-CN/rules.jsonc の settings/report-application など）。
+		"More options": "その他のオプション",
+		"Show more options": "その他のオプションを表示",
+		// pages/profile の同じ鍵の訳と揃える（パスは排他）。
+		"Report abuse": "不正行為を報告",
+		"Report Abuse": "不正行為を報告",
+		"Revoking will deny future access to your account": "取り消すと、今後あなたのアカウントへのアクセスが拒否されます",
+		"Any SSH keys created on your behalf by applications will also be deleted.": "アプリがあなたの代わりに作成した SSH キーも削除されます。",
+		"Are you sure you want to revoke access for all applications?": "すべてのアプリのアクセスを取り消してもよろしいですか？",
+		// 「未使用 / 最近使用 · 所有者：」——所有者名は次のノードが提供する。
+		"Never used · Owned by": "未使用 · 所有者：",
+		"Last used within the last week · Owned by": "過去 1 週間以内に使用 · 所有者：",
+		"Last used within the last 2 weeks · Owned by": "過去 2 週間以内に使用 · 所有者：",
+		// 3 ノードの連結：次に対するアクセスを取り消します + すべてのサードパーティ + OAuth アプリケーション。この操作は元に戻せません。
+		"This will revoke access for": "次に対するアクセスを取り消します：",
+		"all third-party": "すべてのサードパーティ",
+		"OAuth applications. This action cannot be undone.": "OAuth アプリケーション。この操作は元に戻せません。",
+		"Type your username to confirm.": "確認のためユーザー名を入力してください。",
+		// —— /settings/apps/authorizations（承認済みの GitHub Apps）——
+		"Authorized OAuth Apps": "承認済みの OAuth アプリ",
+		"Application settings": "アプリケーションの設定",
+		"Alphabetical": "アルファベット順",
+		"Least recently used": "最近使用していない順",
+		"Recently used": "最近使用したもの",
+		"GitHub Help": "GitHub ヘルプ",
+		"Read more about connecting with third-party applications at": "サードパーティアプリケーションとの連携について詳しくは、次をご覧ください：",
+		"You have granted": "あなたは",
+		"access to your account.": "にアカウントへのアクセスを許可しました。",
+		"Revoke all": "すべて取り消す",
+		"I understand, revoke access": "理解しました。アクセスを取り消す",
+		"I understand, revoke access for everything": "理解しました。すべてのアクセスを取り消す",
+		"Are you sure you want to revoke authorization?": "承認を取り消してもよろしいですか？",
+		"Are you sure you want to revoke access for all GitHub Apps?": "すべての GitHub Apps のアクセスを取り消してもよろしいですか？",
+		"Type your username to confirm": "確認のためユーザー名を入力してください",
+		// 3 ノードの連結：次に対するアクセスを取り消します + すべての + GitHub Apps。この操作は元に戻せません。
+		"all": "すべての",
+		"GitHub Apps. This action cannot be undone.": "GitHub Apps。この操作は元に戻せません。",
+		// —— /settings/apps（自分で開発した GitHub Apps。根拠は実機の HTML）——
+		"No GitHub Apps": "GitHub Apps はありません",
+		"Want to build something that integrates with and extends GitHub? Register a new GitHub App to get started developing on the GitHub API.": "GitHub と統合して拡張するものを作りたいですか？新しい GitHub アプリを登録すると、GitHub API での開発を始められます。",
+		"New GitHub App": "新しい GitHub アプリ",
+		// —— /settings/reminders（スケジュールされたリマインダー。根拠は実機のスクリーンショット）——
+		"Reminders allow you to push certain events to authorized instances of Microsoft Teams or Slack.": "リマインダーを使うと、特定のイベントを承認済みの Microsoft Teams または Slack のインスタンスにプッシュできます。",
+		"Available organizations": "利用可能な組織",
+		// —— /settings/security-log（セキュリティログ。根拠は実機のスクリーンショット）——
+		"Filters": "フィルター",
+		"Search audit logs": "監査ログを検索",
+		"Export": "エクスポート",
+		"Recent events": "最近のイベント",
+		"Newer": "新しい方",
+		"Older": "古い方",
+		// pages/search の同じ鍵の訳と揃える（パスは排他）。
+		"ProTip!": "プロのヒント！",
+		"View all events created yesterday": "昨日作成されたすべてのイベントを表示",
+		// イベント行 1 の 4 つの静的な断片（ユーザー名 / トークンの末尾 / アプリ名は英語のまま）：
+		// 「次のユーザーのトークンを取り消しました： <ユーザー名> 、末尾が <トークンの末尾> 、対象： <アプリ名> OAuth アプリ.」
+		"Revoked a token for": "次のユーザーのトークンを取り消しました：",
+		"ending in": "、末尾が",
+		"for the": "、対象：",
+		"OAuth app": "OAuth アプリ",
+		// イベント行のアクセシビリティ文言。
+		"Filter by Member": "メンバーで絞り込む",
+		"Filter by Action": "操作で絞り込む",
+		"Show more details": "詳細をさらに表示",
+		// イベント行 2 の接頭辞の断片（アプリ名とその後の ")" はそれぞれ別のノード）。
+		"Removed authorization for OAuth application (": "OAuth アプリケーションの承認を削除しました（",
+		// —— /settings/sponsors-log（スポンサーシップの履歴。根拠は実機のスクリーンショット）——
+		// ドロップダウンのラベルと現在の値は別々のノード（repositories ページの "Commit comments:" + 値と同じ）。
+		"Period:": "期間：",
+		"New sponsorships, changes, and cancellations": "新しいスポンサーシップ、変更、キャンセル",
+		"Filter activity": "アクティビティを絞り込む",
+		"Past day": "過去 1 日",
+		"Past week": "過去 1 週間",
+		"Past month": "過去 1 か月",
+		"Past year": "過去 1 年",
+		"All-time": "全期間",
+		"No sponsorship activity in this time period": "この期間にスポンサーシップのアクティビティはありません",
+		"This is where you can review activity from your sponsorships.": "ここでは、スポンサーシップのアクティビティを確認できます。"
+	}
+}

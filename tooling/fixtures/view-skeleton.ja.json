@@ -1263,7 +1263,78 @@
 				"global"
 			],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{
+					"key": "Actions",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Branches",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Close", "module": "pages/repo-settings" },
+				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code security",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Contributors",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Deployments",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Discussions",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Environments",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Forks", "module": "pages/repo-settings" },
+				{
+					"key": "Issues",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Labels",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Languages",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Milestones",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Packages",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Pages", "module": "pages/repo-settings" },
+				{
+					"key": "Pull requests",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Releases",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Repositories",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Security and quality",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Stars", "module": "pages/repo-settings" },
+				{ "key": "Tags", "module": "pages/repo-settings" },
+				{ "key": "Wiki", "module": "pages/repo-settings" },
+				{ "key": "Write", "module": "pages/repo-settings" }
 			],
 			"rules": [
 				"repo-settings/sponsor-button",
@@ -1460,7 +1531,78 @@
 				"global"
 			],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{
+					"key": "Actions",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Branches",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Close", "module": "pages/repo-settings" },
+				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code security",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Contributors",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Deployments",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Discussions",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Environments",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Forks", "module": "pages/repo-settings" },
+				{
+					"key": "Issues",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Labels",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Languages",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Milestones",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Packages",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Pages", "module": "pages/repo-settings" },
+				{
+					"key": "Pull requests",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Releases",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Repositories",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Security and quality",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Stars", "module": "pages/repo-settings" },
+				{ "key": "Tags", "module": "pages/repo-settings" },
+				{ "key": "Wiki", "module": "pages/repo-settings" },
+				{ "key": "Write", "module": "pages/repo-settings" }
 			],
 			"rules": [
 				"repo-settings/sponsor-button",
@@ -1657,7 +1799,78 @@
 				"global"
 			],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{
+					"key": "Actions",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Branches",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Close", "module": "pages/repo-settings" },
+				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code security",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Contributors",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Deployments",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Discussions",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Environments",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Forks", "module": "pages/repo-settings" },
+				{
+					"key": "Issues",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Labels",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Languages",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Milestones",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Packages",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Pages", "module": "pages/repo-settings" },
+				{
+					"key": "Pull requests",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Releases",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Repositories",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Security and quality",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Stars", "module": "pages/repo-settings" },
+				{ "key": "Tags", "module": "pages/repo-settings" },
+				{ "key": "Wiki", "module": "pages/repo-settings" },
+				{ "key": "Write", "module": "pages/repo-settings" }
 			],
 			"rules": [
 				"repo-settings/sponsor-button",

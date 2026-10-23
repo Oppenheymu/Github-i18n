@@ -1859,6 +1859,34 @@
 					"id": "settings/budget-amount-limit",
 					"pattern": "^(?<amount>[$][\\d.,]+) budget$"
 				},
+				// —— 新版预算页（unified-budgets-page，2026-10-23 实机 HTML）——
+				// 旧版页面的计数带归属词（`5 Account budgets` → settings/budget-count），
+				// 新版表格标题去掉了归属词、只剩 `5 budgets`，故另立一条：pattern 不含
+				// Account / Organization，与两条旧规则互不吃掉（首条命中即返回，但 pattern
+				// 不重叠，顺序无关）
+				{
+					"id": "settings/budget-count-plain",
+					"pattern": "^(?<count>[\\d,]+) budgets?$"
+				},
+				// 预算行的金额行实机是 `<strong>$0.00</strong>` + 文本节点 ` / $0.00 spent`
+				// （已花费 / 上限两段），故 pattern 以 `/ ` 开头；旧版单独成节点的
+				// `$0 spent` 仍由上面的 settings/budget-amount-spent 覆盖，两条互不重叠。
+				// 金额连同 $ 一起捕获，模板里不另写 $（同 ai-credit-cost / budget-amount-spent）
+				{
+					"id": "settings/budget-progress-spent",
+					"pattern": "^/ (?<amount>[$][\\d.,]+) spent$"
+				},
+				// 分页的两种形态：视觉文本（aria-hidden）`1-5 of 5` 与 sr-only 的
+				// `Showing 1 to 5 of 5 budgets`。两条都含动态数字，且语法结构不同，
+				// 故各锚一条；分页条数上限远小于四位数，千分位逗号仍按既有习惯允许
+				{
+					"id": "settings/budgets-pagination-range",
+					"pattern": "^(?<from>\\d+)-(?<to>\\d+) of (?<total>[\\d,]+)$"
+				},
+				{
+					"id": "settings/budgets-pagination-summary",
+					"pattern": "^Showing (?<from>\\d+) to (?<to>\\d+) of (?<total>[\\d,]+) budgets?$"
+				},
 				// —— 许可页（/account/billing/licensing）的「包含 / 不包含」清单 ——
 				// 含数量的四条按形态各锚一条（数量随方案变化）：数值与单位原样保留，
 				// 只把英文结构换成中文语序

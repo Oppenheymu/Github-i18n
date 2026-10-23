@@ -216,6 +216,30 @@
 		// 节点尾随空格由 walker 原样保留，故实机渲染是「所含用量提醒： 开启」（冒号后带一个空格，
 		// 与「用量统计： 2026 年…」同类，属拆分节点的固有形态）
 		"Included usage alerts:": "所含用量提醒：",
+		// —— 预算与提醒页的新版（unified-budgets-page，2026-10-23 实机 HTML）——
+		// 两条 sr-only 列头：表格的可见列头是图标，无障碍名在 <span class="VisuallyHidden">
+		// 里，照「sr-only 照常翻译」的既定边界收录。`budget`（小写、句子碎片）已在上方
+		// 收录，两者是不同键
+		"Budget": "预算",
+		// 与行内金额规则（settings/budget-progress-spent → 「/ 已支出 $<amount>」）同口径
+		"Spent": "已支出",
+		// 预算达到上限后行内显示的状态（带警告图标）
+		"Usage blocked": "用量已阻止",
+		// 筛选框与清空按钮：placeholder / sr-only 标签同串，tooltip 多一个 Clear 前缀
+		"Filter by scope, repository, product or SKU": "按范围、仓库、产品或 SKU 筛选",
+		"Clear Filter by scope, repository, product or SKU": "清除按范围、仓库、产品或 SKU 筛选",
+		// 范围下拉的标签（带冒号）：与「Included usage alerts:」同理，标签与当前值
+		// 是两个节点，值节点 All 由既有词条「全部」负责，渲染成「范围： 全部」
+		"Scope:": "范围：",
+		// 表格区域的两条无障碍名
+		"Budgets": "预算",
+		"Budget table": "预算表格",
+		// 触发下拉的按钮的 aria-label（属性只走精确命中，故 On / Off 两种取值各一条）
+		"Included usage alerts: On": "所含用量提醒：开启",
+		"Included usage alerts: Off": "所含用量提醒：关闭",
+		// 第五行预算的 SKU 分组名：前四行是产品名（由既有词条译出），这一条是
+		// GitHub 给「全部 AI 点数 SKU」预算的固定标签；SKU 缩写保持原文
+		"All AI Credit SKUs": "所有 AI 点数 SKU",
 		// —— 许可页（/account/billing/licensing）——
 		// 键来自 2026-09 的实机截图逐行誊录（页面需登录，未进开发者模式导出），
 		// 节点边界见 src/dict/__tests__/pages/settings/billing.test.ts 的 LICENSING_NODES。

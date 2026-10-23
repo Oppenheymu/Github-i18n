@@ -928,6 +928,13 @@
 		"settings/budget-count-org": "$<count> 条组织预算",
 		"settings/budget-amount-spent": "已支出 $<amount>",
 		"settings/budget-amount-limit": "$<amount> 预算",
+		// 新版预算页（unified-budgets-page）：表格标题计数、行内金额、两种分页形态。
+		// 金额行的模板以「/」开头：实机节点原文就是 ` / $0.00 spent`（前导空格由
+		// walker 保留），拼接 <strong> 里的已花费金额后读作「$0.00 / 已支出 $0.00」
+		"settings/budget-count-plain": "$<count> 条预算",
+		"settings/budget-progress-spent": "/ 已支出 $<amount>",
+		"settings/budgets-pagination-range": "$<from>-$<to> / 共 $<total> 条",
+		"settings/budgets-pagination-summary": "显示第 $<from> 至 $<to> 条，共 $<total> 条预算",
 		// 许可页「包含」清单里带数量的四条：数值与单位原样保留，只把英文结构换成中文语序
 		"settings/licensing-actions-minutes-per-month": "$<count> 分钟 Actions/月",
 		"settings/licensing-packages-storage": "$<count>$<unit> Packages 存储",

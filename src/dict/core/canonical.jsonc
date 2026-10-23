@@ -1914,6 +1914,56 @@
 				// 「4 Organization budgets」随数据变化），由 core/rules.jsonc 的
 				// settings/budget-amount-spent / settings/budget-amount-limit /
 				// settings/budget-count / settings/budget-count-org 覆盖
+				// —— 预算与提醒页的**新版**（unified-budgets-page，2026-10-23 实机 HTML）——
+				// 证据：维护者贴出的 /settings/billing/budgets 整页 HTML（页面是
+				// `<react-app app-name="billing-app">`，表格结构与 2026-09 截图那版不同：
+				// 旧版是 Name / Account / Product 三列，新版是 Budget / Spent / Status /
+				// Actions 四列，且多出筛选框、范围下拉与分页）。采集时扩展在运行，
+				// 页面上已是中文的节点（「预算与提醒」「新建预算」「所含用量提醒： 开启」
+				// 「代码空间」「软件包」「Actions 工作流」「账户」）是既有词条的产物。
+				// 两条边界事实：
+				//   ① 表格列头 **Budget / Spent 是 sr-only 的独立文本节点**（可见列头是图标），
+				//      照「sr-only 照常翻译」的既定边界收录；「状态」与「Actions 工作流」两列
+				//      已由既有词条译出。它们与既有小写 `budget`（「N 条账户预算」句里的碎片）
+				//      是三条不同的键——整节点精确匹配、大小写敏感。
+				//   ② 预算行的金额是**两个节点**：`<strong>$0.00</strong>` + ` / $0.00 spent`
+				//      （已花费 / 上限），后者的金额随数据变化，走新规则
+				//      settings/budget-progress-spent，不在此登记。
+				"Budget",
+				"Spent",
+				// 预算达到上限后的行内状态（<span class="UsageBlocked…"> + 警告图标）
+				"Usage blocked",
+				// 筛选框：placeholder 与 sr-only 标签是**同一串**；清空按钮的 tooltip 是
+				// 「Clear + 同一串」（与 AI 用量页的两种形态同理）
+				"Filter by scope, repository, product or SKU",
+				"Clear Filter by scope, repository, product or SKU",
+				// 范围下拉的触发按钮：标签（带冒号）与当前值是两个节点，
+				// 值节点 `All` 由既有词条译出，故只收带冒号的标签
+				"Scope:",
+				// 表格所在 <section> 与内部 role="region" 的无障碍名（两条不同串）
+				"Budgets",
+				"Budget table",
+				// 触发「所含用量提醒」下拉的按钮的 aria-label：属性只走整串精确命中、
+				// **不走规则**，而取值只有 On / Off 两态，故两条都收。可见文本节点是
+				// 「标签 + 值」两段（`Included usage alerts:` 与 pages/org-settings 的
+				// On / Off），与这两条属性键互不干扰。
+				"Included usage alerts: On",
+				"Included usage alerts: Off",
+				// 预算行标题里的 SKU 分组名（第五行「账户 · All AI Credit SKUs」）。
+				// 前四行是产品名（Codespaces / Packages / Actions / Git LFS），由既有词条译出；
+				// 这一条不是产品名，而是 GitHub 给「全部 AI 点数 SKU」预算的固定标签，
+				// 不收时整行标题只剩这一处英文。SKU 是缩写，译文中保持原文（与 Product /
+				// SKU 列同口径），译文仍含中文字系，不会与键同形。
+				"All AI Credit SKUs",
+				// 新版预算页的计数与分页（均含动态数字，故走规则、不登记）：
+				//   · 表格标题「5 budgets」→ settings/budget-count-plain
+				//   · 分页视觉文本「1-5 of 5」→ settings/budgets-pagination-range
+				//   · 分页 sr-only 文本「Showing 1 to 5 of 5 budgets」→
+				//     settings/budgets-pagination-summary
+				// 有意**不收录**：`aria-label="Budget utilization for <用户名>"`、
+				// `aria-valuetext="100% of budget limit used"` 与每行「View actions for
+				// <产品> budget for Account <用户名>」——都含动态值，而属性不应用正则规则，
+				// 结构上翻不了（与 AI 用量页的 `0 of 0 AI credits used` 同一设计边界）
 				// —— 许可页（/account/billing/licensing，账单侧栏「Licensing」进入）——
 				// 键逐字抄自 2026-09 的实机截图（页面需登录，未进开发者模式导出），节点边界见
 				// src/dict/__tests__/pages/settings/billing.test.ts 的 LICENSING_NODES。

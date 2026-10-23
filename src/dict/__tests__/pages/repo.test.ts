@@ -89,6 +89,8 @@ const REPO_NODES: readonly string[] = [
 	" watching",
 	" forks",
 	" weeks old",
+	// 有组织审计权限时侧栏多出这一条（链接指向组织设置，渲染位置在仓库页）
+	"Audit log",
 	// —— About 侧栏的 Releases 区块 ——
 	"No releases published",
 	"Create a new release",
@@ -285,7 +287,7 @@ describe("仓库页的实机节点边界", () => {
 		);
 	});
 
-	it("translates the About sidebar release block", () => {
+	it("translates the About sidebar release block and audit log", () => {
 		expect(
 			translateText("No releases published", view),
 		).toBe("尚未发布任何版本");
@@ -294,6 +296,9 @@ describe("仓库页的实机节点边界", () => {
 		).toBe("创建新版本");
 		expect(translateText("Repository age", view)).toBe(
 			"仓库创建时间",
+		);
+		expect(translateText("Audit log", view)).toBe(
+			"审计日志",
 		);
 	});
 

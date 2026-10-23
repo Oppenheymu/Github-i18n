@@ -67,6 +67,7 @@
 		"Report repository": "举报仓库",
 		// —— About 侧栏（新版 React 组件）——
 		"Repository age": "仓库创建时间",
+		"Audit log": "审计日志",
 		// —— 仓库头部的提交状态组件（设置页顶部也会渲染）——
 		"Loading status checks…": "正在加载状态检查…",
 		"CI status of latest commit": "最新提交的 CI 状态",

@@ -1,6 +1,11 @@
 <div align="center">
 
-<h1>Github-i18n</h1>
+<h1 id="github-i18n">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/wordmark-dark.svg">
+    <img src=".github/assets/wordmark-light.svg" alt="Github-i18n" width="560">
+  </picture>
+</h1>
 
 **把 GitHub 界面本地化为你的语言 —— 纯内置词典、完全本地运行、零网络请求**
 

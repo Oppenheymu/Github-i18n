@@ -69,6 +69,7 @@
 		"Loading status checks…": "正在加载状态检查…",
 		"CI status of latest commit": "最新提交的 CI 状态",
 		// —— 星标 / 关注 / 社区标准 ——
+		"Starred": "已星标",
 		"You must be signed in to star a repository": "你必须登录才能星标仓库",
 		"You must be signed in to change notification settings": "你必须登录才能更改通知设置",
 		"Contributors": "贡献者",

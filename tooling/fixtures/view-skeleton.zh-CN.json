@@ -7503,7 +7503,8 @@
 			"path": "/microsoft/vscode/pulse",
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Starred", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",
@@ -7715,7 +7716,8 @@
 			"path": "/microsoft/vscode/graphs",
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Starred", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",
@@ -7927,7 +7929,8 @@
 			"path": "/microsoft/vscode/forks",
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Starred", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",
@@ -8139,7 +8142,8 @@
 			"path": "/microsoft/vscode/security",
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Starred", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",
@@ -8351,7 +8355,8 @@
 			"path": "/microsoft/vscode/projects",
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Starred", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",

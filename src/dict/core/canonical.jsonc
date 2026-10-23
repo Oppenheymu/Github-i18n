@@ -7165,6 +7165,12 @@
 				"Loading status checks…",
 				"CI status of latest commit",
 				// —— 星标 / 关注 / 社区标准 ——
+				// 已星标时仓库头部星标按钮的可见文案。新版 React 头部把按钮 label 拆成
+				// 三个节点：`Starred` + 计数胶囊（`6`）+ sr-only `(6)`（见维护者 2026-10-23
+				// 贴的 `<span data-component="text" class="prc-Button-Label…">`），
+				// 整节点键只能命中前面的 `Starred`；未星标时的 `Star` 已由 global 提供。
+				// 与 pages/insights 的 `Starred`（复刻列表的排序项）同键同译，避免同键异译。
+				"Starred",
 				"You must be signed in to star a repository",
 				"You must be signed in to change notification settings",
 				"Contributors",

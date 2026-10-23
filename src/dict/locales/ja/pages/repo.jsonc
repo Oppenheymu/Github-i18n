@@ -78,6 +78,9 @@
 		"Loading status checks…": "ステータスチェックを読み込み中…",
 		"CI status of latest commit": "最新のコミットの CI ステータス",
 		// —— スター / ウォッチ / コミュニティ標準 ——
+		// スター済みのときのリポジトリヘッダーのボタン文言（カウンターは別ノード）。
+		// pages/insights の `Starred`（フォーク一覧の並べ替え項目）と同じ訳にそろえる。
+		"Starred": "スター付き",
 		"You must be signed in to star a repository": "リポジトリにスターを付けるにはサインインが必要です",
 		"You must be signed in to change notification settings": "通知設定を変更するにはサインインが必要です",
 		"Contributors": "コントリビューター",

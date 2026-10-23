@@ -48,6 +48,10 @@ const REPO_NODES: readonly string[] = [
 	"You must be signed in to change notification settings",
 	"Fork\n    ",
 	"\n          Star\n",
+	// 已星标状态：按钮 label 是一个独立节点，后面紧跟计数胶囊（`6`）与 sr-only `(6)`，
+	// 三者各是文本节点，只有 `Starred` 能收（2026-10-23 维护者贴的
+	// `<span data-component="text" class="prc-Button-Label…"><span>Starred</span>…`）
+	"Starred",
 	// —— 分支 / 标签入口 ——
 	"Branches",
 	"Tags",
@@ -162,6 +166,18 @@ describe("仓库页的实机节点边界", () => {
 		expect(translateText("\n          Star\n", view)).toBe(
 			"星标",
 		);
+	});
+
+	it("translates the starred label but not its counter nodes", () => {
+		// 已星标时按钮的三个节点：label / 计数 / sr-only 括号计数。计数是纯数字，
+		// 不进词典（收了就是永不命中的死键），也不允许规则把它们吃掉
+		expect(translateText("Starred", view)).toBe("已星标");
+		for (const raw of ["6", "\u00a0(", ")"]) {
+			expect(
+				translateText(raw, view),
+				`不应被翻译：${JSON.stringify(raw)}`,
+			).toBeNull();
+		}
 	});
 
 	it("translates the sidebar counts through the repo count rules", () => {

@@ -80,8 +80,12 @@ bun run pack                    # dist/ 打 zip（Chrome Web Store / Edge Add-on
 
 ## git 提交流程
 
-1. 先跑 `bun run check`（必要时先 `bun run format`），确保通过再提交。
-2. `git add -A` 后提交，提交信息用简体中文，格式参考现有历史（`feat:` / `fix:` / `docs:` / `chore:` / `build:`，可带 scope 如 `fix(dict):`）。
-3. 提交到主分支 `main`；若当前不在主分支，先切回主分支再提交。
-4. 提交完成后向用户简要说明改了什么与提交哈希。
-5. **与远端同步一律保持线性历史**：本仓的合并规范是**压缩合并**，`main` 上不要出现 merge 提交。需要同步时用 `git pull --rebase`（或 `git fetch` + `git rebase`），**不要用默认的 `git pull`**。若发现自己停在一次冲突的 merge 里（`git status` 显示 `You have unmerged paths`、文件里留着 `<<<<<<<` 标记，`bun run format` 会因此整片报解析错误），先 `git merge --abort` 回到干净状态，再用 rebase / `--squash` 重做；只有快照等生成物冲突时才考虑直接重生成。
+**顺序固定为「先拉取 → 校验 → 提交 → 推送」**，不要先提交再同步——那样要么产生 merge 提交，要么推送被拒后再补救。
+
+1. **先拉取**：`git pull --rebase`（或 `git fetch` + `git rebase origin/main`），把远端改动线性叠到本地改动下面。**不要用默认的 `git pull`**：本仓的合并规范是压缩合并，`main` 上不许出现 merge 提交。
+2. 拉取后跑 `bun run check`（必要时先 `bun run format`），确保通过再提交；rebase 带进了别人的改动时，这一步同时也验证了合并结果。
+3. `git add -A` 后提交，提交信息用简体中文，格式参考现有历史（`feat:` / `fix:` / `docs:` / `chore:` / `build:`，可带 scope 如 `fix(dict):`）。
+4. 提交到主分支 `main`；若当前不在主分支，先切回主分支再操作。
+5. **立即推送**：`git push`。被拒绝说明远端又有人推送，**回到第 1 步**重新 `git pull --rebase` → 重跑 `bun run check` → 再推送；**任何时候都不要 `git push --force`**。
+6. 推送成功后向用户简要说明改了什么与提交哈希。
+7. 若发现自己停在一次冲突的 merge 里（`git status` 显示 `You have unmerged paths`、文件里留着 `<<<<<<<` 标记，`bun run format` 会因此整片报解析错误），先 `git merge --abort` 回到干净状态，再用 rebase / `--squash` 重做；只有快照等生成物冲突时才考虑直接重生成。

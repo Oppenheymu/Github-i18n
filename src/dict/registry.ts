@@ -42,10 +42,14 @@ import jaCommitsRaw from "./locales/ja/pages/commits.jsonc";
 import jaDashboardRaw from "./locales/ja/pages/dashboard.jsonc";
 import jaInsightsRaw from "./locales/ja/pages/insights.jsonc";
 import jaIssuesRaw from "./locales/ja/pages/issues.jsonc";
+import jaMarketingRaw from "./locales/ja/pages/marketing.jsonc";
 import jaProfileRaw from "./locales/ja/pages/profile.jsonc";
 import jaPullsRaw from "./locales/ja/pages/pulls.jsonc";
 import jaRepoRaw from "./locales/ja/pages/repo.jsonc";
+import jaRepoSettingsRaw from "./locales/ja/pages/repo-settings.jsonc";
 import jaSearchRaw from "./locales/ja/pages/search.jsonc";
+import jaSettingsRaw from "./locales/ja/pages/settings.jsonc";
+import jaSettingsBillingRaw from "./locales/ja/pages/settings-billing.jsonc";
 import jaSettingsSecurityRaw from "./locales/ja/pages/settings-security.jsonc";
 import jaWikiRaw from "./locales/ja/pages/wiki.jsonc";
 import jaRulesRaw from "./locales/ja/rules.jsonc";
@@ -133,6 +137,9 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 			["pages/issues", jaIssuesRaw],
 			["pages/pulls", jaPullsRaw],
 			["pages/settings-security", jaSettingsSecurityRaw],
+			["pages/settings", jaSettingsRaw],
+			["pages/settings-billing", jaSettingsBillingRaw],
+			["pages/repo-settings", jaRepoSettingsRaw],
 			["pages/actions", jaActionsRaw],
 			["pages/agents", jaAgentsRaw],
 			["pages/dashboard", jaDashboardRaw],
@@ -140,6 +147,7 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 			["pages/wiki", jaWikiRaw],
 			["pages/insights", jaInsightsRaw],
 			["pages/search", jaSearchRaw],
+			["pages/marketing", jaMarketingRaw],
 			["pages/profile", jaProfileRaw],
 			["pages/repo", jaRepoRaw],
 		],

@@ -1263,7 +1263,78 @@
 				"global"
 			],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{
+					"key": "Actions",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Branches",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Close", "module": "pages/repo-settings" },
+				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code security",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Contributors",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Deployments",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Discussions",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Environments",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Forks", "module": "pages/repo-settings" },
+				{
+					"key": "Issues",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Labels",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Languages",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Milestones",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Packages",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Pages", "module": "pages/repo-settings" },
+				{
+					"key": "Pull requests",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Releases",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Repositories",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Security and quality",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Stars", "module": "pages/repo-settings" },
+				{ "key": "Tags", "module": "pages/repo-settings" },
+				{ "key": "Wiki", "module": "pages/repo-settings" },
+				{ "key": "Write", "module": "pages/repo-settings" }
 			],
 			"rules": [
 				"repo-settings/sponsor-button",
@@ -1460,7 +1531,78 @@
 				"global"
 			],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{
+					"key": "Actions",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Branches",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Close", "module": "pages/repo-settings" },
+				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code security",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Contributors",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Deployments",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Discussions",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Environments",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Forks", "module": "pages/repo-settings" },
+				{
+					"key": "Issues",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Labels",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Languages",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Milestones",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Packages",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Pages", "module": "pages/repo-settings" },
+				{
+					"key": "Pull requests",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Releases",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Repositories",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Security and quality",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Stars", "module": "pages/repo-settings" },
+				{ "key": "Tags", "module": "pages/repo-settings" },
+				{ "key": "Wiki", "module": "pages/repo-settings" },
+				{ "key": "Write", "module": "pages/repo-settings" }
 			],
 			"rules": [
 				"repo-settings/sponsor-button",
@@ -1657,7 +1799,78 @@
 				"global"
 			],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{
+					"key": "Actions",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Branches",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Close", "module": "pages/repo-settings" },
+				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code security",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Contributors",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Deployments",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Discussions",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Environments",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Forks", "module": "pages/repo-settings" },
+				{
+					"key": "Issues",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Labels",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Languages",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Milestones",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Packages",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Pages", "module": "pages/repo-settings" },
+				{
+					"key": "Pull requests",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Releases",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Repositories",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Security and quality",
+					"module": "pages/repo-settings"
+				},
+				{ "key": "Stars", "module": "pages/repo-settings" },
+				{ "key": "Tags", "module": "pages/repo-settings" },
+				{ "key": "Wiki", "module": "pages/repo-settings" },
+				{ "key": "Write", "module": "pages/repo-settings" }
 			],
 			"rules": [
 				"repo-settings/sponsor-button",
@@ -2855,7 +3068,14 @@
 			"name": "settings/profile",
 			"path": "/settings/profile",
 			"matched": ["pages/settings", "global"],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Appearance", "module": "pages/settings" },
+				{ "key": "Company", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -3029,7 +3249,14 @@
 			"name": "settings/accessibility",
 			"path": "/settings/accessibility",
 			"matched": ["pages/settings", "global"],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Appearance", "module": "pages/settings" },
+				{ "key": "Company", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -3203,7 +3430,14 @@
 			"name": "settings/notifications",
 			"path": "/settings/notifications",
 			"matched": ["pages/settings", "global"],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Appearance", "module": "pages/settings" },
+				{ "key": "Company", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -3383,9 +3617,15 @@
 			],
 			"collisions": [
 				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Add account",
 					"module": "pages/settings-security"
-				}
+				},
+				{ "key": "Appearance", "module": "pages/settings" },
+				{ "key": "Company", "module": "pages/settings" }
 			],
 			"rules": [
 				"settings/passkey-delete-confirm",
@@ -3701,7 +3941,14 @@
 			"name": "settings/sessions",
 			"path": "/settings/sessions",
 			"matched": ["pages/settings", "global"],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Appearance", "module": "pages/settings" },
+				{ "key": "Company", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -3879,7 +4126,38 @@
 				"pages/settings-billing",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Add", "module": "pages/settings" },
+				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
+				{ "key": "Packages", "module": "pages/settings" },
+				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
+				{ "key": "Primary", "module": "pages/settings" },
+				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
+					"key": "Subscriptions",
+					"module": "pages/settings"
+				},
+				{ "key": "Update", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -4335,7 +4613,38 @@
 				"pages/settings-billing",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Add", "module": "pages/settings" },
+				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
+				{ "key": "Packages", "module": "pages/settings" },
+				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
+				{ "key": "Primary", "module": "pages/settings" },
+				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
+					"key": "Subscriptions",
+					"module": "pages/settings"
+				},
+				{ "key": "Update", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -4791,7 +5100,38 @@
 				"pages/settings-billing",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Add", "module": "pages/settings" },
+				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
+				{ "key": "Packages", "module": "pages/settings" },
+				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
+				{ "key": "Primary", "module": "pages/settings" },
+				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
+					"key": "Subscriptions",
+					"module": "pages/settings"
+				},
+				{ "key": "Update", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -5247,7 +5587,38 @@
 				"pages/settings-billing",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Add", "module": "pages/settings" },
+				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
+				{ "key": "Packages", "module": "pages/settings" },
+				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
+				{ "key": "Primary", "module": "pages/settings" },
+				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
+					"key": "Subscriptions",
+					"module": "pages/settings"
+				},
+				{ "key": "Update", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -5703,7 +6074,38 @@
 				"pages/settings-billing",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "Accessibility",
+					"module": "pages/settings"
+				},
+				{ "key": "Add", "module": "pages/settings" },
+				{ "key": "Appearance", "module": "pages/settings" },
+				{
+					"key": "Close dialog",
+					"module": "pages/settings"
+				},
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Included credits",
+					"module": "pages/settings"
+				},
+				{ "key": "Packages", "module": "pages/settings" },
+				{
+					"key": "Payment history",
+					"module": "pages/settings"
+				},
+				{ "key": "Primary", "module": "pages/settings" },
+				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings"
+				},
+				{
+					"key": "Subscriptions",
+					"module": "pages/settings"
+				},
+				{ "key": "Update", "module": "pages/settings" }
+			],
 			"rules": [
 				"settings/export-available",
 				"settings/owner-organizations",
@@ -8788,7 +9190,9 @@
 			"name": "features",
 			"path": "/features",
 			"matched": ["pages/marketing", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Free", "module": "pages/marketing" }
+			],
 			"rules": [
 				"global/now",
 				"global/yesterday",
@@ -8929,7 +9333,9 @@
 			"name": "pricing",
 			"path": "/pricing",
 			"matched": ["pages/marketing", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Free", "module": "pages/marketing" }
+			],
 			"rules": [
 				"global/now",
 				"global/yesterday",

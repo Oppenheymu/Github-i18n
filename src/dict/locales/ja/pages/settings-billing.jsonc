@@ -1,0 +1,332 @@
+// 日本語・モジュール pages/settings-billing：請求・ライセンス系ページ専用のエントリ。
+// 対象は次のページ群（ルートは core/modules.jsonc）：
+//   /account/billing（請求の概要）、/account/billing/usage（使用量）、
+//   /account/billing/ai_usage（AI 使用量）、/account/billing/budgets（予算とアラート）、
+//   /account/billing/licensing（ライセンス）、/account/billing/payment_information（支払い情報）、
+//   /account/billing/history（支払い履歴）、/settings/billing/subscriptions（スポンサーシップ）、
+//   および組織側の /organizations/<組織>/settings/billing/** と
+//   /organizations/<組織>/billing_managers/new（請求管理者の招待）。
+//
+// 継承関係：本モジュールは pages/settings の後ろに並ぶため、設定ページの外殻
+// （使用量ページのグラフ凡例「Usage」など）は pages/settings のエントリを継承し、
+// ここには請求・ライセンス専用の文言だけを置く（重複登録は同じ鍵に別の訳が付く原因になる）。
+//
+// 組織の請求ページは個人の請求ページと同じ billing-app コンポーネントを描画するので、
+// 文言は個人側と共通。ただし組織側にしか出ないカード（請求連絡先・メール受信者）と、
+// pages/settings のルートが届かない組織専用ページの文言はここで登録する。
+// 「Subscriptions」「Packages」「Payment history」「Add」「Update」「Primary」などは
+// pages/settings にも同じ鍵があるが、本モジュールのルートではそちらが届かないため、
+// 同じ訳語でここに再登録している（同じ語に別の訳を当てない）。
+//
+// 分割された断片の注意：請求管理者の権限リストは文が複数ノードに割れている。
+//   「Billing managers」＋「will」＋「have the ability to:」→「請求管理者は次のことができます：」
+//   「Billing managers」＋「will not」＋「be able to:」→「請求管理者は次のことはできません：」
+// そのため will / will not の訳は助詞「は」だけ、have the ability to: / be able to: は
+// 文末表現にしてある。同じ理由で次の断片も前後のノードと連結して一つの文になる：
+//   Included usage limits reset in／Usage for／Increase Codespaces ＋ spend limits／
+//   請求書の更新案内（To update the information that appears on ＋ invoices ＋ …）／
+//   signing ＋ GitHub Customer Agreement／Copilot Pro の案内（… Check out this ＋ for more details.）
+// 金額・日付・アスタリスク・括弧などの書式は原文のまま保つ。
+// 鍵は core/canonical.jsonc の英語原文と完全一致（綴り・大小文字・曲がったアポストロフィを含む）。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		// —— 請求の概要 ——
+		"Billing Overview": "請求の概要",
+		"Manage subscriptions": "サブスクリプションを管理",
+		// サブスクリプション一覧の見出し。pages/settings にも同じ鍵があるが、
+		// 組織の請求ページにはそのルートが届かないため、同じ訳語でここにも置く。
+		"Subscriptions": "サブスクリプション",
+		// プラン名。日本語のままでは鍵と同形になり置換ループを招くため、
+		// 「無料プラン」を添えて訳す（Copilot Free も同じ口径）。
+		"GitHub Free": "GitHub 無料プラン",
+		"Next payment due": "次回の支払い期限",
+		"Current metered usage": "現在の従量制使用量",
+		"Current included usage": "現在の含まれる使用量",
+		"Metered usage": "従量制使用量",
+		"Included usage": "含まれる使用量",
+		"Billable usage": "請求対象の使用量",
+		// 文の先頭断片。後ろに「29 days.」のような日数ノードが続く。
+		// 単独で描画されたときも読めるよう、規則（included-usage-reset-days-head）と
+		// 同じ「含まれる使用量の上限は」に揃える。
+		"Included usage limits reset in": "含まれる使用量の上限は",
+		"Gross amount": "総額",
+		"Minus": "差し引き",
+		"discounts": "割引",
+		"consumed usage": "消費済みの使用量",
+		"Total billable usage after subtracting discounts from consumed usage": "消費済みの使用量から割引を差し引いた請求対象の使用量の合計",
+		"Manage budgets": "予算を管理",
+		"View details": "詳細を表示",
+		"Current month": "今月",
+		"Last month": "先月",
+		"Last year (2025)": "昨年（2025）",
+		"This year (2026)": "今年（2026）",
+		"Usage by products": "製品別の使用量",
+		"Usage by repository": "リポジトリ別の使用量",
+		"Additional usage": "追加の使用量",
+		"Top two repositories this month": "今月の使用量上位 2 リポジトリ",
+		"Products selector": "製品セレクター",
+		"Products selector navigation": "製品セレクターのナビゲーション",
+		"Open repository usage options": "リポジトリの使用量オプションを開く",
+		"User navigation": "ユーザーナビゲーション",
+		"Copilot usage": "Copilot の使用量",
+		"About Copilot AI credits": "Copilot AI クレジットについて",
+		"About GitHub Models rate limits": "GitHub Models のレート制限について",
+		"About GitHub Actions storage billing": "GitHub Actions ストレージの請求について",
+		"Actions minutes": "Actions の分数",
+		"Actions storage": "Actions ストレージ",
+		"Actions and Packages storage": "Actions とパッケージのストレージ",
+		"Git LFS bandwidth": "Git LFS 帯域幅",
+		"Git LFS storage": "Git LFS ストレージ",
+		"Packages data transfer": "パッケージのデータ転送",
+		"Packages storage": "パッケージのストレージ",
+		"Models": "モデル",
+		"Spark AI credits": "Spark AI クレジット",
+		// —— 金額と使用量の説明文（期間が固定のときの形。動的な期間は rules が上書き）——
+		"Total gross spend on Copilot for the selected timeframe including licenses and AI Credits.": "選択した期間における Copilot の総支出（ライセンスと AI クレジットを含む）。",
+		"Gross metered usage for September 1 - September 30, 2026.": "2026 年 9 月 1 日 – 9 月 30 日の従量制使用量の総額。",
+		"Included usage discounts for September 1 - September 30, 2026.": "2026 年 9 月 1 日 – 9 月 30 日の含まれる使用量の割引。",
+		"Gross metered usage for September 1 - September 29, 2026.": "2026 年 9 月 1 日 – 9 月 29 日の従量制使用量の総額。",
+		"Included usage discounts for September 1 - September 29, 2026.": "2026 年 9 月 1 日 – 9 月 29 日の含まれる使用量の割引。",
+		"Based on 0 additional AI credits beyond your included usage.": "含まれる使用量を超えた追加の AI クレジット 0 個に基づきます。",
+		"Cost calculated based on 0 Spark AI credits that exceed the AI credits usage included with your Copilot licenses.": "Copilot ライセンスに含まれる AI クレジットの使用量を超えた Spark AI クレジット 0 個に基づいて計算された費用です。",
+		"Cost calculated based on additional 0 token units": "追加の 0 トークン単位に基づいて計算された費用です",
+		// —— 製品ごとの請求額の説明（Billable spend for …）——
+		"Billable spend for Git LFS for the selected timeframe. Applicable discounts cover included usage for Git LFS bandwidth and storage.": "選択した期間における Git LFS の請求対象支出。適用可能な割引は、Git LFS の帯域幅とストレージの含まれる使用量に充当されます。",
+		"Billable spend for Packages for the selected timeframe. Applicable discounts cover Packages usage in public repositories and included usage for Packages data transfer and storage.": "選択した期間におけるパッケージの請求対象支出。適用可能な割引は、公開リポジトリでのパッケージの使用量と、パッケージのデータ転送およびストレージの含まれる使用量に充当されます。",
+		"Billable spend for Sandbox for the selected timeframe.": "選択した期間における Sandbox の請求対象支出。",
+		"Billable spend for Actions and Actions Runners for the selected timeframe. Applicable discounts cover Actions usage in public repositories and included usage for Actions minutes and storage.": "選択した期間における Actions と Actions ランナーの請求対象支出。適用可能な割引は、公開リポジトリでの Actions の使用量と、Actions の分数およびストレージの含まれる使用量に充当されます。",
+		"Billable spend for Codespaces for the selected timeframe.": "選択した期間におけるコードスペースの請求対象支出。",
+		// —— 「詳細」ダイアログ：含まれる使用量とクレジットの内訳 ——
+		"More details": "詳細情報",
+		"Included usage and credits": "含まれる使用量とクレジット",
+		"Showing currently applied usage and credits for your account.": "アカウントに現在適用されている使用量とクレジットを表示しています。",
+		"Current usage for Sep 1 - Sep 30, 2026. Monthly quota resets in 5 day(s).": "2026 年 9 月 1 日 – 9 月 30 日の現在の使用量。毎月の上限は 5 日後にリセットされます。",
+		"Included usage*": "含まれる使用量 *",
+		"Free usage**": "無料の使用量 **",
+		"100% off per month": "毎月 100% オフ",
+		"GitHub Packages usage is free for public packages. For details on free Actions usage, see": "公開パッケージでの GitHub Packages の使用量は無料です。無料の Actions 使用量の詳細については、次を参照してください：",
+		"GitHub Packages usage is free for public packages. For details on free Actions usage,": "公開パッケージでの GitHub Packages の使用量は無料です。無料の Actions 使用量の詳細については、",
+		"** GitHub Packages usage is free for public packages. For details on free Actions usage, see": "** 公開パッケージでの GitHub Packages の使用量は無料です。無料の Actions 使用量の詳細については、次を参照してください：",
+		"Free use of GitHub Actions": "GitHub Actions の無料利用",
+		"* Included usage is an approximate amount based on current pricing.": "* 含まれる使用量は、現在の料金に基づく概算です。",
+		// —— 使用量ページ（/account/billing/usage）——
+		// ルート ^/(?:settings|account)/billing はこのページにも一致するため、エントリは本モジュールに置く。
+		"Get usage report": "使用量レポートを取得",
+		"Search or filter usage": "使用量を検索または絞り込み",
+		"Group by: None": "グループ化：なし",
+		"Timeframe: Current month": "期間：今月",
+		"Usage breakdown": "使用量の内訳",
+		// 期間の日付ノードが後ろに続く場合の見出し断片。
+		// 実機では「Usage for Sep 1 - Sep 30, 2026.」全体が一ノードで、rules が担当する。
+		"Usage for": "使用量：",
+		"For license-based products, the price/unit is a prorated portion of the monthly price.": "ライセンスベースの製品では、単価は月額料金を日割り計算した金額です。",
+		"Date": "日付",
+		"Billed amount": "請求金額",
+		// —— 「使用量レポートを取得」ダイアログ ——
+		"Generate usage report": "使用量レポートを生成",
+		"Download a CSV or JSON report of your usage for the selected timeframe.": "選択した期間の使用量を CSV または JSON 形式のレポートでダウンロードできます。",
+		"Select the date range for your report.": "レポートの対象期間を選択してください。",
+		"Report format": "レポート形式",
+		"Generate report": "レポートを生成",
+		"The start date must be before the end date.": "開始日は終了日より前である必要があります。",
+		// —— AI 使用量ページ（/account/billing/ai_usage）——
+		"Days": "日",
+		"Extra usage": "追加の使用量",
+		"Not enabled": "有効になっていません",
+		"If enabled, your enterprise will be billed for additional AI credits usage after your included credits have been exhausted.": "有効にすると、含まれるクレジットを使い切った後に、追加の AI クレジット使用量がエンタープライズに請求されます。",
+		"No usage": "使用量なし",
+		"Model": "モデル",
+		"Included credits": "含まれるクレジット",
+		"Additional credits": "追加のクレジット",
+		"Each GitHub AI credit costs $0.01.": "GitHub AI クレジット 1 つあたりの費用は $0.01 です。",
+		// —— AI 使用量ページの新版カード（組織ルートの実機 HTML）——
+		"Search or filter usage (chart updates as you type)": "使用量を検索または絞り込み（入力に合わせてグラフが更新されます）",
+		"Clear Search or filter usage (chart updates as you type)": "使用量の検索または絞り込みをクリア（入力に合わせてグラフが更新されます）",
+		"Filter by user or model": "ユーザーまたはモデルで絞り込み",
+		"Suggestions": "候補",
+		"Included AI credits progress": "含まれる AI クレジットの進捗",
+		"Edit budget": "予算を編集",
+		"Spend on additional AI credits exceeding your included credits.": "含まれるクレジットを超える追加の AI クレジットへの支出。",
+		"Included AI credits consumed by users in your account.": "アカウント内のユーザーが消費した、プランに含まれる AI クレジット。",
+		"No usage found": "使用量が見つかりません",
+		"No usage data found for the selected filters.": "選択したフィルターに一致する使用量データが見つかりませんでした。",
+		"Usage grouped by models": "モデル別にグループ化した使用量",
+		"Usage grouped by days": "日別にグループ化した使用量",
+		// —— 予算とアラートページ（/account/billing/budgets）——
+		"New budget": "新しい予算",
+		"Included usage alerts": "含まれる使用量のアラート",
+		"Budgets let you set monthly usage limits for specific GitHub products or SKUs. If no budget is set, usage for that product is unlimited.": "予算では、特定の GitHub 製品や SKU について毎月の使用量上限を設定できます。予算が設定されていない場合、その製品の使用量は無制限です。",
+		"Product": "製品",
+		"Stop usage": "使用量を停止",
+		"Yes": "はい",
+		"budget": "予算",
+		"Budget options": "予算のオプション",
+		"Turn on included usage email alerts": "含まれる使用量のメールアラートを有効にする",
+		"Turn off included usage email alerts": "含まれる使用量のメールアラートを無効にする",
+		"This includes Actions, Git LFS, Packages, and Sandbox": "Actions、Git LFS、パッケージ、Sandbox が対象です",
+		"Included usage alerts:": "含まれる使用量のアラート：",
+		// —— ライセンスページ（/account/billing/licensing）——
+		"Upgrade Individual Plan": "個人プランにアップグレード",
+		"Upgrade to Business": "Business にアップグレード",
+		"Your AI pair programmer": "あなたの AI ペアプログラマー",
+		"Active subscription": "有効なサブスクリプション",
+		"Copilot Free": "Copilot 無料プラン",
+		// Copilot Pro の案内は「… Check out this」＋リンク＋「for more details.」の三ノード。
+		// 前段は「詳しくは次の」で終わり、後段が「をご覧ください。」を受ける。
+		"You can upgrade to Copilot Pro at any time. Check out this": "Copilot Pro にはいつでもアップグレードできます。詳しくは次の",
+		"for more details.": "をご覧ください。",
+		"Current GitHub base plan": "現在の GitHub 基本プラン",
+		"Compare base plans": "基本プランを比較",
+		"Upgrade to GitHub Pro": "GitHub Pro にアップグレード",
+		"The basics for all developers": "すべての開発者向けの基本機能",
+		"Unlimited public/private repos": "無制限のパブリック / プライベートリポジトリ",
+		"Unlimited collaborators": "無制限のコラボレーター",
+		"Not included": "含まれません",
+		"Free Codespaces usage per organization": "組織ごとの無料のコードスペース使用量",
+		// リンク付きの行は「Increase Codespaces」＋リンク「spend limits」の二ノード。
+		// 連結して「コードスペースの支出上限を引き上げる」になるよう訳を割る。
+		"Increase Codespaces": "コードスペースの",
+		"spend limits": "支出上限を引き上げる",
+		"Required status checks": "必須のステータスチェック",
+		"Pages for static website hosting": "静的ウェブサイトホスティング用の Pages",
+		"Protected branches on all repos": "すべてのリポジトリの保護ブランチ",
+		"Community support": "コミュニティサポート",
+		"Web-based support": "ウェブベースのサポート",
+		"Code owners": "コードオーナー",
+		"Required reviewers": "必須のレビュアー",
+		"Multiple reviewers in pull requests": "プルリクエストの複数レビュアー",
+		"See all features and compare plans": "すべての機能を確認してプランを比較",
+		// —— 組織のライセンスページ（/organizations/<組織>/settings/licensing）——
+		"Your AI powered pair programmer": "あなたの AI 搭載ペアプログラマー",
+		"Learn more about Copilot Business": "Copilot Business の詳細を見る",
+		"GitHub Copilot uses the OpenAI large language models to suggest code and entire functions in real-time, right from your editor. You can set up a GitHub Copilot Business subscription for your organization.": "GitHub Copilot は OpenAI の大規模言語モデルを使用して、エディターから直接、コードや関数全体をリアルタイムで提案します。組織で GitHub Copilot Business サブスクリプションを設定できます。",
+		"Sign up for Copilot Business": "Copilot Business に登録する",
+		"Upgrade to Team": "Team にアップグレード",
+		"The basics for organizations and developers": "組織と開発者向けの基本機能",
+		"Not included:": "含まれません：",
+		"Included": "含まれます",
+		// —— 支払い情報ページ（/account/billing/payment_information）——
+		"Billing information": "請求先情報",
+		"Add your information to show on every invoice": "すべての請求書に表示する情報を追加",
+		"First name": "名",
+		"Last name": "姓",
+		"Address": "住所",
+		"(Street, P.O. box)": "（番地、私書箱）",
+		"Address line 2": "住所 2",
+		"(Apartment, suite, unit)": "（アパート、スイート、部屋番号）",
+		"City": "市区町村",
+		"Country/Region": "国/地域",
+		"Choose your country/region": "国/地域を選択してください",
+		"State/Province": "都道府県/州",
+		"Postal/Zip code": "郵便番号",
+		"(9-digit zip code for US)": "（米国は 9 桁の ZIP コード）",
+		"Required for certain countries": "一部の国/地域では必須",
+		"VAT/GST ID": "VAT/GST 番号",
+		"Save billing information": "請求先情報を保存",
+		"Coupon": "クーポン",
+		"Redeem a coupon": "クーポンを利用する",
+		"You don't have an active coupon.": "有効なクーポンはありません。",
+		"Add information": "情報を追加",
+		"No additional information added to your receipts.": "領収書に追加情報は登録されていません。",
+		"Additional information": "追加情報",
+		"Add specific contact or tax information to your receipts, like your full business name, VAT/GST identification number, or address of record here. We’ll make sure it shows up on every receipt.": "領収書に表示する連絡先や税務情報（正式な会社名、VAT/GST 番号、登録住所など）をここに追加してください。すべての領収書に表示されるようにします。",
+		"Please update your billing information in order to add a payment method.": "支払い方法を追加するには、請求先情報を更新してください。",
+		"Dismiss this message": "このメッセージを閉じる",
+		// 組織の請求先情報を関連付ける案内。文は「… by」＋リンク「signing」＋
+		// （the は rules が消す）＋リンク「GitHub Customer Agreement」に割れている。
+		// 後続のリンクとつながるよう、前段は「…使用するには、」で終える。
+		"An organization owner or billing manager must link their personal billing information with this organization account. You can switch to a business account to use your business’ billing information by": "組織のオーナーまたは請求管理者は、個人の請求先情報をこの組織アカウントにリンクする必要があります。企業アカウントに切り替えて企業の請求先情報を使用するには、",
+		"signing": "次の文書に署名する必要があります：",
+		"GitHub Customer Agreement": "GitHub カスタマーアグリーメント",
+		"Allow my billing information to be linked with this organization": "個人の請求先情報をこの組織にリンクすることを許可する",
+		"Confirm your details shown below. To make changes,": "以下に表示されている詳細を確認してください。変更するには、",
+		"edit your billing information": "請求先情報を編集してください",
+		"Personal account": "個人アカウント",
+		"Last payment": "前回の支払い",
+		"Extra billing information": "追加の請求先情報",
+		"This information will appear on all your receipts.": "この情報はすべての領収書に表示されます。",
+		// 請求書の更新案内は「To update the information that appears on」＋「invoices」＋
+		// 「(if enabled), visit the」＋「billing information section」の四ノード。
+		// 日本語では動詞が文末に来るため、最後のリンクノードが「…にアクセスしてください。」まで
+		// 受け持つ。連結すると「表示される情報を更新するには、請求書（有効な場合）の
+		// 請求先情報セクションにアクセスしてください。」という一続きの文になる。
+		"To update the information that appears on": "表示される情報を更新するには、",
+		"invoices": "請求書",
+		"(if enabled), visit the": "（有効な場合）の",
+		"billing information section": "請求先情報セクションにアクセスしてください。",
+		"For your security, do not include any confidential or financial information (like credit card numbers).": "安全のため、機密情報や財務情報（クレジットカード番号など）は入力しないでください。",
+		"Full business name or address of record": "正式な会社名または登録住所",
+		"Save contact information": "連絡先情報を保存",
+		"Saving contact information…": "連絡先情報を保存しています…",
+		// —— 請求書ブロック ——
+		"Invoice": "請求書",
+		"Receive an invoice for your GitHub purchases": "GitHub での購入に対する請求書を受け取る",
+		"The data from Billing Information, such as your address and VAT/GST ID will appear on your invoices.": "請求先情報のデータ（住所や VAT/GST 番号など）が請求書に表示されます。",
+		"Update your information displayed on your invoices in the": "請求書に表示される情報は、次で更新できます：",
+		"Automatically receive an invoice alongside the payment receipt": "支払い領収書と一緒に請求書を自動的に受け取る",
+		"* Enables invoices for all NEW payments.": "* すべての新規支払いで請求書を有効にします。",
+		"Save invoice preference": "請求書の設定を保存",
+		"Saving invoice preference": "請求書の設定を保存しています",
+		"Metered billing via Azure": "Azure 経由の従量制課金",
+		"Add Azure Subscription": "Azure サブスクリプションを追加",
+		"To manage metered billing for this account through Microsoft Azure an Azure Subscription ID must be added to your account.": "Microsoft Azure を通じてこのアカウントの従量制課金を管理するには、Azure サブスクリプション ID をアカウントに追加する必要があります。",
+		"Packages": "パッケージ",
+		// —— 支払い履歴ページ（/account/billing/history）——
+		"You have not made any payments.": "まだ支払いを行っていません。",
+		"Amounts shown in USD": "金額は USD（米ドル）で表示されています",
+		"Payment history": "支払い履歴",
+		// —— スポンサーシップページ（/settings/billing/subscriptions）——
+		"Sponsorships": "スポンサーシップ",
+		"Manage your organizations": "組織を管理",
+		"Connect with the community that builds the tools you use": "あなたが使うツールを作っているコミュニティとつながりましょう",
+		"Start sponsoring": "スポンサーを始める",
+		"Learn more about GitHub Sponsors": "GitHub Sponsors の詳細を見る",
+		// —— 請求連絡先ブロック（組織の請求ページ）——
+		"Billing Contacts": "請求の連絡先",
+		"Receipts are sent to billing managers and email recipients.": "領収書は請求管理者とメール受信者に送信されます。",
+		"Billing managers": "請求管理者",
+		"Invite": "招待",
+		"You have not invited any billing managers": "請求管理者をまだ招待していません",
+		"Email recipients": "メール受信者",
+		"Add": "追加",
+		"Add billing recipient": "請求先の受信者を追加",
+		"Add billing recipient email": "請求先の受信者のメールアドレスを追加",
+		"Billing primary email": "請求用のメインメールアドレス",
+		"Primary": "メイン",
+		"Label: Primary": "ラベル：メイン",
+		"Edit billing email address": "請求用メールアドレスを編集",
+		"Close dialog": "ダイアログを閉じる",
+		"Update": "更新",
+		"Switch to invoiced billing": "請求書払いに切り替える",
+		// —— 請求管理者の招待ページ（/organizations/<組織>/billing_managers/new）——
+		"Billing": "請求",
+		"/ Add a billing manager": "/ 請求管理者を追加",
+		"billing manager": "請求管理者",
+		"is a user who manages the billing settings of your organization.": "は、組織の請求設定を管理するユーザーです。",
+		// 権限リストの見出しは「Billing managers」＋「will」＋「have the ability to:」の
+		// 三ノード。will / will not は助詞だけを担い、文末表現は次のノードが持つ。
+		// 否定形も同じ値「は」で成立する（「請求管理者は次のことはできません：」）。
+		"will": "は",
+		"will not": "は",
+		"have the ability to:": "次のことができます：",
+		"be able to:": "次のことはできません：",
+		// 権限リストの各項目（それぞれ一ノード）
+		"Change the billing plan": "請求プランを変更",
+		"Add, update, or remove payment methods": "支払い方法を追加、更新、または削除",
+		"View payment history": "支払い履歴を表示",
+		"Download, and receive receipts": "領収書をダウンロードして受け取る",
+		"View a list of billing managers": "請求管理者の一覧を表示",
+		"Invite additional billing managers": "追加の請求管理者を招待",
+		"Remove other existing billing managers": "既存の他の請求管理者を削除",
+		"Start, modify, or cancel sponsorships": "スポンサーシップを開始、変更、またはキャンセル",
+		"Create or access repositories in your organization": "組織内でリポジトリを作成またはアクセスする",
+		"See private members of your organization": "組織のプライベートメンバーを表示",
+		"Be seen in the list of organization members": "組織メンバーの一覧に表示される",
+		"Use the organization’s payment method": "組織の支払い方法を使用する",
+		"Enable or manage Copilot": "Copilot を有効化または管理",
+		"Purchase, edit, or cancel Marketplace subscriptions": "Marketplace のサブスクリプションを購入、編集、またはキャンセル",
+		"Search by username, full name or email address": "ユーザー名、フルネーム、またはメールアドレスで検索",
+		"Send invitation": "招待を送信"
+	}
+}

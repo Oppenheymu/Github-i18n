@@ -49,6 +49,7 @@
 		"Filter by milestone": "マイルストーンで絞り込む",
 		"Filter milestones": "マイルストーンを絞り込む",
 		"No milestone": "マイルストーンなし",
+		"Milestone results": "マイルストーンの結果",
 		"Filter assignees": "担当者を絞り込む",
 		"No assignees": "担当者なし",
 		// —— 新しい並べ替えメニュー（作成日時 / 最終更新 / コメント数 / 一致度 / リアクション順）——

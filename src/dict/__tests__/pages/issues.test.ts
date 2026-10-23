@@ -84,6 +84,7 @@ const REACT_TOOLBAR_NODES: readonly string[] = [
 	// —— 里程碑面板 ——
 	"Filter by milestone",
 	"No milestone",
+	"Milestone results",
 	// —— 指派面板 ——
 	"No assignees",
 	// —— 排序菜单 ——

@@ -1,0 +1,1452 @@
+// 日本語・モジュール pages/org-settings：組織設定（/organizations/<org>/settings/** と
+// /orgs/<org>/settings/**、および /orgs/<org>/topics）。
+// プロフィール、設定サイドバー、ロールと権限、メンバー特権、インタラクション制限、
+// リポジトリ既定、ルールセット、カスタムプロパティ、Codespaces / サンドボックス / プロジェクト、
+// Copilot、Actions、Webhook、ディスカッション、パッケージ、2 要素認証の強制、
+// Advanced Security、コード品質までを覆う。
+// 鍵は core/canonical.jsonc の pages/org-settings と同一（ノード境界と根拠は zh-CN 側を参照）。
+// ロール名は pages/repo-settings と同じ（読み取り / トリアージ / 書き込み / メンテナンス / 管理者）。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		// —— 設定シェル（サイドバー、コンテキスト切り替え、組織ナビゲーション）——
+		"Organization settings": "組織の設定",
+		"Organization": "組織",
+		"Organization navigation": "組織のナビゲーション",
+		"General Organization Settings": "組織の一般設定",
+		"Settings menu": "設定メニュー",
+		"Menu": "メニュー",
+		"Select settings context": "設定のコンテキストを選択",
+		"Switch": "切り替え",
+		"context": "コンテキスト",
+		// 設定コンテキストの切り替え：`切り替え <span>settings </span>コンテキスト`。小文字の汎用語だが、
+		// モジュールが組織設定ページにルート限定されているため収録（pages/settings も同じ文で同じキーを既に収録）
+		"settings": "設定",
+		"People": "メンバー",
+		"Insights": "インサイト",
+		// —— 組織設定のサイドバー ——
+		"Member privileges": "メンバー権限",
+		"Repository policies": "リポジトリポリシー",
+		"Repository roles": "リポジトリロール",
+		"Organization roles": "組織ロール",
+		"Role assignments": "ロールの割り当て",
+		"Role management": "ロールの管理",
+		"Repository properties": "リポジトリのプロパティ",
+		"Custom properties": "カスタムプロパティ",
+		"Projects": "プロジェクト",
+		"Configurations": "構成",
+		"Caches": "キャッシュ",
+		"Code review": "コードレビュー",
+		"Issue fields": "イシューフィールド",
+		"Issue types": "イシューの種類",
+		"Ruleset dashboard": "ルールセットダッシュボード",
+		"Ruleset insights": "ルールセットのインサイト",
+		"Runner groups": "ランナーグループ",
+		"Authentication security": "認証のセキュリティ",
+		"Compliance": "コンプライアンス",
+		"Moderators": "モデレーター",
+		"Logs": "ログ",
+		"Audit log": "監査ログ",
+		"Active tokens": "アクティブなトークン",
+		"Pending requests": "保留中のリクエスト",
+		"Private registries": "プライベートレジストリ",
+		"Deleted repositories": "削除されたリポジトリ",
+		"OAuth app policy": "OAuth アプリのポリシー",
+		"OAuth Apps": "OAuth アプリ",
+		"Personal access tokens": "個人アクセストークン",
+		"Third-party Access": "サードパーティのアクセス",
+		"GitHub Apps": "GitHub アプリ",
+		"Publisher Verification": "パブリッシャーの検証",
+		"Verified and approved domains": "検証済みかつ承認済みのドメイン",
+		"Sandboxes": "サンドボックス",
+		"Import/Export": "インポート/エクスポート",
+		"Scheduled reminders": "スケジュールされたリマインダー",
+		"Global settings": "グローバル設定",
+		"Billing and licensing": "請求とライセンス",
+		"Payment information": "支払い情報",
+		"Payment history": "支払い履歴",
+		"Additional billing details": "追加の請求詳細",
+		"Budgets and alerts": "予算とアラート",
+		"AI usage": "AI 使用量",
+		"Sponsorship log": "スポンサーシップの記録",
+		"Licensing": "ライセンス",
+		"Usage": "使用量",
+		"Blocked users": "ブロックしたユーザー",
+		"Developer settings": "開発者設定",
+		// —— 組織設定サイドバーのグループ見出しと残りの項目（根拠：2026-10-03 にメンテナーが貼った Layout-sidebar）——
+		// `Pages` 以外はすべて pages/settings と pages/repo-settings の既存の表現を踏襲：
+		// 同じサイドバー項目が両方のモジュールに現れるため、文言を変えるときは両方そろえて変える。
+		"General": "一般",
+		"Policies": "ポリシー",
+		"Access": "アクセス",
+		"Moderation": "モデレーション",
+		"Interaction limits": "インタラクションの制限",
+		"Code review limits": "コードレビューの制限",
+		"Code, planning, and automation": "コード、計画、自動化",
+		"Rulesets": "ルールセット",
+		"Planning": "プランニング",
+		"Cloud agent": "クラウドエージェント",
+		"Internet access": "インターネットアクセス",
+		"Runner type": "ランナーの種類",
+		"Policy insights": "ポリシーのインサイト",
+		"Runners": "ランナー",
+		"Webhooks": "ウェブフック",
+		"Packages": "パッケージ",
+		// global は GitHub Pages の `Pages` を「ページ番号」として収録しているが、本モジュールは自ルートで「ページ」に訂正
+		"Pages": "ページ",
+		"Security and quality": "セキュリティと品質",
+		"Advanced Security": "高度なセキュリティ",
+		"Code quality": "コード品質",
+		"Deploy keys": "デプロイキー",
+		"Secrets and variables": "シークレットと変数",
+		"Agents": "エージェント",
+		"Integrations": "インテグレーション",
+		"Archive": "アーカイブ",
+		// 組織ページの `Actions` はリポジトリ設定と同じ表現（同じサイドバー項目）。注入を除外したうえで本モジュールが自前で提供
+		"Actions": "アクション",
+		// —— 組織のデプロイキーポリシーページ：説明文はリンクの位置で分割、無効化の注意は組織名ノードで分割 ——
+		"Deploy keys use an SSH key to grant readonly or write access to a single repository. If you have a more complex project or want more fine-grain control over permissions, consider using a GitHub App instead. For more information, see": "デプロイキーは SSH キーを使用して、単一のリポジトリへの読み取り専用または書き込みアクセスを許可します。より複雑なプロジェクトの場合や、権限をより細かく制御したい場合は、代わりに GitHub App の使用を検討してください。詳細については、次のドキュメントをご参照ください：",
+		"the GitHub Apps documentation": "GitHub Apps のドキュメント",
+		". Please note that deploy keys are not protected by a passphrase and can be a security risk if your server is compromised. For more information on deploy keys, see": "。デプロイキーはパスフレーズで保護されていないため、サーバーが侵害された場合にはセキュリティリスクとなる可能性があります。デプロイキーの詳細については、次のガイドをご参照ください：",
+		"managing deploy keys": "デプロイキーの管理",
+		"Deploy keys are not allowed to be created and used within this organization. Cloning public repositories will be unaffected by this policy.": "この組織ではデプロイキーの作成と使用が許可されていません。このポリシーは公開リポジトリのクローンには影響しません。",
+		"Deploy keys are allowed to be created and used within this organization.": "この組織ではデプロイキーの作成と使用が許可されています。",
+		"use deploy keys. Disabling deploy keys may break existing workflows.": "デプロイキーを使用しています。デプロイキーを無効にすると、既存のワークフローが動作しなくなる可能性があります。",
+		"Are you sure you want to disable deploy keys?": "デプロイキーを無効にしてもよろしいですか？",
+		"Existing deploy keys in": "既存のデプロイキー（",
+		"will disabled.": "）は無効になります。",
+		// —— 組織プロフィールのフォーム ——
+		"Organization display name": "組織の表示名",
+		"Email (will be public)": "メールアドレス（公開されます）",
+		"Location": "場所",
+		"URL": "ウェブサイト",
+		"Social accounts": "ソーシャルアカウント",
+		"Social account": "ソーシャルアカウント",
+		// Location 検索ボックスのプレースホルダー（属性は完全一致のみ。半角の省略記号をキーと同じ形で保つ）
+		"Find a location...": "場所を検索…",
+		"Link to social profile 1": "ソーシャルプロフィールへのリンク 1",
+		"Link to social profile 2": "ソーシャルプロフィールへのリンク 2",
+		"Link to social profile 3": "ソーシャルプロフィールへのリンク 3",
+		"Link to social profile 4": "ソーシャルプロフィールへのリンク 4",
+		"Feature Release Label: Preview": "機能リリースラベル：プレビュー",
+		"Feature Release Label: Public preview": "機能リリースラベル：パブリックプレビュー",
+		// —— 請求用メールアドレスとアバターのブロック（根拠：2026-10-03 にメンテナーが貼った実機 HTML）——
+		"Billing email": "請求用メールアドレス",
+		// `<small>(Private)</small>` は独立したノードで、ラベルのテキストとは分かれている
+		"(Private)": "（非公開）",
+		// 説明文は `<a>billing page</a>` で分割：リンクは「〜へ移動」の後にあり、リンク外の句点は記号だけのノード
+		// （エンジンでは翻訳できない）。実機では「請求用メールアドレスの受信者を追加するには、請求ページ .」と連結される
+		"Add more billing email recipients in the": "請求用メールアドレスの受信者を追加するには、",
+		"billing page": "請求ページ",
+		"Gravatar email": "Gravatar メールアドレス",
+		"Sponsors update email": "スポンサー更新メールアドレス",
+		"The developers and organizations that your organization sponsors can send you updates to this email.": "あなたの組織がスポンサーしている開発者や組織は、このメールアドレスに更新情報を送信できます。",
+		// アバターのアップローダー（pages/settings の同じキーの訳文と一致させる。両モジュールのパスは排他）
+		"Update profile": "プロフィールを更新",
+		"Profile picture": "プロフィール画像",
+		"Upload new picture": "新しい画像をアップロード",
+		"Uploading...": "アップロード中…",
+		"Note: To apply for a publisher verification your organization's profile picture should not be irrelevant, abusive or vulgar. It should not be a default image provided by GitHub.": "注意：パブリッシャーの検証を申請するには、組織のプロフィール画像が組織と無関係なもの、虐待的なもの、わいせつなものであってはなりません。また、GitHub が提供するデフォルトの画像であってはなりません。",
+		"This file is empty.": "このファイルは空です。",
+		"Please upload a picture smaller than 1 MB.": "1 MB 未満の画像をアップロードしてください。",
+		"Please upload a picture smaller than 10,000x10,000.": "10,000×10,000 未満の画像をアップロードしてください。",
+		"We only support PNG, GIF, or JPG pictures.": "PNG、GIF、JPG 形式の画像のみに対応しています。",
+		"Something went really wrong and we can’t process that picture.": "重大な問題が発生し、この画像を処理できません。",
+		"File contents don’t match the file extension.": "ファイルの内容が拡張子と一致しません。",
+		"Clear Location": "場所をクリア",
+		// —— 製品内メッセージ（In-product messages）——
+		// 根拠：2026-10-03 にメンテナーが貼った下半分の実機 HTML（拡張機能を入れた後の描画結果。
+		// ページ内でまだ英語のノードが補完対象）。オン/オフの状態は pages/settings と同じ表現。
+		"In-product messages": "製品内メッセージ",
+		"Promotions": "プロモーション",
+		"Notify account admins about exclusive GitHub products, services, offers, and events.": "GitHub 限定の製品、サービス、オファー、イベントについてアカウント管理者に通知します。",
+		"Member requests": "メンバーリクエスト",
+		"Allow members in your organization to request access to products, budget, or features.": "組織のメンバーが製品、予算、機能へのアクセスをリクエストできるようにします。",
+		"Tips": "ヒント",
+		"Show your organization members tips about enabled products and features.": "組織のメンバーに、有効になっている製品と機能に関するヒントを表示します。",
+		"Customer Research": "顧客リサーチ",
+		"Allow GitHub to contact members in your organization for research and feedback surveys.": "GitHub が調査やフィードバックのアンケートのために組織のメンバーへ連絡することを許可します。",
+		"On": "オン",
+		"Off": "オフ",
+		// —— Patreon と GitHub Developer Program ——
+		"Link Patreon account": "Patreon アカウントを連携",
+		"Connect with Patreon": "Patreon と連携",
+		// 説明文は `<strong>@組織名</strong>` で分割：最初の断片は前置詞だけが残り、
+		// 組織名の後に第 2 の断片が続く。連結すると「@組織名 の Patreon アカウントを連携してメンテナーをスポンサーするために。…」と読める
+		"Connect a Patreon account for": "メンテナーをスポンサーするために、",
+		"to sponsor maintainers with. Get recognition on GitHub for sponsorships made on Patreon when the sponsored person has linked Patreon and GitHub, too, and has a public GitHub Sponsors profile.": "の Patreon アカウントを連携します。Patreon で行ったスポンサーシップについて、スポンサーされた相手も Patreon と GitHub を連携していて、公開の GitHub Sponsors プロフィールを持っている場合は、GitHub で認定を受けられます。",
+		"GitHub Developer Program": "GitHub 開発者プログラム",
+		"Building an application, service, or tool that integrates with GitHub?": "GitHub と連携するアプリケーション、サービス、ツールを構築していますか？",
+		"Join the GitHub Developer Program": "GitHub 開発者プログラムに参加",
+		// リンクの後の断片はカンマで始まる。実機では「…GitHub 開発者プログラムに参加、詳細についてはこちらの GitHub 開発者プログラム.」と連結される
+		", or read more about it at our": "、または詳細についてはこちらのページをご覧ください：",
+		"GitHub developer program": "GitHub 開発者プログラム",
+		// —— 利用規約（Terms of Service）——
+		"Terms of Service": "利用規約",
+		"Standard": "標準",
+		"Best for individuals wanting the freedom to move data and remain independent of a corporation.": "データを自由に移行し、企業から独立した立場を保ちたい個人に最適です。",
+		"Read the Standard Terms of Service": "標準利用規約を読む",
+		"Corporate": "企業向け",
+		"Best for businesses that need to protect their intellectual property and secure visibility into their data.": "知的財産を保護し、自社データに対する可視性を確保する必要がある企業に最適です。",
+		"Read the GitHub customer agreement": "GitHub カスタマーアグリーメントを読む",
+		"Sign GitHub customer terms": "GitHub カスタマー規約に署名",
+		// 同じ文字列が details-dialog の aria-label にも、ダイアログの h3 見出しにも使われている
+		"Accept GitHub customer agreement": "GitHub カスタマーアグリーメントに同意",
+		"Do you want to give ownership of your organization to your business?": "組織の所有権を企業に譲渡しますか？",
+		"Yes, I want to sign the GitHub customer agreement on behalf of my business.": "はい。企業を代表して GitHub カスタマーアグリーメントに署名します。",
+		"What is the name of the business that owns this account?": "このアカウントを所有する企業の名称は何ですか？",
+		// 企業名入力欄の例のプレースホルダー（属性は完全一致のみ。キーは実機と同じ形を保つ）
+		"e.g, Acme, Inc.": "例：Acme, Inc.",
+		"The name of the company that owns this account": "このアカウントを所有する会社の名前",
+		// `<span class="note">This business — not <strong>ユーザー名</strong> (your user account), will own…</span>`
+		"This business — not": "この企業——",
+		"(your user account), will own and/or control any content posted to the organization": "（あなたのユーザーアカウント）ではなく、組織に投稿されたあらゆるコンテンツを所有および/または管理します",
+		"Accepting terms...": "規約に同意しています…",
+		"Accept terms": "規約に同意",
+		"By clicking “Accept terms”, you agree to the": "「規約に同意」をクリックすると、次に同意したことになります：",
+		"GitHub customer agreement": "GitHub カスタマーアグリーメント",
+		"and the": "および",
+		"privacy statement": "プライバシーステートメント",
+		// —— 顧客契約にある企業の請求情報フォーム ——
+		// フィールドは pages/settings-billing の支払い情報ページと同源で、訳文はそちらの表現をそのまま踏襲
+		//（「一部の国/地域では必須」「VAT/GST 番号」「（米国は 9 桁の ZIP コード）」など）。
+		"GitHub's customer agreement requires you to transfer the ownership of your organization to your business. Enter your business details below to continue. You can change these at any time by accessing your organization’s billing information.": "GitHub のカスタマーアグリーメントでは、組織の所有権を企業に譲渡する必要があります。続行するには、以下に企業の詳細を入力してください。これらの内容は、組織の請求情報にアクセスすればいつでも変更できます。",
+		"Business/Institution name": "企業/機関の名称",
+		"VAT/GST ID": "VAT/GST 番号",
+		"Address": "住所",
+		"(Street, P.O. box)": "（番地、私書箱）",
+		"Address line 2": "住所 2",
+		"(Apartment, suite, unit)": "（アパート、スイート、部屋番号）",
+		"City": "市区町村",
+		"Country/Region": "国/地域",
+		"Choose your country/region": "国/地域を選択してください",
+		"State/Province": "都道府県/州",
+		// 州 / 省ドロップダウンの先頭項目（米 / 加の 2 つの select に各 1 件）。選択肢の名前自体は収録しない
+		"Select state": "州を選択",
+		"Select province": "省を選択",
+		"Required for certain countries": "一部の国/地域では必須",
+		"Postal/Zip code": "郵便番号",
+		"(9-digit zip code for US)": "（米国は 9 桁の ZIP コード）",
+		"I agree to the": "以下に同意します：",
+		"Corporate Terms of Service": "企業利用規約",
+		// フォーム右側の reset ボタンの小文字原文。モジュールはこのルートでのみ有効なので、誤爆の範囲は組織設定ページに限られる
+		"cancel": "キャンセル",
+		// —— 危険な領域：名前変更 / アーカイブ / 削除の 3 つのダイアログ ——
+		// 実機の描画は小文字の `Danger zone`（pages/settings の `Danger Zone` ではない）。キーは同じ形でなければならない。
+		"Danger zone": "危険なゾーン",
+		"Rename organization": "組織の名前を変更",
+		// `<p>Renaming your organization can have <a>unintended side effects</a>.</p>`
+		"Renaming your organization can have": "組織の名前を変更すると、",
+		"unintended side effects": "意図しない副作用が生じる可能性があります。",
+		"Rename your organization?": "組織の名前を変更しますか？",
+		"Unexpected bad things will happen if you don’t read this!": "この内容を読まないと、予期しない問題が発生します！",
+		// `<li>We <strong>will</strong> create redirects…</li>`：3 つのノードがそれぞれ一致する必要がある
+		"We": "私たち",
+		"will": "は",
+		"create redirects for your repositories (web and git access).": "リポジトリ（Web と Git アクセス）のリダイレクトを作成します。",
+		"You will need to update your local repositories to point to the new location.": "ローカルリポジトリを新しい場所を指すように更新する必要があります。",
+		"Renaming may take a few minutes to complete.": "名前の変更が完了するまで数分かかる場合があります。",
+		"Enter a new name": "新しい名前を入力",
+		"Change organization’s name": "組織の名前を変更",
+		// アーカイブのダイアログ：h1 見出しとボタンの文言は別々の原文
+		"Archive organization": "組織をアーカイブ",
+		"Archive this organization": "この組織をアーカイブ",
+		"This organization will be archived.": "この組織はアーカイブされます。",
+		"Modifying settings will be limited and creating new repositories will be blocked.": "設定の変更が制限され、新しいリポジトリの作成はブロックされます。",
+		// `<p>All repositories will be <a>archived</a> and be read-only.</p>`
+		"All repositories will be": "すべてのリポジトリは",
+		"archived": "アーカイブ済み",
+		"and be read-only.": "となり、読み取り専用になります。",
+		"Before you archive, please consider:": "アーカイブする前に、次を検討してください：",
+		"Updating any organization settings": "組織の設定を更新する",
+		// `<li>Making a note in your <a>organization README</a></li>`
+		"Making a note in your": "メモを残す：",
+		"organization README": "組織の README",
+		// `<p>Please type <strong>組織名</strong> to confirm.</p>`
+		"Please type": "続行するには",
+		"to confirm.": "と入力して確認します。",
+		"Type in the name of the organization to confirm that you want to archive this organization.": "この組織をアーカイブすることを確認するには、組織の名前を入力してください。",
+		"I understand the consequences, archive this organization": "結果を理解したうえで、この組織をアーカイブする",
+		"Mark this organization and all its repositories as archived and read-only.": "この組織とそのすべてのリポジトリをアーカイブ済みかつ読み取り専用としてマークします。",
+		// 削除のダイアログ：ボタンとセクション見出しは同じ文字列。フォームの aria-label は別の文字列
+		"Delete this organization": "この組織を削除",
+		"Are you sure you want to delete this?": "本当にこれを削除しますか？",
+		"Delete organization": "組織を削除",
+		// `<p>Deleting the <strong>組織名</strong> organization will delete… The <strong>組織名</strong> username will…</p>`
+		"Deleting the": "組織を削除すると、",
+		"organization will delete all of its repositories. The": "のすべてのリポジトリが削除されます。また、",
+		"username will be unavailable for 90 days.": "というユーザー名は 90 日間使用できなくなります。",
+		"Before proceeding, please be sure to review the": "続行する前に、必ず次の内容をご確認ください：",
+		"regarding account deletion.": "（アカウント削除に関する規定）。",
+		"Enter this organization’s name to confirm": "確認のためにこの組織の名前を入力",
+		"Cancel plan and delete the organization": "プランをキャンセルして組織を削除",
+		"Once deleted, it will be gone forever. Please be certain.": "一度削除すると完全に元に戻せなくなります。十分にご確認ください。",
+		// —— リポジトリポリシーのページ ——
+		// 最後の 2 件は実機では**同じ文がリンクで分割された** 2 つの断片。連結すると
+		// 「組織のルールセットは、この組織アカウントを GitHub Team にアップグレードするまで適用されません。」と読める
+		//（2 つの断片の間の先頭スペースは walker が元のノードのまま保持するため、訳文には前後の空白を付けない）
+		"Organization rulesets won't be enforced": "組織のルールセットは",
+		"until you upgrade this organization account to GitHub Team.": "この組織アカウントを GitHub Team にアップグレードするまで適用されません。",
+		"Define whether members can perform operations on repositories such as delete and transfer.": "メンバーがリポジトリに対して削除や移転などの操作を実行できるかどうかを定義します。",
+		// 空の状態と「詳細を見る」リンク（根拠：2026-10-03 にメンテナーが貼った実機 HTML + スクリーンショット）。
+		// リンクは実機では「詳細を見る policies.」と描画される：`Learn more about` は global の短いキーが一致し、
+		// 残りの断片はこれまで未翻訳だった。断片に句点が含まれるかは outerHTML からは分からないため、3 つの形すべてを収録。
+		"You haven't created any policies": "ポリシーがまだ作成されていません",
+		"New policy": "新しいポリシー",
+		"policies": "ポリシー",
+		"policies.": "ポリシー。",
+		"Learn more about policies.": "ポリシーの詳細を見る",
+		// —— 組織ロール管理ページ（/organizations/<組織>/settings/org_roles）——
+		// 根拠：2026-10-07 にメンテナーが貼った実機のページ全体 HTML。ノード境界は core/canonical.jsonc の同名コメント、
+		// 回帰テストは src/dict/__tests__/pages/org-settings/org-roles.test.ts を参照。
+		"Organization roles are used to grant access to specific organization and repository settings. Repository permissions are granted across every repository in the organization.": "組織のロールは、特定の組織設定とリポジトリ設定へのアクセス権を付与するために使用します。リポジトリの権限は、組織内のすべてのリポジトリに付与されます。",
+		// —— 9 枚のロールカード：見出し + 説明文 ——
+		"All-repository read": "全リポジトリの読み取り",
+		"Grants read access to all repositories in the organization.": "組織内のすべてのリポジトリに読み取りアクセス権を付与します。",
+		"All-repository write": "全リポジトリの書き込み",
+		"Grants write access to all repositories in the organization.": "組織内のすべてのリポジトリに書き込みアクセス権を付与します。",
+		"All-repository triage": "全リポジトリのトリアージ",
+		"Grants triage access to all repositories in the organization.": "組織内のすべてのリポジトリにトリアージアクセス権を付与します。",
+		"All-repository maintain": "全リポジトリのメンテナンス",
+		"Grants maintenance access to all repositories in the organization.": "組織内のすべてのリポジトリにメンテナンスアクセス権を付与します。",
+		"All-repository admin": "全リポジトリの管理者",
+		"Grants admin access to all repositories in the organization.": "組織内のすべてのリポジトリに管理者アクセス権を付与します。",
+		"Apps manager": "アプリマネージャー",
+		"Grants the ability to manage all GitHub Apps owned by an organization.": "組織が所有するすべての GitHub Apps を管理する権限を付与します。",
+		"CI/CD Admin": "CI/CD 管理者",
+		"Grants admin access to manage Actions policies, runners, runner groups, network configurations, secrets, variables, and usage metrics for an organization.": "組織の Actions ポリシー、ランナー、ランナーグループ、ネットワーク構成、シークレット、変数、使用状況メトリクスを管理する管理者アクセス権を付与します。",
+		"Security manager": "セキュリティマネージャー",
+		"Grants the ability to manage security policies, security alerts, and security configurations for an organization and all its repositories.": "組織とそのすべてのリポジトリのセキュリティポリシー、セキュリティアラート、セキュリティ構成を管理する権限を付与します。",
+		"Open-source license manager": "オープンソースライセンスマネージャー",
+		"Grants the ability to review open-source license compliance closure requests and update repository license policies.": "オープンソースライセンスのコンプライアンスに関するクローズリクエストを審査し、リポジトリのライセンスポリシーを更新する権限を付与します。",
+		"Show role permissions": "ロールの権限を表示",
+		"Hide role permissions": "ロールの権限を非表示",
+		// —— ロール詳細パネルの見出し行とベースロールのラベル ——
+		// 5 つのベースロール名は pages/repo-settings と一字一句同じ訳にする。`Write` の 1 件は、
+		// 権限レベルの文脈で global の「作成」を上書きするもの（pages/repo-settings の先例と同じ）。
+		"Base repository role:": "ベースのリポジトリロール：",
+		"Read": "読み取り",
+		"Write": "書き込み",
+		"Triage": "トリアージ",
+		"Maintain": "メンテナンス",
+		"Admin": "管理者",
+		"All read permissions plus…": "すべての読み取り権限に加えて…",
+		// —— 権限一覧のグループ見出し（「リポジトリ」「セキュリティ」「ディスカッション」「組織」は既存の短いキーが命中）——
+		"Issue and Pull Request": "イシューとプルリクエスト",
+		"Issue": "イシュー",
+		"Pull Request": "プルリクエスト",
+		"Merge Queue": "マージキュー",
+		"Apps and automation": "アプリと自動化",
+		// —— 権限一覧：イシューとプルリクエスト ——
+		"• Assign or remove a user": "• ユーザーを割り当てまたは解除",
+		"• Add or remove a label": "• ラベルを追加または削除",
+		"• Create a milestone": "• マイルストーンを作成",
+		"• Create a label": "• ラベルを作成",
+		"• Remove an assigned user": "• 割り当て済みのユーザーを解除",
+		"• Remove a label": "• ラベルを削除",
+		"• Edit a milestone": "• マイルストーンを編集",
+		"• Edit a label": "• ラベルを編集",
+		// —— 権限一覧：イシュー ——
+		"• Close an issue": "• イシューをクローズ",
+		"• Comment on a locked issue": "• ロックされたイシューにコメント",
+		"• Edit an issue title and body": "• イシューのタイトルと本文を編集",
+		"• Edit a comment on an issue": "• イシューのコメントを編集",
+		"• Lock and unlock an issue conversation": "• イシューの会話をロックおよびロック解除",
+		"• Mark an issue as a duplicate": "• イシューを重複としてマーク",
+		// minimize はコメント欄では「このコメントを折りたたむ」の意味。日本語では折りたたむ / 展開を対にして扱う（語を変えるときは 2 件まとめて）
+		"• Minimize an issue comment": "• イシューのコメントを折りたたむ",
+		"• Reopen a closed issue": "• クローズされたイシューを再オープン",
+		"• Set an issue type": "• イシューの種類を設定",
+		"• Transfer an issue": "• イシューを移転",
+		"• Unminimize an issue comment": "• イシューのコメントを展開",
+		"• Delete an issue": "• イシューを削除",
+		// —— 権限一覧：プルリクエスト ——
+		"• Close a pull request": "• プルリクエストをクローズ",
+		"• Reopen a closed pull request": "• クローズされたプルリクエストを再オープン",
+		"• Request a pull request review": "• プルリクエストのレビューをリクエスト",
+		// —— 権限一覧：マージキュー ——
+		"• Request a solo merge": "• 単独マージをリクエスト",
+		"• Jump to the front of the queue": "• キューの先頭にジャンプ",
+		// —— 権限一覧：リポジトリ ——
+		"• Set milestones": "• マイルストーンを設定",
+		"• Create a protected tag": "• 保護タグを作成",
+		"• Delete a protected tag": "• 保護タグを削除",
+		"• Edit repository announcement banners": "• リポジトリのお知らせバナーを編集",
+		"• Edit repository custom properties values at the repository level": "• リポジトリレベルでリポジトリのカスタムプロパティ値を編集",
+		"• Edit repository metadata": "• リポジトリのメタデータを編集",
+		"• Edit repository rules": "• リポジトリのルールを編集",
+		"• Manage deploy keys": "• デプロイキーを管理",
+		"• Manage pull request merging settings": "• プルリクエストのマージ設定を管理",
+		"• Manage GitHub Page settings": "• GitHub Pages の設定を管理",
+		"• Manage project settings": "• プロジェクト設定を管理",
+		"• Manage wiki settings": "• Wiki の設定を管理",
+		"• Manage topics": "• トピックを管理",
+		// webhook は本モジュールのサイドバーで既に使っている「ウェブフック」を踏襲
+		"• Manage webhooks": "• ウェブフックを管理",
+		"• Push commits to protected branches": "• 保護ブランチにコミットをプッシュ",
+		"• Bypass branch protections": "• ブランチ保護をバイパス",
+		// interaction はリポジトリ全体で既存の「インタラクションの制限」を踏襲（本モジュールのサイドバー、pages/settings、repo-settings の 3 か所で同じ訳）
+		"• Set interaction limits": "• インタラクションの制限を設定",
+		"• Set the social preview": "• ソーシャルプレビューを設定",
+		// —— 権限一覧：セキュリティ ——
+		// dismiss は pages/repo-settings の既存訳「却下」を踏襲し、dismissal request は「却下リクエスト」とする
+		"• View code quality alerts": "• コード品質アラートを表示",
+		"• View code scanning alerts": "• コードスキャンアラートを表示",
+		"• View secret scanning alerts": "• シークレットスキャンアラートを表示",
+		"• View Dependabot alerts": "• Dependabot アラートを表示",
+		"• View security advisories": "• セキュリティアドバイザリを表示",
+		"• Dismiss or reopen Dependabot alerts": "• Dependabot アラートを却下または再オープン",
+		"• Dismiss or reopen code quality alerts": "• コード品質アラートを却下または再オープン",
+		"• Dismiss or reopen code scanning alerts": "• コードスキャンアラートを却下または再オープン",
+		"• Dismiss, reopen, or assign secret scanning alerts": "• シークレットスキャンアラートを却下、再オープン、または割り当て",
+		"• Delete code scanning analyses": "• コードスキャン分析を削除",
+		"• Publish security advisories": "• セキュリティアドバイザリを公開",
+		"• Create, edit, and manage security advisories": "• セキュリティアドバイザリを作成、編集、管理",
+		"• Triage private vulnerability reports for security advisories": "• セキュリティアドバイザリの非公開脆弱性レポートをトリアージ",
+		"• Bypass code scanning alert dismissal requests": "• コードスキャンアラートの却下リクエストをバイパス",
+		"• Bypass Dependabot alert dismissal requests": "• Dependabot アラートの却下リクエストをバイパス",
+		"• Bypass secret scanning alert closure requests": "• シークレットスキャンアラートのクローズリクエストをバイパス",
+		"• Review and manage secret scanning bypass requests": "• シークレットスキャンのバイパスリクエストを審査および管理",
+		"• Review and manage secret scanning alert dismissal requests": "• シークレットスキャンアラートの却下リクエストを審査および管理",
+		"• Review code scanning alert dismissal requests": "• コードスキャンアラートの却下リクエストを審査",
+		"• Review Dependabot alert dismissal requests": "• Dependabot アラートの却下リクエストを審査",
+		"• View code scanning alert dismissal requests": "• コードスキャンアラートの却下リクエストを表示",
+		"• View Dependabot alert dismissal requests": "• Dependabot アラートの却下リクエストを表示",
+		"• Review license compliance closure requests": "• ライセンスコンプライアンスのクローズリクエストを審査",
+		"• View license compliance closure requests": "• ライセンスコンプライアンスのクローズリクエストを表示",
+		"• View repository license policy": "• リポジトリのライセンスポリシーを表示",
+		// —— 権限一覧：ディスカッション ——
+		"• Close a discussion": "• ディスカッションをクローズ",
+		"• Convert issues to discussions": "• イシューをディスカッションに変換",
+		"• Create a discussion category": "• ディスカッションカテゴリを作成",
+		"• Delete a discussion": "• ディスカッションを削除",
+		"• Delete a discussion comment": "• ディスカッションのコメントを削除",
+		"• Edit category on a discussion": "• ディスカッションのカテゴリを編集",
+		"• Edit a discussion category": "• ディスカッションカテゴリを編集",
+		"• Edit a discussion comment": "• ディスカッションのコメントを編集",
+		"• Award and revoke discussion badges": "• ディスカッションのバッジを授与および剥奪",
+		"• Reopen a discussion": "• ディスカッションを再オープン",
+		"• Mark or unmark discussion answers": "• ディスカッションの回答をマークまたはマーク解除",
+		"• Hide or unhide discussion comments": "• ディスカッションのコメントを非表示または表示",
+		// —— 権限一覧：CI/CD（リポジトリパネルと組織パネルで動詞が異なるため、それぞれ別のキーにする）——
+		"• Manage repository Actions secrets": "• リポジトリの Actions シークレットを管理",
+		"• Manage repository Actions variables": "• リポジトリの Actions 変数を管理",
+		"• Manage repository Actions runners": "• リポジトリの Actions ランナーを管理",
+		"• Manage repository Actions policies": "• リポジトリの Actions ポリシーを管理",
+		"• Manage repository environments, environment secrets and variables": "• リポジトリの環境、環境シークレット、変数を管理",
+		"• View organization Actions usage metrics": "• 組織の Actions 使用状況メトリクスを表示",
+		"• Manage organization Actions secrets": "• 組織の Actions シークレットを管理",
+		"• Manage organization Actions policies": "• 組織の Actions ポリシーを管理",
+		"• Manage organization Actions variables": "• 組織の Actions 変数を管理",
+		"• Edit organization hosted compute network configurations": "• 組織のホスト型コンピュートのネットワーク構成を編集",
+		"• Manage organization hosted runner custom images": "• 組織のホスト型ランナーのカスタムイメージを管理",
+		"• Manage organization runners and runner groups": "• 組織のランナーとランナーグループを管理",
+		// —— 権限一覧：アプリと自動化 ——
+		"• Create organization owned integrations": "• 組織が所有する統合を作成",
+		"• Delete organization owned integrations": "• 組織が所有する統合を削除",
+		"• Edit organization owned integrations": "• 組織が所有する統合を編集",
+		"• View all organization owned integrations": "• 組織が所有するすべての統合を表示",
+		// —— 組織ロールの割り当てページ（/organizations/<組織>/settings/org_role_assignments と …/new）——
+		// 根拠と 5 つのノード境界の事実は core/canonical.jsonc の同名コメントを参照（ノード境界はメンテナーが
+		// 2026-10-07 に実機の console で `childNodes` をダンプして実証）。回帰テストは
+		// src/dict/__tests__/pages/org-settings/org-role-assignments.test.ts。
+		"Assign teams or people an organization role": "チームまたはユーザーに組織のロールを割り当てる",
+		// 空状態の見出しは**3 つのテキストノード**（`No ` / `organization` / ` roles assigned`）。
+		// 全文のキーは実機では決して命中しないため、断片ごとに収録する。3 つとも本来の意味で訳す（上流が同じ断片を
+		// 別の場所で再利用しても正しい）。実機では「未割り当ての 組織 ロール」と連結される——2 つの空白はノードの前後の空白に由来する。
+		"No": "未割り当ての",
+		"organization": "組織",
+		"roles assigned": "ロール",
+		// 空状態の説明文は**4 つのテキストノード**（`Organization` / ` roles have not been assigned to any ` /
+		// `users or teams` / `.`）。先頭の断片は既存キーで「組織」と訳され、後ろの 2 つがここの断片キー。
+		// 前後の空白は walker が保持するため、実機では「組織 のロールはまだ割り当てられていません。割り当て先は ユーザーまたはチーム.」と連結される
+		// （末尾の半角 `.` は独立した句点ノードなので訳せない）。
+		"roles have not been assigned to any": "のロールはまだ割り当てられていません。割り当て先は",
+		"users or teams": "ユーザーまたはチーム",
+		"Assign role": "ロールを割り当てる",
+		"Organization roles are used to grant access to subsets of organization settings to teams and members.": "組織のロールは、組織設定の一部へのアクセス権をチームとメンバーに付与するために使用します。",
+		// `Learn more about` は global では独立した短いキーだが、実機のノードは**リンクテキスト全体**なので文字列ごと収録する
+		"Learn more about organization roles": "組織のロールについて詳しくはこちら",
+		"Assign role to": "ロールの割り当て先",
+		"Select user or team": "ユーザーまたはチームを選択",
+		"Select role": "ロールを選択",
+		// 9 枚のロールカードの tooltip。訳文に埋め込むロール名は本モジュールの既存キーと一字一句同じ
+		"Info about All-repository read": "全リポジトリの読み取りについての情報",
+		"Info about All-repository write": "全リポジトリの書き込みについての情報",
+		"Info about All-repository triage": "全リポジトリのトリアージについての情報",
+		"Info about All-repository maintain": "全リポジトリのメンテナンスについての情報",
+		"Info about All-repository admin": "全リポジトリの管理者についての情報",
+		"Info about Apps manager": "アプリマネージャーについての情報",
+		"Info about CI/CD Admin": "CI/CD 管理者についての情報",
+		"Info about Security manager": "セキュリティマネージャーについての情報",
+		"Info about Open-source license manager": "オープンソースライセンスマネージャーについての情報",
+		// —— 組織のリポジトリロールページ（/organizations/<組織>/settings/roles）——
+		// 根拠とノード境界の事実は core/canonical.jsonc の同名コメントを参照。回帰テストは
+		// src/dict/__tests__/pages/org-settings/repository-roles.test.ts。
+		"Pre-defined roles": "定義済みロール",
+		"Roles are used to grant access and permissions for teams and members.": "ロールは、チームとメンバーにアクセス権と権限を付与するために使用します。",
+		// `You can …` はリンクで 3 つに分割され、実機では
+		// 「この組織のベースロールは、 次のロールから選択して設定 できます。」と連結される（2 つの空白はノードの前後の空白に由来する）
+		"You can": "この組織のベースロールは、",
+		"set the base role": "次のロールから選択して設定",
+		"for this organization from one of these roles.": "できます。",
+		// —— 5 つの定義済みロールの説明文 + 管理者行の末尾リンク ——
+		"Read and clone repositories. Open and comment on issues and pull requests.": "リポジトリの読み取りとクローンができます。イシューとプルリクエストを開いてコメントできます。",
+		"Read permissions plus manage issues and pull requests.": "読み取り権限に加えて、イシューとプルリクエストを管理できます。",
+		"Triage permissions plus read, clone and push to repositories.": "トリアージ権限に加えて、リポジトリの読み取り、クローン、プッシュができます。",
+		"Write permissions plus manage issues, pull requests and some repository settings.": "書き込み権限に加えて、イシュー、プルリクエスト、一部のリポジトリ設定を管理できます。",
+		"Full access to repositories including sensitive and destructive actions.": "機密性の高い操作や破壊的な操作を含む、リポジトリへの完全なアクセス権。",
+		"Modify Admin Role": "管理者ロールを変更",
+		// —— ページ末尾の Enterprise アップグレードバナー（pages/repo-settings と同源で一字一句同じ訳）——
+		"Create custom roles with GitHub Enterprise": "GitHub Enterprise でカスタムロールを作成",
+		"Enterprise accounts offer organizations more granular control over permissions by allowing you to configure up to 20 custom repository roles. This enables greater control over who and how your users access code and data in your organization.": "Enterprise アカウントでは最大 20 個のカスタムリポジトリロールを設定できるため、組織はより細かい権限管理を行えます。これにより、組織内の誰がどのようにコードとデータにアクセスするかをより細かく制御できます。",
+		"Start free for 30 days": "30 日間無料で開始",
+		// —— メンバーの権限ページ（/organizations/<組織>/settings/member_privileges）——
+		// 根拠とノード境界は core/canonical.jsonc の同名コメントを参照。回帰テストは
+		// src/dict/__tests__/pages/org-settings/member-privileges.test.ts。
+		// ベース権限
+		"Base permissions": "ベース権限",
+		"Base permissions to the organization’s repositories apply to all members and excludes outside collaborators. Since organization members can have permissions from multiple sources, members and collaborators who have been granted a higher level of access than the base permissions will retain their higher permission privileges.": "組織のリポジトリに対するベース権限は、すべてのメンバーに適用され、外部コラボレーターは除外されます。組織のメンバーは複数のソースから権限を取得できるため、ベース権限より高いアクセスレベルを付与されたメンバーとコラボレーターは、その高い権限を保持します。",
+		"No permission": "権限なし",
+		"Organization member permissions": "組織メンバーの権限",
+		"Members will only be able to clone and pull public repositories. To give a member additional access, you’ll need to add them to an authorized team or make them a collaborator on individual repositories.": "メンバーは公開リポジトリのクローンとプルだけができます。メンバーに追加のアクセス権を付与するには、そのメンバーを承認済みのチームに追加するか、個々のリポジトリのコラボレーターにする必要があります。",
+		"Members will be able to clone and pull all repositories.": "メンバーはすべてのリポジトリをクローンしてプルできます。",
+		"Members will be able to clone, pull, and push all repositories.": "メンバーはすべてのリポジトリをクローン、プル、プッシュできます。",
+		"Members will be able to clone, pull, push, and add new collaborators to all repositories.": "メンバーはすべてのリポジトリをクローン、プル、プッシュでき、新しいコラボレーターを追加できます。",
+		// 4 つの確認ダイアログ（見出しと送信ボタンが同じ文字列）
+		"Change base permission to \"No permission\"": "ベース権限を「権限なし」に変更",
+		"Change base permission to \"Read\"": "ベース権限を「読み取り」に変更",
+		"Change base permission to \"Write\"": "ベース権限を「書き込み」に変更",
+		"Change base permission to \"Admin\"": "ベース権限を「管理者」に変更",
+		"You are about to change the base repository permission for this organization.": "この組織のベースのリポジトリ権限を変更しようとしています。",
+		// ダイアログ本文の動的カウント：上流は ERB の補間で、実機ではほぼ確実に
+		// `文頭` + `数値` + `members have on its` + `数値` + `repositories.` の 5 段。
+		// 数値ノードにはラテン文字が含まれずエンジンが飛ばすため、3 つの定数部分をそれぞれ 1 件のキーとして収録し、
+		// 「これにより、組織の 2 人のメンバーが、5 個のリポジトリに対して持つ権限が変更される可能性があります。」と連結する。
+		// 万一上流が全文を 1 ノードで描画する場合は、ルール org-settings/base-permission-change が受け止める。
+		"This may change the permission that the organization’s": "これにより、組織の",
+		"members have on its": "人のメンバーが、",
+		"repositories.": "個のリポジトリに対して持つ権限が変更される可能性があります。",
+		// 単数形（`1 member has` / `1 repository`）：日本語では単複を区別しないため上と同じ訳にする
+		"member has on its": "人のメンバーが、",
+		"repository.": "個のリポジトリに対して持つ権限が変更される可能性があります。",
+		// リポジトリの作成
+		"Repository creation": "リポジトリの作成",
+		"Members will be able to create only selected repository types. Outside collaborators can never create repositories.": "メンバーは選択した種類のリポジトリのみ作成できます。外部コラボレーターはリポジトリを作成できません。",
+		"Members will be able to create public repositories, visible to anyone.": "メンバーは公開リポジトリを作成でき、誰でも閲覧できます。",
+		"Members will be able to create private repositories, visible to organization members with permission.": "メンバーは非公開リポジトリを作成でき、権限を持つ組織のメンバーが閲覧できます。",
+		// リポジトリの作成と Pages の作成の 2 か所に同じリンクがある
+		"Why is this option disabled?": "このオプションが無効になっているのはなぜですか？",
+		// リポジトリのフォーク
+		"Repository forking": "リポジトリのフォーク",
+		"Allow forking of private repositories": "非公開リポジトリのフォークを許可",
+		"If enabled, forking is allowed on private and public repositories. If disabled, forking is only allowed on public repositories. This setting is also configurable per-repository.": "有効にすると、非公開リポジトリと公開リポジトリのフォークが許可されます。無効にすると、フォークは公開リポジトリでのみ許可されます。この設定はリポジトリごとに個別に構成することもできます。",
+		// リポジトリのディスカッション
+		"Repository discussions": "リポジトリのディスカッション",
+		"Allow users with read access to create discussions": "読み取りアクセス権を持つユーザーにディスカッションの作成を許可",
+		"If disabled, discussion creation is limited to users with at least triage permission. Users with read access can still comment on discussions.": "無効にすると、ディスカッションの作成はトリアージ以上の権限を持つユーザーに限定されます。読み取りアクセス権を持つユーザーは、引き続きディスカッションにコメントできます。",
+		// プロジェクトのベース権限
+		"Projects base permissions": "プロジェクトのベース権限",
+		"Projects created by members will default to the selected role below.": "メンバーが作成するプロジェクトには、以下で選択したロールが既定で適用されます。",
+		"No access": "アクセス権なし",
+		"Members will only be able to see projects that are made public. To give an organization member additional access, they can be added as part of a team or as a collaborator.": "メンバーは公開されたプロジェクトのみ表示できます。組織のメンバーに追加のアクセス権を付与するには、そのメンバーをチームの一員として、またはコラボレーターとして追加します。",
+		"Members can see projects.": "メンバーはプロジェクトを表示できます。",
+		"Members can see and make changes to projects.": "メンバーはプロジェクトを表示して変更できます。",
+		"Members can see, make changes to, and add new collaborators to projects.": "メンバーはプロジェクトを表示および変更でき、新しいコラボレーターを追加できます。",
+		"Change base permissions to \"No access\"": "ベース権限を「アクセス権なし」に変更",
+		"Change base permissions to \"Read\"": "ベース権限を「読み取り」に変更",
+		"Change base permissions to \"Write\"": "ベース権限を「書き込み」に変更",
+		"Change base permissions to \"Admin\"": "ベース権限を「管理者」に変更",
+		"You are about to change the base projects permission for this organization.": "この組織のプロジェクトのベース権限を変更しようとしています。",
+		"This won't affect any existing projects.": "既存のプロジェクトには影響しません。",
+		// Pages の作成（`Pages` は本モジュールでは製品名のまま）
+		"Pages creation": "Pages の作成",
+		"Members will be able to publish sites with only the selected access controls.": "メンバーは、選択したアクセス制御のみを使用してサイトを公開できます。",
+		"Members will be able to create public sites, visible to anyone.": "メンバーは公開サイトを作成でき、誰でも閲覧できます。",
+		"Members will be able to create private sites, visible to anyone with permission.": "メンバーは非公開サイトを作成でき、権限を持つユーザーなら誰でも閲覧できます。",
+		// アプリのアクセスリクエスト
+		"App access requests": "アプリのアクセスリクエスト",
+		"Choose who can request GitHub or OAuth apps to use with resources in this organization": "この組織のリソースで使用する GitHub アプリまたは OAuth アプリをリクエストできるユーザーを選択します",
+		"Members and outside collaborators": "メンバーと外部コラボレーター",
+		"Both members and outside collaborators can request apps for this organization.": "メンバーと外部コラボレーターの両方が、この組織のアプリをリクエストできます。",
+		"Members only": "メンバーのみ",
+		"Members can request apps, while outside collaborators cannot.": "メンバーはアプリをリクエストできますが、外部コラボレーターはリクエストできません。",
+		"Disable app access requests": "アプリのアクセスリクエストを無効にする",
+		"Neither members nor outside collaborators can request apps.": "メンバーも外部コラボレーターもアプリをリクエストできません。",
+		// GitHub アプリ（見出しの GitHub Apps は本モジュールの既存キー）
+		"Allow repository admins to install GitHub Apps for their repositories.": "リポジトリ管理者が自分のリポジトリに GitHub アプリをインストールできるようにします。",
+		"Repository admins will be able to install and configure GitHub Apps on their repositories without requesting first, if the app doesn't require organization or repository administration permissions.": "アプリが組織またはリポジトリの管理権限を必要としない場合、リポジトリ管理者は事前のリクエストなしで、自分のリポジトリに GitHub アプリをインストールして構成できます。",
+		// 管理者のリポジトリ権限
+		"Admin repository permissions": "管理者のリポジトリ権限",
+		"Repository visibility change": "リポジトリの可視性の変更",
+		"Allow members to change repository visibilities for this organization": "メンバーがこの組織のリポジトリの可視性を変更できるようにする",
+		"If enabled, members with admin permissions for the repository will be able to change its visibility. If disabled, only organization owners can change repository visibilities.": "有効にすると、そのリポジトリの管理者権限を持つメンバーが可視性を変更できます。無効にすると、組織の所有者のみがリポジトリの可視性を変更できます。",
+		"Repository deletion and transfer": "リポジトリの削除と移転",
+		"Allow members to delete or transfer repositories for this organization": "メンバーがこの組織のリポジトリを削除または移転できるようにする",
+		// この文は `<strong>` で 5 段に分割される。中間の 3 断片は小文字の汎用語で、モジュールがルートで限定されているからこそ収録できる（`and` は列挙の文脈ではないため既存の「などの」ではなく「および」を使う）
+		"If enabled, members with admin permissions for the repository will be able to delete or transfer": "有効にすると、リポジトリの管理者権限を持つメンバーは、",
+		"public": "公開",
+		"and": "および",
+		"private": "非公開",
+		"repositories. If disabled, only organization owners can delete or transfer repositories.": "リポジトリを削除または移転できます。無効にすると、組織の所有者のみがリポジトリを削除または移転できます。",
+		"Issue deletion": "イシューの削除",
+		"Allow repository administrators to delete issues for this organization": "リポジトリ管理者がこの組織のイシューを削除できるようにする",
+		"If enabled, members with admin permissions for the repository will be able to delete issues. If disabled, only organization owners can delete issues.": "有効にすると、リポジトリの管理者権限を持つメンバーがイシューを削除できます。無効にすると、組織の所有者のみがイシューを削除できます。",
+		"Learn more about allowing people to delete issues in your organization": "組織内でユーザーによるイシューの削除を許可する方法について詳しくはこちら",
+		"Branch renames": "ブランチ名の変更",
+		"Allow repository administrators to rename branches protected by organization rules": "リポジトリ管理者が組織のルールで保護されているブランチの名前を変更できるようにする",
+		"If enabled, members with admin permissions for the repository will be able to rename branches targeted by organization-level rulesets, provided the new name is still covered by those same rulesets or the repository admin has bypass permission. If disabled, only organization owners can rename such branches.": "有効にすると、リポジトリの管理者権限を持つメンバーは、組織レベルのルールセットの対象となっているブランチの名前を変更できます（新しい名前が同じルールセットの対象のままでいるか、リポジトリ管理者にバイパス権限がある場合）。無効にすると、組織の所有者のみがそのようなブランチの名前を変更できます。",
+		// メンバーのチーム権限
+		"Member team permissions": "メンバーのチーム権限",
+		"Team creation rules": "チーム作成のルール",
+		"Allow members to create teams": "メンバーがチームを作成できるようにする",
+		"If enabled, any member of the organization will be able to create new teams. If disabled, only organization owners can create new teams.": "有効にすると、組織の任意のメンバーが新しいチームを作成できます。無効にすると、組織の所有者のみが新しいチームを作成できます。",
+		// —— インポート/エクスポート：モデルページ（/organizations/<組織>/settings/import-export）——
+		// `Mannequins` は GitHub 公式ドキュメントの訳語「マネキン」を踏襲しつつ、
+		// ファッションモデルとの混同を避けるため本ページでは「マネキンアカウント」と訳す。
+		// インポートされたコントリビューションの作者を表すプレースホルダーアカウントのこと。
+		"Import/Export Navigation": "インポート/エクスポートのナビゲーション",
+		"Mannequins": "マネキンアカウント",
+		"Attribution Invitations": "アトリビューションの招待",
+		// 検索ボックスの placeholder と aria-label は別々の文字列（前者は末尾に点が多い）なので、それぞれ 1 エントリ。
+		"Search mannequins by login or email...": "ログイン名またはメールアドレスでマネキンを検索...",
+		"Search mannequins by login or email": "ログイン名またはメールアドレスでマネキンを検索",
+		"Mannequins represent authors of imported contributions. They do not have profile pages and cannot sign in. Their contributions can be reattributed to other members of your organization.": "マネキンアカウントは、インポートされたコントリビューションの作者を表します。プロフィールページはなく、サインインもできません。そのコントリビューションは、組織の他のメンバーに再帰属できます。",
+		"There are no mannequins in this organization": "この組織にはマネキンアカウントがありません",
+		// —— インポート/エクスポート：アトリビューションの招待ページ（…/settings/import-export/attribution-invitations）——
+		// 全体が 1 つのテキストノード（原文はソース上の改行のみ）なので 1 つの鍵にする。3 つの状態値は
+		// pages/repo-settings の先例（`The state can be created, fixed in branch, or closed.`
+		// を「状態は、作成済み、ブランチで修正済み、またはクローズ済みのいずれかです。」と訳している）に倣い、
+		// 「完了」は global の `Completed` と同じ訳語にする。
+		"Below are the mannequin reattribution invitations that have been sent within this organization. If the state is \"invited,\" then the user has not yet replied; if it is \"completed,\" then the user has accepted and their contributions have been reattributed, and if it is \"rejected,\" then the user opted not to be credited for that mannequin's contributions.": "以下は、この組織内で送信されたマネキンの再アトリビューションの招待です。状態が「招待済み」の場合、ユーザーはまだ返信していません。状態が「完了」の場合、ユーザーは承諾しており、そのコントリビューションの再アトリビューションが完了しています。状態が「拒否」の場合、ユーザーはそのマネキンのコントリビューションへのクレジットを希望しなかったことを意味します。",
+		"No attribution invitations have been sent": "アトリビューションの招待はまだ送信されていません",
+		// —— ブロックしたユーザー（/organizations/<組織>/settings/blocked_users）——
+		// この一群の文字列の大半は pages/settings（個人設定の /settings/blocked_users）で
+		// すでに訳済みだが、そのルート `^/(?:settings|account/billing)` は **/organizations/** に
+		// 一致しないため、本モジュールにも同じ訳で**逐語的に**収録する——同じ文字列が 2 ページで
+		// 違う訳になるのがバグである。
+		"You can block a user to deny them access to repositories and more.": "ユーザーをブロックすると、そのユーザーによるリポジトリなどへのアクセスを拒否できます。",
+		"Learn more about blocking a user": "ユーザーのブロックについて詳しくはこちら",
+		"Block a user": "ユーザーをブロック",
+		"Search by username, full name or email address": "ユーザー名、フルネーム、またはメールアドレスで検索",
+		"Block user": "ユーザーをブロック",
+		"You are about to block:": "ブロックしようとしているユーザー：",
+		"Blocking a user prevents the following on all your repositories:": "ユーザーをブロックすると、あなたのすべてのリポジトリで次のことができなくなります：",
+		"opening or commenting on issues or pull requests": "イシューやプルリクエストを開く、またはコメントする",
+		"starring, forking, or watching": "スターを付ける、フォークする、ウォッチする",
+		"adding or editing wiki pages": "wiki ページを追加または編集する",
+		// ブロック期間のメニュー：ボタンのラベルは「ブロック：」+ 現在値の 2 ノードで、メニュー項目と現在値は同じ文字列。
+		// 4 段階の期間は本来の意味どおり数値と単位だけを訳す（値ノードは「ブロック：」の後ろに連結されるため、
+		// メニュー項目自体に「ブロック」を重ねて付けない）。
+		"Block:": "ブロック：",
+		"For 1 day": "1 日間",
+		"For 3 days": "3 日間",
+		"For 7 days": "7 日間",
+		"For 30 days": "30 日間",
+		"Until I unblock them": "ブロックを解除するまで",
+		"Close all open issues, pull requests, and discussions opened by this user": "このユーザーが開いたすべての未解決のイシュー、プルリクエスト、ディスカッションをクローズする",
+		"Add an optional note": "任意のメモを追加",
+		// 本ページと個人ページで唯一異なる文言：末尾が「組織の管理者とモデレーターは全員このメモを見ることができます」
+		//（個人ページでは「このメモはあなたにのみ表示されます」。2 つは別の鍵なので相互に流用してはいけない）。
+		"Maximum 250 characters. Please don’t include any personal information such as legal names or email addresses. Markdown is supported. All org admins and moderators can see this note.": "最大 250 文字。法的な氏名やメールアドレスなどの個人情報を含めないでください。Markdown に対応しています。組織の管理者とモデレーターは全員このメモを見ることができます。",
+		// ページ末尾の React partial（blocked-users-table）
+		"Currently blocked": "現在ブロック中",
+		"You have not blocked anyone.": "まだ誰もブロックしていません。",
+		"Find blocked users": "ブロックしたユーザーを検索",
+		// オックスフォードカンマ付きのもう 1 つの検索文字列（上記の「…or email address」とは別の文字列）。
+		"Search by username, full name, or public email": "ユーザー名、フルネーム、または公開メールアドレスで検索",
+		// —— インタラクション制限ページ（/organizations/<組織>/settings/interaction_limits）——
+		// このページの本文は個人設定の /settings/interaction_limits とほぼ逐語的に同じだが、
+		// そのルートは /organizations/** に一致しないため、本モジュールにも同じ訳で収録する
+		//（`Temporary interaction limits` はフォールバックの鍵。core/canonical.jsonc の説明を参照）。
+		"Temporary interaction limits": "一時的なインタラクション制限",
+		// 冒頭の 2 文は同じテキストノードに属する（原文の間には空行しかない）ので 1 つの鍵。
+		// 前半は個人ページと同じ訳、後半は本ページ固有の「この組織のメンバーは影響を受けない」。
+		"Temporarily restrict which external users can interact with your repositories (comment, open issues, or create pull requests) for a configurable period of time. Users who are members of this organization will not be affected by these limits.": "設定できる一定の期間、どの外部ユーザーがあなたのリポジトリとやり取り（コメント、イシューの作成、プルリクエストの作成）できるかを一時的に制限します。この組織のメンバーはこれらの制限の影響を受けません。",
+		"This may be used to force a \"cool-down\" period during heated discussions or prevent unwanted interactions.": "これは、白熱した議論の最中に「クールダウン」期間を強制したり、望ましくないインタラクションを防いだりするために使用できます。",
+		// 3 つの断片の連結：文の前半 + リンク「公開リポジトリ」+ 句点で始まる末尾（末尾は個人ページの訳を踏襲。
+		// もともと文頭の「に」を伴い、「公開リポジトリ」の後ろに連結すると自然に読める）。
+		"Interaction limits may already exist in your organization's": "インタラクション制限は、あなたの組織の",
+		"public repositories": "公開リポジトリ",
+		". Any changes here will override those limits.": "にすでに存在する場合があります。ここでの変更はそれらの制限を上書きします。",
+		"Limit to existing users": "既存のユーザーに限定",
+		"Users that have recently created their account will be unable to interact with this organization's repositories.": "最近アカウントを作成したユーザーは、この組織のリポジトリとやり取りできなくなります。",
+		"Limit to prior contributors": "過去のコントリビューターに限定",
+		"Users that have not previously committed to the default branch of a repository in this organization will be unable to interact with that repository.": "これまでこの組織のいずれかのリポジトリのデフォルトブランチにコミットしたことがないユーザーは、そのリポジトリとやり取りできなくなります。",
+		"Limit to repository collaborators": "リポジトリのコラボレーターに限定",
+		"Users that are not collaborators of a repository in this organization will not be able to interact with that repository.": "この組織のいずれかのリポジトリのコラボレーターでないユーザーは、そのリポジトリとやり取りできなくなります。",
+		// 5 つの短いラベル：前の 4 つは pages/settings と同じ鍵・同じ訳（そのルートでは取得できず、
+		// pages/search の「Users」、pages/repo の「Contributors」も本ページには一致しない）。
+		"New users": "新規ユーザー",
+		"Users": "ユーザー",
+		"Contributors": "コントリビューター",
+		"Collaborators": "コラボレーター",
+		"Organization members": "組織のメンバー",
+		// 3 つのカードのボタン：可視テキストは `Enable`、3 つの aria-label はそれぞれ別の鍵。
+		"Enable": "有効にする",
+		"Enable interaction limits for:": "次の対象にインタラクション制限を有効にする：",
+		"Enable interaction limit to existing users": "既存のユーザーに対するインタラクション制限を有効にする",
+		"Enable interaction limit to prior contributors": "過去のコントリビューターに対するインタラクション制限を有効にする",
+		"Enable interaction limit to repository collaborators": "リポジトリのコラボレーターに対するインタラクション制限を有効にする",
+		"24 hours": "24 時間",
+		"3 days": "3 日",
+		"1 week": "1 週間",
+		"1 month": "1 か月",
+		"6 months": "6 か月",
+		// —— 同じページのプルリクエスト上限 ——
+		"Pull request limits": "プルリクエストの上限",
+		"Restrict how many pull requests users without write access can have open at one time in any single public repository in this organization. A limit configured on an individual repository overrides this setting. This setting stays in effect until you change it.": "この組織内の任意の単一の公開リポジトリで、書き込み権限のないユーザーが同時に開けるプルリクエストの数を制限します。個々のリポジトリで設定された上限はこの設定を上書きします。この設定は変更するまで有効です。",
+		"Currently, users without write access can open an unlimited number of pull requests.": "現在、書き込み権限のないユーザーは無制限にプルリクエストを開けます。",
+		// 「現在の上限」の文は `<strong>数値</strong>` で 2 つに分割される：前半は静的キー、
+		// 数値より後ろの文全体（「下書きは含まない」を含む）は `org-settings/pr-cap-limit` ルールが扱う。
+		"Currently, users without write access can have up to": "現在、書き込み権限のないユーザーは最大",
+		"Limit open pull requests from users without write access": "書き込み権限のないユーザーが開くプルリクエストを制限",
+		"Maximum open pull requests per user": "ユーザーあたりのオープンプルリクエストの上限",
+		"Enter a number from 1 to 1000": "1 から 1000 までの数値を入力してください",
+		// リポジトリレベルのサブページにある `…Enter a number from 1 to 1000. Users who have more open PRs…`
+		// とは別の文字列（本ページは `open pull requests` で、略記ではない）。
+		"Enter a number from 1 to 1000. Users who have more open pull requests than the above limit will not be able to create new pull requests in the repository.": "1 から 1000 までの数値を入力してください。開いているプルリクエストが上記の上限を超えるユーザーは、リポジトリで新しいプルリクエストを作成できなくなります。",
+		"Count draft pull requests toward the limit": "下書きのプルリクエストを上限に含める",
+		// —— コードレビュー制限ページ（/organizations/<組織>/settings/code_review_limits）——
+		// 先頭の文を除き、個人設定の /settings/code_review_limits と**同じ文字列・同じ訳**。
+		"Restrict users who are permitted to approve or request changes on pull requests in public repositories within this organization.": "この組織内の公開リポジトリのプルリクエストで、承認または変更のリクエストを行えるユーザーを制限します。",
+		"Code review limits may already be specified by individual repositories. Any changes here will override those limits until unset.": "コードレビュー制限は、個々のリポジトリで既に指定されている場合があります。ここでの変更は、制限が解除されるまでそれらを上書きします。",
+		"Code review limits are currently managed individually for all repositories. Enable limits to permit only users who have explicitly been granted access to each repository to submit reviews that \"approve\" or \"request changes\". Remove limits to allow all users to submit pull request reviews. All users able to submit comment pull request reviews will continue to be able to do so.": "コードレビュー制限は現在、すべてのリポジトリで個別に管理されています。制限を有効にすると、各リポジトリへのアクセスを明示的に許可されたユーザーだけが「承認」または「変更のリクエスト」のレビューを送信できます。制限を解除すると、すべてのユーザーがプルリクエストのレビューを送信できるようになります。コメント形式のプルリクエストレビューを送信できるユーザーは、引き続き送信できます。",
+		"Limit reviews on all repositories": "すべてのリポジトリでレビューを制限",
+		"Remove review limits from all repositories": "すべてのリポジトリからレビュー制限を解除",
+		// —— モデレーターページ（/organizations/<組織>/settings/moderators）——
+		// `interaction limits` は本モジュールの文脈ではサイドバー項目の「インタラクション制限」に合わせる
+		//（個人設定ページではページタイトルを「一時的なインタラクション制限」と訳しているが、別の文言）。
+		"You can add organization members or teams as moderators for your organization. Moderators can block and unblock users from the organization, minimize comments, and manage interaction limits for all public organization repositories.": "組織のメンバーまたはチームを、組織のモデレーターとして追加できます。モデレーターは、組織のユーザーをブロックおよびブロック解除し、コメントを最小化し、公開されているすべての組織リポジトリのインタラクション制限を管理できます。",
+		// 「最大 10 名のメンバーまたはチームを追加できます」の数値は独立したノード（エンジンは数値だけのノードをスキップする）。
+		"You may add up to": "最大",
+		"members or teams as moderators.": "名のメンバーまたはチームをモデレーターとして追加できます。",
+		"Add a member or team as a moderator": "メンバーまたはチームをモデレーターとして追加",
+		"Add a member or team": "メンバーまたはチームを追加",
+		"You don't have any moderators for this organization.": "この組織にはモデレーターがまだいません。",
+		// —— リポジトリの既定設定ページ（/organizations/<組織>/settings/repository-defaults）——
+		// 最初の 2 つのブロックは個人設定ページ /settings/repositories（pages/settings）とほぼ逐語的に同じだが、
+		// そのルートは /organizations/** に一致しないため、本モジュールにも同じ訳で収録する。
+		// 組織側にしかない文言と後ろの 3 つのブロック（Commit signoff / Releases / Repository labels）は
+		// 新規。ノード境界と反例は
+		// src/dict/__tests__/pages/org-settings/repository-defaults.test.ts を参照。
+		"Repository default branch": "リポジトリのデフォルトブランチ",
+		// 同じ訳の元の文と比べ、最初の文だけが異なる（`for new repositories in this organization`）。
+		"Choose the default branch for new repositories in this organization. You might want to change the default name due to different workflows, or because your integrations still require “master” as the default branch name. You can always change the default branch name on individual repositories.": "この組織の新しいリポジトリのデフォルトブランチを選択します。ワークフローが異なるため、または統合がまだデフォルトブランチ名として “master” を必要としているために、デフォルト名を変更したくなる場合があります。デフォルトブランチ名は、個々のリポジトリでいつでも変更できます。",
+		"Learn more about default branches.": "デフォルトブランチについて詳しくはこちら。",
+		"Default branch name": "デフォルトブランチ名",
+		"Update": "更新",
+		"Updating…": "更新中…",
+		// 新規作成 / 編集ラベルフォームの保存ボタン（`data-disable-with`）
+		"Saving...": "保存中...",
+		// —— Commit signoff ——
+		"Commit signoff": "コミットのサインオフ",
+		// 5 つの断片の連結：前半 + 証明書リンク + リンク後の `. `（記号のみで訳せない）+ 説明リンク + 末尾の `.`
+		"Choose whether repositories will require contributors to sign off on commits they make through GitHub's web interface. Signing off is a way for contributors to affirm that their commit complies with the repository's terms, commonly the": "GitHub の Web インターフェース経由でコントリビューターが行うコミットに、リポジトリがサインオフを要求するかどうかを選択します。サインオフは、コントリビューターがそのコミットがリポジトリの規約に準拠していることを表明する方法です。通常は",
+		// pages/repo-settings のリポジトリレベルの文と同じ訳（GitHub 公式日本語ドキュメントに合わせる）
+		"Developer Certificate of Origin (DCO)": "Developer Certificate of Origin（DCO）証明書",
+		"Learn more about signing off on commits": "コミットのサインオフについて詳しくはこちら",
+		"Require signoff on web-based commits for all repositories in this organization": "この組織のすべてのリポジトリで、Web 上のコミットにサインオフを必須にする",
+		// 2 つのメニュー項目が 1 つのラベルキーを共有する（signoff と releases の 2 つのドロップダウンに各 1 回ずつ現れる）
+		"No policy": "ポリシーなし",
+		"Each repository chooses whether to require signoff on web-based commits": "各リポジトリが、Web 上のコミットにサインオフを要求するかどうかを選択する",
+		// —— Commit comments ——
+		"Commit comments": "コミットコメント",
+		"Choose whether": "この組織のリポジトリで、",
+		"commit comments": "コミットコメントを",
+		"are enabled or disabled by default for repositories in this organization. Individual repositories can override this default. Existing commit comments are not affected by this setting and will remain viewable, editable, and deletable.": "デフォルトで有効にするか無効にするかを選択します。個々のリポジトリはこのデフォルトを上書きできます。既存のコミットコメントはこの設定の影響を受けず、引き続き表示、編集、削除できます。",
+		"Commit comments:": "コミットコメント：",
+		"Enabled by default": "デフォルトで有効",
+		"Disabled by default": "デフォルトで無効",
+		// —— Releases（組織側のみ）——
+		"Releases": "リリース",
+		// `immutable release` はページ全体で「不変リリース」に統一する（下の 3 つのメニュー項目も同じ）
+		"Choose whether repositories will publish immutable releases. Immutable releases improve security by disallowing changes to assets and tags after the release is published.": "リポジトリが不変リリースを公開するかどうかを選択します。不変リリースは、公開後にアセットとタグの変更を禁止することでセキュリティを向上させます。",
+		"Require immutable releases for all repositories": "すべてのリポジトリで不変リリースを必須にする",
+		"Selected repositories": "選択したリポジトリ",
+		"Require immutable releases for specifically selected repositories": "特定の選択したリポジトリで不変リリースを必須にする",
+		"Each repository chooses whether to make releases immutable": "各リポジトリがリリースを不変にするかどうかを選択する",
+		// —— Repository labels ——
+		"Repository labels": "リポジトリのラベル",
+		"Set the labels that will be included when a new repository is created in this organization.": "この組織で新しいリポジトリを作成したときに含めるラベルを設定します。",
+		"Learn more about managing default labels for your organization.": "組織のデフォルトラベルの管理について詳しくはこちら。",
+		"New label": "新しいラベル",
+		// 新規作成 / 編集ラベルフォーム（編集フォームは既定で hidden だが DOM 内にあるため、通常どおり訳す）
+		"Label preview": "ラベルのプレビュー",
+		"Label name": "ラベル名",
+		"Description (optional)": "説明（任意）",
+		"Color": "色",
+		"Get a new color": "新しい色を取得",
+		"Hex colors should only contain numbers and letters from a-f": "16 進数の色は、数字と a-f の英字のみを含める必要があります",
+		"Choose from default colors:": "デフォルトの色から選択：",
+		"Create label": "ラベルを作成",
+		"Save changes": "変更を保存",
+		// 空状態：原文の `"New Label"` は上のボタンを指すため、訳文では本リポジトリのボタンの訳語
+		//（「新しいラベル」）に置き換え、日本語の文に英語のボタン名が残らないようにする
+		"No labels!": "ラベルがありません！",
+		"There aren’t any labels for this organization quite yet. Click on the \"New Label\" button above to create one.": "この組織にはまだラベルがありません。上の「新しいラベル」ボタンをクリックして作成してください。",
+		// 一覧タイトルの件数行：数値と `labels` は 2 つのノードなので、訳文に助数詞を入れて「15 個のラベル」と読めるようにする
+		"labels": "個のラベル",
+		"label": "個のラベル",
+		// —— 組織のトピックページ（/orgs/<組織>/topics、2026-10-09 にルートへ統合）——
+		// ページ見出しは `Koishi-CE repositories you contribute to` の形で、組織名が独立ノードのときは
+		// この後半だけが残る（文全体が 1 ノードになるときはルール `org-settings/topics-heading` が受け持つ）。
+		// 訳文は「Koishi-CE あなたがコントリビュートしているリポジトリ」のように前後に連結して読む。
+		"repositories you contribute to": "あなたがコントリビュートしているリポジトリ",
+		// —— 組織のルールセットページ（/organizations/<組織>/settings/rules、ルールセットがないときの空状態）——
+		// 根拠：2026-10-10 にメンテナーが貼った実機の outerHTML。本ページはリポジトリレベルの /owner/repo/settings/rules
+		// と同じ React アプリで、そのルートは組織パスに一致しないため、ここでは pages/repo-settings の
+		// 同じ文字列・同じ訳を逐語的に踏襲する（文言を変えるときは両方を一緒に変える。テストが両者の訳を等値に固定している）。
+		// リンクは実機では「ルールセットについて詳しくはこちら.」と描画される：React が `Learn more about`
+		//（global の短い鍵に一致）と `rulesets.` の 2 つに分割し、後者こそが実際に欠けている断片。
+		// 文全体の鍵は、上流が単一ノードに戻したときのフォールバック。
+		"Repository rulesets": "リポジトリルールセット",
+		"You haven't created any rulesets": "ルールセットをまだ作成していません",
+		"Define whether collaborators can delete or force push and set requirements for any pushes, such as passing status checks or a linear commit history.": "コラボレーターが削除や強制プッシュを行えるかどうかを定義し、ステータスチェックの通過や線形のコミット履歴など、すべてのプッシュに対する要件を設定します。",
+		"rulesets.": "ルールセット。",
+		"Learn more about rulesets.": "ルールセットについて詳しくはこちら。",
+		// ページ上のボタン、および同じ payload が返す `New ruleset` ドロップダウンの候補
+		//（`supportedTargets` には branch / tag / push が明記されている）
+		"New ruleset": "新しいルールセット",
+		"New branch ruleset": "新しいブランチルールセット",
+		"New tag ruleset": "新しいタグルールセット",
+		"New push ruleset": "新しいプッシュルールセット",
+		// `New ruleset` ドロップダウンの最後の項目：ラベル + 説明の 2 ノード
+		//（pages/repo-settings と同じ訳。文言を変えるときは両方を一緒に変える）
+		"Import a ruleset": "ルールセットをインポート",
+		"Choose a JSON file to upload": "アップロードする JSON ファイルを選択",
+		// —— 組織のルールセットインサイトページ（/organizations/<組織>/settings/rules/insights）——
+		// H1 は単数の `ruleset` で、新しい文字列。後ろの 3 つは pages/repo-settings と同じ訳（文言を変えるときは両方を一緒に変える）。
+		// `See how rulesets are affecting this` の後ろには `sourceType` で決まるノードが続く：
+		// 本ページでは `organization`（本モジュール既存の語「組織」）で、連結すると
+		//「ルールセットがこの 組織 にどのように影響しているかを確認」と読む（空白は原文ノードに由来する）。
+		"Repository ruleset insights": "リポジトリルールセットのインサイト",
+		"See how rulesets are affecting this": "ルールセットがこの",
+		"Enterprise accounts enable you to review commits against rulesets to track pass, fail, or bypass status for greater oversight and understanding.": "Enterprise アカウントでは、コミットをルールセットと照合してレビューし、通過・失敗・バイパスのステータスを追跡できるため、監視と把握を強化できます。",
+		"Try GitHub Enterprise": "GitHub Enterprise を試す",
+		// —— 組織のルールセットダッシュボードページ（/organizations/<組織>/settings/rules/dashboard）——
+		// 根拠：2026-10-10 にメンテナーが貼った実機の outerHTML（`<react-app
+		// app-name="rule-insights-dashboard">`。ルールセットページ / インサイトページとは別のアプリ）。
+		// ページの半分はすでに訳済み（表ヘッダー `リポジトリ`、検索ボタンのツールチップ「検索」）で、残りの英語が本批のリスト。
+		// Highcharts の画面に出ないスクリーンリーダー向け文言は本モジュールの 7 つのルールで扱い、ここには登録しない。
+		"Repository ruleset dashboard": "リポジトリルールセットのダッシュボード",
+		// 絞り込みボックスの aria-label と sr-only ラベルは同じ文字列。placeholder は pages/agents に
+		// 同じ訳（`検索またはフィルター`）がすでにあるが、そのルートは組織設定ページに一致しないため、ここにも収録する。
+		"Filter rule insights dashboard": "ルールインサイトのダッシュボードを絞り込む",
+		"Search or filter": "検索またはフィルター",
+		"Clear filter": "フィルターをクリア",
+		// グラフカードの外枠：pages/insights の同じ Highcharts 文言と逐語的に一致（テストが両者を等値に固定している）
+		"Rule Suites": "ルールスイート",
+		"Chart options": "チャートのオプション",
+		"Customization settings": "カスタマイズ設定",
+		"View as data table, Chart": "データテーブルとして表示、チャート",
+		"Interactive chart": "インタラクティブチャート",
+		"End of interactive chart.": "インタラクティブチャートの終わりです。",
+		// 折れ線グラフと棒グラフの軸タイトル（SVG 内の可視テキストでもある）
+		"Values": "値",
+		"Actor": "実行者",
+		"Number of bypasses": "バイパス数",
+		// 指標カード：payload の `metrics[].name` と `link.displayText`
+		"Allowed": "許可",
+		"Failed": "失敗",
+		"Bypassed": "バイパス済み",
+		"in the time period": "期間内",
+		"View allowed runs": "許可された実行を表示",
+		"View failed runs": "失敗した実行を表示",
+		"View bypassed runs": "バイパスされた実行を表示",
+		// 棒グラフのタイトルと説明
+		"Bypasses by actor": "実行者別のバイパス",
+		"Members who have bypassed the most": "最も多くバイパスしたメンバー",
+		// テーブルのタイトルと説明、および表ヘッダー / 凡例で共有する 3 つのカウント名
+		//（`Passes` / `Failures` / `Bypasses` は payload の `ruleSuites[].name` に由来する）
+		"Top repositories by bypasses": "バイパス数上位のリポジトリ",
+		"Displays Rule Bypasses at the Organization, Repository, and Enterprise levels, limited to Active Rules only": "組織、リポジトリ、Enterprise の各レベルにおけるルールのバイパスを、アクティブなルールのみに限定して表示します。",
+		"Passes": "通過",
+		"Failures": "失敗",
+		"Bypasses": "バイパス",
+		// —— 同じページの絞り込みサジェストメニュー（絞り込みボックスを開くと表示される）——
+		// 根拠：メンテナーが続けて貼ったこのメニューの outerHTML。2 つの可視テキスト + リスト自身の aria-label
+		//（`Suggestions` は他のモジュールに同じ訳がすでにあるが、それらのルートは本ページに一致しない）。複合型
+		// aria-label のカンマは日本語の慣習に合わせて全角にする。2 番目の項目の aria-label の末尾は絞り込み値で
+		// 変わる動的な文字列らしいため、**意図的に収録しない**（判断理由は core/canonical.jsonc を参照）。
+		"Suggestions": "候補",
+		"Creation date": "作成日",
+		"Evaluate status": "評価ステータス",
+		"Creation date, Filter, Creation date": "作成日、フィルター、作成日",
+		// —— 組織のカスタムプロパティページ（/organizations/<組織>/settings/custom-properties）——
+		// 根拠：2026-10-10 にメンテナーが貼った実機の outerHTML（`app-name="custom-properties"`）。
+		// 貼られた HTML では `検索またはフィルター` / `候補` / `検索` / `もっと見る` がすでに訳済み（前 2 つは
+		// 当日の前批で収録した鍵）。残りの英語が本批のリスト。3 つのサジェストカードの**プロパティ名**
+		//（`monorepo` / `databases` / `application_name`）は識別子なので意図的に収録しない。
+		// 説明文は UI 文言なので通常どおり収録する。
+		"Repository custom properties": "リポジトリのカスタムプロパティ",
+		"New property": "新しいプロパティ",
+		"Add metadata to your repositories, such as compliance frameworks, data sensitivity, or project details.": "コンプライアンスフレームワーク、データの機密度、プロジェクトの詳細など、リポジトリにメタデータを追加します。",
+		// 画面に表示されないアクセシビリティ文言（sr-only のタイトル + nav の aria-label）
+		"Page selector navigation": "ページセレクターのナビゲーション",
+		"Page selector": "ページセレクター",
+		// 2 つのタブと絞り込みボックス
+		"Properties": "プロパティ",
+		"Set values": "値を設定",
+		"Filter properties": "プロパティを絞り込む",
+		// オーバーフローボタン内の sr-only 断片（`More` + ` items` の 2 ノード）は**意図的に補わない**：
+		// `items` は汎用的な短い語で、本モジュールの組織請求ページには裸の `items` ノードが実在し、
+		// billing.test.ts が「英語のままにする」反例として挙げている。エントリはモジュール単位なので、
+		// 収録すると請求ページ側まで訳してしまう。そのためスクリーンリーダー向け文言は「もっと見る items」のまま
+		//（視覚的には「もっと見る」だけが表示される）。判断理由は core/canonical.jsonc も参照。
+		// 空状態のブロック
+		"Suggested custom properties": "推奨されるカスタムプロパティ",
+		"See more suggested properties": "推奨プロパティをさらに表示",
+		"See more": "さらに表示",
+		"Is this repository a monorepo?": "このリポジトリは monorepo ですか？",
+		"Which databases are used?": "どのデータベースが使用されていますか？",
+		"What application does this support?": "これはどのアプリケーションをサポートしていますか？",
+		// 後ろの 2 つはメンテナーの 2026-10-10 の再テストのスクリーンショットによる：空状態の 3 つのサジェストカードは
+		// **上流がローテーションで抽出**している（スクショの 3 つと当日の HTML の 3 つは同じ組ではない）ため、
+		// 説明文は見かけたものを 1 つずつ収録するしかない。プロパティ名（`compliance_frameworks` / `ci` / …）は
+		// 識別子なので意図的に収録しない。
+		"Which compliance frameworks apply?": "どのコンプライアンスフレームワークが適用されますか？",
+		"Which CI does this repository use?": "このリポジトリではどの CI を使用していますか？",
+		// `?tab=set-values` の実機 HTML 全体から補った 2 つ（ローテーションの候補は増え続けている）
+		"Are regular backups required?": "定期的なバックアップは必要ですか？",
+		"Are external packages used here?": "ここでは外部パッケージが使用されていますか？",
+		// 4 組目のローテーションサンプル（`branch_protection_level` / `active` / `ci`）
+		"How protected is the default branch?": "デフォルトブランチはどの程度保護されていますか？",
+		"Is this repository maintained?": "このリポジトリはメンテナンスされていますか？",
+		// 5 組目のローテーションサンプル：`contains_pii` が 1 枚 + 説明文だけのカードが 4 枚
+		//（`Who owns this repository?` は同じ段落に 2 回現れるので、同じ文字列は同じ訳）
+		"Are personal identifiers present?": "個人を特定できる情報は含まれていますか？",
+		"Who owns this repository?": "このリポジトリの所有者は誰ですか？",
+		"Which runtime environment is used?": "どのランタイム環境が使用されていますか？",
+		"Which cloud providers are used?": "どのクラウドプロバイダーが使用されていますか？",
+		"Was this repository migrated?": "このリポジトリは移行されましたか？",
+		// 6 組目のローテーションサンプル（deploys_to_production / data_retention_period / open_source）
+		"Is this a production repository?": "これは本番環境のリポジトリですか？",
+		"How long until data is deleted?": "データはどれくらいで削除されますか？",
+		"Is this repository open source?": "このリポジトリはオープンソースですか？",
+		// 7 組目のローテーションサンプル
+		"How sensitive is this data?": "このデータの機密度はどの程度ですか？",
+		// —— 同じページの「Set values」タブ（スクリーンショット + HTML 全体）——
+		// リポジトリ行の右側にある鉛筆ボタン：行内の文言 + ツールチップ（同じ文字列がアクセシブル名にもなる）
+		"No properties": "プロパティがありません",
+		"Edit properties": "プロパティを編集",
+		// リポジトリ一覧の絞り込みボックスの placeholder（この入力欄には aria-label がない）
+		"Search repositories": "リポジトリを検索",
+		// 空状態のタイトル
+		"No properties that match": "一致するプロパティがありません",
+		// —— /settings/codespaces（組織レベルの Codespaces 設定）——
+		// 本ページは SSR フォーム + 独立した `codespaces-organization-ownership-setting`
+		// react-partial の 2 つのアプリを組み合わせたもの。引用符の形は実機から逐語的に写す（SSR 側は直線、
+		// React 側は湾曲）。理由は core/canonical.jsonc の同じ段落のコメントを参照。
+		// 上部の flash：`<a>` が文全体を 3 つのノードに分割する。日本語は断片を並べ替えず
+		//「Codespaces の所有権設定を管理するには、プランをアップグレードして組織を有効にしてください。」と読む。
+		"To manage Codespace ownership settings, please": "Codespaces の所有権設定を管理するには、",
+		"upgrade your plan": "プランをアップグレード",
+		"to enable your organization.": "して組織を有効にしてください。",
+		// 本文ブロックの見出しと説明文
+		"Codespaces access": "Codespaces へのアクセス",
+		"Manage access to GitHub Codespaces for your organization's members on private and internal repositories. Codespaces are always available on public repositories.": "組織のメンバーによる、プライベートおよび内部リポジトリでの GitHub Codespaces へのアクセスを管理します。Codespaces は公開リポジトリでは常に利用できます。",
+		// 規約の文も同様に `<a>` で 3 つに分割される。日本語は原文の語順どおりに続ける：
+		//「Codespaces を有効にすると、GitHub の追加製品と機能に関する規約に同意し、組織を代表してこれらの規約を承認したものとみなされます。」
+		"By enabling Codespaces, you agree to GitHub’s": "Codespaces を有効にすると、GitHub の",
+		"additional products and features terms": "追加製品と機能に関する規約",
+		"and approve of these terms on behalf of your organization.": "に同意し、組織を代表してこれらの規約を承認したものとみなされます。",
+		// ラジオグループ：`Disabled` は既存の 3 モジュール（settings / repo-settings / insights）と同じ訳
+		"Disabled": "無効",
+		"Disable GitHub Codespaces for all organization owned private and internal repositories": "組織が所有するすべてのプライベートおよび内部リポジトリで GitHub Codespaces を無効にする",
+		"Enable for specific members or teams": "特定のメンバーまたはチームに対して有効にする",
+		"Enable GitHub Codespaces for specific organization members or teams on all organization owned private and internal repositories": "特定の組織メンバーまたはチームに対して、組織が所有するすべてのプライベートおよび内部リポジトリで GitHub Codespaces を有効にする",
+		"Enable for all members": "すべてのメンバーに対して有効にする",
+		"Enable GitHub Codespaces for all organization members on all organization owned private and internal repositories": "すべての組織メンバーに対して、組織が所有するすべてのプライベートおよび内部リポジトリで GitHub Codespaces を有効にする",
+		"Enable for all members and outside collaborators": "すべてのメンバーと外部コラボレーターに対して有効にする",
+		"Enable GitHub Codespaces for all organization members and outside collaborators on all organization owned private and internal repositories": "すべての組織メンバーと外部コラボレーターに対して、組織が所有するすべてのプライベートおよび内部リポジトリで GitHub Codespaces を有効にする",
+		// 保存ボタンのアクセシブル名（ボタンの可視文言 `Save` は global がすでに訳している）
+		"Save user access settings": "ユーザーアクセスの設定を保存",
+		// —— 同じページの react-partial（Codespaces の所有権）——
+		// ラベル内に `<p class="note">` が埋め込まれており、DOM 上は**2 つのテキストノード**：ラベル名と注記がそれぞれ別の鍵になる
+		"Codespace ownership": "Codespaces の所有権",
+		"Control who owns codespaces created by your organization’s members on organization owned repositories. Codespace ownership dictates who is billed for usage, whose policies apply, and where audit logs are sent.": "組織のメンバーが組織所有のリポジトリで作成した Codespaces の所有者を制御します。Codespaces の所有権は、利用料金の請求先、適用されるポリシー、監査ログの送信先を決定します。",
+		"Organization ownership": "組織の所有権",
+		"All codespaces created by your organization’s members on your organization’s repositories are owned by the organization": "組織のメンバーが組織のリポジトリで作成したすべての Codespaces は組織が所有します",
+		"User ownership": "ユーザーの所有権",
+		"All codespaces created by your organization’s members on your organization’s repositories are owned by the creating member": "組織のメンバーが組織のリポジトリで作成したすべての Codespaces は作成したメンバーが所有します",
+		// —— /settings/sandboxes（組織レベルのサンドボックス設定）——
+		// 純粋な SSR ページ。h2 の `Sandboxes` は本モジュール既存のエントリで訳され、最初のラジオ項目のラベル
+		// `Disabled` もすでに「無効」（前批で収録した鍵で、実機でクロスページの有効性を確認済み）。本批では
+		// 2 番目の項目の `Enabled` を補う（settings / repo-settings / insights と同じ訳）。
+		// 規約の文は `<a>` で 3 つに分割され、末尾の断片は句点だけ：記号のみのノードはガードでスキップされるため、
+		// 日本語の末尾も半角句点のまま残り、「プレビュー機能を有効にすると、リリース前の規約.」と読む。
+		"Cloud sandbox access": "クラウドサンドボックスへのアクセス",
+		"Manage cloud sandbox access for your organization's members.": "組織のメンバーによるクラウドサンドボックスへのアクセスを管理します。",
+		"If preview features are enabled, you agree to the": "プレビュー機能を有効にすると、次に同意したものとみなされます：",
+		"Pre-Release Terms": "リリース前の規約",
+		"Enabled": "有効",
+		"Cloud sandbox access is not available for organization members.": "組織のメンバーはクラウドサンドボックスを利用できません。",
+		"Members of this organization can use cloud sandboxes.": "この組織のメンバーはクラウドサンドボックスを利用できます。",
+		// —— /settings/projects（組織レベルのプロジェクト設定）——
+		// 純粋な SSR ページ。h2 の `Projects` は本モジュール既存のエントリで訳され、空状態のリンク `Learn more`
+		// は global が受け持つ。最初の注記は 2 つの `<strong>`（組織名）に挟まれ、間のテキストノードが
+		// 1 文目の末尾と 2 文目の冒頭を同時に含む。日本語では `-owned repository` を「…が所有する」に分け、
+		// 組織名が 2 つの strong の間に来るようにして、連結すると
+		//「これにより、メンバーは Koishi-CE 組織のプロジェクトを作成できます。メンバーはプロジェクトを作成して、
+		//  Koishi-CE が所有する任意のリポジトリのイシューを整理および追跡できます。」と読む。
+		"Projects on GitHub help you organize and prioritize your work. You can create projects for specific feature work, comprehensive roadmaps, or even release checklists.": "GitHub のプロジェクトは、作業を整理して優先順位を付けるのに役立ちます。特定の機能開発、包括的なロードマップ、リリースチェックリストなどのためにプロジェクトを作成できます。",
+		"Enable Projects for the organization": "組織でプロジェクトを有効にする",
+		"This allows members to create projects for the": "これにより、メンバーは",
+		"organization. Members can create projects to organize and track issues from any": "組織のプロジェクトを作成できます。メンバーはプロジェクトを作成して、",
+		"-owned repository.": "が所有する任意のリポジトリのイシューを整理および追跡できます。",
+		"Allow members to change project visibilities for this organization": "メンバーがこの組織のプロジェクトの可視性を変更できるようにする",
+		"If enabled, members with admin permissions on a project can make the project public or private. If disabled, only organization owners can make the project public or private. All projects are private by default.": "有効にすると、プロジェクトの管理者権限を持つメンバーがプロジェクトを公開または非公開にできます。無効にすると、組織のオーナーのみがプロジェクトを公開または非公開にできます。すべてのプロジェクトはデフォルトで非公開です。",
+		// 保存ボタンの処理中表示（`data-disable-with`、翻訳可能な 6 つの属性の 1 つ）：
+		// 1 文字の省略記号で、既存の `Saving...`（半角ピリオド 3 つ）とは別の文字列。
+		"Saving…": "保存中…",
+		// —— 推奨テンプレート（空状態）——
+		"Recommended templates": "推奨テンプレート",
+		"Customize a selection of recommended project templates for this organization. These templates will be surfaced first when a member of the organization creates a new project.": "この組織向けに推奨プロジェクトテンプレートを選んでカスタマイズします。組織のメンバーが新しいプロジェクトを作成すると、これらのテンプレートが最初に表示されます。",
+		"Create your first GitHub project template": "最初の GitHub プロジェクトテンプレートを作成する",
+		"Templates can be used to quickly get started with a new project.": "テンプレートを使うと、新しいプロジェクトをすばやく始められます。",
+		"New template": "新しいテンプレート",
+		// —— /settings/issue-types（組織レベルのイシュータイプ）——
+		// 独立した React アプリ（`app-name="issue-types"`）。h2 の `Issue types` は本モジュールの
+		// 既存エントリで訳出する。リストヘッダーの件数行とケバブボタンのツールチップは動的な文言で、
+		// 本モジュールに新設した 2 つのルール（locales/zh-CN/rules.jsonc を参照）で扱う。
+		// リスト内の `Task` / `Bug` / `Feature` とその説明は**組織データ**（名前も説明も変更できる）で、
+		// 意図的に収録しない。リスト項目の `aria-label` は動的な型名を含み、属性はルールの対象外なので同様に英語のままにする。
+		"New type": "新しいタイプ",
+		"Customize your issue types. Issue types can be used to classify and manage issues in your repositories.": "イシュータイプをカスタマイズします。イシュータイプは、リポジトリ内のイシューを分類して管理するために使用できます。",
+		"(max 25)": "（最大 25）",
+		"List of issue types": "イシュータイプの一覧",
+		// 同ページの各行のケバブメニューに表示される項目。同じメニューの `Enable` は
+		// インタラクション制限ページの一括収録で取得済み、`Edit` / `Delete` は global がカバーするため、
+		// 実機で英語のまま残るのはこの 1 つだけ
+		"Disable": "無効にする",
+		// —— /settings/issue-fields（組織レベルのイシューフィールド）——
+		// h2 の `Issue fields` は本モジュールの既存エントリで訳出する。リストヘッダーの件数行と
+		// ケバブボタンのツールチップは、本モジュールに新設した 2 つのルールで扱う。フィールド名 /
+		// 説明 / `title` はいずれも組織データ（名前も説明も変更できる）で、意図的に収録しない。
+		// リスト項目の `aria-label` は動的なフィールド名を含み、属性はルールの対象外なので同様に英語のままにする。
+		"New field": "新しいフィールド",
+		"Issue fields let you define structured data to capture for each issue, helping you keep information consistent across all of your repositories.": "イシューフィールドを使うと、イシューごとに収集する構造化データを定義でき、すべてのリポジトリで情報の一貫性を保てます。",
+		// —— /settings/copilot（組織レベルの Copilot 設定）——
+		// 上流は大見出しを単語の途中で 2 つの `<h2>` に分割している（`Your AI Pa` + `ir Programmer`、
+		// 負のマージンで 2 色の見た目を作る）。日本語は「ペアプログラマー」を語の境界で分割する。
+		// 説明段落は全体が 1 つのテキストノードで、アポストロフィの字形も逐語的には確認できない ⇒
+		// 本モジュールの新設ルール `org-settings/copilot-pair-programmer-intro` で扱い、ここではその後ろの断片だけを収録する。
+		// `GitHub Copilot` / `Copilot` は固有名詞なので英語のままにする。
+		"Your AI Pa": "あなたの AI ペア",
+		"ir Programmer": "プログラマー",
+		"inside your organization.": "あなたの組織内で。",
+		"Enable GitHub Copilot": "GitHub Copilot を有効にする",
+		// —— /settings/copilot/coding_agent（組織レベルのクラウドエージェント設定）——
+		// ページ上部、自動化ポリシー、移行の案内、Claude / Codex パートナーエージェントのブロック。
+		// 上部の一文は実機では隣接する 3 つの裸のテキストノードで、`With` と末尾の断片をそれぞれ収録する
+		//（見た目どおりの全文キーは決してヒットしないため削除済み）。`With` は汎用的な短い語なので、ルートの限定で補う。
+		"Copilot cloud agent": "Copilot クラウドエージェント",
+		"No Copilot cloud agent access": "Copilot クラウドエージェントへのアクセス権がありません",
+		"You can enable Copilot cloud agent for other users, but you won't be able to assign tasks to Copilot because you don't have a Copilot Pro, Copilot Pro+, Copilot Business or Copilot Enterprise license.": "他のユーザーに対して Copilot クラウドエージェントを有効にできますが、Copilot Pro、Copilot Pro+、Copilot Business、Copilot Enterprise のいずれかのライセンスがないため、Copilot にタスクを割り当てることはできません。",
+		"Buy or request a seat": "シートを購入またはリクエスト",
+		"With": "を使えば",
+		", developers can delegate tasks to Copilot, freeing them to focus on the creative, complex, and high-impact work that matters most. Simply assign a task to Copilot, wait for the agent to request review, then leave feedback on the pull request to iterate.": "、開発者はタスクを Copilot に委任でき、最も重要な創造的で複雑かつ影響力の大きい作業に集中できます。Copilot にタスクを割り当て、エージェントがレビューを依頼するのを待ち、プルリクエストにフィードバックを残して反復します。",
+		"Learn more in the docs.": "詳しくはドキュメントをご覧ください。",
+		"Repository access": "リポジトリへのアクセス",
+		"Choose which repositories Copilot cloud agent should be enabled in. To be able to assign an issue to Copilot, the user must have access to Copilot cloud agent and it must be enabled for the repository.": "Copilot クラウドエージェントを有効にするリポジトリを選択します。イシューを Copilot に割り当てるには、ユーザーが Copilot クラウドエージェントを利用でき、かつリポジトリで有効になっている必要があります。",
+		"Automations": "自動化",
+		"Allow automations": "自動化を許可",
+		"When enabled, users with repository write access can create automations that automatically run agents on a schedule or in response to events like new issues or updated pull requests.": "有効にすると、リポジトリへの書き込み権限を持つユーザーは、スケジュールまたは新しいイシューや更新されたプルリクエストなどのイベントに応じてエージェントを自動実行する自動化を作成できます。",
+		"Let repositories decide": "リポジトリに任せる",
+		"Only allow automations to be triggered by users with write access": "自動化をトリガーできるのを書き込み権限を持つユーザーのみに制限",
+		"Recommended": "おすすめ",
+		"When enabled, automations will only run if the user triggering the event has write access to the repository. When disabled, users can create automations that listen for events triggered by users without write access.": "有効にすると、イベントをトリガーしたユーザーがリポジトリへの書き込み権限を持つ場合にのみ自動化が実行されます。無効にすると、書き込み権限を持たないユーザーがトリガーしたイベントを監視する自動化を作成できます。",
+		"Allowing automations to be triggered by users without write access to the repository increases risk of prompt injection attacks, where an untrusted user can cause an agent to take actions in the repository using the agent's permissions.": "リポジトリへの書き込み権限を持たないユーザーによる自動化のトリガーを許可すると、プロンプトインジェクション攻撃のリスクが高まります。信頼できないユーザーが、エージェントの権限を使ってリポジトリ内で操作を実行させられる可能性があります。",
+		"Some settings have moved": "一部の設定が移動しました",
+		"Runner type configuration has moved to its own": "ランナータイプの設定は専用の",
+		"Internet access configuration has moved to its own": "インターネットアクセスの設定は専用の",
+		"settings page.": "設定ページに移動しました。",
+		"Partner agents": "パートナーエージェント",
+		"Enabling an agent allows it to be mentioned in issues and pull requests, and assigned to issues and open pull requests. Agents can only be triggered by organization members and repository collaborators, and can only be used in this organization's repositories where the cloud agent feature is enabled.": "エージェントを有効にすると、イシューやプルリクエストでそのエージェントをメンションでき、イシューやオープン中のプルリクエストに割り当てられます。エージェントをトリガーできるのは組織のメンバーとリポジトリのコラボレーターだけで、クラウドエージェント機能が有効になっているこの組織のリポジトリでのみ使用できます。",
+		// 2 枚のエージェントカードのタイトルは `Allow ` + エージェント名 + `coding agent`（3 ノード）で、
+		// エージェント名（Claude / Codex）は英語のままなので、`Allow` と `coding agent` の 2 つだけを収録する。
+		"Allow": "許可：",
+		"coding agent": "コーディングエージェント",
+		"Learn more about Claude on GitHub": "GitHub での Claude について詳しくはこちら",
+		"Learn more about Codex on GitHub": "GitHub での Codex について詳しくはこちら",
+		// —— /settings/copilot/code_review（組織レベルのコードレビュー設定）——
+		// ページ上部（H2 + 導入段落）、Approvals ブロック、Review effort ブロック、Advanced 内のスイッチ。
+		// 導入段落は 2 通りの分割に対応する：全文キーが「1 ノード」を、`With` + 用語 + 末尾断片が「3 ノード」を
+		// カバーする（`With` と `Learn more in the docs.` はいずれも本モジュールの既存キーで、実機確認後に余分な 1 条を削除）。
+		"Copilot code review": "Copilot コードレビュー",
+		"With Copilot code review, you can get a thorough, automated first pass on every pull request — catching bugs and surfacing suggestions early, and freeing your team to focus on the changes that need human judgment. Copilot reviews pull requests across your organization's repositories and leaves its feedback as inline comments for authors to address.": "Copilot コードレビューを使えば、すべてのプルリクエストで徹底した自動の一次レビューを実行でき、バグを早期に発見して提案を提示するとともに、チームは人の判断が必要な変更に集中できます。Copilot は組織のリポジトリ全体のプルリクエストをレビューし、フィードバックをインラインコメントとして残して作成者が対応できるようにします。",
+		", you can get a thorough, automated first pass on every pull request — catching bugs and surfacing suggestions early, and freeing your team to focus on the changes that need human judgment. Copilot reviews pull requests across your organization's repositories and leaves its feedback as inline comments for authors to address.": "、すべてのプルリクエストで徹底した自動の一次レビューを実行でき、バグを早期に発見して提案を提示するとともに、チームは人の判断が必要な変更に集中できます。Copilot は組織のリポジトリ全体のプルリクエストをレビューし、フィードバックをインラインコメントとして残して作成者が対応できるようにします。",
+		"Approvals": "承認",
+		"Allow Copilot to approve pull requests": "Copilot によるプルリクエストの承認を許可",
+		"Choose where Copilot can approve pull requests and where those approvals can count toward merge requirements.": "Copilot がプルリクエストを承認できる場所と、その承認をマージ要件にカウントできる場所を選択します。",
+		"Disabled everywhere": "すべての場所で無効",
+		"Review effort": "レビューの労力",
+		"Default review effort level": "デフォルトのレビューの労力レベル",
+		"The depth of analysis Copilot uses for repositories that have not selected their own review effort level.": "独自のレビューの労力レベルを選択していないリポジトリに対して Copilot が使用する分析の深さです。",
+		"Default (Balanced)": "デフォルト（バランス）",
+		"Advanced": "詳細",
+		"Only allow Copilot code review to be triggered by authorized users": "Copilot コードレビューをトリガーできるのを承認済みユーザーのみに制限",
+		"When enabled, Copilot review requests require a Copilot license from this organization or its enterprise.": "有効にすると、Copilot のレビューリクエストには、この組織またはそのエンタープライズの Copilot ライセンスが必要です。",
+		// —— /settings/copilot/internet_access（組織レベルのネットワークアクセス設定）——
+		// Cloud agent と code review の 2 ブロックは、同じファイアウォール、許可リスト、カスタムルールの文言を共有する。
+		"Configure firewall rules for Copilot cloud agent across all repositories in this organization.": "この組織のすべてのリポジトリを対象に、Copilot クラウドエージェントのファイアウォールルールを設定します。",
+		"Learn more about customizing network access.": "ネットワークアクセスのカスタマイズについて詳しくはこちら。",
+		"Enable firewall": "ファイアウォールを有効化",
+		"Limit Copilot cloud agent's Internet access to only allow access to allowlisted locations.": "Copilot クラウドエージェントのインターネットアクセスを、許可リストにある場所へのアクセスのみに制限します。",
+		"Recommended allowlist": "推奨の許可リスト",
+		"Allow access to locations frequently used to install tools, packages, and dependencies.": "ツール、パッケージ、依存関係のインストールによく使われる場所へのアクセスを許可します。",
+		"Learn more about the recommended allowlist": "推奨の許可リストについて詳しくはこちら",
+		"Allow repository custom rules": "リポジトリのカスタムルールを許可",
+		"Allow repository administrators to add their own custom allowlist rules in addition to the organization allowlist.": "リポジトリ管理者が、組織の許可リストに加えて独自のカスタム許可リストルールを追加できるようにします。",
+		"Organization custom allowlist": "組織のカスタム許可リスト",
+		"Allow access to specific domains, IP addresses, or URLs for all repositories in this organization.": "この組織のすべてのリポジトリについて、特定のドメイン、IP アドレス、URL へのアクセスを許可します。",
+		"Configure firewall rules for Copilot code review across all repositories in this organization.": "この組織のすべてのリポジトリを対象に、Copilot コードレビューのファイアウォールルールを設定します。",
+		"Limit Copilot code review's Internet access to only allow access to allowlisted locations.": "Copilot コードレビューのインターネットアクセスを、許可リストにある場所へのアクセスのみに制限します。",
+		// ファイアウォールを有効にすると表示される通知バー（pages/repo-settings と同じ文字列で同じ訳）。
+		"The firewall will not be enforced on self-hosted runners.": "ファイアウォールはセルフホストランナーには適用されません。",
+		// —— /settings/copilot/runner_type（組織レベルのランナータイプ設定）——
+		// `agent_name` は React によって独立したテキストとして挿入される。文頭、文末、静的な説明ノードだけを訳す。
+		// `copilot-setup-steps.yml` / `copilot-code-review.yml` は設定ファイル名なので原文のままにする。
+		"Select the default runner type for": "デフォルトのランナータイプを選択：",
+		"Repositories in this organization will use the selected runner type unless overridden at the repository level.": "この組織のリポジトリは、リポジトリレベルで上書きされない限り、選択したランナータイプを使用します。",
+		"Learn about GitHub Actions runners.": "GitHub Actions のランナーについて知る。",
+		"Runner type configuration": "ランナータイプの設定",
+		"Select the runner type for": "ランナータイプを選択：",
+		"sessions.": "セッション。",
+		"Standard GitHub runner": "標準の GitHub ランナー",
+		"Edit runner type": "ランナータイプを編集",
+		"Allow repositories to customize the runner type": "リポジトリによるランナータイプのカスタマイズを許可",
+		"When enabled, repositories can specify their own runner via their copilot-setup-steps.yml file.": "有効にすると、リポジトリは copilot-setup-steps.yml ファイルで独自のランナーを指定できます。",
+		"When enabled, repositories can specify their own runner via their copilot-code-review.yml file.": "有効にすると、リポジトリは copilot-code-review.yml ファイルで独自のランナーを指定できます。",
+		// —— 同ページ「Edit runner type」ダイアログ（タイトル + 2 つのランナーオプション）——
+		// 1 番目の項目のラベル `Standard GitHub runner` は上の既存キーで訳出されるため、ここではタイトルと 2 番目の項目を補う。
+		"Edit runner type for Copilot cloud agent": "Copilot クラウドエージェントのランナータイプを編集",
+		"Labeled runner": "ラベル付きランナー",
+		"Copilot cloud agent will use standard GitHub runners.": "Copilot クラウドエージェントは標準の GitHub ランナーを使用します。",
+		"Copilot cloud agent will use labeled GitHub or self-hosted runners that you may define.": "Copilot クラウドエージェントは、ラベル付きの GitHub ランナー、または独自に定義できるセルフホストランナーを使用します。",
+		// —— 同ページ code review のダイアログ（構造は同じで、エージェント名が code review に変わる）とラベル付きランナーのフォーム ——
+		"Edit runner type for Copilot code review": "Copilot コードレビューのランナータイプを編集",
+		"Copilot code review will use standard GitHub runners.": "Copilot コードレビューは標準の GitHub ランナーを使用します。",
+		"Copilot code review will use labeled GitHub or self-hosted runners that you may define.": "Copilot コードレビューは、ラベル付きの GitHub ランナー、または独自に定義できるセルフホストランナーを使用します。",
+		"Runner information": "ランナー情報",
+		"You must provide a runner group name and/or label.": "ランナーグループ名またはラベル、あるいはその両方を指定する必要があります。",
+		"Runner group name": "ランナーグループ名",
+		"Runner label": "ランナーラベル",
+		"Existing name": "既存の名前",
+		"Existing label": "既存のラベル",
+		"Learn how to use or create custom labels.": "カスタムラベルの使用方法や作成方法について詳しくはこちら。",
+		// —— /settings/actions（組織レベルの「一般的な Actions 権限」ページ）——
+		// pages/repo-settings の同じ文字列のノードと**逐語的に同じ訳**にする。あちらのルートは `organizations`/`orgs` を除外しており、
+		// 組織のパスでは 1 件もヒットしないため、本モジュールにもそれぞれ収録する（モジュールをまたいで同キー同値、骨組みは衝突として記録しない）。
+		"General actions permissions": "一般的な Actions の権限",
+		"Choose which repositories are permitted to use GitHub Actions.": "GitHub Actions の使用を許可するリポジトリを選択します。",
+		"Actions can be run by any repository in the organization": "組織内の任意のリポジトリでアクションを実行できます",
+		"Actions can only be run by specifically selected repositories": "アクションを実行できるのは、明示的に選択されたリポジトリだけです",
+		"GitHub Actions is disabled for all repositories in the organization": "組織内のすべてのリポジトリで GitHub Actions が無効になっています",
+		"Allow all actions and reusable workflows": "すべてのアクションと再利用可能なワークフローを許可",
+		"Any action or reusable workflow can be used, regardless of who authored it or where it is defined.": "作成者や定義場所に関係なく、あらゆるアクションや再利用可能なワークフローを使用できます。",
+		"Allow actions created by GitHub": "GitHub が作成したアクションを許可",
+		"Allow actions by Marketplace": "Marketplace のアクションを許可",
+		"verified creators": "検証済みの作成者",
+		"Allow or block specified actions and reusable workflows": "指定したアクションと再利用可能なワークフローを許可またはブロック",
+		"Enter a comma-separated list of actions and reusable workflows": "アクションと再利用可能なワークフローをカンマ区切りで入力",
+		"Learn more about allowing specific actions and reusable workflows to run.": "特定のアクションと再利用可能なワークフローの実行を許可する方法について詳しくはこちら",
+		"Require actions to be pinned to a full-length commit SHA": "アクションを完全長のコミット SHA に固定することを必須にする",
+		"Action examples:": "アクションの例：",
+		"Entire organization or repository examples:": "組織全体またはリポジトリの例：",
+		"Reusable workflow examples:": "再利用可能なワークフローの例：",
+		"Wildcards, tags, and SHAs are allowed. Use": "ワイルドカード、タグ、SHA を使用できます。使用するには",
+		"prefix to block.": "プレフィックスを付けてブロックします。",
+		". By default, only allowed patterns specified in the list can be used. To allow all actions and reusable workflows except those that are explicitly blocked, add a": "。デフォルトでは、リストで指定した許可パターンだけを使用できます。明示的にブロックしたものを除くすべてのアクションと再利用可能なワークフローを許可するには、次を追加します",
+		"wildcard pattern.": "ワイルドカードパターン。",
+		"Your list contains a": "リストに",
+		"wildcard pattern, which will": "ワイルドカードパターンが含まれています。これにより、",
+		"allow all actions and reusable workflows": "すべてのアクションと再利用可能なワークフローが許可されます",
+		"except those that are explicitly blocked.": "（明示的にブロックされたものを除く）。",
+		"Your list contains": "リストには",
+		"only blocked patterns": "ブロックされたパターンだけが含まれています",
+		// ランナー（Runners）とカスタムイメージ（Custom images）——
+		"Repository self-hosted runners": "リポジトリのセルフホストランナー",
+		"Choose which repositories are allowed to create repository-level self-hosted runners.": "リポジトリレベルのセルフホストランナーの作成を許可するリポジトリを選択します。",
+		"Repo-level self-hosted runners can be used by any repository in the organization": "組織内の任意のリポジトリでリポジトリレベルのセルフホストランナーを使用できます",
+		"Repo-level self-hosted runners can be used by specifically selected repositories": "リポジトリレベルのセルフホストランナーを使用できるのは、明示的に選択されたリポジトリだけです",
+		"Repo-level self-hosted runners are disabled for all repositories in the organization": "組織内のすべてのリポジトリでリポジトリレベルのセルフホストランナーが無効になっています",
+		"Custom images": "カスタムイメージ",
+		"Choose the default settings for custom image retention in this enterprise.": "このエンタープライズのカスタムイメージの保持に関するデフォルト設定を選択します。",
+		"Maximum versions per image": "イメージあたりの最大バージョン数",
+		// 入力欄の右側にある単位ラベル。実機では「10 バージョン」「30 日」と表示されるため、単位を付ける
+		"versions": "バージョン",
+		"Unused version retention": "未使用バージョンの保持期間",
+		"Maximum version age": "バージョンの最大保存期間",
+		// 3 つの説明文が 1 つの前置きノードを共有する（直後に `<strong>` 内の数字が続く）。
+		// そのため前置きはコロン付きの導入文として訳し、後段はそれぞれで文を完結させる——3 通りとも自然に読める
+		"Your enterprise has set a maximum limit of": "エンタープライズで設定されている上限は",
+		"versions per image.": "バージョン/イメージです。",
+		"days for unused version retention.": "日（未使用バージョンの保持期間）。",
+		"days for maximum version age.": "日（バージョンの最大保存期間）。",
+		// 標準ホストランナー（Standard hosted runners）とライブデバッグ（Live debugging）——
+		"Standard hosted runners": "標準のホストランナー",
+		"Choose if repositories are allowed to use standard hosted runner labels. If disabled, hosted runners can only be accessed via a runner group.": "リポジトリで標準のホストランナーラベルを使用できるかどうかを選択します。無効にすると、ホストランナーにはランナーグループ経由でのみアクセスできます。",
+		"Disable for all repositories": "すべてのリポジトリで無効にする",
+		"Note:": "注意：",
+		"Once disabled you will lose any concurrency settings you have set up.": "無効にすると、設定済みの同時実行の設定はすべて失われます。",
+		"For more information on concurrency see our documentation.": "同時実行の詳細については、ドキュメントをご覧ください。",
+		"Allow live debugging on self-hosted runners. Repositories must individually opt in.": "セルフホストランナーでのライブデバッグを許可します。リポジトリごとに個別に有効化する必要があります。",
+		"Not allowed": "許可されていません",
+		"Allow live debugging on self-hosted runners": "セルフホストランナーでのライブデバッグを許可",
+		"Do not allow live debugging on self-hosted runners": "セルフホストランナーでのライブデバッグを許可しない",
+		// 保持期間（Retention）——組織側はリポジトリレベルより `default` が 1 つ多く、別のキーになる
+		"Choose the default repository settings for checks, workflow runs, statuses, artifacts, and logs.": "チェック、ワークフロー実行、ステータス、アーティファクト、ログに関するデフォルトのリポジトリ設定を選択します。",
+		"Check, workflow run, status, artifact and log retention": "チェック、ワークフロー実行、ステータス、アーティファクト、ログの保持期間",
+		"days": "日",
+		"days.": "日です。",
+		"Duration must be 1 or more.": "期間は 1 以上である必要があります。",
+		"Duration must be 400 or less": "期間は 400 以下である必要があります",
+		"You can set a maximum limit of": "設定できる上限は",
+		"Save artifact and log retention setting": "アーティファクトとログの保持期間の設定を保存",
+		"Learn more about the check, workflow run, status, artifact and log retention policy.": "チェック、ワークフロー実行、ステータス、アーティファクト、ログの保持ポリシーについて詳しくはこちら",
+		// フォークプルリクエストワークフロー（Fork pull request workflows）——ブロック全体が新しいキー
+		"Fork pull request workflows in private and internal repositories": "プライベートおよび内部リポジトリのフォークプルリクエストワークフロー",
+		"These settings apply to private and internal repositories. Repository administrators will only be able to change the settings that are enabled here.": "これらの設定はプライベートおよび内部リポジトリに適用されます。リポジトリ管理者は、ここで有効になっている設定だけを変更できます。",
+		"Run workflows from fork pull requests": "フォークプルリクエストからのワークフローを実行",
+		"This tells Actions to run workflows from pull requests originating from repository forks. Note that doing so will give maintainers of those forks the ability to use tokens with read permissions on the source repository.": "これは、リポジトリのフォークを起点とするプルリクエストからのワークフローを Actions に実行させるものです。これにより、それらのフォークのメンテナーが、ソースリポジトリに対する読み取り権限を持つトークンを使用できるようになる点に注意してください。",
+		"Send write tokens to workflows from fork pull requests.": "フォークプルリクエストからのワークフローに書き込みトークンを送信します。",
+		// この説明は 2 か所の <strong>write</strong> で文を 3 つに分割する：中央の断片が「write」を受けて続き、末尾の断片が「権限。」で締める
+		"This tells Actions to send tokens with": "これは、Actions が",
+		"permissions to workflows from pull requests originating from repository forks. Note that doing so will give maintainers of those forks": "権限を持つトークンを、リポジトリのフォークを起点とするプルリクエストからのワークフローに送信することを意味します。なお、これによりそれらのフォークのメンテナーが",
+		"permissions against the source repository.": "権限をソースリポジトリに対して持つことになります。",
+		"Send secrets and variables to workflows from fork pull requests.": "フォークプルリクエストからのワークフローにシークレットと変数を送信します。",
+		"This tells Actions to send repository secrets and variables to workflows from pull requests originating from repository forks.": "これは、リポジトリのフォークを起点とするプルリクエストからのワークフローに、リポジトリのシークレットと変数を送信するよう Actions に指示します。",
+		"Require approval for fork pull request workflows.": "フォークプルリクエストワークフローに承認を必須にする。",
+		"Fork pull requests from users without write access will require approval to run workflows.": "書き込み権限を持たないユーザーからのフォークプルリクエストは、ワークフローを実行するために承認が必要です。",
+		"Save fork pull request workflows settings": "フォークプルリクエストワークフローの設定を保存",
+		// 単数形 `setting` と複数形 `settings` は別々の属性キーであり、互いに代用できない点に注意
+		"Approval for running fork pull request workflows from contributors": "コントリビューターからのフォークプルリクエストワークフロー実行に対する承認",
+		"Choose which subset of users will require approval before running workflows on their pull requests. Both the pull request author and the actor of the pull request event triggering the workflow will be checked to determine if approval is required. If approval is required, a user with write access to the repository must": "プルリクエストでワークフローを実行する前に承認を必要とするユーザーの範囲を選択します。プルリクエストの作成者と、ワークフローをトリガーしたプルリクエストイベントのアクターの両方が確認され、承認が必要かどうかが判断されます。承認が必要な場合、リポジトリへの書き込み権限を持つユーザーが",
+		"approve the pull request workflow to be run.": "実行するプルリクエストワークフローを承認する必要があります。",
+		"Require approval for all external contributors": "すべての外部コントリビューターに承認を要求",
+		"Require approval for first-time contributors who are new to GitHub": "GitHub を初めて利用する初回コントリビューターに承認を要求",
+		"Only users who are both new on GitHub and who have never had a commit or pull request merged into this repository will require approval to run workflows.": "GitHub の利用が初めてで、かつこれまで一度もこのリポジトリにコミットやプルリクエストがマージされたことがないユーザーだけが、ワークフローを実行するために承認を必要とします。",
+		"Require approval for first-time contributors": "初回コントリビューターに承認を要求",
+		"Only users who have never had a commit or pull request merged into this repository will require approval to run workflows.": "これまで一度もこのリポジトリにコミットやプルリクエストがマージされたことがないユーザーだけが、ワークフローを実行するために承認を必要とします。",
+		"Save fork pull request workflows setting": "フォークプルリクエストワークフローの設定を保存",
+		// ワークフローの権限（Workflow permissions）——組織側の説明文は `in this organization` で終わる
+		"Workflow permissions": "ワークフローの権限",
+		"Choose the default permissions granted to the GITHUB_TOKEN when running workflows in this organization. You can specify more granular permissions in the workflow using YAML.": "この組織でワークフローを実行するときに GITHUB_TOKEN に付与されるデフォルトの権限を選択します。ワークフロー内では YAML を使ってより細かい権限を指定できます。",
+		"Learn more about managing permissions.": "権限の管理について詳しくはこちら",
+		"Repository administrators will only be able to change the default permissions to a more restrictive setting.": "リポジトリ管理者は、デフォルトの権限をより制限の厳しい設定に変更することしかできません。",
+		"Read and write permissions": "読み取りと書き込みの権限",
+		"Workflows have read and write permissions in the repository for all scopes.": "ワークフローは、リポジトリ内のすべてのスコープに対して読み取りと書き込みの権限を持ちます。",
+		"Read repository contents and packages permissions": "リポジトリの内容とパッケージの読み取り権限",
+		"Workflows have read permissions in the repository for the contents and packages scopes only.": "ワークフローは、リポジトリ内で内容とパッケージのスコープに限り読み取り権限を持ちます。",
+		"Choose whether GitHub Actions can create pull requests or submit approving pull request reviews.": "GitHub Actions がプルリクエストを作成できるか、承認するプルリクエストレビューを送信できるかを選択します。",
+		"Allow GitHub Actions to create and approve pull requests": "GitHub Actions によるプルリクエストの作成と承認を許可",
+		"Save workflow permissions settings": "ワークフロー権限の設定を保存",
+		// —— /settings/actions/rules（組織レベルの「Actions ポリシー」ページ）——
+		// pages/repo-settings と同じ文字列のノードは一字一句同じ訳にする（そのルートは組織のパスに一致しない）。
+		// 説明文はリポジトリレベルとは**別の文字列**（同じ `repos-rules` アプリで、target を actions に置き換えたもの）。
+		"Actions policies": "Actions ポリシー",
+		"Define whether actions can run in specific contexts.": "アクションを特定のコンテキストで実行できるかどうかを定義します。",
+		"Learn more about pull_request_target restrictions": "pull_request_target の制限について詳しくはこちら",
+		"On November 2, 2026, GitHub will restrict": "2026 年 11 月 2 日から、GitHub は",
+		"on public repositories by default. To continue allowing the event trigger, configure an Actions policy.": "の公開リポジトリでの使用をデフォルトで制限します。このイベントトリガーを引き続き許可するには、Actions ポリシーを設定してください。",
+		// —— /settings/actions/rules/insights（組織レベルの「Actions ポリシーのインサイト」ページ）——
+		// H1 とサイドバー項目の `Policy insights`、組織のルールセットインサイトページの `Repository ruleset insights` は
+		// 3 つの異なる文字列。このモジュールではこれまで後者の 2 つしか収録していなかった。
+		"Actions policy insights": "Actions ポリシーのインサイト",
+		// —— /settings/actions/runners（組織レベルのランナー一覧ページ）——
+		// リポジトリレベルと同じ文字列の 2 つ（`Learn more about self-hosted runners` / `New self-hosted runner`）は
+		// 一字一句同じ訳にする。ページ冒頭の説明文は組織側に 1 文多い別のキー（短い方が長い方に一致することはない）。
+		"Includes all runners across self-hosted and GitHub-hosted runners.": "セルフホストランナーと GitHub ホストのランナーをすべて含みます。",
+		"Host your own runners and customize the environment used to run jobs in your GitHub Actions workflows. Runners added to this organization can be used to process jobs in multiple repositories in your organization.": "独自のランナーをホストし、GitHub Actions ワークフローでジョブを実行する環境をカスタマイズできます。この組織に追加されたランナーは、組織内の複数のリポジトリでジョブの処理に使用できます。",
+		"Learn more about self-hosted runners": "セルフホストランナーについて詳しくはこちら",
+		"Search runners": "ランナーを検索",
+		"New runner": "新しいランナー",
+		"New self-hosted runner": "新しいセルフホストランナー",
+		"Bring your own infrastructure": "独自のインフラストラクチャを持ち込む",
+		"New GitHub-hosted runner": "新しい GitHub ホストのランナー",
+		"Pay-as-you-go, customizable, secure, scaled &": "従量課金制、カスタマイズ可能、安全、拡張性があり、",
+		"managed by GitHub": "GitHub によって管理されます",
+		"Only available on paid Team or Enterprise plans": "有料の Team または Enterprise プランでのみ利用できます",
+		"Standard GitHub-hosted runners": "標準の GitHub ホストのランナー",
+		"Ready-to-use runners managed by GitHub.": "GitHub が管理するすぐに使えるランナーです。",
+		"Learn more.": "詳しくはこちら。",
+		// —— /settings/actions/runner-groups（組織レベルのランナーグループ一覧ページ）——
+		"Control access to your runners by specifying the repositories that are able to use your shared organization runners. New runners will be automatically assigned to the default group if no other group is specified.": "共有の組織ランナーを使用できるリポジトリを指定して、ランナーへのアクセスを制御します。他のグループを指定しない場合、新しいランナーは自動的にデフォルトのグループに割り当てられます。",
+		"Search runner groups": "ランナーグループを検索",
+		"New runner group": "新しいランナーグループ",
+		"Group": "グループ",
+		"All repositories, excluding public repositories": "公開リポジトリを除くすべてのリポジトリ",
+		// デフォルトグループのグループ名：リンクのテキスト、バッジのテキスト、バッジの title 属性の 3 か所が同じ文字列（pages/repo-settings と同じ訳）。
+		"Default": "デフォルト",
+		// —— /settings/actions/caches（組織レベルのキャッシュページ）——
+		// ページ見出しの `キャッシュ`（既存キー Caches）と検索ボックスの `リポジトリを検索`（既存キー Search repositories）はすでに訳済み。
+		"You can use caches for dependencies and other commonly reused files to speed up your workflows. The data on this page have at least 5 minutes of latency.": "キャッシュは、依存関係やよく再利用されるファイルに使用してワークフローを高速化できます。このページのデータには少なくとも 5 分の遅延があります。",
+		"Learn more about caches": "キャッシュについて詳しくはこちら",
+		// 並べ替えボタンの接頭辞と現在値は隣接する 2 つのノード。ドロップダウンの候補と現在値は同じ文字列。
+		"Sort:": "並べ替え：",
+		"Largest size": "サイズが大きい順",
+		"Smallest size": "サイズが小さい順",
+		// —— /settings/actions/oidc-configuration（組織レベルの OIDC 設定ページ）——
+		// pages/repo-settings と同じ文字列のノードは一字一句同じ訳にする（そのルートは組織のパスに一致しない）。
+		// リポジトリレベル独自の 4 つの状態文言（`Default subject claim prefix` など）はこのページで描画されないため、ここには収録しない。
+		"OIDC configuration": "OIDC 設定",
+		"Subject claim": "サブジェクトクレーム",
+		"Customize claims included in the OIDC token.": "OIDC トークンに含まれるクレームをカスタマイズします。",
+		"Customize the subject (sub) claim in the OIDC token, used to identify the workflow run context.": "ワークフロー実行のコンテキストを識別するために使われる、OIDC トークン内のサブジェクト（sub）クレームをカスタマイズします。",
+		"Learn more about OIDC tokens.": "OIDC トークンについて詳しくはこちら",
+		"Learn more about immutable subject claims.": "不変のサブジェクトクレームについて詳しくはこちら",
+		"Save subject claim": "サブジェクトクレームを保存",
+		"Use immutable subject claim": "不変のサブジェクトクレームを使用",
+		// 組織側独自：テンプレートフィールドのラベルと 2 つの説明（テンプレート変数の例は送信値のため意図的に収録しない）。
+		"Subject claim template": "サブジェクトクレームのテンプレート",
+		"Order-dependent list of comma-separated template variables.": "順序に依存する、カンマ区切りのテンプレート変数のリスト。",
+		"List of available template variables.": "使用可能なテンプレート変数のリスト。",
+		"Improve security by including unique identifiers in the subject claim, ensuring that trust policies cannot be assumed by a different repository or organization with the same name.": "サブジェクトクレームに一意の識別子を含めてセキュリティを向上させ、同名の別のリポジトリや組織によって信頼ポリシーが悪用されないようにします。",
+		// 「Custom property claims」の空状態（カスタムプロパティページの `Repository custom properties` とは別の文字列）。
+		"Custom property claims": "カスタムプロパティのクレーム",
+		"Specify which custom properties should be included as claims in the OIDC token.": "OIDC トークンにクレームとして含めるカスタムプロパティを指定します。",
+		"No custom properties defined": "カスタムプロパティが定義されていません",
+		"Define custom properties to include them as claims in OIDC tokens.": "カスタムプロパティを定義すると、OIDC トークンのクレームとして含められます。",
+		"Learn more about repository custom properties.": "リポジトリのカスタムプロパティについて詳しくはこちら",
+		"Manage custom properties": "カスタムプロパティを管理",
+		// —— /settings/hooks（組織レベルの Webhook 一覧ページ）——
+		// pages/repo-settings と同じ文字列は一字一句同じ訳にする（そのルートは組織のパスに一致しない）。
+		// ページ冒頭の説明文は org-settings/webhooks-intro 規則で処理する（リポジトリレベルと同じ pattern・同じテンプレート）。
+		"Add webhook": "Webhook を追加",
+		"Webhooks Guide": "Webhook ガイド",
+		// —— /settings/discussions（組織レベルのディスカッション設定ページ。ノード境界は discussions.test.ts を参照）——
+		"Discussions for your organization": "組織のディスカッション",
+		"Setting up Discussions for your organization will allow you to broadcast updates, answer questions, and hold conversations for the entire organization.": "組織のディスカッションを設定すると、組織全体に向けて更新情報を配信し、質問に答え、会話を交わせるようになります。",
+		"Enable discussions for this organization": "この組織のディスカッションを有効にする",
+		"Choose a source repository that will host the discussions.": "ディスカッションをホストするソースリポジトリを選択します。",
+		"All discussions on the source repository will be surfaced to the organization Discussions tab.": "ソースリポジトリのすべてのディスカッションは、組織の「ディスカッション」タブに表示されます。",
+		"Permissions from the repository will be applied to the organization Discussions. By default, all members of the organization will be able to create and comment on discussions.": "リポジトリの権限は組織のディスカッションに適用されます。デフォルトでは、組織のすべてのメンバーがディスカッションを作成し、コメントできます。",
+		"Members can now share updates or ask questions to the entire organization.": "メンバーは組織全体に更新情報を共有したり、質問したりできるようになりました。",
+		"For more information, see our documentation.": "詳しくは、ドキュメントをご覧ください。",
+		"Choose a repository": "リポジトリを選択",
+		"Search for a repository": "リポジトリを検索",
+		// —— /settings/packages（組織レベルのパッケージ設定ページ。同じ文字列の言い回しは個人のパッケージ設定ページに合わせる）——
+		"Packages permissions": "パッケージの権限",
+		"Package creation": "パッケージの作成",
+		"Members will be able to publish only the selected visibility types for packages and containers. Outside collaborators can never publish packages or containers.": "メンバーは、パッケージとコンテナについて、選択した可視性の種類のみを公開できます。外部コラボレーターはパッケージもコンテナも公開できません。",
+		"Members will be able to create public packages, visible to anyone.": "メンバーは、誰でも閲覧できる公開パッケージを作成できます。",
+		"Members will be able to create private packages, visible to organization members with permission.": "メンバーは、権限を持つ組織のメンバーに表示されるプライベートパッケージを作成できます。",
+		"Internal": "内部",
+		"Members will be able to create internal packages, visible to all organization/enterprise members.": "メンバーは、組織とエンタープライズのすべてのメンバーに表示される内部パッケージを作成できます。",
+		"Inherit access from source repository": "ソースリポジトリからアクセスを継承",
+		"Default package settings": "デフォルトのパッケージ設定",
+		"This setting will be applied to new Container, npm, rubygems and NuGet packages.": "この設定は、新しい Container、npm、rubygems、NuGet パッケージに適用されます。",
+		"Deleted packages": "削除済みのパッケージ",
+		"These are packages that have been previously deleted belonging to this organization. You can restore a package deleted within the last 30 days.": "これらは以前に削除された、この組織に属するパッケージです。過去 30 日以内に削除されたパッケージは復元できます。",
+		"Search deleted packages": "削除済みのパッケージを検索",
+		// —— /settings/pages_verified_domains（組織の Pages 検証済みドメインページ）——
+		"Verified domains": "検証済みドメイン",
+		"Add a domain": "ドメインを追加",
+		"There are no verified domains for this organization.": "この組織には検証済みドメインがありません。",
+		"Verify domains to restrict who can publish GitHub Pages on them.": "ドメインを検証して、そのドメインで GitHub Pages を公開できるユーザーを制限します。",
+		// —— /settings/two_factor_enforcement（組織の 2 要素認証設定ページ）——
+		"Two-factor authentication": "2 要素認証",
+		"Two-factor authentication adds another level of security for your organization.": "2 要素認証は、組織にさらなるセキュリティの層を追加します。",
+		"Learn more about requiring two-factor authentication in your organization.": "組織で 2 要素認証を必須にする方法について詳しくはこちら",
+		"Organization members who do not have two-factor authentication enabled will be unable to access resources owned by the": "2 要素認証を有効にしていない組織のメンバーは、",
+		"organization, but will remain a member of": "組織が所有するリソースにアクセスできなくなりますが、設定を更新するまでは",
+		"until they update their settings. Outside collaborators who do not have two-factor authentication enabled will be removed from the organization and notified.": "のメンバーのままです。2 要素認証を有効にしていない外部コラボレーターは組織から削除され、通知されます。",
+		"Only allow secure two-factor methods": "安全な 2 要素認証の方法のみを許可する",
+		"Users can only use secure two-factor methods: authenticator apps, passkeys, security keys, and the GitHub mobile app.": "ユーザーは安全な 2 要素認証の方法（認証アプリ、パスキー、セキュリティキー、GitHub モバイルアプリ）のみを使用できます。",
+		"Existing members will lose access to organization resources if they disable two-factor authentication. Outside collaborators will be removed from the organization if they disable two-factor authentication.": "既存のメンバーが 2 要素認証を無効にすると、組織のリソースにアクセスできなくなります。外部コラボレーターが 2 要素認証を無効にすると、組織から削除されます。",
+		"Users' two-factor authentication methods will not be affected.": "ユーザーの 2 要素認証の方法は影響を受けません。",
+		"Secure your data and people with GitHub Enterprise": "GitHub Enterprise でデータと人を保護する",
+		"SAML single sign-on (SSO)": "SAML シングルサインオン（SSO）",
+		"SAML single sign-on (SSO) gives GitHub Enterprise accounts a way to control and secure access to organization resources like repositories, issues, and pull requests.": "SAML シングルサインオン（SSO）により、GitHub Enterprise アカウントは、リポジトリ、イシュー、プルリクエストなどの組織リソースへのアクセスを制御し、保護できます。",
+		"SSH certificate authorities": "SSH 証明機関",
+		"With an SSH certificate authority, enterprise accounts can provide SSH certificates that members can use to access your resources with Git.": "SSH 証明機関を使用すると、エンタープライズアカウントは、メンバーが Git でリソースにアクセスするために使用できる SSH 証明書を発行できます。",
+		"Certified for compliance": "コンプライアンス認証を取得",
+		"GitHub Enterprise Cloud is certified for SOC 1 Type 2, SOC 2 Type 2, FedRAMP LiSaaS. Enterprise customers can download these reports, and more, at any time.": "GitHub Enterprise Cloud は SOC 1 Type 2、SOC 2 Type 2、FedRAMP LiSaaS の認証を取得しています。エンタープライズのお客様は、これらのレポートなどをいつでもダウンロードできます。",
+		"Team Synchronization": "チームの同期",
+		"Enable and disable team synchronization between your identity provider (IdP) and your organizations on GitHub Enterprise accounts.": "GitHub Enterprise アカウントで、ID プロバイダー（IdP）と組織の間のチーム同期を有効または無効にします。",
+		"IP allow list": "IP 許可リスト",
+		"GitHub Enterprise accounts can restrict access to private organization assets by configuring an allow list for specific IP addresses.": "GitHub Enterprise アカウントは、特定の IP アドレスの許可リストを構成することで、組織のプライベートなアセットへのアクセスを制限できます。",
+		"Close dialog": "ダイアログを閉じる",
+		"View organization membership": "組織のメンバーシップを表示して",
+		"to see which users will be impacted.": "影響を受けるユーザーを確認します。",
+		// —— /settings/security_products（組織の高度なセキュリティの空状態ページ）——
+		"Information": "情報",
+		"This organization does not have GitHub Advanced Security, which is free for public repositories and billed per active committer for private and internal repositories. To apply configurations with GitHub Advanced Security features to private repositories,": "この組織では GitHub Advanced Security が有効になっていません。GitHub Advanced Security は公開リポジトリでは無料、プライベートリポジトリと内部リポジトリではアクティブなコミッターごとに課金されます。GitHub Advanced Security の機能を含む構成をプライベートリポジトリに適用するには、",
+		"upgrade to GitHub Advanced Security.": "GitHub Advanced Security にアップグレードしてください。",
+		"Dismiss banner": "バナーを閉じる",
+		"Set up Advanced Security": "高度なセキュリティをセットアップ",
+		"Manage Secret scanning, Code scanning and Dependabot.": "シークレットスキャン、コードスキャン、Dependabot を管理します。",
+		"Set up": "セットアップ",
+		// —— /settings/code-quality（組織の Code Quality の紹介と FAQ）——
+		"Find and fix code quality issues like code coverage, maintainability risks, reliability problems, and more. Get quality insights directly in your development workflow with Copilot-powered autofix.": "コードカバレッジ、保守性のリスク、信頼性の問題など、コード品質の問題を見つけて修正します。Copilot による自動修正で、開発ワークフローの中で品質に関するインサイトを直接得られます。",
+		"Build resilient code, at scale": "大規模に堅牢なコードを構築",
+		"Ensure your codebases are reliable, maintainable, and efficient by proactively scanning for best practices, reducing bugs, improving readability, and enabling easier testing, collaboration, and scalability. Enabling this feature will incur charges in": "ベストプラクティスを先回りしてスキャンし、バグを減らし、可読性を高め、テスト、コラボレーション、スケーラビリティを容易にすることで、コードベースが信頼でき、保守しやすく、効率的であることを確保します。この機能を有効にすると、次の分の料金が発生します：",
+		"action minutes.": "Actions 分。",
+		"Enable Code Quality": "Code Quality を有効にする",
+		"Frequently asked questions": "よくある質問",
+		"What happens once I turn on code quality scanning?": "コード品質スキャンを有効にするとどうなりますか？",
+		"GitHub will perform a point-in-time scan of the default branch of the repository, reporting back code quality findings and suggestions to developers. It will also proactively start scanning pull requests for code quality issues. To enable code coverage reports, you will need to manually commit a workflow file, once code quality is enabled.": "GitHub はリポジトリのデフォルトブランチをその時点でスキャンし、コード品質に関する指摘と提案を開発者に報告します。また、プルリクエストのコード品質の問題についても先回りしてスキャンを開始します。コードカバレッジレポートを有効にするには、コード品質を有効にした後でワークフローファイルを手動でコミットする必要があります。",
+		"GitHub will perform a point-in-time scan of the default branch of the repository, reporting back code quality findings and suggestions to developers. It will also proactively start scanning pull requests for code quality issues.": "GitHub はリポジトリのデフォルトブランチをその時点でスキャンし、コード品質に関する指摘と提案を開発者に報告します。また、プルリクエストのコード品質の問題についても先回りしてスキャンを開始します。",
+		"To enable code coverage reports, you will need to manually commit a workflow file, once code quality is enabled.": "コードカバレッジレポートを有効にするには、コード品質を有効にした後でワークフローファイルを手動でコミットする必要があります。",
+		"Learn how to configure code coverage": "コードカバレッジを構成する方法についてはこちら。",
+		"Does Code Quality use AI?": "Code Quality は AI を使用しますか？",
+		"Along with standard findings that are detected using the default CodeQL query suite, Code Quality also uses AI to detect additional findings, labeled as AI findings.": "デフォルトの CodeQL クエリスイートで検出される標準の指摘に加えて、Code Quality は AI も使用して追加の指摘を検出し、AI の指摘としてラベル付けします。",
+		"What quality rules and languages are supported?": "どの品質ルールと言語がサポートされていますか？",
+		"We will support quality rules and languages found in this": "次の",
+		"open source repository": "オープンソースリポジトリ",
+		". The languages supported with CodeQL for standard findings are: C#, Java, JavaScript/TypeScript, Python, Ruby, and Go. Other languages may be scanned with AI, but will not generate standard findings with CodeQL.": "に含まれる品質ルールと言語をサポートします。CodeQL で標準の指摘をサポートする言語は、C#、Java、JavaScript/TypeScript、Python、Ruby、Go です。その他の言語は AI でスキャンされる場合がありますが、CodeQL による標準の指摘は生成されません。",
+		// —— /settings/security_analysis（組織の高度なセキュリティのグローバル設定）——
+		"Global Advanced Security settings": "高度なセキュリティのグローバル設定",
+		"Global Advanced Security settings are enabled for all repositories in this organization where the parent feature is enabled. By enabling these features, you're granting us permission to perform read-only analysis on your organization's repositories.": "高度なセキュリティのグローバル設定は、この組織内で親機能が有効になっているすべてのリポジトリで有効になります。これらの機能を有効にすると、組織のリポジトリに対して読み取り専用の分析を実行する権限を当社に付与したことになります。",
+		"Dependabot rules": "Dependabot ルール",
+		"Create your own custom rules and manage alert presets.": "独自のカスタムルールを作成し、アラートのプリセットを管理します。",
+		"Configure dependabot rules": "Dependabot ルールを設定",
+		"Grouped security updates": "グループ化されたセキュリティ更新",
+		"Groups all available updates that resolve a Dependabot alert into one pull request (per package manager and directory of requirement manifests). This option may be overridden by group rules specified in dependabot.yml -": "Dependabot アラートを解決する利用可能なすべての更新を、1 つのプルリクエストにグループ化します（パッケージマネージャーと要件マニフェストのディレクトリごと）。このオプションは、dependabot.yml で指定されたグループルールによって上書きされる場合があります -",
+		"Learn how to group updates.": "更新をグループ化する方法についてはこちら。",
+		"Select the runner type used by Dependabot for scans and version and security updates.": "Dependabot がスキャン、バージョンアップデート、セキュリティアップデートに使用するランナーの種類を選択します。",
+		"Edit runner type for Dependabot": "Dependabot のランナーの種類を編集",
+		"Dependabot will use standard GitHub runners to run scans": "Dependabot はスキャンの実行に標準の GitHub ランナーを使用します",
+		"Dependabot will use labeled GitHub or self-hosted runners that you may define.": "Dependabot は、あなたが定義したラベル付きの GitHub ホストのランナーまたはセルフホストランナーを使用します。",
+		"Optional runner information": "ランナー情報（任意）",
+		"Provide any existing runner information you would like to use for Dependabot.": "Dependabot に使用する既存のランナー情報があれば入力してください。",
+		"Verify spelling matches an existing runner group to ensure proper setup.": "正しく設定するには、綴りが既存のランナーグループと一致していることを確認してください。",
+		"The": "次の名前の",
+		"label is used by default. Learn how to": "ラベルが既定で使用されます。詳しくは、次をご覧ください：",
+		"use or create custom labels": "カスタムラベルを使用または作成する",
+		"Verify spelling matches an existing label to ensure proper setup.": "正しく設定するには、綴りが既存のラベルと一致していることを確認してください。",
+		"Save runner selection": "ランナーの選択を保存",
+		"Code scanning": "コードスキャン",
+		"Recommend the extended query suite for repositories enabling default setup": "デフォルトのセットアップを有効にするリポジトリには、拡張クエリスイートをおすすめします",
+		"The extended query includes the default suite, plus lower severity and precision queries.": "拡張クエリには、デフォルトのスイートに加えて、重大度と精度が低いクエリが含まれます。",
+		"Copilot Autofix": "Copilot 自動修正",
+		"Suggest fixes for CodeQL alerts using AI. CodeQL default or advanced setup must be enabled for this feature to work. Agentic fixes use AI Credits. Learn more about the": "AI を使用して CodeQL アラートの修正を提案します。この機能を動作させるには、CodeQL のデフォルトまたは詳細設定を有効にする必要があります。エージェントによる修正では AI クレジットを消費します。詳しくは、こちらの",
+		"limitations of autofix code suggestions": "自動修正のコード提案の制限",
+		"AI Scan for pull requests": "プルリクエストの AI スキャン",
+		"Run AI code scan on pull requests. Only applies for non-CodeQL languages.": "プルリクエストで AI コードスキャンを実行します。CodeQL 以外の言語にのみ適用されます。",
+		"Learn more about AI Scan": "AI スキャンについて詳しくはこちら",
+		"A Copilot license is required to use AI Scan.": "AI スキャンを使用するには、Copilot ライセンスが必要です。",
+		"Set up Copilot": "Copilot をセットアップ",
+		"Keep scheduled scans running every 30 days for inactive repositories": "非アクティブなリポジトリでは 30 日ごとにスケジュールスキャンを実行し続ける",
+		"Inactive repositories are repositories with no pushes or pull requests in the last 6 months. Applies only to repositories using code scanning default setup.": "非アクティブなリポジトリとは、過去 6 か月間にプッシュもプルリクエストもないリポジトリです。コードスキャンのデフォルトのセットアップを使用しているリポジトリにのみ適用されます。",
+		"Expand CodeQL analysis": "CodeQL 分析を拡張する",
+		"Expand CodeQL to recognize more libraries and frameworks in repositories using CodeQL default setup.": "CodeQL を拡張し、CodeQL のデフォルトのセットアップを使用しているリポジトリでより多くのライブラリとフレームワークを認識できるようにします。",
+		"Configure CodeQL model packs": "CodeQL モデルパックを構成する",
+		"Configure": "構成",
+		"Secret scanning": "シークレットスキャン",
+		"Push protection": "プッシュ保護",
+		"Add a resource link in the CLI and web UI when a commit is blocked": "コミットがブロックされたときに、CLI と Web UI にリソースリンクを追加する",
+		"Link will show in addition to": "このリンクは、",
+		"the message GitHub displays": "GitHub が表示するメッセージに加えて表示されます。",
+		"Save link": "リンクを保存",
+		"Grant Dependabot access to repositories": "Dependabot にリポジトリへのアクセスを許可する",
+		"To update dependencies, Dependabot accesses all public and selected private repositories. The contents of these repositories become visible to all users in your organization through Dependabot updates. Consider using private registries if you don't want to share these repositories with everyone in your organization.": "依存関係を更新するために、Dependabot はすべての公開リポジトリと選択したプライベートリポジトリにアクセスします。これらのリポジトリの内容は、Dependabot のアップデートを通じて組織のすべてのユーザーに表示されます。これらのリポジトリを組織内の全員と共有したくない場合は、プライベートレジストリの使用を検討してください。",
+		"Select repositories": "リポジトリを選択",
+		"Select": "選択：",
+		"repositories": "件のリポジトリ",
+		"Choose": "選択してください：",
+		"repositories Dependabot can access.": "件の Dependabot がアクセスできるリポジトリ。"
+	}
+}

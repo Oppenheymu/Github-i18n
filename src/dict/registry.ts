@@ -43,6 +43,7 @@ import jaDashboardRaw from "./locales/ja/pages/dashboard.jsonc";
 import jaInsightsRaw from "./locales/ja/pages/insights.jsonc";
 import jaIssuesRaw from "./locales/ja/pages/issues.jsonc";
 import jaMarketingRaw from "./locales/ja/pages/marketing.jsonc";
+import jaOrgSettingsRaw from "./locales/ja/pages/org-settings.jsonc";
 import jaProfileRaw from "./locales/ja/pages/profile.jsonc";
 import jaPullsRaw from "./locales/ja/pages/pulls.jsonc";
 import jaRepoRaw from "./locales/ja/pages/repo.jsonc";
@@ -140,6 +141,7 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 			["pages/settings", jaSettingsRaw],
 			["pages/settings-billing", jaSettingsBillingRaw],
 			["pages/repo-settings", jaRepoSettingsRaw],
+			["pages/org-settings", jaOrgSettingsRaw],
 			["pages/actions", jaActionsRaw],
 			["pages/agents", jaAgentsRaw],
 			["pages/dashboard", jaDashboardRaw],

@@ -2073,7 +2073,10 @@
 			"name": "organizations/octocat/settings/profile",
 			"path": "/organizations/octocat/settings/profile",
 			"matched": ["pages/org-settings", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Pages", "module": "pages/org-settings" },
+				{ "key": "Write", "module": "pages/org-settings" }
+			],
 			"rules": [
 				"org-settings/webhooks-intro",
 				"org-settings/dependabot-rules-enabled-count",
@@ -2255,7 +2258,10 @@
 			"name": "organizations/octocat/settings/policies/repositories",
 			"path": "/organizations/octocat/settings/policies/repositories",
 			"matched": ["pages/org-settings", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Pages", "module": "pages/org-settings" },
+				{ "key": "Write", "module": "pages/org-settings" }
+			],
 			"rules": [
 				"org-settings/webhooks-intro",
 				"org-settings/dependabot-rules-enabled-count",
@@ -2441,7 +2447,86 @@
 				"pages/org-settings",
 				"global"
 			],
-			"collisions": [],
+			"collisions": [
+				{
+					"key": "(9-digit zip code for US)",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "(Apartment, suite, unit)",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "(Street, P.O. box)",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Address",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Address line 2",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Choose your country/region",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "City",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Close dialog",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Country/Region",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Packages",
+					"module": "pages/settings-billing"
+				},
+				{ "key": "Pages", "module": "pages/org-settings" },
+				{
+					"key": "Payment history",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Postal/Zip code",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Required for certain countries",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Search by username, full name or email address",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "State/Province",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Suggestions",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Update",
+					"module": "pages/settings-billing"
+				},
+				{
+					"key": "VAT/GST ID",
+					"module": "pages/settings-billing"
+				},
+				{ "key": "Write", "module": "pages/org-settings" },
+				{
+					"key": "will",
+					"module": "pages/settings-billing"
+				}
+			],
 			"rules": [
 				"settings/usage-range-same-month-jan",
 				"settings/usage-range-same-month-feb",
@@ -2905,7 +2990,10 @@
 			"name": "orgs/octocat/topics",
 			"path": "/orgs/octocat/topics",
 			"matched": ["pages/org-settings", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Pages", "module": "pages/org-settings" },
+				{ "key": "Write", "module": "pages/org-settings" }
+			],
 			"rules": [
 				"org-settings/webhooks-intro",
 				"org-settings/dependabot-rules-enabled-count",

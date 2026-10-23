@@ -711,6 +711,11 @@
 		"repo/age-weeks": "周前创建",
 		"repo/age-months": "个月前创建",
 		"repo/age-years": "年前创建",
+		// 同一句年龄文案未被拆开时的整句形态（`8 months old` 是一个节点）
+		"repo/age-days-full": "$1 天前创建",
+		"repo/age-weeks-full": "$1 周前创建",
+		"repo/age-months-full": "$1 个月前创建",
+		"repo/age-years-full": "$1 年前创建",
 		"global/now": "刚刚",
 		"global/yesterday": "昨天",
 		"global/seconds-ago": "$1 秒前",

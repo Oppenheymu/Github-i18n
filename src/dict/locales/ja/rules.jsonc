@@ -714,6 +714,11 @@
 		"repo/age-weeks": "週間前に作成",
 		"repo/age-months": "か月前に作成",
 		"repo/age-years": "年前に作成",
+		// 年齢の一文が分割されていない場合（`8 months old` が 1 ノード）
+		"repo/age-days-full": "$1 日前に作成",
+		"repo/age-weeks-full": "$1 週間前に作成",
+		"repo/age-months-full": "$1 か月前に作成",
+		"repo/age-years-full": "$1 年前に作成",
 
 		// —— global（全ページ共通）——
 		"global/now": "たった今",

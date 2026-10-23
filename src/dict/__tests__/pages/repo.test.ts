@@ -270,6 +270,19 @@ describe("仓库页的实机节点边界", () => {
 		);
 		// 数字与单位仍在同一节点的旧版形态由 `repo/*-count` 规则兜住，两条路径并存
 		expect(translateText("6 stars", view)).toBe("6 个星标");
+		// 年龄文案整句未被拆开时（`8 months old` 是一个节点）走整句规则
+		expect(translateText("5 days old", view)).toBe(
+			"5 天前创建",
+		);
+		expect(translateText("1 week old", view)).toBe(
+			"1 周前创建",
+		);
+		expect(translateText("8 months old", view)).toBe(
+			"8 个月前创建",
+		);
+		expect(translateText("2 years old", view)).toBe(
+			"2 年前创建",
+		);
 	});
 
 	it("translates the About sidebar release block", () => {

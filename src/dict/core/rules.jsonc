@@ -3471,6 +3471,25 @@
 				{
 					"id": "repo/age-years",
 					"pattern": "^years? old$"
+				},
+				// 同一句年龄文案的**单节点**形态（数字与单位没有被拆开）：`8 months old`
+				// 整段是一个文本节点，上面的单位规则命中不了，故按单位各补一条整句规则。
+				// 两种 DOM 形态（`<strong>4</strong> weeks old` 与整句）都覆盖，数量按页面实际渲染。
+				{
+					"id": "repo/age-days-full",
+					"pattern": "^([\\d,]+) days? old$"
+				},
+				{
+					"id": "repo/age-weeks-full",
+					"pattern": "^([\\d,]+) weeks? old$"
+				},
+				{
+					"id": "repo/age-months-full",
+					"pattern": "^([\\d,]+) months? old$"
+				},
+				{
+					"id": "repo/age-years-full",
+					"pattern": "^([\\d,]+) years? old$"
 				}
 			]
 		},

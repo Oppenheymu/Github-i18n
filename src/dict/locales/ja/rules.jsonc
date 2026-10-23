@@ -719,6 +719,13 @@
 		"repo/age-weeks-full": "$1 週間前に作成",
 		"repo/age-months-full": "$1 か月前に作成",
 		"repo/age-years-full": "$1 年前に作成",
+		// 年齢が「単位」と `old` の 2 ノードに分かれる実機形態
+		// （`" " <strong>2</strong> " " "months" " old"`）。連結結果は「2 か月 前に作成」。
+		"repo/age-days-word": "日",
+		"repo/age-weeks-word": "週間",
+		"repo/age-months-word": "か月",
+		"repo/age-years-word": "年",
+		"repo/age-old": "前に作成",
 
 		// —— global（全ページ共通）——
 		"global/now": "たった今",

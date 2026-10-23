@@ -716,6 +716,14 @@
 		"repo/age-weeks-full": "$1 周前创建",
 		"repo/age-months-full": "$1 个月前创建",
 		"repo/age-years-full": "$1 年前创建",
+		// 实机把年龄拆成「单位」与「old」两个独立节点（2026-10-23 Console 采集：
+		// `" " <strong>2</strong> " " "months" " old"`）。单位按词译，`old` 单独成句，
+		// 拼接结果是「2 个月 前创建」——中间那个空格是原文节点自带的，无法省略。
+		"repo/age-days-word": "天",
+		"repo/age-weeks-word": "周",
+		"repo/age-months-word": "个月",
+		"repo/age-years-word": "年",
+		"repo/age-old": "前创建",
 		"global/now": "刚刚",
 		"global/yesterday": "昨天",
 		"global/seconds-ago": "$1 秒前",

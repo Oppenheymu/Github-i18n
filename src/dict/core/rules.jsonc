@@ -3490,6 +3490,34 @@
 				{
 					"id": "repo/age-years-full",
 					"pattern": "^([\\d,]+) years? old$"
+				},
+				// 实机把年龄文案拆成**五个节点**（2026-10-23 维护者 Console 采集，
+				// /Koishi-CE/koishi 的 About 侧栏）：
+				//   <a> <svg/> " " <strong>2</strong> " " "months" " old" </a>
+				// 单位与 `old` 各是独立文本节点，上面「单位 + old 同节点」的规则命中不了，
+				// 故单位单词与 `old` 各收一条；拼接后是「2 个月 前创建」（节点间的前导空格
+				// 由引擎保留，中文会多一个空格——这是节点边界的代价）。
+				// 权衡：`old` 是单个英文词，pages/repo 下名为 `old` 的目录 / 文件节点也会
+				// 被译成「前创建」；与 stars / forks 单位规则同级的误伤，接受（多词形态不受影响）。
+				{
+					"id": "repo/age-days-word",
+					"pattern": "^days?$"
+				},
+				{
+					"id": "repo/age-weeks-word",
+					"pattern": "^weeks?$"
+				},
+				{
+					"id": "repo/age-months-word",
+					"pattern": "^months?$"
+				},
+				{
+					"id": "repo/age-years-word",
+					"pattern": "^years?$"
+				},
+				{
+					"id": "repo/age-old",
+					"pattern": "^old$"
 				}
 			]
 		},

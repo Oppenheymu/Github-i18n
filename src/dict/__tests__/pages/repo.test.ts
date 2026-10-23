@@ -287,6 +287,24 @@ describe("仓库页的实机节点边界", () => {
 		);
 	});
 
+	it("renders the repository age split into unit and old nodes", () => {
+		// 实机节点序列（2026-10-23 维护者 Console 采集，/Koishi-CE/koishi）：
+		// `<svg/>` `" "` `<strong>2</strong>` `" "` `"months"` `" old"`
+		for (const [number, unit, expected] of [
+			["2", "months", "2 个月 前创建"],
+			["4", "weeks", "4 周 前创建"],
+			["5", "days", "5 天 前创建"],
+			["2", "years", "2 年 前创建"],
+		] as const) {
+			expect(
+				renderNodes([" ", number, " ", unit, " old"]),
+			).toBe(expected);
+		}
+		// 单位与 `old` 各自命中，数字与空白节点保持原样
+		expect(translateText("months", view)).toBe("个月");
+		expect(translateText(" old", view)).toBe("前创建");
+	});
+
 	it("translates the About sidebar release block and audit log", () => {
 		expect(
 			translateText("No releases published", view),

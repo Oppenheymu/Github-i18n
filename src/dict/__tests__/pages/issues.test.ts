@@ -63,9 +63,65 @@ const USER_CONTENT: readonly string[] = [
 	"issue",
 ];
 
+/**
+ * 新版 React 议题页的工具栏与空结果态（2026-10-23 维护者贴的实机 DOM）。
+ * 与上面 2026-09 的旧列表页不同：筛选面板标题用单数（Filter by label /
+ * project / milestone），排序菜单也换成了「Created on / Last updated /
+ * Total comments / Best match / Reactions」这一组，旧键一条都命不中。
+ */
+const REACT_TOOLBAR_NODES: readonly string[] = [
+	// —— 空结果态（Blankslate）——
+	"No results matched your search",
+	"Try a different search query.",
+	"Learn more about searching and filtering issues and pull requests.",
+	// —— 标签面板 ——
+	"Filter by label",
+	"Recent",
+	// —— 项目面板 ——
+	"Filter by project",
+	"No projects were found",
+	"Please try a different search query.",
+	// —— 里程碑面板 ——
+	"Filter by milestone",
+	"No milestone",
+	// —— 指派面板 ——
+	"No assignees",
+	// —— 排序菜单 ——
+	"Created on",
+	"Last updated",
+	"Total comments",
+	"Best match",
+	"Reactions",
+];
+
+/** 只出现在 placeholder 上的文案（属性只走整串精确匹配，实机按归一化后的键命中） */
+const REACT_TOOLBAR_ATTRS: readonly string[] = [
+	"Filter authors",
+	"Filter labels",
+	"Filter projects",
+	"Filter milestones", // 实机原文带尾随空格
+	"Filter assignees",
+];
+
 /** 节点在实机里通常带源码缩进与换行；两种形态都必须命中 */
 function withWhitespace(node: string): readonly string[] {
 	return [node, `\n        ${node}\n      `];
+}
+
+/** 把一段实机节点序列按 walker 的语义拼回页面上真实看到的那一行 */
+function renderNodes(nodes: readonly string[]): string {
+	return nodes
+		.map((node) => {
+			const translated = translateText(node, view);
+			if (translated === null) return node;
+			const lead = node.slice(
+				0,
+				node.length - node.trimStart().length,
+			);
+			const trail = node.slice(node.trimEnd().length);
+			return `${lead}${translated}${trail}`;
+		})
+		.join("");
 }
 
 describe("议题列表页的实机节点边界", () => {
@@ -105,5 +161,46 @@ describe("议题列表页的实机节点边界", () => {
 		expect(translateText("Milestones", view)).toBe(
 			"里程碑",
 		);
+	});
+
+	it("translates the new React filter panels, sort menu and empty state", () => {
+		for (const node of [
+			...REACT_TOOLBAR_NODES,
+			...REACT_TOOLBAR_ATTRS,
+		]) {
+			for (const variant of withWhitespace(node)) {
+				const translated = translateText(variant, view);
+				expect(
+					translated,
+					`未命中：${JSON.stringify(variant)}`,
+				).not.toBeNull();
+				expect(translated ?? "").toMatch(/[\u4e00-\u9fff]/);
+			}
+		}
+	});
+
+	it("renders the empty-state sentence as one readable line", () => {
+		// 实机是两个节点：说明句（带尾随空格）+ 链接文本
+		expect(
+			renderNodes([
+				"Try a different search query. ",
+				"Learn more about searching and filtering issues and pull requests.",
+			]),
+		).toBe(
+			"请尝试其他搜索查询。 详细了解如何搜索和筛选议题与拉取请求。",
+		);
+	});
+
+	it("keeps the sort menu's meaning clear", () => {
+		expect(translateText("Created on", view)).toBe(
+			"创建时间",
+		);
+		expect(translateText("Last updated", view)).toBe(
+			"最近更新",
+		);
+		expect(translateText("Total comments", view)).toBe(
+			"评论总数",
+		);
+		expect(translateText("Reactions", view)).toBe("回应");
 	});
 });

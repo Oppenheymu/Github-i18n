@@ -39,6 +39,35 @@
 				"Filter by issue type",
 				"Filter by labels",
 				", descending",
+				// —— 新版 React 筛选面板（2026-10-23 维护者实机 DOM）——
+				// 面板标题与搜索框 placeholder 是**单数**形态（Filter by label / project /
+				// milestone），与上面旧版复数键并存：两套文案由 GitHub 不同版本渲染，
+				// 都登记才不会在面板展开时残留英文。`Filter milestones` 的 placeholder
+				// 实机带尾随空格，键按 normalizeKey 归一为无空格形态。
+				"Filter authors",
+				"Filter labels",
+				"Filter by label",
+				"Recent",
+				"Filter by project",
+				"Filter projects",
+				"Items will be filtered as you type",
+				"No projects were found",
+				"Please try a different search query.",
+				"Filter by milestone",
+				"Filter milestones",
+				"No milestone",
+				"Filter assignees",
+				"No assignees",
+				// —— 新版排序菜单（按创建时间 / 最后更新 / 评论数 / 匹配度 / 回应排序）——
+				"Created on",
+				"Last updated",
+				"Total comments",
+				"Best match",
+				"Reactions",
+				// —— 空结果态（React Blankslate）——
+				"No results matched your search",
+				"Try a different search query.",
+				"Learn more about searching and filtering issues and pull requests.",
 				// —— 列表排序菜单与新建入口（既有词条，恢复保留）——
 				"Newest",
 				"Oldest",

@@ -3433,6 +3433,44 @@
 				{
 					"id": "repo/forks-count",
 					"pattern": "^([\\d.,k]+) forks?$"
+				},
+				// —— About 侧栏的计数单位（新版 React 把数字与单位拆成两个节点）——
+				// 实机结构：`<span><strong>6</strong></span><span> stars</span>`。数字节点永不进词典，
+				// 单位节点归一化后是 `stars` / `watching` / `forks`；旧版单节点形态（`6 stars`）
+				// 仍由上面的 repo/*-count 规则兜住。
+				// 取舍：归一化会 trim 掉前导空格，本组规则与同名的仓库名 / 目录名无法区分
+				// （引擎按节点文本匹配，看不到父元素）。这些单位在每个仓库页都渲染且只在本模块
+				// 生效，误伤面仅是「独立节点恰好等于 stars / watching / forks」的极少数用户内容，
+				// 收益远大于风险；多词反例（`awesome-stars` / `star charts` / `fork it`）由测试守住。
+				{
+					"id": "repo/stars-unit",
+					"pattern": "^stars?$"
+				},
+				{
+					"id": "repo/watching-unit",
+					"pattern": "^watching$"
+				},
+				{
+					"id": "repo/forks-unit",
+					"pattern": "^forks?$"
+				},
+				// 仓库年龄：`<strong>4</strong> weeks old`，单位节点归一化后是 `weeks old`。
+				// 单位无法用捕获组映射成中文，只能逐单位各写一条（与各页日期规则同一处理方式）。
+				{
+					"id": "repo/age-days",
+					"pattern": "^days? old$"
+				},
+				{
+					"id": "repo/age-weeks",
+					"pattern": "^weeks? old$"
+				},
+				{
+					"id": "repo/age-months",
+					"pattern": "^months? old$"
+				},
+				{
+					"id": "repo/age-years",
+					"pattern": "^years? old$"
 				}
 			]
 		},

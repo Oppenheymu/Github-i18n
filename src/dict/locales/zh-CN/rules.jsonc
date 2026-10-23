@@ -701,6 +701,16 @@
 		"repo/stars-count": "$1 个星标",
 		"repo/watchers-count": "$1 人在关注",
 		"repo/forks-count": "$1 个复刻",
+		// About 侧栏把「数字 + 单位」拆成两个节点后的**单位节点**（数字在 <strong> 里）。
+		// 译文不带首尾空格：引擎写回时保留原节点的前导空格（`<strong>6</strong>` + ` 个星标`）。
+		"repo/stars-unit": "个星标",
+		"repo/watching-unit": "人在关注",
+		"repo/forks-unit": "个复刻",
+		// 仓库年龄的单位节点（`<strong>4</strong> weeks old`），拼起来是「4 周前创建」
+		"repo/age-days": "天前创建",
+		"repo/age-weeks": "周前创建",
+		"repo/age-months": "个月前创建",
+		"repo/age-years": "年前创建",
 		"global/now": "刚刚",
 		"global/yesterday": "昨天",
 		"global/seconds-ago": "$1 秒前",

@@ -65,6 +65,8 @@
 		"Activity": "活动",
 		"Watchers": "关注者",
 		"Report repository": "举报仓库",
+		// —— About 侧栏（新版 React 组件）——
+		"Repository age": "仓库创建时间",
 		// —— 仓库头部的提交状态组件（设置页顶部也会渲染）——
 		"Loading status checks…": "正在加载状态检查…",
 		"CI status of latest commit": "最新提交的 CI 状态",
@@ -78,6 +80,8 @@
 		"Security policy": "安全策略",
 		"MIT license": "MIT 许可证",
 		// —— 发布页（releases）——
+		"No releases published": "尚未发布任何版本",
+		"Create a new release": "创建新版本",
 		"Latest": "最新",
 		"Assets": "资产",
 		"Choose a tag to compare": "选择要比较的标签",

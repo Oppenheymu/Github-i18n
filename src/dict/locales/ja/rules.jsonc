@@ -704,6 +704,16 @@
 		"repo/stars-count": "$1 件のスター",
 		"repo/watchers-count": "$1 人がウォッチ中",
 		"repo/forks-count": "$1 件のフォーク",
+		// About サイドバーが「数字 + 単位」を 2 ノードに分割したときの**単位ノード**
+		// （数字は <strong> の中）。先頭の空白はエンジンが原文のまま保持する。
+		"repo/stars-unit": "件のスター",
+		"repo/watching-unit": "人がウォッチ中",
+		"repo/forks-unit": "件のフォーク",
+		// リポジトリの年齢（`<strong>4</strong> weeks old`）→「4 週間前に作成」
+		"repo/age-days": "日前に作成",
+		"repo/age-weeks": "週間前に作成",
+		"repo/age-months": "か月前に作成",
+		"repo/age-years": "年前に作成",
 
 		// —— global（全ページ共通）——
 		"global/now": "たった今",

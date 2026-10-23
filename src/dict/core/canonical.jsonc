@@ -7157,6 +7157,11 @@
 				"Activity",
 				"Watchers",
 				"Report repository",
+				// —— About 侧栏（新版 React 组件；2026-10-23 维护者贴出的整段 HTML）——
+				// 侧栏统计项的 sr-only 标题。计数本身被拆成「数字（<strong>）+ 带前导空格的
+				// 单位节点」（` stars` / ` watching` / ` forks` / ` weeks old`），数字永不进词典，
+				// 单位节点走下方 pages/repo 的单位规则（repo/stars-unit 等），故这里只收标题。
+				"Repository age",
 				// —— 仓库头部的提交状态组件 ——
 				// 证据：维护者 2026-10-17 导出的漏翻日志（来源是 /Koishi-CE/koishi/settings/secrets/*，
 				// 设置页顶部的仓库头部同样命中本模块）。动态值（`7 / 7 checks OK`、
@@ -7179,6 +7184,9 @@
 				"Security policy",
 				"MIT license",
 				// —— 发布页（releases）——
+				// 侧栏 Releases 区块的空态与入口同样渲染这两条（2026-10-23 维护者贴出）。
+				"No releases published",
+				"Create a new release",
 				"Latest",
 				"Assets",
 				"Choose a tag to compare",

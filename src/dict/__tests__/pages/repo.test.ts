@@ -81,6 +81,17 @@ const REPO_NODES: readonly string[] = [
 	"Contributors",
 	"Languages",
 	"Report repository",
+	// —— About 侧栏（新版 React 组件，2026-10-23 维护者贴出的整段 HTML）——
+	// 统计项把数字放进 `<strong>`，单位是**带前导空格的独立节点**；
+	// 仓库年龄同样被拆成 `<strong>4</strong>` + ` weeks old`
+	"Repository age",
+	" stars",
+	" watching",
+	" forks",
+	" weeks old",
+	// —— About 侧栏的 Releases 区块 ——
+	"No releases published",
+	"Create a new release",
 	// —— 提交状态组件（仓库头部；设置页顶部也会渲染，2026-10-17 由漏翻日志补收）——
 	"Loading status checks…",
 	"CI status of latest commit",
@@ -129,6 +140,30 @@ const jaView = buildView(
 /** 节点在实机里通常带源码缩进与换行；两种形态都必须命中 */
 function withWhitespace(node: string): readonly string[] {
 	return [node, `\n        ${node}\n      `];
+}
+
+/**
+ * 把实机的连续文本节点拼回页面上的那一行：命中的节点写回译文并保留首尾空白
+ * （见 walker.ts 的 applyTextNode），最后折叠浏览器会折叠的连续空白。
+ */
+function renderNodes(
+	nodes: readonly string[],
+	target: typeof view = view,
+): string {
+	return nodes
+		.map((node) => {
+			const translated = translateText(node, target);
+			if (translated === null) return node;
+			const lead = node.slice(
+				0,
+				node.length - node.trimStart().length,
+			);
+			const trail = node.slice(node.trimEnd().length);
+			return `${lead}${translated}${trail}`;
+		})
+		.join("")
+		.replace(/\s+/g, " ")
+		.trim();
 }
 
 describe("仓库页的实机节点边界", () => {
@@ -200,15 +235,67 @@ describe("仓库页的实机节点边界", () => {
 		);
 	});
 
-	it("keeps repository names that contain count words untouched", () => {
-		// 规则锚定整节点且要求「数字 + 单位」形态，故仓库名 / 描述里的这些词不会被误伤
+	it("renders the About sidebar stats from their split nodes", () => {
+		// 实机结构：`<span><strong>6</strong></span><span> stars</span>`。数字节点永不进
+		// 词典，单位节点带前导空格、归一化后是 stars / watching / forks。
+		expect(renderNodes(["6", " stars"])).toBe("6 个星标");
+		expect(renderNodes(["2", " watching"])).toBe(
+			"2 人在关注",
+		);
+		expect(renderNodes(["0", " forks"])).toBe("0 个复刻");
+		// 仓库年龄：`<strong>4</strong> weeks old`
+		expect(renderNodes(["4", " weeks old"])).toBe(
+			"4 周前创建",
+		);
+	});
+
+	it("translates the stat units and the repository age units", () => {
+		expect(translateText(" stars", view)).toBe("个星标");
+		expect(translateText(" star", view)).toBe("个星标");
+		expect(translateText(" watching", view)).toBe(
+			"人在关注",
+		);
+		expect(translateText(" forks", view)).toBe("个复刻");
+		expect(translateText(" days old", view)).toBe(
+			"天前创建",
+		);
+		expect(translateText(" weeks old", view)).toBe(
+			"周前创建",
+		);
+		expect(translateText(" months old", view)).toBe(
+			"个月前创建",
+		);
+		expect(translateText(" years old", view)).toBe(
+			"年前创建",
+		);
+		// 数字与单位仍在同一节点的旧版形态由 `repo/*-count` 规则兜住，两条路径并存
+		expect(translateText("6 stars", view)).toBe("6 个星标");
+	});
+
+	it("translates the About sidebar release block", () => {
+		expect(
+			translateText("No releases published", view),
+		).toBe("尚未发布任何版本");
+		expect(
+			translateText("Create a new release", view),
+		).toBe("创建新版本");
+		expect(translateText("Repository age", view)).toBe(
+			"仓库创建时间",
+		);
+	});
+
+	it("keeps count words inside longer names untouched", () => {
+		// 单位规则只能锚定整节点，故带连字符 / 多词混排的仓库名与描述不会被误伤。
+		// 注意：**单独一个 `stars` / `watching` / `forks` 节点现在会命中**——新版 About
+		// 侧栏把数字与单位拆开后，归一化会 trim 掉单位节点的前导空格，引擎无法区分它
+		// 与同名文件名 / 仓库名。这是有意的取舍（这些单位每个仓库页都渲染），
+		// 见 core/rules.jsonc 的 repo/*-unit 注释。
 		for (const raw of [
-			"stars",
-			"watching",
 			"5 stars and 2 forks",
 			"awesome-stars",
 			"star charts",
 			"fork it",
+			"forks of other forks",
 		]) {
 			expect(
 				translateText(raw, view),

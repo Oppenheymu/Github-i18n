@@ -74,6 +74,8 @@
 		"Activity": "アクティビティ",
 		"Watchers": "ウォッチャー",
 		"Report repository": "リポジトリを報告",
+		// —— About サイドバー（新 React コンポーネント）——
+		"Repository age": "リポジトリの作成日時",
 		// —— コミットステータス（リポジトリヘッダー。設定ページ上部でも描画される）——
 		"Loading status checks…": "ステータスチェックを読み込み中…",
 		"CI status of latest commit": "最新のコミットの CI ステータス",
@@ -89,6 +91,8 @@
 		"Security policy": "セキュリティポリシー",
 		"MIT license": "MIT ライセンス",
 		// —— リリースページ（releases）——
+		"No releases published": "リリースはまだありません",
+		"Create a new release": "新しいリリースを作成",
 		"Latest": "最新",
 		"Assets": "アセット",
 		"Choose a tag to compare": "比較するタグを選択",

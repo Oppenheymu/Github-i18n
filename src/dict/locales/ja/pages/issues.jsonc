@@ -119,6 +119,9 @@
 		"VS Code editor tab issues": "VS Code エディターのタブに関する問題",
 		// —— ドラッグ＆ドロップの補助説明（鍵はエンジンの空白正規化に合わせて半角空白 1 個）——
 		"To pick up a draggable item, press the space bar. While dragging, use the arrow keys to move the item. Press space again to drop the item in its new position, or press escape to cancel.": "ドラッグ可能な項目を選択するにはスペースキーを押します。ドラッグ中は方向キーで項目を移動します。もう一度スペースキーを押すと新しい位置にドロップし、Esc キーを押すとキャンセルします。",
+		// —— イシューページ左下のフィードバック入口（2026-10-24 実機）——
+		// 単語キーとイシュー題名の衝突トレードオフは core/canonical.jsonc の同段注釈を参照
+		"Feedback": "フィードバック",
 		// —— イシュービュー管理ページ（/issues/views、2026-10-24 実機、同順は core/canonical.jsonc）——
 		// 「プライベート」グループ見出しは上流が自訳済みのため、「Collapse Private」の
 		// ツールチップだけ整ノードで収録。

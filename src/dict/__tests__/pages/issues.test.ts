@@ -246,6 +246,14 @@ describe("议题列表页的实机节点边界", () => {
 		).toBe("详细了解如何搜索和筛选 议题与拉取请求.");
 	});
 
+	it("translates the feedback entry in the bottom-left corner", () => {
+		// 2026-10-24 实机：议题页左下角的反馈入口（React ActionList.Item.Label）。
+		// 「Feedback」是单词条、与用户议题标题同形——标题恰为该词的议题会被
+		// 一起译成「反馈」，权衡后收录（每页固定 UI，不收则永久残留英文），
+		// 详见 core/canonical.jsonc 同段注释。
+		expect(translateText("Feedback", view)).toBe("反馈");
+	});
+
 	it("covers the views management page", () => {
 		// /issues/views 被 pages/issues 的前缀路由覆盖（若上游改路由，
 		// 这里会先红——视图页整页回退英文就是路由断了）

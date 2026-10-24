@@ -130,6 +130,12 @@
 				"VS Code editor tab issues",
 				// —— 拖放辅助说明（键按引擎空白归一写为单空格形式）——
 				"To pick up a draggable item, press the space bar. While dragging, use the arrow keys to move the item. Press space again to drop the item in its new position, or press escape to cancel.",
+				// —— 议题页左下角的反馈入口（2026-10-24 维护者实机：React
+				// ActionList.Item.Label，可见文本单词条）——
+				// 「Feedback」与用户议题标题同形：标题恰为该词的议题会被一起译成
+				// 「反馈」，已知接受（同 profile 的 source、视图页 Shared 的权衡先例）。
+				// 收录理由：入口是每页固定 UI，不收则议题页永久残留英文。
+				"Feedback",
 				// —— 议题视图管理页（/issues/views，路由被 pages/issues 前缀覆盖；
 				// 2026-10-24 维护者实机 HTML）——
 				// 页头 h1「视图」/ 侧栏 tooltip / 「私有」分组标题 GitHub 已自译，不重复登记。

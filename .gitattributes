@@ -4,3 +4,6 @@
 # 「Formatter would have printed the following content」——diff 里除行尾外空无一物，
 # 红灯却挡住所有提交。text=auto 只对文本生效，图片等二进制资产不受影响。
 * text=auto eol=lf
+
+# 语言统计排除测试文件：GitHub Linguist 不计入 TS 行数
+*.test.ts linguist-detectable=false

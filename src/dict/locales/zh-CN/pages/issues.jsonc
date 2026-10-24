@@ -136,6 +136,15 @@
 		"to track your work.": "以跟踪你的工作。",
 		"No shared views yet": "还没有共享视图",
 		"Create a shared view": "创建共享视图",
-		"for everyone in this repository.": "供此仓库的所有人使用。"
+		"for everyone in this repository.": "供此仓库的所有人使用。",
+		// —— 里程碑页（/milestones，2026-10-24 实机，同序见 core/canonical.jsonc）——
+		// 随路由扩展（issues|milestones|labels）一起生效；「New milestone」等既有词条
+		// 在 /milestones 子页此前因路由不命中而整页英文，扩展后恢复命中
+		"List view": "列表视图",
+		"You haven’t created any Milestones.": "你还没有创建任何里程碑。",
+		"Use Milestones to create collections of Issues and Pull Requests for a particular release or project.": "使用里程碑为特定的版本或项目创建议题与拉取请求的集合。",
+		"Create a milestone": "创建里程碑",
+		// —— 标签页（/labels）搜索框 ——
+		"Search all labels": "搜索所有标签"
 	}
 }

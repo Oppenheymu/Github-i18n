@@ -138,6 +138,15 @@
 		"to track your work.": "し、作業を追跡します。",
 		"No shared views yet": "共有ビューはまだありません",
 		"Create a shared view": "共有ビューを作成",
-		"for everyone in this repository.": "し、このリポジトリの全員と共有します。"
+		"for everyone in this repository.": "し、このリポジトリの全員と共有します。",
+		// —— マイルストーンページ（/milestones、2026-10-24 実機、同順は core/canonical.jsonc）——
+		// ルート拡張（issues|milestones|labels）で効くようになる。「New milestone」など
+		// 既存語は /milestones サブページでルート不一致のため英語のままだったが、拡張で復活
+		"List view": "リストビュー",
+		"You haven’t created any Milestones.": "マイルストーンはまだ作成されていません。",
+		"Use Milestones to create collections of Issues and Pull Requests for a particular release or project.": "マイルストーンを使用して、特定のリリースやプロジェクトのためにイシューとプルリクエストのコレクションを作成します。",
+		"Create a milestone": "マイルストーンを作成",
+		// —— ラベルページ（/labels）の検索ボックス ——
+		"Search all labels": "すべてのラベルを検索"
 	}
 }

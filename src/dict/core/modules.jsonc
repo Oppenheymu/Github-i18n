@@ -9,8 +9,15 @@
 	"$schema": "../types/dict.schema.json",
 	"modules": [
 		{
+			// 议题族三兄弟共用一套侧边导航（Issues / Assigned… / Views /
+			// Milestones / Labels），且侧栏词条全在本模块：路由必须把
+			// /milestones 与 /labels 整支一起吃下，否则那两页只吃 global 兜底，
+			// 侧栏整片回退英文（2026-10-24 实机：/milestones 下侧栏除 GitHub
+			// 自译的「议题 / 里程碑 / 标签」外全部英文，本模块词条明明都在）。
+			// 不锚定结尾，/issues/123、/issues/views、/milestones/new、
+			// /labels/<标签名> 等子路径一并覆盖。
 			"name": "pages/issues",
-			"route": "^/[^/]+/[^/]+/issues"
+			"route": "^/[^/]+/[^/]+/(?:issues|milestones|labels)"
 		},
 		{
 			"name": "pages/pulls",

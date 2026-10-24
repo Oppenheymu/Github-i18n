@@ -254,6 +254,68 @@ describe("议题列表页的实机节点边界", () => {
 		expect(translateText("Feedback", view)).toBe("反馈");
 	});
 
+	it("covers the milestone and label subpages", () => {
+		// 2026-10-24 实机：/milestones 与 /labels 是三段路径，旧路由
+		// ^/[^/]+/[^/]+/issues 不命中——词条虽在词典，侧栏却整页英文
+		//（除 GitHub 自译的「议题 / 里程碑 / 标签」）。路由扩为
+		// (?:issues|milestones|labels) 后，三条都必须命中 pages/issues。
+		const zh = dictForLocale("zh-CN");
+		for (const pathname of [
+			"/Oppenheymu/Github-i18n/issues",
+			"/Oppenheymu/Github-i18n/milestones",
+			"/Oppenheymu/Github-i18n/labels",
+		]) {
+			expect(
+				matchModules(pathname, zh.modules).map(
+					(module) => module.name,
+				),
+				pathname,
+			).toContain("pages/issues");
+		}
+		// 侧栏既有词条必须在 /milestones 视图下恢复命中（正是用户报告的失效形态）
+		const milestonesView = buildView(
+			"/Oppenheymu/Github-i18n/milestones",
+			zh,
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText("Assigned to me", milestonesView),
+		).toBe("指派给我的");
+		expect(
+			translateText("New milestone", milestonesView),
+		).toBe("新建里程碑");
+		expect(
+			translateText("Collapse sidebar", milestonesView),
+		).toBe("收起侧栏");
+	});
+
+	it("translates the milestone empty state and label search", () => {
+		// 2026-10-24 里程碑页实机节点：sr-only 列表标题、空状态标题（撇号是
+		// 实机原文的弯撇号 ’）、空状态说明句（单个完整节点）、主操作按钮、
+		// 标签页搜索框 placeholder
+		const NODES: readonly (readonly [string, string])[] = [
+			["List view", "列表视图"],
+			[
+				"You haven’t created any Milestones.",
+				"你还没有创建任何里程碑。",
+			],
+			[
+				"Use Milestones to create collections of Issues and Pull Requests for a particular release or project.",
+				"使用里程碑为特定的版本或项目创建议题与拉取请求的集合。",
+			],
+			["Create a milestone", "创建里程碑"],
+			["Search all labels", "搜索所有标签"],
+		];
+		for (const [node, expected] of NODES) {
+			for (const variant of withWhitespace(node)) {
+				expect(
+					translateText(variant, view),
+					`节点 ${JSON.stringify(variant)}`,
+				).toBe(expected);
+			}
+		}
+	});
+
 	it("covers the views management page", () => {
 		// /issues/views 被 pages/issues 的前缀路由覆盖（若上游改路由，
 		// 这里会先红——视图页整页回退英文就是路由断了）

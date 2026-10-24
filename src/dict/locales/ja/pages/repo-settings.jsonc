@@ -190,6 +190,11 @@
 		// 貼った /Oppenheymu/Github-i18n/settings の原文 HTML（ラベルは既に中国語、説明文は英語のまま）。
 		"Anyone can create an issue": "誰でもイシューを作成できます",
 		"Only collaborators can create issues": "コラボレーターのみがイシューを作成できます",
+		// —— プルリクエスト作成ポリシーメニューの説明文（2026-10-24 実機。オプションラベルは
+		// 上流がすでに「すべてのユーザー / コラボレーターのみ」と自訳済みで、説明文だけ英語のまま。
+		// 文体は上のイシュー作成ポリシーの 2 件に合わせる）——
+		"Anyone can create a pull request": "誰でもプルリクエストを作成できます",
+		"Only collaborators can create PRs": "コラボレーターのみがプルリクエストを作成できます",
 		"Up to": "最大",
 		"branches and tags can be updated in a push": "個のブランチとタグを 1 回のプッシュで更新できます",
 		// —— イシューの自動クローズ ——

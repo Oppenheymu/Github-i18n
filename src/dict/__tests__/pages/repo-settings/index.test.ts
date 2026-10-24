@@ -150,3 +150,26 @@ describe("仓库设置页 2026-10-03 采集的新文案", () => {
 		}
 	});
 });
+
+describe("仓库设置页的拉取请求创建策略菜单", () => {
+	it("translates the two option descriptions", () => {
+		// 2026-10-24 维护者实机 HTML（action="…/settings/pull_request_creation_policy"）：
+		// 与议题创建策略同构的单选菜单——选项标签（所有用户 / 仅协作者）上游已自译，
+		// 只有 ActionListItem-description 还是英文残留；句式与议题创建策略的两条对齐
+		expect(
+			translateText(
+				"Anyone can create a pull request",
+				view,
+			),
+		).toBe("任何人都可以创建拉取请求");
+		expect(
+			translateText(
+				"Only collaborators can create PRs",
+				view,
+			),
+		).toBe("仅协作者可以创建拉取请求");
+		// 选项标签是 GitHub 自译的中文节点，引擎不碰（反例）
+		expect(translateText("所有用户", view)).toBeNull();
+		expect(translateText("仅协作者", view)).toBeNull();
+	});
+});

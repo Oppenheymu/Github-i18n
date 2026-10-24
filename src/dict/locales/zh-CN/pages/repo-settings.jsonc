@@ -188,6 +188,10 @@
 		// 贴的 /Oppenheymu/Github-i18n/settings 原版 HTML（标签已是中文，说明句仍是英文）。
 		"Anyone can create an issue": "任何人都可以创建议题",
 		"Only collaborators can create issues": "仅协作者可以创建议题",
+		// —— 拉取请求创建策略菜单的说明句（2026-10-24 实机；选项标签上游已自译
+		// 为「所有用户 / 仅协作者」，说明句是英文残留，句式与议题创建策略对齐）——
+		"Anyone can create a pull request": "任何人都可以创建拉取请求",
+		"Only collaborators can create PRs": "仅协作者可以创建拉取请求",
 		"Up to": "最多",
 		"branches and tags can be updated in a push": "个分支和标签可在一次推送中更新",
 		// —— 自动关闭议题 ——

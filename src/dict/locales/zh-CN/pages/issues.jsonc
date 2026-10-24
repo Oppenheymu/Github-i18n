@@ -116,6 +116,23 @@
 		"Typescript support issues": "TypeScript 支持问题",
 		"VS Code editor tab issues": "VS Code 编辑器标签页问题",
 		// —— 拖放辅助说明（键按引擎空白归一写为单空格形式）——
-		"To pick up a draggable item, press the space bar. While dragging, use the arrow keys to move the item. Press space again to drop the item in its new position, or press escape to cancel.": "要拾取可拖动项，请按空格键。拖动时，使用方向键移动该项。再次按空格键将其放置到新位置，或按 Esc 取消。"
+		"To pick up a draggable item, press the space bar. While dragging, use the arrow keys to move the item. Press space again to drop the item in its new position, or press escape to cancel.": "要拾取可拖动项，请按空格键。拖动时，使用方向键移动该项。再次按空格键将其放置到新位置，或按 Esc 取消。",
+		// —— 议题视图管理页（/issues/views，2026-10-24 实机，同序见 core/canonical.jsonc）——
+		// 「Shared」是泛化短词的撞车权衡：整节点精确匹配 + 首字母大写 + 仅本模块生效，
+		// 议题页上独立成节点的 Shared 基本只有视图分组标题（canonical 同段注释）。
+		// 「私有」分组标题上游已自译，故只收「Collapse Private」的 tooltip 整节点。
+		"New view": "新建视图",
+		"Collapse Private": "收起私有",
+		"Collapse Shared": "收起共享",
+		"Shared": "共享",
+		// —— 两个分组的空状态：标题 + 「链接 + 后续说明」两节点说明句 ——
+		// 后续说明节点原文带前导空格（引擎保留），拼接结果：
+		// 「创建私有视图 以跟踪你的工作.」/「创建共享视图 供此仓库的所有人使用.」
+		"No private views yet": "还没有私有视图",
+		"Create a private view": "创建私有视图",
+		"to track your work.": "以跟踪你的工作。",
+		"No shared views yet": "还没有共享视图",
+		"Create a shared view": "创建共享视图",
+		"for everyone in this repository.": "供此仓库的所有人使用。"
 	}
 }

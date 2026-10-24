@@ -7,7 +7,10 @@
 // 同一句话在窄屏/宽屏是两组不同节点（带不带源码缩进）。整句键在这里必然落空，
 // 所以这些清单就是本模块「哪些原文真的存在于 DOM」的唯一依据。
 import { describe, expect, it } from "bun:test";
-import { buildView } from "../../../content/view.ts";
+import {
+	buildView,
+	matchModules,
+} from "../../../content/view.ts";
 import { translateText } from "../../../content/walker.ts";
 import { dictCore, dictForLocale } from "../../index.ts";
 
@@ -105,6 +108,30 @@ const REACT_TOOLBAR_ATTRS: readonly string[] = [
 	"Filter projects",
 	"Filter milestones", // 实机原文带尾随空格
 	"Filter assignees",
+];
+
+/**
+ * 议题视图管理页（/issues/views，2026-10-24 维护者实机 HTML）。
+ * 路由被 pages/issues 的前缀路由覆盖。页头 h1「视图」、侧栏 tooltip、
+ * 「私有」分组标题由 GitHub 自译（不登记）；Shared 分组标题上游没译。
+ */
+const VIEWS_PAGE_NODES: readonly (readonly [
+	string,
+	string,
+])[] = [
+	["New view", "新建视图"],
+	["Collapse Private", "收起私有"],
+	["Collapse Shared", "收起共享"],
+	["Shared", "共享"],
+	["No private views yet", "还没有私有视图"],
+	["Create a private view", "创建私有视图"],
+	["to track your work.", "以跟踪你的工作。"],
+	["No shared views yet", "还没有共享视图"],
+	["Create a shared view", "创建共享视图"],
+	[
+		"for everyone in this repository.",
+		"供此仓库的所有人使用。",
+	],
 ];
 
 /** 节点在实机里通常带源码缩进与换行；两种形态都必须命中 */
@@ -217,6 +244,46 @@ describe("议题列表页的实机节点边界", () => {
 				".",
 			]),
 		).toBe("详细了解如何搜索和筛选 议题与拉取请求.");
+	});
+
+	it("covers the views management page", () => {
+		// /issues/views 被 pages/issues 的前缀路由覆盖（若上游改路由，
+		// 这里会先红——视图页整页回退英文就是路由断了）
+		expect(
+			matchModules(
+				"/Koishi-CE/koishi/issues/views",
+				dictForLocale("zh-CN").modules,
+			).map((module) => module.name),
+		).toContain("pages/issues");
+		for (const [node, expected] of VIEWS_PAGE_NODES) {
+			for (const variant of withWhitespace(node)) {
+				expect(
+					translateText(variant, view),
+					`节点 ${JSON.stringify(variant)}`,
+				).toBe(expected);
+			}
+		}
+		// 两个空状态的说明句：链接 + 后续说明两节点，后续说明原文带前导空格
+		// （引擎保留）；句号在节点**内部**（不同于上面那条的独立句号节点），
+		// 随节点一起译成中文句号
+		expect(
+			renderNodes([
+				"Create a private view",
+				" to track your work.",
+			]),
+		).toBe("创建私有视图 以跟踪你的工作。");
+		expect(
+			renderNodes([
+				"Create a shared view",
+				" for everyone in this repository.",
+			]),
+		).toBe("创建共享视图 供此仓库的所有人使用。");
+		// 分组标题旁的 sr-only 计数「(0)」是纯符号 + 数字节点，不收录
+		expect(translateText("(0)", view)).toBeNull();
+		// 「Collapse Private / Shared」tooltip 是固定文案整节点（分组名非用户内容）
+		expect(translateText("Collapse Private", view)).toBe(
+			"收起私有",
+		);
 	});
 
 	it("keeps the sort menu's meaning clear", () => {

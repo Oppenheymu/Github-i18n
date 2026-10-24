@@ -129,7 +129,26 @@
 				"Typescript support issues",
 				"VS Code editor tab issues",
 				// —— 拖放辅助说明（键按引擎空白归一写为单空格形式）——
-				"To pick up a draggable item, press the space bar. While dragging, use the arrow keys to move the item. Press space again to drop the item in its new position, or press escape to cancel."
+				"To pick up a draggable item, press the space bar. While dragging, use the arrow keys to move the item. Press space again to drop the item in its new position, or press escape to cancel.",
+				// —— 议题视图管理页（/issues/views，路由被 pages/issues 前缀覆盖；
+				// 2026-10-24 维护者实机 HTML）——
+				// 页头 h1「视图」/ 侧栏 tooltip / 「私有」分组标题 GitHub 已自译，不重复登记。
+				// 两个分组的收起 tooltip 是**完整文本节点**（Collapse + 固定分组名，非用户内容），
+				// 各收一条；分组标题 Shared 上游没译，单独收（泛化短词：整节点精确匹配 +
+				// 首字母大写 + 仅本模块生效，风险写进 locales 注释）。
+				"New view",
+				"Collapse Private",
+				"Collapse Shared",
+				"Shared",
+				// —— 两个分组的空状态（Blankslate）：标题 + 「链接 + 后续说明」两节点说明句 ——
+				// 后续说明各带**前导空格**（键按 normalizeKey 形态登记，不含空格），
+				// 译文按拼接语义拆分，日语把接续形落在第二节点（见 locales 注释）。
+				"No private views yet",
+				"Create a private view",
+				"to track your work.",
+				"No shared views yet",
+				"Create a shared view",
+				"for everyone in this repository."
 			]
 		},
 		{

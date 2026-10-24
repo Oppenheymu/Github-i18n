@@ -2779,6 +2779,27 @@
 				{
 					"id": "actions/opened-by",
 					"pattern": "^opened\\s+by$"
+				},
+				// —— 运行详情页（/actions/runs/<id>，2026-10-24 维护者漏翻清单）——
+				// Artifacts 区块的下载 / 删除链接带**用户自定义的 artifact 名**，
+				// 静态键收不下动态值；静态词典先命中（如 Delete workflow run），规则只兜动态名
+				{
+					"id": "actions/download-artifact",
+					"pattern": "^Download (.+) \\(opens in a new tab\\)$"
+				},
+				{
+					"id": "actions/delete-named",
+					"pattern": "^Delete (.+)$"
+				},
+				// 触发类型是 GitHub 事件的封闭集合（push 等），事件名按 YAML 术语保持英文
+				{
+					"id": "actions/triggered-via",
+					"pattern": "^Triggered via (.+)$"
+				},
+				// 检查状态图标的 aria-label：两端数字都动态
+				{
+					"id": "actions/checks-ok",
+					"pattern": "^([\\d,]+) / ([\\d,]+) checks OK$"
 				}
 			]
 		},

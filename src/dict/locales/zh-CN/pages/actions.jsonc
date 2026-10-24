@@ -63,6 +63,63 @@
 		// —— 半动态属性：词条键含具体工作流名，仅解当前值（属性不应用规则）——
 		"Pin CI": "置顶 CI",
 		// 工作流侧栏钉选状态（aria）
-		"pinned": "已置顶"
+		"pinned": "已置顶",
+		// —— 运行详情页（/actions/runs/<id>，2026-10-24 维护者漏翻清单，同序见 core/canonical.jsonc）——
+		// 「Enable / Usage / Agents / items / Deployment protection rules / Size」是路由互斥键，
+		// 沿用其他模块的既有译文
+		"Lockfile": "锁定文件",
+		"Usage": "用量",
+		"Workflow file": "工作流文件",
+		// —— Re-run 对话框：说明句三节点「…including / all the jobs（或用户 job 名）/ and dependents:」，
+		// 拼接结果「将开始此工作流的新一次尝试，包括所有作业及其依赖项:」——
+		"Re-run jobs": "重新运行作业",
+		"Re-run all jobs": "重新运行所有作业",
+		"Re-run single job": "重新运行单个作业",
+		"A new attempt of this workflow will be started, including": "将开始此工作流的新一次尝试，包括",
+		"all the jobs": "所有作业",
+		"and dependents:": "及其依赖项:",
+		"Enable": "启用",
+		// 「Enable debug logging」切成 label + 链接两个节点，拼接「启用 调试日志」
+		"debug logging": "调试日志",
+		// —— 摘要页菜单与下拉 ——
+		"Create status badge": "创建状态徽章",
+		"Delete all logs": "删除所有日志",
+		"View job logs": "查看作业日志",
+		"View raw markdown": "查看原始 markdown",
+		"Copy permalink": "复制永久链接",
+		"Copy summary permalink": "复制摘要永久链接",
+		"Copy artifact digest": "复制产物摘要",
+		"All jobs": "所有作业",
+		"Run details": "运行详情",
+		"Filter by job status": "按作业状态筛选",
+		"Workflow run options": "工作流运行选项",
+		// —— Artifacts 区块 ——
+		"Artifacts": "产物",
+		"Produced during runtime": "运行期间生成",
+		"Digest": "摘要",
+		"Size": "大小",
+		"Total duration": "总时长",
+		"Triggered via push": "通过 push 触发",
+		// —— 部署保护区块 ——
+		"Deployment protection rules": "部署保护规则",
+		"Reviewers, timers, and other rules protecting deployments in this run": "审查者、计时器以及保护此次部署的其他规则",
+		// —— 事件行碎片：拼接「Oppenheymu 批准于 2026 年 10 月 25 日」「Oppenheymu 推送了 677f0ed main」——
+		"approved": "批准于",
+		"pushed": "推送了",
+		// —— 无障碍文案 ——
+		"Annotations": "注解",
+		"Workflow run": "工作流运行",
+		"Workflow run graph": "工作流运行图",
+		"Workflow run summary": "工作流运行摘要",
+		"Fit to window": "适应窗口",
+		"Zoom in": "放大",
+		"Zoom out": "缩小",
+		// —— 作业摘要尾注与页脚 ——
+		"Job summary generated at run-time": "作业摘要在运行时生成",
+		// 页脚彩蛋：humans.txt 是专有名词不收，拼接「用 ❤️ 制作，作者 humans.txt」
+		"Made with ❤️ by": "用 ❤️ 制作，作者",
+		"Oh hello! Nice to see you.": "哦，你好！很高兴见到你。",
+		// 分页组件的 sr-only 碎片：上游把「更多」译了留下裸「items」
+		"items": "项"
 	}
 }

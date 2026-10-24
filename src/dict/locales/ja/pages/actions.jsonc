@@ -64,6 +64,65 @@
 		// —— 半動的な属性：キーに具体的なワークフロー名を含み、現在の値だけを解く（属性にルールは効かない）——
 		"Pin CI": "CI をピン留め",
 		// ワークフローサイドバーのピン留め状態（aria）
-		"pinned": "ピン留め済み"
+		"pinned": "ピン留め済み",
+		// —— 実行詳細ページ（/actions/runs/<id>、2026-10-24 メンテナーの漏翻リスト、同順は core/canonical.jsonc）——
+		// 「Enable / Usage / Agents / items / Deployment protection rules / Size」はルート互斥キーで、
+		// 他モジュールの既存訳をそのまま流用
+		"Lockfile": "ロックファイル",
+		"Usage": "使用量",
+		"Workflow file": "ワークフローファイル",
+		// —— 再実行ダイアログ：説明文は 3 ノード（「…including」+ all the jobs またはユーザーのジョブ名 +
+		// 「and dependents:」）。結合結果：「このワークフローの新しい試行が開始されます。対象すべてのジョブ
+		// および依存ジョブ:」——
+		"Re-run jobs": "ジョブを再実行",
+		"Re-run all jobs": "すべてのジョブを再実行",
+		"Re-run single job": "単一のジョブを再実行",
+		"A new attempt of this workflow will be started, including": "このワークフローの新しい試行が開始されます。対象",
+		"all the jobs": "すべてのジョブ",
+		"and dependents:": "および依存ジョブ:",
+		"Enable": "有効にする",
+		// 「Enable debug logging」はラベルとリンクの 2 ノードに分かれ、結合すると「有効にする デバッグログ」
+		"debug logging": "デバッグログ",
+		// —— サマリーページのメニューとドロップダウン ——
+		"Create status badge": "ステータスバッジを作成",
+		"Delete all logs": "すべてのログを削除",
+		"View job logs": "ジョブのログを表示",
+		"View raw markdown": "生のマークダウンを表示",
+		"Copy permalink": "パーマリンクをコピー",
+		"Copy summary permalink": "サマリーのパーマリンクをコピー",
+		"Copy artifact digest": "アーティファクトのダイジェストをコピー",
+		"All jobs": "すべてのジョブ",
+		"Run details": "実行の詳細",
+		"Filter by job status": "ジョブの状態でフィルター",
+		"Workflow run options": "ワークフロー実行のオプション",
+		// —— アーティファクトブロック ——
+		"Artifacts": "アーティファクト",
+		"Produced during runtime": "実行時に生成",
+		"Digest": "ダイジェスト",
+		"Size": "サイズ",
+		"Total duration": "合計所要時間",
+		"Triggered via push": "push でトリガーされました",
+		// —— デプロイ保護ブロック ——
+		"Deployment protection rules": "デプロイ保護ルール",
+		"Reviewers, timers, and other rules protecting deployments in this run": "この実行でデプロイを保護するレビュアー、タイマー、その他のルール",
+		// —— イベント行の断片：結合結果「Oppenheymu が承認済み 2026 年 10 月 25 日」
+		// 「Oppenheymu がプッシュ 677f0ed main」——
+		"approved": "が承認済み",
+		"pushed": "がプッシュ",
+		// —— アクセシビリティ用語 ——
+		"Annotations": "アノテーション",
+		"Workflow run": "ワークフロー実行",
+		"Workflow run graph": "ワークフロー実行グラフ",
+		"Workflow run summary": "ワークフロー実行サマリー",
+		"Fit to window": "ウィンドウに合わせる",
+		"Zoom in": "拡大",
+		"Zoom out": "縮小",
+		// —— ジョブサマリーの注記とフッター ——
+		"Job summary generated at run-time": "ジョブサマリーは実行時に生成されます",
+		// フッターの隠し要素：humans.txt は固有名詞なので収録しない
+		"Made with ❤️ by": "❤️ を添えて制作:",
+		"Oh hello! Nice to see you.": "おっと、こんにちは！お会いできて嬉しいです。",
+		// ページネーションの sr-only 断片：上流が「もっと」を訳して裸の「items」だけ残った
+		"items": "件"
 	}
 }

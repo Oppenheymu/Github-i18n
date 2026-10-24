@@ -556,6 +556,13 @@
 		"actions/workflow-runs-count": "$1 件のワークフロー実行",
 		"actions/workflow-runs-title": "ワークフロー実行 · $1",
 		"actions/opened-by": "作成者：",
+		// —— 実行詳細ページ（/actions/runs/<id>、2026-10-24 漏翻リスト）：ダウンロード / 削除リンクは
+		// ユーザー定義のアーティファクト名を含む（$1 はそのまま搬送）。トリガー種別は閉じた集合で
+		// YAML 用語のまま残す。チェック状態アイコンの aria は両端の数字が動的
+		"actions/download-artifact": "$1 をダウンロード（新しいタブで開きます）",
+		"actions/delete-named": "$1 を削除",
+		"actions/triggered-via": "$1 でトリガーされました",
+		"actions/checks-ok": "$1 / $2 件のチェックが成功",
 
 		// —— pages/agents（エージェント）——
 		"agents/sessions-count": "$1 件のセッション",

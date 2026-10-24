@@ -553,6 +553,13 @@
 		"actions/workflow-runs-count": "$1 个工作流运行",
 		"actions/workflow-runs-title": "工作流运行 · $1",
 		"actions/opened-by": "打开者：",
+		// —— 运行详情页（/actions/runs/<id>，2026-10-24 漏翻清单）：下载 / 删除链接带
+		// 用户自定义的 artifact 名（$1 原样搬运）；触发类型是封闭集合、按 YAML 术语保留英文；
+		// 检查状态图标的 aria-label 两端数字都动态
+		"actions/download-artifact": "下载 $1（在新标签页中打开）",
+		"actions/delete-named": "删除 $1",
+		"actions/triggered-via": "通过 $1 触发",
+		"actions/checks-ok": "$1 / $2 项检查通过",
 		"agents/sessions-count": "$1 个会话",
 		"agents/page-title": "代理 · $1",
 		"dashboard/greeting-morning": "早上好，$1！",

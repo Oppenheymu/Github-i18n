@@ -5911,7 +5911,69 @@
 				// —— 半动态属性：词条键含具体工作流名，仅解当前值（属性不应用规则）——
 				"Pin CI",
 				// 工作流侧栏钉选状态（aria）
-				"pinned"
+				"pinned",
+				// —— 运行详情页（/actions/runs/<id>，2026-10-24 维护者漏翻清单，90 条
+				// 经 report:misses 分拣出的 59 条候选）——模块此前只覆盖列表页，运行页整块没词条。
+				// 「Enable / Usage / Agents / items / Deployment protection rules / Size」
+				// 是**路由互斥键**：别的模块已有同名词条（译文沿用），actions 页吃不到须重复登记。
+				// 触发说明与 Artifacts 的下载 / 删除链接带动态值，走本模块 4 条新规则（见 core/rules.jsonc），
+				// 不在此登记。
+				"Lockfile",
+				"Usage",
+				"Workflow file",
+				// —— Re-run 对话框（标题 / 按钮 / 被 <strong> 切开的说明句碎片）——
+				// 说明句三节点：「…including」+（all the jobs 或用户 job 名）+「and dependents:」，
+				// 译文按拼接语义拆分；job 名是用户内容，中间节点不收
+				"Re-run jobs",
+				"Re-run all jobs",
+				"Re-run single job",
+				"A new attempt of this workflow will be started, including",
+				"all the jobs",
+				"and dependents:",
+				"Enable",
+				// 「Enable debug logging」被切成 label「Enable」+ 链接「debug logging」两个节点
+				"debug logging",
+				// —— 摘要页菜单与下拉 ——
+				"Create status badge",
+				"Delete all logs",
+				"View job logs",
+				"View raw markdown",
+				"Copy permalink",
+				"Copy summary permalink",
+				"Copy artifact digest",
+				"All jobs",
+				"Run details",
+				"Filter by job status",
+				"Workflow run options",
+				// —— Artifacts 区块（表头 / 说明 / 卡片标题）——
+				"Artifacts",
+				"Produced during runtime",
+				"Digest",
+				"Size",
+				"Total duration",
+				"Triggered via push",
+				// —— 部署保护区块 ——
+				"Deployment protection rules",
+				"Reviewers, timers, and other rules protecting deployments in this run",
+				// —— 事件行碎片（「<用户名> approved <相对时间>」/「<用户名> pushed <SHA> <分支>」，
+				// 用户名 / SHA / 分支 / 环境名是用户内容不收）——
+				"approved",
+				"pushed",
+				// —— 无障碍文案（nav / 容器 aria-label / sr-only tooltip）——
+				"Annotations",
+				"Workflow run",
+				"Workflow run graph",
+				"Workflow run summary",
+				"Fit to window",
+				"Zoom in",
+				"Zoom out",
+				// —— 作业摘要尾注与页脚 ——
+				"Job summary generated at run-time",
+				// GitHub 页脚彩蛋（humans.txt 是链接文本、专有名词不收）
+				"Made with ❤️ by",
+				"Oh hello! Nice to see you.",
+				// 分页组件的 sr-only 碎片：上游把「更多」译了留下裸「items」
+				"items"
 			]
 		},
 		{

@@ -7182,7 +7182,13 @@
 				"45 pull requests",
 				"105 pull requests",
 				"152 pull requests",
-				"3,000 pull requests"
+				"3,000 pull requests",
+				// —— 个人主页的四维活动图标签（2026-10-24 维护者实机 SVG <text> 节点）——
+				// 另两轴 Pull requests / Issues 由 global 同名键覆盖，不重复登记；
+				// 「Code review」「Commits」在 repo / marketing 等模块已有同名词条，
+				// 但 profile 路由不吃那些模块，须在本模块登记（译文与既有各处同译）
+				"Code review",
+				"Commits"
 			]
 		},
 		{

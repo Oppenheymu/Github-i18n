@@ -548,3 +548,17 @@ describe("pages/profile 的贡献日历月份标签", () => {
 		expect(translateText("October", view)).toBe("10 月");
 	});
 });
+
+describe("pages/profile 的四维活动图轴标签", () => {
+	it("translates the SVG axis labels", () => {
+		// 2026-10-24 维护者实机：个人主页四维活动图（activity overview）的轴标签是
+		// SVG <text> 节点（class activity-overview-label），引擎的 TreeWalker 照常
+		// 遍历到（filters 的排除清单不含 SVG）。另两轴 Pull requests / Issues 由
+		// global 同名键覆盖，不重复登记；上面那批「N pull requests」数字形态早已
+		// 收录，轴标签本体反而漏了。
+		expect(translateText("Code review", view)).toBe(
+			"代码审查",
+		);
+		expect(translateText("Commits", view)).toBe("提交");
+	});
+});

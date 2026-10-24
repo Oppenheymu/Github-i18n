@@ -381,6 +381,11 @@
 		"45 pull requests": "45 件のプルリクエスト",
 		"105 pull requests": "105 件のプルリクエスト",
 		"152 pull requests": "152 件のプルリクエスト",
-		"3,000 pull requests": "3,000 件のプルリクエスト"
+		"3,000 pull requests": "3,000 件のプルリクエスト",
+		// —— 四次元アクティビティグラフの軸ラベル（2026-10-24 実機 SVG <text> ノード）——
+		// もう 2 軸の Pull requests / Issues は global が覆う。上の「N pull requests」
+		// 数字形は既に収録済みで、軸ラベル本体が逆に漏れていた
+		"Code review": "コードレビュー",
+		"Commits": "コミット"
 	}
 }

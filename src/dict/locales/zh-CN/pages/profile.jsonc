@@ -399,6 +399,11 @@
 		"45 pull requests": "45 个拉取请求",
 		"105 pull requests": "105 个拉取请求",
 		"152 pull requests": "152 个拉取请求",
-		"3,000 pull requests": "3,000 个拉取请求"
+		"3,000 pull requests": "3,000 个拉取请求",
+		// —— 四维活动图的轴标签（2026-10-24 实机 SVG <text> 节点）——
+		// 另两轴 Pull requests / Issues 由 global 覆盖；上面的「N pull requests」
+		// 数字形态早已收录，轴标签本体反而漏了
+		"Code review": "代码审查",
+		"Commits": "提交"
 	}
 }

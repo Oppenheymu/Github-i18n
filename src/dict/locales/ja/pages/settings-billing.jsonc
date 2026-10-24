@@ -166,6 +166,30 @@
 		"Turn off included usage email alerts": "含まれる使用量のメールアラートを無効にする",
 		"This includes Actions, Git LFS, Packages, and Sandbox": "Actions、Git LFS、パッケージ、Sandbox が対象です",
 		"Included usage alerts:": "含まれる使用量のアラート：",
+		// —— 予算とアラートページの新版（unified-budgets-page、2026-10-23 の実機 HTML）——
+		// 旧版（Name / Account / Product の 3 列）とは別の表で、こちらは Budget / Spent /
+		// Status / Actions の 4 列。ノードの境界は
+		// src/dict/__tests__/pages/settings/budgets.test.ts を参照。
+		// Budget / Spent は可視列見出しがアイコンで、文字列は sr-only の列見出し。
+		"Budget": "予算",
+		"Spent": "支出済み",
+		// 予算上限に達した行の状態（警告アイコンと並ぶ）
+		"Usage blocked": "使用量がブロックされました",
+		// 絞り込み欄の placeholder と sr-only ラベルは同一文字列。クリアボタンの
+		// tooltip だけ「Clear 」が前置される
+		"Filter by scope, repository, product or SKU": "範囲、リポジトリ、製品、SKU で絞り込み",
+		"Clear Filter by scope, repository, product or SKU": "範囲、リポジトリ、製品、SKU による絞り込みをクリア",
+		// 範囲ドロップダウンのラベル（コロン付き）。現在値の All は既存の「すべて」が受け持つ
+		"Scope:": "範囲：",
+		// 表を囲む <section> と内側の role="region" のアクセシブル名（別々の文字列）
+		"Budgets": "予算",
+		"Budget table": "予算テーブル",
+		// 「含まれる使用量のアラート」ドロップダウンの aria-label。属性は完全一致のみで、
+		// 値は On / Off の 2 態なので両方を収録する
+		"Included usage alerts: On": "含まれる使用量のアラート：オン",
+		"Included usage alerts: Off": "含まれる使用量のアラート：オフ",
+		// 5 行目の SKU グループ名。SKU は略号なので原文のまま
+		"All AI Credit SKUs": "すべての AI クレジット SKU",
 		// —— ライセンスページ（/account/billing/licensing）——
 		"Upgrade Individual Plan": "個人プランにアップグレード",
 		"Upgrade to Business": "Business にアップグレード",

@@ -129,6 +129,10 @@ const STATIC_NODES: readonly (readonly [string, string])[] =
 		["Switch to classic dashboard", "切换到经典仪表板"],
 		// 「Give feedback」与 pages/agents 同名同译（agents 路由不命中首页，需重复登记）
 		["Give feedback", "提供反馈"],
+		// —— 新版仪表板顶部的两个标签页（React 区 prc-ActionList-ItemLabel，同日实机）——
+		["Home", "主页"],
+		// 「Feed」是泛化短词，撞车权衡见 core/canonical.jsonc 同段注释
+		["Feed", "动态"],
 	];
 
 describe("pages/dashboard 的实机节点边界", () => {

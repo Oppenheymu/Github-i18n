@@ -66,6 +66,9 @@
 		// 「Give feedback」与 pages/agents 的既有词条同名同译（agents 路由不命中首页，
 		// 此处必须重复登记），沿用同一译文避免触发「同键异译」
 		"Switch to classic dashboard": "切换到经典仪表板",
-		"Give feedback": "提供反馈"
+		"Give feedback": "提供反馈",
+		// —— 新版仪表板顶部的两个标签页（Home 早已收录，Feed 为 2026-10-24 新增）——
+		// 「Feed」的撞车风险见 core/canonical.jsonc 同段注释
+		"Feed": "动态"
 	}
 }

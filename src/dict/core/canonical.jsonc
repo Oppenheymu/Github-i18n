@@ -5970,7 +5970,14 @@
 				// 里已有一条**同名同译**词条（agents 路由 `^/[^/]+/[^/]+/agents` 不命中
 				// 首页路径，这里必须重复登记），登记时沿用同一译文以免触发「同键异译」。
 				"Switch to classic dashboard",
-				"Give feedback"
+				"Give feedback",
+				// —— 新版仪表板顶部的两个标签页 ——
+				// 2026-10-24 维护者实机 HTML：React 重写区（`prc-ActionList-ItemLabel`），
+				// `Home` 与 `Feed` 各是一个 `ActionList.Item.Label` 文本节点。`Home` 早已
+				// 收录（本模块首个键），`Feed` 为本次新增。`Feed` 是泛化短词：仓库 / 用户
+				// 与它同名的会被一起翻，但整节点精确匹配 + 首字母大写 + 仅本模块路由生效，
+				// 误伤面可控（同 AGENTS.md 硬性约束 3 的权衡写明在此）。
+				"Feed"
 			]
 		},
 		{

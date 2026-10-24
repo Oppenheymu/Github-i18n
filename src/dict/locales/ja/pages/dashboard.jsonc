@@ -68,6 +68,8 @@
 		// 「Give feedback」は pages/agents の既存語と同名同訳（agents のルートはホームに
 		// ヒットしないため再登録必須）、同じ訳語を流用して「同鍵異訳」を回避する
 		"Switch to classic dashboard": "クラシックダッシュボードに切り替え",
-		"Give feedback": "フィードバックを送る"
+		"Give feedback": "フィードバックを送る",
+		// —— 新版ダッシュボード上部の 2 つのタブ（Home は既収録、Feed は 2026-10-24 追加）——
+		"Feed": "フィード"
 	}
 }

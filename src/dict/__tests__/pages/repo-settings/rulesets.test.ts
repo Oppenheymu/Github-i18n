@@ -212,6 +212,13 @@ const NODES: readonly (readonly [string, string])[] = [
 		"Request Copilot code review for new pull requests automatically if the author has access to Copilot code review and their premium requests quota has not reached the limit.",
 		"如果作者可以使用 Copilot 代码审查且其高级请求配额未达上限，就自动为新拉取请求请求 Copilot 代码审查。",
 	],
+	[
+		// 2026-10-24 实机：上游把同一句的结尾改成了 AI credits（术语迁移，
+		// 语义没变），走 core/aliases.jsonc 的别名复用上一行的旧译文——
+		// 键只登记规范键（上一行），新 DOM 文本不进 canonical
+		"Request Copilot code review for new pull requests automatically if the author has access to Copilot code review and AI credits.",
+		"如果作者可以使用 Copilot 代码审查且其高级请求配额未达上限，就自动为新拉取请求请求 Copilot 代码审查。",
+	],
 	// —— 代码扫描工具与严重性阈值 ——
 	[
 		"Required tools and alert thresholds",

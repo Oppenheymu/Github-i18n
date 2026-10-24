@@ -9,5 +9,11 @@
 // 错误加别名会静默沿用旧译文，评审时请重点看这几十行。
 {
 	"$schema": "../types/dict.schema.json",
-	"aliases": {}
+	"aliases": {
+		// 2026-10-24 实机（规则集创建页的「Automatically request Copilot code review」
+		// 规则说明句）：GitHub 把「premium requests quota」体系改叫「AI credits」，
+		// 结尾从 and their premium requests quota has not reached the limit 缩成
+		// and AI credits——同一开关的同一说明，语义没变，别名复用旧译文。
+		"Request Copilot code review for new pull requests automatically if the author has access to Copilot code review and AI credits.": "Request Copilot code review for new pull requests automatically if the author has access to Copilot code review and their premium requests quota has not reached the limit."
+	}
 }

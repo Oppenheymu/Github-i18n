@@ -62,6 +62,12 @@
 		"No results matched your search": "検索に一致する結果がありません",
 		"Try a different search query.": "別の検索クエリを試してください。",
 		"Learn more about searching and filtering issues and pull requests.": "イシューとプルリクエストの検索と絞り込みについて詳しく見る",
+		// —— 上の行のヘルプリンクの新版分割ノード形態（2026-10-24 実機：リンク内が 3 ノードに
+		// 分割、句点「.」は独立した記号ノードとして収録しない）。日本語は語順の都合上、
+		// 「詳しくは、」を前ノードに置き、結合結果は「詳しくは、 イシューとプルリクエストの
+		// 検索と絞り込み.」になる。整文キーは旧版描画用に残す ——
+		"Learn more about searching and filtering": "詳しくは、",
+		"issues and pull requests": "イシューとプルリクエストの検索と絞り込み",
 		// —— 一覧の並べ替えメニューと新規作成入口 ——
 		"Newest": "新しい順",
 		"Oldest": "古い順",

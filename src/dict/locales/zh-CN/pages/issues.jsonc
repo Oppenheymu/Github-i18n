@@ -61,6 +61,11 @@
 		"No results matched your search": "没有与你的搜索匹配的结果",
 		"Try a different search query.": "请尝试其他搜索查询。",
 		"Learn more about searching and filtering issues and pull requests.": "详细了解如何搜索和筛选议题与拉取请求。",
+		// —— 上一行帮助链接的新版拆节点形态（2026-10-24 实机：链接内拆成三段，
+		// 句号是独立纯符号节点不收录）。译文按拼接语义拆分，前段尾随空格由引擎保留，
+		// 拼接结果「详细了解如何搜索和筛选 议题与拉取请求.」；整句键保留给旧版渲染 ——
+		"Learn more about searching and filtering": "详细了解如何搜索和筛选",
+		"issues and pull requests": "议题与拉取请求",
 		// —— 列表排序菜单与新建入口（既有词条，恢复保留）——
 		"Newest": "最新",
 		"Oldest": "最早",

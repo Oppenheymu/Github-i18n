@@ -69,6 +69,16 @@
 				"No results matched your search",
 				"Try a different search query.",
 				"Learn more about searching and filtering issues and pull requests.",
+				// —— 上一行帮助链接的**新版拆节点形态**（2026-10-24 维护者实机采集）——
+				// 链接内被 React 拆成三段：前段「Learn more about searching and filtering 」
+				// （尾带一个空格）、中段「issues and pull requests」（无句号）、句号「.」是
+				// 独立纯符号节点（按判定规则 3 不收录，保持英文）。整句键保留：它是旧版
+				// 渲染（2026-09 抓取）的形态，两条并存。拆节点的改动不能靠别名（整句译文
+				// 无法复用），必须新增碎片词条。`issues and pull requests` 是泛化短语的
+				// 撞车权衡：整节点精确匹配 + 仅本模块生效，页面上「N issues and pull
+				// requests」类计数带数字前缀、是别的节点，不会误命中。
+				"Learn more about searching and filtering",
+				"issues and pull requests",
 				// —— 列表排序菜单与新建入口（既有词条，恢复保留）——
 				"Newest",
 				"Oldest",

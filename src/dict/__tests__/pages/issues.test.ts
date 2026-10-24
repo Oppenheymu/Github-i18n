@@ -73,6 +73,9 @@ const REACT_TOOLBAR_NODES: readonly string[] = [
 	// —— 空结果态（Blankslate）——
 	"No results matched your search",
 	"Try a different search query.",
+	// 2026-10-24 实机：下面这条**链接文本**在新版里被 React 拆成三段（见
+	// 「renders the empty-state link across its split nodes」），整句只是旧版
+	// 渲染（2026-09 抓取）的形态——两种并存，各自的词条都要命中。
 	"Learn more about searching and filtering issues and pull requests.",
 	// —— 标签面板 ——
 	"Filter by label",
@@ -190,6 +193,30 @@ describe("议题列表页的实机节点边界", () => {
 		).toBe(
 			"请尝试其他搜索查询。 详细了解如何搜索和筛选议题与拉取请求。",
 		);
+	});
+
+	it("renders the empty-state link across its split nodes", () => {
+		// 2026-10-24 实机：同一链接在新版里被 React 拆成三段——前段（尾带一个空格）、
+		// 中段（无句号）、句号（独立纯符号节点，按判定规则 3 不收录，保持英文）。
+		// 整句键在实机永不命中，必须靠碎片词条。前段尾随空格由引擎保留
+		// （applyTextNode / renderNodes 的 lead + trail），译文不得自带首尾空白。
+		expect(
+			translateText(
+				"Learn more about searching and filtering ",
+				view,
+			),
+		).toBe("详细了解如何搜索和筛选");
+		expect(
+			translateText("issues and pull requests", view),
+		).toBe("议题与拉取请求");
+		expect(translateText(".", view)).toBeNull();
+		expect(
+			renderNodes([
+				"Learn more about searching and filtering ",
+				"issues and pull requests",
+				".",
+			]),
+		).toBe("详细了解如何搜索和筛选 议题与拉取请求.");
 	});
 
 	it("keeps the sort menu's meaning clear", () => {

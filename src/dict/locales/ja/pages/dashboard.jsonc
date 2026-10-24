@@ -63,6 +63,11 @@
 		"The GitHub Copilot app, New": "GitHub Copilot アプリ、新着",
 		// —— イシュー一覧の「すべて表示」リンク（可視テキストと sr-only の後置の 2 ノード）——
 		"View all": "すべて表示",
-		"issues": "イシュー"
+		"issues": "イシュー",
+		// —— ダッシュボードプレビューメニュー（新版ダッシュボード右上のドロップダウン、同順は core/canonical.jsonc）——
+		// 「Give feedback」は pages/agents の既存語と同名同訳（agents のルートはホームに
+		// ヒットしないため再登録必須）、同じ訳語を流用して「同鍵異訳」を回避する
+		"Switch to classic dashboard": "クラシックダッシュボードに切り替え",
+		"Give feedback": "フィードバックを送る"
 	}
 }

@@ -2,7 +2,8 @@
 //
 // 证据来源：维护者 2026-10-02 贴出的**实机 HTML**（未加载扩展的原始英文页）：
 // Copilot 对话区（问候语 / 输入框 / 工具栏 / 启动器胶囊 / 动作菜单 / 提示词库 /
-// `/create-issue` 命令列表）、Copilot 应用宣传横幅、议题列表的「查看全部」链接。
+// `/create-issue` 命令列表）、Copilot 应用宣传横幅、议题列表的「查看全部」链接；
+// 2026-10-24 追补仪表板预览菜单（dashboard-preview-menu）的两个菜单项。
 // 截图只用于核对语义与数量。
 //
 // 关键边界事实（都在断言里锁住）：
@@ -123,6 +124,11 @@ const STATIC_NODES: readonly (readonly [string, string])[] =
 		// —— 议题列表的「查看全部」链接 ——
 		["View all", "查看全部"],
 		["issues", "议题"],
+		// —— 仪表板预览菜单（2026-10-24 维护者实机 HTML：新版仪表板右上角的
+		// `dashboard-preview-menu` 下拉，两个菜单项各是一个 ActionListItem-label 节点）——
+		["Switch to classic dashboard", "切换到经典仪表板"],
+		// 「Give feedback」与 pages/agents 同名同译（agents 路由不命中首页，需重复登记）
+		["Give feedback", "提供反馈"],
 	];
 
 describe("pages/dashboard 的实机节点边界", () => {

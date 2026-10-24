@@ -5963,7 +5963,14 @@
 				// 实机节点边界：可见文本 `View all` 与被 sr-only 包住的 ` issues` 是**两个**
 				// 文本节点（含前导空格），故各收一条
 				"View all",
-				"issues"
+				"issues",
+				// —— 仪表板预览菜单（新版仪表板右上角的 `dashboard-preview-menu` 下拉）——
+				// 2026-10-24 维护者实机 HTML：两个菜单项各自是一个 `ActionListItem-label`
+				// 文本节点，整节点精确收录即可（无需规则）。`Give feedback` 在 pages/agents
+				// 里已有一条**同名同译**词条（agents 路由 `^/[^/]+/[^/]+/agents` 不命中
+				// 首页路径，这里必须重复登记），登记时沿用同一译文以免触发「同键异译」。
+				"Switch to classic dashboard",
+				"Give feedback"
 			]
 		},
 		{

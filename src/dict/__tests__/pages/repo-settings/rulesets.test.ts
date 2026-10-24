@@ -686,6 +686,35 @@ describe("仓库设置页的规则集新建页（/settings/rules/new）", () => 
 			),
 		).toBe("设置 · 规则集 · Github-i18n");
 	});
+
+	it("translates the required deployment environments block", () => {
+		// 2026-10-24 维护者实机 HTML（/settings/rules/new）：表单里的
+		// 「Required deployment environments」Box——标题、添加按钮（可见文本与
+		// aria-label 两条）、空状态标题、空状态里的文档链接。
+		// 「部署环境」是全新概念，本模块此前无既有译法。
+		// 「Add environments」（可见文本）与「Click to add environments」（aria-label）
+		// 是两条不同的键：属性不走规则，只能各收静态键（见 walker.ts）
+		for (const [node, expected] of [
+			[
+				"Required deployment environments",
+				"必需的部署环境",
+			],
+			["Click to add environments", "点击添加环境"],
+			["Add environments", "添加环境"],
+			[
+				"No deployment environments have been added",
+				"尚未添加任何部署环境",
+			],
+			[
+				"Learn more about deployment environments",
+				"详细了解部署环境",
+			],
+		] as const) {
+			expect(translateText(node, newView), node).toBe(
+				expected,
+			);
+		}
+	});
 });
 
 describe("仓库设置页的 Restrict code coverage 展开面板", () => {

@@ -1070,6 +1070,14 @@
 		"This ruleset will be enforced": "このルールセットは適用されます",
 		"Evaluate": "評価",
 		"Evaluate this ruleset to trial rules and view insights": "このルールセットを評価してルールを試し、インサイトを確認します",
+		// —— ルールセット作成ページの「必須デプロイ環境」ブロック（2026-10-24 実機、
+		// /settings/rules/new、同順は core/canonical.jsonc）——「デプロイ環境」は新しい概念で、
+		// このモジュールに既存の訳語はない
+		"Required deployment environments": "必須のデプロイ環境",
+		"Click to add environments": "クリックして環境を追加",
+		"Add environments": "環境を追加",
+		"No deployment environments have been added": "デプロイ環境はまだ追加されていません",
+		"Learn more about deployment environments": "デプロイ環境について詳しく見る",
 		// —— エージェント提案のサブページ（/owner/repo/settings/suggestions）——
 		// 根拠：メンテナーが 2026-09-27 に提供した実機の outerHTML。本文以外にはこの 11 個の英語テキストノードだけがあり、
 		// （タイトル「Agent suggestions for issues」と保存 / キャンセルボタンはすでにこのモジュールと global でカバー済み）。

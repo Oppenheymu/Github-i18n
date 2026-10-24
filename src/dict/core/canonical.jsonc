@@ -3126,6 +3126,15 @@
 				"This ruleset will be enforced",
 				"Evaluate",
 				"Evaluate this ruleset to trial rules and view insights",
+				// —— 规则集创建页的「必需部署环境」区块（2026-10-24 维护者实机 HTML，
+				// /settings/rules/new）——Box 标题 + 添加按钮（可见文本 + aria-label 两条）
+				// + 空状态标题 + 空状态里的文档链接。「部署环境」是全新概念，本模块此前
+				// 无既有译法；空状态说明句只有链接文本一个可译节点。
+				"Required deployment environments",
+				"Click to add environments",
+				"Add environments",
+				"No deployment environments have been added",
+				"Learn more about deployment environments",
 				// —— 分支页（/owner/repo/settings/branches）——
 				// 证据：维护者 2026-09-27 贴的实机 HTML（页面顶部的经典分支保护横幅）。
 				// 该说明句被两个链接切成五段，逐段成键：前段 / `repository rules` /

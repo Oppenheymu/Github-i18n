@@ -1068,6 +1068,13 @@
 		"This ruleset will be enforced": "此规则集将被强制执行",
 		"Evaluate": "评估",
 		"Evaluate this ruleset to trial rules and view insights": "评估此规则集以试用规则并查看洞察",
+		// —— 规则集创建页的「必需部署环境」区块（2026-10-24 实机，/settings/rules/new，
+		// 同序见 core/canonical.jsonc）——「部署环境」是全新概念，本模块此前无既有译法
+		"Required deployment environments": "必需的部署环境",
+		"Click to add environments": "点击添加环境",
+		"Add environments": "添加环境",
+		"No deployment environments have been added": "尚未添加任何部署环境",
+		"Learn more about deployment environments": "详细了解部署环境",
 		// —— 代理建议子页（/owner/repo/settings/suggestions）——
 		// 证据：维护者 2026-09-27 提供的实机 outerHTML。正文之外只有这 11 个英文文本节点
 		// （标题「Agent suggestions for issues」与保存 / 取消按钮早已由本模块与 global 覆盖）。

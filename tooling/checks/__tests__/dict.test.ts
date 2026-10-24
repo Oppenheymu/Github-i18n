@@ -553,12 +553,10 @@ describe("real dictionaries", () => {
 		const ja = report.find(
 			(entry) => entry.built.locale.id === "ja",
 		);
-		// 日语是稀疏覆盖：既不是 0 也不是 100，且必须报出还有多少模块待译
-		expect(ja?.built.translated).toBeGreaterThan(0);
-		expect(ja?.built.translated).toBeLessThan(
-			ja?.built.total ?? 0,
-		);
-		expect(ja?.text).toContain("待译");
+		// 2026-10-24 起日语也是完整词典，不再有模块待译；这里锁住「全部已译」，
+		// 新增规范键导致覆盖率下降时用例会提醒补译（稀疏覆盖本身仍是合法状态）
+		expect(ja?.built.translated).toBe(ja?.built.total);
+		expect(ja?.text).toContain("全部已译");
 	});
 
 	it("keeps the shipped background data loadable by the loader", () => {

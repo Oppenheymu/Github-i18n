@@ -344,9 +344,6 @@ describe("仓库页的实机节点边界", () => {
 describe("仓库页的日语覆盖（pages/repo）", () => {
 	it("translates every repository node into japanese", () => {
 		for (const node of REPO_NODES) {
-			// `Readme` 是文件名本身的渲染，日语有意不收录（见 ja/pages/repo.jsonc 的模块头注），
-			// 由下一条用例单独断言，故这里跳过
-			if (node === "Readme") continue;
 			for (const variant of withWhitespace(node)) {
 				const translated = translateText(variant, jaView);
 				expect(
@@ -360,10 +357,15 @@ describe("仓库页的日语覆盖（pages/repo）", () => {
 		}
 	});
 
-	it("leaves the README label in english on purpose", () => {
-		// 日本語には README の定訳がない。訳すと「値 = 鍵」になり防ループ門禁に触れるため、
-		// 未収録（= 英語のまま）が正しい扱い——zh-CN が「自述文件」と訳しているのとは判断が違う
-		expect(translateText("README", jaView)).toBeNull();
-		expect(translateText("Readme", jaView)).toBeNull();
+	it("translates the README label but not the file name", () => {
+		// README へのリンクは見出し（README）と About サイドバー（Readme）で綴りが違う。
+		// どちらも音訳し、拡張子付きのファイル名 `README.md` はユーザー内容として残す
+		expect(translateText("README", jaView)).toBe(
+			"リードミー",
+		);
+		expect(translateText("Readme", jaView)).toBe(
+			"リードミー",
+		);
+		expect(translateText("README.md", jaView)).toBeNull();
 	});
 });

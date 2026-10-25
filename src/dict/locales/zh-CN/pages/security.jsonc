@@ -139,6 +139,52 @@
 		"Add": "添加",
 		"to see alerts without an available fix.": "以查看没有可用修复的告警。",
 		// 告警列表 section 的 aria-label（查询语法同形，但仅本模块生效、误伤面极小）
-		"open alerts": "打开的告警"
+		"open alerts": "打开的告警",
+		// —— 2026-10-25 三次导出补漏（告警空态、Closed as 筛选组、Dependabot /
+		// 恶意软件空态）——「GitHub」（<link title> 元数据）、品牌名与语言名
+		// 裸词（Dependabot / CodeQL / Shell / TypeScript）、查询语法（is:open /
+		// scope:development / resolution:auto-dismissed）、CodeQL 告警标题与
+		// 规则 ID、头像 alt、relative-time 的动态日期 title 均不收
+		// —— 告警空态（代码扫描骨架，其余告警页也预渲染）——
+		"There aren't any code scanning alerts yet": "暂无代码扫描告警",
+		"As alerts are created, they'll appear here.": "告警创建后会显示在这里。",
+		// 与 pages/issues 的无句号版同名键同译；此键带句号（句号在节点内部）
+		"No results matched your search.": "没有与你的搜索匹配的结果。",
+		"You can upload code scanning analyses from other third-party tools using GitHub Actions.": "你可以使用 GitHub Actions 上传来自其他第三方工具的代码扫描分析。",
+		"You can run CodeQL locally using Visual Studio Code.": "你可以使用 Visual Studio Code 在本地运行 CodeQL。",
+		// —— Closed as 筛选组（四个告警列表页共用的 React 筛选面板）——
+		"Closed as": "关闭原因",
+		"Filter by closed as": "按关闭原因筛选",
+		"Filter by closure reason": "按关闭原因筛选",
+		"Select closed as option": "选择关闭原因选项",
+		"Search closed as options": "搜索关闭原因选项",
+		// 代码扫描的关闭原因选项
+		"All dismissed": "全部忽略",
+		"False positive": "误报",
+		"Used in tests": "用于测试",
+		"Won't fix": "不予修复",
+		"Mitigated": "已缓解",
+		// Dependabot 告警的关闭原因选项
+		"Auto-dismissed": "自动忽略",
+		"Fix started": "已开始修复",
+		"Inaccurate": "不准确",
+		"No bandwidth": "无暇处理",
+		"Not used": "未使用",
+		"Tolerable risk": "可接受的风险",
+		// 「Fixed」是裸词，仅在 security 路由生效；选项按钮与重开操作
+		"Fixed": "已修复",
+		"Reopen": "重新打开",
+		"Some selected alerts have been fixed and cannot be reopened.": "部分已选告警已修复，无法重新打开。",
+		// —— 已关闭告警空态（Dependabot / 恶意软件共用）——
+		"No closed alerts": "无已关闭的告警",
+		"There are no closed Dependabot alerts for this repository.": "此仓库没有已关闭的 Dependabot 告警。",
+		"closed alerts": "已关闭的告警",
+		// 恶意软件告警未启用时的空态与菜单描述；说明句「in」后接链接节点拼接，
+		// 尾部句号是独立节点不收，故前段以冒号收尾
+		"Malware alerts are disabled.": "恶意软件告警已停用。",
+		"To receive Malware alerts, you must first enable Malware alerts in": "若要接收恶意软件告警，必须先在以下位置启用恶意软件告警：",
+		"this repository's settings": "此仓库的设置",
+		"alerts are not enabled.": "告警未启用。",
+		"Refresh is unavailable.": "刷新不可用。"
 	}
 }

@@ -7700,7 +7700,51 @@
 				"Add",
 				"to see alerts without an available fix.",
 				// 告警列表 section 的 aria-label（查询语法同形，但仅本模块生效、误伤面极小）
-				"open alerts"
+				"open alerts",
+				// —— 2026-10-25 三次导出补漏（告警空态、Closed as 筛选组、Dependabot /
+				// 恶意软件空态）——导出里的「GitHub」（<link title> 元数据）、品牌名与
+				// 语言名裸词（Dependabot / CodeQL / Shell / TypeScript）、查询语法
+				// （is:open / scope:development / resolution:auto-dismissed）、CodeQL
+				// 告警标题与规则 ID、头像 alt、relative-time 的动态日期 title 均不收
+				// —— 告警空态（代码扫描骨架，其余告警页也预渲染）——
+				"There aren't any code scanning alerts yet",
+				"As alerts are created, they'll appear here.",
+				"No results matched your search.",
+				"You can upload code scanning analyses from other third-party tools using GitHub Actions.",
+				"You can run CodeQL locally using Visual Studio Code.",
+				// —— Closed as 筛选组（四个告警列表页共用的 React 筛选面板）——
+				"Closed as",
+				"Filter by closed as",
+				"Filter by closure reason",
+				"Select closed as option",
+				"Search closed as options",
+				// 代码扫描的关闭原因选项
+				"All dismissed",
+				"False positive",
+				"Used in tests",
+				"Won't fix",
+				"Mitigated",
+				// Dependabot 告警的关闭原因选项
+				"Auto-dismissed",
+				"Fix started",
+				"Inaccurate",
+				"No bandwidth",
+				"Not used",
+				"Tolerable risk",
+				// 「Fixed」是裸词，仅在 security 路由生效；选项按钮与重开操作
+				"Fixed",
+				"Reopen",
+				"Some selected alerts have been fixed and cannot be reopened.",
+				// —— 已关闭告警空态（Dependabot / 恶意软件共用）——
+				"No closed alerts",
+				"There are no closed Dependabot alerts for this repository.",
+				"closed alerts",
+				// 恶意软件告警未启用时的空态与菜单描述（「in」后接链接节点拼接）
+				"Malware alerts are disabled.",
+				"To receive Malware alerts, you must first enable Malware alerts in",
+				"this repository's settings",
+				"alerts are not enabled.",
+				"Refresh is unavailable."
 			]
 		},
 		{

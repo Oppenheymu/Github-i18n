@@ -29,6 +29,25 @@ function withWhitespace(node: string): readonly string[] {
 	return [node, `\n        ${node}\n      `];
 }
 
+/** 引擎语义的节点拼接：命中则保留首尾空白写回（见 walker.ts 的 applyTextNode） */
+function renderNodes(
+	nodes: readonly string[],
+	localeView: typeof view,
+): string {
+	return nodes
+		.map((node) => {
+			const translated = translateText(node, localeView);
+			if (translated === null) return node;
+			const lead = node.slice(
+				0,
+				node.length - node.trimStart().length,
+			);
+			const trail = node.slice(node.trimEnd().length);
+			return `${lead}${translated}${trail}`;
+		})
+		.join("");
+}
+
 describe("安全中心的路由与静态词条", () => {
 	it("matches /owner/repo/security and its subpages ahead of the repo fallback", () => {
 		for (const path of [
@@ -455,6 +474,172 @@ describe("二次导出补漏的筛选栏、弹窗与页头菜单", () => {
 			),
 		).toBe(
 			"すると、利用可能な修正のないアラートが表示されます。",
+		);
+	});
+});
+
+describe("三次导出补漏的告警空态与 Closed as 筛选组", () => {
+	it("translates the alert blankslates and the Closed as filter skeleton", () => {
+		// 证据：/NapukettoDev/NapukettoQQ/security/{advisories,code-scanning,
+		// dependabot} 三次导出——空态骨架是代码扫描的，其余告警页也预渲染
+		const NODES: readonly (readonly [string, string])[] = [
+			[
+				"There aren't any code scanning alerts yet",
+				"暂无代码扫描告警",
+			],
+			[
+				"As alerts are created, they'll appear here.",
+				"告警创建后会显示在这里。",
+			],
+			[
+				"No results matched your search.",
+				"没有与你的搜索匹配的结果。",
+			],
+			[
+				"You can upload code scanning analyses from other third-party tools using GitHub Actions.",
+				"你可以使用 GitHub Actions 上传来自其他第三方工具的代码扫描分析。",
+			],
+			[
+				"You can run CodeQL locally using Visual Studio Code.",
+				"你可以使用 Visual Studio Code 在本地运行 CodeQL。",
+			],
+			["Closed as", "关闭原因"],
+			["Filter by closed as", "按关闭原因筛选"],
+			["Filter by closure reason", "按关闭原因筛选"],
+			["Select closed as option", "选择关闭原因选项"],
+			["Search closed as options", "搜索关闭原因选项"],
+			["All dismissed", "全部忽略"],
+			["False positive", "误报"],
+			["Used in tests", "用于测试"],
+			["Won't fix", "不予修复"],
+			["Mitigated", "已缓解"],
+		];
+		for (const [node, expected] of NODES) {
+			expect(translateText(node, view), node).toBe(
+				expected,
+			);
+		}
+	});
+
+	it("translates the Dependabot closure reasons and the reopen tooltip", () => {
+		const NODES: readonly (readonly [string, string])[] = [
+			["Auto-dismissed", "自动忽略"],
+			["Fix started", "已开始修复"],
+			["Inaccurate", "不准确"],
+			["No bandwidth", "无暇处理"],
+			["Not used", "未使用"],
+			["Tolerable risk", "可接受的风险"],
+			["Fixed", "已修复"],
+			["Reopen", "重新打开"],
+			[
+				"Some selected alerts have been fixed and cannot be reopened.",
+				"部分已选告警已修复，无法重新打开。",
+			],
+			["No closed alerts", "无已关闭的告警"],
+			[
+				"There are no closed Dependabot alerts for this repository.",
+				"此仓库没有已关闭的 Dependabot 告警。",
+			],
+			// 与 open alerts 同形态的 section aria-label
+			["closed alerts", "已关闭的告警"],
+			[
+				"Malware alerts are disabled.",
+				"恶意软件告警已停用。",
+			],
+			["alerts are not enabled.", "告警未启用。"],
+			["Refresh is unavailable.", "刷新不可用。"],
+		];
+		for (const [node, expected] of NODES) {
+			expect(translateText(node, view), node).toBe(
+				expected,
+			);
+		}
+	});
+
+	it("assembles the malware-enrollment sentence across the settings link", () => {
+		// 三节点拼接：说明句（实机带尾随空格）+ 链接 + 独立句号节点；
+		// 中文把「在 <链接> 中启用」语序提前，前段以冒号收尾，句号不收保持英文
+		expect(translateText(".", view)).toBeNull();
+		expect(
+			renderNodes(
+				[
+					"To receive Malware alerts, you must first enable Malware alerts in ",
+					"this repository's settings",
+					".",
+				],
+				view,
+			),
+		).toBe(
+			"若要接收恶意软件告警，必须先在以下位置启用恶意软件告警： 此仓库的设置.",
+		);
+	});
+
+	it("keeps query syntax, language names and brand labels in english", () => {
+		// 导出里的噪音：查询语法 token 与 protip 链接、语言名与品牌名裸词
+		// （撞仓库语言 / 用户内容）、head 里 <link title> 元数据均不收
+		for (const node of [
+			"is:open",
+			"is:closed",
+			"scope:development",
+			"resolution:auto-dismissed",
+			"TypeScript",
+			"Shell",
+			"CodeQL",
+			"Dependabot",
+			"GitHub",
+		]) {
+			expect(translateText(node, view), node).toBeNull();
+		}
+	});
+
+	it("has japanese templates for the closure reasons and the enrollment sentence", () => {
+		const japanese = buildView(
+			"/Koishi-CE/koishi/security/dependabot",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("Closed as", japanese)).toBe(
+			"クローズ理由",
+		);
+		expect(
+			translateText("Filter by closed as", japanese),
+		).toBe("クローズ理由でフィルター");
+		expect(translateText("False positive", japanese)).toBe(
+			"誤検知",
+		);
+		expect(translateText("Auto-dismissed", japanese)).toBe(
+			"自動的に無視",
+		);
+		expect(translateText("Reopen", japanese)).toBe(
+			"再オープン",
+		);
+		expect(
+			translateText(
+				"There aren't any code scanning alerts yet",
+				japanese,
+			),
+		).toBe("コードスキャンのアラートはまだありません");
+		expect(
+			translateText(
+				"No results matched your search.",
+				japanese,
+			),
+		).toBe("検索に一致する結果がありません。");
+		expect(
+			translateText("Refresh is unavailable.", japanese),
+		).toBe("更新は利用できません。");
+		// 拼接形态与 zh 同构：前段以コロン收尾，句号节点保持英文
+		expect(
+			renderNodes(
+				[
+					"To receive Malware alerts, you must first enable Malware alerts in ",
+					"this repository's settings",
+					".",
+				],
+				japanese,
+			),
+		).toBe(
+			"マルウェアアラートを受け取るには、まず次の場所でマルウェアアラートを有効にする必要があります： このリポジトリの設定.",
 		);
 	});
 });

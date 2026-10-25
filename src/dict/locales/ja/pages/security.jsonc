@@ -156,6 +156,7 @@
 		"No results matched your search.": "検索に一致する結果がありません。",
 		"You can upload code scanning analyses from other third-party tools using GitHub Actions.": "GitHub Actions を使用して、他のサードパーティツールによるコードスキャン解析をアップロードできます。",
 		"You can run CodeQL locally using Visual Studio Code.": "Visual Studio Code を使用して、ローカルで CodeQL を実行できます。",
+		"You can run CodeQL locally from the command line.": "コマンドラインからローカルで CodeQL を実行できます。",
 		// —— 「Closed as」フィルターグループ（4 つのアラート一覧頁で共用の React
 		// フィルターパネル）——
 		"Closed as": "クローズ理由",
@@ -191,6 +192,11 @@
 		"To receive Malware alerts, you must first enable Malware alerts in": "マルウェアアラートを受け取るには、まず次の場所でマルウェアアラートを有効にする必要があります：",
 		"this repository's settings": "このリポジトリの設定",
 		"alerts are not enabled.": "アラートが有効になっていません。",
-		"Refresh is unavailable.": "更新は利用できません。"
+		"Refresh is unavailable.": "更新は利用できません。",
+		// シークレットスキャン空状態の Try 文の 3 ノード結合（リンクはノード 2、
+		// ノード間の空白はエンジンが保持）
+		"Try": "試しに",
+		"clearing filters": "フィルターをクリアする",
+		"to view all of this repository's secret alerts.": "と、このリポジトリのすべてのシークレットアラートが表示されます。"
 	}
 }

@@ -503,6 +503,10 @@ describe("三次导出补漏的告警空态与 Closed as 筛选组", () => {
 				"You can run CodeQL locally using Visual Studio Code.",
 				"你可以使用 Visual Studio Code 在本地运行 CodeQL。",
 			],
+			[
+				"You can run CodeQL locally from the command line.",
+				"你可以从命令行在本地运行 CodeQL。",
+			],
 			["Closed as", "关闭原因"],
 			["Filter by closed as", "按关闭原因筛选"],
 			["Filter by closure reason", "按关闭原因筛选"],
@@ -574,6 +578,27 @@ describe("三次导出补漏的告警空态与 Closed as 筛选组", () => {
 		);
 	});
 
+	it("assembles the secret-alerts empty state across the clearing-filters link", () => {
+		// 维护者实机贴的 DOM：Try + <a>clearing filters</a> + to view … alerts.
+		// 三节点，句号在尾节点内部（译中文句号），节点间空白由引擎保留
+		expect(
+			renderNodes(
+				[
+					"Try ",
+					"clearing filters",
+					" to view all of this repository's secret alerts.",
+				],
+				view,
+			),
+		).toBe("尝试 清除筛选器 以查看此仓库的所有密钥告警。");
+		expect(
+			translateText(
+				"to view all of this repository's secret alerts.",
+				view,
+			),
+		).toBe("以查看此仓库的所有密钥告警。");
+	});
+
 	it("keeps query syntax, language names and brand labels in english", () => {
 		// 导出里的噪音：查询语法 token 与 protip 链接、语言名与品牌名裸词
 		// （撞仓库语言 / 用户内容）、head 里 <link title> 元数据均不收
@@ -640,6 +665,27 @@ describe("三次导出补漏的告警空态与 Closed as 筛选组", () => {
 			),
 		).toBe(
 			"マルウェアアラートを受け取るには、まず次の場所でマルウェアアラートを有効にする必要があります： このリポジトリの設定.",
+		);
+		// Try 句：ja 按语序把リンク译成动词形，尾节点以「と」承接
+		expect(
+			renderNodes(
+				[
+					"Try ",
+					"clearing filters",
+					" to view all of this repository's secret alerts.",
+				],
+				japanese,
+			),
+		).toBe(
+			"試しに フィルターをクリアする と、このリポジトリのすべてのシークレットアラートが表示されます。",
+		);
+		expect(
+			translateText(
+				"You can run CodeQL locally from the command line.",
+				japanese,
+			),
+		).toBe(
+			"コマンドラインからローカルで CodeQL を実行できます。",
 		);
 	});
 });

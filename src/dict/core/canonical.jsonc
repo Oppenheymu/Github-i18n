@@ -7712,6 +7712,7 @@
 				"No results matched your search.",
 				"You can upload code scanning analyses from other third-party tools using GitHub Actions.",
 				"You can run CodeQL locally using Visual Studio Code.",
+				"You can run CodeQL locally from the command line.",
 				// —— Closed as 筛选组（四个告警列表页共用的 React 筛选面板）——
 				"Closed as",
 				"Filter by closed as",
@@ -7744,7 +7745,11 @@
 				"To receive Malware alerts, you must first enable Malware alerts in",
 				"this repository's settings",
 				"alerts are not enabled.",
-				"Refresh is unavailable."
+				"Refresh is unavailable.",
+				// 密钥扫描空态的 Try 句三节点拼接（链接是节点 2；句号在节点 3 内部）
+				"Try",
+				"clearing filters",
+				"to view all of this repository's secret alerts."
 			]
 		},
 		{

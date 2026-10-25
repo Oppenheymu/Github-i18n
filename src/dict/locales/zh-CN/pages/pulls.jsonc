@@ -72,6 +72,13 @@
 		"No pull requests matched your search": "没有与你的搜索匹配的拉取请求",
 		"Try a different search query.": "请尝试其他搜索查询。",
 		"Learn more about searching and filtering pull requests.": "详细了解如何搜索和筛选拉取请求。",
+		// —— 上一行帮助链接的新版拆节点形态（2026-10-25 实机：链接内拆成三段，
+		// 句号是独立纯符号节点不收录）。前段与 issues 模块的同名键同译；拼接结果
+		// 「详细了解如何搜索和筛选拉取请求.」（前段尾随空格由引擎保留，句点保持英文）；
+		// 整句键保留给旧版渲染。「pull requests」仅本模块生效，与 insights 计数场景
+		// 的同名键（个拉取请求）路由互斥互不共存 ——
+		"Learn more about searching and filtering": "详细了解如何搜索和筛选",
+		"pull requests": "拉取请求",
 		// —— 结果行动词碎片(「by <作者> was merged <相对时间>」,作者名用户内容不收)——
 		"by": "由",
 		"was merged": "合并于",

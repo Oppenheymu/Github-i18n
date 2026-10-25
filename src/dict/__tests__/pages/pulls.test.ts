@@ -129,6 +129,23 @@ describe("closed 态列表页的侧栏空状态与结果行", () => {
 		}
 	});
 
+	it("renders the empty-state link across its split nodes", () => {
+		// 2026-10-25 实机截图：同一帮助链接在新版里被拆成三段——前段（尾带一个空格）、
+		// 中段（无句号）、句号（独立纯符号节点，不收录，保持英文）。整句键在实机
+		// 永不命中，必须靠碎片词条。前段与 issues 模块的同名键同译；前段尾随空格
+		// 由引擎保留（applyTextNode 的 lead + trail）
+		expect(
+			translateText(
+				"Learn more about searching and filtering ",
+				view,
+			),
+		).toBe("详细了解如何搜索和筛选");
+		expect(translateText("pull requests", view)).toBe(
+			"拉取请求",
+		);
+		expect(translateText(".", view)).toBeNull();
+	});
+
 	it("assembles the merged result line around the bot author", () => {
 		// 「by dependabot[bot] was merged <相对时间>」：作者名用户内容原样保留
 		expect(translateText("by", view)).toBe("由");
@@ -171,5 +188,16 @@ describe("closed 态列表页的侧栏空状态与结果行", () => {
 				japanese,
 			),
 		).toBe("作成者 dependabot[bot] でフィルター");
+		// 拆节点形态的日语模板：「詳しくは、」+「プルリクエストの検索と絞り込み」
+		// （语序决策与 issues 同款：谓语整体放进中段）
+		expect(
+			translateText(
+				"Learn more about searching and filtering ",
+				japanese,
+			),
+		).toBe("詳しくは、");
+		expect(translateText("pull requests", japanese)).toBe(
+			"プルリクエストの検索と絞り込み",
+		);
 	});
 });

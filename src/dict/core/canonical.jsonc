@@ -244,6 +244,14 @@
 				"No pull requests matched your search",
 				"Try a different search query.",
 				"Learn more about searching and filtering pull requests.",
+				// —— 上一行帮助链接的**新版拆节点形态**（2026-10-25 维护者实机截图）：链接内
+				// 被拆成三段——前段「Learn more about searching and filtering 」（尾带一个
+				// 空格）、中段「pull requests」（无句号）、句号「.」是独立纯符号节点（不收录，
+				// 保持英文）。整句键保留：它是旧版渲染的形态，两条并存。前段与 issues 模块的
+				// 同名键同译；「pull requests」是泛化短语的撞车权衡（整节点精确匹配 + 仅本
+				// 模块生效，insights 计数场景的同名键互不共存）——
+				"Learn more about searching and filtering",
+				"pull requests",
 				// —— 结果行动词碎片（React 新版时间戳行，「by <作者> was merged <相对时间>」；
 				// 作者名是用户内容不收，by 与 actions 的同名键同译）——
 				"by",

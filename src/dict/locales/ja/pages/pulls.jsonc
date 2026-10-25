@@ -74,6 +74,12 @@
 		"No pull requests matched your search": "検索に一致するプルリクエストがありません",
 		"Try a different search query.": "別の検索クエリを試してください。",
 		"Learn more about searching and filtering pull requests.": "プルリクエストの検索と絞り込みについて詳しく見る",
+		// —— 上の行のヘルプリンクの新版分割ノード形態（2026-10-25 実機：リンク内が 3 ノードに
+		// 分割、句点「.」は独立した記号ノードとして収録しない）。前段は issues モジュールの
+		// 同名キーと同一訳。日本語は語順の都合上、「詳しくは、」を前ノードに置き、結合結果は
+		// 「詳しくは、 プルリクエストの検索と絞り込み.」になる。整文キーは旧版描画用に残す ——
+		"Learn more about searching and filtering": "詳しくは、",
+		"pull requests": "プルリクエストの検索と絞り込み",
 		// —— 結果行の動詞断片(「by <作成者> was merged <相対時刻>」,作成者名はユーザー内容につき未収録)——
 		"by": "実行者:",
 		"was merged": "がマージ済み",

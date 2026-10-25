@@ -8,6 +8,10 @@
 		"Watched repositories": "已关注的仓库",
 		// 与 pages/settings、pages/settings-billing 的同名键同译
 		"Subscriptions": "订阅",
-		"Manage notifications": "管理通知"
+		"Manage notifications": "管理通知",
+		// 页底 ProTip 提示：<strong>ProTip!</strong> 与说明句是两个兄弟节点；
+		// ProTip! 与 search / settings 的同名键同译，说明句句号在节点内部译中文句号
+		"ProTip!": "小贴士！",
+		"Create custom filters to quickly access your most important notifications.": "创建自定义筛选器，快速访问你最重要的通知。"
 	}
 }

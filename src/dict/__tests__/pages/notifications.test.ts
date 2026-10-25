@@ -74,6 +74,19 @@ describe("通知页的路由与菜单词条", () => {
 		);
 	});
 
+	it("translates the ProTip footer across its two sibling nodes", () => {
+		// 页底 ProTip（维护者 2026-10-25 同页实机 HTML）：<strong>ProTip!</strong>
+		// 与说明句是两个兄弟节点，各自整节点命中；实机节点带源码缩进空白。
+		// ProTip! 与 search / settings 的同名键同译（小贴士！）
+		expect(translateText("ProTip!", view)).toBe("小贴士！");
+		expect(
+			translateText(
+				"\n        Create custom filters to quickly access your most important notifications.\n      ",
+				view,
+			),
+		).toBe("创建自定义筛选器，快速访问你最重要的通知。");
+	});
+
 	it("has japanese templates for every entry", () => {
 		const japanese = buildView(
 			"/notifications",
@@ -92,5 +105,16 @@ describe("通知页的路由与菜单词条", () => {
 		expect(
 			translateText("Manage notifications", japanese),
 		).toBe("通知を管理");
+		expect(translateText("ProTip!", japanese)).toBe(
+			"プロのヒント！",
+		);
+		expect(
+			translateText(
+				"Create custom filters to quickly access your most important notifications.",
+				japanese,
+			),
+		).toBe(
+			"カスタムフィルターを作成して、最も重要な通知にすばやくアクセスしましょう。",
+		);
 	});
 });

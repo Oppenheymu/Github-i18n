@@ -8,6 +8,10 @@
 		"Watched repositories": "ウォッチ中のリポジトリ",
 		// pages/settings、pages/settings-billing の同名列と同じ訳
 		"Subscriptions": "サブスクリプション",
-		"Manage notifications": "通知を管理"
+		"Manage notifications": "通知を管理",
+		// ページ下部の ProTip 表示：<strong>ProTip!</strong> と説明文は兄弟ノード；
+		// ProTip! は search / settings の同名キーと同じ訳、説明文の句点はノード内なので日本語の句点に
+		"ProTip!": "プロのヒント！",
+		"Create custom filters to quickly access your most important notifications.": "カスタムフィルターを作成して、最も重要な通知にすばやくアクセスしましょう。"
 	}
 }

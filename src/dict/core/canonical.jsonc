@@ -6865,7 +6865,12 @@
 				"Notification settings",
 				"Watched repositories",
 				"Subscriptions",
-				"Manage notifications"
+				"Manage notifications",
+				// 页底 ProTip 提示（维护者 2026-10-25 同页实机 HTML）：`<strong>ProTip!</strong>`
+				// 与说明句是**两个兄弟节点**，逐条收录（ProTip! 与 search / settings 的
+				// 同名键同译；说明句句号在节点内部 → 译文用中文句号收尾）。
+				"ProTip!",
+				"Create custom filters to quickly access your most important notifications."
 			]
 		},
 		{

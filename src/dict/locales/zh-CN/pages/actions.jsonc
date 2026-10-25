@@ -139,6 +139,8 @@
 		// 吃不到）；审批弹层的说明句拆多节点，碎片按节点顺序拼接（用户名 / 环境名
 		// release / SHA 是用户内容不收）
 		"Agents": "代理",
+		// 运行页摘要里的按钮，点击打开「审查待处理部署」弹层
+		"Review deployments": "审查部署",
 		"Review pending deployments": "审查待处理部署",
 		"Approve and deploy": "批准并部署",
 		"Reject": "拒绝",

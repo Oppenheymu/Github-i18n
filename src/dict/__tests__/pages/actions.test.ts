@@ -316,6 +316,7 @@ describe("部署审批工作流的实机节点边界", () => {
 	it("translates the approval dialog and log toolbar", () => {
 		const NODES: readonly (readonly [string, string])[] = [
 			["Agents", "代理"],
+			["Review deployments", "审查部署"],
 			["Review pending deployments", "审查待处理部署"],
 			["Approve and deploy", "批准并部署"],
 			["Reject", "拒绝"],
@@ -448,6 +449,9 @@ describe("部署审批工作流的实机节点边界", () => {
 			dictForLocale("ja"),
 			new Map(Object.entries(dictCore.aliases)),
 		);
+		expect(
+			translateText("Review deployments", japanese),
+		).toBe("デプロイをレビュー");
 		expect(
 			translateText("Review pending deployments", japanese),
 		).toBe("レビュー待ちのデプロイ");

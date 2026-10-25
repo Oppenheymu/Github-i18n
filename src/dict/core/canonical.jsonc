@@ -6157,6 +6157,8 @@
 				// 动词与介词碎片逐段收录（用户名 / 环境名 release / SHA 是用户内容不收）；
 				// Agents 与 repo-settings 同键同译（顶部 tab，actions 路由吃不到）。
 				"Agents",
+				// 运行页摘要里的按钮，点击打开「Review pending deployments」弹层
+				"Review deployments",
 				"Review pending deployments",
 				"Approve and deploy",
 				"Reject",

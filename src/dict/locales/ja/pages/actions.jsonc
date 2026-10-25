@@ -143,6 +143,8 @@
 		// 分割されるため、断片をノード順に結合（ユーザー名 / 環境名 release / SHA は
 		// ユーザー内容につき未収録）
 		"Agents": "エージェント",
+		// 実行ページのサマリーにあるボタンで、「レビュー待ちのデプロイ」ダイアログを開く
+		"Review deployments": "デプロイをレビュー",
 		"Review pending deployments": "レビュー待ちのデプロイ",
 		"Approve and deploy": "承認してデプロイ",
 		"Reject": "却下",

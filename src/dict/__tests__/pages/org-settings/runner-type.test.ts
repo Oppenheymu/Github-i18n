@@ -194,7 +194,7 @@ describe("组织 Copilot 运行器类型设置页的实机节点", () => {
 				docs,
 			]),
 		).toBe(
-			"选择默认运行器类型，适用于 Copilot 云端代理 会话。 " +
+			"选择默认运行器类型，适用于 Copilot cloud agent 会话。 " +
 				"此组织中的仓库将使用所选运行器类型，除非仓库级设置另有指定。 " +
 				"了解 GitHub Actions 运行器。",
 		);
@@ -222,7 +222,7 @@ describe("组织 Copilot 运行器类型设置页的实机节点", () => {
 				"When enabled, repositories can specify their own runner via their copilot-setup-steps.yml file.",
 			]),
 		).toBe(
-			"运行器类型配置选择运行器类型，适用于 Copilot 云端代理 会话。" +
+			"运行器类型配置选择运行器类型，适用于 Copilot cloud agent 会话。" +
 				"标准 GitHub 运行器编辑运行器类型允许仓库自定义运行器类型" +
 				"启用后，仓库可以通过 copilot-setup-steps.yml 文件指定自己的运行器。",
 		);

@@ -404,14 +404,16 @@
 		// —— Copilot：云端代理（settings/copilot/coding_agent）——
 		"On": "开",
 		"Off": "关",
-		"Copilot cloud agent": "Copilot 云端代理",
+		// 「Copilot cloud agent」上游 2026-10-25 统一改叫「Copilot in the cloud」，
+		// 规范键已随改名退役（canonical 2026-10-25 删除）。产品名不翻译，
+		// 未命中即保留英文，新旧文案在页面上同为英文，表现一致
 		"Copilot code review": "Copilot 代码审查",
 		"With": "借助",
 		", developers can delegate tasks to Copilot, freeing them to focus on the creative, complex, and high-impact work that matters most. Assign a task to Copilot, wait for the agent to request review, then leave feedback on the pull request to iterate.": "，开发者可以将任务委托给 Copilot，从而专注于最有价值的创意性、复杂且高影响的工作。把任务分配给 Copilot，等待代理请求审查，再在拉取请求上留下反馈进行迭代。",
-		"No Copilot cloud agent access": "无 Copilot 云端代理访问权限",
+		"No Copilot cloud agent access": "无 Copilot in the cloud 访问权限",
 		"You can configure Copilot cloud agent for other users with access to this repository, but you won't be able to assign tasks to Copilot because you don't have a Copilot Pro, Copilot Pro+, Copilot Business or Copilot Enterprise license.": "你可以为拥有此仓库访问权限的其他用户配置 Copilot 云端代理，但由于你没有 Copilot Pro、Copilot Pro+、Copilot Business 或 Copilot Enterprise 许可证，无法向 Copilot 分配任务。",
 		"Validation tools": "验证工具",
-		"Configure which tools Copilot cloud agent uses to validate its work and iterate before requesting human review.": "配置 Copilot 云端代理在请求人工审查前用于验证工作并进行迭代的工具。",
+		"Configure which tools Copilot cloud agent uses to validate its work and iterate before requesting human review.": "配置 Copilot in the cloud 在请求人工审查前用于验证工作并进行迭代的工具。",
 		"CodeQL code scanning": "CodeQL 代码扫描",
 		"Use CodeQL to scan for security vulnerabilities.": "使用 CodeQL 扫描安全漏洞。",
 		"Secret scanning": "机密扫描",
@@ -439,9 +441,9 @@
 		"Allow access to specific domains, IP addresses, or URLs.": "允许访问特定的域、IP 地址或 URL。",
 		"Learn more about customizing network access.": "进一步了解自定义网络访问。",
 		"Learn more about the recommended allowlist": "进一步了解推荐的允许列表",
-		"Limit Copilot cloud agent’s Internet access to only allow access to allowlisted locations": "将 Copilot 云端代理的网络访问限制为仅允许访问允许列表中的位置",
+		"Limit Copilot cloud agent’s Internet access to only allow access to allowlisted locations": "将 Copilot in the cloud 的网络访问限制为仅允许访问允许列表中的位置",
 		"Limit Copilot code review’s Internet access to only allow access to allowlisted locations": "将 Copilot 代码审查的网络访问限制为仅允许访问允许列表中的位置",
-		"Ensure that Copilot cloud agent only accesses approved network resources while working on tasks.": "确保 Copilot 云端代理在执行任务期间仅访问经批准的网络资源。",
+		"Ensure that Copilot cloud agent only accesses approved network resources while working on tasks.": "确保 Copilot in the cloud 在执行任务期间仅访问经批准的网络资源。",
 		"Ensure that Copilot code review only accesses approved network resources while reviewing changes.": "确保 Copilot 代码审查在审查更改期间仅访问经批准的网络资源。",
 		"The firewall will not be enforced on self-hosted runners.": "防火墙不会在自托管运行器上强制执行。",
 		"Settings · GitHub Copilot · Internet access": "设置 · GitHub Copilot · 网络访问",
@@ -452,9 +454,9 @@
 		"MCP servers are enabled by default.": "MCP 服务器默认启用。",
 		"Model Context Protocol (MCP)": "模型上下文协议（MCP）",
 		"Supported agents": "支持的代理",
-		"This MCP configuration applies to Copilot cloud agent and Copilot code review. IDEs and Copilot CLI use their own MCP configuration.": "此 MCP 配置适用于 Copilot 云端代理与 Copilot 代码审查；IDE 与 Copilot CLI 使用各自的 MCP 配置。",
+		"This MCP configuration applies to Copilot cloud agent and Copilot code review. IDEs and Copilot CLI use their own MCP configuration.": "此 MCP 配置适用于 Copilot in the cloud 与 Copilot 代码审查；IDE 与 Copilot CLI 使用各自的 MCP 配置。",
 		"Learn more about configuring MCP servers.": "进一步了解配置 MCP 服务器。",
-		"With MCP, you can extend the capabilities of Copilot cloud agent and Copilot code review by connecting them to other tools and services. The": "借助 MCP，你可以将 Copilot 云端代理与 Copilot 代码审查连接到其他工具和服务，从而扩展它们的能力。",
+		"With MCP, you can extend the capabilities of Copilot cloud agent and Copilot code review by connecting them to other tools and services. The": "借助 MCP，你可以将 Copilot in the cloud 与 Copilot 代码审查连接到其他工具和服务，从而扩展它们的能力。",
 		"You can configure your own MCP servers by adding JSON configuration below. MCP servers can optionally access secrets defined in the repository's": "你可以在下方添加 JSON 配置来配置自己的 MCP 服务器。MCP 服务器还可选择访问仓库中定义的机密",
 		"and": "与",
 		"environment.": "环境。",
@@ -882,8 +884,9 @@
 		"You haven't created any policies": "你还没有创建任何策略",
 		"Learn more about pull_request_target restrictions": "进一步了解 pull_request_target 限制",
 		// 弃用横幅被 <code>pull_request_target</code> 切成两段，拼接后是
-		// 「2026 年 11 月 2 日，GitHub 将限制 pull_request_target 在公开仓库中的使用。…」
-		"On November 2, 2026, GitHub will restrict": "2026 年 11 月 2 日，GitHub 将限制",
+		// 「December 2, 2026，GitHub 将限制 pull_request_target 在公开仓库中的使用。…」。
+		// 前段的日期上游会推迟（2026-10-25 已从 November 2 改到 December 2），改走
+		// repo-settings/actions-deprecation-date 规则（捕获原样带回，日期保持英文格式）
 		"on public repositories by default. To continue allowing the event trigger, configure an Actions policy.": "在公开仓库中的使用。要继续允许该事件触发器，请配置一个 Actions 策略。",
 		// —— Actions 策略洞察页（…/rules/insights）——
 		"Actions policy insights": "Actions 策略洞察",
@@ -1546,6 +1549,105 @@
 		"Based on usage": "视用量而定",
 		// 脚注句前段（尾带空格，链接 Learn more… 是独立节点）
 		"*Code Quality scans your pull requests and default branch, using a mix of deterministic and AI scans.": "*代码质量将结合确定性扫描与 AI 扫描，扫描你的拉取请求与默认分支。",
-		"Learn more about our billing model": "了解我们的计费模式"
+		"Learn more about our billing model": "了解我们的计费模式",
+		// —— 2026-10-25 漏翻清单（覆盖 /settings 十余个子页）——
+		// —— 分支保护横幅（/settings/branches 与 /settings/custom-properties 顶部同款）——
+		// 说明句被链接切成三段：首段 `Rulesets` 命中既有小写词条，后两段与链接文字各成键；
+		// 拼接后读作「规则集 是保护分支的推荐方式，…。经典分支保护 也可用，但提供的功能较少。」
+		"Protect your branches with repository rulesets": "使用仓库规则集保护你的分支",
+		"are the recommended way to protect branches, with required deployments, bypass lists, org-level enforcement, and more.": "是保护分支的推荐方式，支持必需部署、绕过列表、组织级强制执行等。",
+		"Classic branch protections": "经典分支保护",
+		"are also available but offer fewer capabilities.": "也可用，但提供的功能较少。",
+		// —— 规则集洞察与仪表盘（组织版同串词条在 pages/org-settings，路由互斥同译照抄）——
+		"Ruleset dashboard": "规则集仪表板",
+		"Repository ruleset insights": "仓库规则集洞察",
+		"Repository ruleset dashboard": "仓库规则集仪表盘",
+		"Filter rule insights dashboard": "筛选规则洞察仪表盘",
+		"Search or filter": "搜索或筛选",
+		"Clear filter": "清除筛选",
+		"Suggestions": "建议",
+		"Rule Suites": "规则套件",
+		"Chart options": "图表选项",
+		"Customization settings": "自定义设置",
+		"View as data table, Chart": "以数据表查看，图表",
+		"Interactive chart": "交互式图表",
+		"Interactive chart.": "交互式图表。",
+		"End of interactive chart.": "交互式图表结束。",
+		// 折线图与柱状图的轴标题（同时是 SVG 里的可见文本）
+		"Values": "数值",
+		"Actor": "操作者",
+		"Number of bypasses": "绕过次数",
+		// 指标卡（payload 的 metrics[].name 与 link.displayText）
+		"Allowed": "已允许",
+		"Failed": "失败",
+		"Bypassed": "已绕过",
+		"in the time period": "在该时间段内",
+		"View allowed runs": "查看已允许的运行",
+		"View failed runs": "查看失败的运行",
+		"View bypassed runs": "查看已绕过的运行",
+		// 柱状图标题与说明，以及图例 / 表头共用的三个计数名
+		"Bypasses by actor": "按操作者统计的绕过",
+		"Members who have bypassed the most": "绕过次数最多的成员",
+		"Passes": "通过",
+		"Failures": "失败",
+		"Bypasses": "绕过",
+		// —— Actions 策略页（/settings/actions/rules）——
+		"Filter rules insights": "筛选规则洞察",
+		"No rule evaluations matched your search": "没有与你的搜索匹配的规则评估记录",
+		// —— Actions 设置页（/settings/actions）——
+		"Enter a comma-separated list of actions and reusable workflows": "输入以逗号分隔的操作和可复用工作流列表",
+		// 组织保留期上限提示前段（`90` 数字节点翻不了，后段 `days.` 是既有键）
+		"Your organization has set a maximum limit of": "你的组织设置的上限为",
+		// —— 分支 / 标签保护页（/settings/branches、/settings/tag_protection、/settings/keys）——
+		// 分支选择按钮的 aria-label（上游文案就是单数）
+		"All branch": "所有分支",
+		// —— Copilot 代码审查（/settings/copilot/code_review）——
+		"Access and licensing": "访问与许可",
+		"Automatic code review": "自动代码审查",
+		"Automatic reviews from rulesets still run.": "来自规则集的自动审查仍会运行。",
+		"Block reviews requested with an external Copilot license": "阻止使用外部 Copilot 许可证请求的审查",
+		"Copilot approvals can count toward merge requirements.": "Copilot 的批准可以计入合并要求。",
+		// MCP 工具开关说明的前段（中段 `MCP servers` 命中既有键，尾段见下）；
+		// 三段拼作「Copilot 代码审查会使用你的 MCP 服务器中的工具来进行审查。」
+		"Copilot code review uses the tools from your": "Copilot 代码审查会使用你的",
+		"during reviews.": "中的工具来进行审查。",
+		"Copilot references instruction files in this repository. Organization custom instructions apply regardless of this setting.": "Copilot 会引用本仓库中的指令文件。无论此设置如何，组织的自定义指令都会生效。",
+		"Copilot reviews your pull requests, flagging bugs and suggesting improvements as inline comments.": "Copilot 会审查你的拉取请求，以行内评论的形式标记错误并提出改进建议。",
+		// 组织停用提示前段（句号在节点内），后段是链接 `organization Copilot settings`；
+		// 拼作「此项可在 组织 Copilot 设置中管理」
+		"Disabled by your organization.": "已被你的组织停用。",
+		"Manage this in": "此项可在",
+		"organization Copilot settings": "组织 Copilot 设置中管理",
+		// 外部许可说明被同名链接切开：链接 / 尾段
+		"External licenses": "外部许可证",
+		"include personal Copilot licenses.": "包括个人 Copilot 许可证。",
+		"In a personal repository, only the owner and direct collaborators can request reviews.": "在个人仓库中，只有所有者和直接协作者可以请求审查。",
+		"Learn more about automatic code review.": "进一步了解自动代码审查。",
+		"Learn more about custom instructions.": "进一步了解自定义指令。",
+		"Use custom instructions": "使用自定义指令",
+		"Use rulesets to request a review when a pull request is opened, on each new push, or while it is still a draft.": "使用规则集在拉取请求创建时、每次新推送时或仍处于草稿状态时请求审查。",
+		"Locked by your organization": "已被你的组织锁定",
+		// —— 网络钩子（/settings/hooks）——
+		// 说明句前段，后段是链接 `organization webhooks`；
+		// 拼作「我们还会将来自此仓库的事件发送到 组织 webhook」
+		"We will also send events from this repository to your": "我们还会将来自此仓库的事件发送到",
+		"organization webhooks": "组织 webhook",
+		// —— 安全与分析（/settings/security_analysis）——
+		"Blocked by organization": "已被组织阻止",
+		"Modifications to some settings have been blocked by organization administrators.": "某些设置的修改已被组织管理员阻止。",
+		// Dependabot 版本更新说明前段，后段是链接 `configuring dependabot.yml`；
+		// 拼作「自动打开依赖项更新拉取请求，方法是 配置 dependabot.yml」
+		"Automatically open dependency update pull requests by": "自动打开依赖项更新拉取请求，方法是",
+		"configuring dependabot.yml": "配置 dependabot.yml",
+		"Create dependabot.yml": "创建 dependabot.yml",
+		// 密钥推送保护说明前段（后半是动态选项列表）
+		"Block pushes that contain": "阻止推送包含",
+		"Configure private vulnerability reporting": "配置私密漏洞报告",
+		// —— 自定义属性页（/settings/custom-properties；组织版同串在 pages/org-settings）——
+		"Repository custom properties": "仓库自定义属性",
+		"Add metadata to your repositories, such as compliance frameworks, data sensitivity, or project details.": "为你的仓库添加元数据，例如合规框架、数据敏感度或项目详情。",
+		// aria-label 与 placeholder 同串，都按属性精确键命中
+		"Filter properties": "筛选属性",
+		"No properties that match": "没有匹配的属性"
 	}
 }

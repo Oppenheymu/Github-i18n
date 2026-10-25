@@ -14,6 +14,27 @@
 		// 规则说明句）：GitHub 把「premium requests quota」体系改叫「AI credits」，
 		// 结尾从 and their premium requests quota has not reached the limit 缩成
 		// and AI credits——同一开关的同一说明，语义没变，别名复用旧译文。
-		"Request Copilot code review for new pull requests automatically if the author has access to Copilot code review and AI credits.": "Request Copilot code review for new pull requests automatically if the author has access to Copilot code review and their premium requests quota has not reached the limit."
+		"Request Copilot code review for new pull requests automatically if the author has access to Copilot code review and AI credits.": "Request Copilot code review for new pull requests automatically if the author has access to Copilot code review and their premium requests quota has not reached the limit.",
+		// —— 2026-10-25 实机（/settings/copilot/* 四个子页）：上游把产品名
+		// 「Copilot cloud agent」统一改叫「Copilot in the cloud」，同时把两条
+		// 「Limit <产品>’s Internet access to …」说明句重写成
+		// 「Limit Internet access for <产品> to …」、两条 Automations 策略说明句改写
+		// 结尾——同一开关的同一说明，语义没变，各加一行别名复用旧译文
+		//（规范键的译文中产品名已同步改为 Copilot in the cloud）。
+		"This MCP configuration applies to Copilot in the cloud and Copilot code review. IDEs and Copilot CLI use their own MCP configuration.": "This MCP configuration applies to Copilot cloud agent and Copilot code review. IDEs and Copilot CLI use their own MCP configuration.",
+		"With MCP, you can extend the capabilities of Copilot in the cloud and Copilot code review by connecting them to other tools and services. The": "With MCP, you can extend the capabilities of Copilot cloud agent and Copilot code review by connecting them to other tools and services. The",
+		"Ensure that Copilot in the cloud only accesses approved network resources while working on tasks.": "Ensure that Copilot cloud agent only accesses approved network resources while working on tasks.",
+		"Limit Internet access for Copilot in the cloud to only allow access to allowlisted locations": "Limit Copilot cloud agent’s Internet access to only allow access to allowlisted locations",
+		"Limit Internet access for Copilot code review to only allow access to allowlisted locations": "Limit Copilot code review’s Internet access to only allow access to allowlisted locations",
+		"When enabled, automation runs can only change the issue, pull request, or discussion that triggered them, and anything they create. This does not apply to scheduled runs, security alert runs, or runs started by another automation.": "When enabled, automation runs can only change the issue, pull request, or discussion that triggered them, and anything they create. Scheduled runs can only change what they create. Automation authors cannot turn this off.",
+		"When Copilot pushes changes, require approval from a maintainer with write access before Actions workflows are run. When this policy is disabled, Actions workflows run automatically when Copilot pushes, except when the push comes from an automation that requires approval.": "When Copilot pushes changes, require approval from a maintainer with write access before Actions workflows are run. When this policy is disabled, Actions workflows run automatically when Copilot pushes, except when the push comes from an automation.",
+		// 2026-10-25 实机（Copilot 代码审查页）：说明链接的单复数改词
+		//（reviews → review），别名复用旧译文。
+		"Learn more about Copilot code review.": "Learn more about Copilot code reviews.",
+		// 同批（coding_agent / code_review 页）：空状态标题与工具配置说明句跟着改名，
+		// 两条映射到既有键。单独的「Copilot in the cloud」不再映射——产品名本身不翻译，
+		// 旧键已随改名退役（canonical 2026-10-25 删除），未命中即保留英文。
+		"No Copilot in the cloud access": "No Copilot cloud agent access",
+		"Configure which tools Copilot in the cloud uses to validate its work and iterate before requesting human review.": "Configure which tools Copilot cloud agent uses to validate its work and iterate before requesting human review."
 	}
 }

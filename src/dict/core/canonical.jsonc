@@ -1495,7 +1495,8 @@
 				"You will have access to the feature",
 				"You won't have access to the feature",
 				// —— 云端代理 / 应用 / CLI ——
-				"Copilot cloud agent",
+				// 「Copilot cloud agent」上游 2026-10-25 改叫「Copilot in the cloud」，
+				// 产品名不再翻译，键退役（未命中即保留英文，新旧文案表现一致）
 				"Delegate tasks to Copilot cloud agent in repositories where it is enabled",
 				"GitHub Copilot app",
 				"It can take up to 30 minutes for the changes to take effect. Restart your code editor for the changes to take effect immediately.",
@@ -2770,7 +2771,7 @@
 				// —— Copilot：云端代理（settings/copilot/coding_agent）——
 				"On",
 				"Off",
-				"Copilot cloud agent",
+				// 「Copilot cloud agent」已随上游改名退役（见本文件前面的说明）
 				"Copilot code review",
 				"With",
 				", developers can delegate tasks to Copilot, freeing them to focus on the creative, complex, and high-impact work that matters most. Assign a task to Copilot, wait for the agent to request review, then leave feedback on the pull request to iterate.",
@@ -3322,7 +3323,8 @@
 				"Learn more about pull_request_target restrictions",
 				// 弃用横幅：句子被 <code>pull_request_target</code> 切成两段（排除容器，引擎不翻），
 				// 故两段各成键，拼接后读作「…将限制 pull_request_target 在公开仓库中的使用。」
-				"On November 2, 2026, GitHub will restrict",
+				// 前段曾按静态键收（2026-10-25 实机日期已从 November 2 推迟到 December 2），
+				// 日期还会再动，改由 repo-settings/actions-deprecation-date 规则接住（捕获原样带回）
 				"on public repositories by default. To continue allowing the event trigger, configure an Actions policy.",
 				// —— Actions 策略洞察页（…/rules/insights）——
 				"Actions policy insights",
@@ -4004,7 +4006,122 @@
 				"Action minutes consumed*",
 				"Based on usage",
 				"*Code Quality scans your pull requests and default branch, using a mix of deterministic and AI scans.",
-				"Learn more about our billing model"
+				"Learn more about our billing model",
+				// —— 2026-10-25 维护者导出的漏翻清单（覆盖 /settings 十余个子页）——
+				// 三类病因分组登记：上游改词走 core/aliases.jsonc（见「Copilot in the cloud」
+				// 改名与「Automation 写入范围」改写那几条）；组织版已收而仓库版路由互斥的
+				// 同串同译各收一份（Allowed / Selected repositories 先例）；其余为全新文案。
+				// —— 分支保护横幅（/settings/branches 与 /settings/custom-properties 顶部同款）——
+				// 说明句被链接切成三段：首段 `Rulesets` 命中既有小写词条，链接文字与尾段各成键
+				"Protect your branches with repository rulesets",
+				"are the recommended way to protect branches, with required deployments, bypass lists, org-level enforcement, and more.",
+				"Classic branch protections",
+				"are also available but offer fewer capabilities.",
+				// —— 规则集洞察与仪表盘（/settings/rules、…/insights、…/dashboard）——
+				// 组织版（/organizations/<组织>/settings/rules*）的同串词条全在 pages/org-settings，
+				// 两条路由互斥，仓库版拿不到组织模块的词条——逐字同译各收一份。
+				// 不收录（属性 + 动态值，键整串永远命中不了）：Highcharts 的数据点 aria-label、
+				// `Show Passes` 系列、`Toggle series visibility, Chart`（与组织版同判定）。
+				"Ruleset dashboard",
+				"Repository ruleset insights",
+				"Repository ruleset dashboard",
+				"Filter rule insights dashboard",
+				"Search or filter",
+				"Clear filter",
+				"Suggestions",
+				"Rule Suites",
+				"Chart options",
+				"Customization settings",
+				"View as data table, Chart",
+				"Interactive chart",
+				"Interactive chart.",
+				"End of interactive chart.",
+				// 折线图与柱状图的轴标题（同时是 SVG 里的可见文本）
+				"Values",
+				"Actor",
+				"Number of bypasses",
+				// 指标卡（payload 的 metrics[].name 与 link.displayText）
+				"Allowed",
+				"Failed",
+				"Bypassed",
+				"in the time period",
+				"View allowed runs",
+				"View failed runs",
+				"View bypassed runs",
+				// 柱状图标题与说明，以及图例 / 表头共用的三个计数名
+				"Bypasses by actor",
+				"Members who have bypassed the most",
+				"Passes",
+				"Failures",
+				"Bypasses",
+				// —— Actions 策略页（/settings/actions/rules）——
+				// 筛选框的 label 与 aria 同串；空态标题是本批新串（组织侧没有同款）
+				"Filter rules insights",
+				"No rule evaluations matched your search",
+				// —— Actions 设置页（/settings/actions）——
+				// 允许列表输入框的 placeholder（组织版同串在 pages/org-settings，路由互斥各收一份）
+				"Enter a comma-separated list of actions and reusable workflows",
+				// 组织保留期上限提示：`90` 是数字节点翻不了，后段 `days.` 与政策链接都是既有键
+				"Your organization has set a maximum limit of",
+				// fork 工作流批准说明改成长句（尾部多出 `and not a member of the <组织> organization`），
+				// 组织名动态 → repo-settings/actions-fork-approvals-org-repo 规则；组织侧同款
+				//（`of the repository and not a member of …`）在 org-settings/actions-fork-approvals-org
+				// —— 分支 / 标签保护页（/settings/branches、/settings/tag_protection、/settings/keys）——
+				// 分支选择按钮的 aria-label（上游文案就是单数 `All branch`）
+				"All branch",
+				// —— Copilot 代码审查（/settings/copilot/code_review）——
+				// 「Access and licensing」等开关标题为全新串；改词句（Copilot cloud agent →
+				// Copilot in the cloud、Automation 写入范围句改写）见 core/aliases.jsonc
+				"Access and licensing",
+				"Automatic code review",
+				"Automatic reviews from rulesets still run.",
+				"Block reviews requested with an external Copilot license",
+				"Copilot approvals can count toward merge requirements.",
+				// MCP 工具开关的说明被既有键 `MCP servers` 切成三段：前段 / MCP servers / 尾段
+				"Copilot code review uses the tools from your",
+				"during reviews.",
+				"Copilot references instruction files in this repository. Organization custom instructions apply regardless of this setting.",
+				"Copilot reviews your pull requests, flagging bugs and suggesting improvements as inline comments.",
+				// 组织停用提示被链接切开：前段（句号在节点内）/ 链接
+				"Disabled by your organization.",
+				"Manage this in",
+				"organization Copilot settings",
+				// 外部许可说明被同名链接切开：链接 / 尾段
+				"External licenses",
+				"include personal Copilot licenses.",
+				"In a personal repository, only the owner and direct collaborators can request reviews.",
+				"Learn more about automatic code review.",
+				"Learn more about custom instructions.",
+				"Use custom instructions",
+				"Use rulesets to request a review when a pull request is opened, on each new push, or while it is still a draft.",
+				"Locked by your organization",
+				// 「No Copilot in the cloud access」与「Configure which tools Copilot in the
+				// cloud uses …」不另立新键：它们是既有键「No Copilot cloud agent access」/
+				//「Configure which tools Copilot cloud agent uses …」的改名（上游统一改叫
+				// Copilot in the cloud），见 core/aliases.jsonc；单独的「Copilot in the
+				// cloud」标题同理
+				// —— 网络钩子（/settings/hooks）——
+				// 说明句被链接切开：前段 / 链接
+				"We will also send events from this repository to your",
+				"organization webhooks",
+				// —— 安全与分析（/settings/security_analysis）——
+				"Blocked by organization",
+				"Modifications to some settings have been blocked by organization administrators.",
+				// Dependabot 版本更新说明被链接切开：前段 / 链接
+				"Automatically open dependency update pull requests by",
+				"configuring dependabot.yml",
+				"Create dependabot.yml",
+				// 密钥推送保护说明的后半是动态选项列表，前段独立成键
+				"Block pushes that contain",
+				"Configure private vulnerability reporting",
+				// —— 自定义属性页（/settings/custom-properties）——
+				// 组织版（/organizations/<组织>/settings/custom-properties）同串词条在
+				// pages/org-settings，路由互斥同译各收一份；aria-label 与 placeholder
+				// 同串的 `Filter properties` 按属性精确键命中
+				"Repository custom properties",
+				"Add metadata to your repositories, such as compliance frameworks, data sensitivity, or project details.",
+				"Filter properties",
+				"No properties that match"
 			]
 		},
 		{
@@ -5358,7 +5475,7 @@
 				// `With` 是泛化短词，收入本模块的唯一理由是路由限定在组织设置页（同 `public` /
 				// `private` 的先例，先例还有 pages/marketing 与 pages/repo-settings 的同键同译）。
 				// Claude / Codex / GitHub 等产品名保留英文；两张代理卡片共享 `coding agent` 节点。
-				"Copilot cloud agent",
+				// 「Copilot cloud agent」已随上游改名退役（见本文件前面的说明）
 				"No Copilot cloud agent access",
 				"You can enable Copilot cloud agent for other users, but you won't be able to assign tasks to Copilot because you don't have a Copilot Pro, Copilot Pro+, Copilot Business or Copilot Enterprise license.",
 				"Buy or request a seat",
@@ -5626,7 +5743,8 @@
 				"Actions policies",
 				"Define whether actions can run in specific contexts.",
 				"Learn more about pull_request_target restrictions",
-				"On November 2, 2026, GitHub will restrict",
+				// 前段曾按静态键收（日期上游 2026-10-25 推迟到 December 2 且还会再动），
+				// 改由 org-settings/actions-deprecation-date 规则接住（与仓库级同 pattern、不同 id）
 				"on public repositories by default. To continue allowing the event trigger, configure an Actions policy.",
 				// —— /settings/actions/rules/insights（组织级「Actions 策略洞察」页）——
 				// 证据：2026-10-11 维护者贴出的该页 H1 `<h1 …>Actions policy insights</h1>`。

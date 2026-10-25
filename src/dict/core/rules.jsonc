@@ -2403,6 +2403,66 @@
 				{
 					"id": "repo-settings/code-quality-price",
 					"pattern": "^(\\$\\d+) per active committer/month$"
+				},
+				// —— 2026-10-25 漏翻清单补强 ——
+				// Actions 策略页弃用横幅的前段：日期上游会推迟（2026-10-25 已从 November 2
+				// 改到 December 2），按静态键收必死，改捕获原样带回（日期保持英文格式）。
+				// 后半段是既有静态键（拼接说明见 locales）
+				{
+					"id": "repo-settings/actions-deprecation-date",
+					"pattern": "^On ([A-Za-z]+ \\d{1,2}, \\d{4}), GitHub will restrict$"
+				},
+				// fork 工作流批准说明的仓库版长句（组织名动态）：上游 2026-10-25 起给仓库页
+				// 也用上了带组织名的写法，且把组织侧的 `the repository` 写成 `this repository`
+				// ——两条串不同，组织侧那条（org-settings/actions-fork-approvals-org）不命中本页
+				{
+					"id": "repo-settings/actions-fork-approvals-org-repo",
+					"pattern": "^All users that are not a member or owner of this repository and not a member of the (.+) organization will require approval to run workflows\\.$"
+				},
+				// 规则集页列表行的裸计数：上游把 `N branch rules • targeting M branches`
+				// 拆开渲染，行尾只剩 `8 branch rules`（与上方 ruleset-branch-rules-count
+				// 的整行格式不是同串）
+				{
+					"id": "repo-settings/branch-rules-count",
+					"pattern": "^(\\d+) branch rules$"
+				},
+				// Code Quality / Deploy keys 页的状态行「Disabled by <组织>」（组织名动态）。
+				// 同模块的静态键 `Disabled by your organization.`（Copilot 代码审查页）是
+				// 完整节点、按键优先命中，不受本规则影响
+				{
+					"id": "repo-settings/disabled-by",
+					"pattern": "^Disabled by (.+)$"
+				},
+				// document.title 系列（中点分隔，仓库名捕获保留原文）。上游 2026-10-25 起把
+				// 多个设置子页的 title 统一成 `Settings · <页名> · <owner>/<repo>`；
+				// 网络钩子页顺序相反（`Webhooks · Settings · <owner>/<repo>`）
+				{
+					"id": "repo-settings/branches-title",
+					"pattern": "^Settings [\\u00b7\\u2022] Branches [\\u00b7\\u2022] (.+)$"
+				},
+				{
+					"id": "repo-settings/tags-title",
+					"pattern": "^Settings [\\u00b7\\u2022] Tags [\\u00b7\\u2022] (.+)$"
+				},
+				{
+					"id": "repo-settings/code-quality-title",
+					"pattern": "^Settings [\\u00b7\\u2022] Code quality [\\u00b7\\u2022] (.+)$"
+				},
+				{
+					"id": "repo-settings/copilot-code-review-title",
+					"pattern": "^Settings [\\u00b7\\u2022] Copilot Code review [\\u00b7\\u2022] (.+)$"
+				},
+				{
+					"id": "repo-settings/custom-properties-title",
+					"pattern": "^Settings [\\u00b7\\u2022] Custom properties [\\u00b7\\u2022] (.+)$"
+				},
+				{
+					"id": "repo-settings/advanced-security-title",
+					"pattern": "^Settings [\\u00b7\\u2022] Advanced Security [\\u00b7\\u2022] (.+)$"
+				},
+				{
+					"id": "repo-settings/webhooks-title",
+					"pattern": "^Webhooks [\\u00b7\\u2022] Settings [\\u00b7\\u2022] (.+)$"
 				}
 			]
 		},
@@ -2712,6 +2772,13 @@
 					"id": "org-settings/actions-fork-approvals-org",
 					"pattern": "^All users that are not a member or owner of the repository and not a member of the (.+) organization will require approval to run workflows\\.$"
 				},
+				// 组织 Actions 策略页弃用横幅前段的日期：上游 2026-10-25 起推迟
+				//（November 2 → December 2）且还会再动，与仓库级同 pattern、不同 id
+				//（两条路由互斥，见 repo-settings/actions-deprecation-date）
+				{
+					"id": "org-settings/actions-deprecation-date",
+					"pattern": "^On ([A-Za-z]+ \\d{1,2}, \\d{4}), GitHub will restrict$"
+				},
 				// 组织软件包设置页的空状态：组织名是动态值；与个人设置页的同 pattern 规则
 				// 重复，因为 pages/settings 不命中组织路径。
 				{
@@ -2773,6 +2840,13 @@
 				{
 					"id": "actions/page-title",
 					"pattern": "^Actions: ([^/]+\\/[^/]+)$"
+				},
+				// 运行列表项的 aria-label（`completed successfully: Run 75 of CodeQL. PR #19`）：
+				// 状态前缀之后全是动态值（运行序号 / 工作流名 / 触发源），整串捕获重组。
+				// 可见文本里的碎片键 `completed successfully:` 命中不了这个 aria 整串
+				{
+					"id": "actions/run-status-aria",
+					"pattern": "^completed successfully: Run (\\d+) of (.+)\\. (.+)$"
 				},
 				// 运行计数与带仓库名的页头标题
 				{

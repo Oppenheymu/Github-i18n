@@ -43,9 +43,12 @@ const NODES: readonly (readonly [string, string])[] = [
 		"Learn more about pull_request_target restrictions",
 		"进一步了解 pull_request_target 限制",
 	],
+	// 弃用横幅前段已改走 repo-settings/actions-deprecation-date 规则：
+	// 日期原样带回（不再本地化成「2026 年 11 月 2 日」），下面 2026-10-25 的
+	// describe 里有 December 2 版本的同断言
 	[
 		"On November 2, 2026, GitHub will restrict",
-		"2026 年 11 月 2 日，GitHub 将限制",
+		"November 2, 2026，GitHub 将限制",
 	],
 	[
 		"on public repositories by default. To continue allowing the event trigger, configure an Actions policy.",
@@ -141,7 +144,7 @@ describe("仓库设置页的 Actions 策略三支实机节点边界", () => {
 				" on public repositories by default. To continue allowing the event trigger, configure an Actions policy.",
 			]),
 		).toBe(
-			"2026 年 11 月 2 日，GitHub 将限制 pull_request_target 在公开仓库中的使用。要继续允许该事件触发器，请配置一个 Actions 策略。",
+			"November 2, 2026，GitHub 将限制 pull_request_target 在公开仓库中的使用。要继续允许该事件触发器，请配置一个 Actions 策略。",
 		);
 	});
 
@@ -177,5 +180,89 @@ describe("仓库设置页的 Actions 策略三支实机节点边界", () => {
 				`专名 ${name}`,
 			).toBeNull();
 		}
+	});
+});
+
+// —— 2026-10-25 维护者导出的漏翻清单 ——
+// 三处上游变动：
+//   1. 弃用横幅的日期从 November 2 推迟到 December 2（还会再动）——原静态键作废，
+//      改 repo-settings/actions-deprecation-date 规则按日期捕获；
+//   2. fork 批准说明在仓库页也用上了带组织名的长句（组织侧是 `the repository`，
+//      仓库页是 `this repository`，两条串不同）——repo-settings/actions-fork-approvals-org-repo；
+//   3. 策略页 / 规则集页的新筛选框与空态，以及规则集列表行的裸计数。
+describe("仓库设置页 Actions 策略三支 2026-10-25 的上游变动", () => {
+	it("translates the deprecation banner with a captured date", () => {
+		// 日期原样带回（保持英文格式）；后段是既有静态键，拼接后读得通
+		expect(
+			translateText(
+				"On December 2, 2026, GitHub will restrict",
+				view,
+			),
+		).toBe("December 2, 2026，GitHub 将限制");
+		expect(
+			translateText(
+				"On November 2, 2026, GitHub will restrict",
+				view,
+			),
+		).toBe("November 2, 2026，GitHub 将限制");
+		expect(
+			translateText(
+				"on public repositories by default. To continue allowing the event trigger, configure an Actions policy.",
+				view,
+			),
+		).toBe(
+			"在公开仓库中的使用。要继续允许该事件触发器，请配置一个 Actions 策略。",
+		);
+	});
+
+	it("translates the org-scoped fork approvals long form on the repo page", () => {
+		// 上游给仓库页也用上带组织名的长句，且把组织侧的 the 写成 this；
+		// 组织侧那条规则（org-settings）不命中本页，本条是仓库侧自己的规则
+		expect(
+			translateText(
+				"All users that are not a member or owner of this repository and not a member of the NapukettoDev organization will require approval to run workflows.",
+				view,
+			),
+		).toBe(
+			"所有不是此仓库成员或所有者、也不是 NapukettoDev 组织成员的用户，都需要批准才能运行工作流。",
+		);
+		// 组织侧串（the repository）在本页保持英文——两条路由互斥的反例
+		expect(
+			translateText(
+				"All users that are not a member or owner of the repository and not a member of the Koishi-CE organization will require approval to run workflows.",
+				view,
+			),
+		).toBeNull();
+	});
+
+	it("translates the filter bar and blankslate on the rules page", () => {
+		expect(
+			translateText("Filter rules insights", view),
+		).toBe("筛选规则洞察");
+		expect(
+			translateText(
+				"No rule evaluations matched your search",
+				view,
+			),
+		).toBe("没有与你的搜索匹配的规则评估记录");
+		expect(translateText("Search or filter", view)).toBe(
+			"搜索或筛选",
+		);
+		expect(translateText("Suggestions", view)).toBe("建议");
+	});
+
+	it("translates the bare branch rules count and the disabled-by status", () => {
+		// 规则集列表行（/settings/rules）上游把 `N branch rules • targeting M branches`
+		// 拆开渲染，行尾只剩裸计数；Disabled by <组织> 出现在 Code Quality / Deploy keys 页
+		expect(translateText("8 branch rules", view)).toBe(
+			"8 条分支规则",
+		);
+		expect(
+			translateText("Disabled by NapukettoDev", view),
+		).toBe("由 NapukettoDev 停用");
+		// 完整句按键命中，不受 disabled-by 规则影响
+		expect(
+			translateText("Disabled by your organization.", view),
+		).toBe("已被你的组织停用。");
 	});
 });

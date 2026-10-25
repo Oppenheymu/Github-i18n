@@ -59,7 +59,8 @@ const FEATURE_NODES: readonly string[] = [
 	"You will have access to the feature",
 	"You won't have access to the feature",
 	// —— 云端代理 / 应用 / CLI ——
-	"Copilot cloud agent",
+	// 单键「Copilot cloud agent」上游 2026-10-25 改叫「Copilot in the cloud」，产品名
+	// 键已退役保留英文（挪进 MUST_STAY_ENGLISH）；说明句键不受影响
 	"Delegate tasks to Copilot cloud agent in repositories where it is enabled",
 	"GitHub Copilot app",
 	"It can take up to 30 minutes for the changes to take effect. Restart your code editor for the changes to take effect immediately.",
@@ -123,6 +124,8 @@ const FEATURE_NODES: readonly string[] = [
  */
 const MUST_STAY_ENGLISH: readonly string[] = [
 	"Copilot",
+	"Copilot in the cloud",
+	"Copilot cloud agent",
 	"GitHub Copilot",
 	"Copilot CLI",
 	"Copilot Spaces",

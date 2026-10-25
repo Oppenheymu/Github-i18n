@@ -530,6 +530,23 @@
 		"repo-settings/dependent-repositories-count": "$<registry> · $<count> 個の依存リポジトリ",
 		// Code Quality 有効化ダイアログの価格行
 		"repo-settings/code-quality-price": "アクティブなコミッター 1 人あたり月額 $1",
+		// —— 2026-10-25 漏翻リストの補強 ——
+		// Actions ポリシーページの非推奨バナー前半（日付はキャプチャをそのまま返す）
+		"repo-settings/actions-deprecation-date": "$1 から、GitHub は",
+		// fork ワークフロー承認説明のリポジトリ版長文（組織名はキャプチャ）
+		"repo-settings/actions-fork-approvals-org-repo": "このリポジトリのメンバーでもオーナーでもなく、$1 の組織のメンバーでもないすべてのユーザーは、ワークフローを実行するために承認が必要です。",
+		// ルールセットページのリスト行の裸カウント
+		"repo-settings/branch-rules-count": "$1 件のブランチルール",
+		// Code Quality / Deploy keys ページのステータス行（組織名はキャプチャ；完全文はキー命中が優先）
+		"repo-settings/disabled-by": "$1 により無効化",
+		// document.title シリーズ（ページ名はテンプレートに直書き）
+		"repo-settings/branches-title": "設定 · ブランチ · $1",
+		"repo-settings/tags-title": "設定 · タグ · $1",
+		"repo-settings/code-quality-title": "設定 · コード品質 · $1",
+		"repo-settings/copilot-code-review-title": "設定 · Copilot コードレビュー · $1",
+		"repo-settings/custom-properties-title": "設定 · カスタムプロパティ · $1",
+		"repo-settings/advanced-security-title": "設定 · Advanced Security · $1",
+		"repo-settings/webhooks-title": "Webhook · 設定 · $1",
 
 		// —— pages/org-settings（組織設定）——
 		"org-settings/page-title": "設定 · $<page> · $<org>",
@@ -546,6 +563,12 @@
 		// 気づかないまま ja だけ英語が残ってしまう。ここで先に埋めておく。
 		"org-settings/webhooks-intro": "Webhook を使用すると、特定のイベントが発生したときに外部サービスへ通知できます。指定したイベントが発生すると、指定した各 URL に POST リクエストを送信します。詳細については、",
 		"org-settings/dependabot-rules-enabled-count": "$<count> 件のルールが有効",
+		// 組織 Actions ポリシーページの fork 承認説明（組織名はキャプチャ）。リポジトリ側の
+		// 同 pattern ルールがあるため notTranslated では重複排除され、この id を補わないと
+		// スナップショットに現れない（webhooks-intro と同じ経緯）。ここで先に埋めておく
+		"org-settings/actions-fork-approvals-org": "当該リポジトリのメンバーでもオーナーでもなく、$1 の組織のメンバーでもないすべてのユーザーは、ワークフローを実行するために承認が必要です。",
+		// 組織 Actions ポリシーページの非推奨バナー前半（リポジトリ側と同 pattern・別 id）
+		"org-settings/actions-deprecation-date": "$1 から、GitHub は",
 		// 個人設定ページの同 pattern を別モジュールでも使用するため id ごとに明示する
 		"org-settings/no-recoverable-packages": "$1 で復元可能なパッケージは見つかりませんでした。",
 
@@ -556,6 +579,8 @@
 		"actions/duration-s": "$1 秒",
 		"actions/view-number": "#$1 を表示",
 		"actions/page-title": "Actions ページ：$1",
+		// 実行リスト項目の aria-label（状態プレフィックスの後は実行番号 / ワークフロー名 / トリガーがすべて動的値）
+		"actions/run-status-aria": "正常に完了しました：$2 の実行 $1。$3",
 		"actions/workflow-runs-count-plus": "$1+ 件のワークフロー実行",
 		"actions/workflow-runs-count": "$1 件のワークフロー実行",
 		"actions/workflow-runs-title": "ワークフロー実行 · $1",

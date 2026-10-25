@@ -41,10 +41,11 @@ function moduleNames(path: string): readonly string[] {
 
 /** 实机里仍是英文的静态文本节点（按页面自上而下的顺序） */
 const NEW_NODES: readonly (readonly [string, string])[] = [
-	["Copilot cloud agent", "Copilot 云端代理"],
+	// 「Copilot cloud agent」上游 2026-10-25 改叫「Copilot in the cloud」，产品名
+	// 键已退役（canonical 删除），未命中即保留英文；改名句走 core/aliases.jsonc
 	[
 		"No Copilot cloud agent access",
-		"无 Copilot 云端代理访问权限",
+		"无 Copilot in the cloud 访问权限",
 	],
 	[
 		"You can enable Copilot cloud agent for other users, but you won't be able to assign tasks to Copilot because you don't have a Copilot Pro, Copilot Pro+, Copilot Business or Copilot Enterprise license.",
@@ -232,6 +233,8 @@ describe("组织 Copilot 云端代理设置页的实机节点", () => {
 
 	it("renders the intro sentence across its three bare text nodes", () => {
 		// 三个片段之间没有元素，末尾那个片段带尾随空格（文档链接紧随其后）。
+		// 中段的「Copilot cloud agent」是产品名键，2026-10-25 起退役保留英文
+		//（页面上新文案是 Copilot in the cloud，同样保留英文）
 		expect(
 			renderNodes([
 				"With ",
@@ -240,7 +243,7 @@ describe("组织 Copilot 云端代理设置页的实机节点", () => {
 				"Learn more in the docs.",
 			]),
 		).toBe(
-			"借助 Copilot 云端代理，开发者可以将任务委派给 Copilot，从而专注于最具创造性、复杂且影响重大的工作。只需将任务分配给 Copilot，等待代理请求审查，然后在拉取请求中提供反馈并继续迭代。 在文档中了解详情。",
+			"借助 Copilot cloud agent，开发者可以将任务委派给 Copilot，从而专注于最具创造性、复杂且影响重大的工作。只需将任务分配给 Copilot，等待代理请求审查，然后在拉取请求中提供反馈并继续迭代。 在文档中了解详情。",
 		);
 	});
 

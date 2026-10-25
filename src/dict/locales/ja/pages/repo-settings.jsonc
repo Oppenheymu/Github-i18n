@@ -407,14 +407,16 @@
 		// —— Copilot：クラウドエージェント（settings/copilot/coding_agent）——
 		"On": "オン",
 		"Off": "オフ",
-		"Copilot cloud agent": "Copilot クラウドエージェント",
+		// 「Copilot cloud agent」は上流 2026-10-25 で「Copilot in the cloud」に改名され、
+		// 規範キーは改名とともに退役（canonical 2026-10-25 削除）。製品名は訳さないため、
+		// 未命中なら英語のまま残り、新旧どちらの文言も英語で一致する
 		"Copilot code review": "Copilot コードレビュー",
 		"With": "を使えば",
 		", developers can delegate tasks to Copilot, freeing them to focus on the creative, complex, and high-impact work that matters most. Assign a task to Copilot, wait for the agent to request review, then leave feedback on the pull request to iterate.": "、開発者はタスクを Copilot に委任でき、最も重要な創造的で複雑かつ影響力の大きい作業に集中できます。Copilot にタスクを割り当て、エージェントがレビューを依頼するのを待ち、プルリクエストにフィードバックを残して反復します。",
-		"No Copilot cloud agent access": "Copilot クラウドエージェントへのアクセス権がありません",
+		"No Copilot cloud agent access": "Copilot in the cloud へのアクセス権がありません",
 		"You can configure Copilot cloud agent for other users with access to this repository, but you won't be able to assign tasks to Copilot because you don't have a Copilot Pro, Copilot Pro+, Copilot Business or Copilot Enterprise license.": "このリポジトリへのアクセス権を持つ他のユーザーに対して Copilot クラウドエージェントを設定できますが、Copilot Pro、Copilot Pro+、Copilot Business、Copilot Enterprise のいずれかのライセンスがないため、Copilot にタスクを割り当てることはできません。",
 		"Validation tools": "検証ツール",
-		"Configure which tools Copilot cloud agent uses to validate its work and iterate before requesting human review.": "Copilot クラウドエージェントが、人によるレビューを依頼する前に作業を検証して反復するために使用するツールを設定します。",
+		"Configure which tools Copilot cloud agent uses to validate its work and iterate before requesting human review.": "Copilot in the cloud が、人によるレビューを依頼する前に作業を検証して反復するために使用するツールを設定します。",
 		"CodeQL code scanning": "CodeQL コードスキャン",
 		"Use CodeQL to scan for security vulnerabilities.": "CodeQL を使用してセキュリティの脆弱性をスキャンします。",
 		"Secret scanning": "シークレットスキャン",
@@ -442,9 +444,9 @@
 		"Allow access to specific domains, IP addresses, or URLs.": "特定のドメイン、IP アドレス、URL へのアクセスを許可します。",
 		"Learn more about customizing network access.": "ネットワークアクセスのカスタマイズについて詳しくはこちら。",
 		"Learn more about the recommended allowlist": "推奨の許可リストについて詳しくはこちら",
-		"Limit Copilot cloud agent’s Internet access to only allow access to allowlisted locations": "Copilot クラウドエージェントのインターネットアクセスを、許可リストにある場所へのアクセスのみに制限",
+		"Limit Copilot cloud agent’s Internet access to only allow access to allowlisted locations": "Copilot in the cloud のインターネットアクセスを、許可リストにある場所へのアクセスのみに制限",
 		"Limit Copilot code review’s Internet access to only allow access to allowlisted locations": "Copilot コードレビューのインターネットアクセスを、許可リストにある場所へのアクセスのみに制限",
-		"Ensure that Copilot cloud agent only accesses approved network resources while working on tasks.": "Copilot クラウドエージェントがタスクの実行中に承認済みのネットワークリソースのみにアクセスするようにします。",
+		"Ensure that Copilot cloud agent only accesses approved network resources while working on tasks.": "Copilot in the cloud がタスクの実行中に承認済みのネットワークリソースのみにアクセスするようにします。",
 		"Ensure that Copilot code review only accesses approved network resources while reviewing changes.": "Copilot コードレビューが変更のレビュー中に承認済みのネットワークリソースのみにアクセスするようにします。",
 		"The firewall will not be enforced on self-hosted runners.": "ファイアウォールはセルフホストランナーには適用されません。",
 		"Settings · GitHub Copilot · Internet access": "設定 · GitHub Copilot · インターネットアクセス",
@@ -455,9 +457,9 @@
 		"MCP servers are enabled by default.": "MCP サーバーはデフォルトで有効です。",
 		"Model Context Protocol (MCP)": "モデルコンテキストプロトコル（MCP）",
 		"Supported agents": "対応エージェント",
-		"This MCP configuration applies to Copilot cloud agent and Copilot code review. IDEs and Copilot CLI use their own MCP configuration.": "この MCP 設定は Copilot クラウドエージェントと Copilot コードレビューに適用されます。IDE と Copilot CLI はそれぞれ独自の MCP 設定を使用します。",
+		"This MCP configuration applies to Copilot cloud agent and Copilot code review. IDEs and Copilot CLI use their own MCP configuration.": "この MCP 設定は Copilot in the cloud と Copilot コードレビューに適用されます。IDE と Copilot CLI はそれぞれ独自の MCP 設定を使用します。",
 		"Learn more about configuring MCP servers.": "MCP サーバーの設定について詳しくはこちら。",
-		"With MCP, you can extend the capabilities of Copilot cloud agent and Copilot code review by connecting them to other tools and services. The": "MCP を使うと、Copilot クラウドエージェントと Copilot コードレビューを他のツールやサービスに接続して、機能を拡張できます。続いて、",
+		"With MCP, you can extend the capabilities of Copilot cloud agent and Copilot code review by connecting them to other tools and services. The": "MCP を使うと、Copilot in the cloud と Copilot コードレビューを他のツールやサービスに接続して、機能を拡張できます。続いて、",
 		"You can configure your own MCP servers by adding JSON configuration below. MCP servers can optionally access secrets defined in the repository's": "以下に JSON 設定を追加して、独自の MCP サーバーを設定できます。MCP サーバーは、リポジトリの",
 		"and": "および",
 		"environment.": "環境で定義されたシークレットに任意でアクセスできます。",
@@ -885,8 +887,9 @@
 		"You haven't created any policies": "ポリシーがまだ作成されていません",
 		"Learn more about pull_request_target restrictions": "pull_request_target の制限について詳しくはこちら",
 		// 非推奨バナーは <code>pull_request_target</code> で 2 ノードに分割され、連結すると
-		// 「2026 年 11 月 2 日、GitHub は pull_request_target の公開リポジトリでの使用を制限します。…」となる
-		"On November 2, 2026, GitHub will restrict": "2026 年 11 月 2 日から、GitHub は",
+		// 「December 2, 2026 から、GitHub は pull_request_target の公開リポジトリでの使用を…」となる。
+		// 前半の日付は上流が先送りする（2026-10-25 に November 2 から December 2 へ変更済み）ため、
+		// repo-settings/actions-deprecation-date ルールで扱う（キャプチャをそのまま返す）
 		"on public repositories by default. To continue allowing the event trigger, configure an Actions policy.": "の公開リポジトリでの使用をデフォルトで制限します。このイベントトリガーを引き続き許可するには、Actions ポリシーを設定してください。",
 		// —— Actions ポリシーインサイトページ（…/rules/insights）——
 		"Actions policy insights": "Actions ポリシーのインサイト",
@@ -1551,6 +1554,105 @@
 		"Based on usage": "使用量に応じて",
 		// 脚注文の前段（末尾に空白あり。リンク Learn more… は独立ノード）
 		"*Code Quality scans your pull requests and default branch, using a mix of deterministic and AI scans.": "*コード品質は、決定論的スキャンと AI スキャンを組み合わせて、プルリクエストとデフォルトブランチをスキャンします。",
-		"Learn more about our billing model": "課金モデルについて詳しく見る"
+		"Learn more about our billing model": "課金モデルについて詳しく見る",
+		// —— 2026-10-25 漏翻リスト（/settings 配下の十数サブページをカバー）——
+		// —— ブランチ保護バナー（/settings/branches と /settings/custom-properties の先頭に同型）——
+		// 説明文はリンクで 3 ノードに分割：先頭の `Rulesets` は既存の小文字エントリに命中し、
+		// リンク文字と後半は別キー。連結すると「ルールセット は…。クラシックブランチ保護 も利用できますが、…」
+		"Protect your branches with repository rulesets": "リポジトリルールセットでブランチを保護する",
+		"are the recommended way to protect branches, with required deployments, bypass lists, org-level enforcement, and more.": "は、必須デプロイ、バイパスリスト、組織レベルの強制などを備えた、ブランチを保護する推奨の方法です。",
+		"Classic branch protections": "クラシックブランチ保護",
+		"are also available but offer fewer capabilities.": "も利用できますが、提供される機能は少なくなります。",
+		// —— ルールセットインサイトとダッシュボード（組織版の同串は pages/org-settings、ルート相互排他で同訳を転記）——
+		"Ruleset dashboard": "ルールセットダッシュボード",
+		"Repository ruleset insights": "リポジトリルールセットのインサイト",
+		"Repository ruleset dashboard": "リポジトリルールセットのダッシュボード",
+		"Filter rule insights dashboard": "ルールインサイトのダッシュボードを絞り込む",
+		"Search or filter": "検索またはフィルター",
+		"Clear filter": "フィルターをクリア",
+		"Suggestions": "候補",
+		"Rule Suites": "ルールスイート",
+		"Chart options": "チャートのオプション",
+		"Customization settings": "カスタマイズ設定",
+		"View as data table, Chart": "データテーブルとして表示、チャート",
+		"Interactive chart": "インタラクティブチャート",
+		"Interactive chart.": "インタラクティブチャート。",
+		"End of interactive chart.": "インタラクティブチャートの終わりです。",
+		// 折れ線グラフと棒グラフの軸タイトル（SVG 内の可視テキストでもある）
+		"Values": "値",
+		"Actor": "実行者",
+		"Number of bypasses": "バイパス数",
+		// 指標カード（payload の metrics[].name と link.displayText）
+		"Allowed": "許可",
+		"Failed": "失敗",
+		"Bypassed": "バイパス済み",
+		"in the time period": "期間内",
+		"View allowed runs": "許可された実行を表示",
+		"View failed runs": "失敗した実行を表示",
+		"View bypassed runs": "バイパスされた実行を表示",
+		// 棒グラフのタイトルと説明、凡例 / 表ヘッダー共用の 3 つのカウント名
+		"Bypasses by actor": "実行者別のバイパス",
+		"Members who have bypassed the most": "最も多くバイパスしたメンバー",
+		"Passes": "通過",
+		"Failures": "失敗",
+		"Bypasses": "バイパス",
+		// —— Actions ポリシーページ（/settings/actions/rules）——
+		"Filter rules insights": "ルールインサイトを絞り込む",
+		"No rule evaluations matched your search": "検索に一致するルール評価はありません",
+		// —— Actions 設定ページ（/settings/actions）——
+		"Enter a comma-separated list of actions and reusable workflows": "アクションと再利用可能なワークフローのリストをカンマ区切りで入力",
+		// 組織の保持期間上限通知の前半（`90` は数値ノードで翻訳不可、後半の `days.` は既存キー）
+		"Your organization has set a maximum limit of": "組織が設定した上限は",
+		// —— ブランチ / タグ保護ページ（/settings/branches、/settings/tag_protection、/settings/keys）——
+		// ブランチ選択ボタンの aria-label（上流の文言が単数形のまま）
+		"All branch": "すべてのブランチ",
+		// —— Copilot コードレビュー（/settings/copilot/code_review）——
+		"Access and licensing": "アクセスとライセンス",
+		"Automatic code review": "自動コードレビュー",
+		"Automatic reviews from rulesets still run.": "ルールセットからの自動レビューは引き続き実行されます。",
+		"Block reviews requested with an external Copilot license": "外部 Copilot ライセンスで要求されたレビューをブロックする",
+		"Copilot approvals can count toward merge requirements.": "Copilot の承認はマージ要件にカウントできます。",
+		// MCP ツールスイッチ説明の前半（中段の `MCP servers` は既存キーに命中、後半は下記）。
+		// 3 ノード連結で「Copilot コードレビューは、あなたの MCP サーバー のツールをレビュー時に使用します。」
+		"Copilot code review uses the tools from your": "Copilot コードレビューは、あなたの",
+		"during reviews.": "のツールをレビュー時に使用します。",
+		"Copilot references instruction files in this repository. Organization custom instructions apply regardless of this setting.": "Copilot はこのリポジトリ内の指示ファイルを参照します。この設定に関係なく、組織のカスタム指示が適用されます。",
+		"Copilot reviews your pull requests, flagging bugs and suggesting improvements as inline comments.": "Copilot はプルリクエストをレビューし、バグを指摘し、インラインコメントとして改善提案を行います。",
+		// 組織による無効化通知の前半（句点はノード内）、後半はリンク `organization Copilot settings`。
+		// 連結すると「この項目は 組織の Copilot 設定で管理できます」
+		"Disabled by your organization.": "組織によって無効化されています。",
+		"Manage this in": "この項目は",
+		"organization Copilot settings": "組織の Copilot 設定で管理できます",
+		// 外部ライセンス説明は同名リンクで分割：リンク / 後半
+		"External licenses": "外部ライセンス",
+		"include personal Copilot licenses.": "には個人用 Copilot ライセンスが含まれます。",
+		"In a personal repository, only the owner and direct collaborators can request reviews.": "個人リポジトリでは、オーナーと直接のコラボレーターのみがレビューを要求できます。",
+		"Learn more about automatic code review.": "自動コードレビューについて詳しくはこちら。",
+		"Learn more about custom instructions.": "カスタム指示について詳しくはこちら。",
+		"Use custom instructions": "カスタム指示を使用する",
+		"Use rulesets to request a review when a pull request is opened, on each new push, or while it is still a draft.": "ルールセットを使って、プルリクエストの作成時、新しいプッシュのたび、ドラフト中のいずれかにレビューを要求します。",
+		"Locked by your organization": "組織によってロックされています",
+		// —— Webhook（/settings/hooks）——
+		// 説明文の前半、後半はリンク `organization webhooks`。
+		// 連結すると「このリポジトリからのイベントを 組織の webhook にも送信します」
+		"We will also send events from this repository to your": "このリポジトリからのイベントは、",
+		"organization webhooks": "組織の webhook にも送信します",
+		// —— セキュリティと分析（/settings/security_analysis）——
+		"Blocked by organization": "組織によってブロックされています",
+		"Modifications to some settings have been blocked by organization administrators.": "一部の設定の変更は組織の管理者によってブロックされています。",
+		// Dependabot バージョン更新説明の前半、後半はリンク `configuring dependabot.yml`。
+		// 連結すると「次の方法で依存関係の更新プルリクエストを自動的にオープンします： dependabot.yml の構成」
+		"Automatically open dependency update pull requests by": "次の方法で依存関係の更新プルリクエストを自動的にオープンします：",
+		"configuring dependabot.yml": "dependabot.yml の構成",
+		"Create dependabot.yml": "dependabot.yml を作成",
+		// シークレットプッシュ保護説明の前半（後半は動的な選択肢リスト）
+		"Block pushes that contain": "次を含むプッシュをブロック：",
+		"Configure private vulnerability reporting": "プライベート脆弱性報告を構成",
+		// —— カスタムプロパティページ（/settings/custom-properties；組織版の同串は pages/org-settings）——
+		"Repository custom properties": "リポジトリのカスタムプロパティ",
+		"Add metadata to your repositories, such as compliance frameworks, data sensitivity, or project details.": "コンプライアンスフレームワーク、データの機密度、プロジェクトの詳細など、リポジトリにメタデータを追加します。",
+		// aria-label と placeholder が同串で、どちらも属性の完全一致で命中
+		"Filter properties": "プロパティを絞り込む",
+		"No properties that match": "一致するプロパティがありません"
 	}
 }

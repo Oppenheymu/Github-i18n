@@ -258,3 +258,158 @@ describe("仓库设置页的 Copilot 代码审查子页的实机节点边界", (
 		);
 	});
 });
+
+// —— 2026-10-25 维护者导出的漏翻清单（重载扩展后本页的新增区块）——
+// 上游把产品名「Copilot cloud agent」统一改叫「Copilot in the cloud」，相关说明句
+// 走 core/aliases.jsonc 复用旧译文；新开关区块的标题与说明是全新键。
+describe("仓库设置页 Copilot 代码审查子页 2026-10-25 的改词与新开关区块", () => {
+	const NEW_NODES: readonly (readonly [string, string])[] =
+		[
+			["Access and licensing", "访问与许可"],
+			["Automatic code review", "自动代码审查"],
+			[
+				"Automatic reviews from rulesets still run.",
+				"来自规则集的自动审查仍会运行。",
+			],
+			[
+				"Block reviews requested with an external Copilot license",
+				"阻止使用外部 Copilot 许可证请求的审查",
+			],
+			[
+				"Copilot approvals can count toward merge requirements.",
+				"Copilot 的批准可以计入合并要求。",
+			],
+			[
+				"Copilot references instruction files in this repository. Organization custom instructions apply regardless of this setting.",
+				"Copilot 会引用本仓库中的指令文件。无论此设置如何，组织的自定义指令都会生效。",
+			],
+			[
+				"Copilot reviews your pull requests, flagging bugs and suggesting improvements as inline comments.",
+				"Copilot 会审查你的拉取请求，以行内评论的形式标记错误并提出改进建议。",
+			],
+			[
+				"Disabled by your organization.",
+				"已被你的组织停用。",
+			],
+			[
+				"In a personal repository, only the owner and direct collaborators can request reviews.",
+				"在个人仓库中，只有所有者和直接协作者可以请求审查。",
+			],
+			[
+				"Learn more about automatic code review.",
+				"进一步了解自动代码审查。",
+			],
+			[
+				"Learn more about custom instructions.",
+				"进一步了解自定义指令。",
+			],
+			["Use custom instructions", "使用自定义指令"],
+			[
+				"Use rulesets to request a review when a pull request is opened, on each new push, or while it is still a draft.",
+				"使用规则集在拉取请求创建时、每次新推送时或仍处于草稿状态时请求审查。",
+			],
+			["Locked by your organization", "已被你的组织锁定"],
+		];
+
+	it("translates the new toggles and headings", () => {
+		for (const [node, expected] of NEW_NODES) {
+			expect(
+				translateText(node, view),
+				`节点 ${JSON.stringify(node)}`,
+			).toBe(expected);
+		}
+	});
+
+	it("follows the renamed product via aliases", () => {
+		// 上游把「Copilot cloud agent」改叫「Copilot in the cloud」，说明句整句改写或
+		// 改名后各加一行别名复用旧译文（规范键的译文中产品名已同步改新名）
+		expect(
+			translateText(
+				"Ensure that Copilot in the cloud only accesses approved network resources while working on tasks.",
+				view,
+			),
+		).toBe(
+			"确保 Copilot in the cloud 在执行任务期间仅访问经批准的网络资源。",
+		);
+		expect(
+			translateText(
+				"Limit Internet access for Copilot code review to only allow access to allowlisted locations",
+				view,
+			),
+		).toBe(
+			"将 Copilot 代码审查的网络访问限制为仅允许访问允许列表中的位置",
+		);
+		expect(
+			translateText(
+				"When enabled, automation runs can only change the issue, pull request, or discussion that triggered them, and anything they create. This does not apply to scheduled runs, security alert runs, or runs started by another automation.",
+				view,
+			),
+		).toBe(
+			"启用后，自动化运行只能更改触发它们的议题、拉取请求或讨论，以及它们创建的任何内容。计划运行只能更改它们创建的内容。自动化作者无法关闭此设置。",
+		);
+		expect(
+			translateText(
+				"When Copilot pushes changes, require approval from a maintainer with write access before Actions workflows are run. When this policy is disabled, Actions workflows run automatically when Copilot pushes, except when the push comes from an automation that requires approval.",
+				view,
+			),
+		).toBe(
+			"Copilot 推送更改时，需先经有写权限的维护者批准，Actions 工作流才会运行。停用此策略后，Copilot 推送时 Actions 工作流会自动运行，但来自自动化的推送除外。",
+		);
+		// 单复数改词的说明链接
+		expect(
+			translateText(
+				"Learn more about Copilot code review.",
+				view,
+			),
+		).toBe("进一步了解 Copilot 代码审查。");
+	});
+
+	it("keeps the renamed product name itself in english", () => {
+		// 「Copilot cloud agent」词条有意不收录：译文只能是 "Copilot in the cloud"，
+		// 等于别名源文本会触发防循环门禁；未命中即保留英文，新旧文案表现一致
+		expect(
+			translateText("Copilot in the cloud", view),
+		).toBeNull();
+	});
+
+	it("reassembles the MCP tools description under its new split", () => {
+		// 2026-10-25 实机把说明句拆成 `…uses the tools from your <a>MCP 服务器</a> during reviews.`；
+		// 与 2026-10-17 版（`When enabled, … configured in …`）是两句不同的开关说明，各收一套。
+		// 节点间的空格由引擎按 lead / trail 保留（与上一条 MCP 拼接用例同款）
+		expect(
+			renderWithWhitespace([
+				"Copilot code review uses the tools from your ",
+				"MCP servers",
+				" during reviews.",
+			]),
+		).toBe(
+			"Copilot 代码审查会使用你的 MCP 服务器 中的工具来进行审查。",
+		);
+	});
+
+	it("reassembles the organization-disabled notice around its link", () => {
+		expect(
+			renderWithWhitespace([
+				"Disabled by your organization. ",
+				"Manage this in ",
+				"organization Copilot settings",
+				".",
+			]),
+		).toBe(
+			"已被你的组织停用。 此项可在 组织 Copilot 设置中管理.",
+		);
+	});
+
+	it("reassembles the external licenses notice around its link", () => {
+		expect(
+			renderWithWhitespace([
+				"External licenses ",
+				"include personal Copilot licenses. ",
+				"In a personal repository, only the owner and direct collaborators can request reviews. ",
+				"Automatic reviews from rulesets still run.",
+			]),
+		).toBe(
+			"外部许可证 包括个人 Copilot 许可证。 在个人仓库中，只有所有者和直接协作者可以请求审查。 来自规则集的自动审查仍会运行。",
+		);
+	});
+});

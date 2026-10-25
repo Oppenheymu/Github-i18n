@@ -963,7 +963,7 @@
 		"You will have access to the feature": "你将有权使用该功能",
 		"You won't have access to the feature": "你将无权使用该功能",
 		// —— 云端代理 / 应用 / CLI ——
-		"Copilot cloud agent": "Copilot 云端代理",
+		// 「Copilot cloud agent」已随上游改名退役（产品名不译，见 core/canonical.jsonc 说明）
 		"Delegate tasks to Copilot cloud agent in repositories where it is enabled": "在已启用 Copilot 云端代理的仓库中向其委派任务",
 		"GitHub Copilot app": "GitHub Copilot 应用",
 		"It can take up to 30 minutes for the changes to take effect. Restart your code editor for the changes to take effect immediately.": "更改最多可能需要 30 分钟才能生效。重启代码编辑器可让更改立即生效。",

@@ -95,3 +95,63 @@ describe("仓库设置页的分支子页实机节点边界", () => {
 		expect(translateText(".", view)).toBeNull();
 	});
 });
+
+// —— 2026-10-25 维护者导出的漏翻清单：页面顶部的 React 重写横幅 ——
+// 上游把经典分支保护横幅换成了规则集推广横幅（`prc-Banner-*`），说明句被链接
+// 切成三段：首段 `Rulesets` 命中既有小写词条，链接文字 `Classic branch protections`
+// 与尾段各成键。同款横幅也出现在 /settings/custom-properties 顶部（同一 React 组件）。
+describe("仓库设置页分支子页 2026-10-25 的规则集推广横幅", () => {
+	it("translates the banner title and description segments", () => {
+		expect(
+			translateText(
+				"Protect your branches with repository rulesets",
+				view,
+			),
+		).toBe("使用仓库规则集保护你的分支");
+		expect(
+			translateText(
+				"are the recommended way to protect branches, with required deployments, bypass lists, org-level enforcement, and more.",
+				view,
+			),
+		).toBe(
+			"是保护分支的推荐方式，支持必需部署、绕过列表、组织级强制执行等。",
+		);
+		expect(
+			translateText("Classic branch protections", view),
+		).toBe("经典分支保护");
+		expect(
+			translateText(
+				"are also available but offer fewer capabilities.",
+				view,
+			),
+		).toBe("也可用，但提供的功能较少。");
+	});
+
+	it("reassembles the banner description around both links", () => {
+		// 拼接结果必须读得通：首段是既有键 `Rulesets`（小写规则集）
+		const lead = translateText("Rulesets", view) as string;
+		expect(lead).toBe("规则集");
+		const rendered = [
+			lead,
+			translateText(
+				"are the recommended way to protect branches, with required deployments, bypass lists, org-level enforcement, and more.",
+				view,
+			),
+			translateText("Classic branch protections", view),
+			translateText(
+				"are also available but offer fewer capabilities.",
+				view,
+			),
+		].join(" ");
+		expect(rendered).toBe(
+			"规则集 是保护分支的推荐方式，支持必需部署、绕过列表、组织级强制执行等。 经典分支保护 也可用，但提供的功能较少。",
+		);
+	});
+
+	it("translates the branch selector aria label", () => {
+		// /settings/keys 与 /settings/rules 上的分支选择按钮（上游文案就是单数）
+		expect(translateText("All branch", view)).toBe(
+			"所有分支",
+		);
+	});
+});

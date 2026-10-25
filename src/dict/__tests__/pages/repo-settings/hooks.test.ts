@@ -467,3 +467,19 @@ describe("仓库设置页的网络钩子两支实机节点边界", () => {
 		}
 	});
 });
+
+// —— 2026-10-25 维护者导出的漏翻清单：列表页顶部的组织 webhook 提示 ——
+// 说明句被链接切成两段（前段 p / 链接 organization webhooks），句号是独立符号节点不收。
+describe("仓库设置页网络钩子列表页 2026-10-25 的组织 webhook 提示", () => {
+	it("reassembles the org webhooks notice around its link", () => {
+		expect(
+			translateText(
+				"We will also send events from this repository to your",
+				view,
+			),
+		).toBe("我们还会将来自此仓库的事件发送到");
+		expect(
+			translateText("organization webhooks", view),
+		).toBe("组织 webhook");
+	});
+});

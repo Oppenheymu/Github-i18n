@@ -57,9 +57,10 @@ const NEW_NODES: readonly (readonly [string, string])[] = [
 		"Learn more about pull_request_target restrictions",
 		"进一步了解 pull_request_target 限制",
 	],
+	// 弃用横幅前段已改走 org-settings/actions-deprecation-date 规则：日期原样带回
 	[
 		"On November 2, 2026, GitHub will restrict",
-		"2026 年 11 月 2 日，GitHub 将限制",
+		"November 2, 2026，GitHub 将限制",
 	],
 	[
 		"on public repositories by default. To continue allowing the event trigger, configure an Actions policy.",
@@ -173,7 +174,7 @@ describe("组织级 Actions 策略页的实机节点", () => {
 				"Learn more",
 			]),
 		).toBe(
-			"2026 年 11 月 2 日，GitHub 将限制 pull_request_target 在公开仓库中的使用。要继续允许该事件触发器，请配置一个 Actions 策略。 了解更多",
+			"November 2, 2026，GitHub 将限制 pull_request_target 在公开仓库中的使用。要继续允许该事件触发器，请配置一个 Actions 策略。 了解更多",
 		);
 	});
 

@@ -1041,8 +1041,8 @@
 		// ページ上部、自動化ポリシー、移行の案内、Claude / Codex パートナーエージェントのブロック。
 		// 上部の一文は実機では隣接する 3 つの裸のテキストノードで、`With` と末尾の断片をそれぞれ収録する
 		//（見た目どおりの全文キーは決してヒットしないため削除済み）。`With` は汎用的な短い語なので、ルートの限定で補う。
-		"Copilot cloud agent": "Copilot クラウドエージェント",
-		"No Copilot cloud agent access": "Copilot クラウドエージェントへのアクセス権がありません",
+		// 「Copilot cloud agent」は上流の改名で退役（製品名は訳さない）
+		"No Copilot cloud agent access": "Copilot in the cloud へのアクセス権がありません",
 		"You can enable Copilot cloud agent for other users, but you won't be able to assign tasks to Copilot because you don't have a Copilot Pro, Copilot Pro+, Copilot Business or Copilot Enterprise license.": "他のユーザーに対して Copilot クラウドエージェントを有効にできますが、Copilot Pro、Copilot Pro+、Copilot Business、Copilot Enterprise のいずれかのライセンスがないため、Copilot にタスクを割り当てることはできません。",
 		"Buy or request a seat": "シートを購入またはリクエスト",
 		"With": "を使えば",
@@ -1249,7 +1249,8 @@
 		"Actions policies": "Actions ポリシー",
 		"Define whether actions can run in specific contexts.": "アクションを特定のコンテキストで実行できるかどうかを定義します。",
 		"Learn more about pull_request_target restrictions": "pull_request_target の制限について詳しくはこちら",
-		"On November 2, 2026, GitHub will restrict": "2026 年 11 月 2 日から、GitHub は",
+		// 前半の日付は上流が先送りする（2026-10-25 に November 2 から December 2 へ変更済み）ため、
+		// org-settings/actions-deprecation-date ルールで扱う（リポジトリ側と同パターン・別 id）
 		"on public repositories by default. To continue allowing the event trigger, configure an Actions policy.": "の公開リポジトリでの使用をデフォルトで制限します。このイベントトリガーを引き続き許可するには、Actions ポリシーを設定してください。",
 		// —— /settings/actions/rules/insights（組織レベルの「Actions ポリシーのインサイト」ページ）——
 		// H1 とサイドバー項目の `Policy insights`、組織のルールセットインサイトページの `Repository ruleset insights` は

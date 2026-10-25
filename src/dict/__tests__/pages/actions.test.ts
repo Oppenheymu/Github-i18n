@@ -467,3 +467,31 @@ describe("部署审批工作流的实机节点边界", () => {
 		);
 	});
 });
+
+// —— 2026-10-25 维护者导出的漏翻清单（/NapukettoDev/NapukettoQQ/actions 列表页）——
+// 运行列表项的 aria-label 整串是动态值（运行序号 / 工作流名 / 触发源），
+// 可见文本里的碎片键 `completed successfully:` 命中不了它，走 actions/run-status-aria 规则。
+describe("Actions 运行列表项 aria-label 的实机节点边界", () => {
+	const listView = buildView(
+		"/NapukettoDev/NapukettoQQ/actions",
+		zh,
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	it("reassembles the run status aria with captured values", () => {
+		expect(
+			translateText(
+				"completed successfully: Run 75 of CodeQL. PR #19",
+				listView,
+			),
+		).toBe("已成功完成：CodeQL 的第 75 次运行。PR #19");
+		expect(
+			translateText(
+				"completed successfully: Run 76 of CodeQL. Push on main",
+				listView,
+			),
+		).toBe(
+			"已成功完成：CodeQL 的第 76 次运行。Push on main",
+		);
+	});
+});

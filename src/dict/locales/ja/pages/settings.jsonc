@@ -967,7 +967,7 @@
 		"You will have access to the feature": "この機能を利用できるようになります",
 		"You won't have access to the feature": "この機能を利用できません",
 		// —— クラウドエージェント / アプリ / CLI ——
-		"Copilot cloud agent": "Copilot クラウドエージェント",
+		// 「Copilot cloud agent」は上流の改名で退役（製品名は訳さない）
 		"Delegate tasks to Copilot cloud agent in repositories where it is enabled": "Copilot クラウドエージェントが有効なリポジトリで、タスクを Copilot に委任します",
 		"GitHub Copilot app": "GitHub Copilot アプリ",
 		"It can take up to 30 minutes for the changes to take effect. Restart your code editor for the changes to take effect immediately.": "変更が反映されるまで最大 30 分かかる場合があります。コードエディターを再起動すると、変更がすぐに反映されます。",

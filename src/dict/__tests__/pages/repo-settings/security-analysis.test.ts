@@ -802,3 +802,48 @@ describe("仓库设置页的安全分析子页在组织仓库上的额外区块"
 		).toBe("搜索人员或团队…");
 	});
 });
+
+// —— 2026-10-25 维护者导出的漏翻清单：本页的新增区块与开关说明 ——
+// Dependabot 版本更新说明被链接切成两段（`… pull requests by <a>configuring dependabot.yml</a>`）；
+// 密钥推送保护说明的后半是动态选项列表，前段独立成键。
+describe("仓库设置页安全分析页 2026-10-25 的新增区块", () => {
+	it("translates the organization lock banner", () => {
+		expect(
+			translateText("Blocked by organization", view),
+		).toBe("已被组织阻止");
+		expect(
+			translateText(
+				"Modifications to some settings have been blocked by organization administrators.",
+				view,
+			),
+		).toBe("某些设置的修改已被组织管理员阻止。");
+	});
+
+	it("reassembles the dependabot version updates notice around its link", () => {
+		expect(
+			translateText(
+				"Automatically open dependency update pull requests by",
+				view,
+			),
+		).toBe("自动打开依赖项更新拉取请求，方法是");
+		expect(
+			translateText("configuring dependabot.yml", view),
+		).toBe("配置 dependabot.yml");
+		expect(
+			translateText("Create dependabot.yml", view),
+		).toBe("创建 dependabot.yml");
+	});
+
+	it("translates the push protection lead and private vulnerability aria", () => {
+		// 后半（secrets 等动态选项）不收；aria-label 走属性精确键命中
+		expect(
+			translateText("Block pushes that contain", view),
+		).toBe("阻止推送包含");
+		expect(
+			translateText(
+				"Configure private vulnerability reporting",
+				view,
+			),
+		).toBe("配置私密漏洞报告");
+	});
+});

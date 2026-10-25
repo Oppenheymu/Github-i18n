@@ -475,6 +475,23 @@
 		"repo-settings/dependent-repositories-count": "$<registry> · $<count> 个依赖仓库",
 		// Code Quality 开通对话框的定价行
 		"repo-settings/code-quality-price": "每个活跃提交者每月 $1",
+		// —— 2026-10-25 漏翻清单补强 ——
+		// Actions 策略页弃用横幅前段（日期原样带回，保持英文格式）
+		"repo-settings/actions-deprecation-date": "$1，GitHub 将限制",
+		// fork 工作流批准说明的仓库版长句（组织名动态；「此仓库」对齐既有静态键措辞）
+		"repo-settings/actions-fork-approvals-org-repo": "所有不是此仓库成员或所有者、也不是 $1 组织成员的用户，都需要批准才能运行工作流。",
+		// 规则集页列表行的裸计数（上游把整行拆开渲染后的尾巴）
+		"repo-settings/branch-rules-count": "$1 条分支规则",
+		// Code Quality / Deploy keys 页的状态行（组织名原样带回；完整句按键命中不走这里）
+		"repo-settings/disabled-by": "由 $1 停用",
+		// document.title 系列（页面名写死，与上方 actions-policies-title 同一处理方式）
+		"repo-settings/branches-title": "设置 · 分支 · $1",
+		"repo-settings/tags-title": "设置 · 标签 · $1",
+		"repo-settings/code-quality-title": "设置 · 代码质量 · $1",
+		"repo-settings/copilot-code-review-title": "设置 · Copilot 代码审查 · $1",
+		"repo-settings/custom-properties-title": "设置 · 自定义属性 · $1",
+		"repo-settings/advanced-security-title": "设置 · Advanced Security · $1",
+		"repo-settings/webhooks-title": "Webhook · 设置 · $1",
 		// —— 组织设置页（/organizations/<组织>/settings/**，模块 pages/org-settings）——
 		// document.title 的中段保留英文（规则不递归），末段是组织名（用户内容）
 		"org-settings/page-title": "设置 · $<page> · $<org>",
@@ -547,12 +564,16 @@
 		"org-settings/actions-org-workflow": "$1 内仓库中定义的任何操作或可复用工作流都可以使用。",
 		"org-settings/actions-org-criteria": "符合指定条件的任何操作或可复用工作流，加上 $1 内仓库中定义的那些，都可以使用。",
 		"org-settings/actions-fork-approvals-org": "所有不是该仓库成员或所有者、也不是 $1 组织成员的用户，都需要批准才能运行工作流。",
+		// 组织 Actions 策略页弃用横幅前段（日期原样带回；与仓库级同 pattern、不同 id）
+		"org-settings/actions-deprecation-date": "$1，GitHub 将限制",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",
 		"actions/duration-s": "$1 秒",
 		"actions/view-number": "查看 #$1",
 		"actions/page-title": "Actions 页面：$1",
+		// 运行列表项的 aria-label（状态前缀之后的运行序号 / 工作流名 / 触发源全是动态值）
+		"actions/run-status-aria": "已成功完成：$2 的第 $1 次运行。$3",
 		"actions/workflow-runs-count-plus": "$1+ 个工作流运行",
 		"actions/workflow-runs-count": "$1 个工作流运行",
 		"actions/workflow-runs-title": "工作流运行 · $1",

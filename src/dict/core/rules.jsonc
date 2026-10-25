@@ -3448,6 +3448,27 @@
 			]
 		},
 		{
+			"name": "pages/queue",
+			"rules": [
+				// 排队 tab 的计数（「0 Queued」，数字动态）
+				{
+					"id": "queue/queued-count",
+					"pattern": "^([\\d,]+) Queued$"
+				},
+				// 检查状态图标的 aria-label：与 actions/checks-ok 同 pattern（跨模块重复合法），
+				// queue 页路由吃不到 actions 组的规则，只能在本模块重写一条
+				{
+					"id": "queue/checks-ok",
+					"pattern": "^([\\d,]+) / ([\\d,]+) checks OK$"
+				},
+				// 浏览器标签页标题（「Merge queue · Koishi-CE/koishi」），仓库名为用户内容捕获保留
+				{
+					"id": "queue/page-title",
+					"pattern": "^Merge queue · (.+)$"
+				}
+			]
+		},
+		{
 			"name": "pages/repo",
 			"rules": [
 				{

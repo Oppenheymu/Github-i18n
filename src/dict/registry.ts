@@ -47,6 +47,7 @@ import jaNotificationsRaw from "./locales/ja/pages/notifications.jsonc";
 import jaOrgSettingsRaw from "./locales/ja/pages/org-settings.jsonc";
 import jaProfileRaw from "./locales/ja/pages/profile.jsonc";
 import jaPullsRaw from "./locales/ja/pages/pulls.jsonc";
+import jaQueueRaw from "./locales/ja/pages/queue.jsonc";
 import jaRepoRaw from "./locales/ja/pages/repo.jsonc";
 import jaRepoSettingsRaw from "./locales/ja/pages/repo-settings.jsonc";
 import jaSearchRaw from "./locales/ja/pages/search.jsonc";
@@ -68,6 +69,7 @@ import zhNotificationsRaw from "./locales/zh-CN/pages/notifications.jsonc";
 import zhOrgSettingsRaw from "./locales/zh-CN/pages/org-settings.jsonc";
 import zhProfileRaw from "./locales/zh-CN/pages/profile.jsonc";
 import zhPullsRaw from "./locales/zh-CN/pages/pulls.jsonc";
+import zhQueueRaw from "./locales/zh-CN/pages/queue.jsonc";
 import zhRepoRaw from "./locales/zh-CN/pages/repo.jsonc";
 import zhRepoSettingsRaw from "./locales/zh-CN/pages/repo-settings.jsonc";
 import zhSearchRaw from "./locales/zh-CN/pages/search.jsonc";
@@ -124,6 +126,7 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 			["pages/marketing", zhMarketingRaw],
 			["pages/notifications", zhNotificationsRaw],
 			["pages/profile", zhProfileRaw],
+			["pages/queue", zhQueueRaw],
 			["pages/repo", zhRepoRaw],
 		],
 		rules: zhRulesRaw,
@@ -155,6 +158,7 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 			["pages/marketing", jaMarketingRaw],
 			["pages/notifications", jaNotificationsRaw],
 			["pages/profile", jaProfileRaw],
+			["pages/queue", jaQueueRaw],
 			["pages/repo", jaRepoRaw],
 		],
 		rules: jaRulesRaw,

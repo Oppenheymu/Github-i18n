@@ -708,6 +708,10 @@
 		"profile/short-date-oct": "10 月 $1 日",
 		"profile/short-date-nov": "11 月 $1 日",
 		"profile/short-date-dec": "12 月 $1 日",
+		// queue/checks-ok 与 actions/checks-ok 同 pattern：queue 页路由吃不到 actions 组的规则
+		"queue/queued-count": "$1 个排队中",
+		"queue/checks-ok": "$1 / $2 项检查通过",
+		"queue/page-title": "合并队列 · $1",
 		"repo/commits-count": "$1 次提交",
 		"repo/reactions-count": "$1 次回应",
 		"repo/people-reacted": "$1 人已回应",

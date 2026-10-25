@@ -1,0 +1,17 @@
+// マージキューページモジュール：/owner/repo/queue
+// 日本語 · モジュール pages/queue（ルートは core/modules.jsonc、キーの分割コメントは core/canonical.jsonc を参照）
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		// pages/actions の同名キーと同一訳（agents タブ）
+		"Agents": "エージェント",
+		"Merge queue": "マージキュー",
+		"30 day merge count": "30 日間のマージ数",
+		// 空状態の2点セット：文末の句点はノード内なので日本語の句点に訳す。
+		// ボタン名 "Merge when ready" は未収録のため英語のまま
+		"No pull requests queued for merging.": "マージ待ちのプルリクエストはキューにありません。",
+		"Use the “Merge when ready” button on a pull request to add it to the queue.": "プルリクエストの「Merge when ready」ボタンを使うと、キューに追加されます。",
+		// pages/profile と同一訳（リポジトリ切替メニューの sr-only 末尾）
+		"items": "件"
+	}
+}

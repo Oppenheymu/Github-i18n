@@ -194,6 +194,13 @@
 			"name": "pages/profile",
 			"route": "^/(?!(?:settings|account|billing|sessions|login|logout|signup|join|search|explore|topics|trending|collections|marketplace|apps|sponsors|codespaces|notifications|dashboard|issues|pulls|discussions|stars|watching|new|organizations|orgs|users|enterprises|features|pricing|site|security|team|events|about|contact)(?:/|$))[^/]+$"
 		},
+		// 合并队列页：/owner/repo/queue（GitHub merge queue，三段路径）。pages/repo 的兜底
+		// 路由对三段路径同样命中，queue 专属词条（页头 / 空状态 / 计数 tab）若登记进 repo
+		// 会注入所有仓库页，故单列模块；路由比 repo 的兜底更具体，必须排在它之前。
+		{
+			"name": "pages/queue",
+			"route": "^/[^/]+/[^/]+/queue"
+		},
 		// 仓库页：/owner/repo 及其任意子路径。保留顶层路径必须排除——`^/[^/]+/[^/]+` 会命中
 		// /settings/profile、/settings/appearance 等**用户账号设置页**，把仓库专属词条
 		// （Code / Clone / Blame / Raw / Release…）注入进去。实测口径：本模块共 86 条词条，

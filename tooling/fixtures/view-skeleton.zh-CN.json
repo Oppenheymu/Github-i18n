@@ -18,6 +18,7 @@
 		"pages/marketing",
 		"pages/notifications",
 		"pages/profile",
+		"pages/queue",
 		"pages/repo",
 		"global"
 	],

@@ -1,0 +1,16 @@
+// 合并队列页模块：/owner/repo/queue
+// 简体中文 · 模块 pages/queue（路由见 core/modules.jsonc，键的分组注释见 core/canonical.jsonc）
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		// 与 pages/actions 的同名键同译（agents 页签）
+		"Agents": "代理",
+		"Merge queue": "合并队列",
+		"30 day merge count": "30 天合并次数",
+		// 空状态两件套：句号在节点内部译中文句号；按钮名 "Merge when ready" 未收录，保留英文
+		"No pull requests queued for merging.": "没有排队等待合并的拉取请求。",
+		"Use the “Merge when ready” button on a pull request to add it to the queue.": "在拉取请求上使用“Merge when ready”按钮，即可将其加入队列。",
+		// 与 pages/profile 同译（仓库切换器溢出分组的 sr-only 尾巴）
+		"items": "项"
+	}
+}

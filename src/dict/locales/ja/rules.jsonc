@@ -711,6 +711,13 @@
 		"profile/short-date-nov": "11月$1日",
 		"profile/short-date-dec": "12月$1日",
 
+		// —— pages/queue（マージキュー）——
+		// queue/checks-ok は actions/checks-ok と同 pattern：queue ページのルートでは
+		// actions グループのルールに届かない
+		"queue/queued-count": "$1 件がキュー待ち",
+		"queue/checks-ok": "$1 / $2 件のチェックが成功",
+		"queue/page-title": "マージキュー · $1",
+
 		// —— pages/repo（リポジトリ）——
 		"repo/commits-count": "$1 件のコミット",
 		"repo/reactions-count": "$1 件のリアクション",

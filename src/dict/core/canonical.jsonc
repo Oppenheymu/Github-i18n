@@ -7408,6 +7408,24 @@
 			]
 		},
 		{
+			"name": "pages/queue",
+			"keys": [
+				// 顶部导航 tab 与 actions 模块的同名键同译（agents 页签）
+				"Agents",
+				// 页头标题与下拉标签（ActionList.Item.Label）共用
+				"Merge queue",
+				// 统计条：「30 day merge count 13」——计数 13 是相邻节点
+				"30 day merge count",
+				// 空状态两件套（h2 标题 + p 说明）；说明句里的 "Merge when ready" 是按钮名，
+				// 弯引号随原文保留
+				"No pull requests queued for merging.",
+				"Use the “Merge when ready” button on a pull request to add it to the queue.",
+				// 仓库切换器溢出分组的 sr-only 尾巴（「更多 items」）；与 pages/profile 同译。
+				// 小写泛化词，仅限页面级收录防撞文件名 / 仓库名
+				"items"
+			]
+		},
+		{
 			"name": "pages/repo",
 			"keys": [
 				"Code",

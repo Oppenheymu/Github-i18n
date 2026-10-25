@@ -103,6 +103,9 @@
 		"Switch account": "切换账户",
 		// 与 pages/settings-security 的同名键同译（那边是安全设置页的「添加账户」入口）
 		"Add account": "添加账户",
+		// 与 pages/settings 同名键同译：账户切换弹层里账号名下的灰色副标题，
+		// 全站组件，设置页之外由本条兜底
+		"Your personal account": "你的个人账户",
 		"Set status": "设置状态",
 		// —— 状态编辑对话框（头像菜单 → 编辑状态）——
 		"Edit status": "编辑状态",

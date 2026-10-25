@@ -34,6 +34,9 @@ const STATIC_NODES: readonly (readonly [string, string])[] =
 		["Personal profile", "个人资料"],
 		["Switch account", "切换账户"],
 		["Add account", "添加账户"],
+		// 账号名下的灰色副标题（维护者 2026-10-25 贴的首页实机 HTML）；
+		// 同键在 pages/settings 早已收录，弹层在非设置页路由由 global 兜底
+		["Your personal account", "你的个人账户"],
 		["Set status", "设置状态"],
 		// —— 状态对话框：标题与分组 ——
 		["Edit status", "编辑状态"],

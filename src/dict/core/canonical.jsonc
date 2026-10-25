@@ -7485,6 +7485,11 @@
 				"Personal profile",
 				"Switch account",
 				"Add account",
+				// 维护者 2026-10-25 贴的首页（https://github.com/）实机 HTML：账户切换弹层里
+				// 账号名下的灰色副标题 `<span class="d-block color-fg-muted … text-small">`。
+				// 键早已收录在 pages/settings，但头像弹层是全站组件，非设置页路由吃不到
+				// → 在 global 登记同译兜底（设置页仍由更具体的模块胜出，同译不触发异译快照）。
+				"Your personal account",
 				"Set status",
 				// —— 状态编辑对话框（头像菜单 → Edit status；全站可见，2026-10-02 实机 HTML）——
 				// 节点边界：标题 / 各分组标签是**独立节点**；四个建议状态与两个下拉的选项

@@ -3328,7 +3328,11 @@
 					"module": "pages/settings"
 				},
 				{ "key": "Appearance", "module": "pages/settings" },
-				{ "key": "Company", "module": "pages/settings" }
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Your personal account",
+					"module": "pages/settings"
+				}
 			],
 			"rules": [
 				"settings/export-available",
@@ -3510,7 +3514,11 @@
 					"module": "pages/settings"
 				},
 				{ "key": "Appearance", "module": "pages/settings" },
-				{ "key": "Company", "module": "pages/settings" }
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Your personal account",
+					"module": "pages/settings"
+				}
 			],
 			"rules": [
 				"settings/export-available",
@@ -3692,7 +3700,11 @@
 					"module": "pages/settings"
 				},
 				{ "key": "Appearance", "module": "pages/settings" },
-				{ "key": "Company", "module": "pages/settings" }
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Your personal account",
+					"module": "pages/settings"
+				}
 			],
 			"rules": [
 				"settings/export-available",
@@ -3882,7 +3894,11 @@
 					"module": "pages/settings-security"
 				},
 				{ "key": "Appearance", "module": "pages/settings" },
-				{ "key": "Company", "module": "pages/settings" }
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Your personal account",
+					"module": "pages/settings"
+				}
 			],
 			"rules": [
 				"settings/passkey-delete-confirm",
@@ -4205,7 +4221,11 @@
 					"module": "pages/settings"
 				},
 				{ "key": "Appearance", "module": "pages/settings" },
-				{ "key": "Company", "module": "pages/settings" }
+				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Your personal account",
+					"module": "pages/settings"
+				}
 			],
 			"rules": [
 				"settings/export-available",
@@ -4415,7 +4435,11 @@
 					"key": "Subscriptions",
 					"module": "pages/settings"
 				},
-				{ "key": "Update", "module": "pages/settings" }
+				{ "key": "Update", "module": "pages/settings" },
+				{
+					"key": "Your personal account",
+					"module": "pages/settings"
+				}
 			],
 			"rules": [
 				"settings/export-available",
@@ -4907,7 +4931,11 @@
 					"key": "Subscriptions",
 					"module": "pages/settings"
 				},
-				{ "key": "Update", "module": "pages/settings" }
+				{ "key": "Update", "module": "pages/settings" },
+				{
+					"key": "Your personal account",
+					"module": "pages/settings"
+				}
 			],
 			"rules": [
 				"settings/export-available",
@@ -5399,7 +5427,11 @@
 					"key": "Subscriptions",
 					"module": "pages/settings"
 				},
-				{ "key": "Update", "module": "pages/settings" }
+				{ "key": "Update", "module": "pages/settings" },
+				{
+					"key": "Your personal account",
+					"module": "pages/settings"
+				}
 			],
 			"rules": [
 				"settings/export-available",
@@ -5891,7 +5923,11 @@
 					"key": "Subscriptions",
 					"module": "pages/settings"
 				},
-				{ "key": "Update", "module": "pages/settings" }
+				{ "key": "Update", "module": "pages/settings" },
+				{
+					"key": "Your personal account",
+					"module": "pages/settings"
+				}
 			],
 			"rules": [
 				"settings/export-available",
@@ -6383,7 +6419,11 @@
 					"key": "Subscriptions",
 					"module": "pages/settings"
 				},
-				{ "key": "Update", "module": "pages/settings" }
+				{ "key": "Update", "module": "pages/settings" },
+				{
+					"key": "Your personal account",
+					"module": "pages/settings"
+				}
 			],
 			"rules": [
 				"settings/export-available",

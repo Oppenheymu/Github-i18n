@@ -91,6 +91,9 @@
 		"Personal profile": "個人プロフィール",
 		"Switch account": "アカウントを切り替え",
 		"Add account": "アカウントを追加",
+		// pages/settings の同名列と同じ訳：アカウント切替ポップアップでアカウント名の下に
+		// 表示されるグレーのサブラベル。全サイト共通の UI なので設定ページ以外は本条が担う
+		"Your personal account": "あなたの個人アカウント",
 		"Set status": "ステータスを設定",
 
 		// —— ステータス編集ダイアログ ——

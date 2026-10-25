@@ -76,6 +76,11 @@ const STATIC_NODES: readonly (readonly [string, string])[] =
 			"Reviewers, timers, and other rules protecting deployments in this run",
 			"审查者、计时器以及保护此次部署的其他规则",
 		],
+		// 审批通过的 flash 提示（2026-10-25 实机）：句号在节点内部，译中文句号
+		[
+			"The deployments have been approved.",
+			"部署已获批准。",
+		],
 		// —— 事件行动词碎片 ——
 		["approved", "批准于"],
 		["pushed", "推送了"],
@@ -182,6 +187,18 @@ describe("Actions 运行详情页的实机节点边界", () => {
 		expect(renderNodes(["Enable ", "debug logging"])).toBe(
 			"启用 调试日志",
 		);
+	});
+
+	it("translates the approval flash alert with its raw node whitespace", () => {
+		// 实机 div 里文本节点带前后缩进与句后的空行（尾部空白），归一化后命中；
+		// 同 div 里 sr-only 的 &nbsp;（\u00a0）是纯符号节点，保持不动
+		expect(
+			translateText(
+				"\n      The deployments have been approved.\n\n    ",
+				view,
+			),
+		).toBe("部署已获批准。");
+		expect(translateText("\u00a0", view)).toBeNull();
 	});
 
 	it("renders event lines with the verb fragment in place", () => {

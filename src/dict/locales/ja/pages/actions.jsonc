@@ -105,6 +105,8 @@
 		// —— デプロイ保護ブロック ——
 		"Deployment protection rules": "デプロイ保護ルール",
 		"Reviewers, timers, and other rules protecting deployments in this run": "この実行でデプロイを保護するレビュアー、タイマー、その他のルール",
+		// 承認完了のフラッシュ通知：文末の句点はノード内にあるため日本語の句点に置き換える
+		"The deployments have been approved.": "デプロイが承認されました。",
 		// —— イベント行の断片：結合結果「Oppenheymu が承認済み 2026 年 10 月 25 日」
 		// 「Oppenheymu がプッシュ 677f0ed main」——
 		"approved": "が承認済み",

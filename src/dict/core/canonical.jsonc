@@ -5955,6 +5955,10 @@
 				// —— 部署保护区块 ——
 				"Deployment protection rules",
 				"Reviewers, timers, and other rules protecting deployments in this run",
+				// 审批通过的 flash 提示（js-flash-alert，维护者 2026-10-25 贴的运行页实机
+				// HTML）：句号在节点内部 → 译文用中文句号收尾。单数形态（"The deployment
+				// has been approved."）无实机证据，不收。
+				"The deployments have been approved.",
 				// —— 事件行碎片（「<用户名> approved <相对时间>」/「<用户名> pushed <SHA> <分支>」，
 				// 用户名 / SHA / 分支 / 环境名是用户内容不收）——
 				"approved",

@@ -103,6 +103,8 @@
 		// —— 部署保护区块 ——
 		"Deployment protection rules": "部署保护规则",
 		"Reviewers, timers, and other rules protecting deployments in this run": "审查者、计时器以及保护此次部署的其他规则",
+		// 审批通过的 flash 提示：句号在节点内部，译作中文句号
+		"The deployments have been approved.": "部署已获批准。",
 		// —— 事件行碎片：拼接「Oppenheymu 批准于 2026 年 10 月 25 日」「Oppenheymu 推送了 677f0ed main」——
 		"approved": "批准于",
 		"pushed": "推送了",

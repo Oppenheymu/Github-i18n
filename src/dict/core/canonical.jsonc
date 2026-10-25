@@ -5971,6 +5971,19 @@
 				"Fit to window",
 				"Zoom in",
 				"Zoom out",
+				// —— 自动刷新下拉（运行页右上角；维护者 2026-10-25 实机 HTML）——
+				// ul 的 aria-label 与五个选项的可见节点；Off 与 settings /
+				// org-settings / repo-settings 的同名键同译（关闭）
+				"Auto-refresh",
+				"Every 10 seconds",
+				"Every 30 seconds",
+				"Every minute",
+				"Every 5 minutes",
+				"Off",
+				// —— 动作反馈提示（删除日志 / 删除运行成功；同批实机 HTML）——
+				// 两条句号都在节点内部 → 译文用中文句号收尾
+				"Logs deleted successfully.",
+				"Workflow run deleted successfully.",
 				// —— 作业摘要尾注与页脚 ——
 				"Job summary generated at run-time",
 				// GitHub 页脚彩蛋（humans.txt 是链接文本、专有名词不收）

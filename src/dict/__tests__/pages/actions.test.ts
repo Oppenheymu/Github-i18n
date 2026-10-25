@@ -92,6 +92,20 @@ const STATIC_NODES: readonly (readonly [string, string])[] =
 		["Fit to window", "适应窗口"],
 		["Zoom in", "放大"],
 		["Zoom out", "缩小"],
+		// —— 自动刷新下拉(2026-10-25 实机 HTML):aria-label 与五个选项;
+		// Off 互斥键沿用 settings 系的「关闭」——
+		["Auto-refresh", "自动刷新"],
+		["Every 10 seconds", "每 10 秒"],
+		["Every 30 seconds", "每 30 秒"],
+		["Every minute", "每分钟"],
+		["Every 5 minutes", "每 5 分钟"],
+		["Off", "关闭"],
+		// —— 动作反馈提示(删除日志 / 删除运行成功),句号在节点内部 ——
+		["Logs deleted successfully.", "日志已删除。"],
+		[
+			"Workflow run deleted successfully.",
+			"工作流运行已删除。",
+		],
 		// —— 作业摘要尾注与页脚 ——
 		[
 			"Job summary generated at run-time",

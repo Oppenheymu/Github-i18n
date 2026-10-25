@@ -119,6 +119,17 @@
 		"Fit to window": "ウィンドウに合わせる",
 		"Zoom in": "拡大",
 		"Zoom out": "縮小",
+		// —— 自動更新ドロップダウン(実行ページ右上):ul の aria-label と 5 つの選択肢;
+		// Off は settings / org-settings / repo-settings の同名キーと同じ訳 ——
+		"Auto-refresh": "自動更新",
+		"Every 10 seconds": "10 秒ごと",
+		"Every 30 seconds": "30 秒ごと",
+		"Every minute": "1 分ごと",
+		"Every 5 minutes": "5 分ごと",
+		"Off": "オフ",
+		// —— アクションフィードバック(ログ / 実行の削除成功):句点はノード内なので日本語の句点に ——
+		"Logs deleted successfully.": "ログが削除されました。",
+		"Workflow run deleted successfully.": "ワークフロー実行が削除されました。",
 		// —— ジョブサマリーの注記とフッター ——
 		"Job summary generated at run-time": "ジョブサマリーは実行時に生成されます",
 		// フッターの隠し要素：humans.txt は固有名詞なので収録しない

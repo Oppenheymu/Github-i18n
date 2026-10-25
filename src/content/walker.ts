@@ -265,7 +265,16 @@ function applyKbdLabel(
 	return changed;
 }
 
-/** 精确命中词条才替换元素属性值，同样保留首尾空白 */
+/**
+ * 命中词条或规则才替换元素属性值，同样保留首尾空白。
+ *
+ * 属性与文本节点走同一个 translateText（静态词典 → 首条命中的规则）：
+ * aria-label 里带动态值的文案只能靠规则搬运——「5 / 6 checks OK」
+ * （actions/checks-ok）与「Download <artifact> (opens in a new tab)」
+ * （actions/download-artifact）在实机上都渲染成属性（2026-10-25 popup 导出
+ * 实锤属性查不到规则），此前「属性只查静态表」会让这些规则在属性路径上失效。
+ * 防循环由「替换产物不得再命中规则」门禁与下面的同值守卫把守。
+ */
 function applyAttrs(
 	element: Element,
 	view: DictView,
@@ -280,10 +289,9 @@ function applyAttrs(
 		const value = element.getAttribute(name);
 		if (value === null) continue;
 		if (!isTranslatableText(value)) continue;
-		const mapped = lookup(view, normalizeKey(value));
-		if (mapped === undefined) {
-			// 未命中词条的属性值：开发者模式下记录（属性不应用正则规则，只会因缺词条漏翻）。
-			// value / data-disable-with 是按钮文案，归到 aria-label 一类（MissKind 是
+		const translated = translateText(value, view);
+		if (translated === null) {
+			// 未命中任何词条或规则：开发者模式下记录（MissKind 是
 			// 开发者日志的维度，不为按钮文案单开一类，避免 storage 结构跟着变）
 			recordAttr(
 				element,
@@ -299,7 +307,7 @@ function applyAttrs(
 			value.length - value.trimStart().length,
 		);
 		const trail = value.slice(value.trimEnd().length);
-		const next = `${lead}${mapped}${trail}`;
+		const next = `${lead}${translated}${trail}`;
 		// 与文本节点同理：写回同值也会触发 attribute 变更记录，跳过以免自我触发
 		if (next === value) continue;
 		element.setAttribute(name, next);

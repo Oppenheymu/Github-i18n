@@ -501,10 +501,11 @@ describe("组织仓库的 Actions 机密与变量页多出的只读区块", () =
 			"Copilot",
 			"Dependabot",
 			"OIDC",
-			// 动态值：属性不做正则替换，静态键无从覆盖
+			// 动态值：相对时间的 title 形态（relative-time 自渲染）；
+			// 「7 / 7 checks OK」走 actions 模块的规则，本页路由吃不到所以保持英文；
+			// 「Repository starred by …」自 2026-10-25 起由 global 规则翻译（见 global.test.ts）
 			"Oct 6, 2026, 20:39 GMT+8",
 			"7 / 7 checks OK",
-			"Repository starred by 7 people, including you",
 			// 逐条动作的 tooltip 里嵌着机密名，整句键等于把用户内容抄进词典
 			"Copy value of APP_CLIENT_ID",
 			"Delete APP_PRIVATE_KEY",

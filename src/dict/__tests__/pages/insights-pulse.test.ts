@@ -334,7 +334,8 @@ describe("洞察页里「日志有、词典不该收」的节点", () => {
 			"Oct 12, 2026, 19:33 GMT+8",
 			"Week of 23 Aug, 2026",
 			"7 / 7 checks OK",
-			"Repository starred by 7 people, including you",
+			// 「Repository starred by …」自 2026-10-25 起由 global/starred-by-people
+			// 规则翻译（见 global.test.ts），不再列为「不该收」的反例
 		]) {
 			expect(translateText(node, view), node).toBeNull();
 		}

@@ -562,6 +562,8 @@
 		"actions/delete-named": "删除 $1",
 		"actions/triggered-via": "通过 $1 触发",
 		"actions/checks-ok": "$1 / $2 项检查通过",
+		// 注解区的条目计数(单数 notice / 复数 notices)
+		"actions/notice-count": "$1 条注记",
 		"agents/sessions-count": "$1 个会话",
 		"agents/page-title": "代理 · $1",
 		"dashboard/greeting-morning": "早上好，$1！",
@@ -776,6 +778,8 @@
 		// 关注按钮 title / aria-label 带对象名
 		"global/follow-owner": "关注 $1",
 		"global/unfollow-owner": "取消关注 $1",
+		// 仓库头 star 按钮的 title(人数动态,含你在内)
+		"global/starred-by-people": "仓库已获得 $1 人星标，其中包括你",
 		"global/short-date-jan": "$2 年 1 月 $1 日",
 		"global/short-date-feb": "$2 年 2 月 $1 日",
 		"global/short-date-mar": "$2 年 3 月 $1 日",

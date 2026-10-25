@@ -6012,6 +6012,49 @@
 				// GitHub 页脚彩蛋（humans.txt 是链接文本、专有名词不收）
 				"Made with ❤️ by",
 				"Oh hello! Nice to see you.",
+				// —— 部署审批工作流（维护者 2026-10-25 popup 导出，run/job/lockfile/
+				// usage/workflow 五个子页）——弹层与按钮、「Review pending deployments
+				// requested by <用户> in <环境> #N」说明句、作业日志工具条、lockfile /
+				// usage / workflow 三子页标题均为全新键；说明句与部署横幅拆多节点，
+				// 动词与介词碎片逐段收录（用户名 / 环境名 release / SHA 是用户内容不收）；
+				// Agents 与 repo-settings 同键同译（顶部 tab，actions 路由吃不到）。
+				"Agents",
+				"Review pending deployments",
+				"Approve and deploy",
+				"Reject",
+				"Leave a comment:",
+				"Review needed from",
+				"requested by",
+				"in",
+				"requested your review to deploy to",
+				"requested review",
+				"Waiting",
+				"Waiting for review:",
+				"waiting for review",
+				"is waiting for",
+				"deployment approval",
+				"needs approval to start deploying changes.",
+				"Cancel workflow",
+				// —— 作业日志工具条与查看器 ——
+				"Show timestamps",
+				"Show full screen (Shift+F)",
+				"Download log archive",
+				"View raw logs",
+				"Search logs",
+				"Check run summary",
+				"Go to next result",
+				"Go to previous result",
+				// —— lockfile / usage / workflow 子页 ——
+				"Lockfile for this run",
+				"Lockfile not found",
+				"No lockfile was found for this workflow run. Lock your workflow dependencies by running",
+				"in your repository.",
+				"at",
+				"Job",
+				"Run time",
+				"Learn about OS pricing on GitHub Actions",
+				"Workflow file for this run",
+				"Edit workflow file",
 				// 分页组件的 sr-only 碎片：上游把「更多」译了留下裸「items」
 				"items"
 			]

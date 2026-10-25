@@ -136,6 +136,54 @@
 		"Made with ❤️ by": "❤️ を添えて制作:",
 		"Oh hello! Nice to see you.": "おっと、こんにちは！お会いできて嬉しいです。",
 		// ページネーションの sr-only 断片：上流が「もっと」を訳して裸の「items」だけ残った
-		"items": "件"
+		"items": "件",
+		// —— デプロイ承認ワークフロー（2026-10-25 popup エクスポート、run/job/lockfile/
+		// usage/workflow の 5 サブページ）——「Agents」は repo-settings の同名キーと同じ訳
+		// （上部タブ、actions ルートでは届かない）；承認ダイアログの説明文は複数ノードに
+		// 分割されるため、断片をノード順に結合（ユーザー名 / 環境名 release / SHA は
+		// ユーザー内容につき未収録）
+		"Agents": "エージェント",
+		"Review pending deployments": "レビュー待ちのデプロイ",
+		"Approve and deploy": "承認してデプロイ",
+		"Reject": "却下",
+		"Leave a comment:": "コメントを残す：",
+		// 「レビュー待ちのデプロイ、リクエスト者 <ユーザー>、対象 <環境> #N」
+		"Review needed from": "次のメンバーのレビュー待ち：",
+		"requested by": "、リクエスト者",
+		"in": "、対象",
+		// 「<ユーザー> がデプロイのレビューをリクエスト、対象: <環境>」
+		"requested your review to deploy to": "がデプロイのレビューをリクエスト、対象:",
+		"requested review": "レビューをリクエストしました",
+		"Waiting": "待機中",
+		"Waiting for review:": "レビュー待ち：",
+		"waiting for review": "レビュー待ち",
+		// 「<ジョブ名> は待機中: <環境> デプロイの承認」
+		"is waiting for": "は待機中:",
+		"deployment approval": "デプロイの承認",
+		"needs approval to start deploying changes.": "デプロイを開始するには承認が必要です。",
+		"Cancel workflow": "ワークフローをキャンセル",
+		// —— ジョブログのツールバーとビューア ——
+		"Show timestamps": "タイムスタンプを表示",
+		"Show full screen (Shift+F)": "全画面表示（Shift+F）",
+		"Download log archive": "ログアーカイブをダウンロード",
+		"View raw logs": "生ログを表示",
+		"Search logs": "ログを検索",
+		"Check run summary": "チェック実行の概要",
+		"Go to next result": "次の結果へ移動",
+		"Go to previous result": "前の結果へ移動",
+		// —— lockfile / usage / workflow サブページ ——
+		"Lockfile for this run": "この実行のロックファイル",
+		"Lockfile not found": "ロックファイルが見つかりません",
+		// 結合「このワークフロー実行のロックファイルが見つかりません。次のコマンドで
+		// ワークフローの依存関係をロックします: <code>gh actions-lock</code>（リポジトリ内で実行）。」
+		"No lockfile was found for this workflow run. Lock your workflow dependencies by running": "このワークフロー実行のロックファイルが見つかりません。次のコマンドでワークフローの依存関係をロックします:",
+		"in your repository.": "（リポジトリ内で実行）。",
+		// 「<ファイル> コミット: <SHA>」（workflow / lockfile ページヘッダー）
+		"at": "コミット:",
+		"Job": "ジョブ",
+		"Run time": "実行時間",
+		"Learn about OS pricing on GitHub Actions": "GitHub Actions の OS 料金について",
+		"Workflow file for this run": "この実行のワークフローファイル",
+		"Edit workflow file": "ワークフローファイルを編集"
 	}
 }

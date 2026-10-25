@@ -565,6 +565,8 @@
 		"actions/delete-named": "$1 を削除",
 		"actions/triggered-via": "$1 でトリガーされました",
 		"actions/checks-ok": "$1 / $2 件のチェックが成功",
+		// 注釈エリアの項目数(単数 notice / 複数 notices)
+		"actions/notice-count": "$1 件の注記",
 
 		// —— pages/agents（エージェント）——
 		"agents/sessions-count": "$1 件のセッション",
@@ -779,6 +781,8 @@
 		// フォローボタンの title / aria-label に対象名付き
 		"global/follow-owner": "$1 をフォロー",
 		"global/unfollow-owner": "$1 のフォローを解除",
+		// リポジトリヘッダー star ボタンの title(人数が動的、自分を含む)
+		"global/starred-by-people": "リポジトリはあなたを含む $1 人にスターされました",
 		"global/short-date-jan": "$2年1月$1日",
 		"global/short-date-feb": "$2年2月$1日",
 		"global/short-date-mar": "$2年3月$1日",

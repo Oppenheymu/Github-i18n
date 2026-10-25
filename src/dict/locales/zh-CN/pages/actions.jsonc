@@ -133,6 +133,52 @@
 		"Made with ❤️ by": "用 ❤️ 制作，作者",
 		"Oh hello! Nice to see you.": "哦，你好！很高兴见到你。",
 		// 分页组件的 sr-only 碎片：上游把「更多」译了留下裸「items」
-		"items": "项"
+		"items": "项",
+		// —— 部署审批工作流（2026-10-25 popup 导出，run/job/lockfile/usage/workflow
+		// 五个子页）——「Agents」与 repo-settings 同键同译（顶部 tab，actions 路由
+		// 吃不到）；审批弹层的说明句拆多节点，碎片按节点顺序拼接（用户名 / 环境名
+		// release / SHA 是用户内容不收）
+		"Agents": "代理",
+		"Review pending deployments": "审查待处理部署",
+		"Approve and deploy": "批准并部署",
+		"Reject": "拒绝",
+		"Leave a comment:": "留下评论：",
+		// 「审查待处理部署，请求人 <用户>，位于 <环境> #N」
+		"Review needed from": "等待以下成员审查：",
+		"requested by": "，请求人",
+		"in": "，位于",
+		// 「<用户> 请求你审查以部署到 <环境>」
+		"requested your review to deploy to": "请求你审查以部署到",
+		"requested review": "请求了审查",
+		"Waiting": "等待中",
+		"Waiting for review:": "等待审查：",
+		"waiting for review": "等待审查",
+		// 「<job 名> 正在等待 <环境> 的部署审批」
+		"is waiting for": "正在等待",
+		"deployment approval": "的部署审批",
+		"needs approval to start deploying changes.": "需要审批才能开始部署变更。",
+		"Cancel workflow": "取消工作流",
+		// —— 作业日志工具条与查看器 ——
+		"Show timestamps": "显示时间戳",
+		"Show full screen (Shift+F)": "全屏显示（Shift+F）",
+		"Download log archive": "下载日志归档",
+		"View raw logs": "查看原始日志",
+		"Search logs": "搜索日志",
+		"Check run summary": "检查运行摘要",
+		"Go to next result": "转到下一个结果",
+		"Go to previous result": "转到上一个结果",
+		// —— lockfile / usage / workflow 子页 ——
+		"Lockfile for this run": "此运行的锁定文件",
+		"Lockfile not found": "未找到锁定文件",
+		// 拼接「未找到此工作流运行的锁定文件。运行 <code>gh actions-lock</code> 即可锁定你仓库中的工作流依赖。」
+		"No lockfile was found for this workflow run. Lock your workflow dependencies by running": "未找到此工作流运行的锁定文件。运行",
+		"in your repository.": "即可锁定你仓库中的工作流依赖。",
+		// 「<文件> 位于 <SHA>」（workflow / lockfile 页头；@ 纯符号过不了译文形态门禁）
+		"at": "位于",
+		"Job": "作业",
+		"Run time": "运行时长",
+		"Learn about OS pricing on GitHub Actions": "了解 GitHub Actions 的操作系统定价",
+		"Workflow file for this run": "此运行的工作流文件",
+		"Edit workflow file": "编辑工作流文件"
 	}
 }

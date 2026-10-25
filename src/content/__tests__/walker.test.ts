@@ -415,6 +415,31 @@ describe("translateTree 的同值写入守卫", () => {
 			"问点什么，或输入 @ 用 Copilot 添加上下文",
 		);
 	});
+
+	it("applies rules to attribute values too", () => {
+		// aria-label 带动态值的文案只能靠规则搬运（实机案例：「5 / 6 checks OK」走
+		// actions/checks-ok、artifact 下载链接走 actions/download-artifact，均为
+		// aria-label）。2026-10-25 维护者的 popup 导出实锤：属性此前只查静态表，
+		// 已有的这两条规则在属性路径上永远不生效——applyAttrs 改走完整 translateText。
+		const ruleView: DictView = {
+			entries: new Map(),
+			aliases: new Map(),
+			rules: [
+				{
+					pattern: /^([\d,]+) \/ ([\d,]+) checks OK$/,
+					replacement: "$1 / $2 项检查通过",
+				},
+			],
+		};
+		const element = env.document.createElement("a");
+		element.setAttribute("aria-label", "5 / 6 checks OK");
+		const root = makeRoot();
+		root.appendChild(element);
+		translateTree(root, ruleView);
+		expect(element.getAttribute("aria-label")).toBe(
+			"5 / 6 项检查通过",
+		);
+	});
 });
 
 // —— 三段标签：`文本 + <kbd> + 文本` 的整句回填 ——

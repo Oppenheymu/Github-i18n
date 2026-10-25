@@ -2806,6 +2806,11 @@
 				{
 					"id": "actions/checks-ok",
 					"pattern": "^([\\d,]+) / ([\\d,]+) checks OK$"
+				},
+				// 注解区的条目计数（Annotations 标题旁，「1 notice」单数、「N notices」复数）
+				{
+					"id": "actions/notice-count",
+					"pattern": "^([\\d,]+) notices?$"
 				}
 			]
 		},
@@ -3732,6 +3737,11 @@
 				{
 					"id": "global/unfollow-owner",
 					"pattern": "^Unfollow (.+)$"
+				},
+				// 仓库头 star 按钮的 title（人数动态，含你在内）
+				{
+					"id": "global/starred-by-people",
+					"pattern": "^Repository starred by ([\\d,]+) people, including you$"
 				},
 				// 全站专属规则：绝对日期、回应记录与零散计数（commonRules 兜底之外的补充）
 				// 绝对日期（月份缩写）：Sep 25, 2026 → 2026 年 9 月 25 日

@@ -301,3 +301,169 @@ describe("Actions 运行详情页的实机节点边界", () => {
 		);
 	});
 });
+
+/**
+ * 部署审批工作流（维护者 2026-10-25 popup 导出，run/job/lockfile/usage/workflow
+ * 五个子页，/Koishi-CE/koishi/actions/runs/40165923537）。
+ *
+ * 审批弹层的说明句拆多节点、按节点顺序拼接：环境名 release 与用户名是用户内容，
+ * 不收；「Agents」与 repo-settings 同键同译（顶部 tab，actions 路由吃不到）。
+ * 本批同时实锤引擎缺口——aria-label 此前只查静态表，checks-ok /
+ * download-artifact 规则在属性路径上失效（引擎修正见 walker.test.ts 的
+ * 「applies rules to attribute values too」）。
+ */
+describe("部署审批工作流的实机节点边界", () => {
+	it("translates the approval dialog and log toolbar", () => {
+		const NODES: readonly (readonly [string, string])[] = [
+			["Agents", "代理"],
+			["Review pending deployments", "审查待处理部署"],
+			["Approve and deploy", "批准并部署"],
+			["Reject", "拒绝"],
+			["Leave a comment:", "留下评论："],
+			["Waiting", "等待中"],
+			["Waiting for review:", "等待审查："],
+			["waiting for review", "等待审查"],
+			[
+				"needs approval to start deploying changes.",
+				"需要审批才能开始部署变更。",
+			],
+			["Cancel workflow", "取消工作流"],
+			["Show timestamps", "显示时间戳"],
+			["Show full screen (Shift+F)", "全屏显示（Shift+F）"],
+			["Download log archive", "下载日志归档"],
+			["View raw logs", "查看原始日志"],
+			["Search logs", "搜索日志"],
+			["Check run summary", "检查运行摘要"],
+			["Go to next result", "转到下一个结果"],
+			["Go to previous result", "转到上一个结果"],
+			["Lockfile for this run", "此运行的锁定文件"],
+			["Lockfile not found", "未找到锁定文件"],
+			["Job", "作业"],
+			["Run time", "运行时长"],
+			[
+				"Learn about OS pricing on GitHub Actions",
+				"了解 GitHub Actions 的操作系统定价",
+			],
+			["Workflow file for this run", "此运行的工作流文件"],
+			["Edit workflow file", "编辑工作流文件"],
+		];
+		for (const [node, expected] of NODES) {
+			expect(
+				translateText(node, view),
+				`未命中：${JSON.stringify(node)}`,
+			).toBe(expected);
+		}
+	});
+
+	it("assembles the deployment sentences around the user and environment", () => {
+		// 「Review pending deployments requested by <用户> in <环境> #N」：
+		// 五节点逐段拼装（环境名 / 用户名用户内容原样保留）。输入按 popup 记录的
+		// nodeValue 原样（无首尾空白），引擎紧贴拼装不添空格——实机节点若带
+		// 源码缩进空白，写回时会自然保留（applyTextNode 的 lead + trail）
+		expect(
+			renderNodes([
+				"Review pending deployments",
+				"requested\n             by",
+				"Oppenheymu",
+				"in",
+				"Release #26",
+			]),
+		).toBe(
+			"审查待处理部署，请求人Oppenheymu，位于Release #26",
+		);
+		// 「<用户> requested your review to deploy to <环境>」
+		expect(
+			renderNodes([
+				"Oppenheymu",
+				"requested your review\n              to deploy to",
+				"release",
+			]),
+		).toBe("Oppenheymu请求你审查以部署到release");
+		// 「<job 名> is waiting for <环境> deployment approval」
+		expect(
+			renderNodes([
+				"publish（OIDC 发包，需 environment 审批）",
+				"is waiting for",
+				"release",
+				"deployment approval",
+			]),
+		).toBe(
+			"publish（OIDC 发包，需 environment 审批）正在等待release的部署审批",
+		);
+		// lockfile 空状态的提示句碎片（中间 gh actions-lock 是命令文本）
+		expect(
+			renderNodes([
+				"No lockfile was found for this workflow run.\n          Lock your workflow dependencies by running",
+				"gh actions-lock",
+				"in your repository.",
+			]),
+		).toBe(
+			"未找到此工作流运行的锁定文件。运行gh actions-lock即可锁定你仓库中的工作流依赖。",
+		);
+	});
+
+	it("translates the notice count and star title through rules", () => {
+		expect(translateText("1 notice", view)).toBe(
+			"1 条注记",
+		);
+		expect(translateText("2 notices", view)).toBe(
+			"2 条注记",
+		);
+		expect(
+			translateText(
+				"Repository starred by 7 people, including you",
+				view,
+			),
+		).toBe("仓库已获得 7 人星标，其中包括你");
+		// workflow / lockfile 页头的「<文件> at <SHA>」
+		expect(translateText("at", view)).toBe("位于");
+	});
+
+	it("keeps the environment name and dynamic log lines in english", () => {
+		// 环境名（release / Release #26）是用户内容；PageHeader 父链接文本即环境名。
+		// 日志内容（ubuntu-latest 迁移提示）是用户内容，URL 节点同理
+		expect(translateText("Release", view)).toBeNull();
+		expect(translateText("Release #26", view)).toBeNull();
+		expect(translateText("release", view)).toBeNull();
+		expect(
+			translateText("release-workspace", view),
+		).toBeNull();
+		expect(
+			translateText(
+				'"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see',
+				view,
+			),
+		).toBeNull();
+		expect(
+			translateText(
+				"https://github.com/actions/runner-images/issues/14748",
+				view,
+			),
+		).toBeNull();
+	});
+
+	it("has japanese templates for the approval flow", () => {
+		const japanese = buildView(
+			"/NapukettoDev/NapukettoQQ/actions/runs/40109514577",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText("Review pending deployments", japanese),
+		).toBe("レビュー待ちのデプロイ");
+		expect(
+			translateText("Approve and deploy", japanese),
+		).toBe("承認してデプロイ");
+		expect(translateText("1 notice", japanese)).toBe(
+			"1 件の注記",
+		);
+		expect(
+			translateText(
+				"Repository starred by 7 people, including you",
+				japanese,
+			),
+		).toBe(
+			"リポジトリはあなたを含む 7 人にスターされました",
+		);
+	});
+});

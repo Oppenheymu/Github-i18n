@@ -16,6 +16,7 @@
 		"pages/insights",
 		"pages/search",
 		"pages/marketing",
+		"pages/notifications",
 		"pages/profile",
 		"pages/repo",
 		"global"

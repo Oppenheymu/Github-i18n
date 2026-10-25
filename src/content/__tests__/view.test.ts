@@ -107,8 +107,11 @@ describe("matchModules", () => {
 			"pages/marketing",
 			"global",
 		]);
-		// 纯保留路径：只剩兜底模块（此前会命中 pages/profile）
-		expect(routes("/notifications")).toEqual(["global"]);
+		// /notifications 自 2026-10-25 起有专属模块（此前只是保留路径，靠 global 兜底）
+		expect(routes("/notifications")).toEqual([
+			"pages/notifications",
+			"global",
+		]);
 		expect(routes("/explore")).toEqual(["global"]);
 	});
 

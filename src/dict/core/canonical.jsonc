@@ -6857,6 +6857,18 @@
 			]
 		},
 		{
+			"name": "pages/notifications",
+			"keys": [
+				// 通知页（/notifications）左侧菜单的四个入口（维护者 2026-10-25 实机截图）。
+				// Subscriptions 与 pages/settings、pages/settings-billing 的同名键同译；
+				// watch 族术语沿用 global（zh「关注」/ ja「ウォッチ」）。
+				"Notification settings",
+				"Watched repositories",
+				"Subscriptions",
+				"Manage notifications"
+			]
+		},
+		{
 			"name": "pages/profile",
 			"keys": [
 				// —— 个人主页侧栏的内联「编辑资料」表单 ——

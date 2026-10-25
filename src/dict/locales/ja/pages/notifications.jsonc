@@ -1,0 +1,13 @@
+// 通知ページモジュール：/notifications
+// 日本語 · モジュール pages/notifications（ルートは core/modules.jsonc、キーのグループ注釈は core/canonical.jsonc）
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		"Notification settings": "通知の設定",
+		// watch 系の用語は global に準拠（Watch=ウォッチ / Watching=ウォッチ中）
+		"Watched repositories": "ウォッチ中のリポジトリ",
+		// pages/settings、pages/settings-billing の同名列と同じ訳
+		"Subscriptions": "サブスクリプション",
+		"Manage notifications": "通知を管理"
+	}
+}

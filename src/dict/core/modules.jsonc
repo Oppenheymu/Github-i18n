@@ -182,6 +182,10 @@
 			"name": "pages/marketing",
 			"route": "^/(features|pricing)"
 		},
+		{
+			"name": "pages/notifications",
+			"route": "^/notifications"
+		},
 		// 用户主页是**单段路径**（/octocat）。GitHub 的保留顶层路径不是用户名，不排除它们
 		// 的话这一模块会把整包个人主页词条（Edit profile / Block or report / Contribution
 		// activity…）注入 /search、/features、/pricing、/notifications 等页面——与 pages/repo

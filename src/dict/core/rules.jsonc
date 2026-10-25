@@ -62,6 +62,12 @@
 				{
 					"id": "pulls/pull-request-title-with-number-plain",
 					"pattern": "^(?<title>.+) \\u00B7 Pull Request #(?<number>\\d+) \\u00B7 (?<repo>[^/]+\\/[^/]+)$"
+				},
+				// 作者筛选链接的 aria-label 带动态用户名（"Filter by author dependabot[bot]"），
+				// 静态键 "Filter by author" 只覆盖无尾随内容的形态
+				{
+					"id": "pulls/filter-by-author",
+					"pattern": "^Filter by author (.+)$"
 				}
 			]
 		},

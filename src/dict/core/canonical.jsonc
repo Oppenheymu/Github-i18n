@@ -225,6 +225,29 @@
 				"Sort by Newest descending",
 				"Review required",
 				"Review required before merging",
+				// —— 列表页侧栏与空状态（维护者 2026-10-25 closed 态实机 HTML）——
+				// 侧栏五项与 Feedback / Collapse sidebar 大半在 pages/issues 已有同键
+				// （Assigned to me / Collapse sidebar / Feedback / Try a different
+				// search query.），侧栏是 issues 与 pulls 两族页面各自渲染的组件，
+				// /pulls 路由吃不到 issues 的键 → 在本模块登记同译；
+				// Authored by me（issues 版叫 Created by me，同语义同译）、
+				// Involves me、Review requests、PR 版空状态整句为全新键。
+				"Authored by me",
+				"Assigned to me",
+				"Involves me",
+				"Review requests",
+				"Feedback",
+				"Collapse sidebar",
+				// 静态键覆盖无尾随内容形态（issues 同译）；带用户名的 aria-label 走
+				// pulls/filter-by-author 规则
+				"Filter by author",
+				"No pull requests matched your search",
+				"Try a different search query.",
+				"Learn more about searching and filtering pull requests.",
+				// —— 结果行动词碎片（React 新版时间戳行，「by <作者> was merged <相对时间>」；
+				// 作者名是用户内容不收，by 与 actions 的同名键同译）——
+				"by",
+				"was merged",
 				// —— 详情页导航与关联议题 ——
 				"Pull request navigation",
 				"Link issues",

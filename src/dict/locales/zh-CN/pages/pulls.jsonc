@@ -57,6 +57,24 @@
 		"Sort by Newest descending": "按最新降序排序",
 		"Review required": "需要审查",
 		"Review required before merging": "合并前需要审查",
+		// —— 列表页侧栏与空状态(2026-10-25 closed 态实机 HTML)——
+		// 大半与 pages/issues 同键同译(侧栏是 issues/pulls 两族各自渲染的组件,
+		// /pulls 路由吃不到 issues 的键);Authored by me 对应 issues 版 Created by me
+		"Authored by me": "我创建的",
+		"Assigned to me": "指派给我的",
+		"Involves me": "与我相关",
+		"Review requests": "审查请求",
+		"Feedback": "反馈",
+		"Collapse sidebar": "收起侧栏",
+		// 静态键覆盖无尾随内容形态(issues 同译);带用户名的 aria-label 走规则
+		"Filter by author": "按作者筛选",
+		// PR 版空状态(issues 版是 No results matched your search)
+		"No pull requests matched your search": "没有与你的搜索匹配的拉取请求",
+		"Try a different search query.": "请尝试其他搜索查询。",
+		"Learn more about searching and filtering pull requests.": "详细了解如何搜索和筛选拉取请求。",
+		// —— 结果行动词碎片(「by <作者> was merged <相对时间>」,作者名用户内容不收)——
+		"by": "由",
+		"was merged": "合并于",
 		// —— 详情页导航与关联议题 ——
 		"Pull request navigation": "拉取请求导航",
 		"Link issues": "关联议题",

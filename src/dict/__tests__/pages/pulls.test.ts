@@ -86,3 +86,90 @@ describe("拉取请求列表页的实机节点边界", () => {
 		);
 	});
 });
+
+/**
+ * closed 态列表页（维护者 2026-10-25 实机 HTML）：侧栏五项 + Feedback +
+ * Collapse sidebar + 空状态 + React 新版结果行动词碎片。
+ *
+ * 大半与 pages/issues 同键同译——侧栏是 issues / pulls 两族各自渲染的组件，
+ * /pulls 路由吃不到 issues 的键（与「Your personal account」同型的路由互斥）；
+ * Authored by me 对应 issues 版 Created by me（GitHub 改了措辞），同语义同译。
+ * 空状态的 Learn more 在 PR 页是**单节点整句**（issues 页是三节点碎片，见
+ * issues.test.ts），句号在节点内部 → 译文用中文句号收尾。
+ */
+describe("closed 态列表页的侧栏空状态与结果行", () => {
+	it("translates the sidebar entries and the blankslate", () => {
+		const NODES: readonly (readonly [string, string])[] = [
+			["Authored by me", "我创建的"],
+			["Assigned to me", "指派给我的"],
+			["Involves me", "与我相关"],
+			["Review requests", "审查请求"],
+			["Feedback", "反馈"],
+			["Collapse sidebar", "收起侧栏"],
+			[
+				"No pull requests matched your search",
+				"没有与你的搜索匹配的拉取请求",
+			],
+			[
+				"Try a different search query.",
+				"请尝试其他搜索查询。",
+			],
+			[
+				"Learn more about searching and filtering pull requests.",
+				"详细了解如何搜索和筛选拉取请求。",
+			],
+		];
+		for (const [node, expected] of NODES) {
+			for (const variant of withWhitespace(node)) {
+				expect(
+					translateText(variant, view),
+					`节点 ${JSON.stringify(variant)}`,
+				).toBe(expected);
+			}
+		}
+	});
+
+	it("assembles the merged result line around the bot author", () => {
+		// 「by dependabot[bot] was merged <相对时间>」：作者名用户内容原样保留
+		expect(translateText("by", view)).toBe("由");
+		expect(translateText("was merged", view)).toBe(
+			"合并于",
+		);
+		expect(
+			translateText("dependabot[bot]", view),
+		).toBeNull();
+	});
+
+	it("translates the author filter aria-label through the rule", () => {
+		// aria-label 带动态用户名，静态键只覆盖无尾随内容形态
+		expect(
+			translateText(
+				"Filter by author dependabot[bot]",
+				view,
+			),
+		).toBe("按作者 dependabot[bot] 筛选");
+		expect(translateText("Filter by author", view)).toBe(
+			"按作者筛选",
+		);
+	});
+
+	it("has japanese templates for the new fragments", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pulls",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("Authored by me", japanese)).toBe(
+			"自分が作成",
+		);
+		expect(translateText("was merged", japanese)).toBe(
+			"がマージ済み",
+		);
+		expect(
+			translateText(
+				"Filter by author dependabot[bot]",
+				japanese,
+			),
+		).toBe("作成者 dependabot[bot] でフィルター");
+	});
+});

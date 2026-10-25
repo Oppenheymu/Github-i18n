@@ -58,6 +58,25 @@
 		"Sort by Newest descending": "新しい順（降順）で並べ替え",
 		"Review required": "レビューが必要",
 		"Review required before merging": "マージ前にレビューが必要",
+		// —— リストページのサイドバーと空状態(2026-10-25 closed 状態の実機 HTML)——
+		// 大半は pages/issues の同名キーと同じ訳(サイドバーは issues/pulls それぞれで
+		// 描画されるコンポーネントで、/pulls ルートでは issues のキーに届かない);
+		// Authored by me は issues 版 Created by me に対応し同じ訳
+		"Authored by me": "自分が作成",
+		"Assigned to me": "自分に割り当て",
+		"Involves me": "自分が関与",
+		"Review requests": "レビューリクエスト",
+		"Feedback": "フィードバック",
+		"Collapse sidebar": "サイドバーを折りたたむ",
+		// 静的キーは末尾内容なしの形を担う(issues と同じ訳);ユーザー名付き aria-label はルールで
+		"Filter by author": "作成者で絞り込む",
+		// PR 版の空状態(issues 版は No results matched your search)
+		"No pull requests matched your search": "検索に一致するプルリクエストがありません",
+		"Try a different search query.": "別の検索クエリを試してください。",
+		"Learn more about searching and filtering pull requests.": "プルリクエストの検索と絞り込みについて詳しく見る",
+		// —— 結果行の動詞断片(「by <作成者> was merged <相対時刻>」,作成者名はユーザー内容につき未収録)——
+		"by": "実行者:",
+		"was merged": "がマージ済み",
 		// —— 詳細ページのナビゲーションと関連イシュー ——
 		"Pull request navigation": "プルリクエストのナビゲーション",
 		"Link issues": "イシューをリンク",

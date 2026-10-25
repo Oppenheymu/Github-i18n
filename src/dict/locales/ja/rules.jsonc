@@ -18,6 +18,8 @@
 		"pulls/page-title": "プルリクエスト · $1 · GitHub",
 		"pulls/pull-request-title-with-number": "$1 · プルリクエスト #$2 · $3 · GitHub",
 		"pulls/pull-request-title-with-number-plain": "$1 · プルリクエスト #$2 · $3",
+		// 作成者フィルターリンクの aria-label(ユーザー名はキャプチャグループでそのまま持ち込む)
+		"pulls/filter-by-author": "作成者 $1 でフィルター",
 
 		// —— pages/settings-security（アカウントセキュリティ）——
 		"settings/passkey-delete-confirm": "`$1` のパスキーを削除してもよろしいですか？",

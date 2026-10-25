@@ -729,6 +729,7 @@
 		"security/count-closed": "$1 件のクローズ済み",
 		"security/filter-advisories": "アドバイザリをフィルター：$1",
 		"security/found-out-of": "$2 件中 $1 件見つかりました",
+		"security/advanced-filter-valid": "詳細フィルターダイアログ：$1 件の有効なフィルター",
 		"security/more-options": "その他の $1 オプション",
 
 		// —— pages/repo（リポジトリ）——

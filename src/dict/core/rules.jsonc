@@ -3525,6 +3525,11 @@
 					"id": "security/found-out-of",
 					"pattern": "^Found ([\\d,]+) out of ([\\d,]+) items\\.$"
 				},
+				// 高级筛选按钮带有效筛选器计数时的 aria-label（无计数形态走静态键）
+				{
+					"id": "security/advanced-filter-valid",
+					"pattern": "^Advanced filter dialog: ([\\d,]+) valid filter$"
+				},
 				// 告警页头的「更多 X 选项」tooltip（Dependabot / Malware，专名捕获原样）
 				{
 					"id": "security/more-options",

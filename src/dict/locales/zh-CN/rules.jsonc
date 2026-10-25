@@ -726,6 +726,7 @@
 		"security/count-closed": "$1 个已关闭",
 		"security/filter-advisories": "筛选安全公告：$1",
 		"security/found-out-of": "在 $2 项中找到 $1 项",
+		"security/advanced-filter-valid": "高级筛选对话框：$1 个有效筛选器",
 		"security/more-options": "更多 $1 选项",
 		"repo/commits-count": "$1 次提交",
 		"repo/reactions-count": "$1 次回应",

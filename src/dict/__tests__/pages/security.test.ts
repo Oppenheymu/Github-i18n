@@ -324,3 +324,137 @@ describe("安全中心的路由与静态词条", () => {
 		);
 	});
 });
+
+describe("二次导出补漏的筛选栏、弹窗与页头菜单", () => {
+	it("translates the filter bar trio and the remaining advisory blankslates", () => {
+		const NODES: readonly (readonly [string, string])[] = [
+			["Available filters", "可用筛选器"],
+			[
+				"Clear current search query, filters, and sorts",
+				"清除当前搜索查询、筛选器和排序",
+			],
+			["Clear filters", "清除筛选器"],
+			[
+				"There aren't any triage security advisories",
+				"暂无待处理的安全公告",
+			],
+			[
+				"There aren't any draft security advisories",
+				"暂无安全公告草稿",
+			],
+			[
+				"There aren't any closed security advisories",
+				"暂无已关闭的安全公告",
+			],
+			["Manifest", "清单文件"],
+			["Package", "包"],
+			["open alerts", "打开的告警"],
+		];
+		for (const [node, expected] of NODES) {
+			expect(translateText(node, view), node).toBe(
+				expected,
+			);
+		}
+	});
+
+	it("translates the select panel skeleton and the overflow menu", () => {
+		const NODES: readonly (readonly [string, string])[] = [
+			["Filter items", "筛选项目"],
+			[
+				"Items will be filtered as you type",
+				"输入时会自动筛选项目",
+			],
+			["No options available", "无可用选项"],
+			["Filter by manifest", "按清单文件筛选"],
+			["Filter by package", "按包筛选"],
+			["Filter by ecosystem", "按生态系统筛选"],
+			["Search manifest options", "搜索清单文件选项"],
+			["Search package options", "搜索包选项"],
+			["Search ecosystem options", "搜索生态系统选项"],
+			["Search severity options", "搜索严重性选项"],
+			["Manifest path", "清单文件路径"],
+			["Package name", "包名"],
+			["Give feedback", "反馈"],
+			[
+				"Manage Advanced Security",
+				"管理 Advanced Security",
+			],
+			["Manage Dependabot rules", "管理 Dependabot 规则"],
+			["Manage account notifications", "管理账号通知"],
+			["Opens in a new tab", "在新标签页中打开"],
+			[
+				"Reprocess your project's current dependency files.",
+				"重新处理项目的当前依赖文件。",
+			],
+		];
+		for (const [node, expected] of NODES) {
+			expect(translateText(node, view), node).toBe(
+				expected,
+			);
+		}
+		// 「Refresh Dependabot alerts」被拆成三节点：Refresh / <产品名> / alerts，
+		// 产品名不翻（拼接实机为「刷新 Dependabot 告警」，节点间空白由引擎保留）
+		expect(translateText("Refresh", view)).toBe("刷新");
+		expect(translateText("alerts", view)).toBe("告警");
+		expect(translateText("Dependabot", view)).toBeNull();
+		// 高级筛选按钮：无计数走静态键，带计数走规则
+		expect(
+			translateText("Advanced filter dialog", view),
+		).toBe("高级筛选对话框");
+		expect(
+			translateText(
+				"Advanced filter dialog: 1 valid filter",
+				view,
+			),
+		).toBe("高级筛选对话框：1 个有效筛选器");
+	});
+
+	it("assembles the ProTip patch hint around the query-syntax link", () => {
+		// 「ProTip! Add -has:patch to see alerts without an available fix.」：
+		// 链接（查询语法）与句号外的三节点逐段命中，链接本身不翻
+		expect(translateText("Add", view)).toBe("添加");
+		expect(translateText("-has:patch", view)).toBeNull();
+		expect(
+			translateText(
+				"to see alerts without an available fix.",
+				view,
+			),
+		).toBe("以查看没有可用修复的告警。");
+		// EPSS 是漏洞利用预测评分系统的缩写，专有名词不翻
+		expect(translateText("EPSS", view)).toBeNull();
+	});
+
+	it("has japanese templates for the patched fragments", () => {
+		const japanese = buildView(
+			"/Koishi-CE/koishi/security/dependabot",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("Refresh", japanese)).toBe("更新");
+		expect(translateText("alerts", japanese)).toBe(
+			"アラート",
+		);
+		expect(
+			translateText(
+				"Items will be filtered as you type",
+				japanese,
+			),
+		).toBe("入力すると項目が絞り込まれます");
+		expect(
+			translateText(
+				"Advanced filter dialog: 1 valid filter",
+				japanese,
+			),
+		).toBe(
+			"詳細フィルターダイアログ：1 件の有効なフィルター",
+		);
+		expect(
+			translateText(
+				"to see alerts without an available fix.",
+				japanese,
+			),
+		).toBe(
+			"すると、利用可能な修正のないアラートが表示されます。",
+		);
+	});
+});

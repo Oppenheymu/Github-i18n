@@ -7531,7 +7531,44 @@
 				"Custom Patterns",
 				"Service Providers",
 				"Filter provider",
-				"Filter secret type"
+				"Filter secret type",
+				// —— 2026-10-25 二次导出补漏（筛选栏、公告四 tab 空状态、弹窗与页头菜单）——
+				"Available filters",
+				"Clear current search query, filters, and sorts",
+				"Clear filters",
+				"There aren't any triage security advisories",
+				"There aren't any draft security advisories",
+				"There aren't any closed security advisories",
+				"Advanced filter dialog",
+				"Filter items",
+				"Items will be filtered as you type",
+				"No options available",
+				// 「Refresh Dependabot alerts」菜单项被拆成 Refresh / <产品名> / alerts 三个节点，
+				// 产品名不翻；「alerts」是小写泛化词，靠整节点精确匹配 + 仅本模块生效兜住
+				"Refresh",
+				"alerts",
+				"Reprocess your project's current dependency files.",
+				"Give feedback",
+				"Manage Advanced Security",
+				"Manage Dependabot rules",
+				"Manage account notifications",
+				"Opens in a new tab",
+				"Filter by manifest",
+				"Filter by package",
+				"Filter by ecosystem",
+				"Search manifest options",
+				"Search package options",
+				"Search ecosystem options",
+				"Search severity options",
+				"Manifest",
+				"Package",
+				"Manifest path",
+				"Package name",
+				// ProTip 碎片：「Add -has:patch to see…」三节点（链接是查询语法不收）
+				"Add",
+				"to see alerts without an available fix.",
+				// 告警列表 section 的 aria-label（查询语法同形，但仅本模块生效、误伤面极小）
+				"open alerts"
 			]
 		},
 		{

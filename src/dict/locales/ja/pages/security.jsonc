@@ -100,6 +100,48 @@
 		"Custom Patterns": "カスタムパターン",
 		"Service Providers": "サービスプロバイダー",
 		"Filter provider": "プロバイダーをフィルター",
-		"Filter secret type": "シークレットの種類をフィルター"
+		"Filter secret type": "シークレットの種類をフィルター",
+		// —— 2026-10-25 の2回目の書き出しで補完（フィルターバー、アドバイザリ 4 タブの
+		// 空状態、ダイアログとページ見出しメニュー）——
+		"Available filters": "利用可能なフィルター",
+		"Clear current search query, filters, and sorts": "現在の検索クエリ、フィルター、並べ替えをクリア",
+		"Clear filters": "フィルターをクリア",
+		// アドバイザリ 4 タブの空状態見出し（公開済みは上で収録済み）
+		"There aren't any triage security advisories": "トリアージのセキュリティアドバイザリはありません",
+		"There aren't any draft security advisories": "下書きのセキュリティアドバイザリはありません",
+		"There aren't any closed security advisories": "クローズ済みのセキュリティアドバイザリはありません",
+		// 件数なし形の aria-label。「: N valid filter」付きはルールで処理
+		"Advanced filter dialog": "詳細フィルターダイアログ",
+		// SelectPanel 絞り込みダイアログ（パッケージ / マニフェスト / エコシステム / 重要度で共通）
+		"Filter items": "項目をフィルター",
+		"Items will be filtered as you type": "入力すると項目が絞り込まれます",
+		"No options available": "利用できるオプションがありません",
+		// 「Refresh Dependabot alerts」メニュー項目は Refresh / <製品名> / alerts の 3 ノードに
+		// 分割；「alerts」は小文字の汎用語につき本モジュールでのみ有効
+		"Refresh": "更新",
+		"alerts": "アラート",
+		"Reprocess your project's current dependency files.": "プロジェクトの現在の依存関係ファイルを再処理します。",
+		// ページ見出しのオーバーフローメニュー
+		"Give feedback": "フィードバック",
+		"Manage Advanced Security": "Advanced Security を管理",
+		"Manage Dependabot rules": "Dependabot ルールを管理",
+		"Manage account notifications": "アカウントの通知を管理",
+		"Opens in a new tab": "新しいタブで開きます",
+		"Filter by manifest": "マニフェストでフィルター",
+		"Filter by package": "パッケージでフィルター",
+		"Filter by ecosystem": "エコシステムでフィルター",
+		"Search manifest options": "マニフェストのオプションを検索",
+		"Search package options": "パッケージのオプションを検索",
+		"Search ecosystem options": "エコシステムのオプションを検索",
+		"Search severity options": "重要度のオプションを検索",
+		"Manifest": "マニフェスト",
+		"Package": "パッケージ",
+		"Manifest path": "マニフェストパス",
+		"Package name": "パッケージ名",
+		// ProTip 断片：「Add -has:patch to see…」の 3 ノード結合（リンクはクエリ構文につき未収録）
+		"Add": "追加",
+		"to see alerts without an available fix.": "すると、利用可能な修正のないアラートが表示されます。",
+		// アラート一覧 section の aria-label（クエリ構文と同形だが本モジュールでのみ有効）
+		"open alerts": "オープンなアラート"
 	}
 }

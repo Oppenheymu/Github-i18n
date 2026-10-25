@@ -8852,6 +8852,7 @@
 				"security/count-closed",
 				"security/filter-advisories",
 				"security/found-out-of",
+				"security/advanced-filter-valid",
 				"security/more-options",
 				"repo/commits-count",
 				"repo/reactions-count",

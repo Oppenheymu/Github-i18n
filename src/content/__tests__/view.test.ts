@@ -182,7 +182,10 @@ describe("buildView", () => {
 		const dashboard = buildView("/", zh, aliases);
 		expect(dashboard.entries.get("Home")).toBe("主页");
 		const repo = buildView("/owner/repo", zh, aliases);
-		expect(repo.entries.get("Home")).toBeUndefined();
+		// Home 自 2026-10-25 起同时登记在 global（全局侧边栏是全站组件），
+		// 仓库页查得到它是正确行为；模块隔离改由 dashboard 独有键 "For you" 守
+		expect(repo.entries.get("Home")).toBe("主页");
+		expect(repo.entries.get("For you")).toBeUndefined();
 		expect(repo.entries.get("Code")).toBe("代码");
 	});
 

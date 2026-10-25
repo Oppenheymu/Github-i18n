@@ -48,6 +48,15 @@
 		"All repositories": "すべてのリポジトリ",
 		"All issues": "すべてのイシュー",
 		"All pull requests": "すべてのプルリクエスト",
+		// —— グローバルサイドバー（ハンバーガーメニュー）の残り 5 項目、2026-10-25 実機スクリーンショットで補完 ——
+		// Home/Feed/Top repositories/Projects は dashboard・profile・repo・org-settings の
+		// 同名列と同じ訳。サイドバーは全サイト共通コンポーネントなので、それらのルート外は本処が担う
+		"Home": "ホーム",
+		"Feed": "フィード",
+		"Projects": "プロジェクト",
+		"Top repositories": "トップリポジトリ",
+		// 新規キー。素の Copilot（メニュー項目）はブランド名のため意図的に未収録（訳文同形禁止）
+		"MCP registry": "MCP レジストリ",
 		"Chat with Copilot": "Copilot とチャット",
 		"Open Copilot…": "Copilot を開く…",
 

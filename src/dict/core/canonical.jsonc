@@ -7439,6 +7439,17 @@
 				"All pull requests",
 				"Chat with Copilot",
 				"Open Copilot…",
+				// 维护者 2026-10-25 的 /settings/applications 实机截图：全局侧边栏（汉堡菜单）
+				// 里这五条留了英文——前四条在别的模块早有同键（Home/Feed→pages/dashboard、
+				// Top repositories→pages/dashboard+profile、Projects→pages/profile+repo+org-settings），
+				// 但侧边栏是全站组件，那些路由之外只有 global 兜底，故在此登记同译；
+				// MCP registry 是全新键。裸 `Copilot`（菜单里 Copilot 入口）**有意不收录**：
+				// 品牌名无可译（译文同形禁令），GitHub 官方中文界面同样保留英文。
+				"Home",
+				"Feed",
+				"Projects",
+				"Top repositories",
+				"MCP registry",
 				// —— 头部搜索框与移动端导航开关 ——
 				"Search or jump to, type / to search",
 				"Toggle navigation",

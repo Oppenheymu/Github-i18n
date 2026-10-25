@@ -25,7 +25,14 @@
 			"name": "",
 			"path": "/",
 			"matched": ["pages/dashboard", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Feed", "module": "pages/dashboard" },
+				{ "key": "Home", "module": "pages/dashboard" },
+				{
+					"key": "Top repositories",
+					"module": "pages/dashboard"
+				}
+			],
 			"rules": [
 				"dashboard/greeting-morning",
 				"dashboard/greeting-afternoon",
@@ -171,7 +178,14 @@
 			"name": "dashboard",
 			"path": "/dashboard",
 			"matched": ["pages/dashboard", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Feed", "module": "pages/dashboard" },
+				{ "key": "Home", "module": "pages/dashboard" },
+				{
+					"key": "Top repositories",
+					"module": "pages/dashboard"
+				}
+			],
 			"rules": [
 				"dashboard/greeting-morning",
 				"dashboard/greeting-afternoon",
@@ -317,7 +331,13 @@
 			"name": "octocat",
 			"path": "/octocat",
 			"matched": ["pages/profile", "global"],
-			"collisions": [],
+			"collisions": [
+				{ "key": "Projects", "module": "pages/profile" },
+				{
+					"key": "Top repositories",
+					"module": "pages/profile"
+				}
+			],
 			"rules": [
 				"profile/commit-activity-year",
 				"profile/issues-needing-help",
@@ -495,7 +515,8 @@
 			"path": "/microsoft/vscode",
 			"matched": ["pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" }
 			],
 			"rules": [
 				"repo/commits-count",
@@ -661,7 +682,8 @@
 			"path": "/microsoft/vscode/issues",
 			"matched": ["pages/issues", "pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" }
 			],
 			"rules": [
 				"issues/in-repo",
@@ -831,7 +853,8 @@
 			"path": "/microsoft/vscode/issues/1",
 			"matched": ["pages/issues", "pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" }
 			],
 			"rules": [
 				"issues/in-repo",
@@ -1002,6 +1025,7 @@
 			"matched": ["pages/pulls", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" },
 				{ "key": "Pull request", "module": "pages/pulls" }
 			],
 			"rules": [
@@ -1175,6 +1199,7 @@
 			"matched": ["pages/pulls", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" },
 				{ "key": "Pull request", "module": "pages/pulls" }
 			],
 			"rules": [
@@ -1403,6 +1428,7 @@
 					"module": "pages/repo-settings"
 				},
 				{ "key": "Pages", "module": "pages/repo-settings" },
+				{ "key": "Projects", "module": "pages/repo" },
 				{
 					"key": "Pull requests",
 					"module": "pages/repo-settings"
@@ -1689,6 +1715,7 @@
 					"module": "pages/repo-settings"
 				},
 				{ "key": "Pages", "module": "pages/repo-settings" },
+				{ "key": "Projects", "module": "pages/repo" },
 				{
 					"key": "Pull requests",
 					"module": "pages/repo-settings"
@@ -1975,6 +2002,7 @@
 					"module": "pages/repo-settings"
 				},
 				{ "key": "Pages", "module": "pages/repo-settings" },
+				{ "key": "Projects", "module": "pages/repo" },
 				{
 					"key": "Pull requests",
 					"module": "pages/repo-settings"
@@ -2206,6 +2234,10 @@
 			"matched": ["pages/org-settings", "global"],
 			"collisions": [
 				{ "key": "Pages", "module": "pages/org-settings" },
+				{
+					"key": "Projects",
+					"module": "pages/org-settings"
+				},
 				{ "key": "Write", "module": "pages/org-settings" }
 			],
 			"rules": [
@@ -2395,6 +2427,10 @@
 			"matched": ["pages/org-settings", "global"],
 			"collisions": [
 				{ "key": "Pages", "module": "pages/org-settings" },
+				{
+					"key": "Projects",
+					"module": "pages/org-settings"
+				},
 				{ "key": "Write", "module": "pages/org-settings" }
 			],
 			"rules": [
@@ -2635,6 +2671,10 @@
 				{
 					"key": "Postal/Zip code",
 					"module": "pages/settings-billing"
+				},
+				{
+					"key": "Projects",
+					"module": "pages/org-settings"
 				},
 				{
 					"key": "Required for certain countries",
@@ -3135,6 +3175,10 @@
 			"matched": ["pages/org-settings", "global"],
 			"collisions": [
 				{ "key": "Pages", "module": "pages/org-settings" },
+				{
+					"key": "Projects",
+					"module": "pages/org-settings"
+				},
 				{ "key": "Write", "module": "pages/org-settings" }
 			],
 			"rules": [
@@ -6884,6 +6928,7 @@
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
 				{ "key": "Commit", "module": "pages/actions" },
+				{ "key": "Projects", "module": "pages/repo" },
 				{ "key": "Show options", "module": "pages/actions" }
 			],
 			"rules": [
@@ -7064,7 +7109,8 @@
 			"path": "/microsoft/vscode/agents",
 			"matched": ["pages/agents", "pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" }
 			],
 			"rules": [
 				"agents/sessions-count",
@@ -7232,7 +7278,8 @@
 			"path": "/microsoft/vscode/commits",
 			"matched": ["pages/commits", "pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" }
 			],
 			"rules": [
 				"commits/toggle-commit-message",
@@ -7418,7 +7465,8 @@
 				"global"
 			],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" }
 			],
 			"rules": [
 				"repo/commits-count",
@@ -7585,7 +7633,8 @@
 			"matched": ["pages/wiki", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
-				{ "key": "Pages", "module": "pages/wiki" }
+				{ "key": "Pages", "module": "pages/wiki" },
+				{ "key": "Projects", "module": "pages/repo" }
 			],
 			"rules": [
 				"wiki/edited-page",
@@ -7756,6 +7805,7 @@
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" },
 				{ "key": "Starred", "module": "pages/insights" }
 			],
 			"rules": [
@@ -7985,6 +8035,7 @@
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" },
 				{ "key": "Starred", "module": "pages/insights" }
 			],
 			"rules": [
@@ -8214,6 +8265,7 @@
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" },
 				{ "key": "Starred", "module": "pages/insights" }
 			],
 			"rules": [
@@ -8443,6 +8495,7 @@
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" },
 				{ "key": "Starred", "module": "pages/insights" }
 			],
 			"rules": [
@@ -8672,6 +8725,7 @@
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" },
 				{ "key": "Starred", "module": "pages/insights" }
 			],
 			"rules": [
@@ -8900,7 +8954,8 @@
 			"path": "/microsoft/vscode/tags",
 			"matched": ["pages/commits", "pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" }
 			],
 			"rules": [
 				"commits/toggle-commit-message",
@@ -9082,7 +9137,8 @@
 			"path": "/microsoft/vscode/branches",
 			"matched": ["pages/commits", "pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" }
 			],
 			"rules": [
 				"commits/toggle-commit-message",
@@ -9264,7 +9320,8 @@
 			"path": "/microsoft/vscode/compare",
 			"matched": ["pages/commits", "pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" }
 			],
 			"rules": [
 				"commits/toggle-commit-message",
@@ -10030,7 +10087,8 @@
 			"path": "/not-a-real-page/x",
 			"matched": ["pages/repo", "global"],
 			"collisions": [
-				{ "key": "Code", "module": "pages/repo" }
+				{ "key": "Code", "module": "pages/repo" },
+				{ "key": "Projects", "module": "pages/repo" }
 			],
 			"rules": [
 				"repo/commits-count",

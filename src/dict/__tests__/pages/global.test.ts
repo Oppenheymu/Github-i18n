@@ -310,6 +310,73 @@ describe("global 模块的仓库可见性标签", () => {
 });
 
 /**
+ * 全局侧边栏（汉堡菜单）的导航词条。
+ *
+ * 实机证据：维护者 2026-10-25 的 /settings/applications 截图——菜单里「所有议题 /
+ * 所有拉取请求 / 所有仓库 / 显示更多」早已由 global 翻出，而 Home / Feed /
+ * Projects / Top repositories 留英文：它们只登记在 pages/dashboard、pages/profile
+ * 等具体模块（Projects 甚至分散在三个模块），侧边栏却是全站组件，/settings 等
+ * 路由吃不到 → 与「Your personal account」同型的路由互斥，五条进 global 同译兜底
+ * （MCP registry 为全新键）。
+ *
+ * 裸 `Copilot`（菜单里的 Copilot 入口）**有意不收录**：品牌名无可译——译文同形
+ * 禁令（"Copilot": "Copilot" 会让观察器无限自转），GitHub 官方中文界面同样保留英文。
+ */
+describe("global 模块的全局侧边栏菜单", () => {
+	/** 用截图同款路径建视图：侧边栏在 /settings/* 由 global 兜底，具体模块不命中 */
+	const sidebarView = buildView(
+		"/settings/applications",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	const SIDEBAR_NODES: readonly (readonly [
+		string,
+		string,
+	])[] = [
+		["Home", "主页"],
+		["Feed", "动态"],
+		["Projects", "项目"],
+		["Top repositories", "热门仓库"],
+		["MCP registry", "MCP 注册表"],
+	];
+
+	it("translates the sidebar entries on a non-dashboard path", () => {
+		for (const [node, expected] of SIDEBAR_NODES) {
+			expect(
+				translateText(node, sidebarView),
+				`未命中：${node}`,
+			).toBe(expected);
+		}
+	});
+
+	it("keeps the Copilot brand name in english", () => {
+		expect(
+			translateText("Copilot", sidebarView),
+		).toBeNull();
+	});
+
+	it("has japanese templates too", () => {
+		const japanese = buildView(
+			"/settings/applications",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		for (const [node, expected] of [
+			["Home", "ホーム"],
+			["Feed", "フィード"],
+			["Projects", "プロジェクト"],
+			["Top repositories", "トップリポジトリ"],
+			["MCP registry", "MCP レジストリ"],
+		] as const) {
+			expect(translateText(node, japanese), node).toBe(
+				expected,
+			);
+		}
+	});
+});
+
+/**
  * 头部搜索按钮的占位文案：`Type ` + `<kbd>/</kbd>` + ` to search`。
  *
  * 这里锁的是**词典层**的决定：整句键有效，两段碎片**没有词条**。碎片收不得——

@@ -58,6 +58,15 @@
 		"All repositories": "所有仓库",
 		"All issues": "所有议题",
 		"All pull requests": "所有拉取请求",
+		// —— 全局侧边栏（汉堡菜单）余下五条，2026-10-25 实机截图补齐 ——
+		// Home/Feed/Top repositories/Projects 与 dashboard、profile、repo、org-settings
+		// 的同名键同译，侧边栏是全站组件，那些路由之外由本处兜底
+		"Home": "主页",
+		"Feed": "动态",
+		"Projects": "项目",
+		"Top repositories": "热门仓库",
+		// 全新键；裸 Copilot（菜单入口）是品牌名，有意不收录（译文同形禁令，官方界面也保留）
+		"MCP registry": "MCP 注册表",
 		"Chat with Copilot": "与 Copilot 聊天",
 		"Open Copilot…": "打开 Copilot…",
 		// —— 头部搜索框与移动端导航开关 ——

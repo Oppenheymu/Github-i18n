@@ -386,6 +386,44 @@
 		// もう 2 軸の Pull requests / Issues は global が覆う。上の「N pull requests」
 		// 数字形は既に収録済みで、軸ラベル本体が逆に漏れていた
 		"Code review": "コードレビュー",
-		"Commits": "コミット"
+		"Commits": "コミット",
+		// —— 組織ページ（/Koishi-CE など、個人ページと本モジュールを共用；2026-10-25 popup エクスポート）——
+		// ナビ tab と sr-only 断片の大半は別モジュールに同名キーがあるが、/<org> ルートでは
+		// 届かない → 同じ訳で登録
+		"Organization navigation": "組織のナビゲーション",
+		"Teams": "チーム",
+		"Insights": "インサイト",
+		"View as:": "表示：",
+		"You are viewing the README and pinned repositories as a public user.": "公開ユーザーとして README とピン留めしたリポジトリを表示しています。",
+		"Invite": "招待",
+		"Invite Member": "メンバーを招待",
+		"Invite a billing manager": "請求管理者を招待",
+		"Invite someone": "誰かを招待",
+		"Search by username, full name or email address": "ユーザー名、氏名、メールアドレスで検索",
+		// SAML プロモーション：可視文は 2 ノード（説明＋リンク）に分割、aria-label は your 版の一文
+		"Authenticate members with": "メンバーの認証方法：",
+		"SAML single sign-on": "SAML シングルサインオン",
+		"Authenticate your members with SAML single sign-on": "SAML シングルサインオンでメンバーの認証を行う",
+		"Try it in a 30-day trial of GitHub Enterprise.": "GitHub Enterprise の 30 日トライアルでお試しください。",
+		"Start free for 30 days": "30 日間無料で始める",
+		// Enterprise のタスク入口の説明文は 2 ノード、ノード順に結合
+		"Get started with tasks": "タスクを始めましょう",
+		"that most successful organizations complete.": "（ほとんどの成功している組織が取り組んでいます。）",
+		"Dismiss": "閉じる",
+		"dismiss this message": "このメッセージを閉じる",
+		"Retry.": "再試行。",
+		"Something went wrong.": "問題が発生しました。",
+		// —— ピン留めリポジトリ編集ダイアログ ——
+		"Customize pins": "ピンをカスタマイズ",
+		"Edit pinned repositories": "ピン留めしたリポジトリを編集",
+		"Save pins": "ピンを保存",
+		"Drag to reorder": "ドラッグして並べ替え",
+		"Edit this organization's profile readme file": "この組織のプロフィール README ファイルを編集",
+		"Change your organization’s avatar": "組織のアバターを変更",
+		// —— ディスカッションの空状態 ——
+		"Turn on discussions": "ディスカッションを有効にする",
+		"Set up discussions to engage with your community!": "ディスカッションを設定してコミュニティと交流しましょう！",
+		"Manage": "管理",
+		"items": "件"
 	}
 }

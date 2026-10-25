@@ -3269,6 +3269,16 @@
 					"id": "profile/issues-needing-help",
 					"pattern": "^\\(([\\d,]+) issues? needs? help\\)$"
 				},
+				// 置顶仓库编辑弹层的上下移按钮（aria-label 带仓库名，捕获保留；
+				// 维护者 2026-10-25 /Koishi-CE popup 导出）
+				{
+					"id": "profile/move-pinned-up",
+					"pattern": "^Move (.+) up$"
+				},
+				{
+					"id": "profile/move-pinned-down",
+					"pattern": "^Move (.+) down$"
+				},
 				// 屏蔽 / 举报对话框标题带用户名（捕获保留；固定文案走静态词条）
 				{
 					"id": "profile/block-or-report",
@@ -3693,6 +3703,35 @@
 				{
 					"id": "global/status-emoji-tooltip",
 					"pattern": "^Select an emoji: (?<alias>:[a-z0-9_+-]+:)$"
+				},
+				// 仓库列表项图标 aria-label 的计数（维护者 2026-10-25 /Koishi-CE popup 导出：
+				// 「7 stars in Koishi-CE/koishi」等，owner/repo 为用户内容捕获保留）。
+				// 个人主页与组织主页的仓库列表同构，故归 global。
+				{
+					"id": "global/stars-in",
+					"pattern": "^([\\d,]+) stars? in (.+)$"
+				},
+				{
+					"id": "global/forks-in",
+					"pattern": "^([\\d,]+) forks? in (.+)$"
+				},
+				{
+					"id": "global/issues-in",
+					"pattern": "^([\\d,]+) issues? in (.+)$"
+				},
+				{
+					"id": "global/pull-requests-in",
+					"pattern": "^([\\d,]+) pull requests? in (.+)$"
+				},
+				// 关注按钮的 title / aria-label 带对象名（「Follow Koishi-CE」），个人主页同构；
+				// 裸 Follow / Followers / Following 走静态词条（先于规则命中）
+				{
+					"id": "global/follow-owner",
+					"pattern": "^Follow (.+)$"
+				},
+				{
+					"id": "global/unfollow-owner",
+					"pattern": "^Unfollow (.+)$"
 				},
 				// 全站专属规则：绝对日期、回应记录与零散计数（commonRules 兜底之外的补充）
 				// 绝对日期（月份缩写）：Sep 25, 2026 → 2026 年 9 月 25 日

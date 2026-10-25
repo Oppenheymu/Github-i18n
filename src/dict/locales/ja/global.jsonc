@@ -209,6 +209,13 @@
 		"Public template": "公開テンプレート",
 		"Private template": "非公開テンプレート",
 		"Archived": "アーカイブ済み",
+		// —— 可視性ラベルの title 形（「Label: <可視性>」、2026-10-25 /Koishi-CE popup エクスポート）：
+		// 上の可視テキスト群と対応させて登録、title は別キー
+		"Label: Public": "ラベル：公開",
+		"Label: Private": "ラベル：非公開",
+		"Label: Public archive": "ラベル：公開アーカイブ",
+		"Label: Public template": "ラベル：公開テンプレート",
+		"Label: Private template": "ラベル：非公開テンプレート",
 
 		// —— 人とフォロー ——
 		"Author": "作成者",

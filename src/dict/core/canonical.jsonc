@@ -7322,7 +7322,46 @@
 				// 「Code review」「Commits」在 repo / marketing 等模块已有同名词条，
 				// 但 profile 路由不吃那些模块，须在本模块登记（译文与既有各处同译）
 				"Code review",
-				"Commits"
+				"Commits",
+				// —— 组织主页（/Koishi-CE 等，与个人主页共用本模块；维护者 2026-10-25
+				// popup 漏翻导出）——导航 tabs 与 sr-only 碎片大半在别的模块已有同键
+				//（Teams/Insights→repo-settings、Organization navigation→org-settings、
+				// Invite→settings-billing、Retry→repo-settings 无句号形态、Manage→
+				// settings-security、items→actions、Something went wrong.→repo-settings），
+				// /<org> 路由吃不到 → 本模块登记同译；SAML 促销条、邀请弹层、置顶编辑
+				// 弹层与讨论区空状态为全新键。企业促销区的任务入口说明句拆两节点：
+				// 「Get started with tasks」+「that most successful organizations complete.」。
+				"Organization navigation",
+				"Teams",
+				"Insights",
+				"View as:",
+				"You are viewing the README and pinned repositories as a public user.",
+				"Invite",
+				"Invite Member",
+				"Invite a billing manager",
+				"Invite someone",
+				"Search by username, full name or email address",
+				"Authenticate members with",
+				"SAML single sign-on",
+				"Authenticate your members with SAML single sign-on",
+				"Try it in a 30-day trial of GitHub Enterprise.",
+				"Start free for 30 days",
+				"Get started with tasks",
+				"that most successful organizations complete.",
+				"Dismiss",
+				"dismiss this message",
+				"Retry.",
+				"Something went wrong.",
+				"Customize pins",
+				"Edit pinned repositories",
+				"Save pins",
+				"Drag to reorder",
+				"Edit this organization's profile readme file",
+				"Change your organization’s avatar",
+				"Turn on discussions",
+				"Set up discussions to engage with your community!",
+				"Manage",
+				"items"
 			]
 		},
 		{
@@ -7673,6 +7712,13 @@
 				"Public template",
 				"Private template",
 				"Archived",
+				// —— 仓库列表项可见性标签的 title 属性（「Label: <可见性>」；维护者 2026-10-25
+				// /Koishi-CE popup 导出）——可见文本族在上面，title 是另一串键，对齐登记
+				"Label: Public",
+				"Label: Private",
+				"Label: Public archive",
+				"Label: Public template",
+				"Label: Private template",
 				// —— 人与关注 ——
 				"Author",
 				"Owner",

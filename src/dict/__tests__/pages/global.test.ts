@@ -419,3 +419,58 @@ describe("global 模块的搜索占位符（kbd 断句）", () => {
 		);
 	});
 });
+
+/**
+ * 仓库列表项图标的 aria-label 计数（global/stars-in 等四条；维护者 2026-10-25
+ * /Koishi-CE popup 导出：「7 stars in Koishi-CE/koishi」等）。个人主页与组织主页
+ * 的仓库列表同构，故归 global；owner/repo 是用户内容，由捕获组原样带回。
+ * 关注按钮的 title / aria-label（global/follow-owner / unfollow-owner）同批登记。
+ */
+describe("global 模块的仓库列表计数与关注按钮", () => {
+	it("translates the count aria-labels with the owner path intact", () => {
+		expect(
+			translateText("7 stars in Koishi-CE/koishi", view),
+		).toBe("Koishi-CE/koishi 的 7 个星标");
+		expect(
+			translateText("1 star in Koishi-CE/tools", view),
+		).toBe("Koishi-CE/tools 的 1 个星标");
+		expect(
+			translateText("0 forks in Koishi-CE/.github", view),
+		).toBe("Koishi-CE/.github 的 0 个复刻");
+		expect(
+			translateText("0 issues in Koishi-CE/tools", view),
+		).toBe("Koishi-CE/tools 的 0 个议题");
+		expect(
+			translateText(
+				"1 pull request in Koishi-CE/tools",
+				view,
+			),
+		).toBe("Koishi-CE/tools 的 1 个拉取请求");
+	});
+
+	it("translates the follow buttons with the owner name intact", () => {
+		expect(translateText("Follow Koishi-CE", view)).toBe(
+			"关注 Koishi-CE",
+		);
+		expect(translateText("Unfollow Koishi-CE", view)).toBe(
+			"取消关注 Koishi-CE",
+		);
+	});
+
+	it("has japanese templates", () => {
+		const japanese = buildView(
+			"/Koishi-CE",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText(
+				"7 stars in Koishi-CE/koishi",
+				japanese,
+			),
+		).toBe("Koishi-CE/koishi の 7 個のスター");
+		expect(
+			translateText("Follow Koishi-CE", japanese),
+		).toBe("Koishi-CE をフォロー");
+	});
+});

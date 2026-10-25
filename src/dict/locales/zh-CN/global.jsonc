@@ -225,6 +225,13 @@
 		"Public template": "公开模板",
 		"Private template": "私有模板",
 		"Archived": "已归档",
+		// —— 可见性标签的 title 形态（「Label: <可见性>」，维护者 2026-10-25 /Koishi-CE
+		// popup 导出）：与上面可见文本族对齐登记，title 是另一串键
+		"Label: Public": "标签：公开",
+		"Label: Private": "标签：私有",
+		"Label: Public archive": "标签：公开归档",
+		"Label: Public template": "标签：公开模板",
+		"Label: Private template": "标签：私有模板",
 		// —— 人与关注 ——
 		"Author": "作者",
 		"Owner": "所有者",

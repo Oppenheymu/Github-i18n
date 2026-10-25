@@ -404,6 +404,46 @@
 		// 另两轴 Pull requests / Issues 由 global 覆盖；上面的「N pull requests」
 		// 数字形态早已收录，轴标签本体反而漏了
 		"Code review": "代码审查",
-		"Commits": "提交"
+		"Commits": "提交",
+		// —— 组织主页（/Koishi-CE 等，与个人主页共用本模块；维护者 2026-10-25 popup 导出）——
+		// 导航 tabs 与 sr-only 碎片大半在别的模块已有同键，/<org> 路由吃不到 → 同译登记
+		//（Teams/Insights→repo-settings、Organization navigation→org-settings、
+		// Invite→settings-billing、Manage→settings-security、items→actions/repo-settings、
+		// Something went wrong.→repo-settings；Retry 实机带句号是新键）
+		"Organization navigation": "组织导航",
+		"Teams": "团队",
+		"Insights": "洞察",
+		"View as:": "查看方式：",
+		"You are viewing the README and pinned repositories as a public user.": "你正在以公共用户身份查看 README 与置顶仓库。",
+		"Invite": "邀请",
+		"Invite Member": "邀请成员",
+		"Invite a billing manager": "邀请账单管理员",
+		"Invite someone": "邀请他人",
+		"Search by username, full name or email address": "按用户名、全名或电子邮箱地址搜索",
+		// SAML 促销条：可见句拆两节点（说明 + 链接「SAML single sign-on」），aria-label 是 your 版整句
+		"Authenticate members with": "对成员进行身份验证：",
+		"SAML single sign-on": "SAML 单点登录",
+		"Authenticate your members with SAML single sign-on": "使用 SAML 单点登录对成员进行身份验证",
+		"Try it in a 30-day trial of GitHub Enterprise.": "在 GitHub Enterprise 30 天试用版中体验。",
+		"Start free for 30 days": "免费试用 30 天",
+		// 企业任务入口说明句拆两节点，按节点顺序拼接
+		"Get started with tasks": "上手这些任务",
+		"that most successful organizations complete.": "，最成功的组织都会完成。",
+		"Dismiss": "关闭",
+		"dismiss this message": "关闭此消息",
+		"Retry.": "重试。",
+		"Something went wrong.": "出了点问题。",
+		// —— 置顶仓库编辑弹层 ——
+		"Customize pins": "自定义置顶",
+		"Edit pinned repositories": "编辑置顶仓库",
+		"Save pins": "保存置顶",
+		"Drag to reorder": "拖动以排序",
+		"Edit this organization's profile readme file": "编辑此组织的个人资料 README 文件",
+		"Change your organization’s avatar": "更改组织头像",
+		// —— 讨论区空状态 ——
+		"Turn on discussions": "开启讨论区",
+		"Set up discussions to engage with your community!": "设置讨论区，与你的社区互动！",
+		"Manage": "管理",
+		"items": "项"
 	}
 }

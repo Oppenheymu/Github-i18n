@@ -672,6 +672,9 @@
 		// —— pages/profile（ユーザープロフィール）——
 		"profile/commit-activity-year": "$1 の過去 1 年間のコミットアクティビティ",
 		"profile/issues-needing-help": "（$1 件のイシューがヘルプを求めています）",
+		// ピン留め編集ダイアログの上下移動ボタン(リポジトリ名はキャプチャグループで持ち込む)
+		"profile/move-pinned-up": "$1 を上へ移動",
+		"profile/move-pinned-down": "$1 を下へ移動",
 		"profile/block-or-report": "$1 をブロックまたは報告",
 		"profile/showing-of-repos": "$2 件のリポジトリのうち $1 件を表示",
 		"profile/repo-results-count": "$1 件の結果、",
@@ -768,6 +771,14 @@
 		"global/status-characters-remaining": "残り $<count> 文字",
 		"global/status-characters-limit": "$<count> 文字まで入力できます",
 		"global/status-emoji-tooltip": "絵文字を選択：$<alias>",
+		// リポジトリ一覧項目アイコン aria-label のカウント(owner/repo はキャプチャグループで持ち込む)
+		"global/stars-in": "$2 の $1 個のスター",
+		"global/forks-in": "$2 の $1 個のフォーク",
+		"global/issues-in": "$2 の $1 件のイシュー",
+		"global/pull-requests-in": "$2 の $1 件のプルリクエスト",
+		// フォローボタンの title / aria-label に対象名付き
+		"global/follow-owner": "$1 をフォロー",
+		"global/unfollow-owner": "$1 のフォローを解除",
 		"global/short-date-jan": "$2年1月$1日",
 		"global/short-date-feb": "$2年2月$1日",
 		"global/short-date-mar": "$2年3月$1日",

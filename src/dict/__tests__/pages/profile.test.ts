@@ -562,3 +562,156 @@ describe("pages/profile 的四维活动图轴标签", () => {
 		expect(translateText("Commits", view)).toBe("提交");
 	});
 });
+
+/**
+ * 组织主页（/Koishi-CE，与个人主页共用 pages/profile；维护者 2026-10-25 的
+ * popup 漏翻导出，schema github-zh-misses/3）。
+ *
+ * 导航 tabs 与 sr-only 碎片大半在别的模块已有同键（Teams/Insights→repo-settings、
+ * Organization navigation→org-settings、Invite→settings-billing、Manage→
+ * settings-security、items→actions、Something went wrong.→repo-settings），
+ * /<org> 路由吃不到 → 本模块登记同译；SAML 促销条、邀请弹层、置顶编辑弹层与
+ * 讨论区空状态为全新键。
+ *
+ * 两条拆节点拼接：SAML 说明句「Authenticate members with」+链接「SAML single
+ * sign-on」；企业任务入口「Get started with tasks」+「that most successful
+ * organizations complete.」（aria-label 是 your 版整句，另一串键）。
+ */
+describe("组织主页的实机节点边界", () => {
+	const orgView = buildView(
+		"/Koishi-CE",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	it("translates the nav tabs, dialogs and flash texts", () => {
+		const NODES: readonly (readonly [string, string])[] = [
+			["Organization navigation", "组织导航"],
+			["Teams", "团队"],
+			["Insights", "洞察"],
+			["View as:", "查看方式："],
+			[
+				"You are viewing the README and pinned repositories as a public user.",
+				"你正在以公共用户身份查看 README 与置顶仓库。",
+			],
+			["Invite", "邀请"],
+			["Invite Member", "邀请成员"],
+			["Invite a billing manager", "邀请账单管理员"],
+			["Invite someone", "邀请他人"],
+			[
+				"Search by username, full name or email address",
+				"按用户名、全名或电子邮箱地址搜索",
+			],
+			[
+				"Try it in a 30-day trial of GitHub Enterprise.",
+				"在 GitHub Enterprise 30 天试用版中体验。",
+			],
+			["Start free for 30 days", "免费试用 30 天"],
+			["Dismiss", "关闭"],
+			["dismiss this message", "关闭此消息"],
+			["Retry.", "重试。"],
+			["Something went wrong.", "出了点问题。"],
+			["Customize pins", "自定义置顶"],
+			["Edit pinned repositories", "编辑置顶仓库"],
+			["Save pins", "保存置顶"],
+			["Drag to reorder", "拖动以排序"],
+			[
+				"Edit this organization's profile readme file",
+				"编辑此组织的个人资料 README 文件",
+			],
+			["Change your organization’s avatar", "更改组织头像"],
+			["Turn on discussions", "开启讨论区"],
+			[
+				"Set up discussions to engage with your community!",
+				"设置讨论区，与你的社区互动！",
+			],
+			["Manage", "管理"],
+			["items", "项"],
+		];
+		for (const [node, expected] of NODES) {
+			expect(
+				translateText(node, orgView),
+				`未命中：${JSON.stringify(node)}`,
+			).toBe(expected);
+		}
+	});
+
+	it("assembles the two split sentences node by node", () => {
+		// SAML 说明句与任务入口说明句都是「碎片 + 链接/尾句」的两节点形态
+		expect(
+			translateText("Authenticate members with", orgView),
+		).toBe("对成员进行身份验证：");
+		expect(
+			translateText("SAML single sign-on", orgView),
+		).toBe("SAML 单点登录");
+		expect(
+			translateText(
+				"Authenticate your members with SAML single sign-on",
+				orgView,
+			),
+		).toBe("使用 SAML 单点登录对成员进行身份验证");
+		expect(
+			translateText("Get started with tasks", orgView),
+		).toBe("上手这些任务");
+		expect(
+			translateText(
+				"that most successful organizations complete.",
+				orgView,
+			),
+		).toBe("，最成功的组织都会完成。");
+	});
+
+	it("translates the dynamic pinned-handle and follow labels through rules", () => {
+		// 上下移按钮 aria-label 带仓库名；关注按钮 title/aria-label 带组织名
+		expect(translateText("Move koishi up", orgView)).toBe(
+			"上移 koishi",
+		);
+		expect(
+			translateText("Move services down", orgView),
+		).toBe("下移 services");
+		expect(translateText("Follow Koishi-CE", orgView)).toBe(
+			"关注 Koishi-CE",
+		);
+		expect(
+			translateText("Unfollow Koishi-CE", orgView),
+		).toBe("取消关注 Koishi-CE");
+	});
+
+	it("keeps user content and brand names in english", () => {
+		// 仓库名 / topic 标签 / 语言 / 许可证 / 邮箱是用户内容或专名；
+		// 「Type」同形异义（页头读「键入」、正文读「类型」）维持不收录的既有决策
+		for (const raw of [
+			"Koishi-CE",
+			"koishi",
+			"TypeScript",
+			"MIT",
+			"Koishi-CE@pm.me",
+			"Type",
+		]) {
+			expect(
+				translateText(raw, orgView),
+				`不应被翻译：${raw}`,
+			).toBeNull();
+		}
+	});
+
+	it("has japanese templates for the new fragments", () => {
+		const japanese = buildView(
+			"/Koishi-CE",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("Invite Member", japanese)).toBe(
+			"メンバーを招待",
+		);
+		expect(
+			translateText("Authenticate members with", japanese),
+		).toBe("メンバーの認証方法：");
+		expect(translateText("Move koishi up", japanese)).toBe(
+			"koishi を上へ移動",
+		);
+		expect(
+			translateText("Follow Koishi-CE", japanese),
+		).toBe("Koishi-CE をフォロー");
+	});
+});

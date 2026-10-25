@@ -1533,6 +1533,19 @@
 		// + `GitHub 应用` + `，以便更精细地控制仓库并获得` + `更强的安全性` + `.`
 		"Some settings on this page can't be changed because of a": "此页面上的某些设置无法更改，因为存在",
 		"policy. We recommend using": "策略。我们建议改用",
-		"Alert dismissals require submitting a request to organization owners or security managers.": "忽略警报需要向组织所有者或安全管理员提交请求。"
+		"Alert dismissals require submitting a request to organization owners or security managers.": "忽略警报需要向组织所有者或安全管理员提交请求。",
+		// —— Code Quality 开通确认对话框（/settings/code-quality）——
+		// Enable Code Quality / Learn more about Code Quality 与 pages/security 的同名键
+		// 同译（路由互斥故两处都登记）
+		"Enable Code Quality": "启用代码质量",
+		"Enabling Code Quality in this repository will incur additional costs based on:": "在此仓库中启用代码质量将产生额外费用，费用取决于：",
+		// 计费表三行（* 随原文保留；$10 定价行走 repo-settings/code-quality-price 规则）
+		"Licenses and usage": "许可与用量",
+		"AI credits usage*": "AI 点数用量*",
+		"Action minutes consumed*": "消耗的 Actions 分钟数*",
+		"Based on usage": "视用量而定",
+		// 脚注句前段（尾带空格，链接 Learn more… 是独立节点）
+		"*Code Quality scans your pull requests and default branch, using a mix of deterministic and AI scans.": "*代码质量将结合确定性扫描与 AI 扫描，扫描你的拉取请求与默认分支。",
+		"Learn more about our billing model": "了解我们的计费模式"
 	}
 }

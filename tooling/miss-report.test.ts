@@ -171,7 +171,9 @@ describe("classify", () => {
 		const rows = classify(
 			[
 				item({
-					text: "Enable Code Quality",
+					// 组织页独有的介绍句（2026-10-25 换样例：原用的 `Enable Code Quality`
+					// 已在 pages/repo-settings 登记，分类从 knownElsewhere 变成 fixed）
+					text: "Find and fix code quality issues like code coverage, maintainability risks, reliability problems, and more. Get quality insights directly in your development workflow with Copilot-powered autofix.",
 					path: CODE_QUALITY,
 				}),
 			],
@@ -438,7 +440,9 @@ describe("formatReport", () => {
 				item({ text: "Totally new label", count: 3 }),
 				item({ text: "Another new label", count: 1 }),
 				item({
-					text: "Enable Code Quality",
+					// 2026-10-25 换样例：`Enable Code Quality` 已在 pages/repo-settings 登记，
+					// 不再是路由互斥形态；改用组织页独有的介绍句
+					text: "Find and fix code quality issues like code coverage, maintainability risks, reliability problems, and more. Get quality insights directly in your development workflow with Copilot-powered autofix.",
 					path: CODE_QUALITY,
 				}),
 			],

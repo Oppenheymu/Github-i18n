@@ -528,6 +528,8 @@
 		"repo-settings/dependabot-rules-enabled-count": "$<count> 件のルールが有効",
 		"repo-settings/languages-selected-count": "$<total> 言語のうち $<count> 言語を選択済み",
 		"repo-settings/dependent-repositories-count": "$<registry> · $<count> 個の依存リポジトリ",
+		// Code Quality 有効化ダイアログの価格行
+		"repo-settings/code-quality-price": "アクティブなコミッター 1 人あたり月額 $1",
 
 		// —— pages/org-settings（組織設定）——
 		"org-settings/page-title": "設定 · $<page> · $<org>",

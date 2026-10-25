@@ -182,11 +182,10 @@ describe("组织仓库的 Code quality 设置页", () => {
 	});
 
 	it("keeps the organization module's wording out of this page", () => {
-		// 组织级同页的按钮文案是大写 Q（`Enable Code Quality`），本模块只收了小写 q 那一条；
+		// 大写 Q 的 `Enable Code Quality` 在 2026-10-17 只属组织级按钮文案，本模块未收；
+		// 2026-10-25 实机确认仓库级的**开通确认对话框标题**也是它，现已在 repo-settings
+		// 登记（与 pages/security 同译），不再列为反例——正向断言见下方对话框用例。
 		// 组织页独有的介绍句也不该在仓库级路径上命中
-		expect(
-			translateText("Enable Code Quality", view),
-		).toBeNull();
 		expect(translateText("Enable code quality", view)).toBe(
 			"启用代码质量",
 		);
@@ -196,6 +195,53 @@ describe("组织仓库的 Code quality 设置页", () => {
 				view,
 			),
 		).toBeNull();
+	});
+
+	it("translates the billing confirmation dialog", () => {
+		// 2026-10-25 实机 HTML：Enable Code Quality 确认对话框（ConfirmationDialog）。
+		// 计费表行名的尾部星号随原文保留；定价行数字动态走规则
+		const NODES: readonly (readonly [string, string])[] = [
+			["Enable Code Quality", "启用代码质量"],
+			[
+				"Enabling Code Quality in this repository will incur additional costs based on:",
+				"在此仓库中启用代码质量将产生额外费用，费用取决于：",
+			],
+			["Licenses and usage", "许可与用量"],
+			["AI credits usage*", "AI 点数用量*"],
+			[
+				"Action minutes consumed*",
+				"消耗的 Actions 分钟数*",
+			],
+			["Based on usage", "视用量而定"],
+			[
+				"Learn more about our billing model",
+				"了解我们的计费模式",
+			],
+		];
+		for (const [node, expected] of NODES) {
+			expect(
+				translateText(node, view),
+				`节点 ${JSON.stringify(node)}`,
+			).toBe(expected);
+		}
+		expect(
+			translateText("$10 per active committer/month", view),
+		).toBe("每个活跃提交者每月 $10");
+		expect(
+			translateText("$25 per active committer/month", view),
+		).toBe("每个活跃提交者每月 $25");
+	});
+
+	it("reassembles the billing footnote around the docs link", () => {
+		// 脚注句被链接切成「前段（尾带空格）+ 链接」两节点
+		expect(
+			renderWithWhitespace([
+				"*Code Quality scans your pull requests and default branch, using a mix of deterministic and AI scans. ",
+				"Learn more about our billing model",
+			]),
+		).toBe(
+			"*代码质量将结合确定性扫描与 AI 扫描，扫描你的拉取请求与默认分支。 了解我们的计费模式",
+		);
 	});
 
 	it("keeps user content and identifiers in english", () => {

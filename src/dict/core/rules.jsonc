@@ -2397,6 +2397,12 @@
 				{
 					"id": "repo-settings/dependent-repositories-count",
 					"pattern": "^(?<registry>\\S+) [\\u00b7\\u2022] (?<count>[\\d,]+) dependent repositor(?:y|ies)$"
+				},
+				// Code Quality 开通对话框的定价行（「$10 per active committer/month」，
+				// 价格动态、捕获保留）
+				{
+					"id": "repo-settings/code-quality-price",
+					"pattern": "^(\\$\\d+) per active committer/month$"
 				}
 			]
 		},

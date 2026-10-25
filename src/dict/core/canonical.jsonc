@@ -3992,7 +3992,19 @@
 				"policy. We recommend using",
 				// Advanced Security 页在组织仓库上被政策锁住的开关说明（`ControlGroup-item-description`），
 				// 与上面的 `Actors must submit requests to dismiss an alert.` 是两种不同措辞
-				"Alert dismissals require submitting a request to organization owners or security managers."
+				"Alert dismissals require submitting a request to organization owners or security managers.",
+				// —— Code Quality 开通确认对话框（/settings/code-quality；2026-10-25 实机采集）——
+				// Enable Code Quality / Learn more about Code Quality 与 pages/security 的
+				// 同名键同译（安全中心的空状态也用它们），路由互斥故两处都登记；
+				// 脚注句被链接切成前后两节点（尾带空格），价格行走 repo-settings/code-quality-price 规则
+				"Enable Code Quality",
+				"Enabling Code Quality in this repository will incur additional costs based on:",
+				"Licenses and usage",
+				"AI credits usage*",
+				"Action minutes consumed*",
+				"Based on usage",
+				"*Code Quality scans your pull requests and default branch, using a mix of deterministic and AI scans.",
+				"Learn more about our billing model"
 			]
 		},
 		{

@@ -1537,6 +1537,20 @@
 		// + `GitHub アプリ` + `。リポジトリをより細かく制御し、` + `より強力なセキュリティ` + `.`
 		"Some settings on this page can't be changed because of a": "このページの一部の設定は、",
 		"policy. We recommend using": "ポリシーが原因で変更できません。次を使用することをおすすめします：",
-		"Alert dismissals require submitting a request to organization owners or security managers.": "アラートを閉じるには、組織のオーナーまたはセキュリティマネージャーにリクエストを送信する必要があります。"
+		"Alert dismissals require submitting a request to organization owners or security managers.": "アラートを閉じるには、組織のオーナーまたはセキュリティマネージャーにリクエストを送信する必要があります。",
+		// —— Code Quality 有効化確認ダイアログ（/settings/code-quality）——
+		// Enable Code Quality / Learn more about Code Quality は pages/security の同名キーと
+		// 同一訳（ルートが排他的なため両方に登録）
+		"Enable Code Quality": "コード品質を有効にする",
+		"Enabling Code Quality in this repository will incur additional costs based on:": "このリポジトリでコード品質を有効にすると、以下に基づいて追加料金が発生します：",
+		// 課金テーブルの 3 行（* は原文どおり保持。$10 の価格行は
+		// repo-settings/code-quality-price ルールで処理）
+		"Licenses and usage": "ライセンスと使用量",
+		"AI credits usage*": "AI クレジットの使用量*",
+		"Action minutes consumed*": "消費された Actions の分数*",
+		"Based on usage": "使用量に応じて",
+		// 脚注文の前段（末尾に空白あり。リンク Learn more… は独立ノード）
+		"*Code Quality scans your pull requests and default branch, using a mix of deterministic and AI scans.": "*コード品質は、決定論的スキャンと AI スキャンを組み合わせて、プルリクエストとデフォルトブランチをスキャンします。",
+		"Learn more about our billing model": "課金モデルについて詳しく見る"
 	}
 }

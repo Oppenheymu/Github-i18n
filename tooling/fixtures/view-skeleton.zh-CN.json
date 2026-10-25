@@ -8848,6 +8848,7 @@
 				"security/count-triage",
 				"security/count-draft",
 				"security/count-published",
+				"security/count-open",
 				"security/count-closed",
 				"security/filter-advisories",
 				"security/found-out-of",

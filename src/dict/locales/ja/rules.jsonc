@@ -725,6 +725,7 @@
 		"security/count-triage": "$1 件のトリアージ",
 		"security/count-draft": "$1 件の下書き",
 		"security/count-published": "$1 件の公開済み",
+		"security/count-open": "$1 件のオープン",
 		"security/count-closed": "$1 件のクローズ済み",
 		"security/filter-advisories": "アドバイザリをフィルター：$1",
 		"security/found-out-of": "$2 件中 $1 件見つかりました",

@@ -3508,6 +3508,10 @@
 					"pattern": "^([\\d,]+) Published$"
 				},
 				{
+					"id": "security/count-open",
+					"pattern": "^([\\d,]+) Open$"
+				},
+				{
 					"id": "security/count-closed",
 					"pattern": "^([\\d,]+) Closed$"
 				},

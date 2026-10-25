@@ -174,6 +174,8 @@ describe("安全中心的路由与静态词条", () => {
 		expect(translateText("0 Closed", view)).toBe(
 			"0 个已关闭",
 		);
+		// 告警列表头部的状态计数
+		expect(translateText("0 Open", view)).toBe("0 个打开");
 		// 各子页的浏览器标签页标题（仓库名捕获保留）
 		expect(
 			translateText("Overview · Koishi-CE/koishi", view),

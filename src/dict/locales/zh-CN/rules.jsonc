@@ -722,6 +722,7 @@
 		"security/count-triage": "$1 个待处理",
 		"security/count-draft": "$1 个草稿",
 		"security/count-published": "$1 个已发布",
+		"security/count-open": "$1 个打开",
 		"security/count-closed": "$1 个已关闭",
 		"security/filter-advisories": "筛选安全公告：$1",
 		"security/found-out-of": "在 $2 项中找到 $1 项",

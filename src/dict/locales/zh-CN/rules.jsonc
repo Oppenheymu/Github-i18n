@@ -561,7 +561,6 @@
 		"actions/download-artifact": "下载 $1（在新标签页中打开）",
 		"actions/delete-named": "删除 $1",
 		"actions/triggered-via": "通过 $1 触发",
-		"actions/checks-ok": "$1 / $2 项检查通过",
 		// 注解区的条目计数(单数 notice / 复数 notices)
 		"actions/notice-count": "$1 条注记",
 		"agents/sessions-count": "$1 个会话",
@@ -708,10 +707,25 @@
 		"profile/short-date-oct": "10 月 $1 日",
 		"profile/short-date-nov": "11 月 $1 日",
 		"profile/short-date-dec": "12 月 $1 日",
-		// queue/checks-ok 与 actions/checks-ok 同 pattern：queue 页路由吃不到 actions 组的规则
 		"queue/queued-count": "$1 个排队中",
-		"queue/checks-ok": "$1 / $2 项检查通过",
 		"queue/page-title": "合并队列 · $1",
+
+		// —— pages/security（仓库安全中心）——
+		"security/page-title-overview": "概览 · $1",
+		"security/page-title-advisories": "安全公告 · $1",
+		"security/page-title-code-scanning": "代码扫描告警 · $1",
+		"security/page-title-dependabot": "Dependabot 告警 · $1",
+		"security/page-title-secret-scanning": "密钥扫描 · $1",
+		"security/page-title-policy": "安全策略 · $1",
+		"security/page-title-malware": "恶意软件告警 · $1",
+		"security/page-title-quality": "代码质量 · 标准发现 · $1",
+		"security/count-triage": "$1 个待处理",
+		"security/count-draft": "$1 个草稿",
+		"security/count-published": "$1 个已发布",
+		"security/count-closed": "$1 个已关闭",
+		"security/filter-advisories": "筛选安全公告：$1",
+		"security/found-out-of": "在 $2 项中找到 $1 项",
+		"security/more-options": "更多 $1 选项",
 		"repo/commits-count": "$1 次提交",
 		"repo/reactions-count": "$1 次回应",
 		"repo/people-reacted": "$1 人已回应",
@@ -784,6 +798,8 @@
 		"global/unfollow-owner": "取消关注 $1",
 		// 仓库头 star 按钮的 title(人数动态,含你在内)
 		"global/starred-by-people": "仓库已获得 $1 人星标，其中包括你",
+		// 检查徽标的 aria-label（2026-10-25 自 actions 组迁入：徽标在多页与 Actions 同构）
+		"global/checks-ok": "$1 / $2 项检查通过",
 		"global/short-date-jan": "$2 年 1 月 $1 日",
 		"global/short-date-feb": "$2 年 2 月 $1 日",
 		"global/short-date-mar": "$2 年 3 月 $1 日",

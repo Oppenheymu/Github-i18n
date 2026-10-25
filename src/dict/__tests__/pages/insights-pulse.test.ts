@@ -333,9 +333,8 @@ describe("洞察页里「日志有、词典不该收」的节点", () => {
 			"Commits, series 1 of 2. Bar series with 8 bars. Y axis, Contributions. X axis, Time.",
 			"Oct 12, 2026, 19:33 GMT+8",
 			"Week of 23 Aug, 2026",
-			"7 / 7 checks OK",
-			// 「Repository starred by …」自 2026-10-25 起由 global/starred-by-people
-			// 规则翻译（见 global.test.ts），不再列为「不该收」的反例
+			// 「7 / 7 checks OK」原走 actions 模块规则，2026-10-25 起由 global/checks-ok
+			// 翻译（见 global.test.ts），不再列为「不该收」的反例
 		]) {
 			expect(translateText(node, view), node).toBeNull();
 		}

@@ -502,10 +502,9 @@ describe("组织仓库的 Actions 机密与变量页多出的只读区块", () =
 			"Dependabot",
 			"OIDC",
 			// 动态值：相对时间的 title 形态（relative-time 自渲染）；
-			// 「7 / 7 checks OK」走 actions 模块的规则，本页路由吃不到所以保持英文；
-			// 「Repository starred by …」自 2026-10-25 起由 global 规则翻译（见 global.test.ts）
+			// 「7 / 7 checks OK」原走 actions 模块规则（本页路由吃不到），2026-10-25 起由
+			// global/checks-ok 翻译（见 global.test.ts），不再是本页反例
 			"Oct 6, 2026, 20:39 GMT+8",
-			"7 / 7 checks OK",
 			// 逐条动作的 tooltip 里嵌着机密名，整句键等于把用户内容抄进词典
 			"Copy value of APP_CLIENT_ID",
 			"Delete APP_PRIVATE_KEY",

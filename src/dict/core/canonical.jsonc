@@ -7434,6 +7434,107 @@
 			]
 		},
 		{
+			"name": "pages/security",
+			"keys": [
+				// —— 左侧导航（所有子页共用）——
+				// Dependabot / CodeQL 是产品名裸词不收；语言名（TypeScript / Vue / SCSS…）
+				// 与文件路径（.github/SECURITY.md）是用户内容不收
+				"Advisories",
+				"Code scanning",
+				"Code quality",
+				"Malware",
+				"Secret scanning",
+				"Vulnerabilities",
+				// 侧栏分组标题
+				"Findings",
+				"Reporting",
+				// 与 pages/actions 的同名键同译（agents 页签）
+				"Agents",
+				// 仓库切换器溢出分组的 sr-only 尾巴；与 pages/profile、pages/queue 同译。
+				// 小写泛化词，仅限页面级收录防撞文件名 / 仓库名
+				"items",
+				// —— 安全概览与质量页的 Code Quality 空状态 ——
+				"Checking code scanning status...",
+				"Code Quality is not enabled for this repository",
+				"Enable Code Quality",
+				"Enable Code Quality to start identifying and fixing code quality issues in your repository.",
+				"Learn more about Code Quality",
+				// —— 安全公告页 ——
+				"Security Advisories",
+				"New draft security advisory",
+				"Privately discuss, fix, and publish information about security vulnerabilities in your repository's code.",
+				"Sort advisories",
+				"There aren't any published security advisories",
+				"Edit this file",
+				// —— 告警列表（代码扫描 / Dependabot / 恶意软件 / 密钥扫描共用）——
+				"Loading tools",
+				"Tools",
+				"Tool",
+				"All alerts are resolved.",
+				"Dismiss alerts",
+				// 严重性档位（insights 已有 Critical 严重 / High 高危，本模块补齐其余档位）
+				"Error",
+				"Warning",
+				"Note",
+				"Medium",
+				"Low",
+				"Other",
+				"Most important",
+				"Filter alerts",
+				"Filter by language",
+				"Filter by rule",
+				"Filter by severity",
+				"Filter by tool",
+				"Keep up the good work!",
+				// 排序菜单（与 pages/issues、pages/search 同译）
+				"Newest",
+				"Oldest",
+				"Least recently updated",
+				"Rule",
+				"Severity",
+				// 多选后的 sr-only 状态词（小写泛化词，仅本模块生效）
+				"selected",
+				"Clear filter",
+				"Dependabot alerts",
+				"Malware alerts",
+				"Dependency files checked",
+				"Filter alerts by state",
+				"Filter and sort alerts",
+				"No open alerts",
+				// ProTip 说明句碎片：链接（scope:development / resolution:auto-dismissed）与
+				// 句号是独立节点，前者是查询语法不收、后者纯符号不收
+				"Find alerts on your dev dependencies using",
+				"See auto-dismissed alerts with",
+				"Search or filter alerts",
+				"Suggestions",
+				// 与 pages/notifications 等的同名键同译
+				"ProTip!",
+				"The libraries and queries that power CodeQL are open-source.",
+				"You can configure CodeQL to run with additional queries.",
+				"There are no open Dependabot alerts for this repository.",
+				"There are no open Malware alerts for this repository.",
+				// —— 密钥扫描（secret-scanning 与 policy 页共用）——
+				"No secrets found.",
+				"Secret scanning alerts",
+				"Validity",
+				"Secret type",
+				"Provider",
+				"Select all alerts",
+				"Select provider option",
+				"Select secret type option",
+				"Select sort option",
+				"Select validity option",
+				"Search or filter",
+				"Your repository doesn't have any unresolved secrets.",
+				"Active",
+				"Unknown",
+				"Custom Patterns",
+				"Service Providers",
+				"Filter provider",
+				"Filter secret type"
+			]
+		},
+		{
 			"name": "pages/repo",
 			"keys": [
 				"Code",

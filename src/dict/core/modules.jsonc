@@ -201,6 +201,13 @@
 			"name": "pages/queue",
 			"route": "^/[^/]+/[^/]+/queue"
 		},
+		// 仓库安全中心：/owner/repo/security 及其全部子路径（advisories / code-scanning /
+		// dependabot / malware / policy / quality / secret-scanning）。左侧导航与各子页的
+		// 告警列表共用一套词条，单列模块；路由比 pages/repo 的兜底更具体，必须排在它之前。
+		{
+			"name": "pages/security",
+			"route": "^/[^/]+/[^/]+/security"
+		},
 		// 仓库页：/owner/repo 及其任意子路径。保留顶层路径必须排除——`^/[^/]+/[^/]+` 会命中
 		// /settings/profile、/settings/appearance 等**用户账号设置页**，把仓库专属词条
 		// （Code / Clone / Blame / Raw / Release…）注入进去。实测口径：本模块共 86 条词条，

@@ -2802,11 +2802,6 @@
 					"id": "actions/triggered-via",
 					"pattern": "^Triggered via (.+)$"
 				},
-				// 检查状态图标的 aria-label：两端数字都动态
-				{
-					"id": "actions/checks-ok",
-					"pattern": "^([\\d,]+) / ([\\d,]+) checks OK$"
-				},
 				// 注解区的条目计数（Annotations 标题旁，「1 notice」单数、「N notices」复数）
 				{
 					"id": "actions/notice-count",
@@ -3455,16 +3450,81 @@
 					"id": "queue/queued-count",
 					"pattern": "^([\\d,]+) Queued$"
 				},
-				// 检查状态图标的 aria-label：与 actions/checks-ok 同 pattern（跨模块重复合法），
-				// queue 页路由吃不到 actions 组的规则，只能在本模块重写一条
-				{
-					"id": "queue/checks-ok",
-					"pattern": "^([\\d,]+) / ([\\d,]+) checks OK$"
-				},
 				// 浏览器标签页标题（「Merge queue · Koishi-CE/koishi」），仓库名为用户内容捕获保留
 				{
 					"id": "queue/page-title",
 					"pattern": "^Merge queue · (.+)$"
+				}
+			]
+		},
+		{
+			"name": "pages/security",
+			"rules": [
+				// 安全中心各子页的浏览器标签页标题（「<页名> · <owner/repo>」），仓库名为
+				// 用户内容捕获保留；页名逐条登记不合并，避免「X · Y」形态的泛化误伤
+				{
+					"id": "security/page-title-overview",
+					"pattern": "^Overview · (.+)$"
+				},
+				{
+					"id": "security/page-title-advisories",
+					"pattern": "^Security Advisories · (.+)$"
+				},
+				{
+					"id": "security/page-title-code-scanning",
+					"pattern": "^Code scanning alerts · (.+)$"
+				},
+				{
+					"id": "security/page-title-dependabot",
+					"pattern": "^Dependabot alerts · (.+)$"
+				},
+				{
+					"id": "security/page-title-secret-scanning",
+					"pattern": "^Secret scanning · (.+)$"
+				},
+				{
+					"id": "security/page-title-policy",
+					"pattern": "^Security Policy · (.+)$"
+				},
+				{
+					"id": "security/page-title-malware",
+					"pattern": "^Malware alerts · (.+)$"
+				},
+				{
+					"id": "security/page-title-quality",
+					"pattern": "^Code quality · Standard findings · (.+)$"
+				},
+				// 公告列表的 SegmentedControl 计数 tab（「0 Triage」「0 Draft」…）
+				{
+					"id": "security/count-triage",
+					"pattern": "^([\\d,]+) Triage$"
+				},
+				{
+					"id": "security/count-draft",
+					"pattern": "^([\\d,]+) Draft$"
+				},
+				{
+					"id": "security/count-published",
+					"pattern": "^([\\d,]+) Published$"
+				},
+				{
+					"id": "security/count-closed",
+					"pattern": "^([\\d,]+) Closed$"
+				},
+				// 公告筛选框的 aria-label / placeholder（后半是查询串，捕获保留）
+				{
+					"id": "security/filter-advisories",
+					"pattern": "^Filter advisories: (.+)$"
+				},
+				// 提供商 / 密钥类型筛选弹窗的 sr-only 计数
+				{
+					"id": "security/found-out-of",
+					"pattern": "^Found ([\\d,]+) out of ([\\d,]+) items\\.$"
+				},
+				// 告警页头的「更多 X 选项」tooltip（Dependabot / Malware，专名捕获原样）
+				{
+					"id": "security/more-options",
+					"pattern": "^More (.+) options$"
 				}
 			]
 		},
@@ -3763,6 +3823,13 @@
 				{
 					"id": "global/starred-by-people",
 					"pattern": "^Repository starred by ([\\d,]+) people, including you$"
+				},
+				// 检查状态图标的 aria-label：两端数字都动态。检查徽标在 queue / security /
+				// keys 等页面与 Actions 运行页同构（此前挂 actions 组导致别的页面吃不到，
+				// 2026-10-25 迁入 global）
+				{
+					"id": "global/checks-ok",
+					"pattern": "^([\\d,]+) / ([\\d,]+) checks OK$"
 				},
 				// 全站专属规则：绝对日期、回应记录与零散计数（commonRules 兜底之外的补充）
 				// 绝对日期（月份缩写）：Sep 25, 2026 → 2026 年 9 月 25 日

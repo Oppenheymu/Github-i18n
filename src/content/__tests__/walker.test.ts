@@ -418,7 +418,7 @@ describe("translateTree 的同值写入守卫", () => {
 
 	it("applies rules to attribute values too", () => {
 		// aria-label 带动态值的文案只能靠规则搬运（实机案例：「5 / 6 checks OK」走
-		// actions/checks-ok、artifact 下载链接走 actions/download-artifact，均为
+		// global/checks-ok、artifact 下载链接走 actions/download-artifact，均为
 		// aria-label）。2026-10-25 维护者的 popup 导出实锤：属性此前只查静态表，
 		// 已有的这两条规则在属性路径上永远不生效——applyAttrs 改走完整 translateText。
 		const ruleView: DictView = {

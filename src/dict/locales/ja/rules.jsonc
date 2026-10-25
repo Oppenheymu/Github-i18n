@@ -564,7 +564,6 @@
 		"actions/download-artifact": "$1 をダウンロード（新しいタブで開きます）",
 		"actions/delete-named": "$1 を削除",
 		"actions/triggered-via": "$1 でトリガーされました",
-		"actions/checks-ok": "$1 / $2 件のチェックが成功",
 		// 注釈エリアの項目数(単数 notice / 複数 notices)
 		"actions/notice-count": "$1 件の注記",
 
@@ -711,12 +710,25 @@
 		"profile/short-date-nov": "11月$1日",
 		"profile/short-date-dec": "12月$1日",
 
-		// —— pages/queue（マージキュー）——
-		// queue/checks-ok は actions/checks-ok と同 pattern：queue ページのルートでは
-		// actions グループのルールに届かない
 		"queue/queued-count": "$1 件がキュー待ち",
-		"queue/checks-ok": "$1 / $2 件のチェックが成功",
 		"queue/page-title": "マージキュー · $1",
+
+		// —— pages/security（リポジトリのセキュリティセンター）——
+		"security/page-title-overview": "概要 · $1",
+		"security/page-title-advisories": "セキュリティアドバイザリ · $1",
+		"security/page-title-code-scanning": "コードスキャンアラート · $1",
+		"security/page-title-dependabot": "Dependabot アラート · $1",
+		"security/page-title-secret-scanning": "シークレットスキャン · $1",
+		"security/page-title-policy": "セキュリティポリシー · $1",
+		"security/page-title-malware": "マルウェアアラート · $1",
+		"security/page-title-quality": "コード品質 · 標準検出 · $1",
+		"security/count-triage": "$1 件のトリアージ",
+		"security/count-draft": "$1 件の下書き",
+		"security/count-published": "$1 件の公開済み",
+		"security/count-closed": "$1 件のクローズ済み",
+		"security/filter-advisories": "アドバイザリをフィルター：$1",
+		"security/found-out-of": "$2 件中 $1 件見つかりました",
+		"security/more-options": "その他の $1 オプション",
 
 		// —— pages/repo（リポジトリ）——
 		"repo/commits-count": "$1 件のコミット",
@@ -790,6 +802,9 @@
 		"global/unfollow-owner": "$1 のフォローを解除",
 		// リポジトリヘッダー star ボタンの title(人数が動的、自分を含む)
 		"global/starred-by-people": "リポジトリはあなたを含む $1 人にスターされました",
+		// チェックバッジの aria-label（2026-10-25 に actions グループから移動：バッジは
+		// Actions 以外の複数ページでも同型）
+		"global/checks-ok": "$1 / $2 件のチェックが成功",
 		"global/short-date-jan": "$2年1月$1日",
 		"global/short-date-feb": "$2年2月$1日",
 		"global/short-date-mar": "$2年3月$1日",

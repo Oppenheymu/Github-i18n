@@ -1,0 +1,105 @@
+// リポジトリのセキュリティセンターモジュール：/owner/repo/security とそのサブパス
+// （advisories / code-scanning / dependabot / malware / policy / quality / secret-scanning）
+// 日本語 · モジュール pages/security（ルートは core/modules.jsonc、キーの分割コメントは
+// core/canonical.jsonc を参照）
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		// —— 左側ナビ（全サブページ共通）；Dependabot / CodeQL と言語名は翻訳しない ——
+		"Advisories": "アドバイザリ",
+		"Code scanning": "コードスキャン",
+		"Code quality": "コード品質",
+		"Malware": "マルウェア",
+		"Secret scanning": "シークレットスキャン",
+		"Vulnerabilities": "脆弱性",
+		"Findings": "検出結果",
+		"Reporting": "レポート",
+		// pages/actions の同名キーと同一訳（agents タブ）
+		"Agents": "エージェント",
+		// リポジトリ切替メニューの sr-only 末尾；pages/profile、pages/queue と同一訳
+		"items": "件",
+		// —— セキュリティ概要・品質ページの Code Quality 空状態 ——
+		"Checking code scanning status...": "コードスキャンの状態を確認しています…",
+		"Code Quality is not enabled for this repository": "このリポジトリではコード品質が有効になっていません",
+		"Enable Code Quality": "コード品質を有効にする",
+		"Enable Code Quality to start identifying and fixing code quality issues in your repository.": "コード品質を有効にして、リポジトリ内のコード品質の問題の特定と修正を始めましょう。",
+		"Learn more about Code Quality": "コード品質について詳しく見る",
+		// —— セキュリティアドバイザリページ ——
+		"Security Advisories": "セキュリティアドバイザリ",
+		"New draft security advisory": "新しいセキュリティアドバイザリの下書き",
+		"Privately discuss, fix, and publish information about security vulnerabilities in your repository's code.": "リポジトリのコードにおけるセキュリティ脆弱性の情報を、非公開で議論・修正・公開します。",
+		"Sort advisories": "アドバイザリを並べ替え",
+		"There aren't any published security advisories": "公開済みのセキュリティアドバイザリはありません",
+		"Edit this file": "このファイルを編集",
+		// —— アラート一覧（コードスキャン / Dependabot / マルウェア / シークレットスキャン共通）——
+		"Loading tools": "ツールを読み込み中",
+		"Tools": "ツール",
+		"Tool": "ツール",
+		"All alerts are resolved.": "すべてのアラートは解決済みです。",
+		// dismiss はアラート処置の慣例に従い「無視」と訳す
+		"Dismiss alerts": "アラートを無視",
+		// 重要度の選択肢：insights の Critical 重大 / High 高 体系に合わせて残りを補完
+		"Error": "エラー",
+		"Warning": "警告",
+		"Note": "注意",
+		"Medium": "中",
+		"Low": "低",
+		"Other": "その他",
+		"Most important": "最重要",
+		"Filter alerts": "アラートをフィルター",
+		"Filter by language": "言語でフィルター",
+		"Filter by rule": "ルールでフィルター",
+		"Filter by severity": "重要度でフィルター",
+		"Filter by tool": "ツールでフィルター",
+		"Keep up the good work!": "この調子で続けましょう！",
+		// 並べ替えメニュー：pages/issues、pages/search と同一訳
+		"Newest": "新しい順",
+		"Oldest": "古い順",
+		"Least recently updated": "更新が古い順",
+		"Rule": "ルール",
+		"Severity": "重要度",
+		// 複数選択後の sr-only 状態語（小文字の汎用語につき本モジュールでのみ有効）
+		"selected": "選択済み",
+		"Clear filter": "フィルターをクリア",
+		"Dependabot alerts": "Dependabot アラート",
+		"Malware alerts": "マルウェアアラート",
+		// ページ見出し。隣接する日付ノード（global の日付ルールで翻訳）が続く
+		"Dependency files checked": "依存関係ファイルを確認済み",
+		"Filter alerts by state": "状態でアラートをフィルター",
+		"Filter and sort alerts": "アラートをフィルターして並べ替え",
+		"No open alerts": "オープンなアラートはありません",
+		// ProTip 説明文の断片：リンク（scope:development / resolution:auto-dismissed）は
+		// クエリ構文につき未収録、句点は独立した記号ノードにつき未収録。
+		// 前段は結合語順に合わせて意訳
+		"Find alerts on your dev dependencies using": "開発依存関係のアラートを見つけるには",
+		"See auto-dismissed alerts with": "自動的に無視されたアラートを表示するには",
+		"Search or filter alerts": "アラートの検索またはフィルター",
+		"Suggestions": "提案",
+		// pages/notifications などの同名キーと同一訳
+		"ProTip!": "プロのヒント！",
+		"The libraries and queries that power CodeQL are open-source.": "CodeQL を支えるライブラリとクエリはオープンソースです。",
+		"You can configure CodeQL to run with additional queries.": "追加のクエリで CodeQL を実行するように設定できます。",
+		"There are no open Dependabot alerts for this repository.": "このリポジトリにオープンな Dependabot アラートはありません。",
+		"There are no open Malware alerts for this repository.": "このリポジトリにオープンなマルウェアアラートはありません。",
+		// —— シークレットスキャン（secret-scanning と policy ページで共通）——
+		"No secrets found.": "シークレットが見つかりません。",
+		"Secret scanning alerts": "シークレットスキャンアラート",
+		"Validity": "有効性",
+		"Secret type": "シークレットの種類",
+		"Provider": "プロバイダー",
+		"Select all alerts": "すべてのアラートを選択",
+		"Select provider option": "プロバイダーのオプションを選択",
+		"Select secret type option": "シークレットの種類のオプションを選択",
+		"Select sort option": "並べ替えのオプションを選択",
+		"Select validity option": "有効性のオプションを選択",
+		"Search or filter": "検索またはフィルター",
+		"Your repository doesn't have any unresolved secrets.": "このリポジトリに未解決のシークレットはありません。",
+		// シークレット有効性の選択肢：Active=検証して有効、Unknown=検証できない
+		"Active": "有効",
+		"Unknown": "不明",
+		"Custom Patterns": "カスタムパターン",
+		"Service Providers": "サービスプロバイダー",
+		"Filter provider": "プロバイダーをフィルター",
+		"Filter secret type": "シークレットの種類をフィルター"
+	}
+}

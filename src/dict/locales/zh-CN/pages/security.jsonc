@@ -1,0 +1,103 @@
+// 仓库安全中心模块：/owner/repo/security 及其子路径（advisories / code-scanning /
+// dependabot / malware / policy / quality / secret-scanning）
+// 简体中文 · 模块 pages/security（路由见 core/modules.jsonc，键的分组注释见 core/canonical.jsonc）
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		// —— 左侧导航（所有子页共用）；Dependabot / CodeQL 与语言名不翻 ——
+		"Advisories": "安全公告",
+		"Code scanning": "代码扫描",
+		"Code quality": "代码质量",
+		"Malware": "恶意软件",
+		"Secret scanning": "密钥扫描",
+		"Vulnerabilities": "漏洞",
+		"Findings": "发现",
+		"Reporting": "报告",
+		// 与 pages/actions 的同名键同译（agents 页签）
+		"Agents": "代理",
+		// 仓库切换器溢出分组的 sr-only 尾巴；与 pages/profile、pages/queue 同译
+		"items": "项",
+		// —— 安全概览与质量页的 Code Quality 空状态 ——
+		"Checking code scanning status...": "正在检查代码扫描状态…",
+		"Code Quality is not enabled for this repository": "此仓库未启用代码质量",
+		"Enable Code Quality": "启用代码质量",
+		"Enable Code Quality to start identifying and fixing code quality issues in your repository.": "启用代码质量，开始识别并修复仓库中的代码质量问题。",
+		"Learn more about Code Quality": "了解有关代码质量的更多信息",
+		// —— 安全公告页 ——
+		"Security Advisories": "安全公告",
+		"New draft security advisory": "新建安全公告草稿",
+		"Privately discuss, fix, and publish information about security vulnerabilities in your repository's code.": "在私密环境中讨论、修复并发布仓库代码中的安全漏洞信息。",
+		"Sort advisories": "对安全公告排序",
+		"There aren't any published security advisories": "暂无已发布的安全公告",
+		"Edit this file": "编辑此文件",
+		// —— 告警列表（代码扫描 / Dependabot / 恶意软件 / 密钥扫描共用）——
+		"Loading tools": "正在加载工具",
+		"Tools": "工具",
+		"Tool": "工具",
+		"All alerts are resolved.": "所有告警均已解决。",
+		// dismiss 按告警处置惯例译「忽略」
+		"Dismiss alerts": "忽略告警",
+		// 严重性档位：沿用 insights 的 Critical 严重 / High 高危体系，本模块补齐其余
+		"Error": "错误",
+		"Warning": "警告",
+		"Note": "注意",
+		"Medium": "中危",
+		"Low": "低危",
+		"Other": "其他",
+		"Most important": "最重要的",
+		"Filter alerts": "筛选告警",
+		"Filter by language": "按语言筛选",
+		"Filter by rule": "按规则筛选",
+		"Filter by severity": "按严重性筛选",
+		"Filter by tool": "按工具筛选",
+		"Keep up the good work!": "继续保持！",
+		// 排序菜单：与 pages/issues、pages/search 同译
+		"Newest": "最新",
+		"Oldest": "最早",
+		"Least recently updated": "最早更新",
+		"Rule": "规则",
+		"Severity": "严重性",
+		// 多选后的 sr-only 状态词（小写泛化词，仅本模块生效）
+		"selected": "已选中",
+		"Clear filter": "清除筛选",
+		"Dependabot alerts": "Dependabot 告警",
+		"Malware alerts": "恶意软件告警",
+		// 页头标注，后跟相邻的日期节点（由 global 的日期规则翻译）
+		"Dependency files checked": "已检查依赖文件",
+		"Filter alerts by state": "按状态筛选告警",
+		"Filter and sort alerts": "筛选和排序告警",
+		"No open alerts": "无打开的告警",
+		// ProTip 说明句碎片：链接（scope:development / resolution:auto-dismissed）是查询语法
+		// 不收、句号是独立纯符号节点不收；前段按拼接语序意译
+		"Find alerts on your dev dependencies using": "查找开发依赖告警时可使用",
+		"See auto-dismissed alerts with": "查看已自动忽略的告警可使用",
+		"Search or filter alerts": "搜索或筛选告警",
+		"Suggestions": "建议",
+		// 与 pages/notifications 等的同名键同译
+		"ProTip!": "小贴士！",
+		"The libraries and queries that power CodeQL are open-source.": "为 CodeQL 提供支持的库与查询是开源的。",
+		"You can configure CodeQL to run with additional queries.": "你可以配置 CodeQL 使用更多查询来运行。",
+		"There are no open Dependabot alerts for this repository.": "此仓库没有打开的 Dependabot 告警。",
+		"There are no open Malware alerts for this repository.": "此仓库没有打开的恶意软件告警。",
+		// —— 密钥扫描（secret-scanning 与 policy 页共用）——
+		"No secrets found.": "未找到密钥。",
+		"Secret scanning alerts": "密钥扫描告警",
+		"Validity": "有效性",
+		"Secret type": "密钥类型",
+		"Provider": "提供商",
+		"Select all alerts": "全选告警",
+		"Select provider option": "选择提供商选项",
+		"Select secret type option": "选择密钥类型选项",
+		"Select sort option": "选择排序选项",
+		"Select validity option": "选择有效性选项",
+		"Search or filter": "搜索或筛选",
+		"Your repository doesn't have any unresolved secrets.": "此仓库没有任何未解决的密钥。",
+		// 密钥有效性档位：Active=可验证有效，Unknown=无法验证
+		"Active": "有效",
+		"Unknown": "未知",
+		"Custom Patterns": "自定义模式",
+		"Service Providers": "服务提供商",
+		"Filter provider": "筛选提供商",
+		"Filter secret type": "筛选密钥类型"
+	}
+}

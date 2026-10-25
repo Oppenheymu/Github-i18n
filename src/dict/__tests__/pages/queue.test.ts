@@ -6,8 +6,8 @@
 //
 // 模块是本次新建的：pages/repo 的兜底路由对三段路径同样命中，此前页面词条全靠
 // repo + global 裸奔；queue 专属词条单列 pages/queue（排在 repo 之前赢同键）。
-// checks OK 徽标的 aria-label 在本页路由吃不到 actions 组的规则，
-// 故 queue/checks-ok 重复同 pattern（跨模块重复合法）。
+// checks OK 徽标的 aria-label 由 global/checks-ok 翻译（2026-10-25 自 actions 组
+// 迁入 global，见 global.test.ts）。
 import { describe, expect, it } from "bun:test";
 import {
 	buildView,

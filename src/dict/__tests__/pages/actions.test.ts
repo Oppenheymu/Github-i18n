@@ -135,11 +135,15 @@ const USER_CONTENT: readonly string[] = [
 	"4.67 MB",
 ];
 
-/** 引擎语义的节点拼接：命中则保留首尾空白写回（见 walker.ts 的 applyTextNode） */
-function renderNodes(nodes: readonly string[]): string {
+/** 引擎语义的节点拼接：命中则保留首尾空白写回（见 walker.ts 的 applyTextNode）；
+ * 默认拼在运行详情页视图上，缓存页等别的 describe 传入自己的 view */
+function renderNodes(
+	nodes: readonly string[],
+	target: ReturnType<typeof buildView> = view,
+): string {
 	return nodes
 		.map((node) => {
-			const translated = translateText(node, view);
+			const translated = translateText(node, target);
 			if (translated === null) return node;
 			const lead = node.slice(
 				0,
@@ -496,6 +500,127 @@ describe("Actions 运行列表项 aria-label 的实机节点边界", () => {
 			),
 		).toBe(
 			"已成功完成：CodeQL 的第 76 次运行。Push on main",
+		);
+	});
+});
+
+// —— 缓存管理页（维护者 2026-10-30 实机 HTML，/Koishi-CE/koishi/actions/caches）——
+// 缓存卡片的日期行已从旧版整节点拆开：「Last used」span 与 <relative-time> 各自成节点，
+// 「<大小> cached」同理；relative-time 的相对时间由 global/*-ago 规则覆盖。
+describe("Actions 缓存管理页的实机节点边界", () => {
+	const cachesView = buildView(
+		"/Koishi-CE/koishi/actions/caches",
+		zh,
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	it("matches the caches route into pages/actions", () => {
+		expect(
+			matchModules(
+				"/Koishi-CE/koishi/actions/caches",
+				zh.modules,
+			)
+				.map((module) => module.name)
+				.indexOf("pages/actions"),
+		).toBeGreaterThanOrEqual(0);
+	});
+
+	it("translates the header, cards and sort menu", () => {
+		const NODES: readonly (readonly [string, string])[] = [
+			["Last used", "上次使用"],
+			[
+				"Showing caches from all workflows.",
+				"显示所有工作流的缓存。",
+			],
+			[
+				"Learn more about managing caches.",
+				"详细了解如何管理缓存。",
+			],
+			// 排序菜单：Newest / Oldest 互斥键沿用 issues 的「最新 / 最早」
+			["Newest", "最新"],
+			["Oldest", "最早"],
+			["Recently used", "最近使用"],
+			["Least recently used", "最早使用"],
+			["Largest size", "大小最大"],
+			["Smallest size", "大小最小"],
+		];
+		for (const [node, expected] of NODES) {
+			expect(
+				translateText(node, cachesView),
+				`未命中：${JSON.stringify(node)}`,
+			).toBe(expected);
+		}
+	});
+
+	it("rewrites the toolbar label, tooltip and cache size through the rules", () => {
+		// 自动刷新按钮的间隔值原样保留；裸「Auto-refresh」是静态键（下拉 aria）
+		expect(
+			translateText("Auto-refresh: 30s", cachesView),
+		).toBe("自动刷新：30s");
+		expect(
+			translateText("Auto-refresh: 5m", cachesView),
+		).toBe("自动刷新：5m");
+		expect(translateText("Auto-refresh", cachesView)).toBe(
+			"自动刷新",
+		);
+		// 运行行「…」按钮的 tooltip
+		expect(
+			translateText(
+				"More actions for workflow run 61",
+				cachesView,
+			),
+		).toBe("工作流运行 61 的更多操作");
+		// 缓存大小：数值与单位原样搬运
+		expect(translateText("63 MB cached", cachesView)).toBe(
+			"已缓存 63 MB",
+		);
+		expect(
+			translateText("1,234.5 KB cached", cachesView),
+		).toBe("已缓存 1,234.5 KB");
+	});
+
+	it("assembles the card date lines around the relative time", () => {
+		// relative-time 是独立元素自行渲染（「2 days ago」由 global/days-ago 命中）
+		expect(
+			renderNodes(["Last used ", "2 days ago"], cachesView),
+		).toBe("上次使用 2 天前");
+		expect(
+			renderNodes(
+				["63 MB cached ", "2 days ago"],
+				cachesView,
+			),
+		).toBe("已缓存 63 MB 2 天前");
+	});
+
+	it("keeps bare sizes and unanchored texts in english", () => {
+		// 规则要求「cached」后缀与 tooltip 整串：去掉上下文的碎片不命中
+		expect(translateText("63 MB", cachesView)).toBeNull();
+		expect(
+			translateText("More actions", cachesView),
+		).toBeNull();
+		expect(translateText("cached", cachesView)).toBeNull();
+	});
+
+	it("has japanese translations for the same nodes", () => {
+		const japanese = buildView(
+			"/Koishi-CE/koishi/actions/caches",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("Last used", japanese)).toBe(
+			"最終使用",
+		);
+		expect(translateText("Recently used", japanese)).toBe(
+			"最近使用された",
+		);
+		expect(translateText("Largest size", japanese)).toBe(
+			"サイズが大きい順",
+		);
+		expect(
+			translateText("Auto-refresh: 30s", japanese),
+		).toBe("自動更新：30s");
+		expect(translateText("63 MB cached", japanese)).toBe(
+			"63 MB をキャッシュ済み",
 		);
 	});
 });

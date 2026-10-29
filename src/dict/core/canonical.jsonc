@@ -6196,7 +6196,22 @@
 				"Workflow file for this run",
 				"Edit workflow file",
 				// 分页组件的 sr-only 碎片：上游把「更多」译了留下裸「items」
-				"items"
+				"items",
+				// —— 缓存管理页（/actions/caches，2026-10-30 维护者实机 HTML）——
+				// 缓存卡片的日期行已从旧版整节点拆开：「Last used」与 <relative-time>
+				// 各自成节点（相对时间由 global/*-ago 规则覆盖），「<大小> cached」同理
+				// （大小走 actions/cache-size 规则）；Newest / Oldest 与 issues 系模块
+				// 同键同译（排序菜单，actions 路由吃不到）。工具栏按钮与运行行 tooltip
+				// 带动态值，走本模块 3 条新规则（见 core/rules.jsonc），不在此登记。
+				"Last used",
+				"Showing caches from all workflows.",
+				"Learn more about managing caches.",
+				"Newest",
+				"Oldest",
+				"Recently used",
+				"Least recently used",
+				"Largest size",
+				"Smallest size"
 			]
 		},
 		{

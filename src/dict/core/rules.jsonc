@@ -2886,6 +2886,22 @@
 				{
 					"id": "actions/notice-count",
 					"pattern": "^([\\d,]+) notices?$"
+				},
+				// —— 缓存管理页（/actions/caches，2026-10-30 维护者实机 HTML）——
+				// 工具栏的自动刷新按钮 label 带当前间隔（30s / 1m / 5m），间隔值原样保留
+				{
+					"id": "actions/auto-refresh-interval",
+					"pattern": "^Auto-refresh: (\\d+)([smh])$"
+				},
+				// 运行行「…」按钮的 tooltip，run 序号动态
+				{
+					"id": "actions/more-actions-run",
+					"pattern": "^More actions for workflow run (\\d+)$"
+				},
+				// 缓存卡片的大小行：数值与单位（B / KB / MB / GB / TB）原样搬运
+				{
+					"id": "actions/cache-size",
+					"pattern": "^([\\d.,]+ [KMGTP]?B) cached$"
 				}
 			]
 		},

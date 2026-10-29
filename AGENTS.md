@@ -12,13 +12,15 @@
 
 1. **许可证纪律**：全仓 MIT（见 LICENSE 与 NOTICE）。**严禁引入任何 GPL / AGPL 系汉化项目的词典或代码**（包括但不限于 maboloshi/github-chinese）；词典 100% 原创，逐条手写。
 2. **词典归档纪律**：语言无关的数据只进 `src/dict/core/`，译文只进 `src/dict/locales/<语言 id>/`（id 见 `src/dict/locales.ts`，支持 zh-CN / ja）：
-  - `core/modules.jsonc`：模块名 + 路由，**顺序即优先级**（具体页在前，`global` 兜底必须最后且路由为 `^/`，门禁强制）；
-  - `core/canonical.jsonc`：**键的权威清单**（仅门禁使用、不进 content 包）。上游新增 / 改动文案，先在这里登记键；各语言词条的键与它不一致即报错；
-  - `core/aliases.jsonc`：只在「上游改了词、语义没变」时加一行「当前 DOM 文本 → 规范键」；**拆节点的改动不能靠别名**（整句译文无法复用），必须新增碎片词条；
-  - `core/rules.jsonc`：共享规则的 `id` 与 `pattern`，**顺序即语义**；规则 id 全局唯一，**同模块内 `pattern` 必须唯一**（同模块首条命中生效，重复的那条是永不生效的死规则；`May` 这类全称与缩写同形只留一条，跨模块重复合法），改名必须同步各语言模板；不得带 `flags` 字段（`g` / `y` 的 `lastIndex` 会跨节点累积导致漏翻）；
-  - `locales/<语言>/<模块>.jsonc` 只放键值对，`locales/<语言>/rules.jsonc` 只放「规则 id → 模板」；键必须是 canonical 里的英文原文精确串（不得含目标语言文字系统），值必须含该语言的文字系统（防替换循环），译文不得等于任何键；
-  - **稀疏覆盖是正常状态**：缺模块 / 缺键 / 缺规则模板 = 尚未翻译，引擎保留英文；新增语言要同时改 `src/dict/locales.ts`（元数据）与 `src/dict/registry.ts`（数据），覆盖率由 `check:dict` 报告；
-  - JSONC 里正则的反斜杠必须双写（`\d` 写作 `\\d`）；新增 / 改名模块要同步 `core/modules.jsonc` 与 `core/canonical.jsonc`（两者同名同序，门禁强制）。
+
+- `core/modules.jsonc`：模块名 + 路由，**顺序即优先级**（具体页在前，`global` 兜底必须最后且路由为 `^/`，门禁强制）；
+- `core/canonical.jsonc`：**键的权威清单**（仅门禁使用、不进 content 包）。上游新增 / 改动文案，先在这里登记键；各语言词条的键与它不一致即报错；
+- `core/aliases.jsonc`：只在「上游改了词、语义没变」时加一行「当前 DOM 文本 → 规范键」；**拆节点的改动不能靠别名**（整句译文无法复用），必须新增碎片词条；
+- `core/rules.jsonc`：共享规则的 `id` 与 `pattern`，**顺序即语义**；规则 id 全局唯一，**同模块内 `pattern` 必须唯一**（同模块首条命中生效，重复的那条是永不生效的死规则；`May` 这类全称与缩写同形只留一条，跨模块重复合法），改名必须同步各语言模板；不得带 `flags` 字段（`g` / `y` 的 `lastIndex` 会跨节点累积导致漏翻）；
+- `locales/<语言>/<模块>.jsonc` 只放键值对，`locales/<语言>/rules.jsonc` 只放「规则 id → 模板」；键必须是 canonical 里的英文原文精确串（不得含目标语言文字系统），值必须含该语言的文字系统（防替换循环），译文不得等于任何键；
+- **稀疏覆盖是正常状态**：缺模块 / 缺键 / 缺规则模板 = 尚未翻译，引擎保留英文；新增语言要同时改 `src/dict/locales.ts`（元数据）与 `src/dict/registry.ts`（数据），覆盖率由 `check:dict` 报告；
+- JSONC 里正则的反斜杠必须双写（`\d` 写作 `\\d`）；新增 / 改名模块要同步 `core/modules.jsonc` 与 `core/canonical.jsonc`（两者同名同序，门禁强制）。
+
 3. **词典键是「整节点精确匹配」语义**：收录可能与仓库名、文件名、用户名撞车的泛化短词（如 `docs` / `test` / `blog` 等小写词）前三思，优先收录多词无歧义短语；大小写必须与 GitHub 实际渲染一致。
 4. **manifest.json 手写在 `public/`**：构建时原样拷贝进 dist，不存在自动生成；改 `matches` / 权限 / 产物文件名时，同步 `tooling/checks/manifest.ts` 的断言。
 5. **content script 产物必须是经典脚本（IIFE）**：MV3 的 `content_scripts` 不支持 `type: "module"`，`tooling/pipeline/build.ts` 用 Bun.build `format: "iife"` 产出，勿改回 esm。
@@ -83,7 +85,6 @@ bun run pack                    # dist/ 打 zip（Chrome Web Store / Edge Add-on
 **署名纪律（硬性，只约束维护者的提交）**：作者为 Oppenheymu 的每次 `git commit`（含 AI 会话代为提交的），提交信息末尾必须带一行 `Co-authored-by: PaperKoi001 <337530007+PaperKoi001@users.noreply.github.com>`，与正文之间空一行——PaperKoi001 是词典翻译贡献者，维护者的提交与之共同署名（GitHub 按 noreply 邮箱把署名落到他的账号，双方同步累积 Pair Extraordinaire 成就）。**外部贡献者的提交不加这行署名**——归属由贡献者本人决定；仓库不设 git 钩子强加署名，AI 会话提交时必须自己写出。
 
 **顺序固定为「先拉取 → 校验 → 提交 → 推送」**，不要先提交再同步——那样要么产生 merge 提交，要么推送被拒后再补救。
-
 1. **先拉取**：`git pull --rebase`（或 `git fetch` + `git rebase origin/main`），把远端改动线性叠到本地改动下面。**不要用默认的 `git pull`**：本仓的合并规范是压缩合并，`main` 上不许出现 merge 提交。
 2. 拉取后跑 `bun run check`（必要时先 `bun run format`），确保通过再提交；rebase 带进了别人的改动时，这一步同时也验证了合并结果。
 3. `git add -A` 后提交，提交信息用简体中文，格式参考现有历史（`feat:` / `fix:` / `docs:` / `chore:` / `build:`，可带 scope 如 `fix(dict):`）。

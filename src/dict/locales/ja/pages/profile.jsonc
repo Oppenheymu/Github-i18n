@@ -432,6 +432,17 @@
 		"Create your first GitHub project": "最初の GitHub プロジェクトを作成する",
 		"Projects are a customizable, flexible tool for planning and tracking your work.": "プロジェクトは、作業の計画と追跡に使えるカスタマイズ可能で柔軟なツールです。",
 		"Your Packages": "あなたのパッケージ",
-		"Your projects": "あなたのプロジェクト"
+		"Your projects": "あなたのプロジェクト",
+		// —— Packages タブの空状態（2026-10-31 実機スクリーンショット、/?tab=packages）——
+		// カード見出しはブランド名の裸語なので収録しない（Copilot の先例）；
+		// 「パッケージマネージャー」は Dependabot 記録の先例に準拠、句点はノード内なので日本語の句点に
+		"Get started with GitHub Packages": "GitHub Packages を使ってみる",
+		"Safely publish packages, store your packages alongside your code, and share your packages privately with your team.": "パッケージを安全に公開し、コードと一緒に保存し、チームと非公開で共有できます。",
+		"Choose a registry": "レジストリを選択",
+		"A default package manager used for the Java programming language and the Java runtime environment.": "Java プログラミング言語と Java ランタイム環境で使われるデフォルトのパッケージマネージャー。",
+		"A free and open source package manager used for the Microsoft development platforms including .NET.": ".NET を含む Microsoft 開発プラットフォームで使われる無料のオープンソースパッケージマネージャー。",
+		"A standard format for distributing Ruby programs and libraries used for the Ruby programming language.": "Ruby プログラムや Ruby プログラミング言語で使われるライブラリを配布するための標準フォーマット。",
+		"A package manager for JavaScript, included with Node.js. npm makes it easy for developers to share and reuse code.": "JavaScript 向けのパッケージマネージャー、Node.js に同梱。npm により、開発者はコードを簡単に共有・再利用できます。",
+		"A single place for your team to manage Docker images and decide who can see and access your images.": "チームが Docker イメージを管理し、誰がイメージを表示・アクセスできるかを決めるための一元的な場所。"
 	}
 }

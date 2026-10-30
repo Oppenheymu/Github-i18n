@@ -3618,6 +3618,14 @@
 				{
 					"id": "profile/short-date-dec",
 					"pattern": "^(?:on )?Dec (\\d{1,2})$"
+				},
+				// Projects 标签页空状态的搜索计数（「0 open and 0 closed projects
+				// found.」，维护者 2026-10-30 漏翻导出，/Oppenheymu?tab=projects）：
+				// 数字动态只能走规则；实机证据为复数形态，单数 projects? 按
+				// relative-time 的 hours? 先例放宽——单数串只有真出现才命中
+				{
+					"id": "profile/projects-found",
+					"pattern": "^(?<open>\\d+) open and (?<closed>\\d+) closed projects? found\\.$"
 				}
 			]
 		},

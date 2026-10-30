@@ -715,3 +715,97 @@ describe("组织主页的实机节点边界", () => {
 		).toBe("Koishi-CE をフォロー");
 	});
 });
+
+// —— Projects 标签页的空状态（维护者 2026-10-30 漏翻导出，
+// /Oppenheymu?tab=projects）——
+//
+// 导出共 7 条：GitHub（kind:title / context:link）是 head 的 <link> 元数据，
+// 按既定纪律不收；搜索计数句数字动态走规则，其余 5 条整节点收录。
+// Your Packages / Your projects 是 <title> 元素上的 title 属性
+// （kind:title / context:title），属性路径由 walker 的 applyAttrs 走同一个
+// translateText，故纯函数断言等价；avatar 沿用「更改组织头像」先例术语。
+describe("pages/profile 的 Projects 标签页空状态", () => {
+	it("translates the blankslate heading, description and tooltips", () => {
+		const NODES: readonly (readonly [string, string])[] = [
+			["Change your avatar", "更改头像"],
+			[
+				"Create your first GitHub project",
+				"创建你的第一个 GitHub 项目",
+			],
+			[
+				"Projects are a customizable, flexible tool for planning and tracking your work.",
+				"项目是一种可自定义的灵活工具，可用于规划和跟踪你的工作。",
+			],
+			["Your Packages", "你的软件包"],
+			["Your projects", "你的项目"],
+		];
+		for (const [node, expected] of NODES) {
+			expect(
+				translateText(node, view),
+				`节点 ${JSON.stringify(node)}`,
+			).toBe(expected);
+		}
+	});
+
+	it("renders the projects-found count through the rule", () => {
+		// 实机形态（复数）：数字是动态值，规则按命名组搬运
+		expect(
+			translateText(
+				"0 open and 0 closed projects found.",
+				view,
+			),
+		).toBe("找到 0 个打开、0 个已关闭的项目。");
+		expect(
+			translateText(
+				"3 open and 1 closed projects found.",
+				view,
+			),
+		).toBe("找到 3 个打开、1 个已关闭的项目。");
+		// 单数 projects? 按 relative-time 的 hours? 先例放宽；英文单数形态
+		// 无实机证据，这里只锁规则本身的放宽行为
+		expect(
+			translateText(
+				"1 open and 0 closed project found.",
+				view,
+			),
+		).toBe("找到 1 个打开、0 个已关闭的项目。");
+		// 名词换成 issues 的同构句子不得命中（规则锚定 projects）
+		expect(
+			translateText(
+				"0 open and 0 closed issues found.",
+				view,
+			),
+		).toBeNull();
+	});
+
+	it("has japanese templates too", () => {
+		const japanese = buildView(
+			"/Oppenheymu",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText("Change your avatar", japanese),
+		).toBe("アバターを変更");
+		expect(
+			translateText(
+				"Create your first GitHub project",
+				japanese,
+			),
+		).toBe("最初の GitHub プロジェクトを作成する");
+		expect(
+			translateText(
+				"0 open and 0 closed projects found.",
+				japanese,
+			),
+		).toBe(
+			"オープン 0 件、クローズド 0 件のプロジェクトが見つかりました。",
+		);
+		expect(translateText("Your Packages", japanese)).toBe(
+			"あなたのパッケージ",
+		);
+		expect(translateText("Your projects", japanese)).toBe(
+			"あなたのプロジェクト",
+		);
+	});
+});

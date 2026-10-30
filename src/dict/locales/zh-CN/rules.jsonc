@@ -759,6 +759,8 @@
 		"profile/short-date-oct": "10 月 $1 日",
 		"profile/short-date-nov": "11 月 $1 日",
 		"profile/short-date-dec": "12 月 $1 日",
+		// Projects 空状态的搜索计数（数字动态，open 沿用议题状态的「打开」）
+		"profile/projects-found": "找到 $<open> 个打开、$<closed> 个已关闭的项目。",
 		"queue/queued-count": "$1 个排队中",
 		"queue/page-title": "合并队列 · $1",
 

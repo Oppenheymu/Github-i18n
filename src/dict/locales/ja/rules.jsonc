@@ -765,6 +765,8 @@
 		"profile/short-date-oct": "10月$1日",
 		"profile/short-date-nov": "11月$1日",
 		"profile/short-date-dec": "12月$1日",
+		// Projects 空状態の検索カウント（数値は動的、open はイシューと同じ「オープン」）
+		"profile/projects-found": "オープン $<open> 件、クローズド $<closed> 件のプロジェクトが見つかりました。",
 
 		"queue/queued-count": "$1 件がキュー待ち",
 		"queue/page-title": "マージキュー · $1",

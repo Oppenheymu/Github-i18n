@@ -424,6 +424,14 @@
 		"Turn on discussions": "ディスカッションを有効にする",
 		"Set up discussions to engage with your community!": "ディスカッションを設定してコミュニティと交流しましょう！",
 		"Manage": "管理",
-		"items": "件"
+		"items": "件",
+		// —— Projects タブの空状態（2026-10-30 漏翻エクスポート、/?tab=projects）——
+		// カウント文はルール（profile/projects-found）；Your Packages / Your projects
+		// は <title> 要素の title 属性（ホバー提示）、Your 系は global の先例に準拠
+		"Change your avatar": "アバターを変更",
+		"Create your first GitHub project": "最初の GitHub プロジェクトを作成する",
+		"Projects are a customizable, flexible tool for planning and tracking your work.": "プロジェクトは、作業の計画と追跡に使えるカスタマイズ可能で柔軟なツールです。",
+		"Your Packages": "あなたのパッケージ",
+		"Your projects": "あなたのプロジェクト"
 	}
 }

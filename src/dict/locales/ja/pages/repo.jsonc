@@ -159,6 +159,14 @@
 		// ディスカッションの空状態
 		"Enable Discussions to unlock Community Insights!": "ディスカッションを有効にしてコミュニティインサイトを解放しよう！",
 		"Discussions is the central space for your community to share announcements, ask questions, and host conversations.": "ディスカッションは、お知らせの共有・質問・会話の場となるコミュニティの中心的なスペースです。",
-		"Set up discussions": "ディスカッションを設定"
+		"Set up discussions": "ディスカッションを設定",
+		// —— /people・/collaborators（メンバーページとその管理サブページ）——
+		"Outside collaborators": "外部コラボレーター",
+		"No outside collaborators with access to this repository.": "このリポジトリにアクセスできる外部コラボレーターはいません。",
+		"Find a collaborator…": "コラボレーターを検索…",
+		"Find a user": "ユーザーを検索",
+		"Collaborators": "コラボレーター",
+		"Breadcrumb": "パンくずリスト",
+		"Admin": "管理者"
 	}
 }

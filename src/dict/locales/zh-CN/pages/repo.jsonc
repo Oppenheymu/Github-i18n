@@ -142,6 +142,14 @@
 		// 讨论区空态
 		"Enable Discussions to unlock Community Insights!": "启用讨论区以解锁社区洞察！",
 		"Discussions is the central space for your community to share announcements, ask questions, and host conversations.": "讨论区是你的社区发布公告、提问和展开对话的中心空间。",
-		"Set up discussions": "设置讨论区"
+		"Set up discussions": "设置讨论区",
+		// —— /people 与 /collaborators（成员页及其管理子页）——
+		"Outside collaborators": "外部协作者",
+		"No outside collaborators with access to this repository.": "没有可访问此仓库的外部协作者。",
+		"Find a collaborator…": "查找协作者…",
+		"Find a user": "查找用户",
+		"Collaborators": "协作者",
+		"Breadcrumb": "面包屑导航",
+		"Admin": "管理员"
 	}
 }

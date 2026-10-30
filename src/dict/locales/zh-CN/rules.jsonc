@@ -794,6 +794,11 @@
 		"repo/insights-h1": "洞察：$1",
 		// 文档标题（Insights 族已去掉「· GitHub」后缀；仓库名原样保留）
 		"repo/community-title": "社区 · $1",
+		// —— /people 与 /collaborators ——
+		// 访问计数句（计数在节点内，normalizeKey 折叠换行后命中）
+		"repo/people-access-count": "$1 位成员有权访问此仓库",
+		"repo/people-title": "成员 · $1",
+		"repo/outside-collaborators-title": "外部协作者 · $1",
 		"global/now": "刚刚",
 		"global/yesterday": "昨天",
 		"global/seconds-ago": "$1 秒前",

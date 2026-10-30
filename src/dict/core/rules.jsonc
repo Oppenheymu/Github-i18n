@@ -3772,6 +3772,21 @@
 				{
 					"id": "repo/community-title",
 					"pattern": "^Community \\u00B7 (.+)$"
+				},
+				// —— /people 与 /collaborators ——
+				// 访问计数句：计数在节点内（源码带换行缩进，normalizeKey 折叠成单空格），
+				// 单复数动词一并收（1 person has / N people have）
+				{
+					"id": "repo/people-access-count",
+					"pattern": "^(\\d+) (?:people have|person has) access to this repository$"
+				},
+				{
+					"id": "repo/people-title",
+					"pattern": "^People \\u00B7 (.+)$"
+				},
+				{
+					"id": "repo/outside-collaborators-title",
+					"pattern": "^Outside collaborators \\u00B7 (.+)$"
 				}
 			]
 		},

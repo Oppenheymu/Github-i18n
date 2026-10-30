@@ -803,6 +803,12 @@
 		// ページタイトル（Insights 系は「· GitHub」接尾辞が削除済み。リポジトリ名は原文のまま）
 		"repo/community-title": "コミュニティ · $1",
 
+		// —— /people・/collaborators ——
+		// アクセス人数文（カウントはノード内。normalizeKey が改行を折りたたんでからヒット）
+		"repo/people-access-count": "$1 人がこのリポジトリにアクセスできます",
+		"repo/people-title": "メンバー · $1",
+		"repo/outside-collaborators-title": "外部コラボレーター · $1",
+
 		// —— global（全ページ共通）——
 		"global/now": "たった今",
 		"global/yesterday": "昨日",

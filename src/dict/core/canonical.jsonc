@@ -8002,7 +8002,23 @@
 				// 讨论区空态（未启用讨论区时的社区标准页底部）
 				"Enable Discussions to unlock Community Insights!",
 				"Discussions is the central space for your community to share announcements, ask questions, and host conversations.",
-				"Set up discussions"
+				"Set up discussions",
+				// —— /people 与 /collaborators（成员页及其管理子页，同一套组件）——
+				// 证据：2026-10-29 popup 导出（Koishi-CE/koishi 两路径）。
+				// 不收录：用户名与显示名（Oppenheymu / M. Oppenheymu / PaperKoi001）、
+				// 头像 alt（@用户名）、relative-time 的 title 时间戳。
+				// 计数句「N people have access to this repository」的 N 在节点内，
+				// 走 repo/people-access-count 规则；「Everyone」由 global 覆盖。
+				"Outside collaborators",
+				"No outside collaborators with access to this repository.",
+				"Find a collaborator…",
+				"Find a user",
+				// subnav 的 aria-label
+				"Collaborators",
+				// 面包屑 nav 的 aria-label（两页各一枚）
+				"Breadcrumb",
+				// 成员行的角色徽标（链接文本；org-settings 已有同译「管理员」）
+				"Admin"
 			]
 		},
 		{

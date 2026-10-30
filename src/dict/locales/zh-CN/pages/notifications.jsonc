@@ -12,6 +12,23 @@
 		// 页底 ProTip 提示：<strong>ProTip!</strong> 与说明句是两个兄弟节点；
 		// ProTip! 与 search / settings 的同名键同译，说明句句号在节点内部译中文句号
 		"ProTip!": "小贴士！",
-		"Create custom filters to quickly access your most important notifications.": "创建自定义筛选器，快速访问你最重要的通知。"
+		"Create custom filters to quickly access your most important notifications.": "创建自定义筛选器，快速访问你最重要的通知。",
+		// —— 筛选弹层（2026-10-31 实机截图）：Type 同形异义（settings 正文读作
+		// 「类型」，本页组标题恰也是「类型」）；Read / Unread 是已读状态语义 ——
+		"Select by": "选择方式",
+		"Type": "类型",
+		"Others": "其他",
+		"Bots": "机器人",
+		"Read": "已读",
+		"Unread": "未读",
+		// —— 弹层底部快捷键提示（2026-10-31 实机 HTML）：五段结构，两端碎片各自
+		// 查表、` + ` 纯符号与 kbd 内文本保留，拼接成「你可以按 Shift + S 打开此菜单。」——
+		"You can press": "你可以按",
+		"to open this menu.": "打开此菜单。",
+		// —— ProTip 说明句续段（2026-10-31 实机 HTML）：iOS / Android 专有名词、
+		// 独立句号节点保留英文，拼接成「…分类处理通知，支持 iOS 或 Android.」；
+		// Triage 动词语境沿用角色术语「分类」（repo-settings / org-settings）——
+		"Triage notifications on the go with GitHub Mobile for": "随时随地用 GitHub Mobile 分类处理通知，支持",
+		"or": "或"
 	}
 }

@@ -7272,7 +7272,32 @@
 				// 与说明句是**两个兄弟节点**，逐条收录（ProTip! 与 search / settings 的
 				// 同名键同译；说明句句号在节点内部 → 译文用中文句号收尾）。
 				"ProTip!",
-				"Create custom filters to quickly access your most important notifications."
+				"Create custom filters to quickly access your most important notifications.",
+				// —— 筛选弹层（维护者 2026-10-31 实机截图）：Select by 按钮与组标题、
+				// 四个筛选档位。Type 同形异义（settings 正文读作「类型」，本页组标题
+				// 恰也是「类型」，且模块路由 ^/notifications 收窄了影响面）；Read /
+				// Unread 在本页是已读状态语义（他页的「阅读 / 只读」语境不命中本模块）。
+				// 组内「拉取请求 / 议题 / 打开 / 已关闭 / 已合并 / 草稿」由既有词条覆盖。
+				"Select by",
+				"Type",
+				"Others",
+				"Bots",
+				"Read",
+				"Unread",
+				// —— 弹层底部的快捷键提示（维护者 2026-10-31 同页实机 HTML）：**五段
+				// 结构** `You can press ` + <kbd>Shift</kbd> + ` + ` + <kbd>S</kbd> +
+				// ` to open this menu.`——applyKbdLabel 只管三段，两个端点碎片各自
+				// 查表；` + ` 是纯符号节点翻不了，kbd 内文本被排除，拼接时引擎保留
+				// 各节点的首尾空白 ——
+				"You can press",
+				"to open this menu.",
+				// —— ProTip 说明句的续段（维护者 2026-10-31 同页实机 HTML）：
+				// `…GitHub Mobile for ` + <a>iOS</a> + ` or ` + <a>Android</a> + `.`
+				// ——iOS / Android 是专有名词不收；句号是独立节点（纯符号翻不了，
+				// 拼接后保留英文句号）；or 是两链接间的独立节点，裸词撞车面由模块
+				// 路由（^/notifications）收窄 ——
+				"Triage notifications on the go with GitHub Mobile for",
+				"or"
 			]
 		},
 		{

@@ -12,6 +12,26 @@
 		// ページ下部の ProTip 表示：<strong>ProTip!</strong> と説明文は兄弟ノード；
 		// ProTip! は search / settings の同名キーと同じ訳、説明文の句点はノード内なので日本語の句点に
 		"ProTip!": "プロのヒント！",
-		"Create custom filters to quickly access your most important notifications.": "カスタムフィルターを作成して、最も重要な通知にすばやくアクセスしましょう。"
+		"Create custom filters to quickly access your most important notifications.": "カスタムフィルターを作成して、最も重要な通知にすばやくアクセスしましょう。",
+		// —— 絞り込みポップアップ（2026-10-31 実機スクリーンショット）：Type は
+		// 同形異義（settings 本文では「タイプ」だが本ページのグループ見出しも種類）、
+		// Read / Unread は既読状態の意味 ——
+		"Select by": "選択",
+		"Type": "種類",
+		"Others": "その他",
+		"Bots": "ボット",
+		"Read": "既読",
+		"Unread": "未読",
+		// —— ポップアップ下部のショートカット説明（2026-10-31 実機 HTML）：5 段
+		// 構造で両端の断片を個別に照合、` + ` は記号のみ・kbd 内は除外。
+		// ja は語順の都合で端点に「このメニューを開くには」を置き、
+		// 「このメニューを開くには Shift + S を押します。」と繋ぐ ——
+		"You can press": "このメニューを開くには",
+		"to open this menu.": "を押します。",
+		// —— ProTip 説明文の続き（2026-10-31 実機 HTML）：iOS / Android は固有名詞、
+		// 独立ノードの句点は英字のまま（記号のみのノードは訳せない）；
+		// Triage はロール用語に準拠（トリアージ）——
+		"Triage notifications on the go with GitHub Mobile for": "いつでもどこでも GitHub Mobile で通知をトリアージ、",
+		"or": "または"
 	}
 }

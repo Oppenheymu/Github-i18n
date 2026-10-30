@@ -12,8 +12,13 @@
 //   ② `title` 属性上的绝对时间（`Oct 12, 2026, 19:33 GMT+8`）——属性只做精确匹配；
 //   ③ 数据点 aria-label（`Sunday, Aug 23, 2026, 170. Commits.`）——纯动态值，
 //      且属性不应用正则规则，架构上救不了；
-//   ④ 摘要句的**孤立连词**（`have` / `to` / `pushed` / `main` / `by`）——单收会在
-//      中英混排里乱插词，正确做法是把连词并进相邻片段。
+//   ④ 摘要句的**孤立虚词**（`to` / `main` / `by`）——单收会在中英混排里乱插词。
+//      2026-10-29 更新：上游把「 have pushed 」「 have changed and there have
+//      been 」两个整段节点拆开（2026-10-29 导出实证：整段键在实机永不命中、
+//      句子半翻不可读），孤立 `have` / `pushed` 已按固定句式收录，见
+//      「拼回整句（2026-10-29 新断句）」用例；`by` 仍不收——活动流标签族
+//      （by / pull request opened / pull requests merged / release published）
+//      整族保持英文，拆开翻半句更糟，要收就整族一起收。
 //
 // 2026-10-17 晚维护者补贴了 /pulse 的**可见文本**，摘要句的节点顺序第一次可见：
 // `Excluding merges, ` + `3` + ` authors` + ` have pushed ` + `23 commits` +
@@ -291,6 +296,75 @@ describe("洞察页的实机节点边界", () => {
 		).toBe("个拉取请求由");
 	});
 
+	it("reassembles the pulse summary sentence from the 2026-10-29 node split", () => {
+		// 2026-10-29 导出实证上游改了断句：整段「 have pushed 」「 have changed and
+		// there have been 」拆成孤立虚词 + 动词段，旧键在实机永不命中、句子半翻。
+		// 新碎片按固定句式收录；旧布局的断言保留在上方用例（两种布局并存）。
+		expect(
+			renderNodes([
+				"Excluding merges, ",
+				"3",
+				" ",
+				"authors",
+				" ",
+				"have",
+				" ",
+				"pushed",
+				" ",
+				"8",
+				" ",
+				"commits",
+				" to ",
+				"main",
+				" and ",
+				"11",
+				" ",
+				"commits",
+				" to all branches.",
+			]),
+		).toBe(
+			"不含合并提交， 3 位作者 已 推送了 8 次提交 到 main 和 11 次提交 推送到所有分支。",
+		);
+		expect(
+			renderNodes([
+				"On ",
+				"main",
+				", ",
+				"52",
+				" ",
+				"files",
+				" ",
+				"have",
+				" ",
+				"changed and there have been",
+				" ",
+				"1,127",
+				" ",
+				"additions",
+				" and ",
+				"90",
+				" ",
+				"deletions",
+			]),
+		).toBe(
+			"在 main, 52 个文件 已 发生改动，其中 1,127 行新增 和 90 行删除。",
+		);
+	});
+
+	it("translates the new-format page titles whose GitHub suffix was removed", () => {
+		// 2026-10-29：Insights 族的文档标题去掉了「· GitHub」后缀，旧 *-title
+		// 规则失配，新规则接住新格式（模板与旧规则逐字一致）
+		expect(
+			translateText("Pulse · Koishi-CE/koishi", pulseView),
+		).toBe("活跃概览 · Koishi-CE/koishi");
+		expect(
+			translateText(
+				"Contributors to Koishi-CE/koishi",
+				view,
+			),
+		).toBe("Koishi-CE/koishi 的贡献者");
+	});
+
 	it("renders the navigator aria-label through the existing rule", () => {
 		// 这条**已经**有规则（`insights/navigator-*`）：日志里出现它不是因为漏翻，
 		// 而是导出发生在词典更新之前。锁住它是为了防止有人把规则当死代码删掉
@@ -316,8 +390,6 @@ describe("洞察页里「日志有、词典不该收」的节点", () => {
 			"koishi",
 			"chore(deps): bump cac from 7.0.0 to 7.0.1",
 			"chore(deps-dev): bump @biomejs/biome from 2.5.14 to 2.5.15",
-			"Contributors to Koishi-CE/koishi",
-			"Pulse · Koishi-CE/koishi",
 			// 头像 alt 上的显示名与登录名同样是用户内容
 			"@Koishi-CE",
 		]) {
@@ -341,13 +413,13 @@ describe("洞察页里「日志有、词典不该收」的节点", () => {
 	});
 
 	it("keeps the still-isolated split words out of the dictionary", () => {
-		// 摘要句与已合并标题的碎片已按节点补齐（见「拼回整句」用例）；这里只留
+		// 摘要句的碎片已按节点补齐——2026-10-29 起孤立 `have` / `pushed` 也随
+		// 新断句一起收录（见「拼回整句（2026-10-29 新断句）」用例）；这里只留
 		// **真正孤立**的虚词：单收它们会在任意中英混排句子里乱插词。`to` / `On`
 		// 不在此列——它们只在「分支名被插值切开」的固定句式里出现，已随该句式
 		// 一起收进本模块（模块按路由限定，见 insights.jsonc 的注释）。
+		// `by` 属活动流标签族，整族保持英文（见文件头注释 ④）。
 		for (const node of [
-			"have",
-			"pushed",
 			"main",
 			"by",
 			"s",

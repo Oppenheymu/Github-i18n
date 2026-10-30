@@ -6211,7 +6211,73 @@
 				"Recently used",
 				"Least recently used",
 				"Largest size",
-				"Smallest size"
+				"Smallest size",
+				// —— 洞察侧栏（/actions/metrics/performance 与 /actions/metrics/usage
+				// 渲染同一套「Admin insights」侧栏，但那两支路径只命中本模块，
+				// 不命中 pages/insights 的路由，侧栏词条按姊妹页面惯例在本模块
+				// 登记同译、译文与 pages/insights 逐字一致——2026-10-29 实机导出：
+				// 指标页侧栏除 global 已覆盖的 Pulse / Contributors / Commits / Forks
+				// 外整片回退英文）——
+				"Traffic",
+				"People",
+				"Dependency graph",
+				"Network",
+				"Code frequency",
+				"Community standards",
+				"Admin insights",
+				"Actions performance metrics",
+				"Actions usage metrics",
+				// —— /actions/metrics/performance 与 /actions/metrics/usage
+				//（Actions 用量·性能指标页）——
+				// 证据：2026-10-29 popup 导出（github-zh-misses/3，Koishi-CE/koishi 两页）。
+				// 不收录：工作流文件名（ci.yml 等）、运行器值（hosted / linux）、时长值（1m）、
+				// relative-time 的 title 绝对时间戳、头像 alt（@组织名）、<link> 的 title、
+				// 用户名与数据值（Koishi-CE / M. Oppenheymu）。
+				// 动态区间说明「Showing data from <开始> to」走 actions/showing-data-from 规则
+				//（结束日期是相邻的独立节点，模板不闭合句子）。
+				"Row Actions",
+				// 行尾 kebab 菜单：button 的 title 属性与 Tooltip 可见文本同串
+				"Actions Performance Metrics",
+				// h1 是 Title Case，与侧栏小写链接「Actions performance metrics」是两条键
+				"Actions Usage Metrics",
+				"Period: Current month",
+				"Download report",
+				"Advanced filter dialog",
+				"Runner type",
+				"Runtime OS",
+				"Jobs",
+				"Workflow runs",
+				"Total minutes",
+				"Avg job queue time",
+				"Avg job run time",
+				"Avg run time",
+				"Has job failures",
+				"Job failure rate",
+				"Failed job usage",
+				"Total job runs",
+				"Average queue time of jobs in this repository for current month",
+				"Average run time of jobs in this repository for current month",
+				"Total job runs across all workflows in this repository for current month",
+				"Total minutes across all workflows in this repository for current month",
+				"Total minutes used across failed jobs in this repository for current month",
+				"Failure rate across jobs in this repository for current month",
+				// h2 sr-only 区块标题
+				"Metrics navigation",
+				// 指标子导航的 aria-label（两个 tab 组同串）
+				"Metrics",
+				// 搜索框 placeholder（org-settings / agents 已有同译）
+				"Search or filter",
+				// 搜索建议列表的 aria-label
+				"Suggestions",
+				// 表格分页 nav 的 aria-label
+				"Pagination for table",
+				// 分页 sr-only「Page 1」：Page 与页码数字是两个节点
+				"Page",
+				// 「Showing 1 through 6 of 6」：数字与「‒」都是独立节点，
+				// 三条碎片拼回「显示 1 至 6 ，共 6」
+				"Showing",
+				"through",
+				"of"
 			]
 		},
 		{
@@ -6569,7 +6635,106 @@
 				"Loading projects",
 				"Search projects",
 				"Search by name…",
-				"updated"
+				"updated",
+				// —— Pulse 摘要句的新断句（2026-10-29 导出实证上游改了节点边界）——
+				// 旧断句是「 have pushed 」「 have changed and there have been 」两个整段
+				// 节点（insights-pulse.test.ts 的「拼回整句」用例），现拆成孤立虚词 +
+				// 动词段，整段键在实机永不命中、句子半翻不可读，故按固定句式收录碎片。
+				// 孤立的「have」走 insights/have-word 规则（zh「已」/ ja 空串——ja 语序由
+				// authors / files 的既有重排模板承接助词，空串模板即「节点整个消失」，
+				// settings/per-word 先例；词条的空值被门禁禁止，规则模板不受此限），
+				// 因此 canonical 里没有「have」这条静态键。它们只在本模块路由
+				//（pulse|graphs|forks|security|projects）上生效，不进 global。
+				"pushed",
+				"changed and there have been",
+				// contributors 概览卡右上链接的 aria-label（「6 Active pull requests」
+				// 那张卡的跳转链接）
+				"View open pull requests",
+				// —— /forks 的复刻空态与说明句（2026-10-29 导出）——
+				// 说明句被链接切成四段：前段（… After）+ 链接（forking a repository）+
+				// 中段（, you can send the original author a）+ 句尾节点。句尾节点
+				//「pull request」由既有键（Pulse 摘要句的量词条「个拉取请求」）命中，
+				// 故中段模板不带量词、不带句号（拼回「…向原作者发送 个拉取请求」）。
+				// 导出里挂在 /network 路径下的同款记录是软导航的路径错标，
+				// 不进 pages/repo。文档标题走 insights/forks-title-short 与
+				// insights/network-graph-title 两条新格式规则。
+				"No one has forked this repository yet",
+				"Forks are a great way to contribute to a repository. After",
+				"forking a repository",
+				", you can send the original author a",
+				// 网络关系图区块（/forks 本体渲染；/network 的同串在 pages/repo
+				// 已有同译，本模块路径不命中那条路由，照姊妹页面惯例复收）
+				"Network graph",
+				"Network graph of recent commits. Use the Chart options menu to view as a table.",
+				"The network graph is also available as a data table.",
+				"Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+				// —— 图表页：code-frequency / commit-activity / contributors / traffic
+				//（2026-10-29 导出）——
+				// 不收录：轴刻度数字（-100k 等）、Highcharts 数据点 aria（Sunday, … .
+				// Commits. 等，2026-10-17 已锁定不收）、Week of … 数据表表头（同上）、
+				// 贡献者用户名（Oppenheymu 等；「X's Commits」的 possessive 碎片已有键）、
+				// 复数尾「s」节点。卡片描述句的「N Views」等计数行走四条 traffic-summary
+				// 规则；「Line chart with N data points.」「Bar chart with N data series.」
+				// 走 chart-shape 两条规则；文档标题走三条新格式标题规则。
+				// —— code-frequency / commit-activity ——
+				"Number of commits per week",
+				"Additions and deletions per week",
+				// 后接 strong 包裹的仓库名节点（原样保留）
+				"Code frequency over the history of",
+				"Commits over the last year of",
+				"Code frequency. Interactive chart.",
+				"Commits. Interactive chart.",
+				// Y 轴标题（text.highcharts-axis-title）
+				"Frequency",
+				// 图例与数据表单元格（td）
+				"Additions",
+				"Deletions",
+				// 系列可见性开关（Highcharts a11y proxy）
+				"Show Additions",
+				"Show Deletions",
+				"Toggle series visibility, Chart",
+				// SVG 轴刻度的月份缩写（整节点精确匹配，大小写与 GitHub 渲染一致；
+				// 图表在交互时会重绘英文刻度，靠观察器再翻一遍收敛）
+				"Jan",
+				"Feb",
+				"Mar",
+				"Apr",
+				"May",
+				"Jun",
+				"Jul",
+				"Aug",
+				"Sep",
+				"Oct",
+				"Nov",
+				"Dec",
+				// —— traffic ——
+				"Git clones",
+				"Popular content",
+				"Referring sites",
+				"Visitors",
+				"Clones in last 14 days",
+				"Unique cloners in last 14 days",
+				"Total views in last 14 days",
+				"Unique visitors in last 14 days",
+				"Clones in last 14 days. Interactive chart.",
+				"Unique cloners in last 14 days. Interactive chart.",
+				"Total views in last 14 days. Interactive chart.",
+				"Unique visitors in last 14 days. Interactive chart.",
+				// 轴标题
+				"Cloners",
+				"Clones",
+				"Total views",
+				"Unique visitors",
+				// 表头与单元格
+				"Views",
+				"Unique Visitors",
+				"Total",
+				"Unique",
+				"Content",
+				"Site",
+				// —— contributors ——
+				// 系列筛选菜单（prc-ActionList）里的时段项
+				"Last month"
 			]
 		},
 		{
@@ -7886,7 +8051,120 @@
 				"GPG key ID:",
 				"Learn about vigilant mode",
 				"main branch",
-				"commits by Copilot"
+				"commits by Copilot",
+				// —— 洞察侧栏（/community、/people、/network、/collaborators 渲染同一套
+				// 「Admin insights」侧栏，但那四支路径不命中 pages/insights 的路由，
+				// 侧栏词条只能按姊妹页面惯例在本模块登记同译，译文与 pages/insights
+				// 逐字一致，否则 check:view 的「同键异译赢家」非空——2026-10-29 实机导出：
+				// 这几页侧栏除 global 已覆盖的 Pulse / Contributors / Commits / Forks
+				// 外整片回退英文）——
+				"Traffic",
+				"People",
+				"Dependency graph",
+				"Network",
+				"Code frequency",
+				"Community standards",
+				"Admin insights",
+				"Actions performance metrics",
+				"Actions usage metrics",
+				// —— /community（社区标准页；/graphs/community 是同一页的旧地址，
+				// 词条按并集登记在此）——
+				// 证据：2026-10-29 popup 导出（Koishi-CE/koishi）。
+				// 不收录：README / Code of conduct / Contributing / Security policy
+				//（本模块既有键已覆盖）；句尾独立的「.」「?」是纯符号节点，保持英文
+				//（issues 族 Learn more 先例）；「Added」「Add」两条短键实际承载的是
+				// input.btn 的 aria-label，文本形态的误伤面限于仓库子页，用例已钉住。
+				// 文档标题「Community · <仓库>」走 repo/community-title 规则。
+				"Community Standards",
+				// 弯撇号（U+2019）；后接链接「recommended community standards」
+				"Here’s how this project compares to",
+				"recommended community standards",
+				"What is",
+				// 后接链接「the community profile」，句尾问号是独立符号节点
+				"the community profile",
+				"Checklist",
+				// 绿勾图标的 aria-label，八个社区文件条目各有一枚
+				"Added",
+				"Not added yet",
+				"Issue templates",
+				"License",
+				"Pull request template",
+				"Repository admins accept content reports",
+				"Additional community file",
+				// 直撇号（实机渲染为 U+0027，与上一条的弯撇号不同，勿互相「纠正」）
+				"Describe your project's accessibility commitment, supported environments, known limitations, and how people can report barriers.",
+				"Writing an accessibility statement",
+				"View an ACCESSIBILITY.md example",
+				// input.btn 的 aria-label：展开状态是长串、折叠状态只剩「Add」
+				"Add accessibility file",
+				"Add",
+				// 讨论区空态（未启用讨论区时的社区标准页底部）
+				"Enable Discussions to unlock Community Insights!",
+				"Discussions is the central space for your community to share announcements, ask questions, and host conversations.",
+				"Set up discussions",
+				// —— /people 与 /collaborators（成员页及其管理子页，同一套组件）——
+				// 证据：2026-10-29 popup 导出（Koishi-CE/koishi 两路径）。
+				// 不收录：用户名与显示名（Oppenheymu / M. Oppenheymu / PaperKoi001）、
+				// 头像 alt（@用户名）、relative-time 的 title 时间戳。
+				// 计数句「N people have access to this repository」的 N 在节点内，
+				// 走 repo/people-access-count 规则；「Everyone」由 global 覆盖。
+				"Outside collaborators",
+				"No outside collaborators with access to this repository.",
+				"Find a collaborator…",
+				"Find a user",
+				// subnav 的 aria-label
+				"Collaborators",
+				// 面包屑 nav 的 aria-label（两页各一枚）
+				"Breadcrumb",
+				// 成员行的角色徽标（链接文本；org-settings 已有同译「管理员」）
+				"Admin",
+				// —— /network 与 /network/dependencies（网络关系图与依赖项关系图页）——
+				// 证据：2026-10-29 popup 导出（Koishi-CE/koishi 两路径）。
+				// 不收录：npm / GitHub Actions（生态系统名）、包名与版本
+				//（picocolors ^1.1.1 等）、依赖文件路径（package.json 等）、许可证名
+				//（MIT / Apache-2.0 / ISC）、Dependabot（产品名）、浏览器名链接、
+				// relative-time 的 title 时间戳。动态串走六条规则：
+				// repo/paths-for（Paths for <包名>）、repo/sbom-paths（Showing N paths…）、
+				// repo/detected-auto-license 与 repo/detected-auto（「· Detected
+				// automatically on <日期> · <许可证>」，源码节点内是换行缩进，
+				// normalizeKey 折叠后命中）、repo/dep-total（「147 Total」）、
+				// repo/page-n（分页 aria「Page N」）。
+				// 导出里挂在 /network 下的复刻空态记录是软导航的路径错标，
+				// 那组碎片只登记 pages/insights（见 insights 模块注释）。
+				"Dependency files checked",
+				// Dependency Insights 子导航（tabnav）的 aria-label 与页签
+				"Dependency Insights menu",
+				"Dependencies",
+				"Dependents",
+				// 依赖行的 Direct / Transitive 徽标与 Paths 弹层的 h2
+				"Direct",
+				"Transitive",
+				// SBOM 工具条（span.d-none 与按钮 aria-label 同串）
+				"Export SBOM",
+				"Learn more about SBOMS.",
+				// Paths 弹层
+				"Filter by ecosystem",
+				"Filter by ecosystem options",
+				"Filter ecosystems",
+				"No ecosystems found.",
+				// 依赖搜索框（label 与 placeholder 同串）
+				"Search all dependencies",
+				// 搜索建议列表的 aria-label（org-settings / agents / actions 已有同译）
+				"Suggestions",
+				// 依赖页底部的提示行（strong + 说明句各一节点）
+				"ProTip!",
+				"Supported ecosystems will have transitivity labels on their packages.",
+				// 网络关系图区块（/network 本体渲染；/forks 上的同串在 pages/insights
+				// 已有同译，本模块路径不命中那条路由，照姊妹页面惯例复收）
+				"Network graph",
+				"Chart options",
+				"Network graph of recent commits. Use the Chart options menu to view as a table.",
+				"The network graph is also available as a data table.",
+				"Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+				// canvas 降级说明（后续接浏览器名链接与 or 碎片）
+				"Sorry, your browser doesn’t support the <canvas> element.",
+				"Please upgrade to the latest",
+				"or"
 			]
 		},
 		{

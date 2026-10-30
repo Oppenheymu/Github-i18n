@@ -2902,6 +2902,19 @@
 				{
 					"id": "actions/cache-size",
 					"pattern": "^([\\d.,]+ [KMGTP]?B) cached$"
+				},
+				// —— /actions/metrics/*（用量·性能指标页）——
+				// 数据区间说明的前半段节点：「Showing data from <开始日期> to」，
+				// 结束日期是相邻的独立文本节点，模板不闭合句子（拼回「显示从 X 到 <日期>」）
+				{
+					"id": "actions/showing-data-from",
+					"pattern": "^Showing data from (.+) to$"
+				},
+				// 洞察页共享的 h1.sr-only（Insights: <仓库>）：与 pages/insights 的
+				// insights/page-title 同 pattern，规则 id 全局唯一故各模块一份
+				{
+					"id": "actions/insights-h1",
+					"pattern": "^Insights: (.+)$"
 				}
 			]
 		},
@@ -3317,6 +3330,76 @@
 				{
 					"id": "insights/chart-navigator-series",
 					"pattern": "^Navigator (?<navigator>\\d+), series (?<series>\\d+) of (?<seriesCount>\\d+) with (?<points>[\\d,]+) data points\\. Y axis, (?<yAxis>.+)\\. X axis, (?<xAxis>.+)\\.$"
+				},
+				// —— 文档标题的「· GitHub」后缀消失后的新格式（2026-10-29 导出实锤）——
+				// 上面几条 *-title 规则要求「· GitHub」结尾，在新格式上全部失配；
+				// 新规则放在旧规则之后（首条命中生效，旧格式仍由旧规则接住）
+				{
+					"id": "insights/pulse-title-short",
+					"pattern": "^Pulse \\u00B7 (.+)$"
+				},
+				{
+					"id": "insights/contributors-title-short",
+					"pattern": "^Contributors to (.+)$"
+				},
+				// 摘要句新断句里孤立的「have」（2026-10-29 实证）：zh 译「已」，
+				// ja 是空串模板——节点整个消失（settings/per-word 先例；ja 语序由
+				// authors / files 的既有重排模板承接助词）。规则模板允许空串而
+				// 词条不允许，故它以规则而非词条收录
+				{
+					"id": "insights/have-word",
+					"pattern": "^have$"
+				},
+				// /forks 的文档标题（Insights 族新格式，无「· GitHub」后缀；
+				// 放在旧 *-title 规则之后，旧格式仍由旧规则接住）
+				{
+					"id": "insights/forks-title-short",
+					"pattern": "^Forks \\u00B7 (.+)$"
+				},
+				{
+					"id": "insights/network-graph-title",
+					"pattern": "^Network Graph \\u00B7 (.+)$"
+				},
+				// —— 图表页（traffic 等）——
+				// 卡片描述句的计数行（数字随仓库变化）
+				{
+					"id": "insights/traffic-views-summary",
+					"pattern": "^([\\d,]+) Views$"
+				},
+				{
+					"id": "insights/traffic-clones-summary",
+					"pattern": "^([\\d,]+) Clones$"
+				},
+				{
+					"id": "insights/traffic-unique-cloners-summary",
+					"pattern": "^([\\d,]+) Unique cloners$"
+				},
+				{
+					"id": "insights/traffic-unique-visitors-summary",
+					"pattern": "^([\\d,]+) Unique visitors$"
+				},
+				// Highcharts 读屏句（数字随图表变化；与既有 chart-bar 的
+				//「N bars」是不同的串——这里收的是「N data points / series」形态）
+				{
+					"id": "insights/chart-line-points",
+					"pattern": "^Line chart with (\\d+) data points\\.$"
+				},
+				{
+					"id": "insights/chart-bar-series",
+					"pattern": "^Bar chart with (\\d+) data series\\.$"
+				},
+				// 文档标题（Insights 族新格式，无「· GitHub」后缀）
+				{
+					"id": "insights/traffic-title",
+					"pattern": "^Traffic \\u00B7 (.+)$"
+				},
+				{
+					"id": "insights/commits-graph-title",
+					"pattern": "^Commits \\u00B7 (.+)$"
+				},
+				{
+					"id": "insights/code-frequency-title",
+					"pattern": "^Code frequency \\u00B7 (.+)$"
 				}
 			]
 		},
@@ -3746,6 +3829,75 @@
 				{
 					"id": "repo/age-old",
 					"pattern": "^old$"
+				},
+				// —— /community（社区标准页）——
+				// 洞察页共享的 h1.sr-only（Insights: <仓库>）：与 insights/page-title
+				// 同 pattern，规则 id 全局唯一故各模块一份
+				{
+					"id": "repo/insights-h1",
+					"pattern": "^Insights: (.+)$"
+				},
+				// 文档标题（GitHub 已把 Insights 族标题的「· GitHub」后缀去掉，
+				// 旧格式规则全部失配——2026-10-29 导出实锤；仓库名属内容原样保留）
+				{
+					"id": "repo/community-title",
+					"pattern": "^Community \\u00B7 (.+)$"
+				},
+				// —— /people 与 /collaborators ——
+				// 访问计数句：计数在节点内（源码带换行缩进，normalizeKey 折叠成单空格），
+				// 单复数动词一并收（1 person has / N people have）
+				{
+					"id": "repo/people-access-count",
+					"pattern": "^(\\d+) (?:people have|person has) access to this repository$"
+				},
+				{
+					"id": "repo/people-title",
+					"pattern": "^People \\u00B7 (.+)$"
+				},
+				{
+					"id": "repo/outside-collaborators-title",
+					"pattern": "^Outside collaborators \\u00B7 (.+)$"
+				},
+				// —— /network 与 /network/dependencies ——
+				// 文档标题（Insights 族新格式，无「· GitHub」后缀；仓库名原样保留）
+				{
+					"id": "repo/network-graph-title",
+					"pattern": "^Network Graph \\u00B7 (.+)$"
+				},
+				{
+					"id": "repo/dependencies-title",
+					"pattern": "^Dependencies \\u00B7 (.+)$"
+				},
+				// Paths 弹层的空态行（Showing 1 path / N paths 两种单复数）
+				{
+					"id": "repo/sbom-paths",
+					"pattern": "^Showing (\\d+) paths?\\. Export SBOM to view all paths\\.$"
+				},
+				// Paths 弹层标题（包名与版本属内容，原样保留在捕获组里）
+				{
+					"id": "repo/paths-for",
+					"pattern": "^Paths for (.+)$"
+				},
+				// 依赖行的元信息行：源码节点内是换行缩进（「·\n    Detected …\n    ·\n    MIT」），
+				// normalizeKey 折叠成单空格后命中；带许可证的形态在前（首条命中生效），
+				// 贪婪捕获组回溯到最后一个「·」分隔符，日期里的逗号不受影响
+				{
+					"id": "repo/detected-auto-license",
+					"pattern": "^\\u00B7 Detected automatically on (.+) \\u00B7 (.+)$"
+				},
+				{
+					"id": "repo/detected-auto",
+					"pattern": "^\\u00B7 Detected automatically on (.+)$"
+				},
+				// 依赖总数行（「147 Total」单节点）
+				{
+					"id": "repo/dep-total",
+					"pattern": "^([\\d,]+) Total$"
+				},
+				// 分页链接的 aria-label（Page 1 … Page N）
+				{
+					"id": "repo/page-n",
+					"pattern": "^Page (\\d+)$"
 				}
 			]
 		},

@@ -570,6 +570,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -720,7 +733,8 @@
 			"matched": ["pages/issues", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
-				{ "key": "Projects", "module": "pages/repo" }
+				{ "key": "Projects", "module": "pages/repo" },
+				{ "key": "Suggestions", "module": "pages/issues" }
 			],
 			"rules": [
 				"issues/in-repo",
@@ -749,6 +763,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -899,7 +926,8 @@
 			"matched": ["pages/issues", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
-				{ "key": "Projects", "module": "pages/repo" }
+				{ "key": "Projects", "module": "pages/repo" },
+				{ "key": "Suggestions", "module": "pages/issues" }
 			],
 			"rules": [
 				"issues/in-repo",
@@ -928,6 +956,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -1111,6 +1152,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -1294,6 +1348,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -1451,8 +1518,18 @@
 					"key": "Actions",
 					"module": "pages/repo-settings"
 				},
+				{ "key": "Add", "module": "pages/repo-settings" },
+				{ "key": "Admin", "module": "pages/repo-settings" },
 				{
 					"key": "Branches",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Breadcrumb",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Chart options",
 					"module": "pages/repo-settings"
 				},
 				{ "key": "Close", "module": "pages/repo-settings" },
@@ -1462,7 +1539,15 @@
 					"module": "pages/repo-settings"
 				},
 				{
+					"key": "Collaborators",
+					"module": "pages/repo-settings"
+				},
+				{
 					"key": "Contributors",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Dependency graph",
 					"module": "pages/repo-settings"
 				},
 				{
@@ -1517,9 +1602,14 @@
 					"module": "pages/repo-settings"
 				},
 				{ "key": "Stars", "module": "pages/repo-settings" },
+				{
+					"key": "Suggestions",
+					"module": "pages/repo-settings"
+				},
 				{ "key": "Tags", "module": "pages/repo-settings" },
 				{ "key": "Wiki", "module": "pages/repo-settings" },
-				{ "key": "Write", "module": "pages/repo-settings" }
+				{ "key": "Write", "module": "pages/repo-settings" },
+				{ "key": "or", "module": "pages/repo-settings" }
 			],
 			"rules": [
 				"repo-settings/sponsor-button",
@@ -1600,6 +1690,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -1757,8 +1860,18 @@
 					"key": "Actions",
 					"module": "pages/repo-settings"
 				},
+				{ "key": "Add", "module": "pages/repo-settings" },
+				{ "key": "Admin", "module": "pages/repo-settings" },
 				{
 					"key": "Branches",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Breadcrumb",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Chart options",
 					"module": "pages/repo-settings"
 				},
 				{ "key": "Close", "module": "pages/repo-settings" },
@@ -1768,7 +1881,15 @@
 					"module": "pages/repo-settings"
 				},
 				{
+					"key": "Collaborators",
+					"module": "pages/repo-settings"
+				},
+				{
 					"key": "Contributors",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Dependency graph",
 					"module": "pages/repo-settings"
 				},
 				{
@@ -1823,9 +1944,14 @@
 					"module": "pages/repo-settings"
 				},
 				{ "key": "Stars", "module": "pages/repo-settings" },
+				{
+					"key": "Suggestions",
+					"module": "pages/repo-settings"
+				},
 				{ "key": "Tags", "module": "pages/repo-settings" },
 				{ "key": "Wiki", "module": "pages/repo-settings" },
-				{ "key": "Write", "module": "pages/repo-settings" }
+				{ "key": "Write", "module": "pages/repo-settings" },
+				{ "key": "or", "module": "pages/repo-settings" }
 			],
 			"rules": [
 				"repo-settings/sponsor-button",
@@ -1906,6 +2032,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -2063,8 +2202,18 @@
 					"key": "Actions",
 					"module": "pages/repo-settings"
 				},
+				{ "key": "Add", "module": "pages/repo-settings" },
+				{ "key": "Admin", "module": "pages/repo-settings" },
 				{
 					"key": "Branches",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Breadcrumb",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Chart options",
 					"module": "pages/repo-settings"
 				},
 				{ "key": "Close", "module": "pages/repo-settings" },
@@ -2074,7 +2223,15 @@
 					"module": "pages/repo-settings"
 				},
 				{
+					"key": "Collaborators",
+					"module": "pages/repo-settings"
+				},
+				{
 					"key": "Contributors",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Dependency graph",
 					"module": "pages/repo-settings"
 				},
 				{
@@ -2129,9 +2286,14 @@
 					"module": "pages/repo-settings"
 				},
 				{ "key": "Stars", "module": "pages/repo-settings" },
+				{
+					"key": "Suggestions",
+					"module": "pages/repo-settings"
+				},
 				{ "key": "Tags", "module": "pages/repo-settings" },
 				{ "key": "Wiki", "module": "pages/repo-settings" },
-				{ "key": "Write", "module": "pages/repo-settings" }
+				{ "key": "Write", "module": "pages/repo-settings" },
+				{ "key": "or", "module": "pages/repo-settings" }
 			],
 			"rules": [
 				"repo-settings/sponsor-button",
@@ -2212,6 +2374,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -7154,10 +7329,41 @@
 			"path": "/microsoft/vscode/actions",
 			"matched": ["pages/actions", "pages/repo", "global"],
 			"collisions": [
+				{
+					"key": "Actions performance metrics",
+					"module": "pages/actions"
+				},
+				{
+					"key": "Actions usage metrics",
+					"module": "pages/actions"
+				},
+				{
+					"key": "Admin insights",
+					"module": "pages/actions"
+				},
 				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code frequency",
+					"module": "pages/actions"
+				},
 				{ "key": "Commit", "module": "pages/actions" },
+				{
+					"key": "Community standards",
+					"module": "pages/actions"
+				},
+				{
+					"key": "Dependency graph",
+					"module": "pages/actions"
+				},
+				{ "key": "Network", "module": "pages/actions" },
+				{ "key": "People", "module": "pages/actions" },
 				{ "key": "Projects", "module": "pages/repo" },
-				{ "key": "Show options", "module": "pages/actions" }
+				{
+					"key": "Show options",
+					"module": "pages/actions"
+				},
+				{ "key": "Suggestions", "module": "pages/actions" },
+				{ "key": "Traffic", "module": "pages/actions" }
 			],
 			"rules": [
 				"actions/duration-hms",
@@ -7178,6 +7384,8 @@
 				"actions/auto-refresh-interval",
 				"actions/more-actions-run",
 				"actions/cache-size",
+				"actions/showing-data-from",
+				"actions/insights-h1",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
@@ -7200,6 +7408,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -7350,7 +7571,8 @@
 			"matched": ["pages/agents", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
-				{ "key": "Projects", "module": "pages/repo" }
+				{ "key": "Projects", "module": "pages/repo" },
+				{ "key": "Suggestions", "module": "pages/agents" }
 			],
 			"rules": [
 				"agents/sessions-count",
@@ -7377,6 +7599,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -7568,6 +7803,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -7747,6 +7995,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -7927,6 +8188,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -8076,9 +8350,56 @@
 			"path": "/microsoft/vscode/pulse",
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
+				{
+					"key": "Actions performance metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Actions usage metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Admin insights",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Chart options",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code frequency",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Community standards",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Dependency graph",
+					"module": "pages/insights"
+				},
+				{ "key": "Network", "module": "pages/insights" },
+				{
+					"key": "Network graph",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Network graph of recent commits. Use the Chart options menu to view as a table.",
+					"module": "pages/insights"
+				},
+				{ "key": "People", "module": "pages/insights" },
 				{ "key": "Projects", "module": "pages/repo" },
-				{ "key": "Starred", "module": "pages/insights" }
+				{ "key": "Starred", "module": "pages/insights" },
+				{
+					"key": "The network graph is also available as a data table.",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+					"module": "pages/insights"
+				},
+				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",
@@ -8140,6 +8461,20 @@
 				"insights/chart-bar",
 				"insights/highcharts-credit",
 				"insights/chart-navigator-series",
+				"insights/pulse-title-short",
+				"insights/contributors-title-short",
+				"insights/have-word",
+				"insights/forks-title-short",
+				"insights/network-graph-title",
+				"insights/traffic-views-summary",
+				"insights/traffic-clones-summary",
+				"insights/traffic-unique-cloners-summary",
+				"insights/traffic-unique-visitors-summary",
+				"insights/chart-line-points",
+				"insights/chart-bar-series",
+				"insights/traffic-title",
+				"insights/commits-graph-title",
+				"insights/code-frequency-title",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
@@ -8162,6 +8497,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -8315,9 +8663,56 @@
 			"path": "/microsoft/vscode/graphs",
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
+				{
+					"key": "Actions performance metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Actions usage metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Admin insights",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Chart options",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code frequency",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Community standards",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Dependency graph",
+					"module": "pages/insights"
+				},
+				{ "key": "Network", "module": "pages/insights" },
+				{
+					"key": "Network graph",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Network graph of recent commits. Use the Chart options menu to view as a table.",
+					"module": "pages/insights"
+				},
+				{ "key": "People", "module": "pages/insights" },
 				{ "key": "Projects", "module": "pages/repo" },
-				{ "key": "Starred", "module": "pages/insights" }
+				{ "key": "Starred", "module": "pages/insights" },
+				{
+					"key": "The network graph is also available as a data table.",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+					"module": "pages/insights"
+				},
+				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",
@@ -8379,6 +8774,20 @@
 				"insights/chart-bar",
 				"insights/highcharts-credit",
 				"insights/chart-navigator-series",
+				"insights/pulse-title-short",
+				"insights/contributors-title-short",
+				"insights/have-word",
+				"insights/forks-title-short",
+				"insights/network-graph-title",
+				"insights/traffic-views-summary",
+				"insights/traffic-clones-summary",
+				"insights/traffic-unique-cloners-summary",
+				"insights/traffic-unique-visitors-summary",
+				"insights/chart-line-points",
+				"insights/chart-bar-series",
+				"insights/traffic-title",
+				"insights/commits-graph-title",
+				"insights/code-frequency-title",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
@@ -8401,6 +8810,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -8554,9 +8976,56 @@
 			"path": "/microsoft/vscode/forks",
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
+				{
+					"key": "Actions performance metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Actions usage metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Admin insights",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Chart options",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code frequency",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Community standards",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Dependency graph",
+					"module": "pages/insights"
+				},
+				{ "key": "Network", "module": "pages/insights" },
+				{
+					"key": "Network graph",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Network graph of recent commits. Use the Chart options menu to view as a table.",
+					"module": "pages/insights"
+				},
+				{ "key": "People", "module": "pages/insights" },
 				{ "key": "Projects", "module": "pages/repo" },
-				{ "key": "Starred", "module": "pages/insights" }
+				{ "key": "Starred", "module": "pages/insights" },
+				{
+					"key": "The network graph is also available as a data table.",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+					"module": "pages/insights"
+				},
+				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",
@@ -8618,6 +9087,20 @@
 				"insights/chart-bar",
 				"insights/highcharts-credit",
 				"insights/chart-navigator-series",
+				"insights/pulse-title-short",
+				"insights/contributors-title-short",
+				"insights/have-word",
+				"insights/forks-title-short",
+				"insights/network-graph-title",
+				"insights/traffic-views-summary",
+				"insights/traffic-clones-summary",
+				"insights/traffic-unique-cloners-summary",
+				"insights/traffic-unique-visitors-summary",
+				"insights/chart-line-points",
+				"insights/chart-bar-series",
+				"insights/traffic-title",
+				"insights/commits-graph-title",
+				"insights/code-frequency-title",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
@@ -8640,6 +9123,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -8798,9 +9294,70 @@
 				"global"
 			],
 			"collisions": [
+				{
+					"key": "Actions performance metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Actions usage metrics",
+					"module": "pages/insights"
+				},
+				{ "key": "Add", "module": "pages/security" },
+				{
+					"key": "Admin insights",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Chart options",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code frequency",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Community standards",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Dependency files checked",
+					"module": "pages/security"
+				},
+				{
+					"key": "Dependency graph",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Filter by ecosystem",
+					"module": "pages/security"
+				},
+				{ "key": "Network", "module": "pages/insights" },
+				{
+					"key": "Network graph",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Network graph of recent commits. Use the Chart options menu to view as a table.",
+					"module": "pages/insights"
+				},
+				{ "key": "People", "module": "pages/insights" },
+				{ "key": "ProTip!", "module": "pages/security" },
 				{ "key": "Projects", "module": "pages/repo" },
-				{ "key": "Starred", "module": "pages/insights" }
+				{ "key": "Starred", "module": "pages/insights" },
+				{
+					"key": "Suggestions",
+					"module": "pages/security"
+				},
+				{
+					"key": "The network graph is also available as a data table.",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+					"module": "pages/insights"
+				},
+				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",
@@ -8862,6 +9419,20 @@
 				"insights/chart-bar",
 				"insights/highcharts-credit",
 				"insights/chart-navigator-series",
+				"insights/pulse-title-short",
+				"insights/contributors-title-short",
+				"insights/have-word",
+				"insights/forks-title-short",
+				"insights/network-graph-title",
+				"insights/traffic-views-summary",
+				"insights/traffic-clones-summary",
+				"insights/traffic-unique-cloners-summary",
+				"insights/traffic-unique-visitors-summary",
+				"insights/chart-line-points",
+				"insights/chart-bar-series",
+				"insights/traffic-title",
+				"insights/commits-graph-title",
+				"insights/code-frequency-title",
 				"security/page-title-overview",
 				"security/page-title-advisories",
 				"security/page-title-code-scanning",
@@ -8901,6 +9472,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -9054,9 +9638,56 @@
 			"path": "/microsoft/vscode/projects",
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
+				{
+					"key": "Actions performance metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Actions usage metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Admin insights",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Chart options",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code frequency",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Community standards",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Dependency graph",
+					"module": "pages/insights"
+				},
+				{ "key": "Network", "module": "pages/insights" },
+				{
+					"key": "Network graph",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Network graph of recent commits. Use the Chart options menu to view as a table.",
+					"module": "pages/insights"
+				},
+				{ "key": "People", "module": "pages/insights" },
 				{ "key": "Projects", "module": "pages/repo" },
-				{ "key": "Starred", "module": "pages/insights" }
+				{ "key": "Starred", "module": "pages/insights" },
+				{
+					"key": "The network graph is also available as a data table.",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+					"module": "pages/insights"
+				},
+				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",
@@ -9118,6 +9749,20 @@
 				"insights/chart-bar",
 				"insights/highcharts-credit",
 				"insights/chart-navigator-series",
+				"insights/pulse-title-short",
+				"insights/contributors-title-short",
+				"insights/have-word",
+				"insights/forks-title-short",
+				"insights/network-graph-title",
+				"insights/traffic-views-summary",
+				"insights/traffic-clones-summary",
+				"insights/traffic-unique-cloners-summary",
+				"insights/traffic-unique-visitors-summary",
+				"insights/chart-line-points",
+				"insights/chart-bar-series",
+				"insights/traffic-title",
+				"insights/commits-graph-title",
+				"insights/code-frequency-title",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
@@ -9140,6 +9785,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -9335,6 +9993,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -9526,6 +10197,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -9717,6 +10401,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -10508,6 +11205,19 @@
 				"repo/age-months-word",
 				"repo/age-years-word",
 				"repo/age-old",
+				"repo/insights-h1",
+				"repo/community-title",
+				"repo/people-access-count",
+				"repo/people-title",
+				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",

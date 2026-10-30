@@ -104,6 +104,79 @@
 		"GPG key ID:": "GPG 密钥 ID：",
 		"Learn about vigilant mode": "了解警惕模式",
 		"main branch": "main 分支",
-		"commits by Copilot": "Copilot 的提交"
+		"commits by Copilot": "Copilot 的提交",
+		// —— 洞察侧栏（/community、/people、/network、/collaborators 与洞察五子页
+		// 渲染同一套「Admin insights」侧栏；这四支路径不命中 pages/insights 的路由，
+		// 按姊妹页面惯例在此登记同译，译文与 pages/insights 逐字一致）——
+		"Traffic": "流量",
+		"People": "成员",
+		"Dependency graph": "依赖项关系图",
+		"Network": "网络",
+		"Code frequency": "代码频率",
+		"Community standards": "社区标准",
+		"Admin insights": "管理洞察",
+		"Actions performance metrics": "Actions 性能指标",
+		"Actions usage metrics": "Actions 用量指标",
+		// —— /community（社区标准页）——
+		// 比较句：前段 + 链接 + 独立句点符号节点，拼回「以下是本项目与推荐社区标准.」
+		"Community Standards": "社区标准",
+		"Here’s how this project compares to": "以下是本项目与",
+		"recommended community standards": "推荐社区标准",
+		"What is": "什么是",
+		"the community profile": "社区概况",
+		"Checklist": "清单",
+		// 绿勾图标的 aria-label
+		"Added": "已添加",
+		"Not added yet": "尚未添加",
+		"Issue templates": "议题模板",
+		"License": "许可证",
+		"Pull request template": "拉取请求模板",
+		"Repository admins accept content reports": "仓库管理员接受内容举报",
+		"Additional community file": "其他社区文件",
+		// 直撇号（U+0027），与比较句的弯撇号不同
+		"Describe your project's accessibility commitment, supported environments, known limitations, and how people can report barriers.": "描述你的项目的无障碍承诺、支持的环境、已知的限制，以及人们报告障碍的方式。",
+		"Writing an accessibility statement": "撰写无障碍声明",
+		"View an ACCESSIBILITY.md example": "查看 ACCESSIBILITY.md 示例",
+		"Add accessibility file": "添加无障碍文件",
+		"Add": "添加",
+		// 讨论区空态
+		"Enable Discussions to unlock Community Insights!": "启用讨论区以解锁社区洞察！",
+		"Discussions is the central space for your community to share announcements, ask questions, and host conversations.": "讨论区是你的社区发布公告、提问和展开对话的中心空间。",
+		"Set up discussions": "设置讨论区",
+		// —— /people 与 /collaborators（成员页及其管理子页）——
+		"Outside collaborators": "外部协作者",
+		"No outside collaborators with access to this repository.": "没有可访问此仓库的外部协作者。",
+		"Find a collaborator…": "查找协作者…",
+		"Find a user": "查找用户",
+		"Collaborators": "协作者",
+		"Breadcrumb": "面包屑导航",
+		"Admin": "管理员",
+		// —— /network 与 /network/dependencies（网络关系图与依赖项关系图页）——
+		"Dependency files checked": "已检查的依赖项文件",
+		"Dependency Insights menu": "依赖项洞察菜单",
+		"Dependencies": "依赖项",
+		"Dependents": "被依赖项",
+		"Direct": "直接",
+		"Transitive": "传递",
+		"Export SBOM": "导出 SBOM",
+		"Learn more about SBOMS.": "了解 SBOM 的更多信息。",
+		"Filter by ecosystem": "按生态系统筛选",
+		"Filter by ecosystem options": "按生态系统筛选选项",
+		"Filter ecosystems": "筛选生态系统",
+		"No ecosystems found.": "未找到生态系统。",
+		"Search all dependencies": "搜索所有依赖项",
+		"Suggestions": "建议",
+		"ProTip!": "专业提示！",
+		"Supported ecosystems will have transitivity labels on their packages.": "受支持的生态系统会在其软件包上显示传递性标签。",
+		"Network graph": "网络关系图",
+		"Chart options": "图表选项",
+		"Network graph of recent commits. Use the Chart options menu to view as a table.": "最近提交的网络关系图。使用图表选项菜单以数据表查看。",
+		"The network graph is also available as a data table.": "网络关系图也可以数据表形式查看。",
+		"Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.": "此仓库及其网络的最近提交时间线，按最近推送排序并每日更新。",
+		// canvas 降级说明：后续接浏览器名链接（Internet Explorer / Chrome / Firefox）
+		// 与「or」碎片，浏览器名原样保留
+		"Sorry, your browser doesn’t support the <canvas> element.": "抱歉，你的浏览器不支持 <canvas> 元素。",
+		"Please upgrade to the latest": "请升级到最新版",
+		"or": "或"
 	}
 }

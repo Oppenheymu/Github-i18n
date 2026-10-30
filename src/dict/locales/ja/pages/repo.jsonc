@@ -120,6 +120,79 @@
 		"GPG key ID:": "GPG キー ID：",
 		"Learn about vigilant mode": "ビジラントモードについて",
 		"main branch": "main ブランチ",
-		"commits by Copilot": "Copilot によるコミット"
+		"commits by Copilot": "Copilot によるコミット",
+		// —— インサイトのサイドバー（/community・/people・/network・/collaborators は
+		// 同じ「Admin insights」サイドバーを描画するが、pages/insights のルートに
+		// マッチしないため、姉妹ページの慣例に従い本モジュールに同訳で収録する。
+		// 訳語は pages/insights と一字一句一致させる）——
+		"Traffic": "トラフィック",
+		"People": "メンバー",
+		"Dependency graph": "依存関係グラフ",
+		"Network": "ネットワーク",
+		"Code frequency": "コード頻度",
+		"Community standards": "コミュニティ基準",
+		"Admin insights": "管理者向けインサイト",
+		"Actions performance metrics": "Actions パフォーマンス指標",
+		"Actions usage metrics": "Actions 使用量指標",
+		// —— コミュニティ基準ページ（/community）——
+		// 比較文：前段 + リンク + 独立した句点ノード
+		"Community Standards": "コミュニティ基準",
+		"Here’s how this project compares to": "このプロジェクトは以下の基準と比較されます：",
+		"recommended community standards": "推奨コミュニティ基準",
+		"What is": "次の項目とは何か：",
+		"the community profile": "コミュニティプロフィール",
+		"Checklist": "チェックリスト",
+		// 緑のチェックアイコンの aria-label
+		"Added": "追加済み",
+		"Not added yet": "未追加",
+		"Issue templates": "イシューテンプレート",
+		"License": "ライセンス",
+		"Pull request template": "プルリクエストテンプレート",
+		"Repository admins accept content reports": "リポジトリ管理者はコンテンツ報告を受け付けます",
+		"Additional community file": "その他のコミュニティファイル",
+		// 半角アポストロフィ（U+0027）— 比較文の全角 ’ とは別表記
+		"Describe your project's accessibility commitment, supported environments, known limitations, and how people can report barriers.": "プロジェクトのアクセシビリティへの取り組み、サポート対象環境、既知の制限、および障害を報告する方法を記載してください。",
+		"Writing an accessibility statement": "アクセシビリティステートメントの書き方",
+		"View an ACCESSIBILITY.md example": "ACCESSIBILITY.md の例を見る",
+		"Add accessibility file": "アクセシビリティファイルを追加",
+		"Add": "追加",
+		// ディスカッションの空状態
+		"Enable Discussions to unlock Community Insights!": "ディスカッションを有効にしてコミュニティインサイトを解放しよう！",
+		"Discussions is the central space for your community to share announcements, ask questions, and host conversations.": "ディスカッションは、お知らせの共有・質問・会話の場となるコミュニティの中心的なスペースです。",
+		"Set up discussions": "ディスカッションを設定",
+		// —— /people・/collaborators（メンバーページとその管理サブページ）——
+		"Outside collaborators": "外部コラボレーター",
+		"No outside collaborators with access to this repository.": "このリポジトリにアクセスできる外部コラボレーターはいません。",
+		"Find a collaborator…": "コラボレーターを検索…",
+		"Find a user": "ユーザーを検索",
+		"Collaborators": "コラボレーター",
+		"Breadcrumb": "パンくずリスト",
+		"Admin": "管理者",
+		// —— /network・/network/dependencies（ネットワークグラフと依存関係グラフページ）——
+		"Dependency files checked": "チェック済みの依存ファイル",
+		"Dependency Insights menu": "依存関係インサイトメニュー",
+		"Dependencies": "依存関係",
+		"Dependents": "被依存関係",
+		"Direct": "直接",
+		"Transitive": "推移的",
+		"Export SBOM": "SBOM をエクスポート",
+		"Learn more about SBOMS.": "SBOM の詳細を見る。",
+		"Filter by ecosystem": "エコシステムで絞り込む",
+		"Filter by ecosystem options": "エコシステムで絞り込むオプション",
+		"Filter ecosystems": "エコシステムを絞り込む",
+		"No ecosystems found.": "エコシステムが見つかりません。",
+		"Search all dependencies": "すべての依存関係を検索",
+		"Suggestions": "候補",
+		"ProTip!": "プロヒント！",
+		"Supported ecosystems will have transitivity labels on their packages.": "対応しているエコシステムのパッケージには推移性のラベルが付きます。",
+		"Network graph": "ネットワークグラフ",
+		"Chart options": "チャートのオプション",
+		"Network graph of recent commits. Use the Chart options menu to view as a table.": "最近のコミットのネットワークグラフ。チャートのオプションメニューからテーブルとして表示できます。",
+		"The network graph is also available as a data table.": "ネットワークグラフはデータテーブルでも表示できます。",
+		"Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.": "このリポジトリとそのネットワークへの最近のコミットのタイムライン。最新のプッシュ順に並び、毎日更新されます。",
+		// canvas フォールバック説明：後にブラウザー名リンクと「or」断片が続く
+		"Sorry, your browser doesn’t support the <canvas> element.": "申し訳ありませんが、お使いのブラウザーは <canvas> 要素に対応していません。",
+		"Please upgrade to the latest": "最新版にアップグレードしてください：",
+		"or": "または"
 	}
 }

@@ -461,6 +461,8 @@
 		"Try again with GIF, JPEG, JPG, MOV, MP4, PNG, SVG, WEBM, WEBP, BMP, C, COPILOTMD, CPP, CPUPROFILE, CS, CSS, CSV, DEBUG, DMP, DOC, DOCX, DRAWIO, EML, FODG, FODP, FODS, FODT, GZ, HTM, HTML, IPYNB, JAVA, JS, JSON, JSONC, LOG, MD, MP3, MSG, ODF, ODG, ODP, ODS, ODT, PATCH, PDB, PDF, PHP, PPTX, PY, RTF, SH, SQL, TGZ, TIF, TIFF, TS, TSV, TSX, TXT, WAV, XLS, XLSM, XLSX, XML, YAML, YML or ZIP.": "请改用 GIF、JPEG、JPG、MOV、MP4、PNG、SVG、WEBM、WEBP、BMP、C、COPILOTMD、CPP、CPUPROFILE、CS、CSS、CSV、DEBUG、DMP、DOC、DOCX、DRAWIO、EML、FODG、FODP、FODS、FODT、GZ、HTM、HTML、IPYNB、JAVA、JS、JSON、JSONC、LOG、MD、MP3、MSG、ODF、ODG、ODP、ODS、ODT、PATCH、PDB、PDF、PHP、PPTX、PY、RTF、SH、SQL、TGZ、TIF、TIFF、TS、TSV、TSX、TXT、WAV、XLS、XLSM、XLSX、XML、YAML、YML 或 ZIP 重试。",
 		// —— 仓库列表星标按钮下拉的悬停提示（2026-10-31 实机）：文本在 popover
 		// 自定义元素的 open shadow root 内，hover 时挂载，由 shadow 穿透翻译 ——
-		"Add this repository to a list": "将此仓库添加到列表"
+		"Add this repository to a list": "将此仓库添加到列表",
+		// 通知 shelf 的返回栏（issues / pulls / notifications 详情顶栏通用）
+		"Back to notifications": "返回通知"
 	}
 }

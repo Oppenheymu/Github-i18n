@@ -99,6 +99,50 @@
 		"Suggestions cannot be applied while viewing a subset of changes.": "查看部分变更时无法应用建议。",
 		"This suggestion has been applied or marked resolved.": "此建议已被应用或标记为已解决。",
 		"This suggestion is invalid because no changes were made to the code.": "此建议无效，因为没有对代码做出任何更改。",
-		"You must change the existing code in this line in order to create a valid suggestion.": "必须更改此行中的现有代码才能创建有效的建议。"
+		"You must change the existing code in this line in order to create a valid suggestion.": "必须更改此行中的现有代码才能创建有效的建议。",
+		// —— 合并区与各下拉（2026-10-31 实机 HTML + 截图）——
+		// 快捷键提示五节点：`Press ` + <kbd>h</kbd> + ` to cycle through filters, `
+		// + <br> + ` even when the dropdown is closed`——三段碎片各自查表，kbd 内
+		// 文本排除，<br> 保留；拼接成「按 h 循环切换筛选器，即使下拉菜单处于关闭状态」
+		"Press": "按",
+		"to cycle through filters,": "循环切换筛选器，",
+		"even when the dropdown is closed": "即使下拉菜单处于关闭状态",
+		// 筛选下拉的显示档位（维护者 2026-10-31 同批截图）
+		"Show all activities": "显示全部动态",
+		"Hide events": "隐藏事件",
+		"Hide events, bots, collapsed comments": "隐藏事件、机器人、折叠的评论",
+		// 绕过合并（红字选项与按钮；squash 是合并方式专有名词保留）
+		"Merge without waiting for requirements to be met (bypass rules)": "无需等待满足条件即可合并（绕过规则）",
+		"Bypass rules and merge (squash)": "绕过规则并合并（squash）",
+		// —— Update branch 下拉 ——
+		"Update branch": "更新分支",
+		"Update with merge commit": "用合并提交更新",
+		"The merge commit will be associated with your account.": "合并提交将关联到你的帐户。",
+		"Update with rebase": "用变基更新",
+		"This pull request will be rebased on top of the latest changes and then force pushed.": "此拉取请求将变基到最新更改之上，然后强制推送。",
+		// —— 代码下拉与 Merge status 按钮 ——
+		"Merge status": "合并状态",
+		"Checkout with GitHub CLI": "使用 GitHub CLI 检出",
+		"Work fast with our official CLI.": "用我们的官方 CLI 快速工作。",
+		"Open in GitHub Copilot app": "在 GitHub Copilot 应用中打开",
+		"Checkout with GitHub Desktop": "使用 GitHub Desktop 检出",
+		// —— 通知 shelf 顶栏（issues 详情同栏，先收本页）——
+		"Mark as unread": "标记为未读",
+		"Mark as read": "标记为已读",
+		// —— merge 区与右侧栏 ——
+		"Merge when ready": "就绪后合并",
+		"Merging is blocked": "合并被阻止",
+		"At least 1 approving review is required by reviewers with write access.": "需要至少 1 名具有写权限的审查者批准。",
+		// em dash 在节点内
+		"No reviews—at least 1 approving review is required.": "暂无审查——至少需要 1 个批准审查。",
+		// 「Still in progress? Convert to draft」：问号在碎片节点内，链接独立
+		"Still in progress?": "仍在进行中？",
+		"Convert to draft": "转换为草稿",
+		"Lock conversation": "锁定对话",
+		"Archive pull request": "归档拉取请求",
+		// 评论框 placeholder
+		"Add your comment here, be kind": "在这里添加你的评论，请友善",
+		// 通知订阅说明
+		"You're receiving notifications because you're watching this repository.": "你正在接收通知，因为你正在关注此仓库。"
 	}
 }

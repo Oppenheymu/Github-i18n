@@ -333,10 +333,17 @@ function handleExcluded(
 /**
  * 翻译以 root 为根的子树，返回替换次数（供调试与测试断言）。
  * 排除容器内的子树整棵跳过（closest 同时覆盖祖先，越界根也不误入）。
+ *
+ * `onShadowRoot`：遍历中发现带 open shadow root 的元素时回调（每个发现的
+ * shadow root 恰好一次），供引擎挂观察器——shadow tree 内部的变更**不会**
+ * 冒泡到 document 级观察器，组件原地重写英文（relative-time 每分钟 tick）
+ * 之后的重翻只能靠对 shadow root 单独 observe。回调只通知、不参与翻译，
+ * 故 walker 仍是纯遍历函数；不传则照常穿透翻译、只是没有观察器注册。
  */
 export function translateTree(
 	root: Node,
 	view: DictView,
+	onShadowRoot?: (shadowRoot: ShadowRoot) => void,
 ): number {
 	let count = 0;
 	if (root.nodeType === Node.TEXT_NODE) {
@@ -378,6 +385,22 @@ export function translateTree(
 					return NodeFilter.FILTER_REJECT;
 				}
 				applyAttrs(element, view);
+				// open shadow root 穿透：GitHub 正把时间戳等迁到带 shadow DOM 的
+				// 自定义元素（relative-time 的可见文本在其 shadow root 内的
+				// `<span part="root">` 里，维护者 2026-10-30 实机 HTML），light DOM
+				// 的 TreeWalker 永远摸不到。走到这里的元素已通过排除检查，shadow
+				// 子树继承 host 的判定；shadow 内部还有排除容器时，其内部元素的
+				// `closest` 在同一棵 shadow 树内照常生效。`shadowRoot` 只返回 open
+				// 模式，closed 的结构上不可达（GitHub 用 open）。
+				const shadow = element.shadowRoot;
+				if (shadow !== null) {
+					onShadowRoot?.(shadow);
+					count += translateTree(
+						shadow,
+						view,
+						onShadowRoot,
+					);
+				}
 				return NodeFilter.FILTER_SKIP;
 			},
 		},

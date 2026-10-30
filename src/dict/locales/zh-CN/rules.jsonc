@@ -831,6 +831,8 @@
 		"repo/page-n": "第 $1 页",
 		"global/now": "刚刚",
 		"global/yesterday": "昨天",
+		"global/today-at": "今天 $<time>",
+		"global/yesterday-at": "昨天 $<time>",
 		"global/seconds-ago": "$1 秒前",
 		"global/minutes-ago": "$1 分钟前",
 		"global/hours-ago": "$1 小时前",

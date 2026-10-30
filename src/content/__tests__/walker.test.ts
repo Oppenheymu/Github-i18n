@@ -610,3 +610,97 @@ describe("三段标签的整句回填", () => {
 		);
 	});
 });
+
+// —— shadow DOM 穿透 ——
+//
+// GitHub 正把时间戳迁到带 open shadow root 的自定义元素（relative-time 的
+// 可见文本在其 shadow root 内的 `<span part="root">` 里，维护者 2026-10-30
+// 实机 HTML）：light DOM 的 TreeWalker 摸不到，表现为「规则明明在、引擎单测
+// 全绿，页面上还是英文」。穿透语义：发现即递归翻译并上报（引擎拿上报的
+// shadow root 挂观察器）；排除清单与 closed 模式的边界也在这里锁住。
+describe("translateTree 的 shadow DOM 穿透", () => {
+	/** 复刻 relative-time 的实机形态：host + open shadow root + `<span part="root">` */
+	function makeRelativeTime(
+		mode: "open" | "closed" = "open",
+	): {
+		readonly host: HTMLElement;
+		readonly shadow: ShadowRoot;
+		readonly label: HTMLElement;
+	} {
+		const host =
+			env.document.createElement("relative-time");
+		const shadow = host.attachShadow({ mode });
+		const label = env.document.createElement("span");
+		label.setAttribute("part", "root");
+		label.textContent = "4 minutes ago";
+		shadow.appendChild(label);
+		return { host, shadow, label };
+	}
+
+	it("translates text inside an open shadow root and reports it", () => {
+		const root = makeRoot();
+		const { host, shadow, label } = makeRelativeTime();
+		root.appendChild(host);
+
+		const seen: ShadowRoot[] = [];
+		const count = translateTree(root, view, (found) => {
+			seen.push(found);
+		});
+		// 穿透翻译：shadow 内的文本与 light DOM 走同一套词典与规则
+		expect(count).toBe(1);
+		expect(label.textContent).toBe("4 分钟前");
+		// 恰好上报一次，参数就是那个 shadow root（引擎拿它注册观察器）
+		expect(seen).toEqual([shadow]);
+	});
+
+	it("still honors the exclusion list inside a shadow tree", () => {
+		const root = makeRoot();
+		const { host, shadow, label } = makeRelativeTime();
+		const code = env.document.createElement("code");
+		code.appendChild(label);
+		shadow.appendChild(code);
+		root.appendChild(host);
+
+		const seen: ShadowRoot[] = [];
+		const count = translateTree(root, view, (found) => {
+			seen.push(found);
+		});
+		// shadow 内也有自己的排除容器：code 的子树整棵跳过
+		expect(count).toBe(0);
+		expect(label.textContent).toBe("4 minutes ago");
+		// 排除的是子树，不是整棵 shadow：shadow root 本身照常上报
+		expect(seen).toEqual([shadow]);
+	});
+
+	it("does not enter a shadow root under an excluded container", () => {
+		const pre = env.document.createElement("pre");
+		const { host, label } = makeRelativeTime();
+		pre.appendChild(host);
+		env.document.body.appendChild(pre);
+
+		const seen: ShadowRoot[] = [];
+		// root 自身命中排除清单 → 整树跳过，shadow 不穿透
+		const count = translateTree(pre, view, (found) => {
+			seen.push(found);
+		});
+		expect(count).toBe(0);
+		expect(label.textContent).toBe("4 minutes ago");
+		expect(seen).toEqual([]);
+	});
+
+	it("cannot enter a closed shadow root", () => {
+		const root = makeRoot();
+		const { host, label } = makeRelativeTime("closed");
+		root.appendChild(host);
+
+		const seen: ShadowRoot[] = [];
+		translateTree(root, view, (found) => {
+			seen.push(found);
+		});
+		// closed 模式的 shadowRoot 属性结构上为 null：不穿透也不上报。
+		// GitHub 用 open（relative-time-element 源码 attachShadow({mode:'open'})），
+		// 这是边界事实而非缺口
+		expect(label.textContent).toBe("4 minutes ago");
+		expect(seen).toEqual([]);
+	});
+});

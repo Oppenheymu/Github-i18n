@@ -3927,6 +3927,53 @@
 					"id": "global/yesterday",
 					"pattern": "^yesterday$"
 				},
+				// —— relative-time 的模糊相对形态（维护者 2026-10-31 实机 "last week"，
+				// stars 页；同族按 Intl.RelativeTimeFormat 的 numeric:"auto" 标准输出集
+				// 收全——relative-time 组件即用它渲染，now / yesterday 已有）——
+				{
+					"id": "global/today",
+					"pattern": "^today$"
+				},
+				{
+					"id": "global/tomorrow",
+					"pattern": "^tomorrow$"
+				},
+				{
+					"id": "global/last-week",
+					"pattern": "^last week$"
+				},
+				{
+					"id": "global/this-week",
+					"pattern": "^this week$"
+				},
+				{
+					"id": "global/next-week",
+					"pattern": "^next week$"
+				},
+				{
+					"id": "global/last-month",
+					"pattern": "^last month$"
+				},
+				{
+					"id": "global/this-month",
+					"pattern": "^this month$"
+				},
+				{
+					"id": "global/next-month",
+					"pattern": "^next month$"
+				},
+				{
+					"id": "global/last-year",
+					"pattern": "^last year$"
+				},
+				{
+					"id": "global/this-year",
+					"pattern": "^this year$"
+				},
+				{
+					"id": "global/next-year",
+					"pattern": "^next year$"
+				},
 				// 「Today at HH:MM」/「Yesterday at HH:MM」：relative-time 元素对
 				// 24h / 48h 内时间戳的绝对形态（维护者 2026-10-30 实机 HTML，
 				// Actions 运行列表页；Yesterday 为同组件平行形态，上游

@@ -443,6 +443,19 @@
 		"A free and open source package manager used for the Microsoft development platforms including .NET.": ".NET を含む Microsoft 開発プラットフォームで使われる無料のオープンソースパッケージマネージャー。",
 		"A standard format for distributing Ruby programs and libraries used for the Ruby programming language.": "Ruby プログラムや Ruby プログラミング言語で使われるライブラリを配布するための標準フォーマット。",
 		"A package manager for JavaScript, included with Node.js. npm makes it easy for developers to share and reuse code.": "JavaScript 向けのパッケージマネージャー、Node.js に同梱。npm により、開発者はコードを簡単に共有・再利用できます。",
-		"A single place for your team to manage Docker images and decide who can see and access your images.": "チームが Docker イメージを管理し、誰がイメージを表示・アクセスできるかを決めるための一元的な場所。"
+		"A single place for your team to manage Docker images and decide who can see and access your images.": "チームが Docker イメージを管理し、誰がイメージを表示・アクセスできるかを決めるための一元的な場所。",
+		// —— スタータブ（2026-10-31 実機スクリーンショット、/?tab=stars）——
+		// 並べ替えドロップダウンとリスト領域。Sort by: / Most stars / Starred は
+		// pages/search、pages/repo の同名列と同じ訳（姉妹ページごとに登録）；
+		// 「Add this repository to a list」のホバー提示は global
+		"Sort by:": "並べ替え：",
+		"Recently starred": "スターが新しい順",
+		"Recently active": "最近アクティブな順",
+		"Most stars": "スターが多い順",
+		"Type:": "種類：",
+		"Starred": "スター付き",
+		"Lists": "リスト",
+		"Create list": "リストを作成",
+		"Search stars": "スターを検索"
 	}
 }

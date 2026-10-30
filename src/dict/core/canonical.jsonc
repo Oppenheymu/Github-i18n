@@ -7766,6 +7766,19 @@
 				"Projects are a customizable, flexible tool for planning and tracking your work.",
 				"Your Packages",
 				"Your projects",
+				// —— 星标标签页（维护者 2026-10-31 实机截图，/<用户名>?tab=stars）——
+				// 排序下拉与列表区。Sort by: / Most stars / Starred 与 pages/search、
+				// pages/repo 的同名键同译（姊妹页各渲染各登记）；Type: 对齐
+				// Filter: 的「标签:」碎片形态（值 All 由 global 覆盖）。
+				"Sort by:",
+				"Recently starred",
+				"Recently active",
+				"Most stars",
+				"Type:",
+				"Starred",
+				"Lists",
+				"Create list",
+				"Search stars",
 				// —— Packages 标签页的空状态（维护者 2026-10-31 实机截图，
 				// /<用户名>?tab=packages）——标题 / 副描述 / 注册表小节标题与五个
 				// registry 卡片的描述句。卡片标题（Apache Maven / NuGet / RubyGems /
@@ -8688,7 +8701,12 @@
 				"Try again with another file.",
 				"Try again with a file that’s not empty.",
 				"We don’t support that file type.",
-				"Try again with GIF, JPEG, JPG, MOV, MP4, PNG, SVG, WEBM, WEBP, BMP, C, COPILOTMD, CPP, CPUPROFILE, CS, CSS, CSV, DEBUG, DMP, DOC, DOCX, DRAWIO, EML, FODG, FODP, FODS, FODT, GZ, HTM, HTML, IPYNB, JAVA, JS, JSON, JSONC, LOG, MD, MP3, MSG, ODF, ODG, ODP, ODS, ODT, PATCH, PDB, PDF, PHP, PPTX, PY, RTF, SH, SQL, TGZ, TIF, TIFF, TS, TSV, TSX, TXT, WAV, XLS, XLSM, XLSX, XML, YAML, YML or ZIP."
+				"Try again with GIF, JPEG, JPG, MOV, MP4, PNG, SVG, WEBM, WEBP, BMP, C, COPILOTMD, CPP, CPUPROFILE, CS, CSS, CSV, DEBUG, DMP, DOC, DOCX, DRAWIO, EML, FODG, FODP, FODS, FODT, GZ, HTM, HTML, IPYNB, JAVA, JS, JSON, JSONC, LOG, MD, MP3, MSG, ODF, ODG, ODP, ODS, ODT, PATCH, PDB, PDF, PHP, PPTX, PY, RTF, SH, SQL, TGZ, TIF, TIFF, TS, TSV, TSX, TXT, WAV, XLS, XLSM, XLSX, XML, YAML, YML or ZIP.",
+				// —— 仓库列表星标按钮下拉的悬停提示（维护者 2026-10-31
+				// /Oppenheymu?tab=stars 实机 DevTools）——文本在 popover 自定义元素的
+				// open shadow root 内，hover 时挂载：观察器捕获后由 shadow 穿透翻译
+				// （见 00ab648）
+				"Add this repository to a list"
 			]
 		}
 	]

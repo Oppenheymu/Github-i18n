@@ -464,6 +464,18 @@
 		"A free and open source package manager used for the Microsoft development platforms including .NET.": "免费的开源包管理器，用于包括 .NET 在内的 Microsoft 开发平台。",
 		"A standard format for distributing Ruby programs and libraries used for the Ruby programming language.": "用于分发 Ruby 程序与 Ruby 编程语言所用库的标准格式。",
 		"A package manager for JavaScript, included with Node.js. npm makes it easy for developers to share and reuse code.": "JavaScript 的包管理器，随 Node.js 附带。npm 让开发者可以轻松共享和复用代码。",
-		"A single place for your team to manage Docker images and decide who can see and access your images.": "供你的团队管理 Docker 镜像并决定谁可以查看和访问这些镜像的统一场所。"
+		"A single place for your team to manage Docker images and decide who can see and access your images.": "供你的团队管理 Docker 镜像并决定谁可以查看和访问这些镜像的统一场所。",
+		// —— 星标标签页（2026-10-31 实机截图，/?tab=stars）——排序下拉与列表区。
+		// Sort by: / Most stars / Starred 与 pages/search、pages/repo 同名键同译
+		// （姊妹页各渲染各登记）；「Add this repository to a list」悬停提示在 global
+		"Sort by:": "排序方式：",
+		"Recently starred": "最近星标",
+		"Recently active": "最近活跃",
+		"Most stars": "星标最多",
+		"Type:": "类型：",
+		"Starred": "已星标",
+		"Lists": "列表",
+		"Create list": "创建列表",
+		"Search stars": "搜索星标"
 	}
 }

@@ -453,6 +453,17 @@
 		"Create your first GitHub project": "创建你的第一个 GitHub 项目",
 		"Projects are a customizable, flexible tool for planning and tracking your work.": "项目是一种可自定义的灵活工具，可用于规划和跟踪你的工作。",
 		"Your Packages": "你的软件包",
-		"Your projects": "你的项目"
+		"Your projects": "你的项目",
+		// —— Packages 标签页空状态（2026-10-31 实机截图，/?tab=packages）——
+		// 卡片标题是品牌名裸词不收（Copilot 先例）；「包管理器」沿用 Dependabot
+		// 词条先例，句号在节点内部译中文句号
+		"Get started with GitHub Packages": "开始使用 GitHub Packages",
+		"Safely publish packages, store your packages alongside your code, and share your packages privately with your team.": "安全地发布软件包，将软件包与代码存放在一起，并与你的团队私密共享软件包。",
+		"Choose a registry": "选择注册表",
+		"A default package manager used for the Java programming language and the Java runtime environment.": "Java 编程语言与 Java 运行时环境使用的默认包管理器。",
+		"A free and open source package manager used for the Microsoft development platforms including .NET.": "免费的开源包管理器，用于包括 .NET 在内的 Microsoft 开发平台。",
+		"A standard format for distributing Ruby programs and libraries used for the Ruby programming language.": "用于分发 Ruby 程序与 Ruby 编程语言所用库的标准格式。",
+		"A package manager for JavaScript, included with Node.js. npm makes it easy for developers to share and reuse code.": "JavaScript 的包管理器，随 Node.js 附带。npm 让开发者可以轻松共享和复用代码。",
+		"A single place for your team to manage Docker images and decide who can see and access your images.": "供你的团队管理 Docker 镜像并决定谁可以查看和访问这些镜像的统一场所。"
 	}
 }

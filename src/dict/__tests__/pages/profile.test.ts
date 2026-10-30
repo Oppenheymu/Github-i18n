@@ -809,3 +809,90 @@ describe("pages/profile 的 Projects 标签页空状态", () => {
 		);
 	});
 });
+
+// —— Packages 标签页的空状态（维护者 2026-10-31 实机截图，
+// /Oppenheymu?tab=packages）——
+//
+// 标题 / 副描述 / 注册表小节标题与五个 registry 卡片的描述句整节点收录；
+// 卡片标题（Apache Maven / NuGet / RubyGems / npm / Containers）是品牌名
+// 裸词不收（Copilot 先例），各卡片的「Learn more」由既有词条覆盖
+// （截图已显示「了解更多」）。
+describe("pages/profile 的 Packages 标签页空状态", () => {
+	it("translates the heading, description and the five registry cards", () => {
+		const NODES: readonly (readonly [string, string])[] = [
+			[
+				"Get started with GitHub Packages",
+				"开始使用 GitHub Packages",
+			],
+			[
+				"Safely publish packages, store your packages alongside your code, and share your packages privately with your team.",
+				"安全地发布软件包，将软件包与代码存放在一起，并与你的团队私密共享软件包。",
+			],
+			["Choose a registry", "选择注册表"],
+			[
+				"A default package manager used for the Java programming language and the Java runtime environment.",
+				"Java 编程语言与 Java 运行时环境使用的默认包管理器。",
+			],
+			[
+				"A free and open source package manager used for the Microsoft development platforms including .NET.",
+				"免费的开源包管理器，用于包括 .NET 在内的 Microsoft 开发平台。",
+			],
+			[
+				"A standard format for distributing Ruby programs and libraries used for the Ruby programming language.",
+				"用于分发 Ruby 程序与 Ruby 编程语言所用库的标准格式。",
+			],
+			[
+				"A package manager for JavaScript, included with Node.js. npm makes it easy for developers to share and reuse code.",
+				"JavaScript 的包管理器，随 Node.js 附带。npm 让开发者可以轻松共享和复用代码。",
+			],
+			[
+				"A single place for your team to manage Docker images and decide who can see and access your images.",
+				"供你的团队管理 Docker 镜像并决定谁可以查看和访问这些镜像的统一场所。",
+			],
+		];
+		for (const [node, expected] of NODES) {
+			expect(
+				translateText(node, view),
+				`节点 ${JSON.stringify(node)}`,
+			).toBe(expected);
+		}
+	});
+
+	it("keeps the registry brand names in english", () => {
+		// 卡片标题是品牌名裸词，与仓库 / 用户内容同形风险高，按纪律不收
+		for (const brand of [
+			"Apache Maven",
+			"NuGet",
+			"RubyGems",
+			"npm",
+			"Containers",
+		]) {
+			expect(translateText(brand, view), brand).toBeNull();
+		}
+	});
+
+	it("has japanese templates too", () => {
+		const japanese = buildView(
+			"/Oppenheymu",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText(
+				"Get started with GitHub Packages",
+				japanese,
+			),
+		).toBe("GitHub Packages を使ってみる");
+		expect(
+			translateText("Choose a registry", japanese),
+		).toBe("レジストリを選択");
+		expect(
+			translateText(
+				"A default package manager used for the Java programming language and the Java runtime environment.",
+				japanese,
+			),
+		).toBe(
+			"Java プログラミング言語と Java ランタイム環境で使われるデフォルトのパッケージマネージャー。",
+		);
+	});
+});

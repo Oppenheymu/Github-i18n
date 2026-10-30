@@ -797,6 +797,12 @@
 		"repo/age-years-word": "年",
 		"repo/age-old": "前に作成",
 
+		// —— /community（コミュニティ基準ページ）——
+		// インサイト共有の h1.sr-only（insights/page-title と同パターン）
+		"repo/insights-h1": "インサイト：$1",
+		// ページタイトル（Insights 系は「· GitHub」接尾辞が削除済み。リポジトリ名は原文のまま）
+		"repo/community-title": "コミュニティ · $1",
+
 		// —— global（全ページ共通）——
 		"global/now": "たった今",
 		"global/yesterday": "昨日",

@@ -133,6 +133,32 @@
 		"Community standards": "コミュニティ基準",
 		"Admin insights": "管理者向けインサイト",
 		"Actions performance metrics": "Actions パフォーマンス指標",
-		"Actions usage metrics": "Actions 使用量指標"
+		"Actions usage metrics": "Actions 使用量指標",
+		// —— コミュニティ基準ページ（/community）——
+		// 比較文：前段 + リンク + 独立した句点ノード
+		"Community Standards": "コミュニティ基準",
+		"Here’s how this project compares to": "このプロジェクトは以下の基準と比較されます：",
+		"recommended community standards": "推奨コミュニティ基準",
+		"What is": "次の項目とは何か：",
+		"the community profile": "コミュニティプロフィール",
+		"Checklist": "チェックリスト",
+		// 緑のチェックアイコンの aria-label
+		"Added": "追加済み",
+		"Not added yet": "未追加",
+		"Issue templates": "イシューテンプレート",
+		"License": "ライセンス",
+		"Pull request template": "プルリクエストテンプレート",
+		"Repository admins accept content reports": "リポジトリ管理者はコンテンツ報告を受け付けます",
+		"Additional community file": "その他のコミュニティファイル",
+		// 半角アポストロフィ（U+0027）— 比較文の全角 ’ とは別表記
+		"Describe your project's accessibility commitment, supported environments, known limitations, and how people can report barriers.": "プロジェクトのアクセシビリティへの取り組み、サポート対象環境、既知の制限、および障害を報告する方法を記載してください。",
+		"Writing an accessibility statement": "アクセシビリティステートメントの書き方",
+		"View an ACCESSIBILITY.md example": "ACCESSIBILITY.md の例を見る",
+		"Add accessibility file": "アクセシビリティファイルを追加",
+		"Add": "追加",
+		// ディスカッションの空状態
+		"Enable Discussions to unlock Community Insights!": "ディスカッションを有効にしてコミュニティインサイトを解放しよう！",
+		"Discussions is the central space for your community to share announcements, ask questions, and host conversations.": "ディスカッションは、お知らせの共有・質問・会話の場となるコミュニティの中心的なスペースです。",
+		"Set up discussions": "ディスカッションを設定"
 	}
 }

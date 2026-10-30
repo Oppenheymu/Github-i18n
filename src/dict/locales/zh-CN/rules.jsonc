@@ -789,6 +789,11 @@
 		"repo/age-months-word": "个月",
 		"repo/age-years-word": "年",
 		"repo/age-old": "前创建",
+		// —— /community（社区标准页）——
+		// 洞察页共享的 h1.sr-only（与 insights/page-title 同 pattern）
+		"repo/insights-h1": "洞察：$1",
+		// 文档标题（Insights 族已去掉「· GitHub」后缀；仓库名原样保留）
+		"repo/community-title": "社区 · $1",
 		"global/now": "刚刚",
 		"global/yesterday": "昨天",
 		"global/seconds-ago": "$1 秒前",

@@ -7967,7 +7967,42 @@
 				"Community standards",
 				"Admin insights",
 				"Actions performance metrics",
-				"Actions usage metrics"
+				"Actions usage metrics",
+				// —— /community（社区标准页；/graphs/community 是同一页的旧地址，
+				// 词条按并集登记在此）——
+				// 证据：2026-10-29 popup 导出（Koishi-CE/koishi）。
+				// 不收录：README / Code of conduct / Contributing / Security policy
+				//（本模块既有键已覆盖）；句尾独立的「.」「?」是纯符号节点，保持英文
+				//（issues 族 Learn more 先例）；「Added」「Add」两条短键实际承载的是
+				// input.btn 的 aria-label，文本形态的误伤面限于仓库子页，用例已钉住。
+				// 文档标题「Community · <仓库>」走 repo/community-title 规则。
+				"Community Standards",
+				// 弯撇号（U+2019）；后接链接「recommended community standards」
+				"Here’s how this project compares to",
+				"recommended community standards",
+				"What is",
+				// 后接链接「the community profile」，句尾问号是独立符号节点
+				"the community profile",
+				"Checklist",
+				// 绿勾图标的 aria-label，八个社区文件条目各有一枚
+				"Added",
+				"Not added yet",
+				"Issue templates",
+				"License",
+				"Pull request template",
+				"Repository admins accept content reports",
+				"Additional community file",
+				// 直撇号（实机渲染为 U+0027，与上一条的弯撇号不同，勿互相「纠正」）
+				"Describe your project's accessibility commitment, supported environments, known limitations, and how people can report barriers.",
+				"Writing an accessibility statement",
+				"View an ACCESSIBILITY.md example",
+				// input.btn 的 aria-label：展开状态是长串、折叠状态只剩「Add」
+				"Add accessibility file",
+				"Add",
+				// 讨论区空态（未启用讨论区时的社区标准页底部）
+				"Enable Discussions to unlock Community Insights!",
+				"Discussions is the central space for your community to share announcements, ask questions, and host conversations.",
+				"Set up discussions"
 			]
 		},
 		{

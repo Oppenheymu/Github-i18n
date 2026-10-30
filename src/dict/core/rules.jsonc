@@ -3759,6 +3759,19 @@
 				{
 					"id": "repo/age-old",
 					"pattern": "^old$"
+				},
+				// —— /community（社区标准页）——
+				// 洞察页共享的 h1.sr-only（Insights: <仓库>）：与 insights/page-title
+				// 同 pattern，规则 id 全局唯一故各模块一份
+				{
+					"id": "repo/insights-h1",
+					"pattern": "^Insights: (.+)$"
+				},
+				// 文档标题（GitHub 已把 Insights 族标题的「· GitHub」后缀去掉，
+				// 旧格式规则全部失配——2026-10-29 导出实锤；仓库名属内容原样保留）
+				{
+					"id": "repo/community-title",
+					"pattern": "^Community \\u00B7 (.+)$"
 				}
 			]
 		},

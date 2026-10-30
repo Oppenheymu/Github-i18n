@@ -116,6 +116,32 @@
 		"Community standards": "社区标准",
 		"Admin insights": "管理洞察",
 		"Actions performance metrics": "Actions 性能指标",
-		"Actions usage metrics": "Actions 用量指标"
+		"Actions usage metrics": "Actions 用量指标",
+		// —— /community（社区标准页）——
+		// 比较句：前段 + 链接 + 独立句点符号节点，拼回「以下是本项目与推荐社区标准.」
+		"Community Standards": "社区标准",
+		"Here’s how this project compares to": "以下是本项目与",
+		"recommended community standards": "推荐社区标准",
+		"What is": "什么是",
+		"the community profile": "社区概况",
+		"Checklist": "清单",
+		// 绿勾图标的 aria-label
+		"Added": "已添加",
+		"Not added yet": "尚未添加",
+		"Issue templates": "议题模板",
+		"License": "许可证",
+		"Pull request template": "拉取请求模板",
+		"Repository admins accept content reports": "仓库管理员接受内容举报",
+		"Additional community file": "其他社区文件",
+		// 直撇号（U+0027），与比较句的弯撇号不同
+		"Describe your project's accessibility commitment, supported environments, known limitations, and how people can report barriers.": "描述你的项目的无障碍承诺、支持的环境、已知的限制，以及人们报告障碍的方式。",
+		"Writing an accessibility statement": "撰写无障碍声明",
+		"View an ACCESSIBILITY.md example": "查看 ACCESSIBILITY.md 示例",
+		"Add accessibility file": "添加无障碍文件",
+		"Add": "添加",
+		// 讨论区空态
+		"Enable Discussions to unlock Community Insights!": "启用讨论区以解锁社区洞察！",
+		"Discussions is the central space for your community to share announcements, ask questions, and host conversations.": "讨论区是你的社区发布公告、提问和展开对话的中心空间。",
+		"Set up discussions": "设置讨论区"
 	}
 }

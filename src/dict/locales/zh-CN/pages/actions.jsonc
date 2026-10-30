@@ -193,6 +193,18 @@
 		"Recently used": "最近使用",
 		"Least recently used": "最早使用",
 		"Largest size": "大小最大",
-		"Smallest size": "大小最小"
+		"Smallest size": "大小最小",
+		// —— 洞察侧栏（/actions/metrics/* 渲染同一套「Admin insights」侧栏；
+		// 该路径只命中本模块，按姊妹页面惯例在此登记同译，译文与 pages/insights
+		// 逐字一致）——
+		"Traffic": "流量",
+		"People": "成员",
+		"Dependency graph": "依赖项关系图",
+		"Network": "网络",
+		"Code frequency": "代码频率",
+		"Community standards": "社区标准",
+		"Admin insights": "管理洞察",
+		"Actions performance metrics": "Actions 性能指标",
+		"Actions usage metrics": "Actions 用量指标"
 	}
 }

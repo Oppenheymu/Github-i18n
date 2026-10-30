@@ -104,6 +104,18 @@
 		"GPG key ID:": "GPG 密钥 ID：",
 		"Learn about vigilant mode": "了解警惕模式",
 		"main branch": "main 分支",
-		"commits by Copilot": "Copilot 的提交"
+		"commits by Copilot": "Copilot 的提交",
+		// —— 洞察侧栏（/community、/people、/network、/collaborators 与洞察五子页
+		// 渲染同一套「Admin insights」侧栏；这四支路径不命中 pages/insights 的路由，
+		// 按姊妹页面惯例在此登记同译，译文与 pages/insights 逐字一致）——
+		"Traffic": "流量",
+		"People": "成员",
+		"Dependency graph": "依赖项关系图",
+		"Network": "网络",
+		"Code frequency": "代码频率",
+		"Community standards": "社区标准",
+		"Admin insights": "管理洞察",
+		"Actions performance metrics": "Actions 性能指标",
+		"Actions usage metrics": "Actions 用量指标"
 	}
 }

@@ -6211,7 +6211,22 @@
 				"Recently used",
 				"Least recently used",
 				"Largest size",
-				"Smallest size"
+				"Smallest size",
+				// —— 洞察侧栏（/actions/metrics/performance 与 /actions/metrics/usage
+				// 渲染同一套「Admin insights」侧栏，但那两支路径只命中本模块，
+				// 不命中 pages/insights 的路由，侧栏词条按姊妹页面惯例在本模块
+				// 登记同译、译文与 pages/insights 逐字一致——2026-10-29 实机导出：
+				// 指标页侧栏除 global 已覆盖的 Pulse / Contributors / Commits / Forks
+				// 外整片回退英文）——
+				"Traffic",
+				"People",
+				"Dependency graph",
+				"Network",
+				"Code frequency",
+				"Community standards",
+				"Admin insights",
+				"Actions performance metrics",
+				"Actions usage metrics"
 			]
 		},
 		{
@@ -7886,7 +7901,22 @@
 				"GPG key ID:",
 				"Learn about vigilant mode",
 				"main branch",
-				"commits by Copilot"
+				"commits by Copilot",
+				// —— 洞察侧栏（/community、/people、/network、/collaborators 渲染同一套
+				// 「Admin insights」侧栏，但那四支路径不命中 pages/insights 的路由，
+				// 侧栏词条只能按姊妹页面惯例在本模块登记同译，译文与 pages/insights
+				// 逐字一致，否则 check:view 的「同键异译赢家」非空——2026-10-29 实机导出：
+				// 这几页侧栏除 global 已覆盖的 Pulse / Contributors / Commits / Forks
+				// 外整片回退英文）——
+				"Traffic",
+				"People",
+				"Dependency graph",
+				"Network",
+				"Code frequency",
+				"Community standards",
+				"Admin insights",
+				"Actions performance metrics",
+				"Actions usage metrics"
 			]
 		},
 		{

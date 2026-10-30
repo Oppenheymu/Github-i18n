@@ -120,6 +120,19 @@
 		"GPG key ID:": "GPG キー ID：",
 		"Learn about vigilant mode": "ビジラントモードについて",
 		"main branch": "main ブランチ",
-		"commits by Copilot": "Copilot によるコミット"
+		"commits by Copilot": "Copilot によるコミット",
+		// —— インサイトのサイドバー（/community・/people・/network・/collaborators は
+		// 同じ「Admin insights」サイドバーを描画するが、pages/insights のルートに
+		// マッチしないため、姉妹ページの慣例に従い本モジュールに同訳で収録する。
+		// 訳語は pages/insights と一字一句一致させる）——
+		"Traffic": "トラフィック",
+		"People": "メンバー",
+		"Dependency graph": "依存関係グラフ",
+		"Network": "ネットワーク",
+		"Code frequency": "コード頻度",
+		"Community standards": "コミュニティ基準",
+		"Admin insights": "管理者向けインサイト",
+		"Actions performance metrics": "Actions パフォーマンス指標",
+		"Actions usage metrics": "Actions 使用量指標"
 	}
 }

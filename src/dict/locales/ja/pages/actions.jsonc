@@ -198,6 +198,18 @@
 		"Recently used": "最近使用された",
 		"Least recently used": "使用が古い順",
 		"Largest size": "サイズが大きい順",
-		"Smallest size": "サイズが小さい順"
+		"Smallest size": "サイズが小さい順",
+		// —— インサイトのサイドバー（/actions/metrics/* は同じ「Admin insights」
+		// サイドバーを描画するが、pages/insights のルートにマッチしないため、
+		// 姉妹ページの慣例に従い本モジュールに同訳で収録する）——
+		"Traffic": "トラフィック",
+		"People": "メンバー",
+		"Dependency graph": "依存関係グラフ",
+		"Network": "ネットワーク",
+		"Code frequency": "コード頻度",
+		"Community standards": "コミュニティ基準",
+		"Admin insights": "管理者向けインサイト",
+		"Actions performance metrics": "Actions パフォーマンス指標",
+		"Actions usage metrics": "Actions 使用量指標"
 	}
 }

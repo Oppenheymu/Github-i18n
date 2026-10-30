@@ -166,6 +166,19 @@
 		"pushed": "プッシュしたのは",
 		"changed and there have been": "変更され、",
 		// コントリビューター概要カードの右上リンクの aria-label
-		"View open pull requests": "オープンなプルリクエストを表示"
+		"View open pull requests": "オープンなプルリクエストを表示",
+		// —— /forks の空状態と説明文 ——
+		// 説明文は 4 ノード（前段 + リンク + 中段 + 末尾ノード）。末尾の
+		//「pull request」は既存キー「件のプルリクエスト」が命中するため、
+		// 中段の日本語テンプレートは助数詞に必要な「1」を末尾に担う
+		"No one has forked this repository yet": "まだこのリポジトリをフォークした人はいません",
+		"Forks are a great way to contribute to a repository. After": "フォークはリポジトリへの貢献に最適な方法です。",
+		"forking a repository": "リポジトリをフォーク",
+		", you can send the original author a": "した後、オリジナルの作者に 1",
+		// ネットワークグラフ区块（/network の同串は pages/repo に同訳あり）
+		"Network graph": "ネットワークグラフ",
+		"Network graph of recent commits. Use the Chart options menu to view as a table.": "最近のコミットのネットワークグラフ。チャートのオプションメニューからテーブルとして表示できます。",
+		"The network graph is also available as a data table.": "ネットワークグラフはデータテーブルでも表示できます。",
+		"Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.": "このリポジトリとそのネットワークへの最近のコミットのタイムライン。最新のプッシュ順に並び、毎日更新されます。"
 	}
 }

@@ -699,6 +699,9 @@
 		"insights/contributors-title-short": "$1 的贡献者",
 		// 摘要句新断句里孤立的 have（「作者已推送」「文件已改动」两句通吃）
 		"insights/have-word": "已",
+		// /forks 的文档标题（Insights 族新格式）
+		"insights/forks-title-short": "复刻 · $1",
+		"insights/network-graph-title": "网络关系图 · $1",
 		"search/topic": "主题：$1",
 		"search/users-starred-count": "$1 位用户星标了此仓库",
 		"search/stars-count": "$1 个星标",

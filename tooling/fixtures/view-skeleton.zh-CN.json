@@ -8399,9 +8399,25 @@
 					"module": "pages/insights"
 				},
 				{ "key": "Network", "module": "pages/insights" },
+				{
+					"key": "Network graph",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Network graph of recent commits. Use the Chart options menu to view as a table.",
+					"module": "pages/insights"
+				},
 				{ "key": "People", "module": "pages/insights" },
 				{ "key": "Projects", "module": "pages/repo" },
 				{ "key": "Starred", "module": "pages/insights" },
+				{
+					"key": "The network graph is also available as a data table.",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+					"module": "pages/insights"
+				},
 				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
@@ -8470,6 +8486,8 @@
 				"insights/pulse-title-short",
 				"insights/contributors-title-short",
 				"insights/have-word",
+				"insights/forks-title-short",
+				"insights/network-graph-title",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
@@ -8684,9 +8702,25 @@
 					"module": "pages/insights"
 				},
 				{ "key": "Network", "module": "pages/insights" },
+				{
+					"key": "Network graph",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Network graph of recent commits. Use the Chart options menu to view as a table.",
+					"module": "pages/insights"
+				},
 				{ "key": "People", "module": "pages/insights" },
 				{ "key": "Projects", "module": "pages/repo" },
 				{ "key": "Starred", "module": "pages/insights" },
+				{
+					"key": "The network graph is also available as a data table.",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+					"module": "pages/insights"
+				},
 				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
@@ -8755,6 +8789,8 @@
 				"insights/pulse-title-short",
 				"insights/contributors-title-short",
 				"insights/have-word",
+				"insights/forks-title-short",
+				"insights/network-graph-title",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
@@ -8969,9 +9005,25 @@
 					"module": "pages/insights"
 				},
 				{ "key": "Network", "module": "pages/insights" },
+				{
+					"key": "Network graph",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Network graph of recent commits. Use the Chart options menu to view as a table.",
+					"module": "pages/insights"
+				},
 				{ "key": "People", "module": "pages/insights" },
 				{ "key": "Projects", "module": "pages/repo" },
 				{ "key": "Starred", "module": "pages/insights" },
+				{
+					"key": "The network graph is also available as a data table.",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+					"module": "pages/insights"
+				},
 				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
@@ -9040,6 +9092,8 @@
 				"insights/pulse-title-short",
 				"insights/contributors-title-short",
 				"insights/have-word",
+				"insights/forks-title-short",
+				"insights/network-graph-title",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
@@ -9268,6 +9322,14 @@
 					"module": "pages/security"
 				},
 				{ "key": "Network", "module": "pages/insights" },
+				{
+					"key": "Network graph",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Network graph of recent commits. Use the Chart options menu to view as a table.",
+					"module": "pages/insights"
+				},
 				{ "key": "People", "module": "pages/insights" },
 				{ "key": "ProTip!", "module": "pages/security" },
 				{ "key": "Projects", "module": "pages/repo" },
@@ -9275,6 +9337,14 @@
 				{
 					"key": "Suggestions",
 					"module": "pages/security"
+				},
+				{
+					"key": "The network graph is also available as a data table.",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+					"module": "pages/insights"
 				},
 				{ "key": "Traffic", "module": "pages/insights" }
 			],
@@ -9344,6 +9414,8 @@
 				"insights/pulse-title-short",
 				"insights/contributors-title-short",
 				"insights/have-word",
+				"insights/forks-title-short",
+				"insights/network-graph-title",
 				"security/page-title-overview",
 				"security/page-title-advisories",
 				"security/page-title-code-scanning",
@@ -9575,9 +9647,25 @@
 					"module": "pages/insights"
 				},
 				{ "key": "Network", "module": "pages/insights" },
+				{
+					"key": "Network graph",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Network graph of recent commits. Use the Chart options menu to view as a table.",
+					"module": "pages/insights"
+				},
 				{ "key": "People", "module": "pages/insights" },
 				{ "key": "Projects", "module": "pages/repo" },
 				{ "key": "Starred", "module": "pages/insights" },
+				{
+					"key": "The network graph is also available as a data table.",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+					"module": "pages/insights"
+				},
 				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
@@ -9646,6 +9734,8 @@
 				"insights/pulse-title-short",
 				"insights/contributors-title-short",
 				"insights/have-word",
+				"insights/forks-title-short",
+				"insights/network-graph-title",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",

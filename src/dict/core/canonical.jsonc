@@ -6649,7 +6649,25 @@
 				"changed and there have been",
 				// contributors 概览卡右上链接的 aria-label（「6 Active pull requests」
 				// 那张卡的跳转链接）
-				"View open pull requests"
+				"View open pull requests",
+				// —— /forks 的复刻空态与说明句（2026-10-29 导出）——
+				// 说明句被链接切成四段：前段（… After）+ 链接（forking a repository）+
+				// 中段（, you can send the original author a）+ 句尾节点。句尾节点
+				//「pull request」由既有键（Pulse 摘要句的量词条「个拉取请求」）命中，
+				// 故中段模板不带量词、不带句号（拼回「…向原作者发送 个拉取请求」）。
+				// 导出里挂在 /network 路径下的同款记录是软导航的路径错标，
+				// 不进 pages/repo。文档标题走 insights/forks-title-short 与
+				// insights/network-graph-title 两条新格式规则。
+				"No one has forked this repository yet",
+				"Forks are a great way to contribute to a repository. After",
+				"forking a repository",
+				", you can send the original author a",
+				// 网络关系图区块（/forks 本体渲染；/network 的同串在 pages/repo
+				// 已有同译，本模块路径不命中那条路由，照姊妹页面惯例复收）
+				"Network graph",
+				"Network graph of recent commits. Use the Chart options menu to view as a table.",
+				"The network graph is also available as a data table.",
+				"Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily."
 			]
 		},
 		{

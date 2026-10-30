@@ -195,6 +195,18 @@
 		"pushed": "推送了",
 		"changed and there have been": "发生改动，其中",
 		// contributors 概览卡右上链接的 aria-label
-		"View open pull requests": "查看打开的拉取请求"
+		"View open pull requests": "查看打开的拉取请求",
+		// —— /forks 的复刻空态与说明句 ——
+		// 说明句四段拼接：「…好方式。在」+「复刻仓库」+「后，你可以向原作者发送」+
+		// 既有键「个拉取请求」（Pulse 摘要句的量词条）；中段不带量词防止「一个个」
+		"No one has forked this repository yet": "还没有人复刻此仓库",
+		"Forks are a great way to contribute to a repository. After": "复刻仓库是为仓库做贡献的好方式。在",
+		"forking a repository": "复刻仓库",
+		", you can send the original author a": "后，你可以向原作者发送",
+		// 网络关系图区块（/network 的同串在 pages/repo 有同译）
+		"Network graph": "网络关系图",
+		"Network graph of recent commits. Use the Chart options menu to view as a table.": "最近提交的网络关系图。使用图表选项菜单以数据表查看。",
+		"The network graph is also available as a data table.": "网络关系图也可以数据表形式查看。",
+		"Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.": "此仓库及其网络的最近提交时间线，按最近推送排序并每日更新。"
 	}
 }

@@ -3349,6 +3349,16 @@
 				{
 					"id": "insights/have-word",
 					"pattern": "^have$"
+				},
+				// /forks 的文档标题（Insights 族新格式，无「· GitHub」后缀；
+				// 放在旧 *-title 规则之后，旧格式仍由旧规则接住）
+				{
+					"id": "insights/forks-title-short",
+					"pattern": "^Forks \\u00B7 (.+)$"
+				},
+				{
+					"id": "insights/network-graph-title",
+					"pattern": "^Network Graph \\u00B7 (.+)$"
 				}
 			]
 		},

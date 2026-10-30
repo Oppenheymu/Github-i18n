@@ -701,6 +701,9 @@
 		"insights/contributors-title-short": "$1 のコントリビューター",
 		// サマリー文の孤立 have：ja は空文字（ノードごと消える）
 		"insights/have-word": "",
+		// /forks のページタイトル（Insights 系の新書式）
+		"insights/forks-title-short": "フォーク · $1",
+		"insights/network-graph-title": "ネットワークグラフ · $1",
 
 		// —— pages/search（検索 / トピック）——
 		"search/topic": "トピック：$1",

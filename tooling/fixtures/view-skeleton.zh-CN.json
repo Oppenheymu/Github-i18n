@@ -575,6 +575,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -725,7 +733,8 @@
 			"matched": ["pages/issues", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
-				{ "key": "Projects", "module": "pages/repo" }
+				{ "key": "Projects", "module": "pages/repo" },
+				{ "key": "Suggestions", "module": "pages/issues" }
 			],
 			"rules": [
 				"issues/in-repo",
@@ -759,6 +768,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -909,7 +926,8 @@
 			"matched": ["pages/issues", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
-				{ "key": "Projects", "module": "pages/repo" }
+				{ "key": "Projects", "module": "pages/repo" },
+				{ "key": "Suggestions", "module": "pages/issues" }
 			],
 			"rules": [
 				"issues/in-repo",
@@ -943,6 +961,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -1131,6 +1157,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -1319,6 +1353,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -1486,6 +1528,10 @@
 					"key": "Breadcrumb",
 					"module": "pages/repo-settings"
 				},
+				{
+					"key": "Chart options",
+					"module": "pages/repo-settings"
+				},
 				{ "key": "Close", "module": "pages/repo-settings" },
 				{ "key": "Code", "module": "pages/repo" },
 				{
@@ -1556,9 +1602,14 @@
 					"module": "pages/repo-settings"
 				},
 				{ "key": "Stars", "module": "pages/repo-settings" },
+				{
+					"key": "Suggestions",
+					"module": "pages/repo-settings"
+				},
 				{ "key": "Tags", "module": "pages/repo-settings" },
 				{ "key": "Wiki", "module": "pages/repo-settings" },
-				{ "key": "Write", "module": "pages/repo-settings" }
+				{ "key": "Write", "module": "pages/repo-settings" },
+				{ "key": "or", "module": "pages/repo-settings" }
 			],
 			"rules": [
 				"repo-settings/sponsor-button",
@@ -1645,6 +1696,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -1812,6 +1871,10 @@
 					"key": "Breadcrumb",
 					"module": "pages/repo-settings"
 				},
+				{
+					"key": "Chart options",
+					"module": "pages/repo-settings"
+				},
 				{ "key": "Close", "module": "pages/repo-settings" },
 				{ "key": "Code", "module": "pages/repo" },
 				{
@@ -1882,9 +1945,14 @@
 					"module": "pages/repo-settings"
 				},
 				{ "key": "Stars", "module": "pages/repo-settings" },
+				{
+					"key": "Suggestions",
+					"module": "pages/repo-settings"
+				},
 				{ "key": "Tags", "module": "pages/repo-settings" },
 				{ "key": "Wiki", "module": "pages/repo-settings" },
-				{ "key": "Write", "module": "pages/repo-settings" }
+				{ "key": "Write", "module": "pages/repo-settings" },
+				{ "key": "or", "module": "pages/repo-settings" }
 			],
 			"rules": [
 				"repo-settings/sponsor-button",
@@ -1971,6 +2039,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -2138,6 +2214,10 @@
 					"key": "Breadcrumb",
 					"module": "pages/repo-settings"
 				},
+				{
+					"key": "Chart options",
+					"module": "pages/repo-settings"
+				},
 				{ "key": "Close", "module": "pages/repo-settings" },
 				{ "key": "Code", "module": "pages/repo" },
 				{
@@ -2208,9 +2288,14 @@
 					"module": "pages/repo-settings"
 				},
 				{ "key": "Stars", "module": "pages/repo-settings" },
+				{
+					"key": "Suggestions",
+					"module": "pages/repo-settings"
+				},
 				{ "key": "Tags", "module": "pages/repo-settings" },
 				{ "key": "Wiki", "module": "pages/repo-settings" },
-				{ "key": "Write", "module": "pages/repo-settings" }
+				{ "key": "Write", "module": "pages/repo-settings" },
+				{ "key": "or", "module": "pages/repo-settings" }
 			],
 			"rules": [
 				"repo-settings/sponsor-button",
@@ -2297,6 +2382,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -7288,6 +7381,7 @@
 					"key": "Show options",
 					"module": "pages/actions"
 				},
+				{ "key": "Suggestions", "module": "pages/actions" },
 				{ "key": "Traffic", "module": "pages/actions" }
 			],
 			"rules": [
@@ -7338,6 +7432,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -7488,7 +7590,8 @@
 			"matched": ["pages/agents", "pages/repo", "global"],
 			"collisions": [
 				{ "key": "Code", "module": "pages/repo" },
-				{ "key": "Projects", "module": "pages/repo" }
+				{ "key": "Projects", "module": "pages/repo" },
+				{ "key": "Suggestions", "module": "pages/agents" }
 			],
 			"rules": [
 				"agents/sessions-count",
@@ -7520,6 +7623,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -7716,6 +7827,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -7900,6 +8019,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -8085,6 +8212,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -8246,6 +8381,10 @@
 					"key": "Admin insights",
 					"module": "pages/insights"
 				},
+				{
+					"key": "Chart options",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
 				{
 					"key": "Code frequency",
@@ -8355,6 +8494,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -8516,6 +8663,10 @@
 					"key": "Admin insights",
 					"module": "pages/insights"
 				},
+				{
+					"key": "Chart options",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
 				{
 					"key": "Code frequency",
@@ -8625,6 +8776,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -8786,6 +8945,10 @@
 					"key": "Admin insights",
 					"module": "pages/insights"
 				},
+				{
+					"key": "Chart options",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
 				{
 					"key": "Code frequency",
@@ -8895,6 +9058,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -9062,6 +9233,10 @@
 					"key": "Admin insights",
 					"module": "pages/insights"
 				},
+				{
+					"key": "Chart options",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
 				{
 					"key": "Code frequency",
@@ -9072,13 +9247,26 @@
 					"module": "pages/insights"
 				},
 				{
+					"key": "Dependency files checked",
+					"module": "pages/security"
+				},
+				{
 					"key": "Dependency graph",
 					"module": "pages/insights"
 				},
+				{
+					"key": "Filter by ecosystem",
+					"module": "pages/security"
+				},
 				{ "key": "Network", "module": "pages/insights" },
 				{ "key": "People", "module": "pages/insights" },
+				{ "key": "ProTip!", "module": "pages/security" },
 				{ "key": "Projects", "module": "pages/repo" },
 				{ "key": "Starred", "module": "pages/insights" },
+				{
+					"key": "Suggestions",
+					"module": "pages/security"
+				},
 				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
@@ -9188,6 +9376,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -9349,6 +9545,10 @@
 					"key": "Admin insights",
 					"module": "pages/insights"
 				},
+				{
+					"key": "Chart options",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
 				{
 					"key": "Code frequency",
@@ -9458,6 +9658,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -9654,6 +9862,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -9850,6 +10066,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -10046,6 +10270,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",
@@ -10842,6 +11074,14 @@
 				"repo/people-access-count",
 				"repo/people-title",
 				"repo/outside-collaborators-title",
+				"repo/network-graph-title",
+				"repo/dependencies-title",
+				"repo/sbom-paths",
+				"repo/paths-for",
+				"repo/detected-auto-license",
+				"repo/detected-auto",
+				"repo/dep-total",
+				"repo/page-n",
 				"global/now",
 				"global/yesterday",
 				"global/seconds-ago",

@@ -3787,6 +3787,47 @@
 				{
 					"id": "repo/outside-collaborators-title",
 					"pattern": "^Outside collaborators \\u00B7 (.+)$"
+				},
+				// —— /network 与 /network/dependencies ——
+				// 文档标题（Insights 族新格式，无「· GitHub」后缀；仓库名原样保留）
+				{
+					"id": "repo/network-graph-title",
+					"pattern": "^Network Graph \\u00B7 (.+)$"
+				},
+				{
+					"id": "repo/dependencies-title",
+					"pattern": "^Dependencies \\u00B7 (.+)$"
+				},
+				// Paths 弹层的空态行（Showing 1 path / N paths 两种单复数）
+				{
+					"id": "repo/sbom-paths",
+					"pattern": "^Showing (\\d+) paths?\\. Export SBOM to view all paths\\.$"
+				},
+				// Paths 弹层标题（包名与版本属内容，原样保留在捕获组里）
+				{
+					"id": "repo/paths-for",
+					"pattern": "^Paths for (.+)$"
+				},
+				// 依赖行的元信息行：源码节点内是换行缩进（「·\n    Detected …\n    ·\n    MIT」），
+				// normalizeKey 折叠成单空格后命中；带许可证的形态在前（首条命中生效），
+				// 贪婪捕获组回溯到最后一个「·」分隔符，日期里的逗号不受影响
+				{
+					"id": "repo/detected-auto-license",
+					"pattern": "^\\u00B7 Detected automatically on (.+) \\u00B7 (.+)$"
+				},
+				{
+					"id": "repo/detected-auto",
+					"pattern": "^\\u00B7 Detected automatically on (.+)$"
+				},
+				// 依赖总数行（「147 Total」单节点）
+				{
+					"id": "repo/dep-total",
+					"pattern": "^([\\d,]+) Total$"
+				},
+				// 分页链接的 aria-label（Page 1 … Page N）
+				{
+					"id": "repo/page-n",
+					"pattern": "^Page (\\d+)$"
 				}
 			]
 		},

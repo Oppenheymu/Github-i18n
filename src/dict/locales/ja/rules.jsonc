@@ -809,6 +809,16 @@
 		"repo/people-title": "メンバー · $1",
 		"repo/outside-collaborators-title": "外部コラボレーター · $1",
 
+		// —— /network・/network/dependencies ——
+		"repo/network-graph-title": "ネットワークグラフ · $1",
+		"repo/dependencies-title": "依存関係 · $1",
+		"repo/sbom-paths": "$1 件のパスを表示。すべてのパスを見るには SBOM をエクスポート。",
+		"repo/paths-for": "$1 のパス",
+		"repo/detected-auto-license": "· $1 に自動検出 · $2",
+		"repo/detected-auto": "· $1 に自動検出",
+		"repo/dep-total": "計 $1",
+		"repo/page-n": "$1 ページ",
+
 		// —— global（全ページ共通）——
 		"global/now": "たった今",
 		"global/yesterday": "昨日",

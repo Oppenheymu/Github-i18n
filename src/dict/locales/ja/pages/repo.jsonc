@@ -167,6 +167,32 @@
 		"Find a user": "ユーザーを検索",
 		"Collaborators": "コラボレーター",
 		"Breadcrumb": "パンくずリスト",
-		"Admin": "管理者"
+		"Admin": "管理者",
+		// —— /network・/network/dependencies（ネットワークグラフと依存関係グラフページ）——
+		"Dependency files checked": "チェック済みの依存ファイル",
+		"Dependency Insights menu": "依存関係インサイトメニュー",
+		"Dependencies": "依存関係",
+		"Dependents": "被依存関係",
+		"Direct": "直接",
+		"Transitive": "推移的",
+		"Export SBOM": "SBOM をエクスポート",
+		"Learn more about SBOMS.": "SBOM の詳細を見る。",
+		"Filter by ecosystem": "エコシステムで絞り込む",
+		"Filter by ecosystem options": "エコシステムで絞り込むオプション",
+		"Filter ecosystems": "エコシステムを絞り込む",
+		"No ecosystems found.": "エコシステムが見つかりません。",
+		"Search all dependencies": "すべての依存関係を検索",
+		"Suggestions": "候補",
+		"ProTip!": "プロヒント！",
+		"Supported ecosystems will have transitivity labels on their packages.": "対応しているエコシステムのパッケージには推移性のラベルが付きます。",
+		"Network graph": "ネットワークグラフ",
+		"Chart options": "チャートのオプション",
+		"Network graph of recent commits. Use the Chart options menu to view as a table.": "最近のコミットのネットワークグラフ。チャートのオプションメニューからテーブルとして表示できます。",
+		"The network graph is also available as a data table.": "ネットワークグラフはデータテーブルでも表示できます。",
+		"Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.": "このリポジトリとそのネットワークへの最近のコミットのタイムライン。最新のプッシュ順に並び、毎日更新されます。",
+		// canvas フォールバック説明：後にブラウザー名リンクと「or」断片が続く
+		"Sorry, your browser doesn’t support the <canvas> element.": "申し訳ありませんが、お使いのブラウザーは <canvas> 要素に対応していません。",
+		"Please upgrade to the latest": "最新版にアップグレードしてください：",
+		"or": "または"
 	}
 }

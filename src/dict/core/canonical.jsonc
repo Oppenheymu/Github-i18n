@@ -8018,7 +8018,54 @@
 				// 面包屑 nav 的 aria-label（两页各一枚）
 				"Breadcrumb",
 				// 成员行的角色徽标（链接文本；org-settings 已有同译「管理员」）
-				"Admin"
+				"Admin",
+				// —— /network 与 /network/dependencies（网络关系图与依赖项关系图页）——
+				// 证据：2026-10-29 popup 导出（Koishi-CE/koishi 两路径）。
+				// 不收录：npm / GitHub Actions（生态系统名）、包名与版本
+				//（picocolors ^1.1.1 等）、依赖文件路径（package.json 等）、许可证名
+				//（MIT / Apache-2.0 / ISC）、Dependabot（产品名）、浏览器名链接、
+				// relative-time 的 title 时间戳。动态串走六条规则：
+				// repo/paths-for（Paths for <包名>）、repo/sbom-paths（Showing N paths…）、
+				// repo/detected-auto-license 与 repo/detected-auto（「· Detected
+				// automatically on <日期> · <许可证>」，源码节点内是换行缩进，
+				// normalizeKey 折叠后命中）、repo/dep-total（「147 Total」）、
+				// repo/page-n（分页 aria「Page N」）。
+				// 导出里挂在 /network 下的复刻空态记录是软导航的路径错标，
+				// 那组碎片只登记 pages/insights（见 insights 模块注释）。
+				"Dependency files checked",
+				// Dependency Insights 子导航（tabnav）的 aria-label 与页签
+				"Dependency Insights menu",
+				"Dependencies",
+				"Dependents",
+				// 依赖行的 Direct / Transitive 徽标与 Paths 弹层的 h2
+				"Direct",
+				"Transitive",
+				// SBOM 工具条（span.d-none 与按钮 aria-label 同串）
+				"Export SBOM",
+				"Learn more about SBOMS.",
+				// Paths 弹层
+				"Filter by ecosystem",
+				"Filter by ecosystem options",
+				"Filter ecosystems",
+				"No ecosystems found.",
+				// 依赖搜索框（label 与 placeholder 同串）
+				"Search all dependencies",
+				// 搜索建议列表的 aria-label（org-settings / agents / actions 已有同译）
+				"Suggestions",
+				// 依赖页底部的提示行（strong + 说明句各一节点）
+				"ProTip!",
+				"Supported ecosystems will have transitivity labels on their packages.",
+				// 网络关系图区块（/network 本体渲染；/forks 上的同串在 pages/insights
+				// 已有同译，本模块路径不命中那条路由，照姊妹页面惯例复收）
+				"Network graph",
+				"Chart options",
+				"Network graph of recent commits. Use the Chart options menu to view as a table.",
+				"The network graph is also available as a data table.",
+				"Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+				// canvas 降级说明（后续接浏览器名链接与 or 碎片）
+				"Sorry, your browser doesn’t support the <canvas> element.",
+				"Please upgrade to the latest",
+				"or"
 			]
 		},
 		{

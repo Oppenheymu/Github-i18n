@@ -150,6 +150,33 @@
 		"Find a user": "查找用户",
 		"Collaborators": "协作者",
 		"Breadcrumb": "面包屑导航",
-		"Admin": "管理员"
+		"Admin": "管理员",
+		// —— /network 与 /network/dependencies（网络关系图与依赖项关系图页）——
+		"Dependency files checked": "已检查的依赖项文件",
+		"Dependency Insights menu": "依赖项洞察菜单",
+		"Dependencies": "依赖项",
+		"Dependents": "被依赖项",
+		"Direct": "直接",
+		"Transitive": "传递",
+		"Export SBOM": "导出 SBOM",
+		"Learn more about SBOMS.": "了解 SBOM 的更多信息。",
+		"Filter by ecosystem": "按生态系统筛选",
+		"Filter by ecosystem options": "按生态系统筛选选项",
+		"Filter ecosystems": "筛选生态系统",
+		"No ecosystems found.": "未找到生态系统。",
+		"Search all dependencies": "搜索所有依赖项",
+		"Suggestions": "建议",
+		"ProTip!": "专业提示！",
+		"Supported ecosystems will have transitivity labels on their packages.": "受支持的生态系统会在其软件包上显示传递性标签。",
+		"Network graph": "网络关系图",
+		"Chart options": "图表选项",
+		"Network graph of recent commits. Use the Chart options menu to view as a table.": "最近提交的网络关系图。使用图表选项菜单以数据表查看。",
+		"The network graph is also available as a data table.": "网络关系图也可以数据表形式查看。",
+		"Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.": "此仓库及其网络的最近提交时间线，按最近推送排序并每日更新。",
+		// canvas 降级说明：后续接浏览器名链接（Internet Explorer / Chrome / Firefox）
+		// 与「or」碎片，浏览器名原样保留
+		"Sorry, your browser doesn’t support the <canvas> element.": "抱歉，你的浏览器不支持 <canvas> 元素。",
+		"Please upgrade to the latest": "请升级到最新版",
+		"or": "或"
 	}
 }

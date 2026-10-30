@@ -810,6 +810,66 @@ describe("pages/profile 的 Projects 标签页空状态", () => {
 	});
 });
 
+// —— 星标标签页（维护者 2026-10-31 实机截图，/Oppenheymu?tab=stars）——
+//
+// 排序下拉与列表区。Sort by: / Most stars / Starred 与 pages/search、
+// pages/repo 的同名键同译（姊妹页各渲染各登记，路由互斥故各登记一份）；
+// 「Add this repository to a list」悬停提示在 global（shadow 内文本，见
+// global.test.ts）；时间戳的 "last week" 是 relative-time 模糊形态，走
+// global 的模糊相对时间规则。
+describe("pages/profile 的星标标签页", () => {
+	it("translates the sort dropdown, list header and star button", () => {
+		const NODES: readonly (readonly [string, string])[] = [
+			["Sort by:", "排序方式："],
+			["Recently starred", "最近星标"],
+			["Recently active", "最近活跃"],
+			["Most stars", "星标最多"],
+			["Type:", "类型："],
+			["Starred", "已星标"],
+			["Lists", "列表"],
+			["Create list", "创建列表"],
+			["Search stars", "搜索星标"],
+		];
+		for (const [node, expected] of NODES) {
+			expect(
+				translateText(node, view),
+				`节点 ${JSON.stringify(node)}`,
+			).toBe(expected);
+		}
+	});
+
+	it("keeps the user-defined list name in english", () => {
+		// 截图里的「Dev」是用户自建的 list 名（用户内容不收）
+		expect(translateText("Dev", view)).toBeNull();
+	});
+
+	it("has japanese templates too", () => {
+		const japanese = buildView(
+			"/Oppenheymu",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("Sort by:", japanese)).toBe(
+			"並べ替え：",
+		);
+		expect(
+			translateText("Recently starred", japanese),
+		).toBe("スターが新しい順");
+		expect(translateText("Most stars", japanese)).toBe(
+			"スターが多い順",
+		);
+		expect(translateText("Starred", japanese)).toBe(
+			"スター付き",
+		);
+		expect(translateText("Create list", japanese)).toBe(
+			"リストを作成",
+		);
+		expect(translateText("Search stars", japanese)).toBe(
+			"スターを検索",
+		);
+	});
+});
+
 // —— Packages 标签页的空状态（维护者 2026-10-31 实机截图，
 // /Oppenheymu?tab=packages）——
 //

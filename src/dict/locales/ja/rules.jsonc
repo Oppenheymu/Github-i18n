@@ -845,6 +845,18 @@
 		// —— global（全ページ共通）——
 		"global/now": "たった今",
 		"global/yesterday": "昨日",
+		// relative-time の曖昧な相対表記（2026-10-31 実機 last week、Intl の出力セット）
+		"global/today": "今日",
+		"global/tomorrow": "明日",
+		"global/last-week": "先週",
+		"global/this-week": "今週",
+		"global/next-week": "来週",
+		"global/last-month": "先月",
+		"global/this-month": "今月",
+		"global/next-month": "来月",
+		"global/last-year": "去年",
+		"global/this-year": "今年",
+		"global/next-year": "来年",
 		"global/today-at": "今日 $<time>",
 		"global/yesterday-at": "昨日 $<time>",
 		"global/seconds-ago": "$1 秒前",

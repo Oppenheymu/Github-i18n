@@ -83,6 +83,9 @@ const GLOBAL_NODES: readonly string[] = [
 	"Business insights", // → 商业洞察
 	"SUPPORT & SERVICES", // → 支持与服务
 	"Customer support", // → 客户支持
+	// 仓库列表星标按钮下拉的悬停提示（2026-10-31 实机，popover 自定义元素的
+	// open shadow root 内，shadow 穿透后由本表覆盖）
+	"Add this repository to a list", // → 将此仓库添加到列表
 ];
 
 /** 节点在实机里通常带源码缩进与换行；两种形态都必须命中 */
@@ -141,6 +144,19 @@ const RELATIVE_TIME_NODES: readonly (readonly [
 	// Actions 运行列表 2026-10-30 实机）——
 	["Today at 20:00", "今天 20:00"],
 	["Yesterday at 06:39", "昨天 06:39"],
+	// —— 模糊相对形态（2026-10-31 实机 "last week"，stars 页；Intl.RelativeTimeFormat
+	// numeric:"auto" 的标准输出集，relative-time 组件即用它渲染）——
+	["today", "今天"],
+	["tomorrow", "明天"],
+	["last week", "上周"],
+	["this week", "本周"],
+	["next week", "下周"],
+	["last month", "上个月"],
+	["this month", "本月"],
+	["next month", "下个月"],
+	["last year", "去年"],
+	["this year", "今年"],
+	["next year", "明年"],
 	// —— 未来方向 ——
 	["in a minute", "1 分钟后"],
 	["in less than a minute", "1 分钟后"],
@@ -193,6 +209,27 @@ describe("global 模块的相对时间变体", () => {
 		expect(
 			translateText("Yesterday at 06:39", japanese),
 		).toBe("昨日 06:39");
+	});
+
+	it("has japanese templates for the vague shapes", () => {
+		const japanese = buildView(
+			"/microsoft/vscode",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("last week", japanese)).toBe(
+			"先週",
+		);
+		expect(translateText("this month", japanese)).toBe(
+			"今月",
+		);
+		expect(translateText("next year", japanese)).toBe(
+			"来年",
+		);
+		expect(translateText("today", japanese)).toBe("今日");
+		expect(translateText("tomorrow", japanese)).toBe(
+			"明日",
+		);
 	});
 });
 

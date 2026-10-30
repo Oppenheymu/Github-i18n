@@ -6141,6 +6141,9 @@
 				"Every minute",
 				"Every 5 minutes",
 				"Off",
+				// 「Refresh now」菜单项（维护者 2026-10-30 实机 HTML，ActionList.Item.Label）：
+				// 自动刷新下拉同区的立即刷新动作
+				"Refresh now",
 				// —— 动作反馈提示（删除日志 / 删除运行成功；同批实机 HTML）——
 				// 两条句号都在节点内部 → 译文用中文句号收尾
 				"Logs deleted successfully.",

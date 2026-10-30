@@ -124,6 +124,8 @@
 		"Every minute": "每分钟",
 		"Every 5 minutes": "每 5 分钟",
 		"Off": "关闭",
+		// 「Refresh now」菜单项(2026-10-30 实机):自动刷新下拉同区的立即刷新动作
+		"Refresh now": "立即刷新",
 		// —— 动作反馈提示(删除日志 / 删除运行成功):句号在节点内部,译中文句号 ——
 		"Logs deleted successfully.": "日志已删除。",
 		"Workflow run deleted successfully.": "工作流运行已删除。",

@@ -100,6 +100,52 @@
 		"Suggestions cannot be applied while viewing a subset of changes.": "変更の一部を表示している間は提案を適用できません。",
 		"This suggestion has been applied or marked resolved.": "この提案は適用済みか、解決済みとしてマークされています。",
 		"This suggestion is invalid because no changes were made to the code.": "コードに変更がないため、この提案は無効です。",
-		"You must change the existing code in this line in order to create a valid suggestion.": "有効な提案を作成するには、この行の既存のコードを変更する必要があります。"
+		"You must change the existing code in this line in order to create a valid suggestion.": "有効な提案を作成するには、この行の既存のコードを変更する必要があります。",
+		// —— マージ領域と各ドロップダウン（2026-10-31 実機 HTML + スクリーンショット）——
+		// ショートカット説明は 5 ノード構造：`Press ` + <kbd>h</kbd> +
+		// ` to cycle through filters, ` + <br> + ` even when the dropdown is closed`。
+		// ja は語序の都合で端点に「次のキーを押すと…同様です」の枠を置き、
+		// 「次のキーを押すと h でフィルターを順に切り替えられ、ドロップダウンが
+		// 閉じていても同様です」と繋ぐ
+		"Press": "次のキーを押すと ",
+		"to cycle through filters,": "でフィルターを順に切り替えられ、",
+		"even when the dropdown is closed": "ドロップダウンが閉じていても同様です",
+		// 絞り込みドロップダウンの表示段階
+		"Show all activities": "すべてのアクティビティを表示",
+		"Hide events": "イベントを非表示",
+		"Hide events, bots, collapsed comments": "イベント、ボット、折りたたまれたコメントを非表示",
+		// バイパス マージ（赤字の選択肢とボタン；squash はマージ方式の固有名詞なのでそのまま）
+		"Merge without waiting for requirements to be met (bypass rules)": "要件が満たされるのを待たずにマージする（ルールをバイパス）",
+		"Bypass rules and merge (squash)": "ルールをバイパスしてマージ（squash）",
+		// —— ブランチを更新ドロップダウン ——
+		"Update branch": "ブランチを更新",
+		"Update with merge commit": "マージコミットで更新",
+		"The merge commit will be associated with your account.": "マージコミットはあなたのアカウントに関連付けられます。",
+		"Update with rebase": "リベースで更新",
+		"This pull request will be rebased on top of the latest changes and then force pushed.": "このプルリクエストは最新の変更の上にリベースされ、その後強制プッシュされます。",
+		// —— コードドロップダウンと Merge status ボタン ——
+		"Merge status": "マージステータス",
+		"Checkout with GitHub CLI": "GitHub CLI でチェックアウト",
+		"Work fast with our official CLI.": "公式 CLI で素早く作業できます。",
+		"Open in GitHub Copilot app": "GitHub Copilot アプリで開く",
+		"Checkout with GitHub Desktop": "GitHub Desktop でチェックアウト",
+		// —— 通知シェルフの上部バー（issues 詳細も同じバー、まず本ページに収録）——
+		"Mark as unread": "未読としてマーク",
+		"Mark as read": "既読としてマーク",
+		// —— マージ領域と右サイドバー ——
+		"Merge when ready": "準備ができたらマージ",
+		"Merging is blocked": "マージがブロックされています",
+		"At least 1 approving review is required by reviewers with write access.": "書き込み権限を持つレビュアーによる承認レビューが少なくとも 1 件必要です。",
+		// em dash はノード内
+		"No reviews—at least 1 approving review is required.": "レビューなし——承認レビューが少なくとも 1 件必要です。",
+		// 「Still in progress? Convert to draft」：疑問符は断片ノード内、リンクは独立
+		"Still in progress?": "まだ進行中ですか？",
+		"Convert to draft": "ドラフトに変換",
+		"Lock conversation": "会話をロック",
+		"Archive pull request": "プルリクエストをアーカイブ",
+		// コメント欄のプレースホルダー
+		"Add your comment here, be kind": "ここにコメントを追加してください。丁寧に",
+		// 通知購読の説明
+		"You're receiving notifications because you're watching this repository.": "このリポジトリをウォッチしているため、通知が届いています。"
 	}
 }

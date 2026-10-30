@@ -68,6 +68,13 @@
 				{
 					"id": "pulls/filter-by-author",
 					"pattern": "^Filter by author (.+)$"
+				},
+				// 审查者弹层标题（维护者 2026-10-31 实机 HTML：「Request up to 15
+				// reviewers」，select-menu-title）：上限数来自分支保护配置，动态；
+				// 单数 reviewers? 按 relative-time 的 hours? 先例放宽
+				{
+					"id": "pulls/request-reviewers",
+					"pattern": "^Request up to (?<count>\\d+) reviewers?$"
 				}
 			]
 		},

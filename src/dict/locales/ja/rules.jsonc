@@ -20,6 +20,8 @@
 		"pulls/pull-request-title-with-number-plain": "$1 · プルリクエスト #$2 · $3",
 		// 作成者フィルターリンクの aria-label(ユーザー名はキャプチャグループでそのまま持ち込む)
 		"pulls/filter-by-author": "作成者 $1 でフィルター",
+		// レビュアー要求ダイアログの見出し(数値は動的)
+		"pulls/request-reviewers": "最大 $<count> 名のレビュアーにリクエスト",
 
 		// —— pages/settings-security（アカウントセキュリティ）——
 		"settings/passkey-delete-confirm": "`$1` のパスキーを削除してもよろしいですか？",

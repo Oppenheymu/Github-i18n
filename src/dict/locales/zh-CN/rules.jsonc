@@ -17,6 +17,8 @@
 		"pulls/pull-request-title-with-number-plain": "$1 · 拉取请求 #$2 · $3",
 		// 作者筛选链接的 aria-label(用户名由捕获组原样带回)
 		"pulls/filter-by-author": "按作者 $1 筛选",
+		// 审查者弹层标题（数字动态）
+		"pulls/request-reviewers": "请求最多 $<count> 位审查者",
 		// —— 账号安全页（/settings/security）——
 		// 规则 id 与 pattern 见 core/rules.jsonc 的 pages/settings-security 分组：
 		// 密钥名与动态日期由捕获组原样带回（$1 / $<day> / $<year>），

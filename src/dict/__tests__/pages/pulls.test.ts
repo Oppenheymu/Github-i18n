@@ -201,3 +201,155 @@ describe("closed 态列表页的侧栏空状态与结果行", () => {
 		);
 	});
 });
+
+// —— PR 详情页的合并区与各下拉（维护者 2026-10-31 实机 HTML + 截图）——
+//
+// 快捷键提示是**五节点**结构：`Press ` + <kbd>h</kbd> + ` to cycle through
+// filters, ` + <br> + ` even when the dropdown is closed`——applyKbdLabel 只管
+// 三段结构，三段碎片各自查表；<br> 是元素节点（不产生文本），kbd 内文本由排除
+// 清单保护（此处 h 无词条，等价）。审查者弹层标题的数字动态，走规则。
+describe("PR 详情页的合并区与各下拉", () => {
+	it("translates the five-node shortcut hint through its fragments", () => {
+		// zh 按节点顺序直排。translateText 是纯函数只返回译文，节点首尾空白的
+		// 保留发生在 applyTextNode 写回时（renderNodes 型 helper 才复刻它）
+		expect(translateText("Press", view)).toBe("按");
+		expect(
+			translateText(" to cycle through filters, ", view),
+		).toBe("循环切换筛选器，");
+		expect(
+			translateText(
+				" even when the dropdown is closed",
+				view,
+			),
+		).toBe("即使下拉菜单处于关闭状态");
+		// kbd 内文本与 <br> 都不产生可翻译文本
+		expect(translateText("h", view)).toBeNull();
+	});
+
+	it("renders the reviewer request dialog title through the rule", () => {
+		// 实机形态（维护者 2026-10-31 HTML：「Request up to 15 reviewers」）
+		expect(
+			translateText("Request up to 15 reviewers", view),
+		).toBe("请求最多 15 位审查者");
+		// 单数 reviewers? 按 hours? 先例放宽；英文单数形态无实机证据，
+		// 这里只锁规则本身的放宽行为
+		expect(
+			translateText("Request up to 1 reviewer", view),
+		).toBe("请求最多 1 位审查者");
+	});
+
+	it("translates the merge box, dropdowns and sidebar entries", () => {
+		const NODES: readonly (readonly [string, string])[] = [
+			["Show all activities", "显示全部动态"],
+			["Hide events", "隐藏事件"],
+			[
+				"Hide events, bots, collapsed comments",
+				"隐藏事件、机器人、折叠的评论",
+			],
+			[
+				"Merge without waiting for requirements to be met (bypass rules)",
+				"无需等待满足条件即可合并（绕过规则）",
+			],
+			[
+				"Bypass rules and merge (squash)",
+				"绕过规则并合并（squash）",
+			],
+			["Update branch", "更新分支"],
+			["Update with merge commit", "用合并提交更新"],
+			[
+				"The merge commit will be associated with your account.",
+				"合并提交将关联到你的帐户。",
+			],
+			["Update with rebase", "用变基更新"],
+			[
+				"This pull request will be rebased on top of the latest changes and then force pushed.",
+				"此拉取请求将变基到最新更改之上，然后强制推送。",
+			],
+			["Merge status", "合并状态"],
+			["Checkout with GitHub CLI", "使用 GitHub CLI 检出"],
+			[
+				"Work fast with our official CLI.",
+				"用我们的官方 CLI 快速工作。",
+			],
+			[
+				"Open in GitHub Copilot app",
+				"在 GitHub Copilot 应用中打开",
+			],
+			[
+				"Checkout with GitHub Desktop",
+				"使用 GitHub Desktop 检出",
+			],
+			// 通知 shelf 顶栏（Back to notifications 在 global，见 global.test.ts）
+			["Mark as unread", "标记为未读"],
+			["Mark as read", "标记为已读"],
+			// merge 区与右侧栏
+			["Merge when ready", "就绪后合并"],
+			["Merging is blocked", "合并被阻止"],
+			[
+				"At least 1 approving review is required by reviewers with write access.",
+				"需要至少 1 名具有写权限的审查者批准。",
+			],
+			[
+				"No reviews—at least 1 approving review is required.",
+				"暂无审查——至少需要 1 个批准审查。",
+			],
+			["Still in progress?", "仍在进行中？"],
+			["Convert to draft", "转换为草稿"],
+			["Lock conversation", "锁定对话"],
+			["Archive pull request", "归档拉取请求"],
+			[
+				"Add your comment here, be kind",
+				"在这里添加你的评论，请友善",
+			],
+			[
+				"You're receiving notifications because you're watching this repository.",
+				"你正在接收通知，因为你正在关注此仓库。",
+			],
+		];
+		for (const [node, expected] of NODES) {
+			expect(
+				translateText(node, view),
+				`节点 ${JSON.stringify(node)}`,
+			).toBe(expected);
+		}
+	});
+
+	it("has japanese templates too", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pulls",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		// ja 端点承载「次のキーを押すと…同様です」框架（语序倒装）
+		expect(translateText("Press", japanese)).toBe(
+			"次のキーを押すと ",
+		);
+		expect(
+			translateText(
+				" to cycle through filters, ",
+				japanese,
+			),
+		).toBe("でフィルターを順に切り替えられ、");
+		expect(
+			translateText(
+				" even when the dropdown is closed",
+				japanese,
+			),
+		).toBe("ドロップダウンが閉じていても同様です");
+		expect(
+			translateText("Request up to 15 reviewers", japanese),
+		).toBe("最大 15 名のレビュアーにリクエスト");
+		expect(
+			translateText(
+				"Bypass rules and merge (squash)",
+				japanese,
+			),
+		).toBe("ルールをバイパスしてマージ（squash）");
+		expect(translateText("Update branch", japanese)).toBe(
+			"ブランチを更新",
+		);
+		expect(translateText("Mark as unread", japanese)).toBe(
+			"未読としてマーク",
+		);
+	});
+});

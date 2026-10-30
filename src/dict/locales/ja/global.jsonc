@@ -454,6 +454,8 @@
 		// —— リポジトリ一覧のスターボタン下矢印のホバー提示（2026-10-31 実機）：
 		// テキストは popover カスタム要素の open shadow root 内、ホバー時に
 		// マウントされ、shadow 経由で翻訳される ——
-		"Add this repository to a list": "このリポジトリをリストに追加"
+		"Add this repository to a list": "このリポジトリをリストに追加",
+		// 通知シェルフの戻るバー（issues / pulls / notifications 詳細の上部バー共通）
+		"Back to notifications": "通知に戻る"
 	}
 }

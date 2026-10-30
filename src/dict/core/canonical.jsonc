@@ -273,7 +273,52 @@
 				"Suggestions cannot be applied while viewing a subset of changes.",
 				"This suggestion has been applied or marked resolved.",
 				"This suggestion is invalid because no changes were made to the code.",
-				"You must change the existing code in this line in order to create a valid suggestion."
+				"You must change the existing code in this line in order to create a valid suggestion.",
+				// —— 合并区与各下拉（维护者 2026-10-31 实机 HTML + 截图，PR 详情页）——
+				// 筛选下拉的快捷键提示是**五节点**结构：`Press ` + <kbd>h</kbd> +
+				// ` to cycle through filters, ` + <br> + ` even when the dropdown is
+				// closed`——<br> 把句尾拆成独立文本节点，三段碎片各自查表（applyKbdLabel
+				// 只管三段结构），kbd 内文本被排除；ja 的 Press 译文为拼装专用（语序
+				// 倒装，端点承载框架）。审查者弹层标题 Request up to N reviewers 的
+				// 数字动态，走 rules 的 pulls/request-reviewers 规则。
+				"Press",
+				"to cycle through filters,",
+				"even when the dropdown is closed",
+				"Show all activities",
+				"Hide events",
+				"Hide events, bots, collapsed comments",
+				"Merge without waiting for requirements to be met (bypass rules)",
+				"Bypass rules and merge (squash)",
+				// —— Update branch 下拉（同批实机截图）——
+				"Update branch",
+				"Update with merge commit",
+				"The merge commit will be associated with your account.",
+				"Update with rebase",
+				"This pull request will be rebased on top of the latest changes and then force pushed.",
+				// —— 代码下拉与 Merge status 按钮 ——
+				"Merge status",
+				"Checkout with GitHub CLI",
+				"Work fast with our official CLI.",
+				"Open in GitHub Copilot app",
+				"Checkout with GitHub Desktop",
+				// —— 通知 shelf 顶栏（issues 详情同栏，先收本页，他页命中再姊妹登记）——
+				"Mark as unread",
+				"Mark as read",
+				// —— merge 区与右侧栏 ——
+				"Merge when ready",
+				"Merging is blocked",
+				"At least 1 approving review is required by reviewers with write access.",
+				// 侧栏审查者空态（em dash 在节点内）
+				"No reviews—at least 1 approving review is required.",
+				// 「Still in progress? Convert to draft」：问号在碎片节点内，链接独立
+				"Still in progress?",
+				"Convert to draft",
+				"Lock conversation",
+				"Archive pull request",
+				// 评论框 placeholder
+				"Add your comment here, be kind",
+				// 通知订阅说明（watching 在实机截图里为纯文本）
+				"You're receiving notifications because you're watching this repository."
 			]
 		},
 		{
@@ -8706,7 +8751,10 @@
 				// /Oppenheymu?tab=stars 实机 DevTools）——文本在 popover 自定义元素的
 				// open shadow root 内，hover 时挂载：观察器捕获后由 shadow 穿透翻译
 				// （见 00ab648）
-				"Add this repository to a list"
+				"Add this repository to a list",
+				// —— 通知 shelf 的返回栏（维护者 2026-10-31 PR 详情页实机 HTML，
+				// issues / pulls / notifications 详情顶栏通用）——
+				"Back to notifications"
 			]
 		}
 	]

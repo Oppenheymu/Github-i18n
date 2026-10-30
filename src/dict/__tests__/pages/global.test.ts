@@ -86,6 +86,9 @@ const GLOBAL_NODES: readonly string[] = [
 	// 仓库列表星标按钮下拉的悬停提示（2026-10-31 实机，popover 自定义元素的
 	// open shadow root 内，shadow 穿透后由本表覆盖）
 	"Add this repository to a list", // → 将此仓库添加到列表
+	// 通知 shelf 的返回栏（2026-10-31 PR 详情页实机 HTML，issues / pulls /
+	// notifications 详情顶栏通用）
+	"Back to notifications", // → 返回通知
 ];
 
 /** 节点在实机里通常带源码缩进与换行；两种形态都必须命中 */

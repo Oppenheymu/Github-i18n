@@ -6226,7 +6226,58 @@
 				"Community standards",
 				"Admin insights",
 				"Actions performance metrics",
-				"Actions usage metrics"
+				"Actions usage metrics",
+				// —— /actions/metrics/performance 与 /actions/metrics/usage
+				//（Actions 用量·性能指标页）——
+				// 证据：2026-10-29 popup 导出（github-zh-misses/3，Koishi-CE/koishi 两页）。
+				// 不收录：工作流文件名（ci.yml 等）、运行器值（hosted / linux）、时长值（1m）、
+				// relative-time 的 title 绝对时间戳、头像 alt（@组织名）、<link> 的 title、
+				// 用户名与数据值（Koishi-CE / M. Oppenheymu）。
+				// 动态区间说明「Showing data from <开始> to」走 actions/showing-data-from 规则
+				//（结束日期是相邻的独立节点，模板不闭合句子）。
+				"Row Actions",
+				// 行尾 kebab 菜单：button 的 title 属性与 Tooltip 可见文本同串
+				"Actions Performance Metrics",
+				// h1 是 Title Case，与侧栏小写链接「Actions performance metrics」是两条键
+				"Actions Usage Metrics",
+				"Period: Current month",
+				"Download report",
+				"Advanced filter dialog",
+				"Runner type",
+				"Runtime OS",
+				"Jobs",
+				"Workflow runs",
+				"Total minutes",
+				"Avg job queue time",
+				"Avg job run time",
+				"Avg run time",
+				"Has job failures",
+				"Job failure rate",
+				"Failed job usage",
+				"Total job runs",
+				"Average queue time of jobs in this repository for current month",
+				"Average run time of jobs in this repository for current month",
+				"Total job runs across all workflows in this repository for current month",
+				"Total minutes across all workflows in this repository for current month",
+				"Total minutes used across failed jobs in this repository for current month",
+				"Failure rate across jobs in this repository for current month",
+				// h2 sr-only 区块标题
+				"Metrics navigation",
+				// 指标子导航的 aria-label（两个 tab 组同串）
+				"Metrics",
+				// 搜索框 placeholder（org-settings / agents 已有同译）
+				"Search or filter",
+				// 搜索建议列表的 aria-label
+				"Suggestions",
+				// 表格分页 nav 的 aria-label
+				"Pagination for table",
+				// 分页 sr-only「Page 1」：Page 与页码数字是两个节点
+				"Page",
+				// 「Showing 1 through 6 of 6」：数字与「‒」都是独立节点，
+				// 三条碎片拼回「显示 1 至 6 ，共 6」
+				"Showing",
+				"through",
+				"of"
 			]
 		},
 		{

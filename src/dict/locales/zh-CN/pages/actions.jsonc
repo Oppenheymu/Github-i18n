@@ -205,6 +205,44 @@
 		"Community standards": "社区标准",
 		"Admin insights": "管理洞察",
 		"Actions performance metrics": "Actions 性能指标",
-		"Actions usage metrics": "Actions 用量指标"
+		"Actions usage metrics": "Actions 用量指标",
+		// —— Actions 用量·性能指标页（/actions/metrics/performance 与 /usage）——
+		// h1 的 Title Case 与侧栏小写链接是两条键，译文一致
+		"Row Actions": "行操作",
+		"Actions Performance Metrics": "Actions 性能指标",
+		"Actions Usage Metrics": "Actions 用量指标",
+		"Period: Current month": "时间段：本月",
+		"Download report": "下载报告",
+		"Advanced filter dialog": "高级筛选对话框",
+		"Runner type": "运行器类型",
+		"Runtime OS": "运行器操作系统",
+		"Jobs": "作业",
+		"Workflow runs": "工作流运行",
+		"Total minutes": "总分钟数",
+		"Avg job queue time": "作业平均排队时间",
+		"Avg job run time": "作业平均运行时间",
+		"Avg run time": "平均运行时间",
+		"Has job failures": "存在作业失败",
+		"Job failure rate": "作业失败率",
+		"Failed job usage": "失败作业用量",
+		"Total job runs": "作业运行总数",
+		"Average queue time of jobs in this repository for current month": "本月此仓库中作业的平均排队时间",
+		"Average run time of jobs in this repository for current month": "本月此仓库中作业的平均运行时间",
+		"Total job runs across all workflows in this repository for current month": "本月此仓库中所有工作流的作业运行总数",
+		"Total minutes across all workflows in this repository for current month": "本月此仓库中所有工作流消耗的总分钟数",
+		"Total minutes used across failed jobs in this repository for current month": "本月此仓库中失败作业消耗的总分钟数",
+		"Failure rate across jobs in this repository for current month": "本月此仓库中各作业的失败率",
+		"Metrics navigation": "指标导航",
+		"Metrics": "指标",
+		"Search or filter": "搜索或筛选",
+		"Suggestions": "建议",
+		"Pagination for table": "表格分页",
+		// 分页 sr-only「Page 1」：页码数字是独立节点，拼回「页码 1」
+		"Page": "页码",
+		// 「Showing 1 through 6 of 6」碎片：数字与「‒」都是独立节点，
+		// 拼回「显示 1 至 6 ，共 6」
+		"Showing": "显示",
+		"through": "至",
+		"of": "，共"
 	}
 }

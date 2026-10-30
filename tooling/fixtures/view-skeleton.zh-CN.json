@@ -1466,6 +1466,10 @@
 					"module": "pages/repo-settings"
 				},
 				{
+					"key": "Dependency graph",
+					"module": "pages/repo-settings"
+				},
+				{
 					"key": "Deployments",
 					"module": "pages/repo-settings"
 				},
@@ -1773,6 +1777,10 @@
 					"module": "pages/repo-settings"
 				},
 				{
+					"key": "Dependency graph",
+					"module": "pages/repo-settings"
+				},
+				{
 					"key": "Deployments",
 					"module": "pages/repo-settings"
 				},
@@ -2077,6 +2085,10 @@
 				},
 				{
 					"key": "Contributors",
+					"module": "pages/repo-settings"
+				},
+				{
+					"key": "Dependency graph",
 					"module": "pages/repo-settings"
 				},
 				{
@@ -7173,10 +7185,40 @@
 			"path": "/microsoft/vscode/actions",
 			"matched": ["pages/actions", "pages/repo", "global"],
 			"collisions": [
+				{
+					"key": "Actions performance metrics",
+					"module": "pages/actions"
+				},
+				{
+					"key": "Actions usage metrics",
+					"module": "pages/actions"
+				},
+				{
+					"key": "Admin insights",
+					"module": "pages/actions"
+				},
 				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code frequency",
+					"module": "pages/actions"
+				},
 				{ "key": "Commit", "module": "pages/actions" },
+				{
+					"key": "Community standards",
+					"module": "pages/actions"
+				},
+				{
+					"key": "Dependency graph",
+					"module": "pages/actions"
+				},
+				{ "key": "Network", "module": "pages/actions" },
+				{ "key": "People", "module": "pages/actions" },
 				{ "key": "Projects", "module": "pages/repo" },
-				{ "key": "Show options", "module": "pages/actions" }
+				{
+					"key": "Show options",
+					"module": "pages/actions"
+				},
+				{ "key": "Traffic", "module": "pages/actions" }
 			],
 			"rules": [
 				"actions/duration-hms",
@@ -7197,6 +7239,8 @@
 				"actions/auto-refresh-interval",
 				"actions/more-actions-run",
 				"actions/cache-size",
+				"actions/showing-data-from",
+				"actions/insights-h1",
 				"repo/commits-count",
 				"repo/reactions-count",
 				"repo/people-reacted",
@@ -8095,9 +8139,36 @@
 			"path": "/microsoft/vscode/pulse",
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
+				{
+					"key": "Actions performance metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Actions usage metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Admin insights",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code frequency",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Community standards",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Dependency graph",
+					"module": "pages/insights"
+				},
+				{ "key": "Network", "module": "pages/insights" },
+				{ "key": "People", "module": "pages/insights" },
 				{ "key": "Projects", "module": "pages/repo" },
-				{ "key": "Starred", "module": "pages/insights" }
+				{ "key": "Starred", "module": "pages/insights" },
+				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",
@@ -8333,9 +8404,36 @@
 			"path": "/microsoft/vscode/graphs",
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
+				{
+					"key": "Actions performance metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Actions usage metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Admin insights",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code frequency",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Community standards",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Dependency graph",
+					"module": "pages/insights"
+				},
+				{ "key": "Network", "module": "pages/insights" },
+				{ "key": "People", "module": "pages/insights" },
 				{ "key": "Projects", "module": "pages/repo" },
-				{ "key": "Starred", "module": "pages/insights" }
+				{ "key": "Starred", "module": "pages/insights" },
+				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",
@@ -8571,9 +8669,36 @@
 			"path": "/microsoft/vscode/forks",
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
+				{
+					"key": "Actions performance metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Actions usage metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Admin insights",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code frequency",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Community standards",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Dependency graph",
+					"module": "pages/insights"
+				},
+				{ "key": "Network", "module": "pages/insights" },
+				{ "key": "People", "module": "pages/insights" },
 				{ "key": "Projects", "module": "pages/repo" },
-				{ "key": "Starred", "module": "pages/insights" }
+				{ "key": "Starred", "module": "pages/insights" },
+				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",
@@ -8814,9 +8939,36 @@
 				"global"
 			],
 			"collisions": [
+				{
+					"key": "Actions performance metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Actions usage metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Admin insights",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code frequency",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Community standards",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Dependency graph",
+					"module": "pages/insights"
+				},
+				{ "key": "Network", "module": "pages/insights" },
+				{ "key": "People", "module": "pages/insights" },
 				{ "key": "Projects", "module": "pages/repo" },
-				{ "key": "Starred", "module": "pages/insights" }
+				{ "key": "Starred", "module": "pages/insights" },
+				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",
@@ -9069,9 +9221,36 @@
 			"path": "/microsoft/vscode/projects",
 			"matched": ["pages/insights", "pages/repo", "global"],
 			"collisions": [
+				{
+					"key": "Actions performance metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Actions usage metrics",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Admin insights",
+					"module": "pages/insights"
+				},
 				{ "key": "Code", "module": "pages/repo" },
+				{
+					"key": "Code frequency",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Community standards",
+					"module": "pages/insights"
+				},
+				{
+					"key": "Dependency graph",
+					"module": "pages/insights"
+				},
+				{ "key": "Network", "module": "pages/insights" },
+				{ "key": "People", "module": "pages/insights" },
 				{ "key": "Projects", "module": "pages/repo" },
-				{ "key": "Starred", "module": "pages/insights" }
+				{ "key": "Starred", "module": "pages/insights" },
+				{ "key": "Traffic", "module": "pages/insights" }
 			],
 			"rules": [
 				"insights/hours",

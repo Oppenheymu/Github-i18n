@@ -210,6 +210,43 @@
 		"Community standards": "コミュニティ基準",
 		"Admin insights": "管理者向けインサイト",
 		"Actions performance metrics": "Actions パフォーマンス指標",
-		"Actions usage metrics": "Actions 使用量指標"
+		"Actions usage metrics": "Actions 使用量指標",
+		// —— Actions 使用量・パフォーマンス指標ページ（/actions/metrics/performance と /usage）——
+		// h1 のタイトルケースはサイドバーの小文字リンクと別キー（訳語は一致）
+		"Row Actions": "行の操作",
+		"Actions Performance Metrics": "Actions パフォーマンス指標",
+		"Actions Usage Metrics": "Actions 使用量指標",
+		"Period: Current month": "期間：今月",
+		"Download report": "レポートをダウンロード",
+		"Advanced filter dialog": "高度なフィルターダイアログ",
+		"Runner type": "ランナータイプ",
+		"Runtime OS": "ランナーの OS",
+		"Jobs": "ジョブ",
+		"Workflow runs": "ワークフロー実行",
+		"Total minutes": "合計分数",
+		"Avg job queue time": "ジョブの平均待機時間",
+		"Avg job run time": "ジョブの平均実行時間",
+		"Avg run time": "平均実行時間",
+		"Has job failures": "失敗したジョブあり",
+		"Job failure rate": "ジョブ失敗率",
+		"Failed job usage": "失敗ジョブの使用量",
+		"Total job runs": "ジョブ実行合計",
+		"Average queue time of jobs in this repository for current month": "今月のこのリポジトリにおけるジョブの平均待機時間",
+		"Average run time of jobs in this repository for current month": "今月のこのリポジトリにおけるジョブの平均実行時間",
+		"Total job runs across all workflows in this repository for current month": "今月のこのリポジトリにおける全ワークフローのジョブ実行合計",
+		"Total minutes across all workflows in this repository for current month": "今月のこのリポジトリにおける全ワークフローの合計分数",
+		"Total minutes used across failed jobs in this repository for current month": "今月のこのリポジトリで失敗したジョブの合計分数",
+		"Failure rate across jobs in this repository for current month": "今月のこのリポジトリにおけるジョブの失敗率",
+		"Metrics navigation": "指標ナビゲーション",
+		"Metrics": "指標",
+		"Search or filter": "検索またはフィルター",
+		"Suggestions": "候補",
+		"Pagination for table": "表のページネーション",
+		// ページネーション sr-only「Page 1」：ページ番号は独立ノード
+		"Page": "ページ",
+		// 「Showing 1 through 6 of 6」の断片：数字と「‒」は独立ノード
+		"Showing": "表示:",
+		"through": "から",
+		"of": "／全"
 	}
 }

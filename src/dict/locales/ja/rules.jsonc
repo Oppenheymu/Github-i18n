@@ -597,6 +597,10 @@
 		"actions/auto-refresh-interval": "自動更新：$1$2",
 		"actions/more-actions-run": "ワークフロー実行 $1 のその他のアクション",
 		"actions/cache-size": "$1 をキャッシュ済み",
+		// 指標ページのデータ期間の前半ノード（終了日は隣接する独立ノードなので文を閉じない）
+		"actions/showing-data-from": "表示期間: $1 〜",
+		// インサイト共有の h1.sr-only（insights/page-title と同パターン）
+		"actions/insights-h1": "インサイト：$1",
 
 		// —— pages/agents（エージェント）——
 		"agents/sessions-count": "$1 件のセッション",

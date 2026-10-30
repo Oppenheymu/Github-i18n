@@ -590,6 +590,10 @@
 		"actions/auto-refresh-interval": "自动刷新：$1$2",
 		"actions/more-actions-run": "工作流运行 $1 的更多操作",
 		"actions/cache-size": "已缓存 $1",
+		// 指标页数据区间前半段（结束日期是相邻的独立节点，模板不闭合句子）
+		"actions/showing-data-from": "显示从 $1 到",
+		// 洞察页共享的 h1.sr-only（与 insights/page-title 同 pattern）
+		"actions/insights-h1": "洞察：$1",
 		"agents/sessions-count": "$1 个会话",
 		"agents/page-title": "代理 · $1",
 		"dashboard/greeting-morning": "早上好，$1！",

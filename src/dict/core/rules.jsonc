@@ -2902,6 +2902,19 @@
 				{
 					"id": "actions/cache-size",
 					"pattern": "^([\\d.,]+ [KMGTP]?B) cached$"
+				},
+				// —— /actions/metrics/*（用量·性能指标页）——
+				// 数据区间说明的前半段节点：「Showing data from <开始日期> to」，
+				// 结束日期是相邻的独立文本节点，模板不闭合句子（拼回「显示从 X 到 <日期>」）
+				{
+					"id": "actions/showing-data-from",
+					"pattern": "^Showing data from (.+) to$"
+				},
+				// 洞察页共享的 h1.sr-only（Insights: <仓库>）：与 pages/insights 的
+				// insights/page-title 同 pattern，规则 id 全局唯一故各模块一份
+				{
+					"id": "actions/insights-h1",
+					"pattern": "^Insights: (.+)$"
 				}
 			]
 		},

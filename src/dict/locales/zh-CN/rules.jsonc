@@ -586,6 +586,10 @@
 		"actions/triggered-via": "通过 $1 触发",
 		// 注解区的条目计数(单数 notice / 复数 notices)
 		"actions/notice-count": "$1 条注记",
+		// —— 缓存管理页：间隔值 / run 序号 / 大小值原样保留 ——
+		"actions/auto-refresh-interval": "自动刷新：$1$2",
+		"actions/more-actions-run": "工作流运行 $1 的更多操作",
+		"actions/cache-size": "已缓存 $1",
 		"agents/sessions-count": "$1 个会话",
 		"agents/page-title": "代理 · $1",
 		"dashboard/greeting-morning": "早上好，$1！",

@@ -593,6 +593,10 @@
 		"actions/triggered-via": "$1 でトリガーされました",
 		// 注釈エリアの項目数(単数 notice / 複数 notices)
 		"actions/notice-count": "$1 件の注記",
+		// —— キャッシュ管理ページ：間隔値 / 実行番号 / サイズは原形のまま ——
+		"actions/auto-refresh-interval": "自動更新：$1$2",
+		"actions/more-actions-run": "ワークフロー実行 $1 のその他のアクション",
+		"actions/cache-size": "$1 をキャッシュ済み",
 
 		// —— pages/agents（エージェント）——
 		"agents/sessions-count": "$1 件のセッション",

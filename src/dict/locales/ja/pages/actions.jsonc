@@ -186,6 +186,18 @@
 		"Run time": "実行時間",
 		"Learn about OS pricing on GitHub Actions": "GitHub Actions の OS 料金について",
 		"Workflow file for this run": "この実行のワークフローファイル",
-		"Edit workflow file": "ワークフローファイルを編集"
+		"Edit workflow file": "ワークフローファイルを編集",
+		// —— キャッシュ管理ページ（/actions/caches、2026-10-30 実機 HTML）——日付行は
+		// ノード分割済みで、相対時間は global/*-ago ルールが覆う；並べ替えメニューは
+		// issues 系モジュールと同じキーを同じ訳で登録する
+		"Last used": "最終使用",
+		"Showing caches from all workflows.": "すべてのワークフローのキャッシュを表示しています。",
+		"Learn more about managing caches.": "キャッシュの管理について詳しく見る。",
+		"Newest": "新しい順",
+		"Oldest": "古い順",
+		"Recently used": "最近使用された",
+		"Least recently used": "使用が古い順",
+		"Largest size": "サイズが大きい順",
+		"Smallest size": "サイズが小さい順"
 	}
 }

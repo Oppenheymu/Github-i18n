@@ -181,6 +181,18 @@
 		"Run time": "运行时长",
 		"Learn about OS pricing on GitHub Actions": "了解 GitHub Actions 的操作系统定价",
 		"Workflow file for this run": "此运行的工作流文件",
-		"Edit workflow file": "编辑工作流文件"
+		"Edit workflow file": "编辑工作流文件",
+		// —— 缓存管理页（/actions/caches，2026-10-30 实机 HTML）——日期行已拆节点，
+		// 相对时间由 global/*-ago 规则覆盖；排序菜单与 issues 系模块同键同译
+		"Last used": "上次使用",
+		"Showing caches from all workflows.": "显示所有工作流的缓存。",
+		"Learn more about managing caches.": "详细了解如何管理缓存。",
+		// 排序菜单：Newest / Oldest 互斥键沿用 issues 的「最新 / 最早」
+		"Newest": "最新",
+		"Oldest": "最早",
+		"Recently used": "最近使用",
+		"Least recently used": "最早使用",
+		"Largest size": "大小最大",
+		"Smallest size": "大小最小"
 	}
 }

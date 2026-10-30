@@ -100,6 +100,8 @@ const STATIC_NODES: readonly (readonly [string, string])[] =
 		["Every minute", "每分钟"],
 		["Every 5 minutes", "每 5 分钟"],
 		["Off", "关闭"],
+		// 「Refresh now」(2026-10-30 实机 HTML):自动刷新下拉同区的立即刷新菜单项
+		["Refresh now", "立即刷新"],
 		// —— 动作反馈提示(删除日志 / 删除运行成功),句号在节点内部 ——
 		["Logs deleted successfully.", "日志已删除。"],
 		[
@@ -302,6 +304,9 @@ describe("Actions 运行详情页的实机节点边界", () => {
 		);
 		expect(translateText("7 / 8 checks OK", japanese)).toBe(
 			"7 / 8 件のチェックが成功",
+		);
+		expect(translateText("Refresh now", japanese)).toBe(
+			"今すぐ更新",
 		);
 	});
 });

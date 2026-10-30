@@ -127,6 +127,8 @@
 		"Every minute": "1 分ごと",
 		"Every 5 minutes": "5 分ごと",
 		"Off": "オフ",
+		// 「Refresh now」メニュー項目(2026-10-30 実機):自動更新ドロップダウン同域の即時更新
+		"Refresh now": "今すぐ更新",
 		// —— アクションフィードバック(ログ / 実行の削除成功):句点はノード内なので日本語の句点に ——
 		"Logs deleted successfully.": "ログが削除されました。",
 		"Workflow run deleted successfully.": "ワークフロー実行が削除されました。",

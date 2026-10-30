@@ -3359,6 +3359,47 @@
 				{
 					"id": "insights/network-graph-title",
 					"pattern": "^Network Graph \\u00B7 (.+)$"
+				},
+				// —— 图表页（traffic 等）——
+				// 卡片描述句的计数行（数字随仓库变化）
+				{
+					"id": "insights/traffic-views-summary",
+					"pattern": "^([\\d,]+) Views$"
+				},
+				{
+					"id": "insights/traffic-clones-summary",
+					"pattern": "^([\\d,]+) Clones$"
+				},
+				{
+					"id": "insights/traffic-unique-cloners-summary",
+					"pattern": "^([\\d,]+) Unique cloners$"
+				},
+				{
+					"id": "insights/traffic-unique-visitors-summary",
+					"pattern": "^([\\d,]+) Unique visitors$"
+				},
+				// Highcharts 读屏句（数字随图表变化；与既有 chart-bar 的
+				//「N bars」是不同的串——这里收的是「N data points / series」形态）
+				{
+					"id": "insights/chart-line-points",
+					"pattern": "^Line chart with (\\d+) data points\\.$"
+				},
+				{
+					"id": "insights/chart-bar-series",
+					"pattern": "^Bar chart with (\\d+) data series\\.$"
+				},
+				// 文档标题（Insights 族新格式，无「· GitHub」后缀）
+				{
+					"id": "insights/traffic-title",
+					"pattern": "^Traffic \\u00B7 (.+)$"
+				},
+				{
+					"id": "insights/commits-graph-title",
+					"pattern": "^Commits \\u00B7 (.+)$"
+				},
+				{
+					"id": "insights/code-frequency-title",
+					"pattern": "^Code frequency \\u00B7 (.+)$"
 				}
 			]
 		},

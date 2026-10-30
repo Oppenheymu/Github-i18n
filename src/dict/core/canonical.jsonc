@@ -6667,7 +6667,74 @@
 				"Network graph",
 				"Network graph of recent commits. Use the Chart options menu to view as a table.",
 				"The network graph is also available as a data table.",
-				"Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily."
+				"Timeline of the most recent commits to this repository and its network ordered by most recently pushed to and updated daily.",
+				// —— 图表页：code-frequency / commit-activity / contributors / traffic
+				//（2026-10-29 导出）——
+				// 不收录：轴刻度数字（-100k 等）、Highcharts 数据点 aria（Sunday, … .
+				// Commits. 等，2026-10-17 已锁定不收）、Week of … 数据表表头（同上）、
+				// 贡献者用户名（Oppenheymu 等；「X's Commits」的 possessive 碎片已有键）、
+				// 复数尾「s」节点。卡片描述句的「N Views」等计数行走四条 traffic-summary
+				// 规则；「Line chart with N data points.」「Bar chart with N data series.」
+				// 走 chart-shape 两条规则；文档标题走三条新格式标题规则。
+				// —— code-frequency / commit-activity ——
+				"Number of commits per week",
+				"Additions and deletions per week",
+				// 后接 strong 包裹的仓库名节点（原样保留）
+				"Code frequency over the history of",
+				"Commits over the last year of",
+				"Code frequency. Interactive chart.",
+				"Commits. Interactive chart.",
+				// Y 轴标题（text.highcharts-axis-title）
+				"Frequency",
+				// 图例与数据表单元格（td）
+				"Additions",
+				"Deletions",
+				// 系列可见性开关（Highcharts a11y proxy）
+				"Show Additions",
+				"Show Deletions",
+				"Toggle series visibility, Chart",
+				// SVG 轴刻度的月份缩写（整节点精确匹配，大小写与 GitHub 渲染一致；
+				// 图表在交互时会重绘英文刻度，靠观察器再翻一遍收敛）
+				"Jan",
+				"Feb",
+				"Mar",
+				"Apr",
+				"May",
+				"Jun",
+				"Jul",
+				"Aug",
+				"Sep",
+				"Oct",
+				"Nov",
+				"Dec",
+				// —— traffic ——
+				"Git clones",
+				"Popular content",
+				"Referring sites",
+				"Visitors",
+				"Clones in last 14 days",
+				"Unique cloners in last 14 days",
+				"Total views in last 14 days",
+				"Unique visitors in last 14 days",
+				"Clones in last 14 days. Interactive chart.",
+				"Unique cloners in last 14 days. Interactive chart.",
+				"Total views in last 14 days. Interactive chart.",
+				"Unique visitors in last 14 days. Interactive chart.",
+				// 轴标题
+				"Cloners",
+				"Clones",
+				"Total views",
+				"Unique visitors",
+				// 表头与单元格
+				"Views",
+				"Unique Visitors",
+				"Total",
+				"Unique",
+				"Content",
+				"Site",
+				// —— contributors ——
+				// 系列筛选菜单（prc-ActionList）里的时段项
+				"Last month"
 			]
 		},
 		{

@@ -702,6 +702,19 @@
 		// /forks 的文档标题（Insights 族新格式）
 		"insights/forks-title-short": "复刻 · $1",
 		"insights/network-graph-title": "网络关系图 · $1",
+		// —— 图表页 ——
+		// traffic 卡片描述句的计数行
+		"insights/traffic-views-summary": "$1 次浏览",
+		"insights/traffic-clones-summary": "$1 次克隆",
+		"insights/traffic-unique-cloners-summary": "$1 位独立克隆者",
+		"insights/traffic-unique-visitors-summary": "$1 位独立访客",
+		// Highcharts 读屏句（「N data points / series」形态）
+		"insights/chart-line-points": "含 $1 个数据点的折线图。",
+		"insights/chart-bar-series": "含 $1 个数据系列的柱状图。",
+		// 文档标题（Insights 族新格式）
+		"insights/traffic-title": "流量 · $1",
+		"insights/commits-graph-title": "提交 · $1",
+		"insights/code-frequency-title": "代码频率 · $1",
 		"search/topic": "主题：$1",
 		"search/users-starred-count": "$1 位用户星标了此仓库",
 		"search/stars-count": "$1 个星标",

@@ -704,6 +704,19 @@
 		// /forks のページタイトル（Insights 系の新書式）
 		"insights/forks-title-short": "フォーク · $1",
 		"insights/network-graph-title": "ネットワークグラフ · $1",
+		// —— グラフページ ——
+		// traffic カード説明文のカウント行
+		"insights/traffic-views-summary": "$1 回閲覧",
+		"insights/traffic-clones-summary": "$1 回クローン",
+		"insights/traffic-unique-cloners-summary": "$1 人のクローン元ユーザー",
+		"insights/traffic-unique-visitors-summary": "$1 人のユニーク訪問者",
+		// Highcharts 読み上げ文（「N data points / series」形）
+		"insights/chart-line-points": "折れ線グラフには $1 個のデータポイントがあります。",
+		"insights/chart-bar-series": "棒グラフには $1 個のデータ系列があります。",
+		// ページタイトル（Insights 系の新書式）
+		"insights/traffic-title": "トラフィック · $1",
+		"insights/commits-graph-title": "コミット · $1",
+		"insights/code-frequency-title": "コード頻度 · $1",
 
 		// —— pages/search（検索 / トピック）——
 		"search/topic": "トピック：$1",

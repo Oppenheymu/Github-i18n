@@ -7752,7 +7752,20 @@
 				"Turn on discussions",
 				"Set up discussions to engage with your community!",
 				"Manage",
-				"items"
+				"items",
+				// —— Projects 标签页的空状态（维护者 2026-10-30 漏翻导出，
+				// /Oppenheymu?tab=projects）——空状态标题 / 描述、头像悬停提示与两个
+				// 标签的悬停提示。搜索计数句数字动态，走 core/rules.jsonc 的
+				// profile/projects-found 规则；Your Packages / Your projects 是
+				// <title> 元素上的 title 属性（kind:title / context:title），
+				// 属性路径由 applyAttrs 覆盖。导出里的 GitHub（kind:title /
+				// context:link）是 head 的 <link> 元数据，按既定纪律不收。
+				// avatar 沿用「更改组织头像」先例（zh「头像」/ ja「アバター」）。
+				"Change your avatar",
+				"Create your first GitHub project",
+				"Projects are a customizable, flexible tool for planning and tracking your work.",
+				"Your Packages",
+				"Your projects"
 			]
 		},
 		{

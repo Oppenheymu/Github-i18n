@@ -444,6 +444,15 @@
 		"Turn on discussions": "开启讨论区",
 		"Set up discussions to engage with your community!": "设置讨论区，与你的社区互动！",
 		"Manage": "管理",
-		"items": "项"
+		"items": "项",
+		// —— Projects 标签页空状态（2026-10-30 漏翻导出，/?tab=projects）——
+		// 计数句走规则（profile/projects-found）；Your Packages / Your projects
+		// 是 <title> 元素上的 title 属性（悬停提示），Your 系沿用 global 先例，
+		// avatar 沿用「更改组织头像」先例
+		"Change your avatar": "更改头像",
+		"Create your first GitHub project": "创建你的第一个 GitHub 项目",
+		"Projects are a customizable, flexible tool for planning and tracking your work.": "项目是一种可自定义的灵活工具，可用于规划和跟踪你的工作。",
+		"Your Packages": "你的软件包",
+		"Your projects": "你的项目"
 	}
 }

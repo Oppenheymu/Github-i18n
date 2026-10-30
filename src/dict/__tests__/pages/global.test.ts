@@ -137,6 +137,10 @@ const RELATIVE_TIME_NODES: readonly (readonly [
 	["almost 2 days ago", "快 2 天前"],
 	["half an hour ago", "半小时前"],
 	["half a day ago", "半天前"],
+	// —— 24h / 48h 内的绝对形态（relative-time 元素的 shadow 文本，
+	// Actions 运行列表 2026-10-30 实机）——
+	["Today at 20:00", "今天 20:00"],
+	["Yesterday at 06:39", "昨天 06:39"],
 	// —— 未来方向 ——
 	["in a minute", "1 分钟后"],
 	["in less than a minute", "1 分钟后"],
@@ -175,6 +179,20 @@ describe("global 模块的相对时间变体", () => {
 		]) {
 			expect(translateText(node, view), node).toBeNull();
 		}
+	});
+
+	it("has japanese templates for the absolute-at shapes", () => {
+		const japanese = buildView(
+			"/microsoft/vscode",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("Today at 20:00", japanese)).toBe(
+			"今日 20:00",
+		);
+		expect(
+			translateText("Yesterday at 06:39", japanese),
+		).toBe("昨日 06:39");
 	});
 });
 

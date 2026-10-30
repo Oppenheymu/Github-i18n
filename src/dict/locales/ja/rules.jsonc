@@ -843,6 +843,8 @@
 		// —— global（全ページ共通）——
 		"global/now": "たった今",
 		"global/yesterday": "昨日",
+		"global/today-at": "今日 $<time>",
+		"global/yesterday-at": "昨日 $<time>",
 		"global/seconds-ago": "$1 秒前",
 		"global/minutes-ago": "$1 分前",
 		"global/hours-ago": "$1 時間前",

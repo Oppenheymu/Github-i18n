@@ -3919,6 +3919,19 @@
 					"id": "global/yesterday",
 					"pattern": "^yesterday$"
 				},
+				// 「Today at HH:MM」/「Yesterday at HH:MM」：relative-time 元素对
+				// 24h / 48h 内时间戳的绝对形态（维护者 2026-10-30 实机 HTML，
+				// Actions 运行列表页；Yesterday 为同组件平行形态，上游
+				// relative-time-element 开源实现佐证）。时间在 shadow root 内，
+				// 引擎侧的 shadow 穿透见 walker.ts
+				{
+					"id": "global/today-at",
+					"pattern": "^Today at (?<time>\\d{1,2}:\\d{2})$"
+				},
+				{
+					"id": "global/yesterday-at",
+					"pattern": "^Yesterday at (?<time>\\d{1,2}:\\d{2})$"
+				},
 				{
 					"id": "global/seconds-ago",
 					"pattern": "^(\\d+) seconds? ago$"

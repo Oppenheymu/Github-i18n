@@ -261,4 +261,51 @@ describe("TranslationEngine 的调度语义", () => {
 		expect(calls).toBe(1);
 		expect(seen.length).toBe(baseline);
 	});
+
+	it("watches an open shadow root and re-translates its tick rewrites", async () => {
+		const { engine, root } = makeEngine();
+		// relative-time 的实机形态（2026-10-30）：可见文本在 shadow root 内的
+		// `<span part="root">` 里，组件每分钟 tick 原地把它改回英文
+		const host =
+			env.document.createElement("relative-time");
+		const shadow = host.attachShadow({ mode: "open" });
+		const label = env.document.createElement("span");
+		label.setAttribute("part", "root");
+		label.textContent = "Fork";
+		shadow.appendChild(label);
+		root.appendChild(host);
+
+		engine.start(root);
+		await env.tick();
+		// 首轮全量翻译穿透到了 shadow 内
+		expect(label.textContent).toBe("复刻");
+		// 发现的 shadow root 被单独注册观察，配置与 light root 相同
+		const shadowObserves = () =>
+			env.observes.filter((call) => call.target === shadow);
+		expect(shadowObserves()).toHaveLength(1);
+		expect(shadowObserves()[0]?.options).toMatchObject({
+			childList: true,
+			subtree: true,
+			characterData: true,
+			attributes: true,
+			attributeFilter: ["value", "data-disable-with"],
+		});
+
+		// 组件 tick 把 shadow 内文本改回英文——shadow 内部变更不冒泡到
+		// light root 的观察器，重翻只能靠上面那份注册
+		label.textContent = "Fork";
+		await env.tick();
+		expect(label.textContent).toBe("复刻");
+
+		// 之后每轮 flush 都会重新发现同一个 shadow root：不得反复 observe
+		root.appendChild(env.document.createTextNode("noise"));
+		await env.tick();
+		expect(shadowObserves()).toHaveLength(1);
+
+		// stop 撤销全部观察（含 shadow）：重新 start 后要能重新注册
+		engine.stop();
+		engine.start(root);
+		await env.tick();
+		expect(shadowObserves()).toHaveLength(2);
+	});
 });

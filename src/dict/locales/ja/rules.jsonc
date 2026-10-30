@@ -696,6 +696,11 @@
 		"insights/chart-bar": "棒グラフには $1 本の棒があります。",
 		"insights/highcharts-credit": "Highcharts $1 で作成",
 		"insights/chart-navigator-series": "ナビゲーター $1、系列 $2/$3、$4 個のデータポイント。Y 軸：$5。X 軸：$6。",
+		// ページタイトルの新書式（「· GitHub」接尾辞が消失。旧ルールと訳語は一致）
+		"insights/pulse-title-short": "パルス · $1",
+		"insights/contributors-title-short": "$1 のコントリビューター",
+		// サマリー文の孤立 have：ja は空文字（ノードごと消える）
+		"insights/have-word": "",
 
 		// —— pages/search（検索 / トピック）——
 		"search/topic": "トピック：$1",

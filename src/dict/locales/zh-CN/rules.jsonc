@@ -694,6 +694,11 @@
 		"insights/chart-bar": "包含 $1 根柱条的柱状图。",
 		"insights/highcharts-credit": "使用 Highcharts $1 创建",
 		"insights/chart-navigator-series": "导航器 $1，系列 $2/$3，共 $4 个数据点。Y 轴：$5。X 轴：$6。",
+		// 文档标题的新格式（「· GitHub」后缀已消失；模板与旧规则逐字一致）
+		"insights/pulse-title-short": "活跃概览 · $1",
+		"insights/contributors-title-short": "$1 的贡献者",
+		// 摘要句新断句里孤立的 have（「作者已推送」「文件已改动」两句通吃）
+		"insights/have-word": "已",
 		"search/topic": "主题：$1",
 		"search/users-starred-count": "$1 位用户星标了此仓库",
 		"search/stars-count": "$1 个星标",

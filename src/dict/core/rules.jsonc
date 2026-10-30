@@ -3330,6 +3330,25 @@
 				{
 					"id": "insights/chart-navigator-series",
 					"pattern": "^Navigator (?<navigator>\\d+), series (?<series>\\d+) of (?<seriesCount>\\d+) with (?<points>[\\d,]+) data points\\. Y axis, (?<yAxis>.+)\\. X axis, (?<xAxis>.+)\\.$"
+				},
+				// —— 文档标题的「· GitHub」后缀消失后的新格式（2026-10-29 导出实锤）——
+				// 上面几条 *-title 规则要求「· GitHub」结尾，在新格式上全部失配；
+				// 新规则放在旧规则之后（首条命中生效，旧格式仍由旧规则接住）
+				{
+					"id": "insights/pulse-title-short",
+					"pattern": "^Pulse \\u00B7 (.+)$"
+				},
+				{
+					"id": "insights/contributors-title-short",
+					"pattern": "^Contributors to (.+)$"
+				},
+				// 摘要句新断句里孤立的「have」（2026-10-29 实证）：zh 译「已」，
+				// ja 是空串模板——节点整个消失（settings/per-word 先例；ja 语序由
+				// authors / files 的既有重排模板承接助词）。规则模板允许空串而
+				// 词条不允许，故它以规则而非词条收录
+				{
+					"id": "insights/have-word",
+					"pattern": "^have$"
 				}
 			]
 		},

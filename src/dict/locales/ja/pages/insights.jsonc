@@ -157,6 +157,15 @@
 		"Top committers. Interactive chart.": "コミット数の多いコントリビューター。インタラクティブチャート。",
 		"Start of selected range": "選択範囲の開始",
 		"End of selected range": "選択範囲の終了",
-		"The chart has 1 X axis displaying categories.": "チャートには 1 本の X 軸があり、カテゴリを表示します。"
+		"The chart has 1 X axis displaying categories.": "チャートには 1 本の X 軸があり、カテゴリを表示します。",
+		// —— Pulse サマリー文の新ノード分割（2026-10-29 実証）——
+		// 上流は「 have pushed 」を have + pushed に分割した。日本語は authors /
+		// files の既存テンプレート（「人の作者が」「ファイルが」）が助詞を担うため、
+		// have は insights/have-word ルールで空文字（ノードごと消える）、pushed が
+		// 旧キーの「プッシュしたのは」を引き継ぐ。
+		"pushed": "プッシュしたのは",
+		"changed and there have been": "変更され、",
+		// コントリビューター概要カードの右上リンクの aria-label
+		"View open pull requests": "オープンなプルリクエストを表示"
 	}
 }

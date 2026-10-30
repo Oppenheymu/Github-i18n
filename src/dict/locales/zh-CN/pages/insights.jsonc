@@ -186,6 +186,15 @@
 		"Loading projects": "正在加载项目",
 		"Search projects": "搜索项目",
 		"Search by name…": "按名称搜索…",
-		"updated": "更新于"
+		"updated": "更新于",
+		// —— Pulse 摘要句的新断句（2026-10-29 实证）——
+		// 上游把「 have pushed 」拆成 have + pushed 两个节点、「 have changed and
+		// there have been 」拆成 have + changed and there have been。孤立的 have 走
+		// insights/have-word 规则（zh「已」），拼回「3 位作者 已 推送了 8 次提交…」
+		// 与「52 个文件 已 发生改动，其中…」。旧断句的整段键保留不删（两种布局并存）。
+		"pushed": "推送了",
+		"changed and there have been": "发生改动，其中",
+		// contributors 概览卡右上链接的 aria-label
+		"View open pull requests": "查看打开的拉取请求"
 	}
 }

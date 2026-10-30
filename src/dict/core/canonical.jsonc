@@ -6635,7 +6635,21 @@
 				"Loading projects",
 				"Search projects",
 				"Search by name…",
-				"updated"
+				"updated",
+				// —— Pulse 摘要句的新断句（2026-10-29 导出实证上游改了节点边界）——
+				// 旧断句是「 have pushed 」「 have changed and there have been 」两个整段
+				// 节点（insights-pulse.test.ts 的「拼回整句」用例），现拆成孤立虚词 +
+				// 动词段，整段键在实机永不命中、句子半翻不可读，故按固定句式收录碎片。
+				// 孤立的「have」走 insights/have-word 规则（zh「已」/ ja 空串——ja 语序由
+				// authors / files 的既有重排模板承接助词，空串模板即「节点整个消失」，
+				// settings/per-word 先例；词条的空值被门禁禁止，规则模板不受此限），
+				// 因此 canonical 里没有「have」这条静态键。它们只在本模块路由
+				//（pulse|graphs|forks|security|projects）上生效，不进 global。
+				"pushed",
+				"changed and there have been",
+				// contributors 概览卡右上链接的 aria-label（「6 Active pull requests」
+				// 那张卡的跳转链接）
+				"View open pull requests"
 			]
 		},
 		{

@@ -35,6 +35,9 @@
 		// 两条映射到既有键。单独的「Copilot in the cloud」不再映射——产品名本身不翻译，
 		// 旧键已随改名退役（canonical 2026-10-25 删除），未命中即保留英文。
 		"No Copilot in the cloud access": "No Copilot cloud agent access",
-		"Configure which tools Copilot in the cloud uses to validate its work and iterate before requesting human review.": "Configure which tools Copilot cloud agent uses to validate its work and iterate before requesting human review."
+		"Configure which tools Copilot in the cloud uses to validate its work and iterate before requesting human review.": "Configure which tools Copilot cloud agent uses to validate its work and iterate before requesting human review.",
+		// 2026-10-31 实机（PR 详情页通知订阅说明 <p id="notification-subscribe-button-reason">）：
+		// 上游把撇号换成弯撇号（’ U+2019），语义没变，别名复用旧译文。
+		"You’re receiving notifications because you’re watching this repository.": "You're receiving notifications because you're watching this repository."
 	}
 }

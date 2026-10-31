@@ -22,6 +22,8 @@
 		"pulls/filter-by-author": "作成者 $1 でフィルター",
 		// レビュアー要求ダイアログの見出し(数値は動的)
 		"pulls/request-reviewers": "最大 $<count> 名のレビュアーにリクエスト",
+		// チェックサマリー(数値は動的)
+		"pulls/checks-passed": "チェック $<count> 件に合格",
 
 		// —— pages/settings-security（アカウントセキュリティ）——
 		"settings/passkey-delete-confirm": "`$1` のパスキーを削除してもよろしいですか？",

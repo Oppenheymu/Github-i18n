@@ -143,6 +143,43 @@
 		// 评论框 placeholder
 		"Add your comment here, be kind": "在这里添加你的评论，请友善",
 		// 通知订阅说明
-		"You're receiving notifications because you're watching this repository.": "你正在接收通知，因为你正在关注此仓库。"
+		"You're receiving notifications because you're watching this repository.": "你正在接收通知，因为你正在关注此仓库。",
+		// —— 合并后横幅、合并队列提示与时间线事件（2026-10-31 第二批实机）——
+		// 合并成功横幅
+		"Pull request successfully merged and closed": "拉取请求已成功合并并关闭",
+		// em dash 在节点内
+		"You're all set — the branch has been merged.": "一切就绪——分支已合并。",
+		// 合并队列提示五节点拼装：「本仓库使用 合并队列 来完成对 main 分支的所有合并。」
+		// —— main 是分支名用户内容不收；末节点句号随节点译出
+		"This repository uses the": "本仓库使用",
+		"merge queue": "合并队列",
+		"for all merges into the": "来完成对",
+		"branch.": "分支的所有合并。",
+		// 命令行提示
+		"You can also merge this with the command line.": "也可以通过命令行合并。",
+		"View command line instructions.": "查看命令行说明。",
+		// 时间线事件碎片（用户名、哈希、徽章、分支名是用户内容不收）：
+		// 「<user> merged commit <sha> into <base>」等
+		"merged commit": "合并了提交",
+		"into": "至",
+		"assigned": "指派了",
+		"added": "添加了",
+		"labels": "标签",
+		"branch": "分支",
+		// 检查摘要数字动态走 rules 的 pulls/checks-passed（「13 checks passed」实机截图）
+		// —— 侧栏下拉（assignees / labels 弹层；issues 页 this issue 形态命中再姊妹登记）
+		"Assign up to 10 people to this pull request": "最多可将 10 人指派给此拉取请求",
+		"Clear assignees": "清除指派人",
+		"Apply labels to this pull request": "为此拉取请求应用标签",
+		// 绕过合并的确认按钮
+		"Confirm bypass rules and merge (squash)": "确认绕过规则并合并（squash）",
+		// —— 评论框页脚（拆节点：说明句 + 三条链接；逗号与句号是独立纯符号节点不收，
+		// ", and" 是第二、三条链接间的连接节点）与 protip 行（「Pro tip!」GitHub 已自译）——
+		"Remember, contributions to this repository should follow its": "请记住，对本仓库的贡献应遵循其",
+		"contributing guidelines": "贡献指南",
+		"security policy": "安全策略",
+		"code of conduct": "行为准则",
+		", and": "和",
+		"Add comments to specific lines under": "在以下位置对具体行添加评论："
 	}
 }

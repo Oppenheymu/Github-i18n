@@ -146,6 +146,46 @@
 		// コメント欄のプレースホルダー
 		"Add your comment here, be kind": "ここにコメントを追加してください。丁寧に",
 		// 通知購読の説明
-		"You're receiving notifications because you're watching this repository.": "このリポジトリをウォッチしているため、通知が届いています。"
+		"You're receiving notifications because you're watching this repository.": "このリポジトリをウォッチしているため、通知が届いています。",
+		// —— マージ後バナー・マージキュー注記・タイムラインイベント（2026-10-31 第2弾実機）——
+		// マージ成功バナー
+		"Pull request successfully merged and closed": "プルリクエストが正常にマージされ、クローズされました",
+		// em dash はノード内
+		"You're all set — the branch has been merged.": "これで完了です。ブランチはマージされました。",
+		// マージキュー注記は 5 ノード構造。ja は語序の都合で末ノードに述語を置く
+		// （端点承载）：「このリポジトリでは マージキュー を、main ブランチへの
+		// すべてのマージに使用します。」—— main はブランチ名（ユーザー内容）につき未収録
+		"This repository uses the": "このリポジトリでは",
+		"merge queue": "マージキュー",
+		"for all merges into the": "を、",
+		"branch.": " ブランチへのすべてのマージに使用します。",
+		// コマンドラインの案内
+		"You can also merge this with the command line.": "コマンドラインでマージすることもできます。",
+		"View command line instructions.": "コマンドラインの手順を表示します。",
+		// タイムラインイベント断片（ユーザー名・ハッシュ・バッジ・ブランチ名は
+		// ユーザー内容につき未収録）：「<user> merged commit <sha> into <base>」など
+		"merged commit": "がマージしたコミット",
+		"into": "のマージ先：",
+		"assigned": "がアサイン：",
+		"added": "が",
+		"labels": "のラベルを追加",
+		"branch": "ブランチ",
+		// チェックサマリーの数値は rules の pulls/checks-passed で処理
+		// —— サイドバーのドロップダウン（assignees / labels 弹層；issues ページの
+		// this issue 形態は命中後に姉妹登録）——
+		"Assign up to 10 people to this pull request": "このプルリクエストに最大 10 名をアサイン",
+		"Clear assignees": "アサインを解除",
+		"Apply labels to this pull request": "このプルリクエストにラベルを適用",
+		// バイパス マージの確認ボタン
+		"Confirm bypass rules and merge (squash)": "ルールをバイパスしてマージ（squash）を確認",
+		// —— コメント欄フッター（ノード分割：説明文 + 3 リンク；カンマと句点は独立した
+		// 記号ノードにつき未収録、", and" は 2・3 番目のリンク間の接続ノード）と
+		// protip 行（「Pro tip!」は GitHub の自訳につき未登録）——
+		"Remember, contributions to this repository should follow its": "リポジトリへのコントリビューションは、次のガイドラインに従ってください：",
+		"contributing guidelines": "コントリビューションガイドライン",
+		"security policy": "セキュリティポリシー",
+		"code of conduct": "行動規範",
+		", and": "および",
+		"Add comments to specific lines under": "次のタブで具体的な行にコメントを追加できます："
 	}
 }

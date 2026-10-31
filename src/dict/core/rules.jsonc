@@ -75,6 +75,12 @@
 				{
 					"id": "pulls/request-reviewers",
 					"pattern": "^Request up to (?<count>\\d+) reviewers?$"
+				},
+				// 检查摘要（维护者 2026-10-31 实机截图：「13 checks passed」，合并事件
+				// 下方）：数字动态；单数 checks? 按 reviewers? 先例放宽
+				{
+					"id": "pulls/checks-passed",
+					"pattern": "^(?<count>\\d+) checks? passed$"
 				}
 			]
 		},

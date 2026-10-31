@@ -331,6 +331,42 @@ function handleExcluded(
 }
 
 /**
+ * 单个元素的统一处理：翻属性 + open shadow root 穿透 / 未升级自定义元素上报，
+ * 返回穿透翻译的替换计数。root 分支与 TreeWalker 的过滤器共用——两者的差异
+ * 只有排除检查的位置（root 的排除由调用方先判，过滤分支在 acceptNode 里判）。
+ */
+function handleElement(
+	element: Element,
+	view: DictView,
+	onShadowRoot?: (shadowRoot: ShadowRoot) => void,
+	onPendingCustomElement?: (element: Element) => void,
+): number {
+	applyAttrs(element, view);
+	const shadow = element.shadowRoot;
+	if (shadow !== null) {
+		onShadowRoot?.(shadow);
+		return translateTree(
+			shadow,
+			view,
+			onShadowRoot,
+			onPendingCustomElement,
+		);
+	}
+	if (
+		onPendingCustomElement !== undefined &&
+		element.localName.includes("-") &&
+		// customElements.get 对任意名字安全（非法名返回 undefined 不抛）。
+		// 只在「尚未 define」时上报：已 define 的元素 constructor 必已同步挂好
+		// shadow，走到这里只可能是手动 closed 形态——那种上报会让 whenDefined
+		// 永挂、复查永不发生，白占一个登记位
+		customElements.get(element.localName) === undefined
+	) {
+		onPendingCustomElement(element);
+	}
+	return 0;
+}
+
+/**
  * 翻译以 root 为根的子树，返回替换次数（供调试与测试断言）。
  * 排除容器内的子树整棵跳过（closest 同时覆盖祖先，越界根也不误入）。
  *
@@ -339,11 +375,21 @@ function handleExcluded(
  * 冒泡到 document 级观察器，组件原地重写英文（relative-time 每分钟 tick）
  * 之后的重翻只能靠对 shadow root 单独 observe。回调只通知、不参与翻译，
  * 故 walker 仍是纯遍历函数；不传则照常穿透翻译、只是没有观察器注册。
+ *
+ * `onPendingCustomElement`：遍历中发现**尚未 upgrade** 的自定义元素时回调
+ * （标签唯一性由调用方去重）。引擎在 document_start 启动，而 GitHub 的懒加载
+ * chunk 可能晚于首轮扫描才 `customElements.define`——那一刻之前元素没有
+ * shadow root，穿透无从谈起；define 之后组件把英文写进 shadow，全程不产生
+ * light DOM 可见的变更记录（维护者 2026-10-31 实机：文件列表的 last month /
+ * last week 长期英文，刷新才恢复）。数值形态（「4 minutes ago」）每分钟 tick
+ * 重写文本还能触发重翻，模糊形态（「last month」）文本不变、永远等不到触发，
+ * 所以这个缺口必须由调用方在 define 时刻补一次穿透。不传则跳过不报。
  */
 export function translateTree(
 	root: Node,
 	view: DictView,
 	onShadowRoot?: (shadowRoot: ShadowRoot) => void,
+	onPendingCustomElement?: (element: Element) => void,
 ): number {
 	let count = 0;
 	if (root.nodeType === Node.TEXT_NODE) {
@@ -359,13 +405,22 @@ export function translateTree(
 		handleExcluded(root, view);
 		return 0;
 	}
-	// root 自身的属性必须在这里单独翻：TreeWalker 的过滤器**不作用于 root**
+	// root 自身必须在这里单独处理：TreeWalker 的过滤器**不作用于 root**
 	// （DOM 规范里 root 只是遍历的起点与边界，`nextNode()` 永远不会把它交给
 	// 过滤器），而属性变更记录的 target 恰恰是**那个元素本身**——引擎把
 	// `record.target` 入队后调用的正是本函数的最内层形态。漏掉这一行就会表现为
 	// 「页面（Turbo 快照 / data-disable-with）把按钮 value 改回英文后不再重翻」，
 	// 只有真实 DOM 能暴露它（手写桩会把 root 也过一遍过滤器，于是永远绿）。
-	if (root instanceof Element) applyAttrs(root, view);
+	// root 自身的 open shadow root 同理漏穿透——「define 晚于扫描」的复查
+	// 恰好以元素本身为 root（engine 的 #onPendingCustomElement）
+	if (root instanceof Element) {
+		count += handleElement(
+			root,
+			view,
+			onShadowRoot,
+			onPendingCustomElement,
+		);
+	}
 	const walker = document.createTreeWalker(
 		root,
 		NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,
@@ -384,23 +439,12 @@ export function translateTree(
 					handleExcluded(element, view);
 					return NodeFilter.FILTER_REJECT;
 				}
-				applyAttrs(element, view);
-				// open shadow root 穿透：GitHub 正把时间戳等迁到带 shadow DOM 的
-				// 自定义元素（relative-time 的可见文本在其 shadow root 内的
-				// `<span part="root">` 里，维护者 2026-10-30 实机 HTML），light DOM
-				// 的 TreeWalker 永远摸不到。走到这里的元素已通过排除检查，shadow
-				// 子树继承 host 的判定；shadow 内部还有排除容器时，其内部元素的
-				// `closest` 在同一棵 shadow 树内照常生效。`shadowRoot` 只返回 open
-				// 模式，closed 的结构上不可达（GitHub 用 open）。
-				const shadow = element.shadowRoot;
-				if (shadow !== null) {
-					onShadowRoot?.(shadow);
-					count += translateTree(
-						shadow,
-						view,
-						onShadowRoot,
-					);
-				}
+				count += handleElement(
+					element,
+					view,
+					onShadowRoot,
+					onPendingCustomElement,
+				);
 				return NodeFilter.FILTER_SKIP;
 			},
 		},

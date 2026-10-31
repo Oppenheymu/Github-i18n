@@ -704,3 +704,59 @@ describe("translateTree 的 shadow DOM 穿透", () => {
 		expect(seen).toEqual([]);
 	});
 });
+
+// —— 未升级自定义元素的延迟发现 ——
+//
+// 引擎在 document_start 启动，GitHub 的懒加载 chunk 可能晚于首轮扫描才
+// customElements.define("relative-time")：那之前元素没有 shadow root，穿透无从
+// 谈起；define 之后组件把英文写进 shadow，全程不产生 light DOM 可见的变更记录
+// （维护者 2026-10-31 实机：文件列表的 last month / last week 长期英文，刷新才
+// 恢复）。数值形态（「4 minutes ago」）每分钟 tick 重写还能触发重翻，模糊形态
+// （「last month」）文本不变、永远等不到触发——walker 只负责上报，调度在引擎。
+describe("translateTree 的未升级自定义元素上报", () => {
+	it("reports un-upgraded custom elements to the caller", () => {
+		const root = makeRoot();
+		// 未 define 的自定义元素：shadowRoot 为 null，穿透无从发生
+		const host =
+			env.document.createElement("relative-time");
+		root.appendChild(host);
+
+		const pending: Element[] = [];
+		const count = translateTree(
+			root,
+			view,
+			undefined,
+			(element) => {
+				pending.push(element);
+			},
+		);
+		expect(count).toBe(0);
+		expect(pending).toEqual([host]);
+	});
+
+	it("does not report upgraded hosts or non-custom elements", () => {
+		const root = makeRoot();
+		// 手动挂了 open shadow：已具备「升级后」的形态，走 onShadowRoot
+		const upgraded =
+			env.document.createElement("relative-time");
+		upgraded.attachShadow({ mode: "open" });
+		root.appendChild(upgraded);
+		const plain = env.document.createElement("div");
+		root.appendChild(plain);
+
+		const seen: ShadowRoot[] = [];
+		const pending: Element[] = [];
+		translateTree(
+			root,
+			view,
+			(found) => {
+				seen.push(found);
+			},
+			(element) => {
+				pending.push(element);
+			},
+		);
+		expect(seen).toHaveLength(1);
+		expect(pending).toEqual([]);
+	});
+});

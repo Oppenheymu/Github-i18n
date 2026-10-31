@@ -34,6 +34,13 @@ export class TranslationEngine {
 	readonly #pending = new Set<Node>();
 	/** 已注册观察的 shadow root：flush 每轮都会重新发现同一批，去重避免反复 observe */
 	#watchedShadowRoots = new WeakSet<ShadowRoot>();
+	/**
+	 * 已登记「等 define」的标签。按标签登记而不是按元素：复查时用
+	 * querySelectorAll 重新收集，不持有任何元素引用——React 卸载了元素也不会
+	 * 阻碍回收；从未被 define 的标签（用户内容里的同名元素）只是留一个
+	 * 永挂的 promise 和一个字符串，代价可忽略。
+	 */
+	#pendingCustomTags = new Set<string>();
 	#flushScheduled = false;
 
 	constructor(host: EngineHost) {
@@ -86,9 +93,14 @@ export class TranslationEngine {
 		for (const node of this.#pending) {
 			// 已脱离文档的节点跳过，避免无谓遍历
 			if (node.isConnected) {
-				translateTree(node, view, (shadow) => {
-					this.#watchShadow(shadow);
-				});
+				translateTree(
+					node,
+					view,
+					(shadow) => {
+						this.#watchShadow(shadow);
+					},
+					this.#onPendingCustomElement,
+				);
 			}
 		}
 		this.#pending.clear();
@@ -106,4 +118,46 @@ export class TranslationEngine {
 		this.#watchedShadowRoots.add(shadow);
 		this.#observer.observe(shadow, OBSERVE_OPTIONS);
 	}
+
+	/**
+	 * 补「define 晚于首轮扫描」的敞口（walker 只通知、不做调度，故住在这里）。
+	 *
+	 * content script 在 document_start 启动，而 GitHub 的懒加载 chunk 可能晚于
+	 * 首轮扫描才 `customElements.define`：那之前元素没有 shadow root，穿透无从
+	 * 谈起；define 之后组件把英文写进 shadow，全程不产生 light DOM 可见的变更
+	 * 记录——引擎没有任何通道得知新 shadow root 出现了。数值形态（「4 minutes
+	 * ago」）每分钟 tick 重写文本总能触发重翻，模糊形态（「last month」）重算
+	 * 结果不变、组件什么都不写，会永远停在英文（维护者 2026-10-31 实机：文件
+	 * 列表的 last month / last week 长期英文，刷新才恢复）。
+	 *
+	 * 所以在 define 时刻补一轮全量穿透：此刻存量元素已被 upgrade（constructor
+	 * 同步挂 shadow），内容已写的当场翻；组件若还要异步写，则由这一轮注册的
+	 * shadow 观察器在写入时接住——两种时序都闭环。
+	 */
+	#onPendingCustomElement = (element: Element): void => {
+		const tag = element.localName;
+		if (this.#pendingCustomTags.has(tag)) return;
+		this.#pendingCustomTags.add(tag);
+		// whenDefined 对非法名字 reject 为 SyntaxError（不同步抛），
+		// catch 兜住即可；正常路径 resolve 于 define 调用时
+		void customElements
+			.whenDefined(tag)
+			.then(() => {
+				this.#pendingCustomTags.delete(tag);
+				// 开关已关（整页刷新流程）就不翻了
+				if (!this.#host.isEnabled()) return;
+				const view = this.#host.getView();
+				for (const el of document.querySelectorAll(tag)) {
+					translateTree(
+						el,
+						view,
+						(shadow) => {
+							this.#watchShadow(shadow);
+						},
+						this.#onPendingCustomElement,
+					);
+				}
+			})
+			.catch(() => {});
+	};
 }

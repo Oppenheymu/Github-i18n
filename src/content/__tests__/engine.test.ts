@@ -308,4 +308,67 @@ describe("TranslationEngine 的调度语义", () => {
 		await env.tick();
 		expect(shadowObserves()).toHaveLength(2);
 	});
+
+	it("re-translates custom elements defined after the first scan", async () => {
+		// define 晚于首轮扫描（维护者 2026-10-31 实机：文件列表的 last month /
+		// last week 长期英文，刷新才恢复）：首轮时时间戳元素还是未知元素，组件
+		// upgrade 后把英文写进 shadow，全程不产生 light DOM 可见的变更记录。
+		// 引擎必须在 define 时刻补一轮穿透——模糊形态（last month）没有
+		// relative-time 的 tick 重写，否则永远等不到触发。
+		// 标签名用 deferred-time：define 会 upgrade 文档里全部存量同名元素，
+		// 本文件前述用例的手动 shadow host 若同名会在 upgrade 时撞车
+		const fuzzyView: DictView = {
+			entries: new Map([["last month", "上个月"]]),
+			aliases: new Map(),
+			rules: [],
+		};
+		const engine = new TranslationEngine({
+			getView: () => fuzzyView,
+			isEnabled: () => true,
+		});
+		const root = env.document.createElement("div");
+		env.document.body.appendChild(root);
+		const host =
+			env.document.createElement("deferred-time");
+		root.appendChild(host);
+
+		engine.start(root);
+		await env.tick();
+		// 首轮扫描时元素尚未升级：没有 shadow 可穿透，但已登记等 define
+		expect(host.shadowRoot).toBeNull();
+
+		// chunk 到达：define，constructor 同步挂 shadow 并渲染英文。
+		// 基类必须是 registry 所属窗口的 HTMLElement——dom.ts 没把构造函数
+		// 挂进全局，从窗口上取（env.window 的静态类型是裸 Window，cast 一下）
+		const base = (
+			env.window as unknown as {
+				HTMLElement: typeof HTMLElement;
+			}
+		).HTMLElement;
+		class DeferredTime extends base {
+			constructor() {
+				super();
+				const shadow = this.attachShadow({ mode: "open" });
+				const label = env.document.createElement("span");
+				label.setAttribute("part", "root");
+				label.textContent = "last month";
+				shadow.appendChild(label);
+			}
+		}
+		customElements.define("deferred-time", DeferredTime);
+		await env.tick();
+
+		// whenDefined 复查穿透到了 upgrade 后的 shadow
+		const label = host.shadowRoot?.querySelector("span");
+		expect(label?.textContent).toBe("上个月");
+		// 复查同时给新 shadow root 注册了观察器（tick 重写靠它收敛）
+		const shadow = host.shadowRoot;
+		expect(
+			env.observes.some(
+				(call) =>
+					call.target === shadow &&
+					call.options.childList === true,
+			),
+		).toBe(true);
+	});
 });

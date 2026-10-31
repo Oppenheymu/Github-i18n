@@ -317,8 +317,50 @@
 				"Archive pull request",
 				// 评论框 placeholder
 				"Add your comment here, be kind",
-				// 通知订阅说明（watching 在实机截图里为纯文本）
-				"You're receiving notifications because you're watching this repository."
+				// 通知订阅说明（watching 在实机截图里为纯文本；2026-10-31 实机 DOM 的撇号
+				// 已改为弯撇号 ’，走 aliases 映射到本键）
+				"You're receiving notifications because you're watching this repository.",
+				// —— 合并后横幅、合并队列提示与时间线事件（2026-10-31 第二批实机 HTML + 截图）——
+				// 合并成功横幅（MergeBox 区块标题与说明行）
+				"Pull request successfully merged and closed",
+				"You're all set — the branch has been merged.",
+				// 合并队列提示是**五节点**结构：`This repository uses the ` +
+				// <a>merge queue</a> + ` for all merges into the ` + <code>main</code> +
+				// ` branch.`——main 是分支名（用户内容）不收，四个碎片各自查表，
+				// 句号在末节点内随节点译出
+				"This repository uses the",
+				"merge queue",
+				"for all merges into the",
+				"branch.",
+				// 命令行提示（同一横幅）
+				"You can also merge this with the command line.",
+				"View command line instructions.",
+				// 时间线事件碎片（「<user> merged commit <sha> into <base>」「<user>
+				// assigned <user>」「<user> added <徽章> labels」与「deleted the <ref>
+				// branch」的收尾）：用户名、哈希、徽章、分支名是用户内容不收；checks
+				// 摘要「13 checks passed」数字动态，走 rules 的 pulls/checks-passed
+				"merged commit",
+				"into",
+				"assigned",
+				"added",
+				"labels",
+				"branch",
+				// —— 侧栏下拉（assignees / labels 弹层标题与清除项；issues 页同型弹层
+				// 是 this issue 形态，命中再姊妹登记）——
+				"Assign up to 10 people to this pull request",
+				"Clear assignees",
+				"Apply labels to this pull request",
+				// 绕过合并的确认按钮（「Bypass rules and merge (squash)」的确认态）
+				"Confirm bypass rules and merge (squash)",
+				// —— 评论框页脚与 protip（拆节点碎片：说明句 + 三条链接，逗号与句号是
+				// 独立纯符号节点不收；", and" 是第二、三条链接间的连接节点；「Pro tip!」
+				// GitHub 已自译不重复登记，链接文本 Files changed 本模块已有键）——
+				"Remember, contributions to this repository should follow its",
+				"contributing guidelines",
+				"security policy",
+				"code of conduct",
+				", and",
+				"Add comments to specific lines under"
 			]
 		},
 		{

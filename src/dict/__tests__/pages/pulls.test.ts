@@ -353,3 +353,213 @@ describe("PR 详情页的合并区与各下拉", () => {
 		);
 	});
 });
+
+// —— PR 详情页合并后横幅、时间线事件与侧栏下拉（维护者 2026-10-31 第二批实机
+// HTML + 截图）——
+//
+// 通知订阅说明的撇号被上游改成弯撇号（’ U+2019），原直线撇号键在实机永不命中，
+// 走 aliases 映射复用旧译文；合并队列提示是五节点（text + link + text +
+// <code>main</code> + text），main 是分支名用户内容原样保留；时间线事件的用户名、
+// 哈希与标签徽章同理。「Pro tip!」GitHub 已自译（专业提示！），不重复登记。
+describe("PR 详情页合并后横幅、时间线事件与侧栏下拉", () => {
+	it("maps the reworded notification reason through the alias", () => {
+		// 弯撇号（U+2019）是当前实机 DOM 形态；直线撇号（U+0027）是历史渲染形态
+		expect(
+			translateText(
+				"You’re receiving notifications because you’re watching this repository.",
+				view,
+			),
+		).toBe("你正在接收通知，因为你正在关注此仓库。");
+		expect(
+			translateText(
+				"You're receiving notifications because you're watching this repository.",
+				view,
+			),
+		).toBe("你正在接收通知，因为你正在关注此仓库。");
+	});
+
+	it("translates the merged banner and the command line note", () => {
+		const NODES: readonly (readonly [string, string])[] = [
+			[
+				"Pull request successfully merged and closed",
+				"拉取请求已成功合并并关闭",
+			],
+			[
+				"You're all set — the branch has been merged.",
+				"一切就绪——分支已合并。",
+			],
+			[
+				"You can also merge this with the command line.",
+				"也可以通过命令行合并。",
+			],
+			[
+				"View command line instructions.",
+				"查看命令行说明。",
+			],
+		];
+		for (const [node, expected] of NODES) {
+			for (const variant of withWhitespace(node)) {
+				expect(
+					translateText(variant, view),
+					`节点 ${JSON.stringify(variant)}`,
+				).toBe(expected);
+			}
+		}
+	});
+
+	it("assembles the merge queue note around the branch name", () => {
+		// 五节点：「This repository uses the 」+ <a>merge queue</a> +
+		// 「 for all merges into the 」+ <code>main</code> + 「 branch.」——
+		// main 是分支名（用户内容）原样保留，末节点句号随节点译出
+		expect(
+			translateText("This repository uses the ", view),
+		).toBe("本仓库使用");
+		expect(translateText("merge queue", view)).toBe(
+			"合并队列",
+		);
+		expect(
+			translateText("for all merges into the ", view),
+		).toBe("来完成对");
+		expect(translateText("main", view)).toBeNull();
+		expect(translateText(" branch.", view)).toBe(
+			"分支的所有合并。",
+		);
+	});
+
+	it("translates the timeline event fragments around user content", () => {
+		// 「Oppenheymu merged commit 695e017 into main」：哈希与分支名原样保留
+		expect(translateText("merged commit", view)).toBe(
+			"合并了提交",
+		);
+		expect(translateText("into", view)).toBe("至");
+		expect(translateText("695e017", view)).toBeNull();
+		// 「github-actions assigned Oppenheymu」
+		expect(translateText("assigned", view)).toBe("指派了");
+		// 「github-actions added <徽章> labels」
+		expect(translateText("added", view)).toBe("添加了");
+		expect(translateText("labels", view)).toBe("标签");
+		// 「deleted the <ref> branch」的收尾节点
+		expect(translateText(" branch", view)).toBe("分支");
+		// 检查摘要数字动态（「13 checks passed」实机截图）；单数按 reviewers? 先例放宽
+		expect(translateText("13 checks passed", view)).toBe(
+			"已通过 13 项检查",
+		);
+		expect(translateText("1 check passed", view)).toBe(
+			"已通过 1 项检查",
+		);
+	});
+
+	it("translates the sidebar dropdowns and the bypass confirm button", () => {
+		const NODES: readonly (readonly [string, string])[] = [
+			[
+				"Assign up to 10 people to this pull request",
+				"最多可将 10 人指派给此拉取请求",
+			],
+			["Clear assignees", "清除指派人"],
+			[
+				"Apply labels to this pull request",
+				"为此拉取请求应用标签",
+			],
+			[
+				"Confirm bypass rules and merge (squash)",
+				"确认绕过规则并合并（squash）",
+			],
+		];
+		for (const [node, expected] of NODES) {
+			for (const variant of withWhitespace(node)) {
+				expect(
+					translateText(variant, view),
+					`节点 ${JSON.stringify(variant)}`,
+				).toBe(expected);
+			}
+		}
+	});
+
+	it("renders the comment footer across its split nodes", () => {
+		// 「Remember, contributions … its + contributing guidelines + , +
+		// security policy + , and + code of conduct + .」——逗号与句号是独立纯符号
+		// 节点不收录（保持英文），连接节点 , and 单独收
+		expect(
+			translateText(
+				"Remember, contributions to this repository should follow its",
+				view,
+			),
+		).toBe("请记住，对本仓库的贡献应遵循其");
+		expect(
+			translateText("contributing guidelines", view),
+		).toBe("贡献指南");
+		expect(translateText("security policy", view)).toBe(
+			"安全策略",
+		);
+		expect(translateText("code of conduct", view)).toBe(
+			"行为准则",
+		);
+		expect(translateText(", and", view)).toBe("和");
+		expect(translateText(", ", view)).toBeNull();
+		expect(translateText(".", view)).toBeNull();
+		// protip 行：「Pro tip!」GitHub 已自译；链接文本 Files changed 本模块已有
+		expect(
+			translateText(
+				"Add comments to specific lines under",
+				view,
+			),
+		).toBe("在以下位置对具体行添加评论：");
+	});
+
+	it("has japanese templates for the new fragments", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pulls",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText(
+				"You’re receiving notifications because you’re watching this repository.",
+				japanese,
+			),
+		).toBe(
+			"このリポジトリをウォッチしているため、通知が届いています。",
+		);
+		// マージキュー注記：語序の都合で末ノードに述語を置く（端点承载）
+		expect(
+			translateText("This repository uses the ", japanese),
+		).toBe("このリポジトリでは");
+		expect(translateText("merge queue", japanese)).toBe(
+			"マージキュー",
+		);
+		expect(
+			translateText("for all merges into the ", japanese),
+		).toBe("を、");
+		expect(translateText(" branch.", japanese)).toBe(
+			" ブランチへのすべてのマージに使用します。",
+		);
+		expect(translateText("merged commit", japanese)).toBe(
+			"がマージしたコミット",
+		);
+		expect(translateText("into", japanese)).toBe(
+			"のマージ先：",
+		);
+		expect(translateText("assigned", japanese)).toBe(
+			"がアサイン：",
+		);
+		expect(translateText("added", japanese)).toBe("が");
+		expect(translateText("labels", japanese)).toBe(
+			"のラベルを追加",
+		);
+		expect(translateText(" branch", japanese)).toBe(
+			"ブランチ",
+		);
+		expect(
+			translateText("13 checks passed", japanese),
+		).toBe("チェック 13 件に合格");
+		expect(translateText(", and", japanese)).toBe("および");
+		expect(
+			translateText(
+				"Add comments to specific lines under",
+				japanese,
+			),
+		).toBe(
+			"次のタブで具体的な行にコメントを追加できます：",
+		);
+	});
+});

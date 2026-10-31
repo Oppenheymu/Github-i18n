@@ -26,6 +26,10 @@ const MANAGED = [
 	"Element",
 	"NodeFilter",
 	"MutationObserver",
+	// 自定义元素注册表：walker/engine 的「未升级自定义元素」复查链路要读
+	// customElements.get / whenDefined，用例里还要真的 define 来模拟
+	// 「define 晚于首轮扫描」的实机时序
+	"customElements",
 ] as const;
 
 /** 一次 `observe` 调用的留痕（观察器本身仍是真实的） */
@@ -139,6 +143,7 @@ export function installDom(
 		Element: dom.Element,
 		NodeFilter: dom.NodeFilter,
 		MutationObserver: RecordingObserver,
+		customElements: dom.customElements,
 	};
 	for (const key of MANAGED) {
 		previous.set(key, globals[key]);

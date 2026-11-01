@@ -25,6 +25,10 @@
 		// —— 详情页头与合并横幅 ——
 		"Pull request": "拉取请求",
 		"Commit message body": "提交信息正文",
+		// —— 合并框表单标签（压缩合并面板的三个 FormControl 标签）——
+		"Commit message": "提交信息",
+		"Extended description": "扩展描述",
+		"Commit email": "提交邮箱",
 		"from": "来自",
 		"Copy head branch name to clipboard": "复制源分支名到剪贴板",
 		// —— 时间线事件与侧栏 ——
@@ -187,6 +191,9 @@
 		// 走既有 repo/commits-count 规则，哈希用户内容不收
 		"This branch is out-of-date with the base branch": "此分支落后于基线分支",
 		"It’s": "落后",
-		"behind (base commit:": "(基线提交:"
+		"behind (base commit:": "(基线提交:",
+		// —— checks 区部署空态（h3 标题与 status-meta 副文本各自整节点）——
+		"This branch has not been deployed": "此分支尚未部署",
+		"No deployments": "暂无部署记录"
 	}
 }

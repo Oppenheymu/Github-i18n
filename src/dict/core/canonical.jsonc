@@ -193,6 +193,12 @@
 				// —— 详情页头与合并横幅 ——
 				"Pull request",
 				"Commit message body",
+				// —— 合并框表单标签（2026-11-01 维护者实机 HTML：压缩合并面板的
+				// Commit message / Extended description / Commit email 三个
+				// FormControl 标签，各自整节点静态收）——
+				"Commit message",
+				"Extended description",
+				"Commit email",
 				"from",
 				"Copy head branch name to clipboard",
 				// —— 时间线事件与侧栏 ——
@@ -370,7 +376,11 @@
 				// pulls/merge-latest-changes
 				"This branch is out-of-date with the base branch",
 				"It’s",
-				"behind (base commit:"
+				"behind (base commit:",
+				// —— checks 区部署空态（2026-11-01 维护者实机 HTML：h3 标题与
+				// status-meta 副文本各自整节点，静态收）——
+				"This branch has not been deployed",
+				"No deployments"
 			]
 		},
 		{

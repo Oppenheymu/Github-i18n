@@ -617,6 +617,7 @@
 		"dashboard/greeting-afternoon": "こんにちは、$1 さん！",
 		"dashboard/greeting-evening": "こんばんは、$1 さん！",
 		"dashboard/optimized-for": "最適化の対象：",
+		"dashboard/switch-dashboard": "ダッシュボードを切り替え：$<user>",
 
 		// —— pages/commits（コミット / タグ / ブランチ / 比較）——
 		"commits/toggle-commit-message": "$1 のコミットメッセージを展開または折りたたむ",

@@ -41,6 +41,8 @@
 		"g then p": "g の後に p",
 		"Open menu": "メニューを開く",
 		"Open user navigation menu": "ユーザーナビゲーションメニューを開く",
+		// アカウント切り替えボタンのツールチップ（tool-tip のシャドウルート内テキスト）
+		"Account switcher": "アカウントの切り替え",
 		"You have no unread notifications": "未読の通知はありません",
 		"You have unread notifications": "未読の通知があります",
 		"Open unread notifications": "未読の通知を開く",
@@ -80,6 +82,13 @@
 		"New issue": "新しいイシュー",
 		"New pull request": "新しいプルリクエスト",
 		"Create new...": "新規作成...",
+
+		// —— ヘッダーメニューの Copilot 領域とダウンロード（2026-11-01 ホーム実機、
+		// 省略号の別形はエイリアスで吸収）——
+		"Ask Copilot...": "Copilot に質問…",
+		"In immersive chat": "イマーシブチャットで",
+		"In a space": "スペースで",
+		"Download for...": "ダウンロード…",
 
 		// —— ユーザーメニュー ——
 		"Your profile": "あなたのプロフィール",

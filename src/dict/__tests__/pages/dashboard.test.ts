@@ -233,3 +233,86 @@ describe("pages/dashboard 的实机节点边界", () => {
 		expect(translateText("Github-i18n", view)).toBeNull();
 	});
 });
+
+// —— feed 卡片提示、Universe 推广卡与切换仪表板提示（维护者 2026-11-01 主页实机截图）——
+//
+// 前两类是 tool-tip 的 open shadow root 文本节点（引擎穿透翻译）；Universe 卡的
+// 「View changelog」箭头可能随文本节点也可能独立，两形态并存双保险；推广卡更新日志
+// 列表里的条目标题是文章内容，不收。
+describe("主页 feed 提示、Universe 推广卡与切换仪表板提示", () => {
+	it("translates the feed card option tooltips", () => {
+		expect(
+			translateText("Pull request options", view),
+		).toBe("拉取请求选项");
+		expect(translateText("Issue options", view)).toBe(
+			"议题选项",
+		);
+	});
+
+	it("translates the universe promo card", () => {
+		expect(
+			translateText(
+				"Catch up on all that was announced.",
+				view,
+			),
+		).toBe("了解已公布的全部内容。");
+		expect(translateText("See what's new", view)).toBe(
+			"看看有什么新功能",
+		);
+		// 弯撇号形态走别名复用同一译文（上游弯直混用）
+		expect(translateText("See what’s new", view)).toBe(
+			"看看有什么新功能",
+		);
+		expect(
+			translateText("Latest from our changelog", view),
+		).toBe("来自更新日志的最新内容");
+		expect(translateText("View changelog", view)).toBe(
+			"查看更新日志",
+		);
+		expect(translateText("View changelog →", view)).toBe(
+			"查看更新日志 →",
+		);
+	});
+
+	it("translates the switch dashboard tooltip through the rule", () => {
+		// 用户名是用户内容：捕获组原样搬运，前后缀翻成中文
+		expect(
+			translateText("Switch dashboard: Oppenheymu", view),
+		).toBe("切换仪表板：Oppenheymu");
+	});
+
+	it("has japanese templates for the dashboard additions", () => {
+		const japanese = buildView(
+			"/",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText("Pull request options", japanese),
+		).toBe("プルリクエストのオプション");
+		expect(translateText("Issue options", japanese)).toBe(
+			"イシューのオプション",
+		);
+		expect(
+			translateText(
+				"Catch up on all that was announced.",
+				japanese,
+			),
+		).toBe("発表された内容をすべてご覧ください。");
+		expect(translateText("See what’s new", japanese)).toBe(
+			"新機能を見る",
+		);
+		expect(
+			translateText("Latest from our changelog", japanese),
+		).toBe("変更履歴の最新情報");
+		expect(
+			translateText("View changelog →", japanese),
+		).toBe("変更履歴を見る →");
+		expect(
+			translateText(
+				"Switch dashboard: Oppenheymu",
+				japanese,
+			),
+		).toBe("ダッシュボードを切り替え：Oppenheymu");
+	});
+});

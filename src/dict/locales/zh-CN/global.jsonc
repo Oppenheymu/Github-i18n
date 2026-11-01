@@ -51,6 +51,8 @@
 		"g then p": "g 然后 p",
 		"Open menu": "打开菜单",
 		"Open user navigation menu": "打开用户导航菜单",
+		// 帐户切换器按钮的悬浮提示（tool-tip 阴影根文本）
+		"Account switcher": "帐户切换器",
 		"You have no unread notifications": "你没有未读通知",
 		"You have unread notifications": "你有未读通知",
 		"Open unread notifications": "打开未读通知",
@@ -88,6 +90,11 @@
 		"New issue": "新建议题",
 		"New pull request": "新建拉取请求",
 		"Create new...": "新建…",
+		// —— 表头菜单的 Copilot 区与下载项（2026-11-01 主页实机；弯形省略号走别名）——
+		"Ask Copilot...": "询问 Copilot…",
+		"In immersive chat": "在沉浸式聊天中",
+		"In a space": "在空间中",
+		"Download for...": "下载…",
 		// —— 用户菜单 ——
 		"Your profile": "你的个人资料",
 		"Your repositories": "你的仓库",

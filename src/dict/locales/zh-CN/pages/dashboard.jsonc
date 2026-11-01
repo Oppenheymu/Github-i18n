@@ -69,6 +69,16 @@
 		"Give feedback": "提供反馈",
 		// —— 新版仪表板顶部的两个标签页（Home 早已收录，Feed 为 2026-10-24 新增）——
 		// 「Feed」的撞车风险见 core/canonical.jsonc 同段注释
-		"Feed": "动态"
+		"Feed": "动态",
+		// —— feed 卡片动作菜单的悬浮提示（tool-tip 阴影根文本）——
+		"Pull request options": "拉取请求选项",
+		"Issue options": "议题选项",
+		// —— 右栏 GitHub Universe 推广卡与更新日志卡（「View changelog」的箭头
+		// 可能随文本节点也可能独立，两形态并存双保险）——
+		"Catch up on all that was announced.": "了解已公布的全部内容。",
+		"See what's new": "看看有什么新功能",
+		"Latest from our changelog": "来自更新日志的最新内容",
+		"View changelog": "查看更新日志",
+		"View changelog →": "查看更新日志 →"
 	}
 }

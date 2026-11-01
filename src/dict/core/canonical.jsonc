@@ -6515,7 +6515,21 @@
 				// 收录（本模块首个键），`Feed` 为本次新增。`Feed` 是泛化短词：仓库 / 用户
 				// 与它同名的会被一起翻，但整节点精确匹配 + 首字母大写 + 仅本模块路由生效，
 				// 误伤面可控（同 AGENTS.md 硬性约束 3 的权衡写明在此）。
-				"Feed"
+				"Feed",
+				// —— feed 卡片动作菜单的悬浮提示（维护者 2026-11-01 主页实机截图；
+				// tool-tip open shadow root 文本，静态收）——
+				"Pull request options",
+				"Issue options",
+				// —— 右栏 GitHub Universe 推广卡与更新日志卡 ——
+				// 「View changelog」的箭头可能随文本节点也可能是独立图形，两形态并存
+				// 双保险；更新日志列表里的条目标题是文章内容，不收
+				"Catch up on all that was announced.",
+				"See what's new",
+				"Latest from our changelog",
+				"View changelog",
+				"View changelog →"
+				// 左栏头像按钮的悬浮提示是「Switch dashboard: <用户名>」，动态走
+				// rules 的 dashboard/switch-dashboard
 			]
 		},
 		{
@@ -8379,6 +8393,9 @@
 				"g then p",
 				"Open menu",
 				"Open user navigation menu",
+				// 帐户切换器按钮的悬浮提示（维护者 2026-11-01 主页实机截图；
+				// tool-tip open shadow root 文本）
+				"Account switcher",
 				"You have no unread notifications",
 				// 通知铃铛的两态：无未读时是上面那条，有未读时是这两条
 				// （图标按钮的 sr-only 文案 + 文本节点头部链接）
@@ -8420,6 +8437,15 @@
 				"New issue",
 				"New pull request",
 				"Create new...",
+				// —— 表头菜单的 Copilot 区与下载项（维护者 2026-11-01 主页实机截图）——
+				// 「Ask Copilot...」是菜单分组标题，下面两项是提问入口；「Download for...」
+				// 带编辑器列表子菜单。上游省略号 / 撇号的弯直形态混用（「Create new...」
+				// 三点 vs「Open Copilot…」单字符），形态没把握的键取一种、另一种走
+				// aliases 双保险
+				"Ask Copilot...",
+				"In immersive chat",
+				"In a space",
+				"Download for...",
 				// —— 用户菜单 ——
 				"Your profile",
 				"Your repositories",

@@ -137,10 +137,17 @@ export class TranslationEngine {
 	#onPendingCustomElement = (element: Element): void => {
 		const tag = element.localName;
 		if (this.#pendingCustomTags.has(tag)) return;
+		// 与 walker 的护栏同源：注册表不可达时复查机制整体休眠（walker 只在
+		// 可达时上报，这里是纵深防御）——任何一处全局访问都不得抛出
+		const registry:
+			| CustomElementRegistry
+			| null
+			| undefined = globalThis.customElements;
+		if (registry === null || registry === undefined) return;
 		this.#pendingCustomTags.add(tag);
 		// whenDefined 对非法名字 reject 为 SyntaxError（不同步抛），
 		// catch 兜住即可；正常路径 resolve 于 define 调用时
-		void customElements
+		void registry
 			.whenDefined(tag)
 			.then(() => {
 				this.#pendingCustomTags.delete(tag);

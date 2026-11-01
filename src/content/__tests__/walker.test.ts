@@ -759,4 +759,32 @@ describe("translateTree 的未升级自定义元素上报", () => {
 		expect(seen).toHaveLength(1);
 		expect(pending).toEqual([]);
 	});
+
+	it("survives an unavailable customElements registry without reporting", () => {
+		// 非 HTML 文档（XML / atom 等）的 window.customElements 按规范就是 null，
+		// 隔离 world 的行为也随浏览器版本浮动（2026-11-01 实机：content.js 在
+		// .get 上抛 TypeError，全站不翻）。注册表不可达时必须整段跳过该机制，
+		// 而不是让引擎崩掉
+		const root = makeRoot();
+		const host =
+			env.document.createElement("relative-time");
+		root.appendChild(host);
+		const pending: Element[] = [];
+		const previous = globalThis.customElements;
+		(
+			globalThis as { customElements: unknown }
+		).customElements = null;
+		try {
+			expect(() =>
+				translateTree(root, view, undefined, (element) => {
+					pending.push(element);
+				}),
+			).not.toThrow();
+		} finally {
+			(
+				globalThis as { customElements: unknown }
+			).customElements = previous;
+		}
+		expect(pending).toEqual([]);
+	});
 });

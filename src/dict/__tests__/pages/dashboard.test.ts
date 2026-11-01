@@ -316,3 +316,109 @@ describe("主页 feed 提示、Universe 推广卡与切换仪表板提示", () =
 		).toBe("ダッシュボードを切り替え：Oppenheymu");
 	});
 });
+
+// —— feed 流动作行、卡片控件与右栏趋势 / 推荐卡（维护者 2026-11-02 主页实机截图）——
+//
+// 证据来源：截图只定语义与数量（哪几条仍是英文），节点形态按同族既有证据推定：
+// 动作行的头像 / 用户名链接 / 显示名各自是独立元素，动词短语自成一个文本节点；
+// 若「merged 1 commit」拆成两节点，「merged」会命中 global 的小写词条、
+// 「1 commit」命中 global/commits-count，截图里却整段英文 ⇒ 单节点、走规则。
+// 「65 followers」与已由 global/repos-count 接住的「8 repositories」同属一张
+// 悬浮卡（后者截图里已是中文），两者同为「数字 + 名词」单节点形态。
+describe("主页 feed 流补漏（2026-11-02 批次）", () => {
+	/** 实机文本 → 应渲染的译文（逐字录入，顺序即页面出现顺序） */
+	const FEED_NODES: readonly (readonly [string, string])[] =
+		[
+			// —— feed 动作行（用户名 / 显示名 / 仓库链接之外的动词短语节点）——
+			["starred a repository", "星标了一个仓库"],
+			["followed", "关注了"],
+			["contributed to", "贡献于"],
+			// —— feed 卡片动作菜单的悬浮提示与展开后的菜单项 ——
+			["Feed item options", "动态选项"],
+			["Show less activity like this", "减少显示此类动态"],
+			// —— feed 卡片正文折叠后的展开链接（无句点）——
+			["Read more", "阅读更多"],
+			// —— 右栏趋势卡与推荐卡的卡头（「·」纯符号节点翻不了，不收）——
+			["Trending repositories", "趋势仓库"],
+			["See more", "查看更多"],
+			["Recommended for you", "为你推荐"],
+		];
+
+	it("translates every feed node the screenshot shows", () => {
+		for (const [node, expected] of FEED_NODES) {
+			for (const variant of withWhitespace(node)) {
+				expect(
+					translateText(variant, view),
+					`节点 ${JSON.stringify(variant)}`,
+				).toBe(expected);
+			}
+		}
+	});
+
+	it("translates the merged-commit count line through the rule", () => {
+		// 提交数动态：单复数两种形态都由同一条规则带回数字
+		expect(translateText("merged 1 commit", view)).toBe(
+			"合并了 1 次提交",
+		);
+		expect(translateText("merged 3 commits", view)).toBe(
+			"合并了 3 次提交",
+		);
+	});
+
+	it("translates the hovercard follower count through the global rule", () => {
+		// 与同一张悬浮卡的仓库计数（global/repos-count）同构；单数形态一并锁住
+		expect(translateText("8 repositories", view)).toBe(
+			"8 个仓库",
+		);
+		expect(translateText("65 followers", view)).toBe(
+			"65 位关注者",
+		);
+		expect(translateText("1 follower", view)).toBe(
+			"1 位关注者",
+		);
+	});
+
+	it("keeps user content, language names and brand marks in english", () => {
+		// 反例：动作行两侧的用户内容与整卡用户内容必须保持英文——
+		// 账户名 / 仓库名 / 编程语言名 / 仓库描述 / 推广卡品牌字样
+		expect(translateText("Shigma", view)).toBeNull();
+		expect(translateText("ccd2s", view)).toBeNull();
+		expect(
+			translateText("cordiverse/cordis", view),
+		).toBeNull();
+		expect(
+			translateText("TASA-Ed/Time-X", view),
+		).toBeNull();
+		expect(translateText("Kotlin", view)).toBeNull();
+		expect(translateText("TypeScript", view)).toBeNull();
+		expect(
+			translateText(
+				"Style definitions for nice terminal layouts 💋",
+				view,
+			),
+		).toBeNull();
+		expect(translateText("UNIVERSE'26", view)).toBeNull();
+	});
+
+	it("has japanese templates for the feed additions", () => {
+		const japanese = buildView(
+			"/",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		for (const [node] of FEED_NODES) {
+			// 日语侧不空缺即可（形态由各语言的门禁校验，这里锁覆盖）
+			expect(
+				translateText(node, japanese),
+				`节点 ${JSON.stringify(node)}`,
+			).not.toBeNull();
+		}
+		// 两条规则的日语模板各断言一次
+		expect(translateText("merged 1 commit", japanese)).toBe(
+			"1 件のコミットをマージしました",
+		);
+		expect(translateText("65 followers", japanese)).toBe(
+			"65 人のフォロワー",
+		);
+	});
+});

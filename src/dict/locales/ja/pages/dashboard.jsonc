@@ -80,6 +80,23 @@
 		"See what's new": "新機能を見る",
 		"Latest from our changelog": "変更履歴の最新情報",
 		"View changelog": "変更履歴を見る",
-		"View changelog →": "変更履歴を見る →"
+		"View changelog →": "変更履歴を見る →",
+		// —— フィードのアクション行とカードの操作（2026-11-02 ホーム実機スクリーンショットの
+		// 漏れ対応、同順は core/canonical.jsonc）——アクション行はユーザー名の後に続くため、
+		// 訳文は動詞で終えて表示名 / リポジトリのリンクを受ける
+		"starred a repository": "リポジトリにスターしました",
+		"followed": "フォローしました",
+		"contributed to": "コントリビュート先",
+		// フィードカードのアクションメニューのツールチップと展開後のメニュー項目
+		"Feed item options": "フィードのオプション",
+		"Show less activity like this": "このようなアクティビティを減らす",
+		// フィードカード本文の折りたたみを展開するリンク（句点なし、settings の
+		// 「Read more.」とは別のキー）
+		"Read more": "続きを読む",
+		// —— 右サイドバーのトレンドカードとおすすめカードの見出し（「See more」は
+		// org-settings の既存語と同名同訳）——
+		"Trending repositories": "トレンドのリポジトリ",
+		"See more": "さらに表示",
+		"Recommended for you": "あなたへのおすすめ"
 	}
 }

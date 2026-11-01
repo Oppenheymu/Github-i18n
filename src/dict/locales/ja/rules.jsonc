@@ -618,6 +618,7 @@
 		"dashboard/greeting-evening": "こんばんは、$1 さん！",
 		"dashboard/optimized-for": "最適化の対象：",
 		"dashboard/switch-dashboard": "ダッシュボードを切り替え：$<user>",
+		"dashboard/merged-commits": "$1 件のコミットをマージしました",
 
 		// —— pages/commits（コミット / タグ / ブランチ / 比較）——
 		"commits/toggle-commit-message": "$1 のコミットメッセージを展開または折りたたむ",
@@ -894,6 +895,8 @@
 		"global/pull-requests-count": "$1 件のプルリクエスト",
 		"global/contributors-count": "$1 人のコントリビューター",
 		"global/members-count": "$1 人のメンバー",
+		// ユーザーhovercardの計数行（global/repos-count と同じカードに並んで描かれる）
+		"global/followers-count": "$1 人のフォロワー",
 		"global/files-changed": "$1 個のファイルを変更",
 		"global/status-characters-remaining": "残り $<count> 文字",
 		"global/status-characters-limit": "$<count> 文字まで入力できます",

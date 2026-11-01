@@ -6527,9 +6527,33 @@
 				"See what's new",
 				"Latest from our changelog",
 				"View changelog",
-				"View changelog →"
+				"View changelog →",
+				// —— feed 流动作行与卡片控件（2026-11-02 维护者主页实机截图补漏；
+				// 截图只定语义与数量，节点形态按同族既有证据推定并在对应用例写明）——
+				// 动作行的三个动词短语：头像 / 用户名链接 / 显示名各自是独立元素，
+				// 动作短语自成一个文本节点。`followed` 是泛化短词：整节点精确匹配 +
+				// 首页路由才生效，误伤面可控（同 `Feed` 的权衡写明在此）；
+				// `starred a repository` 的动作行本身没有仓库链接（链接在下方卡片里）。
+				"starred a repository",
+				"followed",
+				"contributed to",
+				// feed 卡片动作菜单的悬浮提示（同上一天登记的 Pull request options /
+				// Issue options：tool-tip open shadow root 文本）与其展开后的菜单项
+				"Feed item options",
+				"Show less activity like this",
+				// feed 卡片正文折叠后的展开链接（settings 里的 `Read more.` 带句点，
+				// 此处无句点，是另一条键）
+				"Read more",
+				// —— 右栏趋势卡与推荐卡的卡头 ——
+				// 卡头是「标题 + · + See more 链接」，纯符号「·」翻不了故不收；
+				// `See more` 与 org-settings 的既有词条同名同译；两张卡的卡头各一个节点
+				"Trending repositories",
+				"See more",
+				"Recommended for you"
 				// 左栏头像按钮的悬浮提示是「Switch dashboard: <用户名>」，动态走
-				// rules 的 dashboard/switch-dashboard
+				// rules 的 dashboard/switch-dashboard；PR 聚合卡片的「merged 1 commit」
+				// 与悬浮卡的「65 followers」数字动态，分别走 dashboard/merged-commits
+				// 与 global/followers-count 规则
 			]
 		},
 		{

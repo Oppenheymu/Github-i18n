@@ -371,4 +371,28 @@ describe("TranslationEngine 的调度语义", () => {
 			),
 		).toBe(true);
 	});
+
+	it("keeps translating when the customElements registry is unavailable", async () => {
+		// 注册表不可达（非 HTML 文档的规范 null / 隔离 world 的浏览器差异）时
+		// 引擎照常翻译、define 复查机制整体休眠——任何一处全局访问都不得抛出
+		//（2026-11-01 实机：content.js 在 customElements.get 上崩掉，全站不翻）
+		const previous = globalThis.customElements;
+		(
+			globalThis as { customElements: unknown }
+		).customElements = null;
+		try {
+			const { engine, root } = makeEngine();
+			const node = addText(root, "Star");
+			root.appendChild(
+				env.document.createElement("unknown-element"),
+			);
+			engine.start(root);
+			await env.tick();
+			expect(node.nodeValue).toBe("星标");
+		} finally {
+			(
+				globalThis as { customElements: unknown }
+			).customElements = previous;
+		}
+	});
 });

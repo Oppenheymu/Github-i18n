@@ -352,14 +352,23 @@ function handleElement(
 			onPendingCustomElement,
 		);
 	}
+	// 注册表可达性因上下文而异：非 HTML 文档（XML / atom 等）的
+	// window.customElements 按规范就是 null，隔离 world 的行为也随浏览器版本
+	// 浮动（2026-11-01 实机事故：content.js 在 .get 上崩掉，全站不翻）。不可达
+	// 时整段跳过「待定自定义元素」机制——引擎其余部分照常，这正是本机制加入
+	// 之前一直有效的工作方式
+	const registry: CustomElementRegistry | null | undefined =
+		globalThis.customElements;
 	if (
 		onPendingCustomElement !== undefined &&
+		registry !== null &&
+		registry !== undefined &&
 		element.localName.includes("-") &&
-		// customElements.get 对任意名字安全（非法名返回 undefined 不抛）。
+		// registry.get 对任意名字安全（非法名返回 undefined 不抛）。
 		// 只在「尚未 define」时上报：已 define 的元素 constructor 必已同步挂好
 		// shadow，走到这里只可能是手动 closed 形态——那种上报会让 whenDefined
 		// 永挂、复查永不发生，白占一个登记位
-		customElements.get(element.localName) === undefined
+		registry.get(element.localName) === undefined
 	) {
 		onPendingCustomElement(element);
 	}

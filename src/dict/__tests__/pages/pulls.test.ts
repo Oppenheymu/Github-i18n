@@ -632,3 +632,60 @@ describe("PR 详情页合并框的 out-of-date 态", () => {
 		);
 	});
 });
+
+// —— PR 详情页 checks 区部署空态与合并框表单标签（维护者 2026-11-01 实机 HTML）——
+//
+// 部署空态是 h3（status-heading）与 status-meta 副文本两个整节点，静态收；
+// 合并框的 Commit message / Extended description / Commit email 是三个
+// FormControl 标签，各自整节点静态收。
+describe("PR 详情页 checks 区部署空态与合并框表单标签", () => {
+	it("translates the deployment empty state nodes", () => {
+		expect(
+			translateText(
+				"This branch has not been deployed",
+				view,
+			),
+		).toBe("此分支尚未部署");
+		expect(translateText("No deployments", view)).toBe(
+			"暂无部署记录",
+		);
+	});
+
+	it("translates the merge-box form labels", () => {
+		expect(translateText("Commit message", view)).toBe(
+			"提交信息",
+		);
+		expect(
+			translateText("Extended description", view),
+		).toBe("扩展描述");
+		expect(translateText("Commit email", view)).toBe(
+			"提交邮箱",
+		);
+	});
+
+	it("has japanese templates for both areas", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pulls",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText(
+				"This branch has not been deployed",
+				japanese,
+			),
+		).toBe("このブランチはまだデプロイされていません");
+		expect(translateText("No deployments", japanese)).toBe(
+			"デプロイはありません",
+		);
+		expect(translateText("Commit message", japanese)).toBe(
+			"コミットメッセージ",
+		);
+		expect(
+			translateText("Extended description", japanese),
+		).toBe("拡張説明");
+		expect(translateText("Commit email", japanese)).toBe(
+			"コミットメールアドレス",
+		);
+	});
+});

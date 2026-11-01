@@ -26,6 +26,10 @@
 		// —— 詳細ページのヘッダーとマージバナー ——
 		"Pull request": "プルリクエスト",
 		"Commit message body": "コミットメッセージの本文",
+		// —— マージボックスのフォームラベル（squash パネルの 3 つの FormControl ラベル）——
+		"Commit message": "コミットメッセージ",
+		"Extended description": "拡張説明",
+		"Commit email": "コミットメールアドレス",
 		"from": "から",
 		"Copy head branch name to clipboard": "ヘッドブランチ名をクリップボードにコピー",
 		// —— タイムラインのイベントとサイドバー ——
@@ -194,6 +198,9 @@
 		// ユーザー内容につき未収録
 		"This branch is out-of-date with the base branch": "このブランチはベースブランチより遅れています",
 		"It’s": "これは",
-		"behind (base commit:": "遅れ (ベースコミット:"
+		"behind (base commit:": "遅れ (ベースコミット:",
+		// —— checks 領域のデプロイ空状態（h3 と status-meta がそれぞれ完全一致ノード）——
+		"This branch has not been deployed": "このブランチはまだデプロイされていません",
+		"No deployments": "デプロイはありません"
 	}
 }

@@ -369,3 +369,166 @@ describe("仓库页的日语覆盖（pages/repo）", () => {
 		expect(translateText("README.md", jaView)).toBeNull();
 	});
 });
+
+// —— 仓库首页头部的 Edit Pins / Watch / Fork / Star 下拉（维护者 2026-11-01
+// Koishi-CE/koishi 实机截图）——
+//
+// Lists / Create list / Custom 与 pages/profile 同键同译（姊妹复用，profile 路由
+// 不覆盖仓库页）；「You don't have…」撇号弯直没把握，直撇号为规范键、弯撇号走别名。
+describe("仓库页头部的 Edit Pins 与三个状态下拉", () => {
+	it("translates the edit pins dropdown and its tooltip", () => {
+		expect(translateText("Edit Pins", view)).toBe(
+			"编辑置顶",
+		);
+		expect(
+			translateText(
+				"Public pins in this organization",
+				view,
+			),
+		).toBe("此组织的公开置顶");
+		expect(translateText("Visible to anyone", view)).toBe(
+			"任何人可见",
+		);
+		expect(
+			translateText(
+				"Private pins in this organization",
+				view,
+			),
+		).toBe("此组织的私有置顶");
+		expect(
+			translateText("Visible to members only", view),
+		).toBe("仅成员可见");
+		expect(
+			translateText(
+				"Pin this to your personal profile, visible to everyone",
+				view,
+			),
+		).toBe("将其置顶到你的个人资料，所有人可见");
+		expect(
+			translateText(
+				"Pin or unpin this repository on organization profiles and your profile",
+				view,
+			),
+		).toBe(
+			"在组织资料页与你的个人资料页上置顶或取消置顶此仓库",
+		);
+	});
+
+	it("translates the watch dropdown notification options", () => {
+		expect(
+			translateText("Participating and @mentions", view),
+		).toBe("参与和 @提及");
+		expect(
+			translateText(
+				"Only receive notifications from this repository when participating or @mentioned.",
+				view,
+			),
+		).toBe("仅在你参与或被 @提及时，才接收此仓库的通知。");
+		expect(translateText("All Activity", view)).toBe(
+			"所有动态",
+		);
+		expect(
+			translateText(
+				"Notified of all notifications on this repository.",
+				view,
+			),
+		).toBe("接收此仓库的所有通知。");
+		expect(translateText("Ignore", view)).toBe("忽略");
+		expect(translateText("Never be notified.", view)).toBe(
+			"永不接收通知。",
+		);
+		// Custom 与 pages/profile 同键同译（姊妹复用）
+		expect(translateText("Custom", view)).toBe("自定义");
+		expect(
+			translateText(
+				"Select events you want to be notified of in addition to participating and @mentions.",
+				view,
+			),
+		).toBe("选择除参与和 @提及之外你还想接收通知的事件。");
+	});
+
+	it("translates the fork dropdown and both apostrophe forms", () => {
+		expect(
+			translateText(
+				"See your forks of this repository",
+				view,
+			),
+		).toBe("查看你对此仓库的复刻");
+		expect(
+			translateText(
+				"You don't have any forks of this repository.",
+				view,
+			),
+		).toBe("你还没有复刻此仓库。");
+		// 弯撇号形态走别名复用同一译文
+		expect(
+			translateText(
+				"You don’t have any forks of this repository.",
+				view,
+			),
+		).toBe("你还没有复刻此仓库。");
+		expect(translateText("Create a new fork", view)).toBe(
+			"创建新的复刻",
+		);
+	});
+
+	it("translates the star lists dropdown reusing the profile translations", () => {
+		expect(translateText("Star lists", view)).toBe(
+			"星标列表",
+		);
+		expect(translateText("Lists", view)).toBe("列表");
+		expect(
+			translateText(
+				"Add this repository to one or more lists",
+				view,
+			),
+		).toBe("将此仓库添加到一个或多个列表");
+		expect(translateText("Filter lists", view)).toBe(
+			"筛选列表",
+		);
+		expect(translateText("Create list", view)).toBe(
+			"创建列表",
+		);
+	});
+
+	it("has japanese templates for the dropdowns", () => {
+		expect(translateText("Edit Pins", jaView)).toBe(
+			"ピンを編集",
+		);
+		expect(
+			translateText(
+				"Public pins in this organization",
+				jaView,
+			),
+		).toBe("この組織の公開ピン");
+		expect(
+			translateText("Participating and @mentions", jaView),
+		).toBe("参加と @メンション");
+		expect(translateText("All Activity", jaView)).toBe(
+			"すべてのアクティビティ",
+		);
+		expect(translateText("Ignore", jaView)).toBe("無視");
+		expect(translateText("Custom", jaView)).toBe(
+			"カスタム",
+		);
+		expect(
+			translateText(
+				"You don’t have any forks of this repository.",
+				jaView,
+			),
+		).toBe("このリポジトリのフォークはまだありません。");
+		expect(translateText("Create a new fork", jaView)).toBe(
+			"新しいフォークを作成",
+		);
+		expect(translateText("Star lists", jaView)).toBe(
+			"スターリスト",
+		);
+		expect(translateText("Lists", jaView)).toBe("リスト");
+		expect(translateText("Filter lists", jaView)).toBe(
+			"リストを絞り込む",
+		);
+		expect(translateText("Create list", jaView)).toBe(
+			"リストを作成",
+		);
+	});
+});

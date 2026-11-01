@@ -8352,7 +8352,39 @@
 				// canvas 降级说明（后续接浏览器名链接与 or 碎片）
 				"Sorry, your browser doesn’t support the <canvas> element.",
 				"Please upgrade to the latest",
-				"or"
+				"or",
+				// —— 仓库首页头部的 Edit Pins / Watch / Fork / Star 下拉（维护者
+				// 2026-11-01 Koishi-CE/koishi 实机截图；后四类是非组织仓库也有的
+				// 通用组件，Edit Pins 下拉才是组织仓库特有）——
+				// Lists / Create list / Custom 与 pages/profile 同键同译（姊妹复用，
+				// profile 路由不覆盖仓库页）；「Lists」「Ignore」的撞车权衡与 Feed
+				// 同类：整节点精确匹配 + 大小写敏感，与同名仓库 / 标签的误伤面可控。
+				// 不收：列表名（Dev 等用户内容）、计数、用户名。
+				// 「You don't have…」的撇号弯直没把握（截图难辨），规范键取直撇号，
+				// 弯撇号走 aliases 双保险
+				"Edit Pins",
+				"Public pins in this organization",
+				"Visible to anyone",
+				"Private pins in this organization",
+				"Visible to members only",
+				"Pin this to your personal profile, visible to everyone",
+				"Pin or unpin this repository on organization profiles and your profile",
+				"Participating and @mentions",
+				"Only receive notifications from this repository when participating or @mentioned.",
+				"All Activity",
+				"Notified of all notifications on this repository.",
+				"Ignore",
+				"Never be notified.",
+				"Custom",
+				"Select events you want to be notified of in addition to participating and @mentions.",
+				"See your forks of this repository",
+				"You don't have any forks of this repository.",
+				"Create a new fork",
+				"Star lists",
+				"Lists",
+				"Add this repository to one or more lists",
+				"Filter lists",
+				"Create list"
 			]
 		},
 		{

@@ -44,6 +44,9 @@
 		// 另一形态走别名双保险——两形态语义相同，任一命中即同一译文。
 		"See what’s new": "See what's new",
 		"Ask Copilot…": "Ask Copilot...",
-		"Download for…": "Download for..."
+		"Download for…": "Download for...",
+		// —— 2026-11-01 实机（仓库页 Fork 下拉空态）：撇号弯直没把握（截图难辨），
+		// 规范键取直撇号，弯撇号形态走别名双保险（语义相同）。
+		"You don’t have any forks of this repository.": "You don't have any forks of this repository."
 	}
 }

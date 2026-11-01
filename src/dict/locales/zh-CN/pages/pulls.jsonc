@@ -180,6 +180,13 @@
 		"security policy": "安全策略",
 		"code of conduct": "行为准则",
 		", and": "和",
-		"Add comments to specific lines under": "在以下位置对具体行添加评论："
+		"Add comments to specific lines under": "在以下位置对具体行添加评论：",
+		// —— 合并框 out-of-date 态（2026-11-01 实机 HTML）——
+		// 落后说明五节点拼装：「落后 2 次提交 (基线提交: <哈希>)」——右括号是独立
+		// 纯符号节点保持 ASCII，左括号随本节点同用 ASCII 才能配对；「2 commits」
+		// 走既有 repo/commits-count 规则，哈希用户内容不收
+		"This branch is out-of-date with the base branch": "此分支落后于基线分支",
+		"It’s": "落后",
+		"behind (base commit:": "(基线提交:"
 	}
 }

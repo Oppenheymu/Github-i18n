@@ -532,3 +532,60 @@ describe("global 模块的仓库列表计数与关注按钮", () => {
 		).toBe("Koishi-CE をフォロー");
 	});
 });
+
+// —— 表头菜单的 Copilot 区与帐户切换器（维护者 2026-11-01 主页实机截图）——
+//
+// 表头是全站组件，词条归 global；「Ask Copilot...」等省略号上游弯直混用，
+// 弯形走别名复用同一译文。
+describe("表头菜单的 Copilot 区与帐户切换器", () => {
+	it("translates the copilot section and the download item", () => {
+		expect(translateText("Ask Copilot...", view)).toBe(
+			"询问 Copilot…",
+		);
+		// 单字符省略号（…）形态走别名
+		expect(translateText("Ask Copilot…", view)).toBe(
+			"询问 Copilot…",
+		);
+		expect(translateText("In immersive chat", view)).toBe(
+			"在沉浸式聊天中",
+		);
+		expect(translateText("In a space", view)).toBe(
+			"在空间中",
+		);
+		expect(translateText("Download for...", view)).toBe(
+			"下载…",
+		);
+		expect(translateText("Download for…", view)).toBe(
+			"下载…",
+		);
+	});
+
+	it("translates the account switcher tooltip", () => {
+		expect(translateText("Account switcher", view)).toBe(
+			"帐户切换器",
+		);
+	});
+
+	it("has japanese templates", () => {
+		const japanese = buildView(
+			"/microsoft/vscode",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("Ask Copilot...", japanese)).toBe(
+			"Copilot に質問…",
+		);
+		expect(
+			translateText("In immersive chat", japanese),
+		).toBe("イマーシブチャットで");
+		expect(translateText("In a space", japanese)).toBe(
+			"スペースで",
+		);
+		expect(translateText("Download for...", japanese)).toBe(
+			"ダウンロード…",
+		);
+		expect(
+			translateText("Account switcher", japanese),
+		).toBe("アカウントの切り替え");
+	});
+});

@@ -70,6 +70,16 @@
 		"Switch to classic dashboard": "クラシックダッシュボードに切り替え",
 		"Give feedback": "フィードバックを送る",
 		// —— 新版ダッシュボード上部の 2 つのタブ（Home は既収録、Feed は 2026-10-24 追加）——
-		"Feed": "フィード"
+		"Feed": "フィード",
+		// —— フィードカードのアクションメニューのツールチップ（tool-tip のシャドウルート内テキスト）——
+		"Pull request options": "プルリクエストのオプション",
+		"Issue options": "イシューのオプション",
+		// —— 右サイドバーの GitHub Universe プロモカードと変更履歴カード（「View changelog」
+		// の矢印はテキストノードに含まれる場合と独立している場合があり、両形態を併録）——
+		"Catch up on all that was announced.": "発表された内容をすべてご覧ください。",
+		"See what's new": "新機能を見る",
+		"Latest from our changelog": "変更履歴の最新情報",
+		"View changelog": "変更履歴を見る",
+		"View changelog →": "変更履歴を見る →"
 	}
 }

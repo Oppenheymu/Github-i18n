@@ -2981,6 +2981,12 @@
 				{
 					"id": "dashboard/optimized-for",
 					"pattern": "^Optimized for:\\s*"
+				},
+				// 左栏头像按钮的悬浮提示（tool-tip 文本）：尾部是切换目标的账户名，
+				// 用户内容——捕获组原样搬运（用 .+ 而非 \S+：显示名带空格也能整体保留）
+				{
+					"id": "dashboard/switch-dashboard",
+					"pattern": "^Switch dashboard: (?<user>.+)$"
 				}
 			]
 		},

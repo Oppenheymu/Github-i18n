@@ -470,6 +470,18 @@
 		// 自定义元素的 open shadow root 内，hover 时挂载，由 shadow 穿透翻译 ——
 		"Add this repository to a list": "将此仓库添加到列表",
 		// 通知 shelf 的返回栏（issues / pulls / notifications 详情顶栏通用）
-		"Back to notifications": "返回通知"
+		"Back to notifications": "返回通知",
+		// —— OAuth 授权后的重定向过渡页（路由不定由 global 兜底；说明句被
+		// 「this setup page」链接切成三段，三碎片 + 整句兜底都收）——
+		"You are being redirected to the authorized application.": "你将被重定向到已授权的应用。",
+		"If your browser does not redirect you back, please visit": "如果你的浏览器没有将你重定向回去，请访问",
+		"this setup page": "此设置页",
+		"to continue.": "以继续。",
+		"If your browser does not redirect you back, please visit this setup page to continue.": "如果你的浏览器没有将你重定向回去，请访问此设置页以继续。",
+		// React 插值把「N characters remaining」拆成数字节点（引擎跳过）+ 本尾段：
+		// 整串形态由 global/status-characters-remaining 规则接住，尾段词条兜碎片
+		//（Edit repository details 对话框实机整串不翻译即此病）
+		"characters remaining": "个字符剩余",
+		"character remaining": "个字符剩余"
 	}
 }

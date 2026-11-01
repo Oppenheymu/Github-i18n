@@ -838,6 +838,9 @@
 		"repo/detected-auto": "· 于 $1 自动检测",
 		"repo/dep-total": "共 $1 项",
 		"repo/page-n": "第 $1 页",
+		"repo/unreleased-commits": "自 $<tag> 以来有 $<count> 个未发布的提交",
+		"repo/create-codespace-on": "在 $<branch> 上创建代码空间",
+		"repo/codespace-usage": "此仓库的代码空间用量由 $<user> 付费。",
 		"global/now": "刚刚",
 		"global/yesterday": "昨天",
 		// relative-time 的模糊相对形态（2026-10-31 实机 last week，Intl 输出集）

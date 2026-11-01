@@ -8384,7 +8384,37 @@
 				"Lists",
 				"Add this repository to one or more lists",
 				"Filter lists",
-				"Create list"
+				"Create list",
+				// —— 详情编辑对话框、发布/分支切换器/代码空间空态与 Code 下拉
+				//（维护者 2026-11-01 Koishi-CE/koishi 实机截图续批）——
+				// Save changes / Website / Open in GitHub Copilot app 分别与
+				// repo-settings / settings+profile / pages/pulls 同键同译（姊妹复用）。
+				// 「default」徽标（分支选择器）**不收**：小写泛词与文件名撞车面太大
+				//（AGENTS.md 硬性约束 3）。
+				// 三处动态串走规则：repo/unreleased-commits（发布徽标 tool-tip）、
+				// repo/create-codespace-on（空态按钮带分支名）、repo/codespace-usage
+				//（付费账户名，懒匹配 + 可选句尾句号，照 pulls/merge-latest-changes
+				// 先例）；付费行前缀另收静态键兜「用户名独立成节点」的形态。
+				// 「You don't have any codespaces…」撇号弯直没把握（截图难辨），
+				// 规范键取直撇号、弯撇号走 aliases；「Find or create a branch...」
+				// 「Learn more about codespaces...」的省略号弯直同样走 aliases
+				"Edit repository details",
+				"Website",
+				"Include in the home page",
+				"Save changes",
+				"Draft a new release",
+				"Find or create a branch...",
+				"View all branches",
+				"Edit file",
+				"Local",
+				"Clone using the web URL.",
+				"Open in GitHub Copilot app",
+				"Your workspaces in the cloud",
+				"No codespaces",
+				"You don't have any codespaces with this repository checked out",
+				"Learn more about codespaces...",
+				"Codespace repository configuration",
+				"Codespace usage for this repository is paid for by"
 			]
 		},
 		{
@@ -8874,7 +8904,20 @@
 				"Add this repository to a list",
 				// —— 通知 shelf 的返回栏（维护者 2026-10-31 PR 详情页实机 HTML，
 				// issues / pulls / notifications 详情顶栏通用）——
-				"Back to notifications"
+				"Back to notifications",
+				// —— OAuth 授权后的重定向过渡页（路由不定，global 兜底；维护者
+				// 2026-11-01 实机截图）——说明句被「this setup page」链接切成三段，
+				// 三碎片 + 整句兜底都收
+				"You are being redirected to the authorized application.",
+				"If your browser does not redirect you back, please visit",
+				"this setup page",
+				"to continue.",
+				"If your browser does not redirect you back, please visit this setup page to continue.",
+				// React 插值会把「N characters remaining」拆成数字节点（引擎跳过）+
+				// 本尾段节点——Edit repository details 对话框实机整串不翻译即此病；
+				// 整串形态由 global/status-characters-remaining 规则接住，尾段词条兜碎片
+				"characters remaining",
+				"character remaining"
 			]
 		}
 	]

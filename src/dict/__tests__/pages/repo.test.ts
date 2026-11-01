@@ -532,3 +532,150 @@ describe("仓库页头部的 Edit Pins 与三个状态下拉", () => {
 		);
 	});
 });
+
+// —— 详情编辑对话框、发布/分支切换器/代码空间空态与 Code 下拉（维护者
+// 2026-11-01 Koishi-CE/koishi 实机截图续批）——
+//
+// Save changes / Website / Open in GitHub Copilot app 与 repo-settings /
+// settings / pages/pulls 同键同译（姊妹复用）；撇号与省略号的弯直形态走别名双保险。
+describe("仓库页详情对话框与代码空间/发布下拉", () => {
+	it("translates the edit details dialog", () => {
+		expect(
+			translateText("Edit repository details", view),
+		).toBe("编辑仓库详情");
+		expect(translateText("Website", view)).toBe("网址");
+		expect(
+			translateText("Include in the home page", view),
+		).toBe("包含在主页中");
+		expect(translateText("Save changes", view)).toBe(
+			"保存更改",
+		);
+		// React 插值拆出的字数尾段：整串由 global/status-characters-remaining
+		// 规则接住，碎片节点只有本词条能救
+		expect(
+			translateText("characters remaining", view),
+		).toBe("个字符剩余");
+	});
+
+	it("translates the release and branch switcher strings", () => {
+		expect(translateText("Draft a new release", view)).toBe(
+			"新建草稿版本",
+		);
+		expect(
+			translateText("Find or create a branch...", view),
+		).toBe("查找或创建分支…");
+		// 单字符省略号（…）形态走别名
+		expect(
+			translateText("Find or create a branch…", view),
+		).toBe("查找或创建分支…");
+		expect(translateText("View all branches", view)).toBe(
+			"查看所有分支",
+		);
+		expect(translateText("Edit file", view)).toBe(
+			"编辑文件",
+		);
+	});
+
+	it("translates the code dropdown and codespaces empty state", () => {
+		expect(translateText("Local", view)).toBe("本地");
+		expect(
+			translateText("Clone using the web URL.", view),
+		).toBe("使用 Web URL 克隆。");
+		expect(
+			translateText("Open in GitHub Copilot app", view),
+		).toBe("在 GitHub Copilot 应用中打开");
+		expect(
+			translateText("Your workspaces in the cloud", view),
+		).toBe("云端工作区");
+		expect(translateText("No codespaces", view)).toBe(
+			"暂无代码空间",
+		);
+		expect(
+			translateText(
+				"You don't have any codespaces with this repository checked out",
+				view,
+			),
+		).toBe("你还没有检出此仓库的任何代码空间");
+		// 弯撇号形态走别名复用同一译文
+		expect(
+			translateText(
+				"You don’t have any codespaces with this repository checked out",
+				view,
+			),
+		).toBe("你还没有检出此仓库的任何代码空间");
+		expect(
+			translateText("Learn more about codespaces...", view),
+		).toBe("了解代码空间的更多信息…");
+		expect(
+			translateText(
+				"Codespace repository configuration",
+				view,
+			),
+		).toBe("代码空间仓库配置");
+	});
+
+	it("translates the dynamic strings through the rules", () => {
+		// 发布徽标 tool-tip：提交数与标签名动态；单数 commit 同样命中
+		expect(
+			translateText(
+				"7 unreleased commits since v1.8",
+				view,
+			),
+		).toBe("自 v1.8 以来有 7 个未发布的提交");
+		expect(
+			translateText("1 unreleased commit since v1.8", view),
+		).toBe("自 v1.8 以来有 1 个未发布的提交");
+		expect(
+			translateText("Create codespace on main", view),
+		).toBe("在 main 上创建代码空间");
+		// 付费行：句尾句号不进捕获组（懒匹配 + 可选句号两种形态都命中）
+		expect(
+			translateText(
+				"Codespace usage for this repository is paid for by Oppenheymu.",
+				view,
+			),
+		).toBe("此仓库的代码空间用量由 Oppenheymu 付费。");
+		expect(
+			translateText(
+				"Codespace usage for this repository is paid for by Oppenheymu",
+				view,
+			),
+		).toBe("此仓库的代码空间用量由 Oppenheymu 付费。");
+		// 用户名独立成节点的形态由前缀词条兜底（句尾句号是独立符号节点保持英文）
+		expect(
+			translateText(
+				"Codespace usage for this repository is paid for by",
+				view,
+			),
+		).toBe("此仓库的代码空间用量付费者：");
+	});
+
+	it("has japanese templates", () => {
+		expect(
+			translateText("Edit repository details", jaView),
+		).toBe("リポジトリの詳細を編集");
+		expect(
+			translateText("Draft a new release", jaView),
+		).toBe("新しいリリースの下書きを作成");
+		expect(
+			translateText(
+				"7 unreleased commits since v1.8",
+				jaView,
+			),
+		).toBe("v1.8 以降に未リリースのコミットが 7 件");
+		expect(
+			translateText("Create codespace on main", jaView),
+		).toBe("main でコードスペースを作成");
+		expect(
+			translateText(
+				"Codespace usage for this repository is paid for by Oppenheymu.",
+				jaView,
+			),
+		).toBe(
+			"このリポジトリのコードスペースの使用料は Oppenheymu が支払います。",
+		);
+		expect(translateText("No codespaces", jaView)).toBe(
+			"コードスペースはありません",
+		);
+	});
+});

@@ -3933,6 +3933,23 @@
 				{
 					"id": "repo/page-n",
 					"pattern": "^Page (\\d+)$"
+				},
+				// 发布徽标的悬浮提示（tool-tip 文本）：未发布提交数与标签名都动态，
+				// 捕获组原样带回；单数 commit 用 s? 放宽
+				{
+					"id": "repo/unreleased-commits",
+					"pattern": "^(?<count>\\d+) unreleased commits? since (?<tag>.+)$"
+				},
+				// 代码空间空态按钮：分支名动态
+				{
+					"id": "repo/create-codespace-on",
+					"pattern": "^Create codespace on (?<branch>.+)$"
+				},
+				// 代码空间用量付费行：付费账户名动态。懒匹配 + 可选句尾句号，
+				// 防止句号进捕获组（照 pulls/merge-latest-changes 先例）
+				{
+					"id": "repo/codespace-usage",
+					"pattern": "^Codespace usage for this repository is paid for by (?<user>.+?)\\.?$"
 				}
 			]
 		},

@@ -360,7 +360,17 @@
 				"security policy",
 				"code of conduct",
 				", and",
-				"Add comments to specific lines under"
+				"Add comments to specific lines under",
+				// —— 合并框 out-of-date 态（2026-11-01 维护者实机 HTML）——
+				// 落后说明是**五节点**结构：`It’s ` + <a>2 commits</a>（既有
+				// repo/commits-count 规则接住）+ ` behind (base commit: ` +
+				// <code><a>42bce3f</a></code>（哈希用户内容不收）+ `)`（独立纯符号
+				// 节点不收，保持 ASCII；左括号跟随本节点同用 ASCII 才能配对）。
+				// 指引句的基线分支名与合并者用户名动态，走 rules 的
+				// pulls/merge-latest-changes
+				"This branch is out-of-date with the base branch",
+				"It’s",
+				"behind (base commit:"
 			]
 		},
 		{

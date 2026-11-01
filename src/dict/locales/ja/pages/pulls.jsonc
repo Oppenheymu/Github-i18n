@@ -186,6 +186,14 @@
 		"security policy": "セキュリティポリシー",
 		"code of conduct": "行動規範",
 		", and": "および",
-		"Add comments to specific lines under": "次のタブで具体的な行にコメントを追加できます："
+		"Add comments to specific lines under": "次のタブで具体的な行にコメントを追加できます：",
+		// —— マージボックスの out-of-date 状態（2026-11-01 実機 HTML）——
+		// 遅れ説明は 5 ノード：「これは 2 件のコミット 遅れ (ベースコミット: <ハッシュ>)」
+		// ——閉じ括弧は独立した記号ノードのため ASCII のまま、開き括弧は本ノードと
+		// ASCII で対にする。「2 commits」は既存 repo/commits-count ルール、ハッシュは
+		// ユーザー内容につき未収録
+		"This branch is out-of-date with the base branch": "このブランチはベースブランチより遅れています",
+		"It’s": "これは",
+		"behind (base commit:": "遅れ (ベースコミット:"
 	}
 }

@@ -81,6 +81,14 @@
 				{
 					"id": "pulls/checks-passed",
 					"pattern": "^(?<count>\\d+) checks? passed$"
+				},
+				// 合并框 out-of-date 态的指引句（2026-11-01 维护者实机 HTML）：基线
+				// 分支名与合并提交的关联用户都是动态内容
+				{
+					"id": "pulls/merge-latest-changes",
+					// 句尾句号不进捕获组（user 用懒匹配 + 显式 \.$），否则模板
+					// 的「。」前会再叠一个英文句号
+					"pattern": "^Merge the latest changes from (?<base>.+?) into this branch\\. This merge commit will be associated with (?<user>.+?)\\.$"
 				}
 			]
 		},

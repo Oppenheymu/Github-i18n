@@ -563,3 +563,72 @@ describe("PR 详情页合并后横幅、时间线事件与侧栏下拉", () => {
 		);
 	});
 });
+
+// —— PR 详情页合并框的 out-of-date 态（维护者 2026-11-01 实机 HTML）——
+//
+// 落后说明是五节点：`It’s ` + <a>2 commits</a>（既有 repo/commits-count 规则）
+// + ` behind (base commit: ` + <code><a>哈希</a></code>（用户内容原样保留）+ `)`
+// （独立纯符号节点不收，右括号保持 ASCII，左括号随碎片节点同用 ASCII 配对）。
+// 指引句的基线分支名与合并者用户名动态，走规则。
+describe("PR 详情页合并框的 out-of-date 态", () => {
+	it("assembles the behind note around the commit count and hash", () => {
+		expect(
+			translateText(
+				"This branch is out-of-date with the base branch",
+				view,
+			),
+		).toBe("此分支落后于基线分支");
+		expect(translateText("It’s", view)).toBe("落后");
+		// 「2 commits」由既有 repo/commits-count 规则接住，这里锁住拼装链路
+		expect(translateText("2 commits", view)).toBe(
+			"2 次提交",
+		);
+		expect(
+			translateText(" behind (base commit: ", view),
+		).toBe("(基线提交:");
+		// 哈希与右括号原样保留
+		expect(translateText("42bce3f", view)).toBeNull();
+		expect(translateText(")", view)).toBeNull();
+	});
+
+	it("translates the merge instruction through the rule", () => {
+		// 实机形态：基线分支名与合并者用户名都是动态内容
+		expect(
+			translateText(
+				"Merge the latest changes from main into this branch. This merge commit will be associated with Oppenheymu.",
+				view,
+			),
+		).toBe(
+			"将 main 的最新更改合并到此分支。此合并提交将关联到 Oppenheymu。",
+		);
+	});
+
+	it("has japanese templates for the out-of-date fragments", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pulls",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText(
+				"This branch is out-of-date with the base branch",
+				japanese,
+			),
+		).toBe("このブランチはベースブランチより遅れています");
+		expect(translateText("It’s", japanese)).toBe("これは");
+		expect(translateText("2 commits", japanese)).toBe(
+			"2 件のコミット",
+		);
+		expect(
+			translateText(" behind (base commit: ", japanese),
+		).toBe("遅れ (ベースコミット:");
+		expect(
+			translateText(
+				"Merge the latest changes from main into this branch. This merge commit will be associated with Oppenheymu.",
+				japanese,
+			),
+		).toBe(
+			"このブランチに main の最新の変更をマージしてください。このマージコミットは Oppenheymu に関連付けられます。",
+		);
+	});
+});

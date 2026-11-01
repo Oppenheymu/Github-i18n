@@ -193,6 +193,31 @@
 		// canvas フォールバック説明：後にブラウザー名リンクと「or」断片が続く
 		"Sorry, your browser doesn’t support the <canvas> element.": "申し訳ありませんが、お使いのブラウザーは <canvas> 要素に対応していません。",
 		"Please upgrade to the latest": "最新版にアップグレードしてください：",
-		"or": "または"
+		"or": "または",
+		// —— リポジトリ上部の Edit Pins / Watch / Fork / Star ドロップダウン（2026-11-01 実機）——
+		// Lists / Create list / Custom は pages/profile と同鍵同訳（姉妹再利用）
+		"Edit Pins": "ピンを編集",
+		"Public pins in this organization": "この組織の公開ピン",
+		"Visible to anyone": "誰でも表示できます",
+		"Private pins in this organization": "この組織のプライベートピン",
+		"Visible to members only": "メンバーのみ表示できます",
+		"Pin this to your personal profile, visible to everyone": "自分のプロフィールにピン留めします。全員に表示されます",
+		"Pin or unpin this repository on organization profiles and your profile": "組織のプロフィールと自分のプロフィールに、このリポジトリをピン留めまたはピン解除します",
+		"Participating and @mentions": "参加と @メンション",
+		"Only receive notifications from this repository when participating or @mentioned.": "参加またはメンションされたときにのみ、このリポジトリからの通知を受け取ります。",
+		"All Activity": "すべてのアクティビティ",
+		"Notified of all notifications on this repository.": "このリポジトリのすべての通知を受け取ります。",
+		"Ignore": "無視",
+		"Never be notified.": "通知は一切届きません。",
+		"Custom": "カスタム",
+		"Select events you want to be notified of in addition to participating and @mentions.": "参加と @メンションに加えて、通知を受け取るイベントを選択します。",
+		"See your forks of this repository": "このリポジトリの自分のフォークを表示",
+		"You don't have any forks of this repository.": "このリポジトリのフォークはまだありません。",
+		"Create a new fork": "新しいフォークを作成",
+		"Star lists": "スターリスト",
+		"Lists": "リスト",
+		"Add this repository to one or more lists": "このリポジトリを 1 つ以上のリストに追加します",
+		"Filter lists": "リストを絞り込む",
+		"Create list": "リストを作成"
 	}
 }

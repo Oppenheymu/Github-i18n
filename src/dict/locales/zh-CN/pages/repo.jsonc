@@ -177,6 +177,32 @@
 		// 与「or」碎片，浏览器名原样保留
 		"Sorry, your browser doesn’t support the <canvas> element.": "抱歉，你的浏览器不支持 <canvas> 元素。",
 		"Please upgrade to the latest": "请升级到最新版",
-		"or": "或"
+		"or": "或",
+		// —— 仓库首页头部的 Edit Pins / Watch / Fork / Star 下拉（2026-11-01 实机）——
+		// Lists / Create list / Custom 与 pages/profile 同键同译（姊妹复用，
+		// profile 路由不覆盖仓库页）
+		"Edit Pins": "编辑置顶",
+		"Public pins in this organization": "此组织的公开置顶",
+		"Visible to anyone": "任何人可见",
+		"Private pins in this organization": "此组织的私有置顶",
+		"Visible to members only": "仅成员可见",
+		"Pin this to your personal profile, visible to everyone": "将其置顶到你的个人资料，所有人可见",
+		"Pin or unpin this repository on organization profiles and your profile": "在组织资料页与你的个人资料页上置顶或取消置顶此仓库",
+		"Participating and @mentions": "参与和 @提及",
+		"Only receive notifications from this repository when participating or @mentioned.": "仅在你参与或被 @提及时，才接收此仓库的通知。",
+		"All Activity": "所有动态",
+		"Notified of all notifications on this repository.": "接收此仓库的所有通知。",
+		"Ignore": "忽略",
+		"Never be notified.": "永不接收通知。",
+		"Custom": "自定义",
+		"Select events you want to be notified of in addition to participating and @mentions.": "选择除参与和 @提及之外你还想接收通知的事件。",
+		"See your forks of this repository": "查看你对此仓库的复刻",
+		"You don't have any forks of this repository.": "你还没有复刻此仓库。",
+		"Create a new fork": "创建新的复刻",
+		"Star lists": "星标列表",
+		"Lists": "列表",
+		"Add this repository to one or more lists": "将此仓库添加到一个或多个列表",
+		"Filter lists": "筛选列表",
+		"Create list": "创建列表"
 	}
 }

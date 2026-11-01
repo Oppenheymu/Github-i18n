@@ -203,6 +203,28 @@
 		"Lists": "列表",
 		"Add this repository to one or more lists": "将此仓库添加到一个或多个列表",
 		"Filter lists": "筛选列表",
-		"Create list": "创建列表"
+		"Create list": "创建列表",
+		// —— 详情编辑对话框、发布/分支切换器/代码空间空态与 Code 下拉（2026-11-01 实机续批）——
+		// Save changes / Website / Open in GitHub Copilot app 与 repo-settings /
+		// settings / pages/pulls 同键同译（姊妹复用）；「default」徽标小写泛词不收
+		"Edit repository details": "编辑仓库详情",
+		"Website": "网址",
+		"Include in the home page": "包含在主页中",
+		"Save changes": "保存更改",
+		"Draft a new release": "新建草稿版本",
+		"Find or create a branch...": "查找或创建分支…",
+		"View all branches": "查看所有分支",
+		"Edit file": "编辑文件",
+		"Local": "本地",
+		"Clone using the web URL.": "使用 Web URL 克隆。",
+		"Open in GitHub Copilot app": "在 GitHub Copilot 应用中打开",
+		"Your workspaces in the cloud": "云端工作区",
+		"No codespaces": "暂无代码空间",
+		"You don't have any codespaces with this repository checked out": "你还没有检出此仓库的任何代码空间",
+		"Learn more about codespaces...": "了解代码空间的更多信息…",
+		"Codespace repository configuration": "代码空间仓库配置",
+		// 付费账户名若独立成节点由本前缀兜底（句尾句号是独立符号节点保持英文）；
+		// 整串形态走 repo/codespace-usage 规则
+		"Codespace usage for this repository is paid for by": "此仓库的代码空间用量付费者："
 	}
 }

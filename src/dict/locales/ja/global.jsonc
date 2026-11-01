@@ -465,6 +465,17 @@
 		// マウントされ、shadow 経由で翻訳される ——
 		"Add this repository to a list": "このリポジトリをリストに追加",
 		// 通知シェルフの戻るバー（issues / pulls / notifications 詳細の上部バー共通）
-		"Back to notifications": "通知に戻る"
+		"Back to notifications": "通知に戻る",
+		// —— OAuth 認証後のリダイレクト中継ページ（ルート不定につき global が担う；
+		// 説明文は「this setup page」リンクで 3 ノードに分割、3 断片 + 全文キーの両方）——
+		"You are being redirected to the authorized application.": "認証済みアプリケーションへリダイレクトしています。",
+		"If your browser does not redirect you back, please visit": "ブラウザーが自動的にリダイレクトしない場合は、",
+		"this setup page": "このセットアップページ",
+		"to continue.": "にアクセスして続行します。",
+		"If your browser does not redirect you back, please visit this setup page to continue.": "ブラウザーが自動的にリダイレクトしない場合は、このセットアップページにアクセスして続行します。",
+		// React の補間が「N characters remaining」を数値ノード（エンジン除外）+ 本尾部に
+		// 分割する形：全文形は global/status-characters-remaining ルール、尾部断片は本词条
+		"characters remaining": "文字が残っています",
+		"character remaining": "文字が残っています"
 	}
 }

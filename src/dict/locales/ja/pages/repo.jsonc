@@ -218,6 +218,29 @@
 		"Lists": "リスト",
 		"Add this repository to one or more lists": "このリポジトリを 1 つ以上のリストに追加します",
 		"Filter lists": "リストを絞り込む",
-		"Create list": "リストを作成"
+		"Create list": "リストを作成",
+		// —— 詳細編集ダイアログ、リリース／ブランチ切り替え／コードスペース空状態と
+		// Code ドロップダウン（2026-11-01 実機続き）——
+		// Save changes / Website / Open in GitHub Copilot app は repo-settings /
+		// settings / pages/pulls と同鍵同訳（姉妹再利用）
+		"Edit repository details": "リポジトリの詳細を編集",
+		"Website": "ウェブサイト",
+		"Include in the home page": "ホームページに含める",
+		"Save changes": "変更を保存",
+		"Draft a new release": "新しいリリースの下書きを作成",
+		"Find or create a branch...": "ブランチを検索または作成…",
+		"View all branches": "すべてのブランチを表示",
+		"Edit file": "ファイルを編集",
+		"Local": "ローカル",
+		"Clone using the web URL.": "Web URL でクローンします。",
+		"Open in GitHub Copilot app": "GitHub Copilot アプリで開く",
+		"Your workspaces in the cloud": "クラウド上のワークスペース",
+		"No codespaces": "コードスペースはありません",
+		"You don't have any codespaces with this repository checked out": "このリポジトリをチェックアウトしたコードスペースはまだありません",
+		"Learn more about codespaces...": "コードスペースの詳細を見る…",
+		"Codespace repository configuration": "コードスペースのリポジトリ設定",
+		// 支払いアカウント名が独立ノードになる形は本接頭辞が担う（文末の句点は
+		// 独立記号ノードのため英語のまま）；全文形は repo/codespace-usage ルール担当
+		"Codespace usage for this repository is paid for by": "このリポジトリのコードスペースの使用料の支払者："
 	}
 }

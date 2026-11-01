@@ -589,3 +589,86 @@ describe("表头菜单的 Copilot 区与帐户切换器", () => {
 		).toBe("アカウントの切り替え");
 	});
 });
+
+// —— OAuth 重定向过渡页与字数尾段碎片（维护者 2026-11-01 实机截图）——
+//
+// 重定向页路由不定由 global 兜底，说明句被「this setup page」链接切成三段；
+// 「N characters remaining」整串由 global/status-characters-remaining 规则接住，
+// React 插值拆出的尾段节点由词条兜碎片。
+describe("OAuth 重定向过渡页与字数尾段碎片", () => {
+	it("translates the redirect page with its link fragments", () => {
+		expect(
+			translateText(
+				"You are being redirected to the authorized application.",
+				view,
+			),
+		).toBe("你将被重定向到已授权的应用。");
+		expect(
+			translateText(
+				"If your browser does not redirect you back, please visit",
+				view,
+			),
+		).toBe("如果你的浏览器没有将你重定向回去，请访问");
+		expect(translateText("this setup page", view)).toBe(
+			"此设置页",
+		);
+		expect(translateText("to continue.", view)).toBe(
+			"以继续。",
+		);
+		// 整串形态兜底（节点没被链接切开时命中）
+		expect(
+			translateText(
+				"If your browser does not redirect you back, please visit this setup page to continue.",
+				view,
+			),
+		).toBe(
+			"如果你的浏览器没有将你重定向回去，请访问此设置页以继续。",
+		);
+	});
+
+	it("covers the split tail of the character counter", () => {
+		// 整串形态走规则（另测），插值拆出的尾段只有本词条能救
+		expect(
+			translateText("characters remaining", view),
+		).toBe("个字符剩余");
+		expect(translateText("character remaining", view)).toBe(
+			"个字符剩余",
+		);
+		expect(
+			translateText("72 characters remaining", view),
+		).toBe("还可输入 72 个字符");
+	});
+
+	it("has japanese templates", () => {
+		const japanese = buildView(
+			"/microsoft/vscode",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText(
+				"You are being redirected to the authorized application.",
+				japanese,
+			),
+		).toBe(
+			"認証済みアプリケーションへリダイレクトしています。",
+		);
+		expect(
+			translateText(
+				"If your browser does not redirect you back, please visit",
+				japanese,
+			),
+		).toBe(
+			"ブラウザーが自動的にリダイレクトしない場合は、",
+		);
+		expect(translateText("this setup page", japanese)).toBe(
+			"このセットアップページ",
+		);
+		expect(translateText("to continue.", japanese)).toBe(
+			"にアクセスして続行します。",
+		);
+		expect(
+			translateText("characters remaining", japanese),
+		).toBe("文字が残っています");
+	});
+});

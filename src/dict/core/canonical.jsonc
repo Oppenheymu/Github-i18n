@@ -8414,7 +8414,14 @@
 				"You don't have any codespaces with this repository checked out",
 				"Learn more about codespaces...",
 				"Codespace repository configuration",
-				"Codespace usage for this repository is paid for by"
+				"Codespace usage for this repository is paid for by",
+				// —— 代码空间「+」下拉菜单（2026-11-01 实机截图）——
+				// 「New with options...」的省略号弯直走 aliases 双保险
+				"New with options...",
+				"Configure dev container",
+				"Manage codespaces",
+				"Share a deep link",
+				"What are codespaces?"
 			]
 		},
 		{

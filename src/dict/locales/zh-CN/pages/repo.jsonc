@@ -225,6 +225,12 @@
 		"Codespace repository configuration": "代码空间仓库配置",
 		// 付费账户名若独立成节点由本前缀兜底（句尾句号是独立符号节点保持英文）；
 		// 整串形态走 repo/codespace-usage 规则
-		"Codespace usage for this repository is paid for by": "此仓库的代码空间用量付费者："
+		"Codespace usage for this repository is paid for by": "此仓库的代码空间用量付费者：",
+		// —— 代码空间「+」下拉菜单（2026-11-01 实机；省略号弯形走别名）——
+		"New with options...": "使用选项新建…",
+		"Configure dev container": "配置开发容器",
+		"Manage codespaces": "管理代码空间",
+		"Share a deep link": "分享深层链接",
+		"What are codespaces?": "什么是代码空间？"
 	}
 }

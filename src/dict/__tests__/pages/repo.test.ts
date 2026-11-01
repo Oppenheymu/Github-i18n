@@ -678,4 +678,31 @@ describe("仓库页详情对话框与代码空间/发布下拉", () => {
 			"コードスペースはありません",
 		);
 	});
+
+	it("translates the codespaces plus menu and the article form of the tooltip", () => {
+		// 「+」按钮的悬浮提示带冠词（Create a codespace on main），空态按钮
+		// 无冠词——上游两个形态由一条规则的 (?:a )? 覆盖
+		expect(
+			translateText("Create a codespace on main", view),
+		).toBe("在 main 上创建代码空间");
+		expect(translateText("New with options...", view)).toBe(
+			"使用选项新建…",
+		);
+		// 单字符省略号（…）形态走别名
+		expect(translateText("New with options…", view)).toBe(
+			"使用选项新建…",
+		);
+		expect(
+			translateText("Configure dev container", view),
+		).toBe("配置开发容器");
+		expect(translateText("Manage codespaces", view)).toBe(
+			"管理代码空间",
+		);
+		expect(translateText("Share a deep link", view)).toBe(
+			"分享深层链接",
+		);
+		expect(
+			translateText("What are codespaces?", view),
+		).toBe("什么是代码空间？");
+	});
 });

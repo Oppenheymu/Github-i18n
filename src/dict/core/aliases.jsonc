@@ -52,6 +52,7 @@
 		// 省略号弯直没把握（截图难辨），规范键取一种、另一形态走别名双保险。
 		"You don’t have any codespaces with this repository checked out": "You don't have any codespaces with this repository checked out",
 		"Find or create a branch…": "Find or create a branch...",
-		"Learn more about codespaces…": "Learn more about codespaces..."
+		"Learn more about codespaces…": "Learn more about codespaces...",
+		"New with options…": "New with options..."
 	}
 }

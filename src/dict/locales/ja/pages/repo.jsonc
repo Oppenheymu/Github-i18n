@@ -241,6 +241,12 @@
 		"Codespace repository configuration": "コードスペースのリポジトリ設定",
 		// 支払いアカウント名が独立ノードになる形は本接頭辞が担う（文末の句点は
 		// 独立記号ノードのため英語のまま）；全文形は repo/codespace-usage ルール担当
-		"Codespace usage for this repository is paid for by": "このリポジトリのコードスペースの使用料の支払者："
+		"Codespace usage for this repository is paid for by": "このリポジトリのコードスペースの使用料の支払者：",
+		// —— コードスペース「+」ドロップダウンメニュー（2026-11-01 実機、省略号の別形はエイリアス）——
+		"New with options...": "オプション付きで新規作成…",
+		"Configure dev container": "開発コンテナーを構成",
+		"Manage codespaces": "コードスペースを管理",
+		"Share a deep link": "ディープリンクを共有",
+		"What are codespaces?": "コードスペースとは？"
 	}
 }

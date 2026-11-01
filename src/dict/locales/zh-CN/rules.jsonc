@@ -607,6 +607,7 @@
 		"dashboard/greeting-evening": "晚上好，$1！",
 		"dashboard/optimized-for": "优化目标：",
 		"dashboard/switch-dashboard": "切换仪表板：$<user>",
+		"dashboard/merged-commits": "合并了 $1 次提交",
 		"commits/toggle-commit-message": "展开或收起 $1 的提交信息",
 		"commits/lines-changed": "变更行数：新增 $1 行，删除 $2 行",
 		"commits/copy-sha": "复制完整 SHA（$1）",
@@ -883,6 +884,8 @@
 		"global/pull-requests-count": "$1 个拉取请求",
 		"global/contributors-count": "$1 位贡献者",
 		"global/members-count": "$1 名成员",
+		// 用户悬浮卡的计数行（与 global/repos-count 同一张卡并排渲染）
+		"global/followers-count": "$1 位关注者",
 		"global/files-changed": "$1 个文件发生变更",
 		"global/status-characters-remaining": "还可输入 $<count> 个字符",
 		"global/status-characters-limit": "最多可输入 $<count> 个字符",

@@ -79,6 +79,20 @@
 		"See what's new": "看看有什么新功能",
 		"Latest from our changelog": "来自更新日志的最新内容",
 		"View changelog": "查看更新日志",
-		"View changelog →": "查看更新日志 →"
+		"View changelog →": "查看更新日志 →",
+		// —— feed 流动作行与卡片控件（2026-11-02 主页实机截图补漏，同序见 core/canonical.jsonc）——
+		// 动作行在用户名之后，译文以动词收尾接住后面的显示名 / 仓库链接
+		"starred a repository": "星标了一个仓库",
+		"followed": "关注了",
+		"contributed to": "贡献于",
+		// feed 卡片动作菜单的悬浮提示与展开后的菜单项
+		"Feed item options": "动态选项",
+		"Show less activity like this": "减少显示此类动态",
+		// feed 卡片正文折叠后的展开链接（无句点，与 settings 的「Read more.」是两条键）
+		"Read more": "阅读更多",
+		// —— 右栏趋势卡与推荐卡的卡头（「See more」与 org-settings 同名同译）——
+		"Trending repositories": "趋势仓库",
+		"See more": "查看更多",
+		"Recommended for you": "为你推荐"
 	}
 }

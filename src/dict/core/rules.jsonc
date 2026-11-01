@@ -2987,6 +2987,15 @@
 				{
 					"id": "dashboard/switch-dashboard",
 					"pattern": "^Switch dashboard: (?<user>.+)$"
+				},
+				// feed 里 PR 聚合卡片的动作行（2026-11-02 主页实机截图）：
+				// 「shigma merged 1 commit」。若拆成「merged」+「1 commit」两个节点，
+				// 前者会命中 global 的小写 `merged` 词条、后者命中 global/commits-count，
+				// 实机却整段英文，说明动作行是**单个节点**；提交数动态 ⇒ 走规则，
+				// 单复数写成 `commits?` 由模板同一句带回。
+				{
+					"id": "dashboard/merged-commits",
+					"pattern": "^merged ([\\d,]+) commits?$"
 				}
 			]
 		},
@@ -4141,6 +4150,15 @@
 				{
 					"id": "global/members-count",
 					"pattern": "^([\\d,]+) members?$"
+				},
+				// 用户悬浮卡（hovercard）的计数行：与 global/repos-count 同构——
+				// 2026-11-02 主页实机截图里同一张悬浮卡上「8 repositories」已由既有规则
+				// 接住（渲染「8 个仓库」）、「65 followers」却整段英文，说明两个计数
+				// 同为「数字 + 名词」的单节点形态；数字动态 ⇒ 走规则，挂 global 的
+				// 理由同 repos-count（悬浮卡在哪个页面都可能出现，不必逐模块收录）。
+				{
+					"id": "global/followers-count",
+					"pattern": "^([\\d,]+) followers?$"
 				},
 				{
 					"id": "global/files-changed",

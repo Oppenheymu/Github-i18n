@@ -1,5 +1,5 @@
 // 全站词典：所有页面共享的导航、按钮、状态、页脚与登录页词条
-// 归档纪律（AGENTS.md 硬性约束 2/3）：键 = GitHub 实际渲染的英文原文精确串；
+// 归档纪律（AGENTS.md 硬性约束 2/3）：键 = GitHub 实际渲染的英文原文精确串
 // 仅特定页面出现的词条进 pages/<页名>.jsonc，高风险泛化短词靠不收录回避
 // 简体中文 · 模块 global（路由见 core/modules.jsonc，键的分组注释见 core/canonical.jsonc）
 {

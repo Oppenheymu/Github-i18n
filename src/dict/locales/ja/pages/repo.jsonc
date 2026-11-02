@@ -116,6 +116,9 @@
 		// 実機では 1 文が 2 ノードに分割される（"… GitHub’s" + "verified signature"）。
 		// 日本語は語順を前後入れ替えず、前段を「… GitHub の」、後段を「検証済み署名で…」に合わせる
 		"This commit was created on GitHub.com and signed with GitHub’s": "このコミットは GitHub.com で作成され、GitHub の",
+		// 同じ `<strong>verified signature</strong>` を共有するもう一方の文
+		//（提交者自身の署名）: `このコミットはコミッターの` + `検証済み署名で署名されています`
+		"This commit was signed with the committer’s": "このコミットはコミッターの",
 		"verified signature": "検証済み署名で署名されています",
 		"GPG key ID:": "GPG キー ID：",
 		"Learn about vigilant mode": "ビジラントモードについて",

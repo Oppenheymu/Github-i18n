@@ -689,3 +689,61 @@ describe("PR 详情页 checks 区部署空态与合并框表单标签", () => {
 		);
 	});
 });
+
+// —— 提交签名弹层（维护者 2026-11-02 实机 HTML）——
+//
+// PR 页与提交页共用同一个签名弹层。句子的 `<strong>verified signature</strong>`
+// 是**同一个文本节点**，但前后文有两种来源：
+//   GitHub 代签：`This commit was created on GitHub.com and signed with GitHub’s` + …
+//   提交者自签：`This commit was signed with the committer’s` + …
+// 因此共享片段必须只承担「名词 + 动词」，两种前文各自以「的」收尾。
+// 反例：修复前 PR 页渲染成 `This commit was signed with the committer’s 的已验证签名进行签名.`
+//（前半句未收录、共享片段自带前导「的」）。
+describe("PR 页提交签名弹层的两种来源", () => {
+	const prDetail = buildView(
+		"/microsoft/vscode/pull/1",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	it("assembles the committer-signed sentence from its two nodes", () => {
+		expect(
+			translateText(
+				"This commit was signed with the committer’s",
+				prDetail,
+			),
+		).toBe("此提交由提交者的");
+		expect(
+			translateText("verified signature", prDetail),
+		).toBe("已验证签名签署");
+	});
+
+	it("keeps the GitHub-signed sentence readable through the shared fragment", () => {
+		expect(
+			translateText(
+				"This commit was created on GitHub.com and signed with GitHub’s",
+				prDetail,
+			),
+		).toBe("此提交创建于 GitHub.com，并由 GitHub 的");
+		expect(
+			translateText("verified signature", prDetail),
+		).toBe("已验证签名签署");
+	});
+
+	it("has japanese fragments for both sources", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/1",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText(
+				"This commit was signed with the committer’s",
+				japanese,
+			),
+		).toBe("このコミットはコミッターの");
+		expect(
+			translateText("verified signature", japanese),
+		).toBe("検証済み署名で署名されています");
+	});
+});

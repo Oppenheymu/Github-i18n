@@ -99,8 +99,16 @@
 		// —— 提交签名徽章与悬浮说明 ——
 		"Verified": "已验证",
 		"Verified commit signature": "已验证的提交签名",
-		"This commit was created on GitHub.com and signed with GitHub’s": "此提交创建于 GitHub.com 并使用 GitHub",
-		"verified signature": "的已验证签名进行签名",
+		// 签名弹层的两种来源共用同一个 `<strong>verified signature</strong>` 片段，
+		// 两段前后文都必须接得通：
+		//   GitHub 代签：`This commit was created on GitHub.com and signed with GitHub’s`
+		//                + `verified signature` → 此提交创建于 GitHub.com，并由 GitHub 的已验证签名签署。
+		//   提交者自签：`This commit was signed with the committer’s`
+		//                + `verified signature` → 此提交由提交者的已验证签名签署。
+		// 故前一条以「GitHub 的」收尾、后一条以「提交者的」收尾，共享片段只保留名词 + 动词。
+		"This commit was created on GitHub.com and signed with GitHub’s": "此提交创建于 GitHub.com，并由 GitHub 的",
+		"This commit was signed with the committer’s": "此提交由提交者的",
+		"verified signature": "已验证签名签署",
 		"GPG key ID:": "GPG 密钥 ID：",
 		"Learn about vigilant mode": "了解警惕模式",
 		"main branch": "main 分支",

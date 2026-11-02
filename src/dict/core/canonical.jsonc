@@ -8261,6 +8261,8 @@
 				"Verified",
 				"Verified commit signature",
 				"This commit was created on GitHub.com and signed with GitHub’s",
+				// 同一弹层的另一种来源：提交者自己的已验证签名（PR / 提交页实机，见 zh 词条注释）
+				"This commit was signed with the committer’s",
 				"verified signature",
 				"GPG key ID:",
 				"Learn about vigilant mode",

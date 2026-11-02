@@ -1767,6 +1767,11 @@
 				"repo-settings/branch-protection-count",
 				"repo-settings/star-count",
 				"repo-settings/watcher-count",
+				"repo-settings/collaborators-count",
+				"repo-settings/invitations-count",
+				"repo-settings/awaiting-response",
+				"repo-settings/collaborator-entity",
+				"repo-settings/collaborator-added",
 				"repo-settings/delete-repo",
 				"repo-settings/make-private",
 				"repo-settings/settings-title",
@@ -2012,7 +2017,7 @@
 				"global/in-a-month",
 				"global/in-a-year"
 			],
-			"notTranslated": ["repo-settings/collaborators-count"]
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/settings/rules",
@@ -2130,6 +2135,11 @@
 				"repo-settings/branch-protection-count",
 				"repo-settings/star-count",
 				"repo-settings/watcher-count",
+				"repo-settings/collaborators-count",
+				"repo-settings/invitations-count",
+				"repo-settings/awaiting-response",
+				"repo-settings/collaborator-entity",
+				"repo-settings/collaborator-added",
 				"repo-settings/delete-repo",
 				"repo-settings/make-private",
 				"repo-settings/settings-title",
@@ -2375,7 +2385,7 @@
 				"global/in-a-month",
 				"global/in-a-year"
 			],
-			"notTranslated": ["repo-settings/collaborators-count"]
+			"notTranslated": []
 		},
 		{
 			"name": "microsoft/vscode/reported_content",
@@ -2493,6 +2503,11 @@
 				"repo-settings/branch-protection-count",
 				"repo-settings/star-count",
 				"repo-settings/watcher-count",
+				"repo-settings/collaborators-count",
+				"repo-settings/invitations-count",
+				"repo-settings/awaiting-response",
+				"repo-settings/collaborator-entity",
+				"repo-settings/collaborator-added",
 				"repo-settings/delete-repo",
 				"repo-settings/make-private",
 				"repo-settings/settings-title",
@@ -2738,7 +2753,7 @@
 				"global/in-a-month",
 				"global/in-a-year"
 			],
-			"notTranslated": ["repo-settings/collaborators-count"]
+			"notTranslated": []
 		},
 		{
 			"name": "organizations/octocat/settings/profile",

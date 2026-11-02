@@ -2719,6 +2719,8 @@
 				"Collaborators and teams",
 				"You haven't invited any collaborators yet",
 				"collaborators have access to this repository. Only you can contribute to this repository.",
+				// 待接受邀请行右侧的状态标签（2026-11-02 实机截图：`Pending Invite` + 复制邀请链接图标）
+				"Pending Invite",
 				"Add",
 				"Add people",
 				"Add to repository",

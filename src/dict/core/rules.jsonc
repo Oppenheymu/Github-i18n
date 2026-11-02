@@ -2211,6 +2211,34 @@
 					"id": "repo-settings/collaborators-count",
 					"pattern": "^([\\d,]+) collaborators?$"
 				},
+				// 同一行的邀请计数链接（2026-11-02 实机截图：`1 位协作者, 1 invitation.`，
+				// 逗号是独立节点，`1 invitation` 本身是蓝色链接，单复数随数据变化）
+				{
+					"id": "repo-settings/invitations-count",
+					"pattern": "^([\\d,]+) invitations?$"
+				},
+				// 待接受邀请行的说明（2026-11-02 实机截图：整行灰色、用户名不是链接，
+				// 故用户名与句子在**同一个文本节点**里，用捕获组原样保留）
+				{
+					"id": "repo-settings/awaiting-response",
+					"pattern": "^Awaiting (.+)[\\u2019']s response$"
+				},
+				// 协作者行的副标题「<显示名> · Collaborator」（2026-11-02 实机截图）。
+				// 为什么必须成规则而不是静态词条：显示名与角色在**同一个文本节点**里，
+				// 整节点键永远对不上；裸 `Collaborator` 仍由 global 的静态词条兜底
+				//（上游若拆成两个节点，本规则失配、那个键照常命中，两边都不落空）。
+				// 分隔符用字符类覆盖中点与项目符号两种字形（与规则集分隔符的处理一致）。
+				{
+					"id": "repo-settings/collaborator-entity",
+					"pattern": "^(?<name>.+) [\\u2022\\u00B7] Collaborator$"
+				},
+				// 邀请成功后的 flash alert（2026-11-02 实机 HTML：用户名在文本节点内，
+				// 句中 `collaborator` 与 `on` 之间源码是两个空格，normalizeKey 折叠后
+				// 与本 pattern 的单空格形态一致）
+				{
+					"id": "repo-settings/collaborator-added",
+					"pattern": "^(?<login>.+) has been added as a collaborator on the repository\\.$"
+				},
 				// 带仓库名的动态标题（仅匹配 owner/repo 形态，避免泛化误伤）。
 				// owner/repo 不含空白，故作否定字符类里加上 \s：否则规则集页的
 				// `Delete include of <分支模式>` 会被它当成 owner/repo 抢先命中，

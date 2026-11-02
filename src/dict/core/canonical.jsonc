@@ -380,7 +380,19 @@
 				// —— checks 区部署空态（2026-11-01 维护者实机 HTML：h3 标题与
 				// status-meta 副文本各自整节点，静态收）——
 				"This branch has not been deployed",
-				"No deployments"
+				"No deployments",
+				// —— 代码空间警告横幅、侧栏与通知订阅控件（2026-11-02 维护者 PR 页实机 HTML）——
+				// 横幅标题在 `prc-VisuallyHidden` 的 h2 里（sr-only 照常翻译），说明句整节点
+				"Pull request warning",
+				"This pull request must be reopened to create new codespaces on it.",
+				// 侧栏自指派链接是**小写 a**（`js-issue-assign-self`），与 pages/issues
+				// 的 `Assign yourself`（大写 A）是两个不同的键，不能合并
+				"assign yourself",
+				// 侧栏分区标题与通知区块的入口链接；`None` 是通知档位按钮的当前值
+				//（泛化短词：只在本模块登记，误伤面是 PR 页上恰好名为 None 的标签）
+				"Development",
+				"Customize",
+				"None"
 			]
 		},
 		{
@@ -8449,7 +8461,10 @@
 				"Configure dev container",
 				"Manage codespaces",
 				"Share a deep link",
-				"What are codespaces?"
+				"What are codespaces?",
+				// 代码空间菜单里的预构建入口（2026-11-02 PR 页实机；与 repo-settings 的
+				// `Set up prebuild` 单数形态是两个不同的键，不能合并）
+				"Set up prebuilds"
 			]
 		},
 		{

@@ -747,3 +747,65 @@ describe("PR 页提交签名弹层的两种来源", () => {
 		).toBe("検証済み署名で署名されています");
 	});
 });
+
+// —— PR 页代码空间警告横幅、侧栏与通知订阅控件（维护者 2026-11-02 实机 HTML）——
+//
+// 节点边界：
+//   · 横幅标题在 `prc-VisuallyHidden` 的 h2 里（sr-only 照常翻译），说明句整节点；
+//   · 侧栏 `assign yourself` 是**小写 a**（`js-issue-assign-self`），与 pages/issues 的
+//     `Assign yourself`（大写 A）是两个不同键，PR 路由不命中 pages/issues；
+//   · `Development` 是侧栏分区标题；`Customize` / `None` 是通知订阅区块的入口与档位；
+//   · 代码空间菜单的 `Set up prebuilds` 收在 pages/repo（PR 页同样命中该模块）。
+describe("PR 页侧栏、通知订阅控件与代码空间警告横幅", () => {
+	it("translates the sidebar and notification nodes", () => {
+		expect(translateText("assign yourself", view)).toBe(
+			"指派给自己",
+		);
+		expect(translateText("Development", view)).toBe("开发");
+		expect(translateText("Customize", view)).toBe("自定义");
+		expect(translateText("None", view)).toBe("无");
+	});
+
+	it("translates the codespace warning banner including its sr-only title", () => {
+		expect(
+			translateText("Pull request warning", view),
+		).toBe("拉取请求警告");
+		expect(
+			translateText(
+				"This pull request must be reopened to create new codespaces on it.",
+				view,
+			),
+		).toBe(
+			"必须重新打开此拉取请求，才能在其中创建新的代码空间。",
+		);
+	});
+
+	it("translates the prebuild entry that lives in the repo module", () => {
+		expect(translateText("Set up prebuilds", view)).toBe(
+			"设置预构建",
+		);
+	});
+
+	it("has japanese entries for the same nodes", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/1",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("None", japanese)).toBe("なし");
+		expect(translateText("Customize", japanese)).toBe(
+			"カスタマイズ",
+		);
+		expect(translateText("assign yourself", japanese)).toBe(
+			"自分を担当者に設定",
+		);
+		expect(
+			translateText(
+				"This pull request must be reopened to create new codespaces on it.",
+				japanese,
+			),
+		).toBe(
+			"このプルリクエストで新しいコードスペースを作成するには、再度オープンする必要があります。",
+		);
+	});
+});

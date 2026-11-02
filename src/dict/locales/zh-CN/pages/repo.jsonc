@@ -239,6 +239,7 @@
 		"Configure dev container": "配置开发容器",
 		"Manage codespaces": "管理代码空间",
 		"Share a deep link": "分享深层链接",
-		"What are codespaces?": "什么是代码空间？"
+		"What are codespaces?": "什么是代码空间？",
+		"Set up prebuilds": "设置预构建"
 	}
 }

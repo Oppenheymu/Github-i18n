@@ -201,6 +201,13 @@
 		"behind (base commit:": "遅れ (ベースコミット:",
 		// —— checks 領域のデプロイ空状態（h3 と status-meta がそれぞれ完全一致ノード）——
 		"This branch has not been deployed": "このブランチはまだデプロイされていません",
-		"No deployments": "デプロイはありません"
+		"No deployments": "デプロイはありません",
+		// —— コードスペースの警告バナー、サイドバー、通知購読コントロール（2026-11-02 実機 HTML）——
+		"Pull request warning": "プルリクエストの警告",
+		"This pull request must be reopened to create new codespaces on it.": "このプルリクエストで新しいコードスペースを作成するには、再度オープンする必要があります。",
+		"assign yourself": "自分を担当者に設定",
+		"Development": "開発",
+		"Customize": "カスタマイズ",
+		"None": "なし"
 	}
 }

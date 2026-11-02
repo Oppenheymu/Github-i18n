@@ -250,6 +250,7 @@
 		"Configure dev container": "開発コンテナーを構成",
 		"Manage codespaces": "コードスペースを管理",
 		"Share a deep link": "ディープリンクを共有",
-		"What are codespaces?": "コードスペースとは？"
+		"What are codespaces?": "コードスペースとは？",
+		"Set up prebuilds": "プリビルドを設定"
 	}
 }

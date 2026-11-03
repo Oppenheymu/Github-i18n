@@ -23,6 +23,12 @@
 		"pulls/checks-passed": "已通过 $<count> 项检查",
 		// 合并框 out-of-date 态指引句（分支名与用户名动态）
 		"pulls/merge-latest-changes": "将 $<base> 的最新更改合并到此分支。此合并提交将关联到 $<user>。",
+		// 代码所有者审查等待（用户名动态）
+		"pulls/code-owner-waiting": "正在等待 $<name> 的代码所有者审查。",
+		// 合并门禁提示（批准数动态）
+		"pulls/required-approvals": "合并此拉取请求至少需要 $<count> 个批准审查。",
+		// Files changed 页工具栏的已读计数
+		"pulls/viewed-count": "已查看 $<viewed> / $<total>",
 		// —— 账号安全页（/settings/security）——
 		// 规则 id 与 pattern 见 core/rules.jsonc 的 pages/settings-security 分组：
 		// 密钥名与动态日期由捕获组原样带回（$1 / $<day> / $<year>），

@@ -705,4 +705,27 @@ describe("仓库页详情对话框与代码空间/发布下拉", () => {
 			translateText("What are codespaces?", view),
 		).toBe("什么是代码空间？");
 	});
+
+	it("translates the file header menu items", () => {
+		// 2026-11-03 维护者 PR Files changed 页实机截图：同一菜单里只有 Edit file
+		// 早已收录，其余六项整片英文
+		expect(translateText("View file", view)).toBe(
+			"查看文件",
+		);
+		expect(translateText("View raw", view)).toBe(
+			"查看原始文件",
+		);
+		expect(translateText("View blame", view)).toBe(
+			"查看追溯",
+		);
+		expect(translateText("View history", view)).toBe(
+			"查看历史",
+		);
+		expect(translateText("Discard changes", view)).toBe(
+			"放弃更改",
+		);
+		expect(translateText("Delete file", view)).toBe(
+			"删除文件",
+		);
+	});
 });

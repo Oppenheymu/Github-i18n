@@ -202,6 +202,42 @@
 		"Development": "开发",
 		"Customize": "自定义",
 		// 通知档位按钮：与 repo-settings 的基础角色「None」同译（两模块路由互斥）
-		"None": "无"
+		"None": "无",
+		// —— Files changed 页与 Finish your review 弹层（2026-11-03 维护者截图 + 实机 HTML）——
+		// 审查邀请横幅：用户名是 `<a>` 里的用户内容，本键只覆盖其后的整句
+		"requested your review on this pull request.": "请求你审查此拉取请求。",
+		// 代码所有者等待句里用户名被拆成链接时的前缀节点（整句形态走规则
+		// pulls/code-owner-waiting）
+		"Waiting on code owner review from": "正在等待代码所有者审查：",
+		"Add your review": "添加你的审查",
+		// 审查弹层：三条单选的说明句（标签 Comment 在 global、Approve 与
+		// Request changes 在本模块，均已收录）
+		"Finish your review": "完成你的审查",
+		"Submit general feedback without explicit approval.": "提交总体反馈，不明确批准。",
+		"Submit feedback and approve merging these changes.": "提交反馈并批准合并这些更改。",
+		"Submit feedback suggesting changes.": "提交反馈，建议修改。",
+		// —— Files changed 页工具栏、文件菜单与 diff 设置 ——
+		"All commits": "所有提交",
+		// 文件树筛选框 placeholder
+		"Filter files...": "筛选文件…",
+		// 每个文件头的已读开关（与 settings-security 的同键不同页，路由互斥）
+		"Viewed": "已查看",
+		"Load Diff": "加载差异",
+		// 生成文件提示：说明句与链接各是一个文本节点，句号是纯符号节点不收
+		"Some generated files are not rendered by default. Learn more about": "默认不会渲染部分生成的文件。了解如何",
+		"customizing how changed files appear on GitHub": "自定义 GitHub 上变更文件的显示方式",
+		// diff 设置菜单（齿轮）
+		"Layout": "布局",
+		"Unified": "统一",
+		"Split": "拆分",
+		"Whitespace changes": "空白字符更改",
+		"Always show": "始终显示",
+		"Minimize comments": "最小化评论",
+		"Compact line height": "紧凑行高",
+		// 提交选择弹层
+		"Select commits to view": "选择要查看的提交",
+		"Changes since your last review": "自你上次审查以来的更改",
+		"No previous review found": "未找到之前的审查",
+		"Select a range of commits": "选择提交范围"
 	}
 }

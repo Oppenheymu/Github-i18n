@@ -392,7 +392,45 @@
 				//（泛化短词：只在本模块登记，误伤面是 PR 页上恰好名为 None 的标签）
 				"Development",
 				"Customize",
-				"None"
+				"None",
+				// —— Files changed 页与 Finish your review 弹层（2026-11-03 维护者截图 +
+				// 实机 HTML）——
+				// 审查邀请横幅是**拆节点**结构：`<a>dependabot[bot]</a>` + 本句（用户名
+				// 是用户内容不收，句号在本节点内随节点译出）
+				"requested your review on this pull request.",
+				// 代码所有者审查等待：整句带用户名 → rules 的
+				// pulls/code-owner-waiting；用户名被拆成链接时只剩本前缀节点，
+				// 两条并存才能同时覆盖两种实机形态
+				"Waiting on code owner review from",
+				"Add your review",
+				// 审查弹层：标题、三条单选说明（单选标签 Comment / Approve /
+				// Request changes 本模块已有键或 global 兜底）
+				"Finish your review",
+				"Submit general feedback without explicit approval.",
+				"Submit feedback and approve merging these changes.",
+				"Submit feedback suggesting changes.",
+				// —— Files changed 页工具栏、文件菜单与 diff 设置（同批截图）——
+				"All commits",
+				"Filter files...",
+				"Viewed",
+				"Load Diff",
+				// 生成文件提示是**拆节点**结构：说明句 + <a>customizing how changed
+				// files appear on GitHub</a> + 句号（纯符号节点不收）
+				"Some generated files are not rendered by default. Learn more about",
+				"customizing how changed files appear on GitHub",
+				// diff 设置菜单（齿轮）：Layout 分组标题、统一 / 拆分视图与三项开关
+				"Layout",
+				"Unified",
+				"Split",
+				"Whitespace changes",
+				"Always show",
+				"Minimize comments",
+				"Compact line height",
+				// 提交选择弹层（All commits 复用于此，不重复登记）
+				"Select commits to view",
+				"Changes since your last review",
+				"No previous review found",
+				"Select a range of commits"
 			]
 		},
 		{
@@ -8445,7 +8483,16 @@
 				"Draft a new release",
 				"Find or create a branch...",
 				"View all branches",
+				// 文件头「…」菜单（2026-11-03 维护者 PR Files changed 页截图）：Edit file
+				// 早已收录，同菜单其余六项此前全缺。Blame / Raw 两词本模块另有
+				// 独立键（`Blame` / `Raw`），这六条是带 View / Discard / Delete 的整项文案
 				"Edit file",
+				"View file",
+				"View raw",
+				"View blame",
+				"View history",
+				"Discard changes",
+				"Delete file",
 				"Local",
 				"Clone using the web URL.",
 				"Open in GitHub Copilot app",

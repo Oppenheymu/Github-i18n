@@ -26,6 +26,12 @@
 		"pulls/checks-passed": "チェック $<count> 件に合格",
 		// マージボックス out-of-date 状態の案内文(ブランチ名とユーザー名は動的)
 		"pulls/merge-latest-changes": "このブランチに $<base> の最新の変更をマージしてください。このマージコミットは $<user> に関連付けられます。",
+		// コードオーナーのレビュー待ち(ユーザー名は動的)
+		"pulls/code-owner-waiting": "$<name> によるコードオーナーレビューを待機しています。",
+		// マージ条件の案内(承認数は動的)
+		"pulls/required-approvals": "このプルリクエストをマージするには、少なくとも $<count> 件の承認レビューが必要です。",
+		// Files changed ページの確認済みカウント
+		"pulls/viewed-count": "$<viewed> / $<total> 確認済み",
 
 		// —— pages/settings-security（アカウントセキュリティ）——
 		"settings/passkey-delete-confirm": "`$1` のパスキーを削除してもよろしいですか？",

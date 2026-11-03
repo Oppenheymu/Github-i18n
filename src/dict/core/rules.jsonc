@@ -89,6 +89,24 @@
 					// 句尾句号不进捕获组（user 用懒匹配 + 显式 \.$），否则模板
 					// 的「。」前会再叠一个英文句号
 					"pattern": "^Merge the latest changes from (?<base>.+?) into this branch\\. This merge commit will be associated with (?<user>.+?)\\.$"
+				},
+				// 代码所有者审查等待（2026-11-03 维护者实机 HTML）：用户名动态。
+				// 用户名被拆成链接时整句键结构上永不命中，由静态键
+				// "Waiting on code owner review from" 兜前缀节点
+				{
+					"id": "pulls/code-owner-waiting",
+					"pattern": "^Waiting on code owner review from (?<name>.+?)\\.$"
+				},
+				// 合并门禁提示：批准数来自分支保护配置，动态；单数 / 复数与
+				// is / are 都要覆盖（实机 1 份时是 "At least 1 approving review is required…"）
+				{
+					"id": "pulls/required-approvals",
+					"pattern": "^At least (?<count>\\d+) approving reviews? (?:is|are) required to merge this pull request\\.$"
+				},
+				// Files changed 页工具栏的已读计数（「0 / 2 viewed」）
+				{
+					"id": "pulls/viewed-count",
+					"pattern": "^(?<viewed>\\d+) / (?<total>\\d+) viewed$"
 				}
 			]
 		},

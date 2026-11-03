@@ -208,6 +208,38 @@
 		"assign yourself": "自分を担当者に設定",
 		"Development": "開発",
 		"Customize": "カスタマイズ",
-		"None": "なし"
+		"None": "なし",
+		// —— Files changed ページとレビュー完了ダイアログ（2026-11-03 保守者のスクリーンショット + 実機 HTML）——
+		// レビュー依頼バナー: ユーザー名は <a> 内のユーザー内容、本キーはその後ろの文のみ
+		"requested your review on this pull request.": "がこのプルリクエストのレビューをリクエストしました。",
+		// コードオーナーのレビュー待ち文でユーザー名がリンクに分割された場合の前置ノード
+		// （文全体の形はルール pulls/code-owner-waiting）
+		"Waiting on code owner review from": "コードオーナーのレビューを待機中:",
+		"Add your review": "レビューを追加",
+		// レビューダイアログ: 3 つのラジオの説明文
+		"Finish your review": "レビューを完了",
+		"Submit general feedback without explicit approval.": "明示的な承認なしで一般的なフィードバックを送信します。",
+		"Submit feedback and approve merging these changes.": "フィードバックを送信し、これらの変更のマージを承認します。",
+		"Submit feedback suggesting changes.": "変更を提案するフィードバックを送信します。",
+		// —— Files changed ページのツールバー、ファイルメニュー、diff 設定 ——
+		"All commits": "すべてのコミット",
+		"Filter files...": "ファイルを絞り込む…",
+		"Viewed": "確認済み",
+		"Load Diff": "差分を読み込む",
+		"Some generated files are not rendered by default. Learn more about": "一部の生成ファイルは既定ではレンダリングされません。詳しくは",
+		"customizing how changed files appear on GitHub": "GitHub での変更ファイルの表示方法をカスタマイズする",
+		// diff 設定メニュー（歯車）
+		"Layout": "レイアウト",
+		"Unified": "統一",
+		"Split": "分割",
+		"Whitespace changes": "空白の変更",
+		"Always show": "常に表示",
+		"Minimize comments": "コメントを最小化",
+		"Compact line height": "コンパクトな行の高さ",
+		// コミット選択ダイアログ
+		"Select commits to view": "表示するコミットを選択",
+		"Changes since your last review": "前回のレビュー以降の変更",
+		"No previous review found": "以前のレビューが見つかりません",
+		"Select a range of commits": "コミットの範囲を選択"
 	}
 }

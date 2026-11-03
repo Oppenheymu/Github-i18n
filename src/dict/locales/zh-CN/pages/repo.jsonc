@@ -223,6 +223,13 @@
 		"Find or create a branch...": "查找或创建分支…",
 		"View all branches": "查看所有分支",
 		"Edit file": "编辑文件",
+		// 文件头「…」菜单其余六项（2026-11-03 维护者 PR Files changed 页截图）
+		"View file": "查看文件",
+		"View raw": "查看原始文件",
+		"View blame": "查看追溯",
+		"View history": "查看历史",
+		"Discard changes": "放弃更改",
+		"Delete file": "删除文件",
 		"Local": "本地",
 		"Clone using the web URL.": "使用 Web URL 克隆。",
 		"Open in GitHub Copilot app": "在 GitHub Copilot 应用中打开",

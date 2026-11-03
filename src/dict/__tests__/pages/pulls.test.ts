@@ -809,3 +809,195 @@ describe("PR 页侧栏、通知订阅控件与代码空间警告横幅", () => {
 		);
 	});
 });
+
+// —— Files changed 页与 Finish your review 弹层（维护者 2026-11-03 截图 + 实机 HTML）——
+//
+// 节点边界：
+//   · 审查邀请横幅：`<a>dependabot[bot]</a>` + `requested your review on this pull
+//     request.`——用户名是用户内容不收，句号在本节点内；
+//   · 代码所有者等待句有两种实机形态：用户名是纯文本时整句一个节点（走规则
+//     pulls/code-owner-waiting），用户名是链接时只剩前缀节点（走静态键）；
+//   · 生成文件提示被 `<a>` 切成两段，句号是独立纯符号节点（不收，保持 ASCII）；
+//   · 文件树的 `Filter files...` 与评论框一样是 placeholder 属性文案；
+//   · `Viewed` 与 settings-security 的同名键不同页，两模块路由互斥、同译。
+describe("Files changed 页与审查弹层", () => {
+	const files = buildView(
+		"/microsoft/vscode/pull/54/files",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	it("translates the review invitation banner and the approval requirement", () => {
+		expect(
+			translateText(
+				"requested your review on this pull request.",
+				files,
+			),
+		).toBe("请求你审查此拉取请求。");
+		expect(
+			translateText(
+				"At least 1 approving review is required to merge this pull request.",
+				files,
+			),
+		).toBe("合并此拉取请求至少需要 1 个批准审查。");
+		// 复数 + are 形态（批准数来自分支保护配置）
+		expect(
+			translateText(
+				"At least 2 approving reviews are required to merge this pull request.",
+				files,
+			),
+		).toBe("合并此拉取请求至少需要 2 个批准审查。");
+	});
+
+	it("keeps the code owner name in english while translating the sentence", () => {
+		expect(
+			translateText(
+				"Waiting on code owner review from Oppenheymu.",
+				files,
+			),
+		).toBe("正在等待 Oppenheymu 的代码所有者审查。");
+		// 用户名被拆成链接时的前缀节点
+		expect(
+			translateText(
+				"Waiting on code owner review from",
+				files,
+			),
+		).toBe("正在等待代码所有者审查：");
+	});
+
+	it("translates the finish your review dialog", () => {
+		expect(translateText("Add your review", files)).toBe(
+			"添加你的审查",
+		);
+		expect(translateText("Finish your review", files)).toBe(
+			"完成你的审查",
+		);
+		expect(
+			translateText(
+				"Submit general feedback without explicit approval.",
+				files,
+			),
+		).toBe("提交总体反馈，不明确批准。");
+		expect(
+			translateText(
+				"Submit feedback and approve merging these changes.",
+				files,
+			),
+		).toBe("提交反馈并批准合并这些更改。");
+		expect(
+			translateText(
+				"Submit feedback suggesting changes.",
+				files,
+			),
+		).toBe("提交反馈，建议修改。");
+		// 提交按钮的键早已在页头存在，弹层复用的是同一个节点文案
+		expect(translateText("Submit review", files)).toBe(
+			"提交审查",
+		);
+	});
+
+	it("translates the diff toolbar, file menu and diff settings", () => {
+		expect(translateText("All commits", files)).toBe(
+			"所有提交",
+		);
+		expect(translateText("Filter files...", files)).toBe(
+			"筛选文件…",
+		);
+		expect(translateText("Viewed", files)).toBe("已查看");
+		expect(translateText("0 / 2 viewed", files)).toBe(
+			"已查看 0 / 2",
+		);
+		expect(translateText("Load Diff", files)).toBe(
+			"加载差异",
+		);
+		expect(translateText("Layout", files)).toBe("布局");
+		expect(translateText("Unified", files)).toBe("统一");
+		expect(translateText("Split", files)).toBe("拆分");
+		expect(translateText("Whitespace changes", files)).toBe(
+			"空白字符更改",
+		);
+		expect(translateText("Always show", files)).toBe(
+			"始终显示",
+		);
+		expect(translateText("Minimize comments", files)).toBe(
+			"最小化评论",
+		);
+		expect(
+			translateText("Compact line height", files),
+		).toBe("紧凑行高");
+	});
+
+	it("assembles the generated-files notice from its two nodes", () => {
+		expect(
+			translateText(
+				"Some generated files are not rendered by default. Learn more about",
+				files,
+			),
+		).toBe("默认不会渲染部分生成的文件。了解如何");
+		expect(
+			translateText(
+				"customizing how changed files appear on GitHub",
+				files,
+			),
+		).toBe("自定义 GitHub 上变更文件的显示方式");
+	});
+
+	it("translates the commit selection dialog", () => {
+		expect(
+			translateText("Select commits to view", files),
+		).toBe("选择要查看的提交");
+		expect(
+			translateText(
+				"Changes since your last review",
+				files,
+			),
+		).toBe("自你上次审查以来的更改");
+		expect(
+			translateText("No previous review found", files),
+		).toBe("未找到之前的审查");
+		expect(
+			translateText("Select a range of commits", files),
+		).toBe("选择提交范围");
+	});
+
+	it("has japanese entries for the same nodes", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/54/files",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText(
+				"Waiting on code owner review from Oppenheymu.",
+				japanese,
+			),
+		).toBe(
+			"Oppenheymu によるコードオーナーレビューを待機しています。",
+		);
+		expect(
+			translateText(
+				"At least 1 approving review is required to merge this pull request.",
+				japanese,
+			),
+		).toBe(
+			"このプルリクエストをマージするには、少なくとも 1 件の承認レビューが必要です。",
+		);
+		expect(translateText("0 / 2 viewed", japanese)).toBe(
+			"0 / 2 確認済み",
+		);
+		expect(
+			translateText(
+				"Some generated files are not rendered by default. Learn more about",
+				japanese,
+			),
+		).toBe(
+			"一部の生成ファイルは既定ではレンダリングされません。詳しくは",
+		);
+		expect(translateText("Load Diff", japanese)).toBe(
+			"差分を読み込む",
+		);
+		expect(translateText("Filter files...", japanese)).toBe(
+			"ファイルを絞り込む…",
+		);
+	});
+});

@@ -234,6 +234,13 @@
 		"Find or create a branch...": "ブランチを検索または作成…",
 		"View all branches": "すべてのブランチを表示",
 		"Edit file": "ファイルを編集",
+		// ファイルヘッダーの「…」メニューの残り 6 項目（2026-11-03 実機スクリーンショット）
+		"View file": "ファイルを表示",
+		"View raw": "生ファイルを表示",
+		"View blame": "Blame を表示",
+		"View history": "履歴を表示",
+		"Discard changes": "変更を破棄",
+		"Delete file": "ファイルを削除",
 		"Local": "ローカル",
 		"Clone using the web URL.": "Web URL でクローンします。",
 		"Open in GitHub Copilot app": "GitHub Copilot アプリで開く",

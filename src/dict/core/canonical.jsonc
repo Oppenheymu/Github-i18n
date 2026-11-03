@@ -438,6 +438,9 @@
 				// （驳回了 … 的过期审查，依据），ja 谓语在后段（が … の古いレビューを
 				// 却下しました:）——引擎不重排节点，只能这样各让一步。
 				"Closed with unmerged commits",
+				// 合并框加载态（h3 + 说明行各自整节点，2026-11-03 维护者实机 HTML）
+				"Checking for the ability to merge automatically...",
+				"Hang in there while we check the branch's status.",
 				"This pull request is closed.",
 				"View reviewed changes",
 				"previously approved these changes",

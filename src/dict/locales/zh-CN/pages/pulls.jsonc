@@ -241,6 +241,9 @@
 		"Select a range of commits": "选择提交范围",
 		// —— 会话页时间线事件与已关闭态（2026-11-03 维护者截图 + 实机 HTML）——
 		"Closed with unmerged commits": "已关闭，存在未合并的提交",
+		// 合并框加载态：标题与说明行各自整节点（说明句的撇号是直撇号）
+		"Checking for the ability to merge automatically...": "正在检查能否自动合并…",
+		"Hang in there while we check the branch's status.": "请稍候，我们正在检查此分支的状态。",
 		"This pull request is closed.": "此拉取请求已关闭。",
 		"View reviewed changes": "查看审查过的更改",
 		// 时间线：「<用户> previously approved these changes <时间>」

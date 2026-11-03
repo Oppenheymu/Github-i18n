@@ -243,6 +243,9 @@
 		"Select a range of commits": "コミットの範囲を選択",
 		// —— 会話ページのタイムラインイベントとクローズ済み状態（2026-11-03 実機 HTML）——
 		"Closed with unmerged commits": "未マージのコミットがある状態でクローズされました",
+		// マージボックスの読み込み状態（見出しと説明行がそれぞれ完全一致ノード）
+		"Checking for the ability to merge automatically...": "自動マージが可能かどうかを確認しています…",
+		"Hang in there while we check the branch's status.": "ブランチのステータスを確認しています。しばらくお待ちください。",
 		"This pull request is closed.": "このプルリクエストはクローズされています。",
 		"View reviewed changes": "レビュー済みの変更を表示",
 		"previously approved these changes": "以前にこれらの変更を承認しました",

@@ -1028,6 +1028,21 @@ describe("会话页时间线事件与已关闭态", () => {
 		);
 	});
 
+	it("translates the merge box loading state", () => {
+		expect(
+			translateText(
+				"Checking for the ability to merge automatically...",
+				view,
+			),
+		).toBe("正在检查能否自动合并…");
+		expect(
+			translateText(
+				"Hang in there while we check the branch's status.",
+				view,
+			),
+		).toBe("请稍候，我们正在检查此分支的状态。");
+	});
+
 	it("translates the review and merge-queue timeline events", () => {
 		expect(
 			translateText(

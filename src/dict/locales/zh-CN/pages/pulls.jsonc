@@ -238,6 +238,44 @@
 		"Select commits to view": "选择要查看的提交",
 		"Changes since your last review": "自你上次审查以来的更改",
 		"No previous review found": "未找到之前的审查",
-		"Select a range of commits": "选择提交范围"
+		"Select a range of commits": "选择提交范围",
+		// —— 会话页时间线事件与已关闭态（2026-11-03 维护者截图 + 实机 HTML）——
+		"Closed with unmerged commits": "已关闭，存在未合并的提交",
+		"This pull request is closed.": "此拉取请求已关闭。",
+		"View reviewed changes": "查看审查过的更改",
+		// 时间线：「<用户> previously approved these changes <时间>」
+		"previously approved these changes": "曾批准这些更改",
+		// 合并队列事件：「added this pull request to the <合并队列>」
+		"added this pull request to the": "将此拉取请求添加到",
+		// 「removed this pull request from the <合并队列> due to a conflict with the
+		// base branch」：宾语在链接里，谓语与原因收在本节点，拼作「从 合并队列 中移除，
+		// 因为与基线分支存在冲突」
+		"removed this pull request from the": "将此拉取请求从",
+		"due to a conflict with the base branch": "中移除，因为与基线分支存在冲突",
+		// 「<用户> dismissed <用户>’s stale review via <哈希>」
+		"dismissed": "驳回了",
+		"'s stale review via": "的过期审查，依据",
+		// 「force-pushed the <分支> branch from <哈希> to <哈希>」
+		"force-pushed the": "强制推送了",
+		"branch from": "分支，从",
+		"to": "到",
+		"closed this": "关闭了此拉取请求",
+		// 「commented on behalf of <组织>」在实机里是**同一个文本节点**（中间只有换行），
+		// 归一后是整串；global 的 `commented` 词条接不住它
+		"commented on behalf of": "评论了，代表",
+		"edited": "已编辑",
+		// 「requested a review from <用户> as a code owner」
+		"requested a review from": "请求以下人员审查：",
+		"as a code owner": "作为代码所有者",
+		// —— 评论「…」菜单与已关闭 PR 的恢复分支按钮 ——
+		"Quote reply": "引用回复",
+		"Report content": "举报内容",
+		// 与 pages/profile / pages/settings 的同键同译（那些路由不命中 PR 页，各收一份）
+		"Block user": "屏蔽用户",
+		"View repo at this time": "查看此时间点的仓库",
+		"Restore branch": "恢复分支",
+		"Restoring...": "正在恢复…",
+		// 评论区页脚 protip 的尾段（前面是 .patch / .diff 两个链接）
+		"to the end of URLs for Git’s plaintext views.": "到 URL 末尾即可查看 Git 的纯文本视图。"
 	}
 }

@@ -1001,3 +1001,145 @@ describe("Files changed 页与审查弹层", () => {
 		);
 	});
 });
+
+// —— 会话页时间线事件、已关闭态与评论菜单（维护者 2026-11-03 截图 + 实机 HTML）——
+//
+// 节点边界：
+//   · 时间线事件是多节点拼装：用户名 / 分支名 / 哈希 / 时间戳都是用户内容或
+//     <relative-time>（会自行重渲染），只收中间的功能碎片；
+//   · 「dismissed <user>’s stale review via <sha>」两段语序不同：zh 谓语在前段、
+//     ja 谓语在后段（引擎不重排节点）；
+//   · 「commented on behalf of <组织>」里的 <strong>github</strong> 是用户内容；
+//   · protip 的 `.patch` / `.diff` 是两个链接，尾段是一整个文本节点。
+describe("会话页时间线事件与已关闭态", () => {
+	it("translates the closed merge box", () => {
+		expect(
+			translateText("Closed with unmerged commits", view),
+		).toBe("已关闭，存在未合并的提交");
+		expect(
+			translateText("This pull request is closed.", view),
+		).toBe("此拉取请求已关闭。");
+		expect(translateText("Restore branch", view)).toBe(
+			"恢复分支",
+		);
+		// data-disable-with 在提交中替换按钮文案
+		expect(translateText("Restoring...", view)).toBe(
+			"正在恢复…",
+		);
+	});
+
+	it("translates the review and merge-queue timeline events", () => {
+		expect(
+			translateText(
+				"previously approved these changes",
+				view,
+			),
+		).toBe("曾批准这些更改");
+		expect(
+			translateText("View reviewed changes", view),
+		).toBe("查看审查过的更改");
+		expect(
+			translateText("added this pull request to the", view),
+		).toBe("将此拉取请求添加到");
+		expect(
+			translateText(
+				"removed this pull request from the",
+				view,
+			),
+		).toBe("将此拉取请求从");
+		expect(
+			translateText(
+				"due to a conflict with the base branch",
+				view,
+			),
+		).toBe("中移除，因为与基线分支存在冲突");
+	});
+
+	it("keeps the dismissal sentence readable across its fragments", () => {
+		expect(translateText("dismissed", view)).toBe("驳回了");
+		// 弯撇号是实机形态（`’s stale review via`）
+		expect(translateText("'s stale review via", view)).toBe(
+			"的过期审查，依据",
+		);
+	});
+
+	it("translates both force-push fragments and the closed event", () => {
+		expect(translateText("force-pushed the", view)).toBe(
+			"强制推送了",
+		);
+		expect(translateText("branch from", view)).toBe(
+			"分支，从",
+		);
+		expect(translateText("to", view)).toBe("到");
+		expect(translateText("closed this", view)).toBe(
+			"关闭了此拉取请求",
+		);
+	});
+
+	it("translates the comment header and the review request", () => {
+		// commented 与 on behalf of 之间只有换行，实机是**同一个文本节点**
+		expect(
+			translateText(
+				"\n\n      commented\n\n        on behalf of ",
+				view,
+			),
+		).toBe("评论了，代表");
+		expect(translateText("edited", view)).toBe("已编辑");
+		expect(
+			translateText("requested a review from", view),
+		).toBe("请求以下人员审查：");
+		expect(translateText("as a code owner", view)).toBe(
+			"作为代码所有者",
+		);
+	});
+
+	it("translates the comment menu", () => {
+		expect(translateText("Quote reply", view)).toBe(
+			"引用回复",
+		);
+		expect(translateText("Report content", view)).toBe(
+			"举报内容",
+		);
+		expect(translateText("Block user", view)).toBe(
+			"屏蔽用户",
+		);
+		expect(
+			translateText("View repo at this time", view),
+		).toBe("查看此时间点的仓库");
+	});
+
+	it("translates the protip tail after the .diff link", () => {
+		expect(
+			translateText(
+				"to the end of URLs for Git’s plaintext views.",
+				view,
+			),
+		).toBe("到 URL 末尾即可查看 Git 的纯文本视图。");
+	});
+
+	it("has japanese entries for the same fragments", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/54",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("dismissed", japanese)).toBe("が");
+		expect(
+			translateText("'s stale review via", japanese),
+		).toBe("の古いレビューを却下しました:");
+		expect(translateText("closed this", japanese)).toBe(
+			"がクローズしました",
+		);
+		expect(
+			translateText(
+				"Closed with unmerged commits",
+				japanese,
+			),
+		).toBe(
+			"未マージのコミットがある状態でクローズされました",
+		);
+		expect(translateText("Restoring...", japanese)).toBe(
+			"復元中…",
+		);
+	});
+});

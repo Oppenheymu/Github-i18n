@@ -240,6 +240,37 @@
 		"Select commits to view": "表示するコミットを選択",
 		"Changes since your last review": "前回のレビュー以降の変更",
 		"No previous review found": "以前のレビューが見つかりません",
-		"Select a range of commits": "コミットの範囲を選択"
+		"Select a range of commits": "コミットの範囲を選択",
+		// —— 会話ページのタイムラインイベントとクローズ済み状態（2026-11-03 実機 HTML）——
+		"Closed with unmerged commits": "未マージのコミットがある状態でクローズされました",
+		"This pull request is closed.": "このプルリクエストはクローズされています。",
+		"View reviewed changes": "レビュー済みの変更を表示",
+		"previously approved these changes": "以前にこれらの変更を承認しました",
+		"added this pull request to the": "このプルリクエストを以下に追加しました:",
+		"removed this pull request from the": "このプルリクエストを以下から削除しました:",
+		"due to a conflict with the base branch": "ベースブランチとの競合のため",
+		// 「dismissed <ユーザー>’s stale review via <ハッシュ>」：日本語は述語を後段に置く
+		"dismissed": "が",
+		"'s stale review via": "の古いレビューを却下しました:",
+		// 「force-pushed the <ブランチ> branch from <ハッシュ> to <ハッシュ>」：
+		// 日本語は「元 / 新」で区切る（from … to … の語順を保てないため）
+		"force-pushed the": "が強制プッシュ:",
+		"branch from": "ブランチ 元:",
+		"to": "新:",
+		"closed this": "がクローズしました",
+		// 「commented on behalf of <組織>」は実機では**1 つのテキストノード**
+		// （間は改行のみ）なので、global の `commented` では拾えない
+		"commented on behalf of": "がコメントしました 代行:",
+		"edited": "編集済み",
+		"requested a review from": "以下にレビューをリクエスト:",
+		"as a code owner": "コードオーナーとして",
+		// —— コメントの「…」メニューとクローズ済み PR のブランチ復元 ——
+		"Quote reply": "引用返信",
+		"Report content": "コンテンツを報告",
+		"Block user": "ユーザーをブロック",
+		"View repo at this time": "この時点のリポジトリを表示",
+		"Restore branch": "ブランチを復元",
+		"Restoring...": "復元中…",
+		"to the end of URLs for Git’s plaintext views.": "を URL の末尾に追加すると、Git のプレーンテキストビューを表示できます。"
 	}
 }

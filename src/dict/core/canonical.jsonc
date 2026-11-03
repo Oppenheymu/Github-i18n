@@ -430,7 +430,47 @@
 				"Select commits to view",
 				"Changes since your last review",
 				"No previous review found",
-				"Select a range of commits"
+				"Select a range of commits",
+				// —— 会话页时间线事件与已关闭态（2026-11-03 维护者截图 + 实机 HTML）——
+				// 时间线事件普遍是**多节点拼装**：用户名 / 分支名 / 哈希 / 时间戳都是
+				// 用户内容或 <relative-time>（自行重渲染），下面只收中间那几段碎片。
+				// 「dismissed <user>’s stale review via <sha>」两段按语序切：zh 谓语在前段
+				// （驳回了 … 的过期审查，依据），ja 谓语在后段（が … の古いレビューを
+				// 却下しました:）——引擎不重排节点，只能这样各让一步。
+				"Closed with unmerged commits",
+				"This pull request is closed.",
+				"View reviewed changes",
+				"previously approved these changes",
+				"added this pull request to the",
+				"removed this pull request from the",
+				// 前半句是「removed this pull request from the <链接>」，本节点把「中移除，
+				// 因为…」收在宾语前面，拼起来才通顺
+				"due to a conflict with the base branch",
+				"dismissed",
+				"'s stale review via",
+				"force-pushed the",
+				"branch from",
+				// 「to」是泛化短词：本模块内只出现在 force-push 行（from <sha> to <sha>），
+				// 整节点匹配故不会命中长句中的 to
+				"to",
+				"closed this",
+				// 「commented on behalf of <组织>」——实机 HTML 里 commented 与 on behalf of
+				// 之间只有换行，**同属一个文本节点**（归一空白后是整串），故不能再拆成
+				// 两条键：拆开两条都永不命中，且 `commented` 在 global 已有词条（会撞车）
+				"commented on behalf of",
+				"edited",
+				"requested a review from",
+				"as a code owner",
+				// 评论「…」菜单四项（复制链接 / 复制 Markdown 已收录或由 global 提供）
+				"Quote reply",
+				"Report content",
+				"Block user",
+				"View repo at this time",
+				// 已关闭 PR 的恢复分支按钮；`Restoring...` 是 data-disable-with 的提交中文案
+				"Restore branch",
+				"Restoring...",
+				// 评论区页脚 protip 的尾段（前面是 .patch / .diff 两个链接）
+				"to the end of URLs for Git’s plaintext views."
 			]
 		},
 		{

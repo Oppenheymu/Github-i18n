@@ -39,6 +39,9 @@
 		// 2026-10-31 实机（PR 详情页通知订阅说明 <p id="notification-subscribe-button-reason">）：
 		// 上游把撇号换成弯撇号（’ U+2019），语义没变，别名复用旧译文。
 		"You’re receiving notifications because you’re watching this repository.": "You're receiving notifications because you're watching this repository.",
+		// 2026-11-05 实机（同一 <p id="notification-subscribe-button-reason">）的另一条原因：
+		// 弯撇号形态映射到规范键「modified the open/close state」。
+		"You’re receiving notifications because you modified the open/close state.": "You're receiving notifications because you modified the open/close state.",
 		// —— 2026-11-01 实机（主页推广卡与表头菜单）：上游省略号 / 撇号的弯直形态
 		// 混用（「Create new...」三点 vs「Open Copilot…」单字符），规范键取一种、
 		// 另一形态走别名双保险——两形态语义相同，任一命中即同一译文。

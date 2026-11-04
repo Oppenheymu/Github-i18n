@@ -1295,3 +1295,70 @@ describe("PR 审查弹层、合并面板与 codeowner 事件", () => {
 		).toBe("dependabot 被请求以代码所有者身份进行审查");
 	});
 });
+
+// 2026-11-05 维护者贴的 PR 页 HTML：推送被分支保护拒绝时的 flash 横幅，以及通知订阅
+// 说明的「修改了打开/关闭状态」原因。
+//
+// 横幅是**三节点**：「…Visit 」+ 链接文本（文本就是个 docs.github.com 的 URL，
+// 原样保留）+「 for more information.」；两个碎片键都不能带首尾空格——节点自带的
+// 空白由引擎原样保留（`render` 复刻同一逻辑）。
+const PUSH_DENIED_URL =
+	"https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches";
+
+describe("PR 页的推送拒绝横幅与通知订阅原因", () => {
+	it("renders the push-denied flash across its three nodes", () => {
+		expect(
+			render([
+				"You're not authorized to push to this branch. Visit ",
+				PUSH_DENIED_URL,
+				" for more information.",
+			]),
+		).toBe(
+			`你没有权限推送到此分支。访问 ${PUSH_DENIED_URL} 以了解更多。`,
+		);
+	});
+
+	it("translates the modified open/close state notification reason", () => {
+		// 直撇号是规范键形态
+		expect(
+			translateText(
+				"You're receiving notifications because you modified the open/close state.",
+				view,
+			),
+		).toBe("你正在接收通知，因为你修改了打开/关闭状态。");
+		// 实机 DOM 里是弯撇号（’ U+2019），走 aliases 复用同一译文
+		expect(
+			translateText(
+				"You’re receiving notifications because you modified the open/close state.",
+				view,
+			),
+		).toBe("你正在接收通知，因为你修改了打开/关闭状态。");
+	});
+
+	it("has japanese entries for both", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/54",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText(
+				"You're not authorized to push to this branch. Visit",
+				japanese,
+			),
+		).toBe(
+			"このブランチにプッシュする権限がありません。詳細は",
+		);
+		expect(
+			translateText("for more information.", japanese),
+		).toBe("をご覧ください。");
+		expect(
+			translateText(
+				"You’re receiving notifications because you modified the open/close state.",
+				japanese,
+			),
+		).toBe(
+			"オープン/クローズ状態を変更したため、通知が届いています。",
+		);
+	});
+});

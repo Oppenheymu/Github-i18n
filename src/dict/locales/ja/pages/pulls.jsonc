@@ -297,6 +297,11 @@
 		"View repo at this time": "この時点のリポジトリを表示",
 		"Restore branch": "ブランチを復元",
 		"Restoring...": "復元中…",
-		"to the end of URLs for Git’s plaintext views.": "を URL の末尾に追加すると、Git のプレーンテキストビューを表示できます。"
+		"to the end of URLs for Git’s plaintext views.": "を URL の末尾に追加すると、Git のプレーンテキストビューを表示できます。",
+		// —— プッシュがブランチ保護で拒否されたときの flash バナー（3 ノード）——
+		"You're not authorized to push to this branch. Visit": "このブランチにプッシュする権限がありません。詳細は",
+		"for more information.": "をご覧ください。",
+		// 通知購読の説明：オープン/クローズ状態を変更した
+		"You're receiving notifications because you modified the open/close state.": "オープン/クローズ状態を変更したため、通知が届いています。"
 	}
 }

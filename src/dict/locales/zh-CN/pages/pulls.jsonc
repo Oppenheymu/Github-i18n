@@ -302,6 +302,12 @@
 		"Restore branch": "恢复分支",
 		"Restoring...": "正在恢复…",
 		// 评论区页脚 protip 的尾段（前面是 .patch / .diff 两个链接）
-		"to the end of URLs for Git’s plaintext views.": "到 URL 末尾即可查看 Git 的纯文本视图。"
+		"to the end of URLs for Git’s plaintext views.": "到 URL 末尾即可查看 Git 的纯文本视图。",
+		// —— 推送被分支保护拒绝的 flash 横幅（三节点：前缀 + URL + 尾段）——
+		// 尾段与 pages/marketing 的同键同译（那条是 /features 页的说明句尾巴）
+		"You're not authorized to push to this branch. Visit": "你没有权限推送到此分支。访问",
+		"for more information.": "以了解更多。",
+		// 通知订阅说明：修改了打开/关闭状态
+		"You're receiving notifications because you modified the open/close state.": "你正在接收通知，因为你修改了打开/关闭状态。"
 	}
 }

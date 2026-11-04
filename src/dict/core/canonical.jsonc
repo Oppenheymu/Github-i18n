@@ -501,7 +501,16 @@
 				"Restore branch",
 				"Restoring...",
 				// 评论区页脚 protip 的尾段（前面是 .patch / .diff 两个链接）
-				"to the end of URLs for Git’s plaintext views."
+				"to the end of URLs for Git’s plaintext views.",
+				// —— 推送被分支保护拒绝时的 flash 横幅（2026-11-05 维护者贴的 PR 页 HTML）——
+				// 句子被文档链接拆成三段：「…Visit 」+ 链接文本（文本就是个 docs.github.com
+				// 的 URL，原样保留）+「 for more information.」。键里**不能带首尾空格**
+				// （normalizeKey 会 trim），节点自身的前后空格由引擎原样保留
+				"You're not authorized to push to this branch. Visit",
+				"for more information.",
+				// 通知订阅说明的另一条原因（修改了打开/关闭状态）；实机撇号是弯撇号
+				// （’ U+2019），规范键取直撇号形态、弯形态走 aliases
+				"You're receiving notifications because you modified the open/close state."
 			]
 		},
 		{

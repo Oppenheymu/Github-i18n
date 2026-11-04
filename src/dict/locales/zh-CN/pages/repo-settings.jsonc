@@ -401,6 +401,7 @@
 		"When you are ready, authenticate using the button below.": "准备就绪后，点击下方按钮进行身份验证。",
 		"When you are ready, trigger a mailer to verify your identity.": "准备就绪后，点击下方按钮触发邮件以验证你的身份。",
 		"When your phone is ready, click the button below.": "手机准备就绪后，点击下方按钮。",
+		". After you've performed a sudo-protected action, you'll only be asked to re-authenticate again after a few hours of inactivity.": "。执行受 sudo 保护的操作后，只有在你闲置几个小时后，系统才会再次要求你重新验证身份。",
 		"Contact GitHub Support": "联系 GitHub 支持",
 		// —— Copilot：云端代理（settings/copilot/coding_agent）——
 		"On": "开",

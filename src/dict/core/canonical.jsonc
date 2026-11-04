@@ -2969,6 +2969,9 @@
 				"When you are ready, authenticate using the button below.",
 				"When you are ready, trigger a mailer to verify your identity.",
 				"When your phone is ready, click the button below.",
+				// 弹层底部的小贴士被 `<a>sudo mode</a>` 切成三段：`Tip:` / `You are entering` /
+				// 链接 / 句点开头的尾段。尾段此前漏收，实机上整句保留英文（2026-11-04 截图）。
+				". After you've performed a sudo-protected action, you'll only be asked to re-authenticate again after a few hours of inactivity.",
 				"Contact GitHub Support",
 				// —— Copilot：云端代理（settings/copilot/coding_agent）——
 				"On",
@@ -6210,7 +6213,54 @@
 				"Select",
 				"repositories",
 				"Choose",
-				"repositories Dependabot can access."
+				"repositories Dependabot can access.",
+				// —— GitHub Apps 管理页（/organizations/<组织>/settings/apps）——
+				// 证据：2026-11-04 维护者贴的整页截图 + 两段说明的实机 outerHTML（未加载扩展）。
+				// 节点边界（HTML 实证）：说明段在链接处断开，链接文本分别是
+				// `developer documentation` 与 `organization role assignments`；
+				// 链接后的尾段以句点开头，句点属于**该文本节点**而不是链接（不是纯符号节点，
+				// 故必须整段收录，只翻到句点之前会留下中英混排）。
+				// 同页的 `GitHub Apps` 标题是模块既有键，`New GitHub App` 与个人设置页同串同译，
+				// 但 pages/settings 的路由不命中组织路径，必须在此再收一份（同 `Payment history` 先例）。
+				"New GitHub App",
+				"A GitHub App can act on its own behalf, taking actions via the API directly instead of impersonating a user. Read more in our",
+				"developer documentation",
+				"Management",
+				"To see or change who can manage GitHub Apps belonging to your organization, see",
+				"organization role assignments",
+				". All organization owners can manage Apps, as well as users and teams with one or more of the app management permissions.",
+				// —— sudo 身份确认（组织设置页）——
+				// 弹层与仓库设置 Access 子页是**同一款组件**，但模块按路由隔离：pages/repo-settings
+				// 不命中 /organizations/**，沿用它的词条在组织设置页上一条都不生效（2026-11-04 截图：
+				// 整个弹层保留英文）。这里逐字复制同一批键与译文，两模块路由互斥，不构成跨模块碰撞。
+				"Confirm access",
+				"Verify",
+				"Retry",
+				"Passkey",
+				"Tip:",
+				"Having problems?",
+				"Enter the verification code",
+				"Send a code via email",
+				"Verify via email",
+				"Use passkey",
+				"Use your passkey",
+				"Use your authenticator app",
+				"Use GitHub Mobile",
+				"GitHub Mobile icon",
+				"Creating a verification request for your GitHub Mobile app.",
+				"We sent you a verification request on your GitHub Mobile app. Approve the request to enter sudo mode.",
+				"We sent you a verification request on your GitHub Mobile app. Enter the digits shown below to enter sudo mode.",
+				"You are entering",
+				"sudo mode",
+				". After you've performed a sudo-protected action, you'll only be asked to re-authenticate again after a few hours of inactivity.",
+				"This browser or device is reporting partial passkey support.",
+				"Webauthn isn't supported. Use a different browser or device to use your passkey.",
+				"Waiting for input from browser interaction...",
+				"We could not verify your identity",
+				"When you are ready, authenticate using the button below.",
+				"When you are ready, trigger a mailer to verify your identity.",
+				"When your phone is ready, click the button below.",
+				"Contact GitHub Support"
 			]
 		},
 		{

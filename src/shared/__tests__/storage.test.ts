@@ -126,7 +126,10 @@ describe("readLocale", () => {
 	});
 
 	it("narrows undeclared locale ids to automatic", async () => {
-		stub.data.set("locale", "fr");
+		// en / pt 不是声明过的 id（pt 只是解析时的归一输入，不是 storage 值）
+		stub.data.set("locale", "en");
+		expect(await readLocale()).toBeNull();
+		stub.data.set("locale", "pt");
 		expect(await readLocale()).toBeNull();
 		stub.data.set("locale", 42);
 		expect(await readLocale()).toBeNull();
@@ -342,8 +345,8 @@ describe("watchLocale", () => {
 			seen.push(locale);
 		});
 		emitChange({ locale: { newValue: "ja" } });
-		// 未声明的 id 按「自动」处理
-		emitChange({ locale: { newValue: "fr" } });
+		// 未声明的 id 按「自动」处理（fr 已是声明过的语言，故用 en）
+		emitChange({ locale: { newValue: "en" } });
 		// 删除该键（恢复自动）也是 null
 		emitChange({ locale: { newValue: undefined } });
 		emitChange({ locale: { newValue: "ja" } }, "sync");

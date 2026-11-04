@@ -29,6 +29,7 @@ import {
 	buildRuleDefs,
 } from "../../src/dict/load.ts";
 import {
+	BASELINE_LOCALE,
 	getLocaleMeta,
 	isLocaleId,
 	LOCALES,
@@ -816,9 +817,25 @@ function main(): void {
 	console.log(
 		`词典门禁通过：${core.modules.length} 模块 / ${canonicalKeys} 规范键 / ${core.rules.length} 条共享规则 / ${translated} 条译文`,
 	);
+	// 基线语言排在最前并显式标注：覆盖率报告是「中文先行」工作流的入口，
+	// 其它语言的 0% / 稀疏覆盖是正常状态，不是错误（门禁不强制同步）。
 	console.log(
-		`覆盖率：${built.map((localeData) => formatCoverage(localeData)).join(" | ")}`,
+		`覆盖率（基线 ${BASELINE_LOCALE}）：${built
+			.map((localeData) => formatCoverage(localeData))
+			.join(" | ")}`,
 	);
+	const baseline = built.find(
+		(localeData) =>
+			localeData.locale.id === BASELINE_LOCALE,
+	);
+	if (
+		baseline !== undefined &&
+		baseline.translated < baseline.total
+	) {
+		console.warn(
+			`注意：基线语言 ${BASELINE_LOCALE} 还有 ${baseline.total - baseline.translated} 个键未译（bun test 会拦住；先补基线，其它语言不必同步）`,
+		);
+	}
 }
 
 if (import.meta.main) main();

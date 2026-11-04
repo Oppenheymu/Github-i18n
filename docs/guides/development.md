@@ -27,9 +27,10 @@ Github-i18n/
 │   │   │   ├── rules.jsonc     # 共享规则的 id + pattern，顺序即语义
 │   │   │   ├── aliases.jsonc   # 上游改名映射：当前 DOM 文本 → 规范键
 │   │   │   └── canonical.jsonc # 键的权威清单（**仅门禁使用，不进 content 包**）
-│   │   ├── locales/         # 只有译文（稀疏覆盖）
-│   │   │   ├── zh-CN/       # global.jsonc + pages/<页名>.jsonc + rules.jsonc
-│   │   │   └── ja/          # 同上（规则模板已全量，词条仍稀疏）
+│   │   ├── locales/         # 只有译文；基线 zh-CN，其余语言允许稀疏覆盖
+│   │   │   ├── zh-CN/       # 基线：global + pages/<页名> + rules（100%）
+│   │   │   ├── ja/          # 已跟进的全量词典
+│   │   │   └── zh-TW/ …     # 新语言空骨架：global + rules（另有 ko / es / fr / de / pt-BR / pt-PT / ru）
 │   │   ├── locales.ts       # 语言元数据：id / 显示名 / 文字系统声明
 │   │   ├── registry.ts      # 数据注册表：core + 各语言 → JSONC 原始数据
 │   │   ├── load.ts          # JSONC → 词典类型（严格编译 + 字段白名单 + 交叉引用）
@@ -54,7 +55,7 @@ Github-i18n/
 
 content script 以 `run_at: document_start` 注入：
 1. **入口**（`src/content/index.ts`）：先在 isolated world 的全局写一个身份标记（`src/shared/identity.ts`），再读 `chrome.storage.local`（`enabled` / `devMode` / `locale`）；开启时把 `MutationObserver` 挂到 `document.documentElement`（`childList` + `subtree` + `characterData` + `attributes`，并用 `attributeFilter: ["value", "data-disable-with"]` 把属性噪音压到最小），天然覆盖 GitHub 的 Turbo SPA 导航，无需单独路由钩子；
-2. **目标语言**：`locale` 有值即用它；没设过则取 `chrome.i18n.getUILanguage()` 并按 `src/dict/locales.ts` 的声明解析（`ja-JP` → ja、`zh-Hans-CN` → zh-CN、未支持即回退 zh-CN）。popup 改语言会触发整页刷新重建视图；
+2. **目标语言**：`locale` 有值即用它；没设过则取 `chrome.i18n.getUILanguage()` 并按 `src/dict/locales.ts` 的声明解析（`ja-JP` → ja、`zh-Hant-HK` → zh-TW、`pt-PT` → pt-PT、`es-MX` → es，未支持即回退 zh-CN）。中文 / 葡语按脚本与地区选变体，其余语言按主语言子标签匹配。popup 改语言会触发整页刷新重建视图；
 3. **调度**（`engine.ts`）：mutation 只收集 `record.target` 入队，微任务合并后统一 flush，避免高频抖动；flush 时跳过已脱离文档的节点；
 4. **路由与视图**（`pages.ts`）：flush 前按 `location.pathname` + 目标语言取词典视图（单槽缓存，二者任一变化才重建）。视图 = `core/modules.jsonc` 顺序下所有命中路由的模块合并结果：词条「先到先得」（具体页压过泛化页、页面压过 global 兜底），规则「首条命中生效」；
 5. **翻译**（`walker.ts`）：TreeWalker 遍历元素与文本节点——
@@ -79,12 +80,23 @@ content script 以 `run_at: document_start` 注入：
 |          | 键（英文原文）与路由                                    | 译文                   |
 | -------- | ------------------------------------------------------- | ---------------------- |
 | 因何而变 | 上游改版（GitHub 渐进迁移 React，文案与节点结构都会变） | 译者修订               |
-| 谁改     | 维护者，一次性横跨所有语言                              | 各语言贡献者，互相独立 |
+| 谁改     | 维护者，一次性改 core（各语言共用同一份键）             | 各语言贡献者，互相独立 |
 | 失效方式 | 静默：键失配只导致不翻，不报错                          | 通常可见               |
 
 因此数据按「语言无关」与「按语言」物理隔离：
 - `core/**`：路由、规则 pattern、改名映射、规范键清单——**每个语言共享一份**；
 - `locales/<语言>/**`：只有译文。不同语言的贡献者永远不会改到同一个文件，日语文件出错也不会影响中文构建（按目录分流审阅、可用 CODEOWNERS）。
+
+### 基线语言：中文先行
+
+**基线是简体中文（`BASELINE_LOCALE`，见 `src/dict/locales.ts`）**。新增一条文案的固定顺序：
+1. 在 `core/canonical.jsonc` 登记键（英文原文就是键的身份，见「规范键是稳定的身份」）；
+2. 补 `locales/zh-CN/**` 的译文（以及测试 / 实机节点边界，见逐页 SOP）；
+3. **其它语言不强制同步**：缺键 = 尚未翻译，引擎保留英文。新增键不必「一次翻完所有语言」，这正是稀疏覆盖的设计目的。
+
+唯一的硬约束是**基线必须 100%**：`bun test` 的 `real dictionaries` 用例断言 zh-CN 覆盖率等于分母（新增键忘了补基线会报红）。其它语言（含 ja）只报告覆盖率，不锁 100%——否则每加一个键都要立刻同步所有语言。`bun run check:dict` 的输出第一项固定是基线，便于一眼看到缺口。
+
+新语言一开始是**空骨架**：`locales/<id>/global.jsonc` 与 `rules.jsonc` 内容为空、registry 里已注册，覆盖率 0%。空骨架不会生成视图快照（见下），第一条译文落地后 `check:view` 才会要求补快照——这样新增语言不会在开译前就给每次 core 规则变动制造 8 份无意义的快照 diff。
 
 ### 稀疏覆盖
 
@@ -93,22 +105,21 @@ content script 以 `run_at: document_start` 注入：
 覆盖率由 `bun run check:dict` 报告（分母是 `core/canonical.jsonc`）：
 
 ```
-词典门禁通过：17 模块 / 2086 规范键 / 446 条共享规则 / 2136 条译文
-覆盖率：zh-CN 2086/2086（100.0%，全部已译） | ja 50/2086（2.4%，16 个模块待译）
+词典门禁通过：23 模块 / 6681 规范键 / 977 条共享规则 / 13362 条译文
+覆盖率（基线 zh-CN）：zh-CN 6681/6681（100.0%，全部已译） | ja 6681/6681（100.0%，全部已译） | zh-TW 0/6681（0.0%，22 个模块待译） | …（其余语言同样从 0 开始）
 ```
 
-上面这段是 2026-09 的实测输出，**数字随词典增长，一律以本机跑出来的为准**（这一节只解释口径，不维护数字）。口径说明：
-- 「规范键」是 `core/canonical.jsonc` 里 **模块 × 键** 的**槽位数**——同一段英文原文若在两个模块各登记一次就算两处；**去重后的唯一键更少**（当前 2086 个槽位 / 2019 个唯一键），「N / 2086」这类覆盖率数字用的都是槽位数；
-- 「条译文」是各语言实际给出的词条数之和（zh-CN 满覆盖 + ja 的稀疏词条），不等于规范键数；
+上面这段是 2026-11 建骨架时的实测输出，**数字随词典增长，一律以本机跑出来的为准**（这一节只解释口径，不维护数字）。口径说明：
+- 「规范键」是 `core/canonical.jsonc` 里 **模块 × 键** 的**槽位数**——同一段英文原文若在两个模块各登记一次就算两处；**去重后的唯一键更少**，「N / 6681」这类覆盖率数字用的都是槽位数；
+- 「条译文」是各语言实际给出的词条数之和（基线 + 已跟进语言 + 新语言 0 条），不等于规范键数；
 - 「条共享规则」是 `core/rules.jsonc` 里 `id` + `pattern` 的条数（语言无关，只有一份），各语言只是给它配模板。
 
-**2026-10-07 起 ja 的中间态：「规则已全量、词条仍稀疏」**。`locales/ja/rules.jsonc` 已按 core 补齐全部 786 条模板
-（`check:view` 的 `notTranslated` 因此全空），但 `locales/ja/**` 的词条只译了一部分模块——**已译模块的权威清单在
-`src/dict/registry.ts` 的 ja 段**（已列的模块名就是已翻译的，没列出的即尚未翻译），本节不重复维护这份名单。
-**规则是按模块独立生效的**（缺模板才是整条不生效），所以还没译词条的模块会出现「规则覆盖到的动态节点是日语、
-静态词条仍是英文」的混排——例如 `/settings/security` 的 2FA 横幅只会译出规则管的那一段。这不是缺陷，而是
-「先同步规则、后补词条」的既定中间态；判断某页是否处于这种状态，看 `bun run check:dict` 的覆盖率与该页有没有词条文件，
-不要看 `notTranslated`（它此时是空的）。
+**规则与词条独立生效**：某语言只补了 `rules.jsonc`、没补词条时，页面会出现「规则覆盖到的动态节点已译、
+静态词条仍是英文」的混排——例如 `/settings/security` 的 2FA 横幅只会译出规则管的那一段。这不是缺陷，
+而是「先同步规则、后补词条」的允许中间态；判断某页是否处于这种状态，看 `bun run check:dict` 的覆盖率与
+该页有没有词条文件，不要看 `notTranslated`（按 pattern 判重，可能被同形的其它模块规则遮住，见已知坑）。
+**ja 目前词条与规则模板都已全量**（`check:dict` 显示 100%），但它不是基线：新增键允许先只在 zh-CN 落地，
+ja 下次跟进；门禁不会因此报错。
 
 ### 规则为什么按 id 拆
 
@@ -160,7 +171,7 @@ content script 以 `run_at: document_start` 注入：
 - 另记 `notTranslated`：该路径 `core` 声明了、本语言还没给模板的规则 id。「往 `core/rules.jsonc` 加一条规则、忘了给模板」在视图里完全不可见（缺模板 = 规则不生效），只有它能把这种回归暴露出来；
 - **记 id 不记 pattern 源串**：只改 pattern（例如给已有规则加命名组）不会动快照，与「上游改文案」解耦；
 - **反查 id 的键必须是「模块名 + pattern」而不是单 pattern**：跨模块的同形 pattern 是合法的（见上面 `validateRulePatternUniqueness`），而 `ruleIdMap` 早期只按 pattern 建键，后声明的那条会静默覆盖前一条——2026-09 实测：给 `pages/profile` 加一条与 `pages/search` 逐字符相同的 `^([\d,]+) results?$` 后，`/search`、`/topics` 的规则序列被记成 `profile/repo-results-count`，同时账单页那 12 条 `settings/month-year-*` 被记成 `insights/month-year-*`（`insights` 的模板先被读到），`check:view` 报「规则序列变了」而运行时行为毫无变化。这类假报警只能靠复合键消除，回归用例见 `tooling/checks/__tests__/view.test.ts` 的「keeps same-pattern rules of different modules apart」；
-- 快照按语言逐份：同键异译是分语言的事实（某语言少译了被压过的那个键，跨模块同键就不成立）；
+- 快照按语言逐份：同键异译是分语言的事实（某语言少译了被压过的那个键，跨模块同键就不成立）；**尚未开译的空骨架语言不生成快照**（见「基线语言」一节），第一条译文落地后 `check:view` 会要求补；
 - 失败时只报首处差异 + 差异条数（一条路径的规则序列可达上百项，整表打印会淹掉真正的信息）；
 - 改动确实有意时用 `bun run check:view --update` 重生成快照，并在提交信息里说明原因；
 - 探针清单（`PROBE_PATHS`）是快照的坐标：**同一模块下的另一页也要单独列一条**（如 `/account/billing` 与 `/account/billing/ai_usage`），否则只在该页生效的规则进了 core 也没人发现；
@@ -671,10 +682,11 @@ Added on Mar 6, 2026
 ### 新增一种语言
 
 1. `src/dict/locales.ts`：加一条 `LocaleMeta`（id 用 BCP 47 规范写法、显示名用该语言自身书写、声明文字系统；拉丁语系目标传空数组 `scripts: []`——它与源语言同字系，脚本守卫结构上失效，防循环只剩「译文不得等于任何键」）；
-2. `src/dict/registry.ts`：加一段 `LocaleRaw`（`modules` 里只列已开始翻译的模块，`rules` 指向该语言的 `rules.jsonc`，一个都没译可传 `null`）；
-3. `src/dict/locales/<id>/`：建 `global.jsonc`（可先只放几条样例）与可选的 `rules.jsonc`；
-4. 若该语言的浏览器界面语言也需要扩展自身 UI 文案，在 `public/_locales/<Chrome 语言标识>/messages.json` 补一份（键集合必须与默认语言完全一致，门禁强制）；
-5. `bun run check`：覆盖率报告会列出待译模块。
+2. `src/dict/registry.ts`：加一段 `LocaleRaw`。**先建空骨架就写 `modules: [["global", xxGlobalRaw]]`、`rules: xxRulesRaw`**（两个文件都是空的），覆盖率显示 0 / 总数；开译后把已开始的模块逐个列进 `modules`（`rules` 一个都没写才传 `null`）；
+3. `src/dict/locales/<id>/`：建 `global.jsonc` 与 `rules.jsonc`（内容为空是合法的；注释头写明「基线是 zh-CN、缺键 = 未翻译」）。`pages/` 子目录在第一次补页面词条时再建（git 不跟踪空目录）；
+4. 空骨架不生成视图快照：第一条译文（词条或规则模板）落地后，`check:view` 会报「缺少快照」，此时跑 `bun run check:view --update` 生成 `tooling/fixtures/view-skeleton.<id>.json`——**只有开译后的语言才需要这份快照**；
+5. 若该语言的浏览器界面语言也需要扩展自身 UI 文案，在 `public/_locales/<Chrome 语言标识>/messages.json` 补一份（键集合必须与默认语言完全一致，门禁强制）。**没有对应目录时 Chrome 自动回退默认语言 en，不影响词典语言可选**，所以它可以晚于词典；
+6. `bun run check`：覆盖率报告会列出各语言的待译模块（基线必须 100%，其余语言 0% 也算通过）。
 
 ### 批量补词条
 
@@ -820,18 +832,19 @@ have been` / `additions` / `and` / `deletions` / `people` 等静态键，加 `to
 
 ## 包体与分发
 
-- content script 必须内联全部词典（现在是同步注入、天然无闪烁），所以数据是产物的大头。口径与实测（2026-09）：
-  - **content.js 约 351 KiB**（`minify: false`，即不压缩、便于在浏览器里排查漏翻）——复核：`bun run build` 之后取 `(Get-Item dist/content.js).Length`（快照时是 358,969 字节）；
-  - **词典数据本身**（编译后模块词典 + 规则模板的紧凑 JSON）约 **197 KiB**：zh-CN 约 198 KiB（18 个模块槽 / 2207 条词条 / 589 条规则）+ ja 样例约 3 KiB。复核办法：`JSON.stringify(dictForLocale("zh-CN"))` 的 UTF-8 字节数（2026-09 实测 203,161 字节）。这个口径不含引擎、调度与收集器代码，也不是磁盘上的某个文件。规则条数对体积敏感：`/settings/security` 那 132 条日期规则（见「为什么账号安全页单独成模块」）在紧凑 JSON 口径下就占约 15 KiB；
+- content script 必须内联全部词典（现在是同步注入、天然无闪烁），所以数据是产物的大头。口径与实测（2026-11，建新语言骨架时）：
+  - **content.js 约 1.57 MiB**（1,643,852 字节；`minify: false`，即不压缩、便于在浏览器里排查漏翻）——复核：`bun run build` 之后取 `(Get-Item dist/content.js).Length`；
+  - **词典数据本身**（编译后模块词典 + 规则模板的紧凑 JSON）约 **1.25 MiB**：zh-CN 约 566 KiB（579,743 字节）+ ja 约 711 KiB（728,432 字节）+ 8 个空骨架各约 1.4 KiB（空模块仍保留路由与空词条表）。复核办法：`JSON.stringify(dictForLocale(<id>))` 的 UTF-8 字节数。这个口径不含引擎、调度与收集器代码，也不是磁盘上的某个文件。规则条数对体积敏感：`/settings/security` 那 132 条日期规则（见「为什么账号安全页单独成模块」）在紧凑 JSON 口径下就占约 15 KiB；
   - **规则与键的条数别再手抄**：随词典增长，一律看 `bun run check:dict` 的输出（「N 模块 / N 规范键 / N 条共享规则 / N 条译文」，口径见「稀疏覆盖」一节）。
     上面两个体积同样随词典增长，改动词典后如需引用数字请重新测量；
-- 因此 N 种语言**全量打包**在 N=2 时仍是最优解（无闪烁、零风险）；待到 N≥4 再考虑按 locale 分发（`chrome.scripting.registerContentScripts` 按语言注册是唯一能保持同步注入、无闪烁的方案，代价是引入 background service worker 与 `scripting` 权限）；
+- **当前 10 种语言仍全量打包**（无闪烁、零风险）：新语言是空骨架，体积接近 0，大头仍是 zh-CN + ja（content.js 已到 1.57 MiB）。**每多一种全量语言，产物就多约 0.6–0.7 MiB**；等新语言真正积累词条、产物体积开始影响加载时，再考虑按 locale 分发（`chrome.scripting.registerContentScripts` 按语言注册是唯一能保持同步注入、无闪烁的方案，代价是引入 background service worker 与 `scripting` 权限）；**在那之前别把「按语言拆包」当成既定待办**，它会改变词典的加载路径与门禁口径；
 - 发布一律用 `bun run pack` 产出的 zip：仓库根目录下的 `github-i18n-v<版本>.zip`（store 模式、零依赖打包）。
 
 ## 已知边界
 
 - Shadow DOM 内文本不翻译；
-- **拉丁语系目标语言**（西 / 法 / 德等）的「已翻译」判定在结构上不可靠（与源语言同字系），只能靠「译文不得等于任何键」的结构门禁防循环，且「译文必须含目标文字系统」这条校验对它无意义（`scripts: []`）；
+- **拉丁语系目标语言**（西 / 法 / 德 / 葡）的「已翻译」判定在结构上不可靠（与源语言同字系），只能靠「译文不得等于任何键」的结构门禁防循环，且「译文必须含目标文字系统」这条校验对它无意义（`scripts: []`）；
+- **拉丁语系目标的漏翻收集会混入自己的译文**：collector 用「含非拉丁字母」判断候选（`isCandidateMiss`），而西 / 法 / 德 / 葡译文仍是拉丁字母——引擎写入译文后触发的 characterData 记录会把它当成未命中候选再收一遍（**只在开发者模式开启时**，不影响翻译正确性）。开译这些语言前需要决定：在 collector 侧按「当前语言的译文集合」过滤，或接受噪声并在 `report:misses` 里人工剔除。这是已知边界，不是词典错误；中文 / 日 / 韩 / 繁 / 俄不受影响；
 - **复数的语法分歧**（俄语 3 种、阿拉伯语 6 种）无法表达：一个 `pattern` 只能配一个模板，没有复数类别；
 - GitHub 正渐进迁移 React 重写页面，类名 / 结构变动导致的漏翻 / 误伤属常态：先修排除选择器，再修词条；
 - **评论编辑器的 Markdown 工具栏文案归 `global`**：`Bold` / `Italic` / `Quote` / `Heading` / `Code` / `Link` / `Mention` / `Reference` / `Numbered list` / `Unordered list` / `Task list` / `Add a table` / `Attach files` 与附件组件的错误提示都是**站点级组件**（议题 / PR 的评论框同样渲染），且同一组件的 `Write` / `Preview` 早已在 `global`——只挂 `pages/settings` 会造成「编辑侧中文、格式化侧英文」的中英混杂。`Markdown` 是链接文本、属纯专名不收录（它与 `is supported` 是两个节点，拼接后读作「Markdown 受支持」）；

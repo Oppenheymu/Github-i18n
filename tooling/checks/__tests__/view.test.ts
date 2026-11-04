@@ -1,10 +1,14 @@
 import { describe, expect, it } from "bun:test";
 import { localeRawDicts } from "../../../src/dict/registry.ts";
-import type { ModuleDict } from "../../../src/shared/types.ts";
+import type {
+	LocaleDict,
+	ModuleDict,
+} from "../../../src/shared/types.ts";
 import {
 	buildSkeleton,
 	diffSkeleton,
 	fixturePath,
+	hasTranslatedContent,
 	loadSkeletons,
 	PROBE_PATHS,
 	pathCounts,
@@ -358,6 +362,57 @@ describe("pathCounts", () => {
 	});
 });
 
+describe("hasTranslatedContent", () => {
+	const locale = (
+		modules: LocaleDict["modules"],
+	): LocaleDict => ({ locale: "es", modules });
+
+	it("treats an empty scaffold as untranslated", () => {
+		expect(
+			hasTranslatedContent(
+				locale([
+					moduleDict({
+						name: "global",
+						route: /^\//,
+						entries: {},
+					}),
+				]),
+			),
+		).toBe(false);
+	});
+
+	it("detects the first static entry or rule template", () => {
+		expect(
+			hasTranslatedContent(
+				locale([
+					moduleDict({
+						name: "global",
+						route: /^\//,
+						entries: { Save: "Guardar" },
+					}),
+				]),
+			),
+		).toBe(true);
+		expect(
+			hasTranslatedContent(
+				locale([
+					moduleDict({
+						name: "global",
+						route: /^\//,
+						entries: {},
+						rules: [
+							{
+								pattern: /^(\d+) stars?$/,
+								replacement: "$1 estrellas",
+							},
+						],
+					}),
+				]),
+			),
+		).toBe(true);
+	});
+});
+
 describe("diffSkeleton", () => {
 	/**
 	 * 以固定的单条探针为骨架；override 覆盖探针字段，overrides.modules 覆盖模块序列。
@@ -586,11 +641,19 @@ describe("有意同键异译（跨模块同键的胜出）", () => {
 		)?.module;
 	}
 
-	it("loads every locale's skeleton from the strict path", () => {
+	it("loads every translated locale's skeleton from the strict path", () => {
 		expect(skeletons.errors).toEqual([]);
+		const loadedIds = skeletons.loaded.map(
+			(entry) => entry.locale,
+		);
+		// 已开译的语言必须有骨架；空骨架语言不生成快照（见 hasTranslatedContent）
+		expect(loadedIds).toContain("zh-CN");
+		expect(loadedIds).toContain("ja");
 		expect(
-			skeletons.loaded.map((entry) => entry.locale),
-		).toEqual(localeRawDicts.map((raw) => raw.locale));
+			[...loadedIds, ...skeletons.skipped].sort(),
+		).toEqual(
+			localeRawDicts.map((raw) => raw.locale).sort(),
+		);
 		for (const entry of skeletons.loaded) {
 			expect(entry.skeleton.modules.at(-1)).toBe("global");
 			expect(entry.skeleton.probes).toHaveLength(

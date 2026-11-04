@@ -5,20 +5,19 @@
 	"$defs": {
 		"targetScript": {
 			"type": "string",
-			"pattern": "[\\u3040-\\u30ff\\u3400-\\u4dbf\\u4e00-\\u9fff\\uf900-\\ufaff]",
-			"description": "含目标语言的文字系统（近似：假名 + 扩展 A + 基本区 + 兼容区）"
+			"pattern": "[\\u0400-\\u04ff\\u1100-\\u11ff\\u3040-\\u30ff\\u3130-\\u318f\\u3400-\\u4dbf\\u4e00-\\u9fff\\uac00-\\ud7af\\uf900-\\ufaff]",
+			"description": "含非拉丁文字（近似：西里尔 / 谚文 / 假名 / 汉字）。拉丁语系目标（es / fr / de / pt）与源语言同字系，本 schema 无法据此判断，故译文侧不再强制"
 		},
 		"patternSource": {
 			"type": "string",
 			"minLength": 1,
 			"not": { "$ref": "#/$defs/targetScript" },
-			"description": "正则源串。输入恒为英文原文，故不得含目标语言的文字系统。反斜杠需双写：正则 \\d 在 JSONC 里写作 \"\\\\d\"（写漏一层 Bun 会直接报 Syntax Error，不会静默变成别的正则）。/ 无需转义（字符串形态不是正则字面量）"
+			"description": "正则源串。输入恒为英文原文，故不得含目标语言的文字系统（含西里尔 / 谚文 / 假名 / 汉字）。反斜杠需双写：正则 \\d 在 JSONC 里写作 \"\\\\d\"（写漏一层 Bun 会直接报 Syntax Error，不会静默变成别的正则）。/ 无需转义（字符串形态不是正则字面量）"
 		},
 		"translation": {
 			"type": "string",
 			"minLength": 1,
-			"allOf": [{ "$ref": "#/$defs/targetScript" }],
-			"description": "译文 / 替换模板：必须含目标语言的文字系统（防 MutationObserver 翻译循环）；模板可用 $1 或 $<name> 引用捕获组"
+			"description": "译文 / 替换模板。非拉丁语系语言必须含目标文字系统，由 check:dict 按 src/dict/locales.ts 的 scripts 声明强制；拉丁语系（es / fr / de / pt-BR / pt-PT）与源语言同字系，脚本判定结构上失效，只靠「译文不得等于任何键」防循环，故这里不写死文字系统。模板可用 $1 或 $<name> 引用捕获组"
 		},
 		"modules": {
 			"type": "array",

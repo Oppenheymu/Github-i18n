@@ -21,6 +21,7 @@
 import { afterAll, describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { LOCALES } from "../../dict/locales.ts";
 import { installDom } from "../../test-support/dom.ts";
 
 const rootDir = join(import.meta.dir, "..", "..", "..");
@@ -226,15 +227,17 @@ describe("popup 的初始化渲染", () => {
 				"#locale option",
 			),
 		];
-		// 自动 + zh-CN + ja
+		// 选项由 LOCALES 生成：这里按同一份声明断言，新增语言不必再改用例
 		expect(options.map((option) => option.value)).toEqual([
 			"",
-			"zh-CN",
-			"ja",
+			...LOCALES.map((meta) => meta.id),
 		]);
 		expect(
 			options.map((option) => option.textContent),
-		).toEqual(["自动", "简体中文", "日本語"]);
+		).toEqual([
+			"自动",
+			...LOCALES.map((meta) => meta.name),
+		]);
 	});
 
 	it("back-fills the locale selector as 自动 when unset", () => {

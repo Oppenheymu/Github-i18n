@@ -1,6 +1,6 @@
 # 项目常驻指令
 
-> 本文件是本仓库（Github-i18n，曾用名 Github-ZH；扩展显示名「GitHub 界面本地化」——把 GitHub 界面本地化为多种语言（当前 zh-CN / ja）的浏览器扩展，Chrome / Edge，Manifest V3，MIT）的常驻开发约定，适用于本仓库内所有会话与任务。
+> 本文件是本仓库（Github-i18n，曾用名 Github-ZH；扩展显示名「GitHub 界面本地化」——把 GitHub 界面本地化为多种语言（基线 zh-CN，另已登记 zh-TW / ja / ko / es / fr / de / pt-BR / pt-PT / ru）的浏览器扩展，Chrome / Edge，Manifest V3，MIT）的常驻开发约定，适用于本仓库内所有会话与任务。
 
 ## 基本约束
 
@@ -11,7 +11,7 @@
 ## 硬性约束（违反 = 错误）
 
 1. **许可证纪律**：全仓 MIT（见 LICENSE 与 NOTICE）。**严禁引入任何 GPL / AGPL 系汉化项目的词典或代码**（包括但不限于 maboloshi/github-chinese）；词典 100% 原创，逐条手写。
-2. **词典归档纪律**：语言无关的数据只进 `src/dict/core/`，译文只进 `src/dict/locales/<语言 id>/`（id 见 `src/dict/locales.ts`，支持 zh-CN / ja）：
+2. **词典归档纪律**：语言无关的数据只进 `src/dict/core/`，译文只进 `src/dict/locales/<语言 id>/`（id 见 `src/dict/locales.ts`；**基线是 zh-CN**，其余语言允许稀疏覆盖）：
 
 - `core/modules.jsonc`：模块名 + 路由，**顺序即优先级**（具体页在前，`global` 兜底必须最后且路由为 `^/`，门禁强制）；
 - `core/canonical.jsonc`：**键的权威清单**（仅门禁使用、不进 content 包）。上游新增 / 改动文案，先在这里登记键；各语言词条的键与它不一致即报错；
@@ -19,6 +19,7 @@
 - `core/rules.jsonc`：共享规则的 `id` 与 `pattern`，**顺序即语义**；规则 id 全局唯一，**同模块内 `pattern` 必须唯一**（同模块首条命中生效，重复的那条是永不生效的死规则；`May` 这类全称与缩写同形只留一条，跨模块重复合法），改名必须同步各语言模板；不得带 `flags` 字段（`g` / `y` 的 `lastIndex` 会跨节点累积导致漏翻）；
 - `locales/<语言>/<模块>.jsonc` 只放键值对，`locales/<语言>/rules.jsonc` 只放「规则 id → 模板」；键必须是 canonical 里的英文原文精确串（不得含目标语言文字系统），值必须含该语言的文字系统（防替换循环），译文不得等于任何键；
 - **稀疏覆盖是正常状态**：缺模块 / 缺键 / 缺规则模板 = 尚未翻译，引擎保留英文；新增语言要同时改 `src/dict/locales.ts`（元数据）与 `src/dict/registry.ts`（数据），覆盖率由 `check:dict` 报告；
+- **基线语言是 zh-CN**：新键先登记 `core/canonical.jsonc`、再补 zh-CN 译文；其它语言缺键 / 缺模板都不算错误，**门禁不要求跨语言同步**（`bun test` 只强制基线 100%，其余语言覆盖率仅报告）。新增语言先建空骨架即可（目录 + `global.jsonc` / `rules.jsonc` + registry 注册）；空骨架不生成视图快照，第一条译文落地后 `check:view` 才要求补快照；
 - JSONC 里正则的反斜杠必须双写（`\d` 写作 `\\d`）；新增 / 改名模块要同步 `core/modules.jsonc` 与 `core/canonical.jsonc`（两者同名同序，门禁强制）。
 
 3. **词典键是「整节点精确匹配」语义**：收录可能与仓库名、文件名、用户名撞车的泛化短词（如 `docs` / `test` / `blog` 等小写词）前三思，优先收录多词无歧义短语；大小写必须与 GitHub 实际渲染一致。
@@ -64,7 +65,7 @@ bun run pack                    # dist/ 打 zip（Chrome Web Store / Edge Add-on
 - **GitHub 正在渐进迁移 React 重写页面**：类名 / 结构变动导致漏翻或排除失灵属常态，修词条前先修对应排除选择器。
 - **防翻译循环现在是三件事**：脚本守卫（文本含非拉丁字母即视为已译文，语言无关，见 `src/content/filters.ts`）负责收敛，结构门禁（译文不得等于任何键、替换产物不得再命中规则）负责让循环的第二条件不可能成立，**引擎侧「同值不写入」守卫**（`src/content/walker.ts`：`next === value` 时直接返回）负责让自我触发在物理上不可能。**拉丁语系目标语言只能靠后两者**——它与源语言同字系，脚本守卫结构上失效。
 - **译文绝不能与键同形（`"X": "X"`），且白名单不是出路**：DOM 规范规定 `node.nodeValue = 同值` 也会产生 characterData 变更记录，观察器会把它再入队，于是「命中 → 写入 → 再命中」在微任务队列无限自转，页面**不报错但卡死**（2026-09 真实事故：`"ORCID iD": "ORCID iD"` 让 `/settings/profile` 卡死，只有含该标签的页面命中）。想保留英文原文的正确做法是**不收录该词条**——未命中即保留英文。门禁 `tooling/checks/dict.ts` 无白名单，`validateNoIdentity` 会直接报错。
-- **`core/canonical.jsonc` 不进 content 包**：它只被 `tooling/checks/dict.ts` import；一旦 `src/**` 也 import 它，全部规范键就会进包（当前 2207 个槽位 / 2134 个唯一键，紧凑 JSON 约 80 KB；数字随词典增长，以 `bun run check:dict` 输出为准）。
+- **`core/canonical.jsonc` 不进 content 包**：它只被 `tooling/checks/dict.ts` import；一旦 `src/**` 也 import 它，全部规范键就会进包（2026-11 实测 6681 个槽位 / 5719 个唯一键，紧凑 JSON 约 260 KB；数字随词典增长，以 `bun run check:dict` 输出为准）。
 - **规则模板按 id 对齐 pattern**：`core/rules.jsonc` 里改 pattern 是 O(1) 的（各语言模板不用动），但**改 id 必须同步所有语言的 `rules.jsonc`**；模板引用的 `$1` / `$<name>` 由门禁对着 pattern 校验。
 - **`<relative-time>` 等自定义元素会自行重渲染英文**：靠观察器再翻一遍收敛，勿试图一次性翻译。
 - **词典误伤权衡**：静态词典按「整节点精确匹配」工作，任何词条都可能命中同名的用户内容（仓库名 / 文件名），高风险短词靠不收录来回避（见硬性约束 3）。

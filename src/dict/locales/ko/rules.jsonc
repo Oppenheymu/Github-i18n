@@ -1,0 +1,8 @@
+// 韩语 · 规则模板（键 = core/rules.jsonc 的规则 id，值 = 替换模板）
+//
+// 未写的 id = 该规则在本语言不生效（保留英文），不是错误；稀疏覆盖是正常状态。
+// 模板里的 $1 / $<name> 必须能在对应 pattern 里找到（check:dict 校验）。
+{
+	"$schema": "../../types/dict.schema.json",
+	"replacements": {}
+}

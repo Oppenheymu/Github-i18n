@@ -14,6 +14,10 @@
 // locales/<语言>/ 下只有译文，且**允许缺口**：没翻译的模块整个文件都不必有，
 // 没翻译的规则也不必出现在 rules.jsonc 里——引擎未命中即保留英文，缺键 = 未翻译。
 //
+// 基线语言是 zh-CN（见 src/dict/locales.ts 的 BASELINE_LOCALE）：新键先登记规范键、
+// 再补基线译文，其它语言按需跟进即可。新语言的目录可以先建成空骨架（global /
+// rules 两个空文件 + 本文件里的一段注册），覆盖率报告会显示它 0/总数。
+//
 // 顺序即优先级（具体页在前、泛化页在后）：buildView 词条「先到先得」、
 // 规则「首条命中生效」。已知有意的跨模块同键异译——靠 core/modules.jsonc 的顺序压过
 // 泛化模块，属于设计意图，勿当「重复键」清理：
@@ -35,6 +39,12 @@
 import aliasesRaw from "./core/aliases.jsonc";
 import modulesRaw from "./core/modules.jsonc";
 import rulesRaw from "./core/rules.jsonc";
+import deGlobalRaw from "./locales/de/global.jsonc";
+import deRulesRaw from "./locales/de/rules.jsonc";
+import esGlobalRaw from "./locales/es/global.jsonc";
+import esRulesRaw from "./locales/es/rules.jsonc";
+import frGlobalRaw from "./locales/fr/global.jsonc";
+import frRulesRaw from "./locales/fr/rules.jsonc";
 import jaGlobalRaw from "./locales/ja/global.jsonc";
 import jaActionsRaw from "./locales/ja/pages/actions.jsonc";
 import jaAgentsRaw from "./locales/ja/pages/agents.jsonc";
@@ -58,6 +68,14 @@ import jaSettingsBillingRaw from "./locales/ja/pages/settings-billing.jsonc";
 import jaSettingsSecurityRaw from "./locales/ja/pages/settings-security.jsonc";
 import jaWikiRaw from "./locales/ja/pages/wiki.jsonc";
 import jaRulesRaw from "./locales/ja/rules.jsonc";
+import koGlobalRaw from "./locales/ko/global.jsonc";
+import koRulesRaw from "./locales/ko/rules.jsonc";
+import ptBrGlobalRaw from "./locales/pt-BR/global.jsonc";
+import ptBrRulesRaw from "./locales/pt-BR/rules.jsonc";
+import ptPtGlobalRaw from "./locales/pt-PT/global.jsonc";
+import ptPtRulesRaw from "./locales/pt-PT/rules.jsonc";
+import ruGlobalRaw from "./locales/ru/global.jsonc";
+import ruRulesRaw from "./locales/ru/rules.jsonc";
 import zhGlobalRaw from "./locales/zh-CN/global.jsonc";
 import zhActionsRaw from "./locales/zh-CN/pages/actions.jsonc";
 import zhAgentsRaw from "./locales/zh-CN/pages/agents.jsonc";
@@ -82,6 +100,8 @@ import zhSettingsBillingRaw from "./locales/zh-CN/pages/settings-billing.jsonc";
 import zhSettingsSecurityRaw from "./locales/zh-CN/pages/settings-security.jsonc";
 import zhWikiRaw from "./locales/zh-CN/pages/wiki.jsonc";
 import zhRulesRaw from "./locales/zh-CN/rules.jsonc";
+import zhTwGlobalRaw from "./locales/zh-TW/global.jsonc";
+import zhTwRulesRaw from "./locales/zh-TW/rules.jsonc";
 import type { LocaleId } from "./locales.ts";
 
 /** 语言无关的核心原始数据（编辑器侧形状校验见 types/dict.schema.json） */
@@ -139,10 +159,17 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 		rules: zhRulesRaw,
 	},
 	{
-		// 日语：规则模板已全量（786/786），词条仍是稀疏覆盖——已翻的模块逐个列在这里，
-		// 没列出的模块 = 尚未翻译（引擎未命中即保留英文，缺文件不是错误）。
-		// 由于规则按模块独立生效，未翻模块的页面会呈现「规则覆盖的动态节点是日语、
-		// 静态词条仍是英语」的混排，这是「先同步规则、后补词条」的中间态，
+		// 繁体中文：语言骨架已建，尚未开译（global / rules 都是空文件）。
+		// 开译时把已开始的模块逐个列进 modules；缺模块 = 尚未翻译（不是错误）。
+		locale: "zh-TW",
+		modules: [["global", zhTwGlobalRaw]],
+		rules: zhTwRulesRaw,
+	},
+	{
+		// 日语：目前词条与规则模板都已全量（覆盖率以 bun run check:dict 为准），
+		// 但它**不是基线**——新增键不强制日语同步，缺译时引擎保留英文。
+		// 已翻的模块逐个列在这里，没列出的模块 = 尚未翻译；规则按模块独立生效，
+		// 因此未翻模块的页面可能出现「动态节点已译、静态词条仍是英文」的混排，
 		// 详见 docs/guides/development.md 的「稀疏覆盖」一节。
 		locale: "ja",
 		modules: [
@@ -171,5 +198,43 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 			["pages/apps", jaAppsRaw],
 		],
 		rules: jaRulesRaw,
+	},
+	// —— 以下为 2026-11 建的语言骨架：目录与空文件已就位，覆盖率 0。——
+	// 开译时把已开始的模块逐个列进 modules（顺序不影响结果），缺模块即未翻译；
+	// 空骨架不生成视图骨架快照，第一条译文落地后 check:view 才会要求快照。
+	{
+		locale: "ko",
+		modules: [["global", koGlobalRaw]],
+		rules: koRulesRaw,
+	},
+	{
+		locale: "es",
+		modules: [["global", esGlobalRaw]],
+		rules: esRulesRaw,
+	},
+	{
+		locale: "fr",
+		modules: [["global", frGlobalRaw]],
+		rules: frRulesRaw,
+	},
+	{
+		locale: "de",
+		modules: [["global", deGlobalRaw]],
+		rules: deRulesRaw,
+	},
+	{
+		locale: "pt-BR",
+		modules: [["global", ptBrGlobalRaw]],
+		rules: ptBrRulesRaw,
+	},
+	{
+		locale: "pt-PT",
+		modules: [["global", ptPtGlobalRaw]],
+		rules: ptPtRulesRaw,
+	},
+	{
+		locale: "ru",
+		modules: [["global", ruGlobalRaw]],
+		rules: ruRulesRaw,
 	},
 ];

@@ -1,0 +1,10 @@
+// 西班牙语 · 模块 global（全站共享的导航 / 按钮 / 状态 / 页脚词条）
+//
+// 基线语言是简体中文（BASELINE_LOCALE，见 src/dict/locales.ts）：新键先在
+// core/canonical.jsonc 登记、再补 zh-CN 译文；本语言按需跟进即可。
+// 缺键 = 尚未翻译，引擎保留英文——不需要与其它语言同步全量。
+// 键必须是 canonical 里的英文原文精确串；值不得等于任何键（防翻译循环）。
+{
+	"$schema": "../../types/dict.schema.json",
+	"entries": {}
+}

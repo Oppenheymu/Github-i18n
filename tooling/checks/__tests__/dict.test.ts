@@ -7,6 +7,7 @@ import {
 	buildRuleDefs,
 } from "../../../src/dict/load.ts";
 import {
+	BASELINE_LOCALE,
 	getLocaleMeta,
 	LOCALES,
 } from "../../../src/dict/locales.ts";
@@ -545,18 +546,44 @@ describe("real dictionaries", () => {
 			if (built === null) throw new Error("未声明的语言");
 			return { built, text: formatCoverage(built) };
 		});
-		const zh = report.find(
-			(entry) => entry.built.locale.id === "zh-CN",
+		const baseline = report.find(
+			(entry) => entry.built.locale.id === BASELINE_LOCALE,
 		);
-		// 中文是完整词典：覆盖率必须是 100%
-		expect(zh?.built.translated).toBe(zh?.built.total);
+		if (baseline === undefined)
+			throw new Error("基线语言缺失");
+		// 基线语言必须 100%：新增规范键忘了补 zh-CN 时这里报红。
+		// 这是「中文先行」工作流唯一的硬约束——其它语言不要求同步。
+		expect(baseline.built.translated).toBe(
+			baseline.built.total,
+		);
 		const ja = report.find(
 			(entry) => entry.built.locale.id === "ja",
 		);
-		// 2026-10-24 起日语也是完整词典，不再有模块待译；这里锁住「全部已译」，
-		// 新增规范键导致覆盖率下降时用例会提醒补译（稀疏覆盖本身仍是合法状态）
-		expect(ja?.built.translated).toBe(ja?.built.total);
-		expect(ja?.text).toContain("全部已译");
+		if (ja === undefined) throw new Error("日语缺失");
+		// 日语今天恰好也是全量，但它**不是基线**：新增键允许先只在 zh-CN 落地，
+		// 因此这里只校验「同分母 + 仍可报告」，不锁 100%。
+		expect(ja.built.total).toBe(baseline.built.total);
+		expect(ja.built.translated).toBeGreaterThan(0);
+	});
+
+	it("builds an empty scaffold locale without errors", () => {
+		// 新语言先建骨架：0 条译文是合法状态，覆盖率报告显示 0 / 总数，
+		// 而不是被当成「词条缺失」报错（稀疏覆盖是既有设计，见开发指南）。
+		const core = buildCore();
+		if (core.core === null)
+			throw new Error("核心数据构建失败");
+		const built = buildLocaleData({
+			localeId: "es",
+			core: core.core,
+			canonical: core.canonical,
+			modules: [["global", { entries: {} }]],
+			rulesRaw: { replacements: {} },
+		});
+		if (built === null) throw new Error("未声明的语言");
+		expect(built.errors).toEqual([]);
+		expect(built.translated).toBe(0);
+		expect(built.total).toBeGreaterThan(0);
+		expect(formatCoverage(built)).toContain("0/");
 	});
 
 	it("keeps the shipped background data loadable by the loader", () => {

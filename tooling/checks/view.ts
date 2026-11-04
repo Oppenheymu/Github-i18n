@@ -696,24 +696,49 @@ export interface LoadedLocale {
 }
 
 /**
+ * 该语言是否已有任何译文（静态词条或规则模板）。
+ *
+ * 空骨架语言不生成视图快照：它的视图等价于「全部保留英文」，骨架里只剩
+ * 「命中了哪些模块」与「哪些规则尚未翻译」——前者与语言无关，后者对没有任何
+ * 译文的新语言而言是整本 core 规则清单。给 8 个空语言各存一份几百 KB 的快照，
+ * 只会让每次 core 规则变动都产生 8 份无意义的 diff，正是「中文先行、其它语言
+ * 慢慢跟进」要避免的负担。
+ *
+ * 判据取「是否已有内容」而不是手写开关：第一条译文落地后，下一次 check:view
+ * 会自然要求补快照（缺少快照 → --update），不会出现「忘了打开开关，快照永远不生成」。
+ */
+export function hasTranslatedContent(
+	dict: LocaleDict,
+): boolean {
+	return dict.modules.some(
+		(module) =>
+			Object.keys(module.entries).length > 0 ||
+			module.rules.length > 0,
+	);
+}
+
+/**
  * 严格构建所有语言的骨架（问题一次列全，不 import 软失败的 index.ts）。
  * 词典本身有问题时返回错误而不是抛异常——门禁要把「数据坏了」与「骨架变了」分开报。
+ * 尚未开译（空骨架）的语言不生成骨架，列在 skipped 里；它们的数据仍照常严格校验。
  */
 export function loadSkeletons(): {
 	readonly loaded: readonly LoadedLocale[];
+	readonly skipped: readonly LocaleId[];
 	readonly errors: readonly string[];
 } {
 	const errors: string[] = [];
 	const builtCore = buildCore();
 	errors.push(...builtCore.errors);
 	if (builtCore.core === null)
-		return { loaded: [], errors };
+		return { loaded: [], skipped: [], errors };
 	const core = builtCore.core;
 	const ruleIds = ruleIdMap(core.rules);
 	const coreModules = core.modules.map(
 		(module) => module.name,
 	);
 	const loaded: LoadedLocale[] = [];
+	const skipped: LocaleId[] = [];
 	for (const raw of localeRawDicts) {
 		const localeData = buildLocaleData({
 			localeId: raw.locale,
@@ -735,6 +760,11 @@ export function loadSkeletons(): {
 					(error) => `${raw.locale}：${error}`,
 				),
 			);
+			continue;
+		}
+		// 空骨架语言没有可锁的视图语义（见 hasTranslatedContent 的说明）
+		if (!hasTranslatedContent(localeData.dict)) {
+			skipped.push(raw.locale);
 			continue;
 		}
 		try {
@@ -770,7 +800,7 @@ export function loadSkeletons(): {
 			);
 		}
 	}
-	return { loaded, errors };
+	return { loaded, skipped, errors };
 }
 
 /** 某条探针路径合并后的词条数 / 规则数：纯统计，不进快照，只打印给人看 */
@@ -817,7 +847,12 @@ async function readSnapshot(
 }
 
 async function run(update: boolean): Promise<void> {
-	const { loaded, errors } = loadSkeletons();
+	const { loaded, skipped, errors } = loadSkeletons();
+	if (skipped.length > 0) {
+		console.log(
+			`尚未开译（空骨架，跳过视图快照）：${skipped.join(" / ")}`,
+		);
+	}
 	if (errors.length > 0) {
 		console.error(
 			`视图骨架门禁未通过：词典数据本身有问题（${errors.length} 处）——先跑 bun run check:dict 修数据：`,

@@ -20,9 +20,9 @@
         "pack": "bun tooling/pipeline/pack.ts"
     },
     "devDependencies": {
-        "@biomejs/biome": "^2.6.2",
+        "@biomejs/biome": "^2.6.4",
         "@types/bun": "^1.4.4",
-        "@types/chrome": "^0.3.6",
+        "@types/chrome": "^0.3.7",
         "happy-dom": "^21.0.4",
         "typescript": "^7.0.2"
     }

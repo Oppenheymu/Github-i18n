@@ -1932,6 +1932,33 @@
 		"View and manage enterprise single sign-on configuration.": "エンタープライズのシングル サインオン構成を表示および管理します",
 		"Create, edit, remove and view enterprise teams.": "エンタープライズのチームを作成、編集、削除、表示します",
 		"View and manage enterprise two-factor authentication configuration.": "エンタープライズの 2 要素認証構成を表示および管理します",
-		"Manage verifiable domains for an enterprise.": "エンタープライズの検証可能ドメインを管理します"
+		"Manage verifiable domains for an enterprise.": "エンタープライズの検証可能ドメインを管理します",
+		// —— パブリッシャー検証ページ（/organizations/<組織>/settings/publisher_verification）——
+		// 2026-11-04 のスクリーンショット：見出しとサイドバーは既に日本語、本文は英語のまま。
+		// 紹介文はインラインの verified バッジ（SVG）で 2 つのテキストノードに切れるため断片で収録。
+		"You can request publisher verification for your organization. A": "組織のパブリッシャー検証を申請できます。マーケットプレイスで公開しているアプリとその他の公開物があなたによって作成されたことを示す",
+		"badge will be added to your apps published in the marketplace, recognizing that apps and other published materials were created by you.": "バッジがアプリに追加されます。",
+		"Learn more about publisher verification.": "パブリッシャー検証について詳しくはこちら。",
+		"Checklist": "チェックリスト",
+		"Profile details": "プロフィールの詳細",
+		"Valid profile picture, display name, location and verified email": "有効なプロフィール画像、表示名、場所、確認済みのメールアドレス",
+		"Edit profile": "プロフィールを編集",
+		"Display name": "表示名",
+		"Email": "メール",
+		"Verified email": "確認済みのメール",
+		"Either organization name, profile picture, email or location is not provided": "組織名、プロフィール画像、メールアドレス、場所のいずれかが入力されていません",
+		"Two-factor authentication enabled": "2 要素認証が有効になっています",
+		"Edit Security": "セキュリティを編集",
+		"Domain verification": "ドメインの検証",
+		"Verify ownership of your domains and get a \"verified\" badge on the organization profile.": "ドメインの所有権を確認すると、組織のプロフィールに「検証済み」バッジが表示されます。",
+		"Review": "確認",
+		"Request Verification": "検証をリクエスト",
+		"You can request verification once all the items are checked.": "すべての項目がチェックされると検証をリクエストできます。",
+		// —— 組織の OAuth アプリ一覧ページ（/organizations/<組織>/settings/apps の OAuth apps 側）——
+		// サイドバーの `OAuth Apps`（大文字 A）とページ見出しの `OAuth apps`（小文字 a）は別の鍵。
+		"OAuth apps": "OAuth アプリ",
+		"No Organization Owned Apps": "組織が所有するアプリはありません",
+		"Do you want to develop an App that uses the GitHub API? Register an App to generate OAuth tokens.": "GitHub API を使用するアプリを開発しますか？アプリを登録して OAuth トークンを生成してください。",
+		"New OAuth app": "新しい OAuth アプリ"
 	}
 }

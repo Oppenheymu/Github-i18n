@@ -1954,6 +1954,33 @@
 		"View and manage enterprise single sign-on configuration.": "查看和管理企业单点登录配置",
 		"Create, edit, remove and view enterprise teams.": "创建、编辑、移除和查看企业团队",
 		"View and manage enterprise two-factor authentication configuration.": "查看和管理企业双因素认证配置",
-		"Manage verifiable domains for an enterprise.": "管理企业的可验证域名"
+		"Manage verifiable domains for an enterprise.": "管理企业的可验证域名",
+		// —— 发布者验证页（/organizations/<组织>/settings/publisher_verification）——
+		// 2026-11-04 维护者截图：页头与侧栏已是中文，正文整块英文。介绍句被内联的 verified
+		// 徽标（SVG）切成两段，故按碎片收，拼起来读作「……申请发布者验证。一个 ▢ 徽章会被添加……」。
+		"You can request publisher verification for your organization. A": "你可以为组织申请发布者验证。一个",
+		"badge will be added to your apps published in the marketplace, recognizing that apps and other published materials were created by you.": "徽章会被添加到你在市场中发布的应用上，以表明这些应用及其他已发布材料均由你创建。",
+		"Learn more about publisher verification.": "进一步了解发布者验证。",
+		"Checklist": "检查清单",
+		"Profile details": "资料详情",
+		"Valid profile picture, display name, location and verified email": "有效的资料图片、显示名称、位置与已验证的邮箱",
+		"Edit profile": "编辑资料",
+		"Display name": "显示名称",
+		"Email": "电子邮件",
+		"Verified email": "已验证邮箱",
+		"Either organization name, profile picture, email or location is not provided": "未提供组织名称、资料图片、邮箱或位置",
+		"Two-factor authentication enabled": "已启用双因素认证",
+		"Edit Security": "编辑安全设置",
+		"Domain verification": "域名验证",
+		"Verify ownership of your domains and get a \"verified\" badge on the organization profile.": "验证你域名的所有权，并在组织资料上获得「已验证」徽章。",
+		"Review": "审查",
+		"Request Verification": "申请验证",
+		"You can request verification once all the items are checked.": "所有项目都核对完成后即可申请验证。",
+		// —— 组织 OAuth 应用列表页（/organizations/<组织>/settings/apps 的 OAuth apps 一支）——
+		// 侧栏的 `OAuth Apps`（大写 A）与页面标题 `OAuth apps`（小写 a）是两条不同的键。
+		"OAuth apps": "OAuth 应用",
+		"No Organization Owned Apps": "没有组织拥有的应用",
+		"Do you want to develop an App that uses the GitHub API? Register an App to generate OAuth tokens.": "你想开发使用 GitHub API 的应用吗？注册应用即可生成 OAuth 令牌。",
+		"New OAuth app": "新建 OAuth 应用"
 	}
 }

@@ -6755,7 +6755,41 @@
 				"View and manage enterprise single sign-on configuration.",
 				"Create, edit, remove and view enterprise teams.",
 				"View and manage enterprise two-factor authentication configuration.",
-				"Manage verifiable domains for an enterprise."
+				"Manage verifiable domains for an enterprise.",
+				// —— 发布者验证页（/organizations/<组织>/settings/publisher_verification）——
+				// 证据：2026-11-04 维护者贴的整页截图。页头（`Publisher Verification`）与侧栏项
+				// 早有键、截图里已是中文；本页正文整块英文，补 18 条键、没有新规则。
+				// 一条边界事实：介绍句里的 verified 徽标是**内联 SVG**，它把句子切成两个文本
+				// 节点（`… organization. A ` / ` badge will be added …`），故按碎片收、整句键
+				// 在实机永不命中——用例正面渲染两段、反面钉住整句不命中。
+				// 刻意不收录：资料卡里的 `Name` / `China` 是组织自己的显示名与位置（用户内容），
+				// 与 `pages/settings` 的 `Email` / `Checklist` 同串但路由互斥，不需要别名。
+				"You can request publisher verification for your organization. A",
+				"badge will be added to your apps published in the marketplace, recognizing that apps and other published materials were created by you.",
+				"Learn more about publisher verification.",
+				"Checklist",
+				"Profile details",
+				"Valid profile picture, display name, location and verified email",
+				"Edit profile",
+				"Display name",
+				"Email",
+				"Verified email",
+				"Either organization name, profile picture, email or location is not provided",
+				"Two-factor authentication enabled",
+				"Edit Security",
+				"Domain verification",
+				"Verify ownership of your domains and get a \"verified\" badge on the organization profile.",
+				"Review",
+				"Request Verification",
+				"You can request verification once all the items are checked.",
+				// —— 组织 OAuth 应用列表页（/organizations/<组织>/settings/apps 的 OAuth apps 一支）——
+				// 证据：同日维护者贴的截图（空态）。侧栏的 `OAuth Apps`（大写 A）已有键，
+				// 页面标题是**小写 a** 的 `OAuth apps`，两者是两条不同的键。
+				// 刻意不收录：底部文档链接 `GitHub API` 是纯产品名（译文不得与键同形，只能保留英文）。
+				"OAuth apps",
+				"No Organization Owned Apps",
+				"Do you want to develop an App that uses the GitHub API? Register an App to generate OAuth tokens.",
+				"New OAuth app"
 			]
 		},
 		{

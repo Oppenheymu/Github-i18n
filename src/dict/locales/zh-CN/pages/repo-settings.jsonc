@@ -1650,6 +1650,14 @@
 		"Add metadata to your repositories, such as compliance frameworks, data sensitivity, or project details.": "为你的仓库添加元数据，例如合规框架、数据敏感度或项目详情。",
 		// aria-label 与 placeholder 同串，都按属性精确键命中
 		"Filter properties": "筛选属性",
-		"No properties that match": "没有匹配的属性"
+		"No properties that match": "没有匹配的属性",
+		// —— 已安装的 GitHub Apps 页（/settings/installations）——
+		// 2026-11-04 维护者截图：页头、页头说明与卡片副标题仍是英文（`配置` 按钮早已命中）。
+		// 同一个组件在个人设置与组织设置里也渲染，那两处的同串键各收一份、译文必须一致；
+		// 卡片副标题是 `Developed by` + 应用所有者链接两个节点，所有者名（`Codecov` /
+		// `NapukettoDev` …）属用户内容，不收录。
+		"Installed GitHub Apps": "已安装的 GitHub 应用",
+		"GitHub Apps augment and extend your workflows on GitHub with commercial, open source, and homegrown tools.": "GitHub Apps 可通过商业、开源与自研工具增强并扩展你在 GitHub 上的工作流。",
+		"Developed by": "开发者："
 	}
 }

@@ -1132,7 +1132,12 @@
 		"You're about to enable dependabot self-hosted on all your repositories. Dependabot self-hosted depends on Dependabot on Actions so we'll also turn that on for all repositories.": "你即将在你所有的仓库中启用 Dependabot 自托管。Dependabot 自托管依赖 Actions 上的 Dependabot，因此我们也会为所有仓库开启它。",
 		"You're about to disable dependabot self-hosted on all your repositories.": "你即将在你所有的仓库中禁用 Dependabot 自托管。",
 		// —— /settings/installations（已安装的 GitHub Apps）——
+		// 页头说明与卡片副标题：同一个组件在仓库设置 / 组织设置里也渲染，那两处的同串键
+		// 各收一份（译文必须一致）；`Developed by` 后接应用所有者的链接节点（用户内容）。
 		"Installed GitHub Apps": "已安装的 GitHub 应用",
+		"GitHub Apps augment and extend your workflows on GitHub with commercial, open source, and homegrown tools.": "GitHub Apps 可通过商业、开源与自研工具增强并扩展你在 GitHub 上的工作流。",
+		"Developed by": "开发者：",
+		"Configure": "配置",
 		"My GitHub Apps": "我的 GitHub 应用",
 		"Visit Marketplace": "访问 Marketplace",
 		"No installed GitHub Apps": "没有已安装的 GitHub 应用",

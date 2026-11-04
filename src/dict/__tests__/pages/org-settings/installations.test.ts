@@ -29,6 +29,9 @@ const UPDATE_PATH =
 	"/organizations/NapukettoDev/settings/installations/173748461/permissions/update";
 const APPS_PATH =
 	"/organizations/NapukettoDev/settings/apps/napukettobot";
+// 列表页（不带安装 id）：与个人设置 / 仓库设置渲染同一个「已安装应用」组件
+const LISTING_PATH =
+	"/organizations/NapukettoDev/settings/installations";
 
 const locale = dictForLocale("zh-CN");
 
@@ -43,6 +46,7 @@ function viewFor(pathname: string) {
 const installationView = viewFor(INSTALLATION_PATH);
 const updateView = viewFor(UPDATE_PATH);
 const appsView = viewFor(APPS_PATH);
+const listingView = viewFor(LISTING_PATH);
 
 function moduleNames(path: string): readonly string[] {
 	return matchModules(path, locale.modules).map(
@@ -355,5 +359,37 @@ describe("GitHub App 安装页的用户内容", () => {
 				`不应被翻译：${JSON.stringify(raw)}`,
 			).toBeNull();
 		}
+	});
+});
+
+describe("已安装的 GitHub Apps 列表页（组织设置）", () => {
+	it("still matches pages/org-settings, not the personal or repo module", () => {
+		const names = moduleNames(LISTING_PATH);
+		expect(names).toContain("pages/org-settings");
+		expect(names).toContain("global");
+		expect(names).not.toContain("pages/settings");
+		expect(names).not.toContain("pages/repo-settings");
+	});
+
+	it("renders the shared header card and the card subtitle prefix", () => {
+		// 同一个「已安装应用」组件：页头与说明的译文必须与个人设置 / 仓库设置一致
+		expect(
+			translateText("Installed GitHub Apps", listingView),
+		).toBe("已安装的 GitHub 应用");
+		expect(
+			translateText(
+				"GitHub Apps augment and extend your workflows on GitHub with commercial, open source, and homegrown tools.",
+				listingView,
+			),
+		).toBe(
+			"GitHub Apps 可通过商业、开源与自研工具增强并扩展你在 GitHub 上的工作流。",
+		);
+		// 卡片副标题：前缀 + 应用所有者链接（所有者名是用户内容）
+		expect(
+			renderNodes(
+				["Developed by ", "Codecov"],
+				listingView,
+			),
+		).toBe("开发者： Codecov");
 	});
 });

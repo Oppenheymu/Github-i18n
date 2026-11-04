@@ -1655,6 +1655,15 @@
 		"Add metadata to your repositories, such as compliance frameworks, data sensitivity, or project details.": "コンプライアンスフレームワーク、データの機密度、プロジェクトの詳細など、リポジトリにメタデータを追加します。",
 		// aria-label と placeholder が同串で、どちらも属性の完全一致で命中
 		"Filter properties": "プロパティを絞り込む",
-		"No properties that match": "一致するプロパティがありません"
+		"No properties that match": "一致するプロパティがありません",
+		// —— インストール済みの GitHub Apps ページ（/settings/installations）——
+		// 2026-11-04 のスクリーンショットでは、ページ見出し・説明・カードの副題が英語のまま
+		// だった（`構成` ボタンは既に命中）。同じコンポーネントが個人設定 / 組織設定でも
+		// 描画されるため、同串の鍵を各モジュールに一つずつ収録し、訳を揃える。
+		// カードの副題は `Developed by` + アプリ所有者リンクの 2 ノード構成で、
+		// 所有者名（`Codecov` / `NapukettoDev` など）はユーザーコンテンツなので収録しない。
+		"Installed GitHub Apps": "インストール済みの GitHub Apps",
+		"GitHub Apps augment and extend your workflows on GitHub with commercial, open source, and homegrown tools.": "GitHub Apps は、商用・オープンソース・自社開発のツールで GitHub 上のワークフローを強化・拡張します。",
+		"Developed by": "開発元:"
 	}
 }

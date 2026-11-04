@@ -1136,7 +1136,12 @@
 		"You're about to enable dependabot self-hosted on all your repositories. Dependabot self-hosted depends on Dependabot on Actions so we'll also turn that on for all repositories.": "すべてのリポジトリで Dependabot セルフホストを有効にしようとしています。Dependabot セルフホストは Actions 上の Dependabot に依存しているため、すべてのリポジトリでそれも有効にします。",
 		"You're about to disable dependabot self-hosted on all your repositories.": "すべてのリポジトリで Dependabot セルフホストを無効にしようとしています。",
 		// —— /settings/installations（インストール済みの GitHub Apps）——
+		// ページ見出しの説明とカードの副題：同じコンポーネントがリポジトリ設定 / 組織設定
+		// でも描画される（同串の鍵を各モジュールに一つずつ収録し、訳を揃える）。
 		"Installed GitHub Apps": "インストール済みの GitHub Apps",
+		"GitHub Apps augment and extend your workflows on GitHub with commercial, open source, and homegrown tools.": "GitHub Apps は、商用・オープンソース・自社開発のツールで GitHub 上のワークフローを強化・拡張します。",
+		"Developed by": "開発元:",
+		"Configure": "構成",
 		"My GitHub Apps": "自分の GitHub Apps",
 		"Visit Marketplace": "Marketplace にアクセス",
 		"No installed GitHub Apps": "インストール済みの GitHub Apps はありません",

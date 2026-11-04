@@ -1891,6 +1891,13 @@
 				// 证据强度：**途径 A 实证**（导出的 path 为 /settings/installations）。
 				// 不收录 `GitHub`（title）。
 				"Installed GitHub Apps",
+				// 页头说明与卡片副标题（`Developed by` + 应用所有者链接两个节点）。
+				// 同一个「已安装的 GitHub Apps」组件也渲染在仓库设置与组织设置里，
+				// 那两份同译键分别收在 pages/repo-settings 与 pages/org-settings；
+				// 应用所有者（`codecov` / `NapukettoDev` …）是用户内容，不收录。
+				"GitHub Apps augment and extend your workflows on GitHub with commercial, open source, and homegrown tools.",
+				"Developed by",
+				"Configure",
 				"My GitHub Apps",
 				"Visit Marketplace",
 				"No installed GitHub Apps",
@@ -4326,7 +4333,15 @@
 				"Repository custom properties",
 				"Add metadata to your repositories, such as compliance frameworks, data sensitivity, or project details.",
 				"Filter properties",
-				"No properties that match"
+				"No properties that match",
+				// —— 已安装的 GitHub Apps 页（/owner/repo/settings/installations）——
+				// 2026-11-04 维护者截图：页头、页头说明与卡片副标题仍是英文（`配置` 按钮
+				// 早已由本模块的 `Configure` 命中）。卡片副标题是 `Developed by` +
+				// 应用所有者链接两个节点；`Codecov` / `NapukettoDev` 属用户内容，不收录。
+				// 同一组件在个人设置与组织设置里的同串键各收一份，三处译文必须一致。
+				"Installed GitHub Apps",
+				"GitHub Apps augment and extend your workflows on GitHub with commercial, open source, and homegrown tools.",
+				"Developed by"
 			]
 		},
 		{
@@ -6261,6 +6276,12 @@
 				"When you are ready, trigger a mailer to verify your identity.",
 				"When your phone is ready, click the button below.",
 				"Contact GitHub Support",
+				// —— 已安装的 GitHub Apps 列表页（/organizations/<组织>/settings/installations）——
+				// 2026-11-04 维护者贴的仓库级列表页截图证明了页头与卡片副标题的实机形态；
+				// 组织侧渲染的是同一个组件，故同串各收一份、译文与个人 / 仓库两侧一致。
+				// 卡片副标题是 `Developed by` + 应用所有者链接两个节点，前缀收在下面的详情页段里。
+				"Installed GitHub Apps",
+				"GitHub Apps augment and extend your workflows on GitHub with commercial, open source, and homegrown tools.",
 				// —— GitHub App 安装详情页（/organizations/<组织>/settings/installations/<id>）——
 				// 证据：2026-11-04 维护者贴的整页截图（扩展仍在运行）。本页是组织设置里另开的
 				// 安装配置页，词条与个人设置页的 `/settings/installations` 完全不同。

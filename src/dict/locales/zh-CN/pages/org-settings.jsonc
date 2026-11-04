@@ -1508,6 +1508,10 @@
 		"When you are ready, trigger a mailer to verify your identity.": "准备就绪后，点击下方按钮触发邮件以验证你的身份。",
 		"When your phone is ready, click the button below.": "手机准备就绪后，点击下方按钮。",
 		"Contact GitHub Support": "联系 GitHub 支持",
+		// —— 已安装的 GitHub Apps 列表页（/organizations/<组织>/settings/installations）——
+		// 与个人设置 / 仓库设置渲染同一个组件；`Developed by` 前缀收在下面的详情页段里。
+		"Installed GitHub Apps": "已安装的 GitHub 应用",
+		"GitHub Apps augment and extend your workflows on GitHub with commercial, open source, and homegrown tools.": "GitHub Apps 可通过商业、开源与自研工具增强并扩展你在 GitHub 上的工作流。",
 		// —— GitHub App 安装详情页（/organizations/<组织>/settings/installations/<id>）——
 		"Installed": "已安装",
 		"Developed by": "开发者：",

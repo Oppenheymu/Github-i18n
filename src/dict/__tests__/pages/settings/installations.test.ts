@@ -45,6 +45,12 @@ const authorizationsView = viewFor(
 /** /settings/installations 的实机文本节点 */
 const INSTALLATIONS_NODES: readonly string[] = [
 	"Installed GitHub Apps",
+	// 页头说明与卡片副标题：同一个组件在仓库设置 / 组织设置里也渲染，那两处各收一份
+	// 同译键（本文件只钉住个人设置这一份可用；三处译文的逐字对齐在
+	// pages/repo-settings/installations.test.ts 里钉死）
+	"GitHub Apps augment and extend your workflows on GitHub with commercial, open source, and homegrown tools.",
+	"Developed by",
+	"Configure",
 	"My GitHub Apps",
 	"Visit Marketplace",
 	"No installed GitHub Apps",
@@ -215,6 +221,25 @@ describe("已安装的 GitHub Apps 页（/settings/installations）的实机节�
 				installationsView,
 			),
 		).toBe("此账户上没有安装任何 GitHub 应用。");
+		// 页头说明与卡片按钮
+		expect(
+			translateText(
+				"GitHub Apps augment and extend your workflows on GitHub with commercial, open source, and homegrown tools.",
+				installationsView,
+			),
+		).toBe(
+			"GitHub Apps 可通过商业、开源与自研工具增强并扩展你在 GitHub 上的工作流。",
+		);
+		expect(
+			translateText("Configure", installationsView),
+		).toBe("配置");
+		// 卡片副标题：`Developed by` + 应用所有者链接两个节点
+		expect(
+			renderNodes(
+				["Developed by ", "Codecov"],
+				installationsView,
+			),
+		).toBe("开发者： Codecov");
 	});
 });
 

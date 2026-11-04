@@ -1486,6 +1486,10 @@
 		"When you are ready, trigger a mailer to verify your identity.": "準備ができたら、下のボタンでメールを送信して本人確認を行ってください。",
 		"When your phone is ready, click the button below.": "スマートフォンの準備ができたら、下のボタンをクリックしてください。",
 		"Contact GitHub Support": "GitHub サポートに問い合わせる",
+		// —— インストール済みの GitHub Apps 一覧ページ（/organizations/<組織>/settings/installations）——
+		// 個人設定 / リポジトリ設定と同じコンポーネント。`Developed by` の接頭辞は下の詳細ページ節に収録。
+		"Installed GitHub Apps": "インストール済みの GitHub Apps",
+		"GitHub Apps augment and extend your workflows on GitHub with commercial, open source, and homegrown tools.": "GitHub Apps は、商用・オープンソース・自社開発のツールで GitHub 上のワークフローを強化・拡張します。",
 		// —— GitHub App インストール詳細ページ（/organizations/<組織>/settings/installations/<id>）——
 		"Installed": "インストール済み",
 		"Developed by": "開発元:",

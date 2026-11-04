@@ -1235,3 +1235,63 @@ describe("PR 时间线的合并框就绪态与审查事件", () => {
 		).toBe("添加了 范围:工具链与构建 标签");
 	});
 });
+
+// 2026-11-04 维护者贴的第二批 HTML（审查弹层 + 合并面板 + 时间线）。
+//
+// 两条诊断记录：
+//   · `Submit review` 与 `Add your comment here, be kind` **本来就有键**（前者在
+//     合并框按钮组、后者在评论框 placeholder），下面的用例先钉住它们可用——
+//     截图里仍是英文只可能是加载了旧构建，或该弹层另有节点形态；
+//   · `viewed` 是小写、与 Files changed 页的 `Viewed`（大写）是两条键；
+//     `codeowner` 在这里是**连写**，与 `code owner` 也是两条键。
+describe("PR 审查弹层、合并面板与 codeowner 事件", () => {
+	it("already covers the review dialog and its placeholder", () => {
+		expect(translateText("Submit review", view)).toBe(
+			"提交审查",
+		);
+		expect(
+			translateText("Add your comment here, be kind", view),
+		).toBe("在这里添加你的评论，请友善");
+	});
+
+	it("translates the lowercase viewed event and the diff settings tooltip", () => {
+		expect(translateText("viewed", view)).toBe("已查看");
+		expect(translateText("Viewed", view)).toBe("已查看");
+		expect(
+			translateText("Open diff view settings", view),
+		).toBe("打开差异视图设置");
+	});
+
+	it("translates the merge panel hints", () => {
+		expect(
+			translateText(
+				"Waiting for a reviewer's approval. Click to view details in the merge panel.",
+				view,
+			),
+		).toBe(
+			"正在等待审查者批准。点击以在合并面板中查看详细信息。",
+		);
+		expect(
+			translateText("Not planning to merge?", view),
+		).toBe("不打算合并？");
+	});
+
+	it("renders the pending review count through the rule", () => {
+		expect(translateText("1 pending review", view)).toBe(
+			"1 个待处理的审查",
+		);
+		expect(translateText("3 pending reviews", view)).toBe(
+			"3 个待处理的审查",
+		);
+	});
+
+	it("translates the codeowner review request event", () => {
+		// 用户名是用户内容（链接节点），句子骨架整条命中
+		expect(
+			render([
+				"dependabot",
+				" was requested for review as a codeowner",
+			]),
+		).toBe("dependabot 被请求以代码所有者身份进行审查");
+	});
+});

@@ -418,6 +418,11 @@
 				"All commits",
 				"Filter files...",
 				"Viewed",
+				// 时间线事件里的是**小写 viewed**（CSS text-transform 显示成 Viewed），
+				// 与大写那条是两条键（2026-11-04 维护者贴的 HTML）
+				"viewed",
+				// diff 设置按钮的 tooltip（同串在 pages/insights 也有一条，路由互斥）
+				"Open diff view settings",
 				"Load Diff",
 				// 生成文件提示是**拆节点**结构：说明句 + <a>customizing how changed
 				// files appear on GitHub</a> + 句号（纯符号节点不收）
@@ -452,6 +457,10 @@
 				"Merging can be performed automatically.",
 				// 合并按钮的「准备好后确认合并」态
 				"Confirm merge when ready",
+				// 合并面板的状态提示（tooltip）：等待审查者批准
+				"Waiting for a reviewer's approval. Click to view details in the merge panel.",
+				// 合并面板底部的「不打算合并？」提示
+				"Not planning to merge?",
 				"View reviewed changes",
 				"previously approved these changes",
 				// 「<用户> approved these changes」——批准审查事件（与上面的「曾批准」是两条）
@@ -480,6 +489,9 @@
 				// 维护者贴的时间线 HTML），整句键只在未被拆开时命中，故两条碎片各收一份
 				"as a",
 				"code owner",
+				// 审查请求事件：「<用户> was requested for review as a codeowner」
+				// （上游这里把 codeowner 连写成一个词，与上面的 `code owner` 是两条键）
+				"was requested for review as a codeowner",
 				// 评论「…」菜单四项（复制链接 / 复制 Markdown 已收录或由 global 提供）
 				"Quote reply",
 				"Report content",

@@ -229,6 +229,10 @@
 		"All commits": "すべてのコミット",
 		"Filter files...": "ファイルを絞り込む…",
 		"Viewed": "確認済み",
+		// タイムラインイベントは小文字の viewed（CSS が Viewed と表示する）
+		"viewed": "確認済み",
+		// diff 設定ボタンのツールチップ
+		"Open diff view settings": "差分ビューの設定を開く",
 		"Load Diff": "差分を読み込む",
 		"Some generated files are not rendered by default. Learn more about": "一部の生成ファイルは既定ではレンダリングされません。詳しくは",
 		"customizing how changed files appear on GitHub": "GitHub での変更ファイルの表示方法をカスタマイズする",
@@ -256,6 +260,9 @@
 		"Merging can be performed automatically.": "自動的にマージできます。",
 		// マージボタンの「準備ができたら確認」状態
 		"Confirm merge when ready": "準備ができたらマージを確認",
+		// マージパネルの状態ツールチップと「マージする予定はない」案内
+		"Waiting for a reviewer's approval. Click to view details in the merge panel.": "レビュー担当者の承認を待っています。クリックするとマージパネルで詳細を確認できます。",
+		"Not planning to merge?": "マージする予定はありませんか？",
 		"View reviewed changes": "レビュー済みの変更を表示",
 		"previously approved these changes": "以前にこれらの変更を承認しました",
 		// 「<ユーザー> approved these changes」——初回の承認（上の「以前に…」とは別の鍵）
@@ -281,6 +288,8 @@
 		// 実機は `as a` とリンク `code owner` の 2 ノード（全体の鍵は未分割時のみ命中）
 		"as a": "として",
 		"code owner": "コードオーナー",
+		// レビュー依頼イベント（上流は codeowner を 1 語で書くため別の鍵）
+		"was requested for review as a codeowner": "コードオーナーとしてレビューをリクエストされました",
 		// —— コメントの「…」メニューとクローズ済み PR のブランチ復元 ——
 		"Quote reply": "引用返信",
 		"Report content": "コンテンツを報告",

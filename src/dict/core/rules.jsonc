@@ -107,6 +107,13 @@
 				{
 					"id": "pulls/viewed-count",
 					"pattern": "^(?<viewed>\\d+) / (?<total>\\d+) viewed$"
+				},
+				// 合并面板的待审查计数（「1 pending review」/「2 pending reviews」，
+				// 2026-11-04 维护者贴的 HTML）：数字动态；单数 reviews? 按
+				// reviewers? / checks? 的先例放宽
+				{
+					"id": "pulls/pending-reviews",
+					"pattern": "^(?<count>\\d+) pending reviews?$"
 				}
 			]
 		},

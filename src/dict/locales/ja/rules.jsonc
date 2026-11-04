@@ -32,6 +32,8 @@
 		"pulls/required-approvals": "このプルリクエストをマージするには、少なくとも $<count> 件の承認レビューが必要です。",
 		// Files changed ページの確認済みカウント
 		"pulls/viewed-count": "$<viewed> / $<total> 確認済み",
+		// マージパネルの保留中レビュー件数（数値は動的）
+		"pulls/pending-reviews": "$<count> 件の保留中のレビュー",
 
 		// —— pages/settings-security（アカウントセキュリティ）——
 		"settings/passkey-delete-confirm": "`$1` のパスキーを削除してもよろしいですか？",

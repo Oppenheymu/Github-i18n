@@ -1038,6 +1038,9 @@
 				"Off",
 				"On",
 				// 表情符号肤色偏好（选项文本含 emoji 前缀，故整串收录）
+				// 2026-11-05 维护者贴的 /settings/appearance：该小节多了个 <h2>，
+				// 与下面 select 的标签是两条不同的键（上游把词序倒过来了）
+				"Emoji skin tone preference",
 				"Preferred default emoji skin tone",
 				"👋 Neutral",
 				"👋🏻 Light Skin Tone",

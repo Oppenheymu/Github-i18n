@@ -54,7 +54,8 @@ const APPEARANCE_NODES: readonly string[] = [
 	"Dark mode",
 	"Off",
 	"On",
-	// 表情符号肤色偏好
+	// 表情符号肤色偏好（2026-11-05 上游给该小节加了 <h2>，与 select 标签是两条键）
+	"Emoji skin tone preference",
 	"Preferred default emoji skin tone",
 	"👋 Neutral",
 	"👋🏻 Light Skin Tone",
@@ -105,6 +106,20 @@ describe("外观设置页的实机节点边界", () => {
 		expect(translateText("👋 Neutral", view)).toBe(
 			"👋 中性",
 		);
+	});
+
+	it("translates the section heading apart from the select label", () => {
+		// 同一个小节：<h2>Emoji skin tone preference</h2> 与 select 的标签
+		// “Preferred default emoji skin tone” 词序相反，是两条键，不能互相顶替
+		expect(
+			translateText("Emoji skin tone preference", view),
+		).toBe("表情符号肤色偏好");
+		expect(
+			translateText(
+				"Preferred default emoji skin tone",
+				view,
+			),
+		).toBe("默认表情符号肤色");
 	});
 
 	it("keeps the two theme-mode sections apart", () => {

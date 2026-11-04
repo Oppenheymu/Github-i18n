@@ -382,6 +382,7 @@
 		// 分段控件 / 开关的两态：本页用「开启 / 关闭」比仓库设置页的「开 / 关」更自然
 		"Off": "关闭",
 		"On": "开启",
+		"Emoji skin tone preference": "表情符号肤色偏好",
 		"Preferred default emoji skin tone": "默认表情符号肤色",
 		// 选项文本带 emoji 前缀，译文保留 emoji 与原有空格
 		"👋 Neutral": "👋 中性",

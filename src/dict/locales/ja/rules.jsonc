@@ -601,6 +601,21 @@
 		"org-settings/app-request-update": "$<app> が権限の更新をリクエストしています。",
 		// 新しい権限の承認後の flash：アプリ名と組織名は動的
 		"org-settings/app-updated-flash": "$<app> は @$<owner> アカウントで更新されました。",
+		// GitHub App 開発者設定ページ：パンくず「組織名 settings」
+		"org-settings/app-settings-breadcrumb": "$<owner> の設定",
+		// 権限グループ見出し横のカウントバッジ
+		"org-settings/app-permissions-selected-count": "$1 件選択済み",
+		"org-settings/app-permissions-mandatory-count": "$1 件必須",
+		// オプション機能ページ：アプリ名が見出し / プロンプトの末尾
+		"org-settings/app-optional-features-heading": "$<app> のオプション機能を有効にする",
+		"org-settings/app-optional-features-prompt": "$<app> に対して有効にする機能を選択:",
+		// ユーザー対サーバートークンの有効期限（時間は動的）
+		"org-settings/app-token-expiration": "ユーザー対サーバーアクセストークンは $1 時間後に期限切れになります。新しいアクセストークンと交換できるリフレッシュトークンが提供されます。",
+		// インストールページ：見出しとアカウント選択のプロンプト
+		"org-settings/app-install-heading": "$<app> をインストール",
+		"org-settings/app-install-account": "$<app> をインストールするアカウントを選択:",
+		// アプリマネージャーページの説明
+		"org-settings/app-managers-intro": "これらのユーザーは $<app> の設定、権限、Webhook を管理できます。",
 
 		// —— pages/actions（Actions）——
 		"actions/duration-hms": "$1 時間 $2 分 $3 秒",

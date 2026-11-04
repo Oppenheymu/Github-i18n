@@ -596,6 +596,21 @@
 		"org-settings/app-request-update": "$<app> 正在请求更新其权限。",
 		// 接受新权限后的 flash：应用名与组织名都是动态值
 		"org-settings/app-updated-flash": "好的，$<app> 已在 @$<owner> 账户下更新。",
+		// GitHub App 开发者设置页：面包屑「组织名 settings」（组织名原样带回）
+		"org-settings/app-settings-breadcrumb": "$<owner> 设置",
+		// 权限分组标题旁的计数徽标
+		"org-settings/app-permissions-selected-count": "$1 项已选",
+		"org-settings/app-permissions-mandatory-count": "$1 项必选",
+		// 可选功能页：应用名拼在标题 / 提示句尾
+		"org-settings/app-optional-features-heading": "为 $<app> 启用可选功能",
+		"org-settings/app-optional-features-prompt": "选择要为 $<app> 启用的功能：",
+		// 用户到服务器令牌过期时长（小时数是动态值）
+		"org-settings/app-token-expiration": "用户到服务器访问令牌将在 $1 小时后过期。届时会提供一个刷新令牌，可用于换取新的访问令牌。",
+		// 安装页：标题与账户选择提示（应用名原样带回）
+		"org-settings/app-install-heading": "安装 $<app>",
+		"org-settings/app-install-account": "选择要安装 $<app> 的账户：",
+		// 应用管理员页说明句
+		"org-settings/app-managers-intro": "这些人可以管理 $<app> 的设置、权限和网络钩子。",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

@@ -2918,6 +2918,50 @@
 				{
 					"id": "org-settings/app-updated-flash",
 					"pattern": "^Okay, (?<app>.+?) was updated for the @(?<owner>.+?) account\\.$"
+				},
+				// GitHub App 开发者设置页（/organizations/<组织>/settings/apps/<应用名>）：
+				// 面包屑是「组织名 settings」一个文本节点（截图里 `NapukettoDev settings`
+				// 整体保留英文，说明 `settings` 与组织名同一节点），故按后缀规则翻译。
+				{
+					"id": "org-settings/app-settings-breadcrumb",
+					"pattern": "^(?<owner>.+) settings$"
+				},
+				// 权限页分组标题旁的计数徽标：`2 selected` / `1 mandatory`（数字动态）
+				{
+					"id": "org-settings/app-permissions-selected-count",
+					"pattern": "^(\\d+) selected$"
+				},
+				{
+					"id": "org-settings/app-permissions-mandatory-count",
+					"pattern": "^(\\d+) mandatory$"
+				},
+				// 可选功能页：标题与提示都把应用名拼在句尾（截图里应用名与文案同色同节点）
+				{
+					"id": "org-settings/app-optional-features-heading",
+					"pattern": "^Activate optional features for (?<app>.+)$"
+				},
+				{
+					"id": "org-settings/app-optional-features-prompt",
+					"pattern": "^Choose a feature to activate for (?<app>.+):$"
+				},
+				// 同页功能卡：过期时长是动态值（8 小时由上游按配置渲染）
+				{
+					"id": "org-settings/app-token-expiration",
+					"pattern": "^User-to-server access tokens will expire after (\\d+) hours\\. A Refresh Token will be provided which can be exchanged for a new access token\\.$"
+				},
+				// 安装页标题与账户选择提示（应用名动态）
+				{
+					"id": "org-settings/app-install-heading",
+					"pattern": "^Install (?<app>.+)$"
+				},
+				{
+					"id": "org-settings/app-install-account",
+					"pattern": "^Choose an account to install (?<app>.+) on:$"
+				},
+				// 应用管理员页说明句（应用名拼在句尾）
+				{
+					"id": "org-settings/app-managers-intro",
+					"pattern": "^These people can manage settings, permissions and webhooks for (?<app>.+)\\.$"
 				}
 			]
 		},

@@ -1,0 +1,26 @@
+// GitHub App 公開ページ：/apps/<アプリ名>（インストール サブパスを含む）。
+// 日本語 · モジュール pages/apps（ルートは core/modules.jsonc、鍵の分類は core/canonical.jsonc）
+//
+// 根拠：2026-11-04 にメンテナーが貼った全画面スクリーンショット（拡張機能を入れても英語のまま）。
+// このパスは pages/profile と pages/repo の除外リスト（`apps`）に入っているため、
+// これまでどのモジュールにも一致せず global だけが効いていた。
+//
+// ノード境界：`GitHub App` / `Configure` / `No description` / `Developer` は単一ノード、
+// `NapukettoDev` / `App settings` / `Website` はそれぞれリンク ノード（アプリ名と組織名は
+// ユーザー コンテンツ）。「<アプリ名> is provided by a third-party …」は動的なアプリ名を
+// 含むため apps/provided-by-third-party ルールで処理し、アプリ名が別ノードに分割される
+// 場合に備えて名前なしの断片も収録する。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		"GitHub App": "GitHub アプリ",
+		"Configure": "構成",
+		"Manage your installation settings.": "インストール設定を管理します。",
+		"No description": "説明なし",
+		"Developer": "開発者",
+		"App settings": "アプリ設定",
+		"Website": "ウェブサイト",
+		"Report abuse": "不正行為を報告",
+		"is provided by a third-party and is governed by separate terms of service, privacy policy, and support documentation.": "第三者によって提供されており、別途定める利用規約、プライバシー ポリシー、サポート ドキュメントに従います。"
+	}
+}

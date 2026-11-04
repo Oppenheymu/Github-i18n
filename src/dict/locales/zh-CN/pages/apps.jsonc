@@ -1,0 +1,26 @@
+// GitHub App 公开页：/apps/<应用名>（含安装子路径 /apps/<应用名>/installations/new）。
+// 简体中文 · 模块 pages/apps（路由见 core/modules.jsonc，键的分组注释见 core/canonical.jsonc）
+//
+// 证据：2026-11-04 维护者贴的整页截图（装了扩展后仍整片英文）。该路径在 pages/profile
+// 与 pages/repo 的保留名单里（保留项 `apps`），此前没有模块命中，只吃 global 兜底。
+//
+// 节点边界（按截图与 GitHub App 公开页的结构）：
+//   - 页头副标题 `GitHub App`、按钮 `Configure`、右侧说明 `Manage your installation settings.`、
+//     空描述占位 `No description`、小标题 `Developer` 都是整节点；
+//   - `NapukettoDev` / `App settings` / `Website` 各是一个链接节点（应用名、组织名是用户内容）；
+//   - 「<应用名> is provided by a third-party …」整句含动态应用名，走
+//     apps/provided-by-third-party 规则；另收不带应用名的碎片，兜住应用名被拆成独立节点的情况。
+{
+	"$schema": "../../../types/dict.schema.json",
+	"entries": {
+		"GitHub App": "GitHub 应用",
+		"Configure": "配置",
+		"Manage your installation settings.": "管理你的安装设置。",
+		"No description": "无描述",
+		"Developer": "开发者",
+		"App settings": "应用设置",
+		"Website": "网址",
+		"Report abuse": "举报滥用",
+		"is provided by a third-party and is governed by separate terms of service, privacy policy, and support documentation.": "由第三方提供，并受单独的服务条款、隐私政策和支持文档约束。"
+	}
+}

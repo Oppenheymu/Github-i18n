@@ -9053,6 +9053,25 @@
 			]
 		},
 		{
+			"name": "pages/apps",
+			"keys": [
+				// GitHub App 公开页（/apps/<应用名>，2026-11-04 维护者截图）。
+				// 该路径此前没有任何模块命中（`apps` 在 pages/profile、pages/repo 的保留名单里），
+				// 页面上只有 global 的零星通用词是中文。
+				"GitHub App",
+				"Configure",
+				"Manage your installation settings.",
+				"No description",
+				"Developer",
+				"App settings",
+				"Website",
+				"Report abuse",
+				// 「<应用名> is provided by a third-party …」应用名是用户内容，走
+				// apps/provided-by-third-party 规则；这条碎片兜住应用名被拆成独立节点的情况
+				"is provided by a third-party and is governed by separate terms of service, privacy policy, and support documentation."
+			]
+		},
+		{
 			"name": "global",
 			"keys": [
 				// —— 顶部导航与会话 ——

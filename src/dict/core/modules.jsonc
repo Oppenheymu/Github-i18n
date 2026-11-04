@@ -219,6 +219,16 @@
 			"route": "^/(?!(?:settings|account|billing|sessions|login|logout|signup|join|search|explore|topics|trending|collections|marketplace|apps|sponsors|codespaces|notifications|dashboard|issues|pulls|discussions|stars|watching|new|organizations|orgs|users|enterprises|features|pricing|site|security|team|events|about|contact)(?:/|$))[^/]+/[^/]+"
 		},
 		{
+			// GitHub App 公开页：`/apps/<应用名>`（含 `/apps/<应用名>/installations/new`）。
+			// 这条路径在 pages/profile 与 pages/repo 的保留名单里（保留项 `apps`），
+			// 此前**没有任何模块命中**，只吃 global 兜底：页头副标题、Configure 按钮、
+			// Developer / App settings / Website / Report abuse 与「由第三方提供」整段
+			// 全部保留英文（2026-11-04 维护者贴的截图）。词条与 pages/org-settings 的
+			// 开发者设置页同译，但路由互斥，故不重复登记在那边。
+			"name": "pages/apps",
+			"route": "^/apps/[^/]+"
+		},
+		{
 			"name": "global",
 			"route": "^/"
 		}

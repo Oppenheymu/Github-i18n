@@ -38,6 +38,7 @@ import rulesRaw from "./core/rules.jsonc";
 import jaGlobalRaw from "./locales/ja/global.jsonc";
 import jaActionsRaw from "./locales/ja/pages/actions.jsonc";
 import jaAgentsRaw from "./locales/ja/pages/agents.jsonc";
+import jaAppsRaw from "./locales/ja/pages/apps.jsonc";
 import jaCommitsRaw from "./locales/ja/pages/commits.jsonc";
 import jaDashboardRaw from "./locales/ja/pages/dashboard.jsonc";
 import jaInsightsRaw from "./locales/ja/pages/insights.jsonc";
@@ -60,6 +61,7 @@ import jaRulesRaw from "./locales/ja/rules.jsonc";
 import zhGlobalRaw from "./locales/zh-CN/global.jsonc";
 import zhActionsRaw from "./locales/zh-CN/pages/actions.jsonc";
 import zhAgentsRaw from "./locales/zh-CN/pages/agents.jsonc";
+import zhAppsRaw from "./locales/zh-CN/pages/apps.jsonc";
 import zhCommitsRaw from "./locales/zh-CN/pages/commits.jsonc";
 import zhDashboardRaw from "./locales/zh-CN/pages/dashboard.jsonc";
 import zhDiscussionsRaw from "./locales/zh-CN/pages/discussions.jsonc";
@@ -131,6 +133,8 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 			["pages/queue", zhQueueRaw],
 			["pages/security", zhSecurityRaw],
 			["pages/repo", zhRepoRaw],
+			// GitHub App 公开页（/apps/<应用名>）：路由此前无人认领，见 core/modules.jsonc
+			["pages/apps", zhAppsRaw],
 		],
 		rules: zhRulesRaw,
 	},
@@ -164,6 +168,7 @@ export const localeRawDicts: readonly LocaleRaw[] = [
 			["pages/queue", jaQueueRaw],
 			["pages/security", jaSecurityRaw],
 			["pages/repo", jaRepoRaw],
+			["pages/apps", jaAppsRaw],
 		],
 		rules: jaRulesRaw,
 	},

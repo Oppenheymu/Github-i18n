@@ -4097,6 +4097,17 @@
 			]
 		},
 		{
+			// GitHub App 公开页（/apps/<应用名>）：「<应用名> is provided by a third-party …」
+			// 应用名是用户内容，故按整句捕获、原样拼回译文。
+			"name": "pages/apps",
+			"rules": [
+				{
+					"id": "apps/provided-by-third-party",
+					"pattern": "^(?<app>.+) is provided by a third-party and is governed by separate terms of service, privacy policy, and support documentation\\.$"
+				}
+			]
+		},
+		{
 			"name": "global",
 			"rules": [
 				// 跨页面通用正则规则：相对时间与计数等动态文本

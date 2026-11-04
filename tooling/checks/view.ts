@@ -120,6 +120,9 @@ export const PROBE_PATHS: readonly string[] = [
 	"/features",
 	"/pricing",
 	"/not-a-real-page/x",
+	// GitHub App 公开页（此前无人认领的路由，2026-11-04 并入 pages/apps）
+	"/apps/napukettobot",
+	"/apps/napukettobot/installations/new",
 ];
 
 /** 一个键被 ≥2 个命中模块提供时的胜出记录（只记来源模块名，不记译文） */

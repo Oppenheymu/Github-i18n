@@ -114,7 +114,8 @@ const FEATURE_NODES: readonly string[] = [
 	"For more information about the data your organization receives regarding your use of GitHub Copilot, please review",
 	"Learn more.",
 	// —— 云端访问策略与新版本说明 ——
-	"Enables access to Copilot in the cloud, including GitHub.com and GitHub Mobile. This policy replaces previous Copilot Chat and Copilot cloud agent policies.",
+	// 上游 2026-11-05 改写了策略说明（见下方渲染用例，旧文案改为兼容断言）
+	"Use Copilot on GitHub.com and GitHub Mobile. Start and continue secure cloud sessions across supported Copilot surfaces. This policy replaces the previous Copilot Chat in GitHub, Copilot Chat in GitHub Mobile, and Cloud Agent policies.",
 	". Enforcement begins July 27th, 2026 in version 1.1 of the GitHub Copilot app. The Copilot CLI policy continues to govern the GitHub Copilot App until version 1.1\n",
 ];
 
@@ -385,6 +386,15 @@ describe("Copilot 功能设置页的实机节点边界", () => {
 		).toBe(
 			"允许在云端（包括 GitHub.com 和 GitHub Mobile）使用 Copilot。此策略将取代此前的 Copilot Chat 和 Copilot 云端代理策略。",
 		);
+		// 2026-11-05 上游改写后的同一段策略说明（新增「安全云会话」一句、枚举更细）
+		expect(
+			translateText(
+				"Use Copilot on GitHub.com and GitHub Mobile. Start and continue secure cloud sessions across supported Copilot surfaces. This policy replaces the previous Copilot Chat in GitHub, Copilot Chat in GitHub Mobile, and Cloud Agent policies.",
+				view,
+			),
+		).toBe(
+			"在 GitHub.com 和 GitHub Mobile 上使用 Copilot。在受支持的 Copilot 界面中启动并继续安全云会话。此策略将取代此前的 GitHub 中的 Copilot Chat、GitHub Mobile 中的 Copilot Chat 以及云端代理策略。",
+		);
 		// 以句号起头的节点：译文同样以「。」起头，拼接后不出现双句号
 		expect(
 			translateText(
@@ -393,6 +403,18 @@ describe("Copilot 功能设置页的实机节点边界", () => {
 			),
 		).toBe(
 			"。该强制执行自 2026 年 7 月 27 日起在 GitHub Copilot 应用 1.1 版中生效。在 1.1 版之前，Copilot CLI 策略继续管辖 GitHub Copilot 应用",
+		);
+	});
+
+	it("renders the reworded cloud policy paragraph with its trailing link", () => {
+		// 实机节点：整句（末尾带一个空格）+ 链接「Learn more.」——空格由引擎保留
+		expect(
+			renderNodes([
+				"Use Copilot on GitHub.com and GitHub Mobile. Start and continue secure cloud sessions across supported Copilot surfaces. This policy replaces the previous Copilot Chat in GitHub, Copilot Chat in GitHub Mobile, and Cloud Agent policies. ",
+				"Learn more.",
+			]),
+		).toBe(
+			"在 GitHub.com 和 GitHub Mobile 上使用 Copilot。在受支持的 Copilot 界面中启动并继续安全云会话。此策略将取代此前的 GitHub 中的 Copilot Chat、GitHub Mobile 中的 Copilot Chat 以及云端代理策略。 了解更多。",
 		);
 	});
 });

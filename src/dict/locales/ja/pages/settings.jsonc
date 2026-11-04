@@ -1025,6 +1025,8 @@
 		"Learn more.": "詳しくはこちら。",
 		// —— クラウドアクセスポリシーと新バージョンの説明 ——
 		"Enables access to Copilot in the cloud, including GitHub.com and GitHub Mobile. This policy replaces previous Copilot Chat and Copilot cloud agent policies.": "GitHub.com や GitHub Mobile を含むクラウドで Copilot へのアクセスを有効にします。このポリシーは、以前の Copilot Chat および Copilot クラウドエージェントのポリシーに代わるものです。",
+		// 2026-11-05 に上流が書き換えた同じポリシー説明（「安全なクラウドセッション」の一文が増えた）
+		"Use Copilot on GitHub.com and GitHub Mobile. Start and continue secure cloud sessions across supported Copilot surfaces. This policy replaces the previous Copilot Chat in GitHub, Copilot Chat in GitHub Mobile, and Cloud Agent policies.": "GitHub.com と GitHub Mobile で Copilot を使用します。対応している Copilot サーフェス全体で、安全なクラウドセッションを開始して継続できます。このポリシーは、以前の GitHub の Copilot Chat、GitHub Mobile の Copilot Chat、クラウドエージェントのポリシーに代わるものです。",
 		// 実機のノードは ". " で始まる（前の文の句点もそのノードに含まれる）。
 		". Enforcement begins July 27th, 2026 in version 1.1 of the GitHub Copilot app. The Copilot CLI policy continues to govern the GitHub Copilot App until version 1.1": "。この適用は 2026 年 7 月 27 日から GitHub Copilot アプリのバージョン 1.1 で開始されます。バージョン 1.1 までは、Copilot CLI ポリシーが引き続き GitHub Copilot アプリを規制します",
 		// —— /settings/copilot/coding_agent（クラウドエージェント）——

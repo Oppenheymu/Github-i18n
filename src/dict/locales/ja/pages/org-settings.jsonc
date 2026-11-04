@@ -181,6 +181,15 @@
 		// リンクの後の断片はカンマで始まる。実機では「…GitHub 開発者プログラムに参加、詳細についてはこちらの GitHub 開発者プログラム.」と連結される
 		", or read more about it at our": "、または詳細についてはこちらのページをご覧ください：",
 		"GitHub developer program": "GitHub 開発者プログラム",
+		// 開発者プログラムに参加済みの「メンバー状態」ブロック（pages/settings と同鍵同訳）
+		"GitHub Docs": "GitHub ドキュメント",
+		"has guides, API and webhook references, information about creating GitHub Apps and other resources for building applications that integrate with GitHub. Make sure your contact information is up-to-date below. Thanks for being a member!": "には、ガイド、API と webhook のリファレンス、GitHub Apps の作成に関する情報、GitHub と連携するアプリを構築するためのその他のリソースがあります。以下で連絡先情報が最新であることを確認してください。メンバーになっていただきありがとうございます！",
+		"Support email address": "サポート用メールアドレス",
+		"An email address where GitHub users can contact you for support.": "GitHub ユーザーがサポートのためにあなたへ連絡できるメールアドレスです。",
+		"Product or company website": "製品または会社のウェブサイト",
+		"The URL for the product, company, or service that integrates with GitHub.": "GitHub と連携する製品、会社、またはサービスの URL です。",
+		"Update contact information": "連絡先情報を更新",
+		"Leave the program": "プログラムを退出",
 		// —— 利用規約（Terms of Service）——
 		"Terms of Service": "利用規約",
 		"Standard": "標準",

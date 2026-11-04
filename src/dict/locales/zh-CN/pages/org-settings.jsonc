@@ -205,6 +205,15 @@
 		// 链接之后的片段以逗号开头，实机拼作「…加入 GitHub 开发者计划，更多信息请见我们的 GitHub 开发者计划.」
 		", or read more about it at our": "，更多信息请见我们的",
 		"GitHub developer program": "GitHub 开发者计划",
+		// 已加入开发者计划的「成员态」区块（与 pages/settings 的同键同译）
+		"GitHub Docs": "GitHub 文档",
+		"has guides, API and webhook references, information about creating GitHub Apps and other resources for building applications that integrate with GitHub. Make sure your contact information is up-to-date below. Thanks for being a member!": "其中包含指南、API 与 webhook 参考、创建 GitHub Apps 的说明，以及构建与 GitHub 集成的应用所需的其他资源。请确认下方你的联系信息是最新的。感谢你成为会员！",
+		"Support email address": "支持电子邮件地址",
+		"An email address where GitHub users can contact you for support.": "供 GitHub 用户联系你寻求支持时使用的电子邮箱地址。",
+		"Product or company website": "产品或公司网站",
+		"The URL for the product, company, or service that integrates with GitHub.": "与 GitHub 集成的产品、公司或服务的 URL。",
+		"Update contact information": "更新联系信息",
+		"Leave the program": "退出计划",
 		// —— 服务条款（Terms of Service）——
 		"Terms of Service": "服务条款",
 		"Standard": "标准版",

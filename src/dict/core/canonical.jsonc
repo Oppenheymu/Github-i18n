@@ -4581,6 +4581,17 @@
 				"Join the GitHub Developer Program",
 				", or read more about it at our",
 				"GitHub developer program",
+				// 已加入开发者计划的组织会看到的「成员态」区块（2026-11-05 维护者贴的实机 HTML）：
+				// 说明句被「GitHub Docs」链接拆成两个节点，表单标签 / 说明 / 两个按钮的译文
+				// 与 pages/settings 的同键逐字一致（两模块路由互斥，各收一份）
+				"GitHub Docs",
+				"has guides, API and webhook references, information about creating GitHub Apps and other resources for building applications that integrate with GitHub. Make sure your contact information is up-to-date below. Thanks for being a member!",
+				"Support email address",
+				"An email address where GitHub users can contact you for support.",
+				"Product or company website",
+				"The URL for the product, company, or service that integrates with GitHub.",
+				"Update contact information",
+				"Leave the program",
 				// —— 服务条款（Terms of Service）区块 ——
 				// `Accept GitHub customer agreement` 同一串既挂在 details-dialog 的 aria-label 上，
 				// 也是对话框的 h3 标题；`Accepting terms...` 是提交按钮 data-disable-with 的文案

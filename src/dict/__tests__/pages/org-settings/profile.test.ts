@@ -635,3 +635,55 @@ describe("组织资料页下半页的实机节点边界", () => {
 		);
 	});
 });
+
+// 2026-11-05 维护者贴的实机 HTML：组织**已加入**开发者计划时，上方的招募区块会换成
+// 成员态——说明句被「GitHub Docs」链接拆成两个节点，下面两个联系信息表单与两个按钮。
+// 这几条键在 pages/settings 的个人资料页已有同键同译（两模块路由互斥，各收一份）。
+const DEVELOPER_PROGRAM_MEMBER_NODES: readonly string[] = [
+	"GitHub Docs",
+	"has guides, API and webhook references, information about creating GitHub Apps and other resources for building applications that integrate with GitHub. Make sure your contact information is up-to-date below. Thanks for being a member!",
+	"Support email address",
+	"An email address where GitHub users can contact you for support.",
+	"Product or company website",
+	"The URL for the product, company, or service that integrates with GitHub.",
+	"Update contact information",
+	"Leave the program",
+];
+
+describe("组织资料页开发者计划成员态区块", () => {
+	it("translates every text node of the member-state box", () => {
+		for (const node of DEVELOPER_PROGRAM_MEMBER_NODES) {
+			for (const variant of withWhitespace(node)) {
+				const translated = translateText(variant, view);
+				expect(
+					translated,
+					`未命中：${JSON.stringify(variant)}`,
+				).not.toBeNull();
+				expect(translated ?? "").toMatch(/[\u4e00-\u9fff]/);
+			}
+		}
+	});
+
+	it("renders the docs sentence across its link boundary", () => {
+		// 实机：`<a>GitHub Docs</a> has guides, … Thanks for being a member!`
+		// ——链接后的整段是一个文本节点，首尾空白由引擎保留
+		expect(
+			renderNodes([
+				"GitHub Docs",
+				" has guides, API and webhook references, information about creating GitHub Apps and other resources for building applications that integrate with GitHub. Make sure your contact information is up-to-date below. Thanks for being a member!",
+			]),
+		).toBe(
+			"GitHub 文档 其中包含指南、API 与 webhook 参考、创建 GitHub Apps 的说明，以及构建与 GitHub 集成的应用所需的其他资源。请确认下方你的联系信息是最新的。感谢你成为会员！",
+		);
+	});
+
+	it("translates the submit button value and its disable-with copy", () => {
+		// `<input type="submit" value="…" data-disable-with="…">`：两个可翻译属性同串同键
+		expect(
+			translateText("Update contact information", view),
+		).toBe("更新联系信息");
+		expect(translateText("Leave the program", view)).toBe(
+			"退出计划",
+		);
+	});
+});

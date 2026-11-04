@@ -582,6 +582,20 @@
 		"org-settings/actions-fork-approvals-org": "所有不是该仓库成员或所有者、也不是 $1 组织成员的用户，都需要批准才能运行工作流。",
 		// 组织 Actions 策略页弃用横幅前段（日期原样带回；与仓库级同 pattern、不同 id）
 		"org-settings/actions-deprecation-date": "$1，GitHub 将限制",
+		// GitHub App 安装详情页：仓库访问权限的已选计数（动态条数）
+		"org-settings/selected-repositories-count": "已选择 $1 个仓库。",
+		// 危险区域的卸载标题：应用名原样带回
+		"org-settings/app-uninstall": "卸载“$<app>”",
+		// 权限更新确认页大标题：应用名在节点内、组织名是链接，故前缀只翻译到组织名之前；
+		// 尾段 `is requesting updated permissions` 由静态词条补「开发）正在请求更新权限」
+		"org-settings/app-update-heading-prefix": "应用「$<app>」（由",
+		"org-settings/app-update-heading": "应用「$<app>」（由 $<owner> 开发）正在请求更新权限",
+		// 同页底部说明：应用名原样带回（整句一个节点时）
+		"org-settings/app-retain-permissions": "如果不接受新权限，$<app> 应用将保留当前权限。",
+		// 安装详情页顶部的更新提示（整句一个节点时）
+		"org-settings/app-request-update": "$<app> 正在请求更新其权限。",
+		// 接受新权限后的 flash：应用名与组织名都是动态值
+		"org-settings/app-updated-flash": "好的，$<app> 已在 @$<owner> 账户下更新。",
 		"actions/duration-hms": "$1 时 $2 分 $3 秒",
 		"actions/duration-hm": "$1 时 $2 分",
 		"actions/duration-ms": "$1 分 $2 秒",

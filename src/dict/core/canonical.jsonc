@@ -6260,7 +6260,61 @@
 				"When you are ready, authenticate using the button below.",
 				"When you are ready, trigger a mailer to verify your identity.",
 				"When your phone is ready, click the button below.",
-				"Contact GitHub Support"
+				"Contact GitHub Support",
+				// —— GitHub App 安装详情页（/organizations/<组织>/settings/installations/<id>）——
+				// 证据：2026-11-04 维护者贴的整页截图（扩展仍在运行）。本页是组织设置里另开的
+				// 安装配置页，词条与个人设置页的 `/settings/installations` 完全不同。
+				// 三条边界事实：① `Installed <relative-time>` 与 `Developed by <组织链接>`
+				// 都是「静态前缀 + 动态节点」：前缀各收一条；② 权限行的级别（`Read`）与
+				// `access to metadata` / `and write access to code` 是相邻的**两个文本节点**
+				// （截图里 `读取` 与后面的英文之间正是节点边界），故级别复用既有 `Read`，
+				// 后半段按碎片收；③ 危险区域的卸载标题含动态应用名，走
+				// `org-settings/app-uninstall` 规则，不登记静态键。
+				"Installed",
+				"Developed by",
+				"App settings",
+				"Permissions",
+				// 应用名是 `<strong>` 独立节点，这句是它后面的静态尾段
+				"is requesting an update to its permissions.",
+				"Review request",
+				// 权限行：级别（`Read` / `Read and write`）+ 这两个碎片 + 权限名（`metadata` /
+				// `code` 由上游按权限名渲染，随应用申请的权限变化，不逐个收）
+				"access to metadata",
+				"and write access to code",
+				// 仓库访问权限单选项的两条说明
+				"This applies to all current and future repositories owned by the resource owner. Also includes public repositories (read-only).",
+				"Only select repositories",
+				"Select at least one repository. Also includes public repositories (read-only).",
+				// Selected N repositories. 是动态计数，走规则
+				// —— 危险区域 ——
+				"Suspend your installation",
+				"This will block the app access to your resources.",
+				"Suspend",
+				"This will remove the app and revoke access to all resources.",
+				"Uninstall",
+				// —— 权限更新确认页（…/installations/<id>/permissions/update）——
+				// 标题与底部说明都含动态应用名：整句形态走规则，拆节点形态由
+				// `app by` / `is requesting updated permissions` / 底部尾段三个碎片接住。
+				"app by",
+				"is requesting updated permissions",
+				"app will retain its current permissions if you choose not to accept the new permissions.",
+				"Repository permissions",
+				// 权限行的两种级别与连接词：节点切分既可能是
+				// `Read and write access to` + 权限名，也可能是 `Read and write` + `access to` + 权限名
+				"Read and write",
+				"Read-only",
+				"Read and write access to",
+				"Read-only access to",
+				"access to",
+				// 权限名（`Pull requests` 由 global 的既有键负责）
+				"Contents",
+				"Metadata",
+				"New request",
+				"Show unchanged permissions",
+				"Hide unchanged permissions",
+				"Accept new permissions",
+				// 更新成功后的 flash（/organizations/<组织>/settings/apps/<应用名>）
+				"Got it. Your GitHub App has been updated."
 			]
 		},
 		{

@@ -2876,6 +2876,48 @@
 				{
 					"id": "org-settings/two-factor-secure-disabled-org",
 					"pattern": "^Secure methods of two-factor authentication will no longer be required to access any organization's resources in the (.+) organization\\.$"
+				},
+				// GitHub App 安装详情页的仓库选择器：与 settings/selected-repositories-count
+				// **同 pattern 不同 id**（pages/settings 不命中 /organizations/**，跨模块重复合法）。
+				{
+					"id": "org-settings/selected-repositories-count",
+					"pattern": "^Selected (\\d+) repositor(?:y|ies)\\.$"
+				},
+				// 危险区域的卸载标题：应用名是动态值、且被弯引号包住
+				//（实机 `Uninstall “NapukettoBot”`），引号形态直弯都覆盖。
+				{
+					"id": "org-settings/app-uninstall",
+					"pattern": "^Uninstall [\u201c\"](?<app>.+?)[\u201d\"]$"
+				},
+				// 权限更新确认页的大标题。实机由服务端拼接，`The <应用名> app by ` 是一个
+				// 文本节点（应用名在节点内部）、组织名是紧随其后的链接，故拆成「前缀规则 +
+				// 静态尾段」；上游若把它合成整句（应用名与组织名都在同一节点），由下一条整句
+				// 规则兜住。两条 pattern 互不重叠（前缀那条以 `app by` 结尾）。
+				{
+					"id": "org-settings/app-update-heading-prefix",
+					"pattern": "^The (?<app>.+?) app by$"
+				},
+				{
+					"id": "org-settings/app-update-heading",
+					"pattern": "^The (?<app>.+?) app by (?<owner>.+?) is requesting updated permissions$"
+				},
+				// 同页底部说明：应用名是动态值，整句形态走这条规则；拆节点形态由静态尾段
+				// `app will retain its current permissions if you choose not to accept the new permissions.` 接住。
+				{
+					"id": "org-settings/app-retain-permissions",
+					"pattern": "^The (?<app>.+?) app will retain its current permissions if you choose not to accept the new permissions\\.$"
+				},
+				// 安装详情页顶部的更新提示：应用名在 `<strong>` 里独立成节点时由静态尾段
+				// `is requesting an update to its permissions.` 接住；整句一个节点时走这条。
+				{
+					"id": "org-settings/app-request-update",
+					"pattern": "^(?<app>.+?) is requesting an update to its permissions\\.$"
+				},
+				// 接受新权限后的 flash（/organizations/<组织>/settings/apps/<应用名>）：
+				// 应用名与组织名都是动态值，实机是服务端拼好的单个文本节点。
+				{
+					"id": "org-settings/app-updated-flash",
+					"pattern": "^Okay, (?<app>.+?) was updated for the @(?<owner>.+?) account\\.$"
 				}
 			]
 		},

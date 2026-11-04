@@ -588,6 +588,19 @@
 		"org-settings/actions-deprecation-date": "$1 から、GitHub は",
 		// 個人設定ページの同 pattern を別モジュールでも使用するため id ごとに明示する
 		"org-settings/no-recoverable-packages": "$1 で復元可能なパッケージは見つかりませんでした。",
+		// GitHub App インストール詳細ページ：リポジトリ選択の件数（動的数）
+		"org-settings/selected-repositories-count": "$1 個のリポジトリを選択しました。",
+		// 危険領域のアンインストール見出し：アプリ名はそのまま
+		"org-settings/app-uninstall": "「$<app>」をアンインストール",
+		// 権限更新確認ページの見出し：アプリ名はノード内、組織名はリンク
+		"org-settings/app-update-heading-prefix": "アプリ「$<app>」（開発元:",
+		"org-settings/app-update-heading": "アプリ「$<app>」（開発元: $<owner>）が権限の更新をリクエストしています",
+		// 同ページ下部の説明（アプリ名はそのまま）
+		"org-settings/app-retain-permissions": "新しい権限を承認しない場合、$<app> アプリは現在の権限を保持します。",
+		// インストール詳細ページ上部の更新通知（一文が 1 ノードの場合）
+		"org-settings/app-request-update": "$<app> が権限の更新をリクエストしています。",
+		// 新しい権限の承認後の flash：アプリ名と組織名は動的
+		"org-settings/app-updated-flash": "$<app> は @$<owner> アカウントで更新されました。",
 
 		// —— pages/actions（Actions）——
 		"actions/duration-hms": "$1 時間 $2 分 $3 秒",

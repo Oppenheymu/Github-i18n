@@ -268,6 +268,34 @@ describe("GitHub App 权限页的文本节点", () => {
 			),
 		).toBe("管理用户的电子邮箱地址");
 	});
+
+	it("accepts both punctuations of the short descriptions", () => {
+		// 2026-11-04 维护者贴的实机 span：`Manage a user's email addresses.` 带句点；
+		// 截图缩略图看不出句点，故这批短说明两种形态都收（译文相同）
+		const nodes: [string, string][] = [
+			[
+				"Manage a user's email addresses",
+				"管理用户的电子邮箱地址",
+			],
+			[
+				"Manage a user's email addresses.",
+				"管理用户的电子邮箱地址",
+			],
+			["A user's followers.", "用户的关注者"],
+			["Git SSH keys.", "Git SSH 密钥"],
+			[
+				"View and manage general enterprise settings.",
+				"查看和管理常规企业设置",
+			],
+			[
+				"Review and manage secret scanning alert dismissal requests.",
+				"审查和管理机密扫描警报忽略请求",
+			],
+		];
+		for (const [raw, expected] of nodes) {
+			expect(translateText(raw, view)).toBe(expected);
+		}
+	});
 });
 
 describe("GitHub App 权限页的节点边界", () => {

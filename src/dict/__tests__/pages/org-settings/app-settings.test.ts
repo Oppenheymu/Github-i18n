@@ -113,7 +113,7 @@ describe("GitHub App 基本信息页", () => {
 			["Markdown supported", "支持 Markdown"],
 			["Homepage URL", "主页 URL"],
 			[
-				"The full URL to your GitHub App's website.",
+				"The full URL to your GitHub App’s website.",
 				"你的 GitHub 应用网站的完整 URL。",
 			],
 			[
@@ -227,6 +227,32 @@ describe("GitHub App 基本信息页", () => {
 			),
 		).toBe(
 			"事件将向此 URL 发送 POST 请求，并附带一个 网络钩子.",
+		);
+		// 重定向 URI 说明块的节点边界（2026-11-04 维护者贴的实机 HTML）：
+		// 整段四句共用一个文本节点，`Learn more about secure use of redirect URIs`
+		// 整条在 `<a>` 里，链接后的句点是纯符号节点。
+		const redirectParagraph =
+			"The URIs to redirect to after a user authorizes your application. You may add up to 10 redirect URIs. Wildcard matching allows tokens to be sent to all subdomains and additional paths of the redirect URI. Only enable this if you are sure you have control over all possible matches.";
+		const redirectChinese =
+			"用户授权你的应用后要重定向到的 URI。最多可添加 10 个重定向 URI。通配符匹配允许将令牌发送到重定向 URI 的所有子域和其他路径。只有在你确定能控制所有可能的匹配项时才启用此功能。";
+		for (const variant of withWhitespace(
+			redirectParagraph,
+		)) {
+			expect(translateText(variant, generalView)).toBe(
+				redirectChinese,
+			);
+		}
+		expect(
+			renderNodes(
+				[
+					redirectParagraph,
+					"Learn more about secure use of redirect URIs",
+					".",
+				],
+				generalView,
+			),
+		).toBe(
+			`${redirectChinese}进一步了解如何安全使用重定向 URI.`,
 		);
 		expect(
 			renderNodes(

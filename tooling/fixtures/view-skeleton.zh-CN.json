@@ -3275,6 +3275,10 @@
 					"module": "pages/settings-billing"
 				},
 				{
+					"key": "Models",
+					"module": "pages/settings-billing"
+				},
+				{
 					"key": "Packages",
 					"module": "pages/settings-billing"
 				},

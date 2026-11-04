@@ -2924,7 +2924,7 @@
 				// 整体保留英文，说明 `settings` 与组织名同一节点），故按后缀规则翻译。
 				{
 					"id": "org-settings/app-settings-breadcrumb",
-					"pattern": "^(?<owner>.+) settings$"
+					"pattern": "^(?<owner>[A-Za-z0-9][A-Za-z0-9-]*) settings$"
 				},
 				// 权限页分组标题旁的计数徽标：`2 selected` / `1 mandatory`（数字动态）
 				{

@@ -1158,3 +1158,80 @@ describe("会话页时间线事件与已关闭态", () => {
 		);
 	});
 });
+
+// 2026-11-04 维护者贴的 PR 时间线 HTML（「action 页面」）暴露的漏翻：
+// 合并框就绪态、批准审查事件、代码所有者审查请求的拆节点，以及
+// 「added the <标签> label」的三段式。
+//
+// 边界强度：**实机 HTML 实证**（节点边界直接可见）：
+//   · `added` 与 `the` 之间只有换行 ⇒ 同属一个文本节点，整句前缀是 `added the`；
+//   · 标签名在链接里，尾巴是小写 `label`（大写 `Label` 是侧栏那条既有键）；
+//   · `as a ` 与链接文本 `code owner` 是两个节点，整句键 `as a code owner`
+//     只在模拟上游未拆开时命中，两种形态都必须可用。
+/** 按 walker 的语义拼接相邻节点（保留每个节点的首尾空白） */
+function render(nodes: readonly string[]): string {
+	return nodes
+		.map((node) => {
+			const translated = translateText(node, view);
+			if (translated === null) return node;
+			const lead = node.slice(
+				0,
+				node.length - node.trimStart().length,
+			);
+			const trail = node.slice(node.trimEnd().length);
+			return `${lead}${translated}${trail}`;
+		})
+		.join("");
+}
+
+describe("PR 时间线的合并框就绪态与审查事件", () => {
+	it("translates the merge box ready state and the merge button", () => {
+		expect(
+			translateText("No conflicts with base branch", view),
+		).toBe("与基础分支无冲突");
+		expect(
+			translateText(
+				"Merging can be performed automatically.",
+				view,
+			),
+		).toBe("可以自动执行合并。");
+		expect(
+			translateText("Confirm merge when ready", view),
+		).toBe("准备就绪后确认合并");
+	});
+
+	it("translates the approval event and keeps the previous-approval one apart", () => {
+		expect(
+			translateText("approved these changes", view),
+		).toBe("批准了这些更改");
+		// 两条是**不同的键**：一条首次批准、一条「曾批准」
+		expect(
+			translateText(
+				"previously approved these changes",
+				view,
+			),
+		).toBe("曾批准这些更改");
+	});
+
+	it("renders the code-owner review request across its four nodes", () => {
+		expect(
+			render([
+				"请求以下人员审查：",
+				"Oppenheymu",
+				" as a ",
+				"code owner",
+			]),
+		).toBe("请求以下人员审查：Oppenheymu 作为 代码所有者");
+		// 上游若回滚成单节点，整句键仍然可用
+		expect(translateText("as a code owner", view)).toBe(
+			"作为代码所有者",
+		);
+	});
+
+	it("renders the label-added event across its three nodes", () => {
+		// 标签名是用户内容，原样保留
+		expect(
+			render(["added the", " 范围:工具链与构建 ", "label"]),
+		).toBe("添加了 范围:工具链与构建 标签");
+	});
+});

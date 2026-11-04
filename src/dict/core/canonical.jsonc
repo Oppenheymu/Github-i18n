@@ -350,6 +350,11 @@
 				"assigned",
 				"added",
 				"labels",
+				// 「added the <标签链接> label」是**一个文本节点 + 链接 + 一个文本节点**
+				// （2026-11-04 维护者贴的 HTML：`added` 与 `the` 之间只有换行，同节点），
+				// 故整句前缀按 `added the` 收，尾巴单独收小写 `label`
+				"added the",
+				"label",
 				"branch",
 				// —— 侧栏下拉（assignees / labels 弹层标题与清除项；issues 页同型弹层
 				// 是 this issue 形态，命中再姊妹登记）——
@@ -442,8 +447,15 @@
 				"Checking for the ability to merge automatically...",
 				"Hang in there while we check the branch's status.",
 				"This pull request is closed.",
+				// 合并框就绪态（2026-11-04 维护者贴的时间线 HTML）：标题与说明行各自整节点
+				"No conflicts with base branch",
+				"Merging can be performed automatically.",
+				// 合并按钮的「准备好后确认合并」态
+				"Confirm merge when ready",
 				"View reviewed changes",
 				"previously approved these changes",
+				// 「<用户> approved these changes」——批准审查事件（与上面的「曾批准」是两条）
+				"approved these changes",
 				"added this pull request to the",
 				"removed this pull request from the",
 				// 前半句是「removed this pull request from the <链接>」，本节点把「中移除，
@@ -464,6 +476,10 @@
 				"edited",
 				"requested a review from",
 				"as a code owner",
+				// 实机里 `as a` 与链接文本 `code owner` 是**两个文本节点**（2026-11-04
+				// 维护者贴的时间线 HTML），整句键只在未被拆开时命中，故两条碎片各收一份
+				"as a",
+				"code owner",
 				// 评论「…」菜单四项（复制链接 / 复制 Markdown 已收录或由 global 提供）
 				"Quote reply",
 				"Report content",

@@ -173,6 +173,10 @@
 		"assigned": "がアサイン：",
 		"added": "が",
 		"labels": "のラベルを追加",
+		// 「added the <ラベルリンク> label」：`added` と `the` は同じテキストノード、
+		// ラベル名はリンク内、末尾は小文字の `label`——3 ノードに分かれるため個別に収録
+		"added the": "が",
+		"label": "のラベルを追加",
 		"branch": "ブランチ",
 		// チェックサマリーの数値は rules の pulls/checks-passed で処理
 		// —— サイドバーのドロップダウン（assignees / labels 弹層；issues ページの
@@ -247,8 +251,15 @@
 		"Checking for the ability to merge automatically...": "自動マージが可能かどうかを確認しています…",
 		"Hang in there while we check the branch's status.": "ブランチのステータスを確認しています。しばらくお待ちください。",
 		"This pull request is closed.": "このプルリクエストはクローズされています。",
+		// マージボックスの準備完了状態（2026-11-04 のタイムライン HTML）
+		"No conflicts with base branch": "ベースブランチとの競合はありません",
+		"Merging can be performed automatically.": "自動的にマージできます。",
+		// マージボタンの「準備ができたら確認」状態
+		"Confirm merge when ready": "準備ができたらマージを確認",
 		"View reviewed changes": "レビュー済みの変更を表示",
 		"previously approved these changes": "以前にこれらの変更を承認しました",
+		// 「<ユーザー> approved these changes」——初回の承認（上の「以前に…」とは別の鍵）
+		"approved these changes": "これらの変更を承認しました",
 		"added this pull request to the": "このプルリクエストを以下に追加しました:",
 		"removed this pull request from the": "このプルリクエストを以下から削除しました:",
 		"due to a conflict with the base branch": "ベースブランチとの競合のため",
@@ -267,6 +278,9 @@
 		"edited": "編集済み",
 		"requested a review from": "以下にレビューをリクエスト:",
 		"as a code owner": "コードオーナーとして",
+		// 実機は `as a` とリンク `code owner` の 2 ノード（全体の鍵は未分割時のみ命中）
+		"as a": "として",
+		"code owner": "コードオーナー",
 		// —— コメントの「…」メニューとクローズ済み PR のブランチ復元 ——
 		"Quote reply": "引用返信",
 		"Report content": "コンテンツを報告",

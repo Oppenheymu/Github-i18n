@@ -169,6 +169,10 @@
 		"assigned": "指派了",
 		"added": "添加了",
 		"labels": "标签",
+		// 「added the <标签链接> label」：`added` 与 `the` 同属一个文本节点（只有换行），
+		// 标签名在链接里，尾巴是小写 `label`——三段各收一条才能拼出「添加了 X 标签」
+		"added the": "添加了",
+		"label": "标签",
 		"branch": "分支",
 		// 检查摘要数字动态走 rules 的 pulls/checks-passed（「13 checks passed」实机截图）
 		// —— 侧栏下拉（assignees / labels 弹层；issues 页 this issue 形态命中再姊妹登记）
@@ -245,9 +249,16 @@
 		"Checking for the ability to merge automatically...": "正在检查能否自动合并…",
 		"Hang in there while we check the branch's status.": "请稍候，我们正在检查此分支的状态。",
 		"This pull request is closed.": "此拉取请求已关闭。",
+		// 合并框就绪态（2026-11-04 维护者贴的时间线 HTML）
+		"No conflicts with base branch": "与基础分支无冲突",
+		"Merging can be performed automatically.": "可以自动执行合并。",
+		// 合并按钮的「准备好后确认合并」态
+		"Confirm merge when ready": "准备就绪后确认合并",
 		"View reviewed changes": "查看审查过的更改",
 		// 时间线：「<用户> previously approved these changes <时间>」
 		"previously approved these changes": "曾批准这些更改",
+		// 「<用户> approved these changes」——首次批准（与「曾批准」是两条不同的键）
+		"approved these changes": "批准了这些更改",
 		// 合并队列事件：「added this pull request to the <合并队列>」
 		"added this pull request to the": "将此拉取请求添加到",
 		// 「removed this pull request from the <合并队列> due to a conflict with the
@@ -270,6 +281,9 @@
 		// 「requested a review from <用户> as a code owner」
 		"requested a review from": "请求以下人员审查：",
 		"as a code owner": "作为代码所有者",
+		// 实机把 `as a` 与链接 `code owner` 拆成两个文本节点（整句键只在未拆开时命中）
+		"as a": "作为",
+		"code owner": "代码所有者",
 		// —— 评论「…」菜单与已关闭 PR 的恢复分支按钮 ——
 		"Quote reply": "引用回复",
 		"Report content": "举报内容",

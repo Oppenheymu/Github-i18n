@@ -26,7 +26,7 @@
   <a href="#文档">文档</a>
 </p>
 
-<sub><a href="../../README.md">English</a> · <strong>简体中文</strong></sub>
+<sub><a href="../../README.md">English</a> · <strong>简体中文</strong> · <a href="./README.zh-TW.md">繁體中文</a> · <a href="./README.ja.md">日本語</a> · <a href="./README.ko.md">한국어</a> · <a href="./README.es.md">Español</a> · <a href="./README.fr.md">Français</a> · <a href="./README.de.md">Deutsch</a> · <a href="./README.pt-BR.md">Português (Brasil)</a> · <a href="./README.pt-PT.md">Português (Portugal)</a> · <a href="./README.ru.md">Русский</a></sub>
 
 </div>
 

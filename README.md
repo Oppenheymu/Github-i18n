@@ -26,7 +26,7 @@
   <a href="#documentation">Documentation</a>
 </p>
 
-<sub><strong>English</strong> · <a href="./docs/readme/README.zh-CN.md">简体中文</a></sub>
+<sub><strong>English</strong> · <a href="./docs/readme/README.zh-CN.md">简体中文</a> · <a href="./docs/readme/README.zh-TW.md">繁體中文</a> · <a href="./docs/readme/README.ja.md">日本語</a> · <a href="./docs/readme/README.ko.md">한국어</a> · <a href="./docs/readme/README.es.md">Español</a> · <a href="./docs/readme/README.fr.md">Français</a> · <a href="./docs/readme/README.de.md">Deutsch</a> · <a href="./docs/readme/README.pt-BR.md">Português (Brasil)</a> · <a href="./docs/readme/README.pt-PT.md">Português (Portugal)</a> · <a href="./docs/readme/README.ru.md">Русский</a></sub>
 
 </div>
 

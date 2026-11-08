@@ -900,6 +900,14 @@
 				{
 					"id": "settings/audit-removed-oauth-authorization",
 					"pattern": "^Removed authorization for OAuth application \\((.+)\\)$"
+				},
+				// 邮件设置页（/settings/emails）新增邮箱后的 flash 横幅：
+				// `We sent a verification email to <邮箱>. Please follow the instructions in it.`
+				// 邮箱是用户内容（动态值），整句是**单个文本节点**（2026-11-08 维护者贴的实机
+				// HTML，地址后面没有标签），故按规则把地址原样带回。
+				{
+					"id": "settings/verification-email-sent",
+					"pattern": "^We sent a verification email to (?<email>.+)\\. Please follow the instructions in it\\.$"
 				}
 			]
 		},

@@ -290,6 +290,35 @@ describe("电子邮件设置页的实机节点边界", () => {
 		).toBe("保持我的电子邮箱地址私密");
 	});
 
+	it("renders the sent-verification-email flash through the rule", () => {
+		// 实机（2026-11-08 维护者贴的 HTML）：flash 横幅里邮箱是**纯文本**、整句一个
+		// 文本节点，地址属用户内容，只能走规则把地址原样带回
+		expect(
+			translateText(
+				"\n      We sent a verification email to Setback6.Dusk.Gigabyte@pm.me. Please follow the instructions in it.\n\n    ",
+				view,
+			),
+		).toBe(
+			"我们已向 Setback6.Dusk.Gigabyte@pm.me 发送了一封验证邮件。请按照邮件中的说明操作。",
+		);
+		// 换成别的地址同样命中（规则不依赖具体邮箱）
+		expect(
+			translateText(
+				"We sent a verification email to someone@example.com. Please follow the instructions in it.",
+				view,
+			),
+		).toBe(
+			"我们已向 someone@example.com 发送了一封验证邮件。请按照邮件中的说明操作。",
+		);
+		// 半句话不命中，避免误伤
+		expect(
+			translateText(
+				"We sent a verification email to",
+				view,
+			),
+		).toBeNull();
+	});
+
 	it("translates the sidebar label that used to stay English", () => {
 		// 设置侧栏的 Packages：漏翻导出里出现 52 次（该页每次渲染都会带上侧栏）。
 		// 同区右侧的 Copilot **故意不译**（纯专名不译是既有约定，与账单页 / 许可页 /

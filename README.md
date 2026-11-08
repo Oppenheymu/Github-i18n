@@ -7,7 +7,7 @@
   </picture>
 </h1>
 
-**把 GitHub 界面本地化为你的语言 —— 纯内置词典、完全本地运行、零网络请求**
+**Localize the GitHub interface into your language — dictionary shipped inside the extension, fully local, zero network requests**
 
 [![CI](https://img.shields.io/github/actions/workflow/status/Oppenheymu/Github-i18n/ci.yml?style=flat-square&label=CI)](https://github.com/Oppenheymu/Github-i18n/actions/workflows/ci.yml)
 &emsp;
@@ -18,110 +18,109 @@
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](./LICENSE)
 
 <p>
-  <a href="#特性">特性</a> •
-  <a href="#安装">安装</a> •
-  <a href="#使用">使用</a> •
-  <a href="#工作原理">工作原理</a> •
-  <a href="#开发">开发</a> •
-  <a href="#文档">文档</a>
+  <a href="#features">Features</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#how-it-works">How it works</a> •
+  <a href="#development">Development</a> •
+  <a href="#documentation">Documentation</a>
 </p>
 
-<sub><strong>简体中文</strong> · <a href="./README.en.md">English</a></sub>
+<sub><strong>English</strong> · <a href="./docs/readme/README.zh-CN.md">简体中文</a></sub>
 
 </div>
 
 > [!NOTE]
-> **非官方声明**：\
-> 　「GitHub」名称与标识为 GitHub, Inc. 的商标；本项目是独立的社区本地化工具，与 GitHub, Inc. 无任何隶属、合作或背书关系。详见 [NOTICE](NOTICE)。
+> **Not affiliated with GitHub.** The name and logo of "GitHub" are trademarks of GitHub, Inc. This project is an independent community localization tool with no affiliation, partnership, or endorsement from GitHub, Inc. See [NOTICE](NOTICE) for details.
 
 ---
 
-## 特性
+## Features
 
-- **内置词典**：词典随扩展分发，翻译不联网、不调用在线服务。
-- **按页面加载**：词条按模块路由，具体页压过全局兜底；未收录的文案保留英文。
-- **不碰内容**：代码块、diff、编辑器、README 与 issue 正文整块跳过，只翻界面文案。
-- **零收集**：不收集、不上传数据；漏翻收集的开发者模式默认关闭，只写本机。
-- **跟随 SPA**：`MutationObserver` 跟着 Turbo 跳转继续翻，翻页不用刷新。
+- **Built-in dictionary**: translations ship with the extension — nothing is fetched, no online service is called.
+- **Loaded per page**: entries are routed by module, page-specific ones override the global fallback, and text that is not covered stays in English.
+- **Content untouched**: code blocks, diffs, the editor, READMEs and issue bodies are skipped as whole blocks; only interface text is translated.
+- **Zero collection**: no data is collected or uploaded; the developer-mode miss collector is off by default and only writes locally.
+- **Follows the SPA**: a `MutationObserver` keeps translating as Turbo navigates, so no refresh is needed.
 
 ---
 
-## 安装
+## Installation
 
-扩展作用于 `github.com` 与 `gist.github.com`，以「源码构建 + 侧载」分发。
+The extension targets `github.com` and `gist.github.com`, and is distributed as build-from-source plus sideloading.
 
 ```bash
 bun install
 bun run build
 ```
 
-1. 打开 `chrome://extensions`（Edge 为 `edge://extensions`），开启「开发者模式」；
-2. 点「加载已解压的扩展程序」，选择 `dist/`；
-3. 打开 GitHub，点工具栏图标确认开关已开启。
+1. Open `chrome://extensions` (`edge://extensions` on Edge) and turn on **Developer mode**;
+2. Click **Load unpacked** and select `dist/`;
+3. Open GitHub and click the toolbar icon to confirm the toggle is on.
 
 > [!TIP]
-> 改完代码跑 `bun run watch` 重建，再到扩展页点一次「重新加载」；`bun run pack` 会打出 `github-i18n-v<版本>.zip`。
+> After changing code, run `bun run watch` to rebuild, then click **Reload** once on the extensions page; `bun run pack` produces `github-i18n-v<version>.zip`.
 
 ---
 
-## 使用
+## Usage
 
-- **开关**：关闭即整页还原英文。
-- **语言**：默认跟随浏览器，也可手动选择。简体中文是基线（100%），日本語、繁體中文、한국어、Español、Français、Deutsch、Português (Brasil / Portugal)、Русский 按需跟进；未译部分保留英文。
-- **开发者模式**：默认关闭；开启后只在本机收集未命中的文本，可复制或清空。
+- **Toggle**: turn it off and the whole page reverts to English.
+- **Language**: follows the browser by default, and can also be chosen manually. Simplified Chinese is the baseline (100%); 日本語, 繁體中文, 한국어, Español, Français, Deutsch, Português (Brasil / Portugal) and Русский are filled in as they become ready, and untranslated parts stay in English.
+- **Developer mode**: off by default; when enabled it only collects missed text on your machine, which you can copy or clear.
 
 ---
 
-## 工作原理
+## How it works
 
-content script 在 `document_start` 注入，用 `MutationObserver` 捕获页面变化，按「路径 + 语言」取词典视图并回填译文。
+The content script is injected at `document_start`, watches the page with a `MutationObserver`, resolves a dictionary view by "path + locale", and writes the translations back.
 
 <details>
-<summary>展开查看管线图</summary>
+<summary>Show the pipeline</summary>
 
 ```mermaid
 flowchart LR
-    GH["GitHub 页面"] --> OBS["MutationObserver"]
-    OBS --> ENGINE["engine<br/>微任务合并 · flush"]
-    ENGINE --> VIEW["pages<br/>路径 + 语言 → 视图"]
-    DICT["词典"] --> VIEW
-    VIEW --> WALKER["walker<br/>文本 · 属性 · 规则"]
-    WALKER --> DOM["回填译文"]
+    GH["GitHub page"] --> OBS["MutationObserver"]
+    OBS --> ENGINE["engine<br/>microtask batching · flush"]
+    ENGINE --> VIEW["pages<br/>path + locale → view"]
+    DICT["dictionary"] --> VIEW
+    VIEW --> WALKER["walker<br/>text · attributes · rules"]
+    WALKER --> DOM["translations written back"]
 ```
 
 </details>
 
 ---
 
-## 开发
+## Development
 
 ```bash
-bun run check          # 全量门禁
-bun run build          # 构建 dist/
-bun run watch          # 监听重建
-bun run pack           # 打包 zip
-bun run report:misses  # 漏翻日志 → 报告
+bun run check          # full gate
+bun run build          # build dist/
+bun run watch          # rebuild on change
+bun run pack           # package the zip
+bun run report:misses  # miss log → report
 ```
 
-提交前 `bun run check` 必须全绿。词典 100% 原创，**严禁引入任何 GPL / AGPL 系汉化项目的词典或代码**；约定见 [AGENTS.md](./AGENTS.md)，流程见[开发指南](./docs/guides/development.md)。
+`bun run check` must be green before committing. The dictionary is 100% original, and **importing dictionaries or code from any GPL / AGPL localization project is strictly forbidden**. Conventions live in [AGENTS.md](./AGENTS.md), the workflow in the [development guide](./docs/guides/development.md).
 
 ---
 
-## 文档
+## Documentation
 
-- [开发指南](./docs/guides/development.md)
-- [仓库约定](./AGENTS.md)
-- [安全策略](./.github/SECURITY.md)
-- [许可证 MIT](./LICENSE) ｜ [声明](./NOTICE)
+- [Development guide](./docs/guides/development.md)
+- [Repository conventions](./AGENTS.md)
+- [Security policy](./.github/SECURITY.md)
+- [MIT license](./LICENSE) · [Notices](./NOTICE)
 
 ---
 
-## 状态
+## Status
 
 [![Repobeats analytics image](https://repobeats.axiom.co/api/embed/ce368e09dd89056975ae095d1d52a1974ade8ad3.svg "Repobeats analytics image")](https://github.com/Oppenheymu/Github-i18n/pulse)
 
 ---
 
-## 许可
+## License
 
-源码与词典均为原创，以 [MIT](./LICENSE) 分发；与 GitHub, Inc. 无隶属关系，详见 [NOTICE](./NOTICE)。
+Source code and dictionary are both original work, distributed under the [MIT](./LICENSE) license; not affiliated with GitHub, Inc., see [NOTICE](./NOTICE) for details.

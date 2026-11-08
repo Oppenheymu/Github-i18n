@@ -26,6 +26,8 @@
   <a href="#文档">文档</a>
 </p>
 
+<sub><strong>简体中文</strong> · <a href="./README.en.md">English</a></sub>
+
 </div>
 
 > [!NOTE]

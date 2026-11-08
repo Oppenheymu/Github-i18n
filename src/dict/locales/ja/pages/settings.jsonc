@@ -1227,6 +1227,10 @@
 		"Past year": "過去 1 年",
 		"All-time": "全期間",
 		"No sponsorship activity in this time period": "この期間にスポンサーシップのアクティビティはありません",
-		"This is where you can review activity from your sponsorships.": "ここでは、スポンサーシップのアクティビティを確認できます。"
+		"This is where you can review activity from your sponsorships.": "ここでは、スポンサーシップのアクティビティを確認できます。",
+		// —— 設定ページの flash バナー（2026-11-08 実機 HTML）——
+		"Your email was verified.": "メールアドレスが確認されました。",
+		"Profile updated successfully —": "プロフィールを更新しました —",
+		"view your profile.": "プロフィールを表示する。"
 	}
 }

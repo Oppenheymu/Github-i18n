@@ -429,4 +429,18 @@ describe("公开资料表单（/settings/profile）的实机节点边界", () =>
 			),
 		).toBe("(GMT-08:00) 太平洋时间（美国和加拿大）");
 	});
+
+	it("renders the profile-updated flash across its dash and link", () => {
+		// 实机（2026-11-08 维护者贴的 HTML）：`Profile updated successfully`、破折号与
+		// 链接前只有一个换行——**同属一个文本节点**；`view your profile.` 是链接节点
+		expect(
+			translateText(
+				"\n      Profile updated successfully\n      —\n      ",
+				view,
+			),
+		).toBe("个人资料已更新成功 —");
+		expect(translateText("view your profile.", view)).toBe(
+			"查看你的个人资料。",
+		);
+	});
 });

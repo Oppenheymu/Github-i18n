@@ -1059,6 +1059,7 @@
 		"global/in-a-year": "$<count:1> 年後",
 		// メール設定ページの flash バナー：メールアドレスはそのまま
 		"settings/verification-email-sent": "確認メールを $<email> に送信しました。メールの指示に従ってください。",
+		"settings/backup-email-changed": "バックアップメールアドレスが $<email> に変更されました。",
 		// GitHub App 公開ページ（/apps/<アプリ名>）：アプリ名はそのまま
 		"apps/provided-by-third-party": "$<app> は第三者によって提供されており、別途定める利用規約、プライバシー ポリシー、サポート ドキュメントに従います。"
 	}

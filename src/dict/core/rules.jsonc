@@ -908,6 +908,12 @@
 				{
 					"id": "settings/verification-email-sent",
 					"pattern": "^We sent a verification email to (?<email>.+)\\. Please follow the instructions in it\\.$"
+				},
+				// 同一批 flash 横幅：更改备用邮箱后的提示
+				// `Your backup email was changed to <邮箱>.`——邮箱是用户内容，原样带回。
+				{
+					"id": "settings/backup-email-changed",
+					"pattern": "^Your backup email was changed to (?<email>.+)\\.$"
 				}
 			]
 		},

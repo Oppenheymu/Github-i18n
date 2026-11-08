@@ -319,6 +319,32 @@ describe("电子邮件设置页的实机节点边界", () => {
 		).toBeNull();
 	});
 
+	it("renders the verified and backup-changed flash banners", () => {
+		// 2026-11-08 维护者贴的另外两条 .js-flash-alert
+		expect(
+			translateText(
+				"\n      Your email was verified.\n\n    ",
+				view,
+			),
+		).toBe("你的电子邮箱已验证。");
+		// 备用邮箱那条带动态地址，走 settings/backup-email-changed 规则
+		expect(
+			translateText(
+				"\n      Your backup email was changed to Setback6.Dusk.Gigabyte@pm.me.\n\n    ",
+				view,
+			),
+		).toBe(
+			"你的备用电子邮箱已更改为 Setback6.Dusk.Gigabyte@pm.me。",
+		);
+		// 半句话不命中
+		expect(
+			translateText(
+				"Your backup email was changed to",
+				view,
+			),
+		).toBeNull();
+	});
+
 	it("translates the sidebar label that used to stay English", () => {
 		// 设置侧栏的 Packages：漏翻导出里出现 52 次（该页每次渲染都会带上侧栏）。
 		// 同区右侧的 Copilot **故意不译**（纯专名不译是既有约定，与账单页 / 许可页 /

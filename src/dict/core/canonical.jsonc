@@ -2051,7 +2051,15 @@
 				"Past year",
 				"All-time",
 				"No sponsorship activity in this time period",
-				"This is where you can review activity from your sponsorships."
+				"This is where you can review activity from your sponsorships.",
+				// —— 设置页的 flash 横幅（2026-11-08 维护者贴的实机 HTML）——
+				// 三条横幅都渲染在 `/settings/*` 的 `.js-flash-alert` 里；第二条的邮箱是
+				// 用户内容，走 core/rules.jsonc 的 settings/backup-email-changed 规则。
+				// 第三条的破折号与前一句**同属一个文本节点**（中间只有换行），链接
+				// `view your profile.` 是独立节点。
+				"Your email was verified.",
+				"Profile updated successfully —",
+				"view your profile."
 			]
 		},
 		{

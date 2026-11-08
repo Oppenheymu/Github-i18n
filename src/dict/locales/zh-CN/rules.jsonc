@@ -1159,6 +1159,7 @@
 		"settings/article-a": "一位",
 		// 邮件设置页的 flash 横幅：邮箱地址原样带回，只把整句换成中文
 		"settings/verification-email-sent": "我们已向 $<email> 发送了一封验证邮件。请按照邮件中的说明操作。",
+		"settings/backup-email-changed": "你的备用电子邮箱已更改为 $<email>。",
 		// GitHub App 公开页（/apps/<应用名>）：应用名原样带回，只替换后半句
 		"apps/provided-by-third-party": "$<app> 由第三方提供，并受单独的服务条款、隐私政策和支持文档约束。"
 	}

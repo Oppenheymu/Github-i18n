@@ -1223,6 +1223,11 @@
 		"Past year": "过去一年",
 		"All-time": "全部时间",
 		"No sponsorship activity in this time period": "此时间段内没有赞助活动",
-		"This is where you can review activity from your sponsorships.": "你可以在这里查看你的赞助活动。"
+		"This is where you can review activity from your sponsorships.": "你可以在这里查看你的赞助活动。",
+		// —— 设置页的 flash 横幅（2026-11-08 实机 HTML）——
+		"Your email was verified.": "你的电子邮箱已验证。",
+		// 破折号与前一句在同一个文本节点里，译文保留破折号，链接文本另收一条
+		"Profile updated successfully —": "个人资料已更新成功 —",
+		"view your profile.": "查看你的个人资料。"
 	}
 }

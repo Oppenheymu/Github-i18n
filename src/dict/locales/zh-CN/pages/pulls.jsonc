@@ -199,6 +199,9 @@
 		// —— checks 区部署空态（h3 标题与 status-meta 副文本各自整节点）——
 		"This branch has not been deployed": "此分支尚未部署",
 		"No deployments": "暂无部署记录",
+		// —— checks 摘要标题与签名要求说明（2026-11-09 维护者截图 + 实机 HTML）——
+		"All checks have passed": "所有检查均已通过",
+		"Commits must have verified signatures.": "提交必须具有已验证的签名。",
 		// —— 代码空间警告横幅、侧栏与通知订阅控件（2026-11-02 实机 HTML）——
 		"Pull request warning": "拉取请求警告",
 		"This pull request must be reopened to create new codespaces on it.": "必须重新打开此拉取请求，才能在其中创建新的代码空间。",

@@ -1362,3 +1362,59 @@ describe("PR 页的推送拒绝横幅与通知订阅原因", () => {
 		);
 	});
 });
+
+// 2026-11-09 维护者贴的 PR 页截图 + HTML：合并框上方的 checks 摘要标题与签名要求说明。
+//
+// 维护者右键抓到的 `<button aria-label="Expand checks" …>::after` 是**图标按钮**，
+// 里面本来就没有文字（图标由 `::after` 画），所以「HTML 里什么都没有」不是翻不了，
+// 正文在它的兄弟节点里。标题行是独立整节点；下一行计数
+// `4 skipped, 9 successful checks` 的节点边界没取到（数字与状态词可能被逗号拆成
+// 多段），暂不收——先钉住已确认的这条，别按猜测写规则。
+describe("PR 页 checks 摘要标题与签名要求说明", () => {
+	it("translates the checks summary heading", () => {
+		expect(
+			translateText("All checks have passed", view),
+		).toBe("所有检查均已通过");
+		// 实机节点带源码缩进与换行：translateText 只查表（返回去掉首尾空白的译文），
+		// 节点自身的空白由 walker 写回时原样保留（render 复刻同一语义）
+		expect(
+			translateText(
+				"\n      All checks have passed\n    ",
+				view,
+			),
+		).toBe("所有检查均已通过");
+		expect(
+			render(["\n      All checks have passed\n    "]),
+		).toBe("\n      所有检查均已通过\n    ");
+	});
+
+	it("translates the verified-signature line as one node", () => {
+		expect(
+			translateText(
+				"Commits must have verified signatures.",
+				view,
+			),
+		).toBe("提交必须具有已验证的签名。");
+		// 句号在节点内部，半句话结构上不可能命中
+		expect(
+			translateText("Commits must have verified", view),
+		).toBeNull();
+	});
+
+	it("has japanese entries for both", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/54",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText("All checks have passed", japanese),
+		).toBe("すべてのチェックが成功しました");
+		expect(
+			translateText(
+				"Commits must have verified signatures.",
+				japanese,
+			),
+		).toBe("コミットには検証済みの署名が必要です。");
+	});
+});

@@ -206,6 +206,9 @@
 		// —— checks 領域のデプロイ空状態（h3 と status-meta がそれぞれ完全一致ノード）——
 		"This branch has not been deployed": "このブランチはまだデプロイされていません",
 		"No deployments": "デプロイはありません",
+		// —— checks サマリーの見出しと署名要求の説明（2026-11-09 保守者のスクリーンショット + 実機 HTML）——
+		"All checks have passed": "すべてのチェックが成功しました",
+		"Commits must have verified signatures.": "コミットには検証済みの署名が必要です。",
 		// —— コードスペースの警告バナー、サイドバー、通知購読コントロール（2026-11-02 実機 HTML）——
 		"Pull request warning": "プルリクエストの警告",
 		"This pull request must be reopened to create new codespaces on it.": "このプルリクエストで新しいコードスペースを作成するには、再度オープンする必要があります。",

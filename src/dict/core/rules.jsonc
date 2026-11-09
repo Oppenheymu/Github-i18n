@@ -126,6 +126,44 @@
 					"id": "pulls/checks-status-failing-skipped-successful",
 					"pattern": "^(?<failing>\\d+) failing, (?<skipped>\\d+) skipped, (?<successful>\\d+) successful checks?$"
 				},
+				// checks 摘要计数行的第三种状态 in progress（2026-11-09 维护者截图：
+				// `1 failing, 1 in progress, 4 skipped, 6 successful checks`）——顺序
+				// 实证为 失败 → 进行中 → 跳过 → 成功，下面补上含 in progress 的组合；
+				// expected / neutral 与其他状态同行的相对位置仍然没有样张，继续留英文。
+				// 状态集合随上游增加，组合只能逐一登记（引擎模板不支持条件片段），
+				// 新增状态时按同一顺序补全 C(n) 个组合即可。
+				{
+					"id": "pulls/checks-status-in-progress",
+					"pattern": "^(?<count>\\d+) in progress checks?$"
+				},
+				{
+					"id": "pulls/checks-status-failing-in-progress",
+					"pattern": "^(?<failing>\\d+) failing, (?<inProgress>\\d+) in progress checks?$"
+				},
+				{
+					"id": "pulls/checks-status-in-progress-skipped",
+					"pattern": "^(?<inProgress>\\d+) in progress, (?<skipped>\\d+) skipped checks?$"
+				},
+				{
+					"id": "pulls/checks-status-in-progress-successful",
+					"pattern": "^(?<inProgress>\\d+) in progress, (?<successful>\\d+) successful checks?$"
+				},
+				{
+					"id": "pulls/checks-status-failing-in-progress-skipped",
+					"pattern": "^(?<failing>\\d+) failing, (?<inProgress>\\d+) in progress, (?<skipped>\\d+) skipped checks?$"
+				},
+				{
+					"id": "pulls/checks-status-failing-in-progress-successful",
+					"pattern": "^(?<failing>\\d+) failing, (?<inProgress>\\d+) in progress, (?<successful>\\d+) successful checks?$"
+				},
+				{
+					"id": "pulls/checks-status-in-progress-skipped-successful",
+					"pattern": "^(?<inProgress>\\d+) in progress, (?<skipped>\\d+) skipped, (?<successful>\\d+) successful checks?$"
+				},
+				{
+					"id": "pulls/checks-status-failing-in-progress-skipped-successful",
+					"pattern": "^(?<failing>\\d+) failing, (?<inProgress>\\d+) in progress, (?<skipped>\\d+) skipped, (?<successful>\\d+) successful checks?$"
+				},
 				// 合并框 out-of-date 态的指引句（2026-11-01 维护者实机 HTML）：基线
 				// 分支名与合并提交的关联用户都是动态内容
 				{

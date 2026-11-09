@@ -31,6 +31,14 @@
 		"pulls/checks-status-failing-successful": "失败 $<failing> 项、成功 $<successful> 项检查",
 		"pulls/checks-status-skipped-successful": "已跳过 $<skipped> 项、成功 $<successful> 项检查",
 		"pulls/checks-status-failing-skipped-successful": "失败 $<failing> 项、已跳过 $<skipped> 项、成功 $<successful> 项检查",
+		"pulls/checks-status-in-progress": "进行中 $<count> 项检查",
+		"pulls/checks-status-failing-in-progress": "失败 $<failing> 项、进行中 $<inProgress> 项检查",
+		"pulls/checks-status-in-progress-skipped": "进行中 $<inProgress> 项、已跳过 $<skipped> 项检查",
+		"pulls/checks-status-in-progress-successful": "进行中 $<inProgress> 项、成功 $<successful> 项检查",
+		"pulls/checks-status-failing-in-progress-skipped": "失败 $<failing> 项、进行中 $<inProgress> 项、已跳过 $<skipped> 项检查",
+		"pulls/checks-status-failing-in-progress-successful": "失败 $<failing> 项、进行中 $<inProgress> 项、成功 $<successful> 项检查",
+		"pulls/checks-status-in-progress-skipped-successful": "进行中 $<inProgress> 项、已跳过 $<skipped> 项、成功 $<successful> 项检查",
+		"pulls/checks-status-failing-in-progress-skipped-successful": "失败 $<failing> 项、进行中 $<inProgress> 项、已跳过 $<skipped> 项、成功 $<successful> 项检查",
 		// 合并框 out-of-date 态指引句（分支名与用户名动态）
 		"pulls/merge-latest-changes": "将 $<base> 的最新更改合并到此分支。此合并提交将关联到 $<user>。",
 		// 代码所有者审查等待（用户名动态）

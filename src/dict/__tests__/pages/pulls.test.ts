@@ -1413,6 +1413,30 @@ describe("PR 页 checks 摘要标题与计数行", () => {
 		expect(
 			translateText("1 failing, 2 skipped checks", view),
 		).toBe("失败 1 项、已跳过 2 项检查");
+		// in progress（2026-11-09 第二张截图新增的状态；顺序 失败 → 进行中 → 跳过 → 成功）
+		expect(
+			translateText(
+				"1 failing, 1 in progress, 4 skipped, 6 successful checks",
+				view,
+			),
+		).toBe(
+			"失败 1 项、进行中 1 项、已跳过 4 项、成功 6 项检查",
+		);
+		expect(
+			translateText("2 in progress checks", view),
+		).toBe("进行中 2 项检查");
+		expect(
+			translateText(
+				"1 in progress, 3 successful checks",
+				view,
+			),
+		).toBe("进行中 1 项、成功 3 项检查");
+		expect(
+			translateText(
+				"1 failing, 2 in progress checks",
+				view,
+			),
+		).toBe("失败 1 项、进行中 2 项检查");
 		// 单状态（单数 check 也要命中）
 		expect(
 			translateText("13 successful checks", view),
@@ -1476,6 +1500,14 @@ describe("PR 页 checks 摘要标题与计数行", () => {
 				japanese,
 			),
 		).toBe("失敗 1 件、スキップ 4 件、成功 7 件のチェック");
+		expect(
+			translateText(
+				"1 failing, 1 in progress, 4 skipped, 6 successful checks",
+				japanese,
+			),
+		).toBe(
+			"失敗 1 件、進行中 1 件、スキップ 4 件、成功 6 件のチェック",
+		);
 		expect(
 			translateText(
 				"Commits must have verified signatures.",

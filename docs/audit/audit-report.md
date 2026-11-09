@@ -184,6 +184,7 @@ Github-i18n/
 **综合评级：良好（B+）**。这是一个纪律性很强的项目：分层清晰（语言无关数据 / 按语言译文 / 运行时 / 门禁分离）、门禁有真实拦截力（结构编译、交叉引用、防循环、覆盖率、视图骨架快照）、TypeScript 严格全家桶零缺失、无网络请求、无 XSS 面、无 git 误提交产物。
 
 **但存在 3 类必须修的问题**：
+
 1. **1 处严重**：`.github/SECURITY.md` 整篇是从另一个项目（Koishi-CE）错误复制的内容，会让漏洞报告者被引向错误的上游项目 —— 安全流程事实上失效。
 2. **3 处确定性数据缺陷**：词典里有 1 条键内嵌真实换行（**永不命中**，却计入 100% 覆盖率）、2 条 DOM 中不存在的伪键、1 条可达碎片的译文语法不通。它们证明「100% 覆盖率」目前**是虚高的**。
 3. **2 处结构性缺陷**：`pages/repo` 路由 `^/[^/]+/[^/]+` 把 **84 条仓库专属词条**注入到 `/settings/**` 用户设置页；CI **不跑 `build`**，构建链损坏可以全绿合入。
@@ -228,6 +229,7 @@ Github-i18n/
 ### H-01 `.github/SECURITY.md` 是另一个项目的安全政策
 
 **证据**（原文）：
+
 - `.github/SECURITY.md:7`：「本项目是 [Koishi](https://koishi.chat) 的社区再发行版（Community Edition），核心与 webui 合并重构的单一 monorepo，发布包位于 npm 作用域 `@koishi-ce`。」
 - `.github/SECURITY.md:9-14`：版本支持表全部是 `@koishi-ce/koishi`、`@koishi-ce/loader`、`@koishi-ce/plugin-console`、`koishi-shim` 等包名。
 - `.github/SECURITY.md:38-45`：英文版同样自称 Koishi 社区再发行版。
@@ -239,6 +241,7 @@ Github-i18n/
 ### H-02 词典中 1 条键内嵌真实换行，永不命中且使覆盖率虚高
 
 **证据**：
+
 - `src/dict/core/canonical.jsonc:1304`：`"Any repository that has not been created or\n    updated during this period will be excluded.",`（JSONC 里是真实换行，非 `\n` 两字符）
 - `src/dict/locales/zh-CN/pages/insights.jsonc:36`：同名键带同样换行，译文「在此期间未创建或未更新的仓库将被排除。」
 - 引擎查键前先归一化：`src/content/walker.ts:82-84` 的 `normalizeKey` 做 `trim()` + `/\s+/g → " "`，而 `lookup()`（`walker.ts:45-54`）用归一化结果去命中**原始键**。
@@ -267,6 +270,7 @@ Github-i18n/
 ```
 
 **影响**：
+
 - `:216`、`:217` 两条键是「把 `other users and organizations to link to them.` 做全局字符串替换」时残留首词（`other ` / `your `）产生的，**DOM 中不存在**，属纯死键，白占 canonical 覆盖率分母。
 - `:215` 是**可达碎片**（`<strong>@mention</strong>` 把句子切成三段），但它的译文以「的」开头，与前置节点拼出来是「你可以 @提及 **的 GitHub 组织，以便链接它。**」——语法不通。而两条**正确的**译文恰好挂在两条死键上。
 - 同一个注释块（`:44-45`）声称「译文以「公司」收尾」，与实际值（以「的」开头）矛盾，说明这次改动本身就没做完。
@@ -295,6 +299,7 @@ Github-i18n/
 ### H-05 CI 不跑 `build` / `pack`，构建链损坏可全绿合入
 
 **证据**：
+
 - `.github/workflows/ci.yml:13-22` 只有 4 步：checkout → setup-bun → `bun install --frozen-lockfile` → `bun run check`。`bun run check`（`package.json:11`）是 `lint + typecheck + check:dict + check:manifest + check:view + test`，**不含构建**。
 - `tooling/checks/manifest.ts:370`：`distDir: existsSync(distDir) ? distDir : null`；`:339-346` 只在 `distDir !== null` 时才断言「dist/ 里的产物存在」。
 
@@ -311,6 +316,7 @@ Github-i18n/
 ### M-01 `aliases` 机制零使用，但文档仍把它宣传为「O(1) 改名通道」
 
 `src/dict/core/aliases.jsonc:12` 实际内容是 `"aliases": {}`（整个文件只有一个空对象）。而：
+
 - `docs/guides/development.md:116-132` 用一整节（含示例代码与「两个边界」）介绍别名机制；
 - `README`/`AGENTS.md`/`src/shared/types.ts:55`/`walker.ts:41-54`/`load.ts:10`/`tooling/checks/dict.ts:365` 都仍在描述与维护这条链路。
 
@@ -323,6 +329,7 @@ Github-i18n/
 `global` 模块对**任意路径**生效，其中单 token 键 **142 个**，例如 `Docs`(global.jsonc:190)、`Blog`(:200)、`Star`(:172)、`Assets`、`Code`、`Wiki`、`Home`、`Settings`、`Status`…；而排除清单（`src/content/filters.ts:8-30`）只覆盖 `code`/`pre`/`textarea`/`.markdown-body`/高亮与 diff 容器，**文件树、仓库列表、用户名、标签名、分支名、列表页标题都不在其中**。`AGENTS.md` 硬性约束 3 点名的 `docs`/`test`/`blog`/`actions`/`pages`/`write`/`name`/`star` 中，`Docs`/`Blog`/`Star` **目前都已收录**。
 
 风险最集中的两条：
+
 - `global.jsonc:126` `"commented": "发表了评论"` —— 唯一「全小写 + 站点级」词条；
 - `rules.jsonc:1714` `^now$ → "刚刚"` —— 唯一「2 字符 + 站点级」规则。
 

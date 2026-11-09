@@ -1,6 +1,6 @@
 # 隐私政策 / Privacy Policy
 
-**GitHub 界面本地化（GitHub UI Localization）**
+**Github-i18n**
 生效日期：2026-11-09
 
 ## 简体中文

@@ -50,11 +50,12 @@ Get-ChildItem dist -Recurse -File
 
 ## 2. 版本号
 
-当前 `package.json` / `public/manifest.json` / `public/popup.html` 的 `.version` 都是 `0.2.0`。
-三处必须同步（`check:manifest` 会拦住不一致）。
+当前 `package.json` / `public/manifest.json` / `public/popup.html` 的版本号都是 `1.0.0`
+（2026-11-09 定为首个公开版本）。三处必须同步（`check:manifest` 会拦住不一致）。
 
-首次公开上架建议改成 `1.0.0`，但这是产品决定；改之前先确认商店后台没有同版本号的历史包。
-Edge 的版本号规则：1–4 段数字，每段 0–65535。
+改版本号前先确认商店后台没有同版本号的历史包。Edge 的版本号规则：1–4 段数字，每段 0–65535。
+包内 `name` 与 `action.default_title` 走 `__MSG_appName__`，三种列表语言的 `appName` 都固定为
+`Github-i18n`，不随浏览器语言变化。
 
 ## 3. 商店素材
 
@@ -89,7 +90,7 @@ Edge 的版本号规则：1–4 段数字，每段 0–65535。
 
 **Description（≥250 字符）：**
 
-> GitHub UI Localization translates the GitHub web interface on your device, using a dictionary that ships inside the extension. Nothing is fetched from a server, nothing is uploaded, and no account is required.
+> Github-i18n translates the GitHub web interface on your device, using a dictionary that ships inside the extension. Nothing is fetched from a server, nothing is uploaded, and no account is required.
 >
 > • Built-in dictionary — translations are bundled with the extension, so pages never wait for a network round trip.
 > • Page-aware — entries are routed by page module, so a word can mean different things on different GitHub screens.
@@ -108,7 +109,7 @@ Edge 的版本号规则：1–4 段数字，每段 0–65535。
 
 **长描述：**
 
-> 「GitHub 界面本地化」在您的设备上翻译 GitHub 网页界面，词典随扩展一起发布：不请求服务器、不上传数据、不需要账号。
+> 「Github-i18n」在您的设备上翻译 GitHub 网页界面，词典随扩展一起发布：不请求服务器、不上传数据、不需要账号。
 >
 > • 内置词典——译文随扩展打包，页面不需要等待网络往返。
 > • 按页面分模块——同一个词在不同 GitHub 页面可以有不同的译法。
@@ -127,7 +128,7 @@ Edge 的版本号规则：1–4 段数字，每段 0–65535。
 
 **長説明：**
 
-> 「GitHub UI ローカライズ」は、拡張機能に同梱した辞書を使って GitHub の Web インターフェースを端末内で翻訳します。サーバーへの問い合わせも、データの送信も、アカウントも不要です。
+> 「Github-i18n」は、拡張機能に同梱した辞書を使って GitHub の Web インターフェースを端末内で翻訳します。サーバーへの問い合わせも、データの送信も、アカウントも不要です。
 >
 > • 内蔵辞書 — 翻訳は拡張機能に同梱され、ページはネットワーク待ちをしません。
 > • ページ別の辞書 — 画面ごとにモジュールを分け、同じ語でも文脈に合った訳を当てます。
@@ -238,7 +239,7 @@ No remote code is used. All extension code and dictionaries are bundled in the p
 
 ### 7.6 Store listing
 
-`manifest.json` 用了 `__MSG_name__` / `__MSG_description__`，Partner Center 会自动识别 `_locales` 里的 **en、ja、zh_CN** 三种列表语言。每种语言都需要：
+`manifest.json` 用了 `__MSG_appName__` / `__MSG_appDesc__`，Partner Center 会自动识别 `_locales` 里的 **en、ja、zh_CN** 三种列表语言。每种语言都需要：
 
 - **Description**：≥250 字符（第 4 节已给草稿）；
 - **Extension logo**：上传 `store/logo-300.png`，可点 **Duplicate** 复制到其它语言；

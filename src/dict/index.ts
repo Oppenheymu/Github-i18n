@@ -33,7 +33,7 @@ function loadOrSkip<T>(
 		return build();
 	} catch (error) {
 		console.error(
-			`[GitHub 界面本地化] 词典模块加载失败，已跳过（${where}）：${String(error)}`,
+			`[Github-i18n] 词典模块加载失败，已跳过（${where}）：${String(error)}`,
 		);
 		return null;
 	}

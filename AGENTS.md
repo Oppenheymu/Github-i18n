@@ -1,6 +1,6 @@
 # 项目常驻指令
 
-> 本文件是本仓库（Github-i18n，曾用名 Github-ZH；扩展显示名「GitHub 界面本地化」——把 GitHub 界面本地化为多种语言（基线 zh-CN，另已登记 zh-TW / ja / ko / es / fr / de / pt-BR / pt-PT / ru）的浏览器扩展，Chrome / Edge，Manifest V3，MIT）的常驻开发约定，适用于本仓库内所有会话与任务。
+> 本文件是本仓库（Github-i18n，曾用名 Github-ZH；扩展显示名「Github-i18n」——把 GitHub 界面本地化为多种语言（基线 zh-CN，另已登记 zh-TW / ja / ko / es / fr / de / pt-BR / pt-PT / ru）的浏览器扩展，Chrome / Edge，Manifest V3，MIT）的常驻开发约定，适用于本仓库内所有会话与任务。
 
 ## 基本约束
 

@@ -1,7 +1,7 @@
 {
 	"appName": {
-		"message": "GitHub 界面本地化",
-		"description": "扩展显示名（中性名：本扩展支持多种目标语言，不再自称「汉化」）"
+		"message": "Github-i18n",
+		"description": "扩展显示名：固定品牌名，不随界面语言变化"
 	},
 	"appDesc": {
 		"message": "用内置词典在本地把 GitHub 界面本地化为简体中文：不联网、不收集任何数据。"

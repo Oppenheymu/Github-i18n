@@ -1,7 +1,7 @@
 {
 	"appName": {
-		"message": "GitHub UI Localization",
-		"description": "扩展显示名（中性名：本扩展支持多种目标语言，不再自称「汉化」）"
+		"message": "Github-i18n",
+		"description": "扩展显示名：固定品牌名，不随界面语言变化"
 	},
 	"appDesc": {
 		"message": "Localize the GitHub interface with a built-in dictionary, entirely on your device. No network requests, no data collection."

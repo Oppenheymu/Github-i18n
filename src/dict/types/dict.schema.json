@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"title": "GitHub 界面本地化词典数据",
+	"title": "Github-i18n 词典数据",
 	"description": "编辑器侧校验：对 src/dict/core/** 与 src/dict/locales/** 提供补全与红线。权威门禁是 bun run check:dict——本文件只做人打开文件时的即时提示，CI 不读它。分工：重复键由 Biome 的 noDuplicateObjectKeys 负责；正则可编译、规则 id 与模块名交叉引用、译文是否含目标语言文字系统、译文是否等于某个键、键是否在 core/canonical.jsonc 里，全由 check:dict 负责（语言声明见 src/dict/locales.ts），此处只能用码点区间近似。",
 	"$defs": {
 		"targetScript": {

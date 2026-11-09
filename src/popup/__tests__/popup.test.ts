@@ -74,7 +74,7 @@ let clipboardFails = false;
 // —— chrome 桩（合并挂载） ——
 
 const MESSAGES = new Map<string, string>([
-	["appName", "GitHub UI Localization"],
+	["appName", "Github-i18n"],
 	["statusLoading", "加载中…"],
 	["statusOn", "已启用"],
 	["statusOff", "已停用"],
@@ -134,7 +134,7 @@ chromeGlobal["i18n"] = {
 	},
 };
 chromeGlobal["runtime"] = {
-	getManifest: () => ({ version: "0.2.0" }),
+	getManifest: () => ({ version: "1.0.0" }),
 };
 chromeGlobal["storage"] = {
 	local: {
@@ -207,12 +207,12 @@ describe("popup 的初始化渲染", () => {
 	});
 
 	it("back-fills the document title and language", () => {
-		expect(document.title).toBe("GitHub UI Localization");
+		expect(document.title).toBe("Github-i18n");
 		expect(document.documentElement.lang).toBe("zh-CN");
 	});
 
 	it("back-fills the version from the manifest", () => {
-		expect(element(".version").textContent).toBe("0.2.0");
+		expect(element(".version").textContent).toBe("1.0.0");
 	});
 
 	it("renders the stored enabled state", () => {

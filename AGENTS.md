@@ -86,6 +86,7 @@ bun run pack                    # dist/ 打 zip（Chrome Web Store / Edge Add-on
 **署名纪律（硬性，只约束维护者的提交）**：作者为 Oppenheymu 的每次 `git commit`（含 AI 会话代为提交的），提交信息末尾必须带一行 `Co-authored-by: PaperKoi001 <337530007+PaperKoi001@users.noreply.github.com>`，与正文之间空一行——PaperKoi001 是词典翻译贡献者，维护者的提交与之共同署名（GitHub 按 noreply 邮箱把署名落到他的账号，双方同步累积 Pair Extraordinaire 成就）。**外部贡献者的提交不加这行署名**——归属由贡献者本人决定；仓库不设 git 钩子强加署名，AI 会话提交时必须自己写出。
 
 **顺序固定为「先拉取 → 校验 → 提交 → 推送」**，不要先提交再同步——那样要么产生 merge 提交，要么推送被拒后再补救。
+
 1. **先拉取**：`git pull --rebase`（或 `git fetch` + `git rebase origin/main`），把远端改动线性叠到本地改动下面。**不要用默认的 `git pull`**：本仓的合并规范是压缩合并，`main` 上不许出现 merge 提交。
 2. 拉取后跑 `bun run check`（必要时先 `bun run format`），确保通过再提交；rebase 带进了别人的改动时，这一步同时也验证了合并结果。
 3. `git add -A` 后提交，提交信息用简体中文，格式参考现有历史（`feat:` / `fix:` / `docs:` / `chore:` / `build:`，可带 scope 如 `fix(dict):`）。

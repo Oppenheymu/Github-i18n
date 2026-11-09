@@ -11,6 +11,7 @@
 ## 0. 结论摘要
 
 **综合评级：良好（B+，与上一轮同档但性质不同）**。上一轮的问题是「数据有确定性缺陷 + 门禁有空洞」；本轮修复后 **不再发现高危的实现缺陷或安全缺陷**，剩下的问题集中在**产品目标的达成度**与**结构性的维护负担**上：
+
 1. **词典侧 100% ≠ 页面侧 100%**（本轮最重要的发现）：19 个真实页面上可翻译文本节点合计 **3265/5483 = 59.5%** 命中，最低的用户主页只有 **29.9%**。其中相当一部分是**不该翻的用户内容**（提交信息、仓库名、用户名、语言名），但仍有**成体系的真 UI 文案未收录**——最典型的是 GitHub 营销导航改版后新增的 13 条文案，它们在 **17 个页面上**同时缺失。
 2. **一批保留路径没有模块归属**：`/orgs/<组织>`（覆盖率 34.8%）只命中 `global`，而有 **17 条已收录词条**就躺在 `pages/profile` 里用不上；`/login`、`/notifications`、`/marketplace` 同类。
 3. **上一轮我加的保留名单本身不完备**（自审）：`/copilot`、`/import`、`/projects`、`/packages`、`/advisories`、`/security-advisories`、`/gist` 这 7 条真实路径仍会被 `pages/profile` 过度命中——静态 deny-list 在设计上不可能完备。
@@ -116,6 +117,7 @@ Copilot for Business
 **为什么门禁发现不了**：`check:dict` 的覆盖率分母是 `canonical.jsonc` 自己，**登记过的都翻了 → 100%**。一个从未登记的新文案不会进入分母。这不是门禁的 bug，而是**指标的口径盲区**：现有门禁能保证「不出错」，不能保证「不漏」。
 
 **建议**（按性价比排序）：
+
 1. 把上述 13 条营销导航文案与 8 条共现文案补进 `global`（它们出现在每个页面上，收益最高）；
 2. 把「实机漏翻采样」变成有节奏的动作（本轮的真机脚本可直接复用：无头 Edge + CDP 采集 → 喂给 `translateText` + 该路径的 `buildView`）；
 3. 考虑在文档里明确「词典侧 100% 与页面级覆盖率是两个指标」，避免误读。
@@ -149,6 +151,7 @@ Learn more about verified organizations  …
 ### B-3 模块粒度带来的 45 条漏翻（中，取舍型）
 
 实测 **45 条**「canonical 里有、译文也有，但提供它的模块在该路径不命中」的文案，典型：
+
 - `Actions` → 提供者是 `pages/settings` / `pages/repo-settings` / `pages/repo`，却在 8 个页面（营销导航里）漏翻；
 - `Code`（3 页）、`Projects`（2 页）、`Features`（4 页）、`About`、`Packages`、`Name`、`Languages`、`Home`、`Merge pull request`、`Search Issues`…
 
@@ -201,6 +204,7 @@ Learn more about verified organizations  …
 ### D-3 上游改文案后的双登记（中）
 
 实测同一模块内「不同英文键 → 同一中文」的高价值簇（共 60 组同值，下面是要清理的）：
+
 - `pages/settings`：`Changing your username can have` + `your username can have`；`Emails` / `on Email` / `Email`；`on GitHub` + `On GitHub`；`Sync with system` + `Follow system`；`Enable` + `Enabled`
 - `pages/settings-billing`：`…free Actions usage, see` + `…free Actions usage,`
 - `pages/repo-settings`：`Find people or a team...` + `Find people or a team…`（上游把 `...` 换成了 `…`）
@@ -220,6 +224,7 @@ pinned  published  remaining  results  selection  settings  updated
 ```
 
 **真机实测（19 个页面，这是上一轮无法做的）**：
+
 - 这 24 个键里**只有 5 个真的命中过**：`opened`（议题状态片段）、`descending`（排序）、`followers`、`following`（主页统计标签）、`forever`（定价页）——**全部是正常 UI 文案**；
 - **19 个从未命中**（`and`/`by`/`from`/`commit`/`commits`/`merged`/`updated`/`published`/`settings`/`results`…）；
 - 19 个页面的全量命中里，**没有一例用户内容被误翻**；文件/目录名（`src`/`test`/`build`/`extensions`…）确实是孤立文本节点，但都没有被翻译（因为小写常用词没收录）。
@@ -261,8 +266,6 @@ pinned  published  remaining  results  selection  settings  updated
 | CSS 里的 `.version { … }`                               | ✓ 不误命中                |
 
 **影响**：该门禁是防御性的（理论上防「改了 package.json 忘了改 popup.html」），当前 popup.html 用的是双引号标准写法，所以**没有现网影响**；但绕过形态存在，且注释会误报。**建议**：直接断言 popup.html 里存在 `class="version">${packageVersion}<` 这个精确串（或同时兼容两种引号），比正则更严格也更简单。
-
-
 
 ### E-4 时间线失实（低但明确）
 
@@ -353,6 +356,7 @@ zip 条目时间戳取的是当前时刻（`ZipFile` 读出 09/27/2026 00:19:02�
 ## 7. 建议的修复顺序
 
 **第 1 批（收益最高，成本低）**
+
 1. A-2：把 13 条营销导航文案 + 8 条共现文案补进 `global`；
 2. A-3：加一条 `profile/no-contributions-on` 规则（覆盖 365 条/页）；
 3. E-2：`validateCanonicalKeys` 断言 `isTranslatableText(key)`；

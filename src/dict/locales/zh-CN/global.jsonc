@@ -482,6 +482,37 @@
 		// 整串形态由 global/status-characters-remaining 规则接住，尾段词条兜碎片
 		//（Edit repository details 对话框实机整串不翻译即此病）
 		"characters remaining": "个字符剩余",
-		"character remaining": "个字符剩余"
+		"character remaining": "个字符剩余",
+		// —— sudo 身份确认弹层（全站组件，路由不固定）——
+		// 任何受 sudo 保护的操作都会弹它，按模块复制永远会漏（2026-11-09 账号设置
+		// /settings/apps/authorizations 整片英文），故上收到 global 兜底
+		"Confirm access": "确认访问",
+		"Verify": "验证",
+		"Retry": "重试",
+		"Passkey": "通行密钥",
+		"Tip:": "提示：",
+		"Having problems?": "遇到问题？",
+		"Enter the verification code": "输入验证码",
+		"Send a code via email": "通过电子邮件发送验证码",
+		"Verify via email": "通过电子邮件验证",
+		"Use passkey": "使用通行密钥",
+		"Use your passkey": "使用你的通行密钥",
+		"Use your authenticator app": "使用你的验证器应用",
+		"Use GitHub Mobile": "使用 GitHub Mobile",
+		"GitHub Mobile icon": "GitHub Mobile 图标",
+		"Creating a verification request for your GitHub Mobile app.": "正在为你的 GitHub Mobile 应用创建验证请求。",
+		"We sent you a verification request on your GitHub Mobile app. Approve the request to enter sudo mode.": "我们已向你的 GitHub Mobile 应用发送验证请求，批准该请求即可进入 sudo 模式。",
+		"We sent you a verification request on your GitHub Mobile app. Enter the digits shown below to enter sudo mode.": "我们已向你的 GitHub Mobile 应用发送验证请求，输入下方显示的数字即可进入 sudo 模式。",
+		"You are entering": "你正在进入",
+		"sudo mode": "sudo 模式",
+		". After you've performed a sudo-protected action, you'll only be asked to re-authenticate again after a few hours of inactivity.": "。执行受 sudo 保护的操作后，只有在你闲置几个小时后，系统才会再次要求你重新验证身份。",
+		"This browser or device is reporting partial passkey support.": "此浏览器或设备报告仅部分支持通行密钥。",
+		"Webauthn isn't supported. Use a different browser or device to use your passkey.": "不支持 WebAuthn，请改用其他浏览器或设备来使用通行密钥。",
+		"Waiting for input from browser interaction...": "正在等待浏览器交互的输入…",
+		"We could not verify your identity": "无法验证你的身份",
+		"When you are ready, authenticate using the button below.": "准备就绪后，点击下方按钮进行身份验证。",
+		"When you are ready, trigger a mailer to verify your identity.": "准备就绪后，点击下方按钮触发邮件以验证你的身份。",
+		"When your phone is ready, click the button below.": "手机准备就绪后，点击下方按钮。",
+		"Contact GitHub Support": "联系 GitHub 支持"
 	}
 }

@@ -608,7 +608,6 @@
 				"This security key has already been registered.",
 				"This browser doesn't support security keys yet.",
 				"Try again",
-				"Waiting for input from browser interaction...",
 				// 安全密钥昵称输入框的 aria-label 与 placeholder（同一个值，词条只需一条）
 				"Enter a nickname for this security key",
 				"Show GitHub Mobile",
@@ -3015,37 +3014,6 @@
 				"Add custom roles with GitHub Enterprise",
 				"Add custom roles with",
 				"Enterprise accounts offer organizations granular control over permissions, and up to three custom repository roles.",
-				// —— sudo 身份确认（Access 子页弹层）——
-				"Confirm access",
-				"Verify",
-				"Retry",
-				"Passkey",
-				"Tip:",
-				"Having problems?",
-				"Enter the verification code",
-				"Send a code via email",
-				"Verify via email",
-				"Use passkey",
-				"Use your passkey",
-				"Use your authenticator app",
-				"Use GitHub Mobile",
-				"GitHub Mobile icon",
-				"Creating a verification request for your GitHub Mobile app.",
-				"We sent you a verification request on your GitHub Mobile app. Approve the request to enter sudo mode.",
-				"We sent you a verification request on your GitHub Mobile app. Enter the digits shown below to enter sudo mode.",
-				"You are entering",
-				"sudo mode",
-				"This browser or device is reporting partial passkey support.",
-				"Webauthn isn't supported. Use a different browser or device to use your passkey.",
-				"Waiting for input from browser interaction...",
-				"We could not verify your identity",
-				"When you are ready, authenticate using the button below.",
-				"When you are ready, trigger a mailer to verify your identity.",
-				"When your phone is ready, click the button below.",
-				// 弹层底部的小贴士被 `<a>sudo mode</a>` 切成三段：`Tip:` / `You are entering` /
-				// 链接 / 句点开头的尾段。尾段此前漏收，实机上整句保留英文（2026-11-04 截图）。
-				". After you've performed a sudo-protected action, you'll only be asked to re-authenticate again after a few hours of inactivity.",
-				"Contact GitHub Support",
 				// —— Copilot：云端代理（settings/copilot/coding_agent）——
 				"On",
 				"Off",
@@ -6321,38 +6289,6 @@
 				"To see or change who can manage GitHub Apps belonging to your organization, see",
 				"organization role assignments",
 				". All organization owners can manage Apps, as well as users and teams with one or more of the app management permissions.",
-				// —— sudo 身份确认（组织设置页）——
-				// 弹层与仓库设置 Access 子页是**同一款组件**，但模块按路由隔离：pages/repo-settings
-				// 不命中 /organizations/**，沿用它的词条在组织设置页上一条都不生效（2026-11-04 截图：
-				// 整个弹层保留英文）。这里逐字复制同一批键与译文，两模块路由互斥，不构成跨模块碰撞。
-				"Confirm access",
-				"Verify",
-				"Retry",
-				"Passkey",
-				"Tip:",
-				"Having problems?",
-				"Enter the verification code",
-				"Send a code via email",
-				"Verify via email",
-				"Use passkey",
-				"Use your passkey",
-				"Use your authenticator app",
-				"Use GitHub Mobile",
-				"GitHub Mobile icon",
-				"Creating a verification request for your GitHub Mobile app.",
-				"We sent you a verification request on your GitHub Mobile app. Approve the request to enter sudo mode.",
-				"We sent you a verification request on your GitHub Mobile app. Enter the digits shown below to enter sudo mode.",
-				"You are entering",
-				"sudo mode",
-				". After you've performed a sudo-protected action, you'll only be asked to re-authenticate again after a few hours of inactivity.",
-				"This browser or device is reporting partial passkey support.",
-				"Webauthn isn't supported. Use a different browser or device to use your passkey.",
-				"Waiting for input from browser interaction...",
-				"We could not verify your identity",
-				"When you are ready, authenticate using the button below.",
-				"When you are ready, trigger a mailer to verify your identity.",
-				"When your phone is ready, click the button below.",
-				"Contact GitHub Support",
 				// —— 已安装的 GitHub Apps 列表页（/organizations/<组织>/settings/installations）——
 				// 2026-11-04 维护者贴的仓库级列表页截图证明了页头与卡片副标题的实机形态；
 				// 组织侧渲染的是同一个组件，故同串各收一份、译文与个人 / 仓库两侧一致。
@@ -9732,7 +9668,43 @@
 				// 本尾段节点——Edit repository details 对话框实机整串不翻译即此病；
 				// 整串形态由 global/status-characters-remaining 规则接住，尾段词条兜碎片
 				"characters remaining",
-				"character remaining"
+				"character remaining",
+				// —— sudo 身份确认弹层（全站组件，路由不固定）——
+				// 任何受 sudo 保护的操作都会弹它（撤销 OAuth 授权、删除分支 / 标签 /
+				// 工作流运行、账单页改支付方式…）。此前分别复制在 pages/repo-settings 与
+				// pages/org-settings，但账号设置 /settings/apps/authorizations 上仍整片
+				// 英文（2026-11-09 维护者截图），说明按模块复制永远会漏；故整体上收到
+				// global 兜底，两个模块里的副本已一并删除。
+				// 底部小贴士被 `<a>sudo mode</a>` 切成三段：`Tip:` / `You are entering` /
+				// 链接 / 以句点开头的尾段——尾段必须整段收（只翻到句点之前会留中英混排）。
+				"Confirm access",
+				"Verify",
+				"Retry",
+				"Passkey",
+				"Tip:",
+				"Having problems?",
+				"Enter the verification code",
+				"Send a code via email",
+				"Verify via email",
+				"Use passkey",
+				"Use your passkey",
+				"Use your authenticator app",
+				"Use GitHub Mobile",
+				"GitHub Mobile icon",
+				"Creating a verification request for your GitHub Mobile app.",
+				"We sent you a verification request on your GitHub Mobile app. Approve the request to enter sudo mode.",
+				"We sent you a verification request on your GitHub Mobile app. Enter the digits shown below to enter sudo mode.",
+				"You are entering",
+				"sudo mode",
+				". After you've performed a sudo-protected action, you'll only be asked to re-authenticate again after a few hours of inactivity.",
+				"This browser or device is reporting partial passkey support.",
+				"Webauthn isn't supported. Use a different browser or device to use your passkey.",
+				"Waiting for input from browser interaction...",
+				"We could not verify your identity",
+				"When you are ready, authenticate using the button below.",
+				"When you are ready, trigger a mailer to verify your identity.",
+				"When your phone is ready, click the button below.",
+				"Contact GitHub Support"
 			]
 		}
 	]

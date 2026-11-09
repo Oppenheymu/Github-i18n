@@ -59,7 +59,8 @@ const TRANSLATED: readonly (readonly [string, string])[] = [
 		". All organization owners can manage Apps, as well as users and teams with one or more of the app management permissions.",
 		"。所有组织所有者都可以管理应用，拥有一个或多个应用管理权限的用户和团队也可以。",
 	],
-	// —— sudo 身份确认弹层（与仓库设置 Access 子页同译）——
+	// —— sudo 身份确认弹层：2026-11-09 起这组键统一上收到 global（弹层全站通用），
+	// 组织设置页只是靠 global 兜底命中；用例保留，防止上收后被误删 ——
 	["Confirm access", "确认访问"],
 	["Passkey", "通行密钥"],
 	[

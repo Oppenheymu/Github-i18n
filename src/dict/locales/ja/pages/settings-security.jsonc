@@ -74,7 +74,6 @@
 		"This security key has already been registered.": "このセキュリティキーはすでに登録されています。",
 		"This browser doesn't support security keys yet.": "このブラウザはまだセキュリティキーに対応していません。",
 		"Try again": "再試行",
-		"Waiting for input from browser interaction...": "ブラウザの操作による入力を待機しています…",
 		"Enter a nickname for this security key": "このセキュリティキーのニックネームを入力",
 		// —— GitHub Mobile（第 2 要素） ——
 		"Show GitHub Mobile": "GitHub Mobile を表示",

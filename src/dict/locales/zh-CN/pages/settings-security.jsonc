@@ -66,7 +66,6 @@
 		"This security key has already been registered.": "此安全密钥已经注册过了。",
 		"This browser doesn't support security keys yet.": "此浏览器尚不支持安全密钥。",
 		"Try again": "重试",
-		"Waiting for input from browser interaction...": "正在等待浏览器交互输入…",
 		"Enter a nickname for this security key": "为此安全密钥输入昵称",
 		// GitHub Mobile 是产品名，沿用仓库既有约定保留英文（见 pages/repo-settings 的同名词条）
 		"Show GitHub Mobile": "显示 GitHub Mobile",

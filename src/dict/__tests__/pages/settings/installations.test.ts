@@ -518,4 +518,69 @@ describe("已授权的 GitHub Apps 页（/settings/apps/authorizations）的实�
 			),
 		).toBe("最近一周内使用过 · 所有者：");
 	});
+
+	it("renders the sudo confirmation dialog from the global module", () => {
+		// 撤销授权会先弹 sudo 身份确认弹层；这组键上收到 global（2026-11-09
+		// 维护者在 /settings/apps/authorizations 上整片英文）：任何受 sudo 保护的
+		// 操作都会弹它，按模块复制永远会漏
+		expect(
+			translateText("Confirm access", authorizationsView),
+		).toBe("确认访问");
+		expect(
+			translateText(
+				"When you are ready, authenticate using the button below.",
+				authorizationsView,
+			),
+		).toBe("准备就绪后，点击下方按钮进行身份验证。");
+		expect(
+			translateText("Use passkey", authorizationsView),
+		).toBe("使用通行密钥");
+		expect(
+			translateText("Having problems?", authorizationsView),
+		).toBe("遇到问题？");
+		expect(
+			translateText(
+				"Use your authenticator app",
+				authorizationsView,
+			),
+		).toBe("使用你的验证器应用");
+		expect(
+			translateText(
+				"Send a code via email",
+				authorizationsView,
+			),
+		).toBe("通过电子邮件发送验证码");
+		// 小贴士被 <a>sudo mode</a> 切成三段，链接前后各一段
+		expect(translateText("Tip:", authorizationsView)).toBe(
+			"提示：",
+		);
+		expect(
+			translateText("You are entering", authorizationsView),
+		).toBe("你正在进入");
+		expect(
+			translateText("sudo mode", authorizationsView),
+		).toBe("sudo 模式");
+		expect(
+			translateText(
+				". After you've performed a sudo-protected action, you'll only be asked to re-authenticate again after a few hours of inactivity.",
+				authorizationsView,
+			),
+		).toBe(
+			"。执行受 sudo 保护的操作后，只有在你闲置几个小时后，系统才会再次要求你重新验证身份。",
+		);
+	});
+
+	it("translates the sudo dialog on routes that have no settings module", () => {
+		// 分支页删除分支同样会弹这个弹层，而 branches 走 pages/commits，
+		// 过去那种「每个设置模块各复制一份」的写法在这里结构上必然漏
+		const branchesView = viewFor(
+			"/microsoft/vscode/branches",
+		);
+		expect(
+			translateText("Confirm access", branchesView),
+		).toBe("确认访问");
+		expect(translateText("Use passkey", branchesView)).toBe(
+			"使用通行密钥",
+		);
+	});
 });

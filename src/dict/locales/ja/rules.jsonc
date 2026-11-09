@@ -54,6 +54,15 @@
 		"pulls/viewed-count": "$<viewed> / $<total> 確認済み",
 		// マージパネルの保留中レビュー件数（数値は動的）
 		"pulls/pending-reviews": "$<count> 件の保留中のレビュー",
+		// 新デザインの概要ページ：承認タブの残り件数と進捗バーのツールチップ
+		"pulls/approvals-still-required": "あと $<count> 件必要",
+		"pulls/approval-requirement-outstanding": "承認要件があと $<count> 件残っています",
+		// マージキュー「グループでマージ」の説明文（マージ先ブランチは動的）
+		"pulls/queue-merge-group-description": "このプルリクエストは他のプルリクエストと自動的にグループ化され、$<branch> にマージされます。",
+		// checks 一覧の結果と所要時間（所要時間は原文のまま）
+		"pulls/check-successful-in": "$<duration> で成功",
+		// codecov のチェック説明（2 つのコミット短縮ハッシュは原文のまま）
+		"pulls/check-coverage-comparison": "$<from>...$<to> を比較してもカバレッジに影響はありません",
 
 		// —— pages/settings-security（アカウントセキュリティ）——
 		"settings/passkey-delete-confirm": "`$1` のパスキーを削除してもよろしいですか？",

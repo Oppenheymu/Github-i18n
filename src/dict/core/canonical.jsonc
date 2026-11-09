@@ -523,7 +523,62 @@
 				"for more information.",
 				// 通知订阅说明的另一条原因（修改了打开/关闭状态）；实机撇号是弯撇号
 				// （’ U+2019），规范键取直撇号形态、弯形态走 aliases
-				"You're receiving notifications because you modified the open/close state."
+				"You're receiving notifications because you modified the open/close state.",
+				// —— 新版 PR 概览页（2026-11-10 维护者截图 + 实机 HTML）——
+				// 合并框改成 tabs（Checks / Comments / Approvals），标题与说明各自整节点；
+				// `Comments` 同时命中合并框标签页与右侧活动栏的分区名；`Approvals`
+				// 只在本模块登记（repo-settings / org-settings 的同名键路由互斥，不会撞车）
+				"Approval required",
+				"Request another approving review before this can merge.",
+				"Comments",
+				"Approvals",
+				// 批准进度的「还差 N 个」（`1 still required`）与悬停提示
+				// （`1 approval requirement outstanding`）：数字动态、单复数变化，
+				// 走 rules 的 pulls/approvals-still-required /
+				// pulls/approval-requirement-outstanding
+				// 审查弹层里作者自审被禁时的两条灰字说明（整节点，句号随节点译出）
+				"Pull request authors can't approve their own pull requests.",
+				"Pull request authors can't request changes on their own pull requests.",
+				// 评论区空态：两套文案对应「无人评论」与「我还没评论」，各两行
+				"No review comments yet",
+				"Request a review to get feedback on your changes.",
+				"You haven't left any review comments yet",
+				"Review and add comments to share your feedback.",
+				// 评论区筛选（「全部」走 global 的 `All`）
+				"Unresolved",
+				"Mine",
+				// 合并队列下拉：两项标题与说明各自整节点（`1 approval requirement
+				// outstanding` 之外的第二组动态句见下方 rules）
+				"Queue and merge in a group",
+				"Bypass requirements",
+				"Skip the queue and merge directly.",
+				// 组队说明里的基线分支名是用户内容：整句走 rules 的
+				// pulls/queue-merge-group-description；分支被拆成 <code> 时只剩本前缀
+				"This pull request will be automatically grouped with other pull requests and merged into",
+				// 合并队列两个图标的 tooltip（TooltipV2 的文本节点）
+				"Cancel merge queue confirmation",
+				"Select merge queue method",
+				// 合并框「搬家」提示句是**拆节点**结构：<strong> 问句 + 前缀 +
+				// <button>merge box</button> + 连接节点 + <button>timeline</button>；
+				// 句号是纯符号节点不收。连接节点两侧的空格由引擎按原节点保留
+				"Looking for an old friend?",
+				"Try visiting the new homes for",
+				"merge box",
+				"and the",
+				"timeline",
+				// checks 列表行：徽章、CodeQL 的摘要说明；结果行的时长动态，走 rules
+				// 的 pulls/check-successful-in；codecov 说明带两个提交哈希，走
+				// pulls/check-coverage-comparison
+				"Required",
+				"No new alerts in code changed by this pull request",
+				// 右侧活动栏与侧栏空态（`No milestone` 与 pages/issues 同键同译；
+				// `No deployments yet` 与上方部署空态的 `No deployments` 是两条）
+				"Activity (since this pull request was created)",
+				"View all activity",
+				"No reviewers",
+				"No milestone",
+				"No linked issues",
+				"No deployments yet"
 			]
 		},
 		{

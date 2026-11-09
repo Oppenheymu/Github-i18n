@@ -204,6 +204,38 @@
 				{
 					"id": "pulls/pending-reviews",
 					"pattern": "^(?<count>\\d+) pending reviews?$"
+				},
+				// 新版概览页（2026-11-10 维护者截图）：批准标签页的「还差 N 个」
+				// （原文 `1 still required`）与进度条的悬停提示
+				// （`1 approval requirement outstanding`，单复数随数量变化）。
+				// 两条都只在 pulls 模块出现，按整节点精确匹配，数字本身不变
+				{
+					"id": "pulls/approvals-still-required",
+					"pattern": "^(?<count>\\d+) still required$"
+				},
+				{
+					"id": "pulls/approval-requirement-outstanding",
+					"pattern": "^(?<count>\\d+) approval requirements? outstanding$"
+				},
+				// 合并队列「成组合并」的说明句：基线分支名是用户内容（截图里是 main）。
+				// 整句兜住未被拆节点的形态；分支被 <code> 拆开时由静态键
+				// "This pull request will be automatically grouped with other pull requests and merged into"
+				// 兜前缀节点。句尾句号不进捕获组，否则模板的「。」前会再叠一个英文句号
+				{
+					"id": "pulls/queue-merge-group-description",
+					"pattern": "^This pull request will be automatically grouped with other pull requests and merged into (?<branch>.+?)\\.$"
+				},
+				// checks 列表行的结果与耗时（`Successful in 18s` / `Successful in 1m`）：
+				// 时长形态由上游决定（秒 / 分 / 时），整体搬运不翻译
+				{
+					"id": "pulls/check-successful-in",
+					"pattern": "^Successful in (?<duration>.+)$"
+				},
+				// codecov 的检查说明带「旧提交...新提交」两个短哈希（7–40 位十六进制）；
+				// 中间是三个 ASCII 句点，模板里原样保留
+				{
+					"id": "pulls/check-coverage-comparison",
+					"pattern": "^Coverage not affected when comparing (?<from>[0-9a-f]{7,40})\\.\\.\\.(?<to>[0-9a-f]{7,40})$"
 				}
 			]
 		},

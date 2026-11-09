@@ -306,6 +306,39 @@
 		"You're not authorized to push to this branch. Visit": "このブランチにプッシュする権限がありません。詳細は",
 		"for more information.": "をご覧ください。",
 		// 通知購読の説明：オープン/クローズ状態を変更した
-		"You're receiving notifications because you modified the open/close state.": "オープン/クローズ状態を変更したため、通知が届いています。"
+		"You're receiving notifications because you modified the open/close state.": "オープン/クローズ状態を変更したため、通知が届いています。",
+		// —— 新デザインの PR 概要ページ：マージボックスのタブ、コメント欄、
+		// レビューダイアログ、マージキューのドロップダウン ——
+		"Approval required": "承認が必要です",
+		"Request another approving review before this can merge.": "マージするには、もう 1 件の承認レビューが必要です。",
+		"Comments": "コメント",
+		"Approvals": "承認",
+		"Pull request authors can't approve their own pull requests.": "プルリクエストの作成者は自分のプルリクエストを承認できません。",
+		"Pull request authors can't request changes on their own pull requests.": "プルリクエストの作成者は自分のプルリクエストに変更をリクエストできません。",
+		"No review comments yet": "レビューコメントはまだありません",
+		"Request a review to get feedback on your changes.": "レビューをリクエストして、変更へのフィードバックを受け取りましょう。",
+		"You haven't left any review comments yet": "レビューコメントはまだ投稿していません",
+		"Review and add comments to share your feedback.": "レビューしてコメントを追加し、フィードバックを共有しましょう。",
+		"Unresolved": "未解決",
+		"Mine": "自分の",
+		"Queue and merge in a group": "キューに追加してグループでマージ",
+		"Bypass requirements": "要件をバイパス",
+		"Skip the queue and merge directly.": "キューをスキップして直接マージします。",
+		"This pull request will be automatically grouped with other pull requests and merged into": "このプルリクエストは他のプルリクエストと自動的にグループ化され、マージ先は",
+		"Cancel merge queue confirmation": "マージキューの確認をキャンセル",
+		"Select merge queue method": "マージキューの方法を選択",
+		"Looking for an old friend?": "おなじみの機能をお探しですか？",
+		"Try visiting the new homes for": "新しい場所はこちら：",
+		"merge box": "マージボックス",
+		"and the": "と",
+		"timeline": "タイムライン",
+		"Required": "必須",
+		"No new alerts in code changed by this pull request": "このプルリクエストで変更されたコードに新しいアラートはありません",
+		"Activity (since this pull request was created)": "アクティビティ（このプルリクエストの作成以降）",
+		"View all activity": "すべてのアクティビティを表示",
+		"No reviewers": "レビューアーなし",
+		"No milestone": "マイルストーンなし",
+		"No linked issues": "リンクされたイシューなし",
+		"No deployments yet": "まだデプロイされていません"
 	}
 }

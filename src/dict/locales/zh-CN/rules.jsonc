@@ -51,6 +51,15 @@
 		"pulls/viewed-count": "已查看 $<viewed> / $<total>",
 		// 合并面板的待审查计数（数字动态，单复数同形）
 		"pulls/pending-reviews": "$<count> 个待处理的审查",
+		// 新版概览页：批准标签页的「还差 N 个」与进度条悬停提示
+		"pulls/approvals-still-required": "还需 $<count> 个",
+		"pulls/approval-requirement-outstanding": "还有 $<count> 项批准要求未满足",
+		// 合并队列「成组合并」的说明句（基线分支名原样带回）
+		"pulls/queue-merge-group-description": "此拉取请求将自动与其他拉取请求分组，并合并到 $<branch>。",
+		// checks 列表行的结果与耗时（时长原样保留）
+		"pulls/check-successful-in": "成功，用时 $<duration>",
+		// codecov 的检查说明（两个提交短哈希原样带回，三点是原文的省略写法）
+		"pulls/check-coverage-comparison": "对比 $<from>...$<to> 时覆盖率未受影响",
 		// —— 账号安全页（/settings/security）——
 		// 规则 id 与 pattern 见 core/rules.jsonc 的 pages/settings-security 分组：
 		// 密钥名与动态日期由捕获组原样带回（$1 / $<day> / $<year>），

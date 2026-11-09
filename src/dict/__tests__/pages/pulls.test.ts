@@ -1552,3 +1552,248 @@ describe("PR 页 checks 摘要标题与计数行", () => {
 		).toBe("コミットには検証済みの署名が必要です。");
 	});
 });
+
+// 2026-11-10 维护者贴的新版 PR 概览页截图 + HTML：合并框改成 tabs
+// （Checks / Comments / Approvals）、评论区空态与筛选、审查弹层里的作者自审限制、
+// 合并队列下拉、合并框迁移提示，以及 checks 列表行。
+//
+// 先确认过两件既有事实，避免重复登记：
+//   · `Submit review` / `Archive pull request` 本来就有键，新节点形态
+//     （`<span class="submitTextFull__VMPyTh">Submit review</span>`）与旧形态
+//     都是单个文本节点，查表不受父元素影响；
+//   · `Checks` 与 `All` 也已有键（前者 pulls 模块，后者 global）。
+describe("PR 新版概览页：合并框 tabs、评论区与合并队列", () => {
+	const prPage = buildView(
+		"/microsoft/vscode/pull/1",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	it("translates the merge box heading, the tab labels and the approval counter", () => {
+		expect(translateText("Approval required", prPage)).toBe(
+			"需要批准",
+		);
+		expect(
+			translateText(
+				"Request another approving review before this can merge.",
+				prPage,
+			),
+		).toBe("合并前需要再获得一个批准审查。");
+		expect(translateText("Comments", prPage)).toBe("评论");
+		expect(translateText("Approvals", prPage)).toBe("批准");
+		// 批准标签页的「还差 N 个」与进度条 tooltip：数字与单复数都动态
+		expect(translateText("1 still required", prPage)).toBe(
+			"还需 1 个",
+		);
+		expect(translateText("2 still required", prPage)).toBe(
+			"还需 2 个",
+		);
+		expect(
+			translateText(
+				"1 approval requirement outstanding",
+				prPage,
+			),
+		).toBe("还有 1 项批准要求未满足");
+		expect(
+			translateText(
+				"3 approval requirements outstanding",
+				prPage,
+			),
+		).toBe("还有 3 项批准要求未满足");
+	});
+
+	it("translates the author self-review restrictions", () => {
+		expect(
+			translateText(
+				"Pull request authors can't approve their own pull requests.",
+				prPage,
+			),
+		).toBe("拉取请求作者无法批准自己的拉取请求。");
+		expect(
+			translateText(
+				"Pull request authors can't request changes on their own pull requests.",
+				prPage,
+			),
+		).toBe("拉取请求作者无法对自己的拉取请求请求修改。");
+	});
+
+	it("translates both comment-empty states and the filter tabs", () => {
+		expect(
+			translateText("No review comments yet", prPage),
+		).toBe("暂无审查评论");
+		expect(
+			translateText(
+				"Request a review to get feedback on your changes.",
+				prPage,
+			),
+		).toBe("请求审查以获取对更改的反馈。");
+		expect(
+			translateText(
+				"You haven't left any review comments yet",
+				prPage,
+			),
+		).toBe("你还没有留下任何审查评论");
+		expect(
+			translateText(
+				"Review and add comments to share your feedback.",
+				prPage,
+			),
+		).toBe("审查并添加评论以分享你的反馈。");
+		expect(translateText("Unresolved", prPage)).toBe(
+			"未解决",
+		);
+		expect(translateText("Mine", prPage)).toBe("我的");
+	});
+
+	it("translates the merge queue menu items and the grouped-merge description", () => {
+		expect(
+			translateText("Queue and merge in a group", prPage),
+		).toBe("加入队列并成组合并");
+		expect(
+			translateText("Bypass requirements", prPage),
+		).toBe("绕过要求");
+		expect(
+			translateText(
+				"Skip the queue and merge directly.",
+				prPage,
+			),
+		).toBe("跳过队列并直接合并。");
+		// 整句形态：基线分支名由捕获组原样带回
+		expect(
+			translateText(
+				"This pull request will be automatically grouped with other pull requests and merged into main.",
+				prPage,
+			),
+		).toBe(
+			"此拉取请求将自动与其他拉取请求分组，并合并到 main。",
+		);
+		// 分支被 <code> 拆开时只剩前缀节点，整句规则结构上不命中
+		expect(
+			translateText(
+				"This pull request will be automatically grouped with other pull requests and merged into",
+				prPage,
+			),
+		).toBe("此拉取请求将自动与其他拉取请求分组，并合并到");
+	});
+
+	it("assembles the merge box migration note across its five nodes", () => {
+		// 实机节点：<strong>问句</strong> + 前缀 + <button>merge box</button> +
+		// 连接节点 + <button>timeline</button>；句号是纯符号节点，保持原样。
+		// 连接节点的前后空格由引擎按原节点保留，故译文里 `和` 两侧各有一个空格。
+		const nodes = [
+			"Looking for an old friend?",
+			" Try visiting the new homes for ",
+			"merge box",
+			" and the ",
+			"timeline",
+			".",
+		];
+		const rendered = nodes
+			.map((node) => {
+				const translated =
+					translateText(node, prPage) ?? node;
+				const lead = node.slice(
+					0,
+					node.length - node.trimStart().length,
+				);
+				const trail = node.slice(node.trimEnd().length);
+				return `${lead}${translated}${trail}`;
+			})
+			.join("");
+		expect(rendered).toBe(
+			"在找老朋友？ 试试这些功能的新位置： 合并框 和 时间线.",
+		);
+	});
+
+	it("translates the checks rows: badge, duration and the two summaries", () => {
+		expect(translateText("Required", prPage)).toBe("必需");
+		// 时长由上游决定，整体搬运
+		expect(translateText("Successful in 18s", prPage)).toBe(
+			"成功，用时 18s",
+		);
+		expect(translateText("Successful in 1m", prPage)).toBe(
+			"成功，用时 1m",
+		);
+		expect(
+			translateText(
+				"No new alerts in code changed by this pull request",
+				prPage,
+			),
+		).toBe("此拉取请求更改的代码中没有新告警");
+		// codecov 说明的两个短哈希原样带回
+		expect(
+			translateText(
+				"Coverage not affected when comparing a869aa1...f8ba25e",
+				prPage,
+			),
+		).toBe("对比 a869aa1...f8ba25e 时覆盖率未受影响");
+		// 句号在节点外时整串多一个字符，规则不命中（避免吞掉半句）
+		expect(
+			translateText(
+				"Coverage not affected when comparing a869aa1...f8ba25e.",
+				prPage,
+			),
+		).toBeNull();
+	});
+
+	it("translates the activity sidebar and its empty states", () => {
+		expect(
+			translateText(
+				"Activity (since this pull request was created)",
+				prPage,
+			),
+		).toBe("活动（自创建此拉取请求以来）");
+		expect(translateText("View all activity", prPage)).toBe(
+			"查看全部活动",
+		);
+		expect(translateText("No reviewers", prPage)).toBe(
+			"暂无审查者",
+		);
+		expect(translateText("No milestone", prPage)).toBe(
+			"无里程碑",
+		);
+		expect(translateText("No linked issues", prPage)).toBe(
+			"无关联议题",
+		);
+		expect(
+			translateText("No deployments yet", prPage),
+		).toBe("尚未部署");
+	});
+
+	it("keeps the already-translated buttons and the checks tab working", () => {
+		// 新节点形态（span.submitTextFull__VMPyTh）仍是单个文本节点，查表不变
+		expect(translateText("Submit review", prPage)).toBe(
+			"提交审查",
+		);
+		expect(
+			translateText("Archive pull request", prPage),
+		).toBe("归档拉取请求");
+		expect(translateText("Checks", prPage)).toBe("检查");
+	});
+
+	it("has japanese entries for the new labels and rules", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/1",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("Approvals", japanese)).toBe(
+			"承認",
+		);
+		expect(
+			translateText("1 still required", japanese),
+		).toBe("あと 1 件必要");
+		expect(
+			translateText(
+				"2 approval requirements outstanding",
+				japanese,
+			),
+		).toBe("承認要件があと 2 件残っています");
+		expect(
+			translateText("Successful in 18s", japanese),
+		).toBe("18s で成功");
+		expect(
+			translateText("Looking for an old friend?", japanese),
+		).toBe("おなじみの機能をお探しですか？");
+	});
+});

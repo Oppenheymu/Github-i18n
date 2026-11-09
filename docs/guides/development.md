@@ -54,6 +54,7 @@ Github-i18n/
 ### 翻译管线
 
 content script 以 `run_at: document_start` 注入：
+
 1. **入口**（`src/content/index.ts`）：先在 isolated world 的全局写一个身份标记（`src/shared/identity.ts`），再读 `chrome.storage.local`（`enabled` / `devMode` / `locale`）；开启时把 `MutationObserver` 挂到 `document.documentElement`（`childList` + `subtree` + `characterData` + `attributes`，并用 `attributeFilter: ["value", "data-disable-with"]` 把属性噪音压到最小），天然覆盖 GitHub 的 Turbo SPA 导航，无需单独路由钩子；
 2. **目标语言**：`locale` 有值即用它；没设过则取 `chrome.i18n.getUILanguage()` 并按 `src/dict/locales.ts` 的声明解析（`ja-JP` → ja、`zh-Hant-HK` → zh-TW、`pt-PT` → pt-PT、`es-MX` → es，未支持即回退 zh-CN）。中文 / 葡语按脚本与地区选变体，其余语言按主语言子标签匹配。popup 改语言会触发整页刷新重建视图；
 3. **调度**（`engine.ts`）：mutation 只收集 `record.target` 入队，微任务合并后统一 flush，避免高频抖动；flush 时跳过已脱离文档的节点；
@@ -84,12 +85,14 @@ content script 以 `run_at: document_start` 注入：
 | 失效方式 | 静默：键失配只导致不翻，不报错                          | 通常可见               |
 
 因此数据按「语言无关」与「按语言」物理隔离：
+
 - `core/**`：路由、规则 pattern、改名映射、规范键清单——**每个语言共享一份**；
 - `locales/<语言>/**`：只有译文。不同语言的贡献者永远不会改到同一个文件，日语文件出错也不会影响中文构建（按目录分流审阅、可用 CODEOWNERS）。
 
 ### 基线语言：中文先行
 
 **基线是简体中文（`BASELINE_LOCALE`，见 `src/dict/locales.ts`）**。新增一条文案的固定顺序：
+
 1. 在 `core/canonical.jsonc` 登记键（英文原文就是键的身份，见「规范键是稳定的身份」）；
 2. 补 `locales/zh-CN/**` 的译文（以及测试 / 实机节点边界，见逐页 SOP）；
 3. **其它语言不强制同步**：缺键 = 尚未翻译，引擎保留英文。新增键不必「一次翻完所有语言」，这正是稀疏覆盖的设计目的。
@@ -110,6 +113,7 @@ content script 以 `run_at: document_start` 注入：
 ```
 
 上面这段是 2026-11 建骨架时的实测输出，**数字随词典增长，一律以本机跑出来的为准**（这一节只解释口径，不维护数字）。口径说明：
+
 - 「规范键」是 `core/canonical.jsonc` 里 **模块 × 键** 的**槽位数**——同一段英文原文若在两个模块各登记一次就算两处；**去重后的唯一键更少**，「N / 6681」这类覆盖率数字用的都是槽位数；
 - 「条译文」是各语言实际给出的词条数之和（基线 + 已跟进语言 + 新语言 0 条），不等于规范键数；
 - 「条共享规则」是 `core/rules.jsonc` 里 `id` + `pattern` 的条数（语言无关，只有一份），各语言只是给它配模板。
@@ -124,6 +128,7 @@ ja 下次跟进；门禁不会因此报错。
 ### 规则为什么按 id 拆
 
 `pattern` 与语言无关、只有替换模板与语言有关，而**规则顺序是语义**（首条命中生效）。若把规则整体按语言拆成 N 份，就得保证 N 份顺序永远一致。故：
+
 - `core/rules.jsonc` 定 `id` + `pattern` 与顺序（模块分组顺序必须与 `core/modules.jsonc` 一致，门禁强制）；
 - `locales/<语言>/rules.jsonc` 只放 `id → 模板`，顺序无关。
 
@@ -149,6 +154,7 @@ ja 下次跟进；门禁不会因此报错。
 **现状（2026-09 实读文件）**：`core/aliases.jsonc` 里一条别名都没有，内容就是 `"aliases": {}`——这条通道自建立起从未被使用过，至今真实遇到的「上游改文案」都是靠「新增键 + 旧整句键变死键 + 各语言重译」处理的（改名同时伴随拆节点，别名救不了）。它的价值在未来：上游做**纯改词**时，加一行就能让所有语言的既有译文继续生效。
 
 两个边界：
+
 - **拆节点不能靠别名**。上游把 `Collaborators 3` 拆成 `<span>Collaborators</span><span>3</span>` 时，整句译文无法复用，必须新增 `Collaborators` 碎片词条（配合计数规则），旧整句键从 canonical 删掉；
 - **语义变更不能靠别名**。`Watch` → `Subscribe` 若错加别名，会静默沿用错误译文——这正是别名必须人工评审的原因。
 
@@ -157,6 +163,7 @@ ja 下次跟进；门禁不会因此报错。
 ### 门禁能拦住什么
 
 `tooling/checks/dict.ts`（`bun run check:dict`）：
+
 - 结构：字段白名单、`route` 以 `^/` 锚定、正则可编译、规则无 `flags`、`global` 必须最后、规则分组顺序与模块顺序一致；
 - 交叉引用：词条的键必须在 `core/canonical.jsonc` 里（**拼错即报**，旧结构下拼错只会静默不翻）、规范清单与模块清单同名同序、规则模板的 id 必须存在、模板引用的捕获组必须存在、别名目标必须是规范键；
 - **键形态**（`validateCanonicalKeys`）：键必须等于引擎 `normalizeKey` 后的形态（trim + 连续空白折叠为单空格）。判定直接调用引擎自己那个无 DOM 依赖的 `normalizeKey`（`src/shared/text.ts`，引擎与门禁共用），保证「门禁认的形态」就是「引擎查的形态」——带换行符 / 制表符 / 连续空格的键**在实机上永不命中**，却照样算进覆盖率分母。这条是 2026-09 事故的补丁：`insights` 的过滤说明句就是带着真实换行混进「100% 已译」的，覆盖率因此虚高；
@@ -166,6 +173,7 @@ ja 下次跟进；门禁不会因此报错。
 - 覆盖率报告。
 
 `tooling/checks/view.ts`（`bun run check:view`）：
+
 - 校验对象是**合并视图的语义骨架**，golden 快照在 `tooling/fixtures/view-skeleton.<语言>.json`；
 - 锁住四件事：模块顺序（`core/modules.jsonc` 的顺序即优先级）与 `global` 兜底必须在最后、每条探针路径命中的模块名序列、**赢家覆盖**（同一键被 ≥2 个命中模块提供时最终胜出来源——这是「有意同键异译」的回归保护）、每条路径生效的规则 **id** 序列；
 - 另记 `notTranslated`：该路径 `core` 声明了、本语言还没给模板的规则 id。「往 `core/rules.jsonc` 加一条规则、忘了给模板」在视图里完全不可见（缺模板 = 规则不生效），只有它能把这种回归暴露出来；
@@ -180,6 +188,7 @@ ja 下次跟进；门禁不会因此报错。
 - 与词典门禁一样走 `registry.ts` + `load.ts` 的严格路径，**不 import 软失败的 `src/dict/index.ts`**。
 
 `tooling/checks/manifest.ts`（`bun run check:manifest`）：
+
 - MV3 字段完整性：`manifest_version` 必须为 3、`default_locale` 必填、`permissions` 必须含 `storage`、`action.default_popup` 必须存在且指向的文件真的在 `public/` 里；`manifest.version` 必须等于 `package.json` 的 `version`；
 - public 资产与产物引用：`icons` 每个尺寸引用的文件、`action.default_popup`、`content_scripts.js`（必须在内置的 `BUILD_OUTPUTS` 映射里、源码入口存在、且 `dist/` 里真的有该产物——所以这条断言要在 `bun run build` 之后跑）、`content_scripts.matches` 必须含 `https://github.com/*` 与 `https://gist.github.com/*`、`run_at` 必须是 `document_start`（改文件名漏同步即红灯，见硬性约束 4）；
 - `_locales` 键集合一致：`__MSG_*__` 引用的键必须在默认语言里存在，各语言的消息键集合必须完全相同（缺键会让某语言的界面出现空文案）；
@@ -198,6 +207,7 @@ ja 下次跟进；门禁不会因此报错。
 ### 归档规则（硬性约束）
 
 见 `AGENTS.md` 硬性约束 2；此处补细节：
+
 - **键**必须是 GitHub 实际渲染的英文原文精确串（整节点精确匹配语义），大小写一致、不含目标语言文字系统。一律加双引号——裸键虽然 JSONC 合法，但统一加引号便于 Biome 查重与脚本改写；
 - **值**必须含目标语言的文字系统（如简体中文的汉字、日语的汉字 / 平假名 / 片假名），门禁按 `src/dict/locales.ts` 的声明校验；
 - `route` 与 `pattern` 都是**字符串形态的正则源**，因此 `/` 无需转义：`"route": "^/owner/repo/issues"`。`route` 必须以 `^/` 锚定 pathname；
@@ -207,6 +217,7 @@ ja 下次跟进；门禁不会因此报错。
 ### 路由保留清单（`pages/repo` 与 `pages/profile`）
 
 这两个模块的路由是**通配形式**，而 GitHub 有一批**保留顶层路径**不是用户名、也不是仓库：
+
 - `pages/profile` 是单段路径（`/octocat`）：裸写 `^/[^/]+$` 会把整包个人主页词条（`Edit profile` / `Block or report` / `Contribution activity`…）注入 `/search`、`/features`、`/pricing`、`/notifications` 等保留路径——注进去的就是该模块当时的全部词条（实测 149 条）；
 - `pages/repo` 是两段路径（`/owner/repo`）：裸写 `^/[^/]+/[^/]+` 会命中 `/settings/profile`、`/settings/appearance` 等**用户账号设置页**，把仓库专属词条（`Code` / `Clone` / `Blame` / `Raw`…）注入进去（实测 86 条，且在实机上真的会生效）。
 
@@ -224,6 +235,7 @@ site|security|team|events|about|contact)(?:/|$))[^/]+
 （上面为便于阅读折了行，`.jsonc` 里是单行；`profile` 末尾是 `[^/]+$`，`repo` 末尾是 `[^/]+/[^/]+`。）
 
 维护约定：
+
 - **新增 GitHub 保留顶层路径时必须同步改两处**（`core/modules.jsonc` 的 `pages/profile` 与 `pages/repo`），只改一处就会留下一个方向的越界；
 - 保留名单里的 `apps` 自 2026-11-04 起由 `pages/apps`（`^/apps/[^/]+`）认领 GitHub App 公开页；它**仍需留在两份保留名单里**，否则 `pages/repo` 会把整包仓库词条注入 `/apps/<应用名>`；
 - 名单里每一项后面都跟着 `(?:/|$)`：既排除路径本身（`/settings`），也排除它的子路径（`/settings/profile`），但不会误伤形如 `/settings-archive` 的合法用户名；
@@ -243,6 +255,7 @@ site|security|team|events|about|contact)(?:/|$))[^/]+
 ### 二、标准路径
 
 先说两条**具体操作上的坑**（本次会话都踩到过）：
+
 - **登记键与译文时，改完一个文件就立刻跑一次 `bun run check:dict`**。用 edit 工具改 `core/canonical.jsonc` 时，若替换片段里漏掉数组 / 对象的收尾括号，JSONC 会直接变成语法错误（整个词典编译不过）；早跑一次门禁能把问题钉在刚改的那一处，而不是留到后面几十条键一起排查。
 - **决定收录某个泛化短词（品牌名、导航短标签）之前，先 `grep` 全仓既有译文与测试**：同一个词可能已被别的模块收录，或已被某份节点边界测试写成**反例断言**（例：`Copilot` 在账单页 / 许可页 / 通知页三份测试里都被断言「必须保持英文」）。先查再收，能省掉一轮「门禁全绿但既有测试红了」的返工。
 
@@ -349,6 +362,7 @@ dump.join("\n");
 | 截图                                                    | 只有视觉                                                                     | **不能作为登记键的唯一依据**（换行、缩进、纯符号节点的存在与否都看不出来），只用于核对数量与语义                                                                                                                                 |
 
 **判定规则（判错就白干）：**
+
 1. **键 = 整个文本节点** `trim()` 后**把连续空白折叠成单个空格**的形态（引擎的 `normalizeKey`），键里**永不写换行或缩进**；
 2. **标签不拆句**：`<strong>` / `<a>` / `<code>` 会把一句话切成多个文本节点，**每个节点各是一条键**。链接文本单独成条；链接前的片段单独成条；被 `<strong>` 包住的用户内容（@用户名、noreply 地址、邮箱）**不收录**；
 3. **纯符号 / 纯数字节点翻不了**（`.`、`*`、`↑`、`1.2`），**不要为它们收键**——收了是永不命中的死键；
@@ -414,6 +428,7 @@ for (const p of probes) {
 ```
 
 再配合 Elements 面板右键节点 → Copy → Copy outerHTML，就能看到完整的拆分明细。五类必须记住的边界事实：
+
 1. **`<kbd>` / `<code>` / `<pre>` / `<textarea>` / `.markdown-body` 等容器被整棵排除**（`src/content/filters.ts`），其中的文本节点绝不翻译；`kbd` 之间的连词（如 `and`）若单独成节点，**不要收录**——它与别的模块同键时会互相顶替（本模块在前会压过对方），正确做法是把连词并进相邻片段；
 2. **`sr-only` 文本照常翻译**（它不在排除清单里），所以像 `alt upAlt↑` 这种「无障碍文本 + `<kbd>` 序列」在实机里是三段以上，键要按段收；翻译时按视觉意图处理即可（例如 `按 Alt ↑`）；
 3. **纯符号 / 纯数字节点翻不了**：可翻译判定要求「含至少一个拉丁字母」（`isTranslatableText`），所以单独的 `.`、`↑`、`1.2` 永远保持原样——**不要为它们收词条**（收了也不会生效，只会变成 canonical 里的死键）；
@@ -423,6 +438,7 @@ for (const p of probes) {
 ### 实机节点边界测试（把抓下来的节点锁进仓库）
 
 抓取只是第一步：**节点边界必须落成仓库里的测试**，否则下次 GitHub 改版没人知道它断了。现有的实机节点回归都在 `src/dict/__tests__/pages/`（**不放 `src/content/__tests__/`**：这些用例的被测对象是 `src/dict/**` 的词条数据与模块路由，`buildView` / `translateText` 只是断言工具，`src/content/__tests__/` 只留 content 各模块自身的单测）。**用例按既有文件名前缀分目录**，前缀就是分组依据（2026-10-03 整理，此前 49 个文件平铺）：
+
 - `settings-*.test.ts` → `pages/settings/<页名>.test.ts`（账号设置族，文件名去掉 `settings-` 前缀）；
 - `repo-settings-*.test.ts` → `pages/repo-settings/<页名>.test.ts`（仓库设置族，去掉 `repo-settings-` 前缀；族内那页**仓库设置根页** `/owner/repo/settings` 是 `repo-settings/index.test.ts`——它原名 `settings-repo.test.ts`，按前缀会归错组）；
 - 组织设置族（模块 `pages/org-settings`，`/organizations/<组织>/settings/**`）同理收进 `pages/org-settings/<页名>.test.ts`；它在 `core/modules.jsonc` 里**排在 `pages/repo-settings` 之后**，而两者的路由互斥（仓库设置的路由排除了 `organizations` / `orgs`，见该文件的注释）。**按路径归位、不按模块归位**：组织账单页的正文词条与规则其实来自 `pages/settings-billing`（它的路由有五支，见 `core/modules.jsonc`），但用例仍放 `pages/org-settings/billing.test.ts`；
@@ -550,6 +566,7 @@ for (const p of probes) {
 新增的进程内测试补齐了四个**此前从未被任何测试加载**的模块：`src/content/__tests__/engine.test.ts`（观察器调度）、`src/content/__tests__/index.test.ts`（content 入口装配）、`src/popup/__tests__/popup.test.ts`（popup 全交互）、`src/shared/__tests__/identity.test.ts`（身份标记契约）。凡是需要 DOM 语义的用例（walker / engine / index / popup / collector）**一律从 `src/test-support/dom.ts` 取环境**——devDependency `happy-dom`，**手写 DOM 桩已全部退役**。
 
 `bun test` 的 `globalThis` 与模块注册表**跨测试文件共享**，四条硬约束违反任一条都会让**别的文件**的用例成片变红（2026-10-03 逐一踩过，第四条是 2026-10-07 补的）：
+
 1. **不要用 `mock.module`**：它是进程级注册，会泄漏给同一进程里的其他测试文件（实测：入口测试 mock 掉 `collector` / `pages` 后，walker 与全部页面测试找不到真实导出）；
 2. **全局桩一律合并挂载**（`obj["k"] = v`），**禁止整体替换** `globalThis.chrome` / `document`——整体替换会删掉别的测试文件刚装好的命名空间（实测：入口测试的 chrome 桩只有 `i18n`，把 storage 测试的 `chrome.storage` 打掉，12 个用例失败）；
 3. **DOM 只有一份来源**（`src/test-support/dom.ts`）：`walker.ts` 用 `root instanceof Element` 判根节点类型，而 `instanceof` 比的是**类身份**——两个文件各造一个窗口，后装的那份会让先装的那份的节点不再 `instanceof Element`（2026-10-03 用两份内联桩实际踩到，成片用例变红）。该文件同时负责在用例文件收尾 `restore()`：bun 是**按文件**「加载 → 跑 → 下一个」（实测），还原后下一个文件拿到的仍是它自己期望的全局。它自身的行为（嵌套安装的还原、观察留痕、事件钩子留痕且照常派发）由 `src/test-support/dom.test.ts` 钉住（与被测模块平级，遵守「测试与源码同目录」）。
@@ -567,6 +584,7 @@ for (const p of probes) {
 **happy-dom 的使用边界**：它是 devDependency（不进 dist），只给「需要真实 DOM 语义」的测试用。92 个页面词条回归文件是纯字符串断言（`translateText`），**不要**为它们引入 DOM —— 那是测试量的主体，也是收益为零的地方。happy-dom 也不是浏览器：扩展 API（`chrome.*`）仍需自桩，语义差异风险仍在，故**不能替代实机验证**。
 
 另注：content 入口与 popup 都有顶层副作用，**一个进程只会装配一次**，所以有两处覆盖不到，都不是「忘了写」而是结构上做不到：
+
 - 「`enabled` 关闭时不启动观察器」这条反向条件无法再开一个测试文件验证（第二个文件静态 import `../index.ts` 会复用第一次的装配结果）。**更正（2026-10-07）**：带查询串的 `import` 在 Bun 1.4.2 里**确实产生新实例**——`collector.test.ts` 用 `../collector.ts?fresh-default-state` 实测，新实例的 `setEnabled` 不影响共享单例（早前「`?query` 也不产生新实例」的结论已不成立）。也就是说这条反向条件在结构上**可以**再开一个文件覆盖（同一个加载器机制），只是本轮没做。该闸门目前仍由 `engine.test.ts` 的「关闭时只清空队列不翻译」与 `readEnabled` 的默认值把守；
 - `popup.ts` 末尾那个 `try { main() } catch` 兜底分支同理（要覆盖它得造出第二个「`main()` 抛错」的装配场景）。它是纯兜底，代价可接受；`popup.ts` 顶层的 `assertFound` 仍在 `main()` 之外抛出，**刻意不吞**（缺元素属打包错误，掩盖它只会让人更难查）。
 
@@ -577,6 +595,7 @@ for (const p of probes) {
 每个实机测试文件的结构都一样：文件头写明节点来源与日期，然后是一份**逐字录入的 `nodeValue` 清单**（带源码缩进 / 换行的按原样保留，因为实机里长句的节点自带缩进），用 `translateText(节点, 该路径的 buildView(...))` 断言命中与译文，另有一组**反例**断言用户内容（文件名、仓库名、`README.md`、小写常用词）**必须不被翻译**。
 
 怎么抓（简述，不需要装任何依赖）：
+
 1. **无扩展的无头 Edge**：用 `msedge --headless=new --remote-debugging-port=<端口> --user-data-dir=<临时目录>` 打开目标页面，**不要加载 `dist/`**——要的是 GitHub 的原始英文渲染，不是翻译后的结果；
 2. **CDP 采集文本节点**：连上 DevTools 协议，用 `Runtime.evaluate` 跑一次 `document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)`，把每个文本节点的 `nodeValue` 与父元素路径（tag + class 链）一起打出来；需要元素属性时另跑一遍 `title` / `aria-label` / `placeholder` / `alt` / 按钮类 `value` / `data-disable-with`；
 3. **在仓库内判定命中**：把采集结果喂给 `translateText(text, buildView(pathname, dictForLocale("zh-CN"), 别名映射))`——命中即为「这条节点已经有词条」，未命中且确实是 UI 文案就是待补的漏翻；**采集时会自然暴露出「哪些整句在实机上被拆过」**，这是登记键的唯一依据。**注意：`outerHTML` 里的相邻裸文本节点是不留痕迹的**——React 的 i18n 插值会把一句话切成 `With ` / `Copilot cloud agent` / `, developers can …` 这样的多个文本节点，片段之间没有任何元素，粘贴出来（以及渲染文本里）都只是一整句，照视觉登记的整句键会**静默失效**；判定「有裸文本节点边界」的办法是**把扩展装上再看**：中文只会出现在「节点边界正好等于键」的那个位置（2026-10-11 组织 Copilot 云端代理页的实例：顶部介绍只剩 `Copilot 云端代理` 一处中文、两张代理卡片标题只剩 `编程代理` 一处中文，见 `org-settings/coding-agent.test.ts`）。**计数 / 复数标签 / 分支名同样是插值节点**（2026-10-17 22:35 的 `/pulse` 已合并标题：`13` + `pull requests` + `merged by` + `2` + `people` 各自独立，整句键 `pull requests merged by` 永不命中、只有 ` people` 被译出「2 人合并」；`to <分支> and` / `On <分支>,` 里的分支名也被切开，见 `insights-pulse.test.ts`）。凡「长句 / 标题 + 专名」都要怀疑被插值切过——**插值进来的专名自成一个节点，它前面的字面量碎片就是漏翻**；拿不准就在实机 console 里 dump 一次 `childNodes`（同 `org-settings/org-role-assignments.test.ts` 的做法）；
@@ -624,6 +643,7 @@ for (const p of probes) {
 两者都只能靠 `settings/usage-range-*` 规则覆盖，且**必须逐组合展开**（2026-09 实测：长月份
 `settings/usage-range-*` 共 144 条 = 同月 12 + 跨月 132；短月份 `settings/usage-range-short-same-month-*`
 11 条；两组合计 155 条，每种语言各写一份模板）：
+
 - 引擎的替换模板不支持「捕获组 → 中文月份」的映射，模板里引用捕获组会渲染出英文 `September`，
   所以月份必须写死在 pattern 与模板里；
 - **全展开的代价如实记在此处**：这批长月份规则挂在 `pages/settings-billing` 模块下，而该模块的路由是
@@ -654,6 +674,7 @@ Added on Mar 6, 2026
 ```
 
 两句都含动态值，而引擎的替换模板不支持函数映射：月份（`Mar`）与相对时间（`6 days ago`）都无法经捕获组变成中文，只能逐组合全展开——12 个月份缩写 × 10 种相对时间形态 = 120 条，另加 12 条「强制启用 2FA」横幅里的截止日长句（`before April 30, 2026`），共 132 条。
+
 - 这批规则若挂在 `pages/settings` 下，`/settings/profile`、`/settings/accessibility`、`/settings/notifications`、`/settings/billing` 四条探针会各自背上一百多条永不使用的规则 id，把视图骨架快照淹掉；因此本页单独成模块，只有它自己的探针 `/settings/security` 承担这批 id；
 - 本模块路由 `^/settings/security` 与 `pages/settings` 的 `^/(?:settings|account/billing)` **重叠**，`buildView` 逐键「先到先得」：本页专属词条放前一个模块，侧栏与通用设置词条由 `pages/settings` 兜底——**不要在两个模块里登记同一个键**，否则前者胜出、后者是看不见的死数据；
 - 未枚举的相对时间形态（`last week`、绝对日期等）整节点保留英文：规则两端以 `^…$` 锚定、不做部分替换，所以不会产出中英残句，这与「宁可漏翻也不产出残句」的既有取舍一致；上游若把相对时间改成 `<relative-time>` 元素渲染，整句会被拆成多节点、这 120 条规则自然失效，届时按实机节点重收碎片词条。
@@ -662,6 +683,7 @@ Added on Mar 6, 2026
 ### 凭据 / 开发者设置一族的三个取舍
 
 `/settings/credentials`、`/settings/apps`、`/settings/developers`、`/settings/tokens`、`/settings/personal-access-tokens` 五页共用 `pages/settings` 模块（路由 `^/(?:settings|account/billing)`），词条直接追加在那里，不新建模块——它们只带来 16 条规则，没有 `pages/settings-security` 那种「一百多条规则淹掉别的探针」的规模问题。三条需要记住的取舍：
+
 - **OAuth 权限范围标识符不译**（`repo` / `user` / `workflow` / `gist` / `notifications` / `project` / `copilot` / `codespace` / `audit_log` / `admin:*` / `read:*` / `write:*` / `delete:*`）：它们是 API 里的字面量，译了会与代码、文档、报错信息对不上，与 `GPG` / `CLI` 同属「纯标识符保留英文」。芯片的 `title` 是**人类可读说明**，那部分要译（已逐条收录，见 `settings/credentials.test.ts`）；
 - **令牌过期日期按 12 个月份全展开**（`settings/expires-on-*`）：实机节点形如 `on Fri, Nov 27 2026` / `on Wed, Sep  2 2026`——周几缩写 + 月份缩写 + **空格补齐的日**、年份前无逗号。月份无法经捕获组映射成中文（与 `global/short-date-*`、`settings/usage-range-*` 同一个原因），故写死月份；周几用 `[A-Za-z]{3}` 吃掉且**中文里不体现**（`2026 年 11 月 27 日` 已足够，且周几由日期唯一确定）。日与月之间的多个空格用 ` +` 容忍；
 - **`GitHub API` 保留英文**：纯专名加缩写，译文无法含中文字系（门禁要求含目标语言文字系统），未命中即保留英文是正确的；句子被链接切开时按碎片收录，拼接后仍读得通。
@@ -788,6 +810,7 @@ bun run report:misses ~/Downloads/misses.json
 ```
 
 这一段就是原先「贴整页 HTML」才拿得到的信息，**分拣碎片前先读它**：
+
 - 句子原貌在手，才能写出**能直接拼起来**的译文：`pushed to` → 「推送到了」、`main` 是分支名不翻、
   `in the last week` → 「在过去一周内」，拼出来是「…名作者在过去一周内发生了变化，已有 3 次提交推送到了 main」；
 - 只有一条记录、`block` 为空串的块不会出现在这一节（那就是整节点，键直接收）；
@@ -820,6 +843,7 @@ have been` / `additions` / `and` / `deletions` / `people` 等静态键，加 `to
 在 popup 点「清空」再重导，而不是拿这份不完整的清单当全量。
 
 **日志里必然存在、但架构上永远不可覆盖的一类**（别反复怀疑「是不是漏了」）：
+
 - 动态属性值：`7 / 7 checks OK`、`Repository starred by 7 people, including you`、`Copy value of APP_PRIVATE_KEY`、`Delete GITLAB_TOKEN`。属性翻译只走**精确命中**、不应用正则规则（防表单标识符被改坏），这些串只能永远保留英文；
 - 用户内容：机密名、仓库名、组织名、用户名。`text` 里出现它们不是漏翻。
 - 同形异义短词：头部搜索占位符的 `Type`（页头读作「键入」，设置页正文读作「类型」，同页共存），以及被 `<kbd>` 断开的碎片 `to search`——碎片词条仍然不能收，但**页头那处已经不漏了**：引擎在「`文本` + `<kbd>` + `文本`」三段结构上用整句键切分回填（论证与处置见「采集实机渲染文本」第 5 条）。它们**不会**出现在候选里：`STRUCTURAL` 判定在 `knownElsewhere` 之前，`Type` 不会再被「别的模块收过」这条提示骗你补一份。

@@ -171,7 +171,90 @@ Partner Center → **Privacy**：
 - [ ] 商店素材：300×300 logo、≥1 张截图、长描述 ≥250 字符；
 - [ ] 商标声明：商店长描述与 README 都写明「not affiliated with GitHub, Inc.」。
 
-## 7. 已知边界（不是上架阻断项，但审核/用户可能问）
+## 7. 逐步发布流程（Partner Center）
+
+> 官方文档：[Register as a Microsoft Edge extension developer](https://learn.microsoft.com/en-us/microsoft-edge/extensions/publish/create-dev-account)、
+> [Publish a Microsoft Edge extension](https://learn.microsoft.com/en-us/microsoft-edge/extensions/publish/publish-extension)。
+> Edge 开发者注册**免费**；个人账号验证比公司账号快。
+
+### 7.1 注册开发者账号
+
+1. 打开 [Partner Center（Edge 入口）](https://partner.microsoft.com/dashboard/microsoftedge/public/login)，用 Microsoft 账号登录；没有 MSA 可以用 GitHub 账号登录并自动创建。
+2. 进入 **Account settings | Programs**，在 **Microsoft Edge** 卡片点 **Get started**。
+3. 填 **Account country/region**（提交后只读）、**Account type** 选 **Individual**、**Publisher display name**（最多 50 字符，建议 `Oppenheymu` 或项目名）、联系方式。
+4. 勾选接受 **App Developer Agreement**，点 **Finish**。
+5. 等验证邮件；验证期间就可以先准备扩展包与商店素材。
+
+### 7.2 创建扩展并上传包
+
+1. Partner Center → **Microsoft Edge** → **Create new extension**。
+2. 上传 `bun run pack` 生成的 `github-i18n-v<版本>.zip`；等待包校验通过。
+3. 在 **Extension overview** 核对名称、版本、权限；有问题回代码改，重新 `pack` 再传。
+
+### 7.3 Availability
+
+- **Visibility**：首次发布选 **Public**；
+- **Markets**：默认全部市场即可。
+
+### 7.4 Properties
+
+- **Category**：Productivity（或 Developer tools，按你希望被搜到的场景选）；
+- **Website**：`https://github.com/Oppenheymu/Github-i18n`；
+- **Support contact detail**：`https://github.com/Oppenheymu/Github-i18n/issues`；
+- **Mature content**：不勾。
+
+### 7.5 Privacy
+
+按第 5 节的四项填写。重点：
+
+- **Single Purpose** 只写「本地翻译 GitHub 界面」，不要写成通用翻译器；
+- 权限只解释 `storage` 与 `github.com` / `gist.github.com` 的 content script；
+- **Remote code** 选 **No**；
+- **Data usage** 全部不勾；
+- 隐私政策 URL 填 `https://github.com/Oppenheymu/Github-i18n/blob/main/PRIVACY.md`。
+
+### 7.6 Store listing
+
+`manifest.json` 用了 `__MSG_name__` / `__MSG_description__`，Partner Center 会自动识别 `_locales` 里的 **en、ja、zh_CN** 三种列表语言。每种语言都需要：
+
+- **Description**：≥250 字符（第 4 节已给草稿）；
+- **Extension logo**：上传 `store/logo-300.png`，可点 **Duplicate** 复制到其它语言；
+- **Screenshots**：至少 1 张，推荐 3 张，尺寸 1280×800 或 640×480；
+- **Short description**：来自 manifest，只读，当前 123 字符；
+- **Search terms**：`GitHub 汉化`、`GitHub 中文`、`GitHub translation`、`GitHub localization` 等（最多 7 条、合计 21 词、每条 ≤30 字符）。
+
+### 7.7 提交审核
+
+1. 点 **Publish**，在 **Notes for certification** 粘贴下面这段（按需改仓库链接）：
+
+   ```text
+   This extension translates GitHub interface text locally with a bundled dictionary.
+   No network requests, no account, and no data collection.
+
+   How to test:
+   1. Install the extension and open https://github.com (no login required).
+   2. Click the toolbar icon; the toggle should show Enabled.
+   3. Switch the target language between Simplified Chinese and Japanese; the page reloads and UI text changes.
+   4. Turn the toggle off; the page reloads and returns to English.
+
+   The store package contains no developer mode and no miss collector.
+   ```
+
+2. 提交后状态进入 **Certification**，官方说明最长约 7 个工作日；通过后状态变 **In the Store**。
+3. 被拒时按 Partner Center 的反馈改代码 / 文案，重新 `pack` 上传；不要改版本号复用同一个包。
+
+### 7.8 后续更新
+
+1. 改代码 / 词典后，把 `package.json`、`public/manifest.json`、`public/popup.html` 的版本号一起加一；
+2. `bun run check` → `bun run pack`；
+3. Partner Center → **Packages** → 上传新 zip → 更新 listing（如需要）→ **Publish**；
+4. 已安装用户会在商店审核通过后收到更新。
+
+### 7.9 Chrome Web Store（可选）
+
+同一个 zip 可以直接传 Chrome Web Store；需要单独注册 Chrome 开发者账号（一次性注册费，以官方页面为准），并重新填一遍 listing / 隐私问卷。Edge 先发、Chrome 后发可以减少一次审核等待。
+
+## 8. 已知边界（不是上架阻断项，但审核/用户可能问）
 
 - **词典规模小于传统汉化项目**：唯一键 5,725 vs 14,498；不要宣传「最全」。
 - **8 种语言是空骨架**：popup 已隐藏，`LOCALES` / registry 仍保留，覆盖率报告会显示 0%。

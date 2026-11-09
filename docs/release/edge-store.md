@@ -140,13 +140,36 @@ Edge 的版本号规则：1–4 段数字，每段 0–65535。
 
 ## 5. 隐私问卷怎么填
 
-Partner Center → **Privacy**：
+Partner Center → **Privacy**。下面四段可以直接复制（英文是后台语言；中文只是解释）：
 
-- **Single Purpose**：`Translate the GitHub web interface locally with a bundled dictionary; no data leaves the device.`
-- **Permission justification**：
-  - `storage`：`Stores only the user's on/off preference and optional target language locally. No browsing data is read or stored.`
-  - content script matches（`github.com` / `gist.github.com`）：`Required to read and replace interface text on GitHub pages. All processing is local.`
-- **Remote code**：`No, I am not using remote code.`
+### Single purpose description
+
+```text
+Localize the GitHub web interface into the user's chosen language using a dictionary bundled with the extension. This is the extension's only purpose: it does not translate other websites and does not provide general-purpose translation. All processing runs locally on the user's device; no page content is sent anywhere, no analytics are used, and no account is required.
+```
+
+### storage justification
+
+```text
+Used only to remember the user's settings: whether translation is enabled and, optionally, which target language to use. These values are stored locally in chrome.storage.local. No browsing history, page content, credentials, or personal information is stored.
+```
+
+### Host permission justification（如果后台单独出现 github.com / gist.github.com 的必填项）
+
+```text
+The content script runs only on https://github.com/* and https://gist.github.com/* to read interface text and replace it with the bundled translation. It does not transmit page content; all processing is local.
+```
+
+### Are you using remote code?
+
+选 **No, I am not using remote code**。下面的 **Justification** 可留空；如果后台强制要求，填：
+
+```text
+No remote code is used. All extension code and dictionaries are bundled in the package, and the extension makes no network requests.
+```
+
+### 其它
+
 - **Data usage**：全部不勾选。生产包没有采集器，`PRIVACY.md` 与包行为一致。
 - **Privacy policy URL**：`https://github.com/Oppenheymu/Github-i18n/blob/main/PRIVACY.md`
   （提交前确认该文件已推送到默认分支，且匿名窗口可访问）。

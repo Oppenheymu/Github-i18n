@@ -39,6 +39,8 @@
 		"pulls/checks-status-failing-in-progress-successful": "失败 $<failing> 项、进行中 $<inProgress> 项、成功 $<successful> 项检查",
 		"pulls/checks-status-in-progress-skipped-successful": "进行中 $<inProgress> 项、已跳过 $<skipped> 项、成功 $<successful> 项检查",
 		"pulls/checks-status-failing-in-progress-skipped-successful": "失败 $<failing> 项、进行中 $<inProgress> 项、已跳过 $<skipped> 项、成功 $<successful> 项检查",
+		// 摘要标题的 tooltip（计数与 is/are 变化，整句走规则）
+		"pulls/checks-failing-tooltip": "$<count> 项检查失败，需要处理。点击以在合并面板中查看详细信息。",
 		// 合并框 out-of-date 态指引句（分支名与用户名动态）
 		"pulls/merge-latest-changes": "将 $<base> 的最新更改合并到此分支。此合并提交将关联到 $<user>。",
 		// 代码所有者审查等待（用户名动态）

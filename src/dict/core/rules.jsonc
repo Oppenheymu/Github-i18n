@@ -164,6 +164,14 @@
 					"id": "pulls/checks-status-failing-in-progress-skipped-successful",
 					"pattern": "^(?<failing>\\d+) failing, (?<inProgress>\\d+) in progress, (?<skipped>\\d+) skipped, (?<successful>\\d+) successful checks?$"
 				},
+				// 摘要标题行的 tooltip（2026-11-09 维护者贴的实机 HTML：
+				// `<span class="prc-TooltipV2-Tooltip-…" role="tooltip">1 check is failing and
+				// needs attention. Click to view details in the merge panel.</span>`）：
+				// 计数与 is/are、needs/need 都随数量变化，整句只能走规则
+				{
+					"id": "pulls/checks-failing-tooltip",
+					"pattern": "^(?<count>\\d+) checks? (?:is|are) failing and (?:needs|need) attention\\. Click to view details in the merge panel\\.$"
+				},
 				// 合并框 out-of-date 态的指引句（2026-11-01 维护者实机 HTML）：基线
 				// 分支名与合并提交的关联用户都是动态内容
 				{

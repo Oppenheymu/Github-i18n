@@ -1466,6 +1466,34 @@ describe("PR 页 checks 摘要标题与计数行", () => {
 		).toBeNull();
 	});
 
+	it("translates the failing-checks tooltip through the rule", () => {
+		// 实机 HTML：`<span class="prc-TooltipV2-Tooltip-…" role="tooltip">…</span>`
+		expect(
+			translateText(
+				"1 check is failing and needs attention. Click to view details in the merge panel.",
+				view,
+			),
+		).toBe(
+			"1 项检查失败，需要处理。点击以在合并面板中查看详细信息。",
+		);
+		// 复数形态（are / need）
+		expect(
+			translateText(
+				"3 checks are failing and need attention. Click to view details in the merge panel.",
+				view,
+			),
+		).toBe(
+			"3 项检查失败，需要处理。点击以在合并面板中查看详细信息。",
+		);
+		// 半句话不命中
+		expect(
+			translateText(
+				"1 check is failing and needs attention.",
+				view,
+			),
+		).toBeNull();
+	});
+
 	it("translates the verified-signature line as one node", () => {
 		expect(
 			translateText(
@@ -1507,6 +1535,14 @@ describe("PR 页 checks 摘要标题与计数行", () => {
 			),
 		).toBe(
 			"失敗 1 件、進行中 1 件、スキップ 4 件、成功 6 件のチェック",
+		);
+		expect(
+			translateText(
+				"1 check is failing and needs attention. Click to view details in the merge panel.",
+				japanese,
+			),
+		).toBe(
+			"1 件のチェックが失敗しており、対応が必要です。クリックするとマージパネルで詳細を確認できます。",
 		);
 		expect(
 			translateText(

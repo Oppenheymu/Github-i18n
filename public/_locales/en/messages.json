@@ -55,7 +55,7 @@
 		"message": "Automatic (browser language)"
 	},
 	"localeHint": {
-		"message": "Some languages are only partly translated: text without a translation stays in English."
+		"message": "Only fully translated languages are listed. If your browser language is not available yet, text stays in English."
 	},
 	"footer": {
 		"message": "The dictionary keeps growing. Reports of missed or wrong translations are welcome in the repository."

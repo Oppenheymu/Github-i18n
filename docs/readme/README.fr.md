@@ -40,7 +40,7 @@
 - **Dictionnaire embarqué** : les traductions sont livrées avec l'extension ; rien n'est téléchargé, aucun service en ligne n'est appelé.
 - **Chargement par page** : les entrées sont routées par module, celles de la page priment sur le repli global, et le texte non couvert reste en anglais.
 - **Contenu préservé** : les blocs de code, les diffs, l'éditeur, les README et le corps des issues sont ignorés en bloc ; seul le texte de l'interface est traduit.
-- **Zéro collecte** : aucune donnée n'est collectée ni envoyée ; le collecteur de ratés du mode développeur est désactivé par défaut et n'écrit qu'en local.
+- **Zéro collecte** : le paquet de la boutique ne contient aucun collecteur ; la build de développement (`bun run build`) en propose un, optionnel, désactivé par défaut et purement local.
 - **Suit la SPA** : un `MutationObserver` continue de traduire pendant la navigation Turbo, sans rechargement.
 
 ---
@@ -66,8 +66,8 @@ bun run build
 ## Utilisation
 
 - **Interrupteur** : désactivé, toute la page repasse en anglais.
-- **Langue** : suit le navigateur par défaut et peut aussi être choisie manuellement. Le chinois simplifié est la base (100 %) ; 日本語, 繁體中文, 한국어, Español, Français, Deutsch, Português (Brasil / Portugal) et Русский sont complétés au fur et à mesure, et ce qui n'est pas traduit reste en anglais.
-- **Mode développeur** : désactivé par défaut ; une fois activé, il ne collecte en local que le texte non traduit, que vous pouvez copier ou effacer.
+- **Langue** : suit le navigateur par défaut et peut aussi être choisie manuellement. Le chinois simplifié (base à 100 %) et le japonais sont entièrement traduits ; les autres langues enregistrées sont en préparation et restent masquées dans le sélecteur jusqu'à être prêtes. Ce qui n'est pas traduit reste en anglais.
+- **Mode développeur** (builds de développement uniquement ; absent des paquets de la boutique) : désactivé par défaut ; une fois activé, il ne collecte en local que le texte non traduit, que vous pouvez copier ou effacer.
 
 ---
 

@@ -1,14 +1,25 @@
 // 构建脚本：Bun.build 打包 content / popup 为 IIFE 经典脚本 + 拷贝 public/ → dist/
 // 已知坑（AGENTS.md）：Bun.build 没有 outfile，产物命名靠 naming 模板；
 // iife 是硬约束（MV3 content_scripts 不支持 module）
+//
+// 两种构建：
+//   bun run build                开发构建：保留开发者模式（popup 区块 + 漏翻采集器）
+//   bun run build:prod           商店构建：剥掉开发者模式 UI / 采集代码，并压缩产物
+// 商店包只允许用生产构建（bun run pack 已默认先跑 build:prod）。
+//
+// 生产裁剪靠 define 的**就地**常量折叠：源码里每个判断点都直接写 process.env.NODE_ENV，
+// 不要抽成模块级常量——实测跨函数引用时压缩器不会内联，collector 会留在包里。
 
 import {
 	cpSync,
 	existsSync,
 	watch as fsWatch,
 	mkdirSync,
+	readdirSync,
+	readFileSync,
 	renameSync,
 	rmSync,
+	writeFileSync,
 } from "node:fs";
 import { join } from "node:path";
 
@@ -28,6 +39,44 @@ const REQUIRED_PUBLIC_ASSETS: readonly string[] = [
 	"manifest.json",
 	"popup.html",
 ];
+
+/** popup.html 里开发者区块的构建标记：生产构建把两者之间的内容整段删除 */
+const DEV_START =
+	/(?:<!-- build:dev-start -->|\/\* build:dev-start \*\/)/;
+
+/**
+ * 纯函数：删除 popup.html 里被构建标记包住的开发者区块（含标记本身）。
+ *
+ * 支持 HTML 与 CSS 两种标记：开发者区块的 DOM 与只服务于它的样式（`.dev-title` /
+ * `#dev-panel` 等）都要从商店包里消失，而不是只留一段死 CSS。
+ *
+ * 为什么在 HTML 上做而不是只靠 CSS 隐藏：商店审核与用户都能打开 popup.html，
+ * 隐藏的 DOM 仍然算「随包发布的开发者模式」。真正删掉结构，再从 popup.ts 里删掉
+ * 只在该结构存在时才执行的代码，才是「生产环境去掉开发者模式」。
+ */
+export function stripDevSections(html: string): string {
+	if (!DEV_START.test(html)) return html;
+	const pattern =
+		/[ \t]*(?:<!-- build:dev-start -->|\/\* build:dev-start \*\/)[\s\S]*?(?:<!-- build:dev-end -->|\/\* build:dev-end \*\/)[ \t]*\r?\n?/g;
+	return html.replace(pattern, "");
+}
+
+/**
+ * 纯函数：从 _locales/<语言>/messages.json 里删除 dev* 文案。
+ *
+ * popup.html 的开发者区块被删后这些消息没有引用方；继续随包发布只会让
+ * 「零收集」的商店描述与包内文案自相矛盾。只删 `dev` 前缀，保留 appName 等。
+ */
+export function stripDevMessages(source: string): string {
+	const data = JSON.parse(source) as Record<
+		string,
+		unknown
+	>;
+	for (const key of Object.keys(data)) {
+		if (key.startsWith("dev")) delete data[key];
+	}
+	return `${JSON.stringify(data, null, "\t")}\n`;
+}
 
 /**
  * 纯函数：入口清单 + 改名映射 → 期望的产物文件名集合。
@@ -69,6 +118,40 @@ export function diffArtifacts(
 	return problems;
 }
 
+/** 拷贝 public/ 静态资产；生产构建额外剥掉开发者模式相关结构与文案 */
+function copyPublicAssets(
+	outdir: string,
+	production: boolean,
+): void {
+	cpSync("public", outdir, { recursive: true });
+	if (!production) return;
+	const popupPath = join(outdir, "popup.html");
+	writeFileSync(
+		popupPath,
+		stripDevSections(readFileSync(popupPath, "utf8")),
+	);
+	const localesDir = join(outdir, "_locales");
+	if (!existsSync(localesDir)) return;
+	for (const name of readdirSync(localesDir)) {
+		const file = join(localesDir, name, "messages.json");
+		if (!existsSync(file)) continue;
+		writeFileSync(
+			file,
+			stripDevMessages(readFileSync(file, "utf8")),
+		);
+	}
+}
+
+export interface BuildOptions {
+	/**
+	 * 生产构建：
+	 * - `process.env.NODE_ENV` 注入 "production"，让 `!PRODUCTION` 分支被常量折叠；
+	 * - 压缩产物（开发构建刻意不压缩，便于在浏览器里排查漏翻）；
+	 * - popup.html 剥掉开发者区块、_locales 剥掉 dev* 文案。
+	 */
+	readonly production?: boolean;
+}
+
 /**
  * 真实跑一次构建（Bun.build → 改名 → 拷贝 public/ → 产物集合断言）。
  *
@@ -79,16 +162,23 @@ export function diffArtifacts(
  */
 export async function buildOnce(
 	outdir = DIST,
+	options: BuildOptions = {},
 ): Promise<void> {
+	const production = options.production === true;
 	const result = await Bun.build({
 		entrypoints: [...ENTRIES],
 		outdir,
 		format: "iife",
 		target: "browser",
-		// 不压缩：便于在浏览器里排查漏翻与误伤
-		minify: false,
+		// 开发构建不压缩：便于在浏览器里排查漏翻与误伤；生产构建压缩以减小包体
+		minify: production,
 		sourcemap: "none",
 		naming: "[name].[ext]",
+		define: {
+			"process.env.NODE_ENV": JSON.stringify(
+				production ? "production" : "development",
+			),
+		},
 	});
 	if (!result.success) {
 		console.error("构建失败：");
@@ -109,7 +199,7 @@ export async function buildOnce(
 		renameSync(source, join(outdir, to));
 	}
 	// public/ 静态资产原样拷入 outdir/（manifest / popup.html / icons）
-	cpSync("public", outdir, { recursive: true });
+	copyPublicAssets(outdir, production);
 	for (const asset of REQUIRED_PUBLIC_ASSETS) {
 		if (existsSync(join(outdir, asset))) continue;
 		console.error(
@@ -137,11 +227,11 @@ export async function buildOnce(
 		...new Bun.Glob("**/*").scanSync({ cwd: outdir }),
 	].sort();
 	console.log(
-		`构建完成：${outdir}/（${files.length} 个文件）`,
+		`构建完成：${outdir}/（${files.length} 个文件${production ? "，生产模式" : ""}）`,
 	);
 }
 
-/** --watch 模式：监听 src/ 与 public/ 变更后防抖重建 */
+/** --watch 模式：监听 src/ 与 public/ 变更后防抖重建（仅开发构建） */
 function startWatch(): void {
 	let timer: ReturnType<typeof setTimeout> | null = null;
 	const schedule = () => {
@@ -159,10 +249,19 @@ function startWatch(): void {
 }
 
 async function main(): Promise<void> {
+	const production = process.argv.includes("--production");
+	const watch = process.argv.includes("--watch");
+	if (production && watch) {
+		console.error(
+			"--watch 只用于开发构建：生产包需要一次性的确定性产物，不能边改边看",
+		);
+		process.exitCode = 1;
+		return;
+	}
 	rmSync(DIST, { recursive: true, force: true });
 	mkdirSync(DIST, { recursive: true });
-	await buildOnce();
-	if (process.argv.includes("--watch")) startWatch();
+	await buildOnce(DIST, { production });
+	if (watch) startWatch();
 }
 
 if (import.meta.main) await main();

@@ -221,23 +221,30 @@ describe("popup 的初始化渲染", () => {
 		expect(element("#status").className).toBe("on");
 	});
 
-	it("offers 自动 plus every declared locale", () => {
+	it("offers 自动 plus every ready locale", () => {
 		const options = [
 			...document.querySelectorAll<HTMLOptionElement>(
 				"#locale option",
 			),
 		];
-		// 选项由 LOCALES 生成：这里按同一份声明断言，新增语言不必再改用例
+		// 选项由 LOCALES 里 ready 的语言生成：0% 的语言不该作为可选项露出，
+		// 否则用户选了也只会继续看到英文（ready 与覆盖率的同步由 check:dict 强制）
+		const ready = LOCALES.filter((meta) => meta.ready);
+		expect(ready.length).toBeGreaterThan(0);
 		expect(options.map((option) => option.value)).toEqual([
 			"",
-			...LOCALES.map((meta) => meta.id),
+			...ready.map((meta) => meta.id),
 		]);
 		expect(
 			options.map((option) => option.textContent),
-		).toEqual([
-			"自动",
-			...LOCALES.map((meta) => meta.name),
-		]);
+		).toEqual(["自动", ...ready.map((meta) => meta.name)]);
+		// 反向断言：未 ready 的语言一个都不在选项里
+		for (const meta of LOCALES) {
+			if (meta.ready) continue;
+			expect(
+				options.some((option) => option.value === meta.id),
+			).toBe(false);
+		}
 	});
 
 	it("back-fills the locale selector as 自动 when unset", () => {

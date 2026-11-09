@@ -219,6 +219,24 @@ export function watchMissLog(
 }
 
 /**
+ * 监听翻译开关变化（生产构建只用这一条）。
+ *
+ * 生产包里没有开发者模式，content 入口不应把 `devMode` 键名带进产物；这条监听
+ * 与 `watchToggles` 分开，后者只被开发构建引用，生产构建可被 tree-shaking 整段删掉。
+ */
+export function watchEnabled(
+	callback: (enabled: boolean) => void,
+): void {
+	chrome.storage.onChanged.addListener((changes, area) => {
+		if (area !== "local") return;
+		const change = changes[ENABLED_KEY];
+		if (!change || typeof change.newValue !== "boolean")
+			return;
+		callback(change.newValue);
+	});
+}
+
+/**
  * 监听开关类键（enabled / devMode）变化；任一变化即回调，
  * 非布尔新值（脏数据）忽略不回调。
  */

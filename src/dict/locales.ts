@@ -46,38 +46,87 @@ export interface LocaleMeta {
 	 * （见 tooling/checks/dict.ts）——这是已知边界，不是遗漏。
 	 */
 	readonly scripts: readonly Script[];
+	/**
+	 * 是否达到可上架质量（通常 = 词条与规则模板 100% 覆盖）。
+	 *
+	 * 只有 ready 的语言会出现在 popup 的翻译语言选择器里：把 0% 的语言摆给用户，
+	 * 选了之后整页仍显示英文，等于欺骗。空骨架语言继续留在 LOCALES / registry 里
+	 * （自动语言解析、覆盖率报告、后续开译都要用），只是不再作为可选项展示。
+	 *
+	 * 门禁 check:dict 强制本字段与真实覆盖率一致：ready 但没译满、或译满了却没
+	 * 标 ready，都会红灯——这样「开译完成」与「上架可见」不会悄悄脱节。
+	 */
+	readonly ready: boolean;
 }
 
 /**
- * 支持的语言：顺序即 popup 选择器顺序。
+ * 支持的语言：顺序即 LOCALES 的展示顺序；popup 只展示其中 `ready` 的项。
  *
  * 分组：基线 / 繁体 / 日 / 韩（非拉丁文字，门禁可校验字系），
  * 再是拉丁语系（西 / 法 / 德 / 葡）与俄语。新语言排在原有语言之后即可，
  * 顺序不影响翻译能力，只影响选择器的展示顺序。
  */
 export const LOCALES: readonly LocaleMeta[] = [
-	{ id: "zh-CN", name: "简体中文", scripts: ["Han"] },
-	{ id: "zh-TW", name: "繁體中文", scripts: ["Han"] },
+	{
+		id: "zh-CN",
+		name: "简体中文",
+		scripts: ["Han"],
+		ready: true,
+	},
+	{
+		id: "zh-TW",
+		name: "繁體中文",
+		scripts: ["Han"],
+		ready: false,
+	},
 	{
 		id: "ja",
 		name: "日本語",
 		scripts: ["Han", "Hiragana", "Katakana"],
+		ready: true,
 	},
-	{ id: "ko", name: "한국어", scripts: ["Hangul"] },
-	{ id: "es", name: "Español", scripts: [] },
-	{ id: "fr", name: "Français", scripts: [] },
-	{ id: "de", name: "Deutsch", scripts: [] },
+	{
+		id: "ko",
+		name: "한국어",
+		scripts: ["Hangul"],
+		ready: false,
+	},
+	{
+		id: "es",
+		name: "Español",
+		scripts: [],
+		ready: false,
+	},
+	{
+		id: "fr",
+		name: "Français",
+		scripts: [],
+		ready: false,
+	},
+	{
+		id: "de",
+		name: "Deutsch",
+		scripts: [],
+		ready: false,
+	},
 	{
 		id: "pt-BR",
 		name: "Português (Brasil)",
 		scripts: [],
+		ready: false,
 	},
 	{
 		id: "pt-PT",
 		name: "Português (Portugal)",
 		scripts: [],
+		ready: false,
 	},
-	{ id: "ru", name: "Русский", scripts: ["Cyrillic"] },
+	{
+		id: "ru",
+		name: "Русский",
+		scripts: ["Cyrillic"],
+		ready: false,
+	},
 ];
 
 /**

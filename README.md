@@ -40,7 +40,7 @@
 - **Built-in dictionary**: translations ship with the extension — nothing is fetched, no online service is called.
 - **Loaded per page**: entries are routed by module, page-specific ones override the global fallback, and text that is not covered stays in English.
 - **Content untouched**: code blocks, diffs, the editor, READMEs and issue bodies are skipped as whole blocks; only interface text is translated.
-- **Zero collection**: no data is collected or uploaded; the developer-mode miss collector is off by default and only writes locally.
+- **Zero collection**: the store build contains no collector at all; the development build (`bun run build`) has an optional local-only miss collector, off by default.
 - **Follows the SPA**: a `MutationObserver` keeps translating as Turbo navigates, so no refresh is needed.
 
 ---
@@ -59,15 +59,15 @@ bun run build
 3. Open GitHub and click the toolbar icon to confirm the toggle is on.
 
 > [!TIP]
-> After changing code, run `bun run watch` to rebuild, then click **Reload** once on the extensions page; `bun run pack` produces `github-i18n-v<version>.zip`.
+> After changing code, run `bun run watch` to rebuild, then click **Reload** once on the extensions page; `bun run pack` first runs the production build (developer mode removed) and then produces `github-i18n-v<version>.zip`.
 
 ---
 
 ## Usage
 
 - **Toggle**: turn it off and the whole page reverts to English.
-- **Language**: follows the browser by default, and can also be chosen manually. Simplified Chinese is the baseline (100%); 日本語, 繁體中文, 한국어, Español, Français, Deutsch, Português (Brasil / Portugal) and Русский are filled in as they become ready, and untranslated parts stay in English.
-- **Developer mode**: off by default; when enabled it only collects missed text on your machine, which you can copy or clear.
+- **Language**: follows the browser by default, and can also be chosen manually. Simplified Chinese (the 100% baseline) and 日本語 are fully translated today; the other registered languages are in progress and stay hidden from the selector until they are ready. Untranslated text stays in English.
+- **Developer mode** (development builds only; absent from store packages): off by default; when enabled it only collects missed text on your machine, which you can copy or clear.
 
 ---
 
@@ -109,6 +109,8 @@ bun run report:misses  # miss log → report
 ## Documentation
 
 - [Development guide](./docs/guides/development.md)
+- [Edge Add-ons release checklist](./docs/release/edge-store.md)
+- [Privacy policy](./PRIVACY.md)
 - [Repository conventions](./AGENTS.md)
 - [Security policy](./.github/SECURITY.md)
 - [MIT license](./LICENSE) · [Notices](./NOTICE)

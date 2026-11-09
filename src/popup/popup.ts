@@ -70,30 +70,21 @@ const version = assertFound(
 	document.querySelector<HTMLElement>(".version"),
 	".version",
 );
-const devToggle = assertFound(
-	document.querySelector<HTMLInputElement>("#dev-toggle"),
-	"#dev-toggle",
-);
-const devPanel = assertFound(
-	document.querySelector<HTMLElement>("#dev-panel"),
-	"#dev-panel",
-);
-const devCount = assertFound(
-	document.querySelector<HTMLElement>("#dev-count"),
-	"#dev-count",
-);
-const devCopy = assertFound(
-	document.querySelector<HTMLButtonElement>("#dev-copy"),
-	"#dev-copy",
-);
-const devClear = assertFound(
-	document.querySelector<HTMLButtonElement>("#dev-clear"),
-	"#dev-clear",
-);
 const localeSelect = assertFound(
 	document.querySelector<HTMLSelectElement>("#locale"),
 	"#locale",
 );
+
+/** 开发者区块的 DOM 句柄：仅开发构建装配；生产包连 popup.html 的整段结构都会被剥掉 */
+interface DevElements {
+	readonly toggle: HTMLInputElement;
+	readonly panel: HTMLElement;
+	readonly count: HTMLElement;
+	readonly copy: HTMLButtonElement;
+	readonly clear: HTMLButtonElement;
+}
+
+let devElements: DevElements | null = null;
 
 /** 当前漏翻日志缓存：watchMissLog 实时同步，复制时同步序列化（用户手势内完成剪贴板写入） */
 let misses: readonly MissItem[] = [];
@@ -109,7 +100,10 @@ function buildLocaleSelect(): void {
 	auto.value = "";
 	auto.textContent = msg("localeAuto");
 	localeSelect.append(auto);
+	// 只露出已译满的语言：0% 的语言选了也不会有任何变化，属于虚假选项。
+	// ready 与覆盖率的同步由 check:dict 强制（见 src/dict/locales.ts 的 ready 注释）。
 	for (const meta of LOCALES) {
+		if (!meta.ready) continue;
 		const option = document.createElement("option");
 		option.value = meta.id;
 		option.textContent = meta.name;
@@ -131,30 +125,97 @@ function render(enabled: boolean): void {
 	status.className = enabled ? "on" : "off";
 }
 
-/** 渲染开发者区块：面板显隐 + 计数文案 */
+/** 渲染开发者区块：面板显隐 + 计数文案（生产包没有句柄，直接 no-op） */
 function renderDev(devMode: boolean): void {
-	devToggle.checked = devMode;
-	devPanel.classList.toggle("hidden", !devMode);
-	devCount.textContent = msg("devCount", [
+	const dev = devElements;
+	if (dev === null) return;
+	dev.toggle.checked = devMode;
+	dev.panel.classList.toggle("hidden", !devMode);
+	dev.count.textContent = msg("devCount", [
 		String(misses.length),
 	]);
 }
 
 /** 复制按钮临时反馈文案，1.5 秒后还原 */
 function flashCopyButton(text: string): void {
-	devCopy.textContent = text;
-	devCopy.disabled = true;
+	const dev = devElements;
+	if (dev === null) return;
+	const button = dev.copy;
+	button.textContent = text;
+	button.disabled = true;
 	window.setTimeout(() => {
-		devCopy.textContent = msg("devCopy");
-		devCopy.disabled = false;
+		button.textContent = msg("devCopy");
+		button.disabled = false;
 	}, 1500);
 }
 
-/** 初始化开发者区块：读漏翻日志与开关状态 */
+/**
+ * 初始化开发者区块：读漏翻日志与开关状态，并装配该区块的全部事件。
+ *
+ * 生产包在调用处就短路，且 popup.html 的整段结构已由构建脚本剥掉；这里再守一道
+ * `process.env.NODE_ENV`，确保即使有人手工把 HTML 补回来，也不会让 popup 因找不到
+ * dev 元素整页空白。
+ */
 async function initDev(): Promise<void> {
+	if (process.env.NODE_ENV === "production") return;
+	const devToggle = assertFound(
+		document.querySelector<HTMLInputElement>("#dev-toggle"),
+		"#dev-toggle",
+	);
+	const devPanel = assertFound(
+		document.querySelector<HTMLElement>("#dev-panel"),
+		"#dev-panel",
+	);
+	const devCount = assertFound(
+		document.querySelector<HTMLElement>("#dev-count"),
+		"#dev-count",
+	);
+	const devCopy = assertFound(
+		document.querySelector<HTMLButtonElement>("#dev-copy"),
+		"#dev-copy",
+	);
+	const devClear = assertFound(
+		document.querySelector<HTMLButtonElement>("#dev-clear"),
+		"#dev-clear",
+	);
+	devElements = {
+		toggle: devToggle,
+		panel: devPanel,
+		count: devCount,
+		copy: devCopy,
+		clear: devClear,
+	};
+
 	misses = await readMissLog();
 	dropped = await readMissDropped();
 	renderDev(await readDevMode());
+	// content script 可能在 popup 打开期间落盘，计数实时刷新
+	watchMissLog((items) => {
+		misses = items;
+		renderDev(devToggle.checked);
+	});
+	devToggle.addEventListener("change", () => {
+		void writeDevMode(devToggle.checked);
+		renderDev(devToggle.checked);
+	});
+	devCopy.addEventListener("click", () => {
+		const json = serializeMisses(
+			misses,
+			new Date(),
+			dropped,
+		);
+		void navigator.clipboard.writeText(json).then(
+			() => flashCopyButton(msg("devCopied")),
+			() => flashCopyButton(msg("devCopyFailed")),
+		);
+	});
+	devClear.addEventListener("click", () => {
+		misses = [];
+		dropped = 0;
+		renderDev(devToggle.checked);
+		void writeMissLog([]);
+		void writeMissDropped(0);
+	});
 }
 
 /** 把 popup.html 里所有 data-i18n 占位按浏览器界面语言回填 */
@@ -195,34 +256,7 @@ function main(): void {
 		void writeLocale(next);
 	});
 
-	void initDev();
-	// content script 可能在 popup 打开期间落盘，计数实时刷新
-	watchMissLog((items) => {
-		misses = items;
-		renderDev(devToggle.checked);
-	});
-	devToggle.addEventListener("change", () => {
-		void writeDevMode(devToggle.checked);
-		renderDev(devToggle.checked);
-	});
-	devCopy.addEventListener("click", () => {
-		const json = serializeMisses(
-			misses,
-			new Date(),
-			dropped,
-		);
-		void navigator.clipboard.writeText(json).then(
-			() => flashCopyButton(msg("devCopied")),
-			() => flashCopyButton(msg("devCopyFailed")),
-		);
-	});
-	devClear.addEventListener("click", () => {
-		misses = [];
-		dropped = 0;
-		renderDev(devToggle.checked);
-		void writeMissLog([]);
-		void writeMissDropped(0);
-	});
+	if (process.env.NODE_ENV !== "production") void initDev();
 }
 
 // 最外层兜底：初始化期间任何未预期的同步错误只记日志，不再让 popup 整页空白。

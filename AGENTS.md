@@ -19,7 +19,7 @@
 - `core/rules.jsonc`：共享规则的 `id` 与 `pattern`，**顺序即语义**；规则 id 全局唯一，**同模块内 `pattern` 必须唯一**（同模块首条命中生效，重复的那条是永不生效的死规则；`May` 这类全称与缩写同形只留一条，跨模块重复合法），改名必须同步各语言模板；不得带 `flags` 字段（`g` / `y` 的 `lastIndex` 会跨节点累积导致漏翻）；
 - `locales/<语言>/<模块>.jsonc` 只放键值对，`locales/<语言>/rules.jsonc` 只放「规则 id → 模板」；键必须是 canonical 里的英文原文精确串（不得含目标语言文字系统），值必须含该语言的文字系统（防替换循环），译文不得等于任何键；
 - **稀疏覆盖是正常状态**：缺模块 / 缺键 / 缺规则模板 = 尚未翻译，引擎保留英文；新增语言要同时改 `src/dict/locales.ts`（元数据）与 `src/dict/registry.ts`（数据），覆盖率由 `check:dict` 报告；
-- **基线语言是 zh-CN**：新键先登记 `core/canonical.jsonc`、再补 zh-CN 译文；其它语言缺键 / 缺模板都不算错误，**门禁不要求跨语言同步**（`bun test` 只强制基线 100%，其余语言覆盖率仅报告）。新增语言先建空骨架即可（目录 + `global.jsonc` / `rules.jsonc` + registry 注册）；空骨架不生成视图快照，第一条译文落地后 `check:view` 才要求补快照；
+- **基线语言是 zh-CN**：新键先登记 `core/canonical.jsonc`、再补 zh-CN 译文；其它语言缺键 / 缺模板都不算错误，**门禁不要求跨语言同步**（`bun test` 只强制基线 100%，其余语言覆盖率仅报告）。新增语言先建空骨架即可（目录 + `global.jsonc` / `rules.jsonc` + registry 注册）；空骨架不生成视图快照，第一条译文落地后 `check:view` 才要求补快照；空骨架在 `src/dict/locales.ts` 里标 `ready: false`，**全量译完后必须改成 `true`**（`check:dict` 强制 ready 与覆盖率一致），popup 只展示 ready 的语言——否则用户会选到「看起来支持、实际不翻」的空语言；
 - JSONC 里正则的反斜杠必须双写（`\d` 写作 `\\d`）；新增 / 改名模块要同步 `core/modules.jsonc` 与 `core/canonical.jsonc`（两者同名同序，门禁强制）。
 
 3. **词典键是「整节点精确匹配」语义**：收录可能与仓库名、文件名、用户名撞车的泛化短词（如 `docs` / `test` / `blog` 等小写词）前三思，优先收录多词无歧义短语；大小写必须与 GitHub 实际渲染一致。
@@ -41,8 +41,9 @@ bun run check:manifest          # manifest 门禁（MV3 字段完整性、_local
 bun run check:view              # 视图骨架门禁（模块顺序 / 命中序列 / 同键异译赢家 / 规则 id 序列；--update 重生成快照）
 bun test                        # 全量用例（bun test）
 bun run build                   # 构建 dist/（Bun.build IIFE ×2 + 拷贝 public/）
+bun run build:prod              # 生产构建（压缩 + 剥离开发者模式与 collector）
 bun run watch                   # 构建并监听（改 src 自动重建，扩展需手动重载）
-bun run pack                    # dist/ 打 zip（Chrome Web Store / Edge Add-ons 通用）
+bun run pack                    # build:prod 后打 zip（Chrome Web Store / Edge Add-ons 通用）
 ```
 
 - 提交前 `bun run check` 必须全绿；实机验证：构建后在 `chrome://extensions`（Edge 为 `edge://extensions`）开发者模式加载 `dist/` 目录。

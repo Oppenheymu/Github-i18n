@@ -11,6 +11,8 @@ import {
 	buildOnce,
 	diffArtifacts,
 	expectedArtifacts,
+	stripDevMessages,
+	stripDevSections,
 } from "./build.ts";
 
 describe("expectedArtifacts", () => {
@@ -61,6 +63,55 @@ describe("diffArtifacts", () => {
 		);
 		expect(problems).toHaveLength(1);
 		expect(problems[0]).toContain("index.js");
+	});
+});
+
+describe("stripDevSections", () => {
+	it("removes the marked block and keeps the rest of the html", () => {
+		const html = [
+			"<main>",
+			"  <p>keep</p>",
+			"  <!-- build:dev-start -->",
+			"  <section>Developer mode</section>",
+			"  <!-- build:dev-end -->",
+			"  <p>after</p>",
+			"</main>",
+		].join("\n");
+		const stripped = stripDevSections(html);
+		expect(stripped).not.toContain("Developer mode");
+		expect(stripped).toContain("<p>keep</p>");
+		expect(stripped).toContain("<p>after</p>");
+	});
+
+	it("leaves html without markers untouched", () => {
+		const html = "<main><p>keep</p></main>";
+		expect(stripDevSections(html)).toBe(html);
+	});
+});
+
+describe("stripDevMessages", () => {
+	it("drops dev* messages and keeps user-facing ones", () => {
+		const source = JSON.stringify({
+			appName: { message: "GitHub UI Localization" },
+			devTitle: { message: "Developer mode" },
+			devCount: { message: "$COUNT$ items" },
+			statusOn: { message: "Enabled" },
+		});
+		const data = JSON.parse(
+			stripDevMessages(source),
+		) as Record<string, unknown>;
+		expect(Object.keys(data).sort()).toEqual([
+			"appName",
+			"statusOn",
+		]);
+	});
+
+	it("re-emits valid JSON with a trailing newline", () => {
+		const output = stripDevMessages(
+			JSON.stringify({ appName: { message: "x" } }),
+		);
+		expect(() => JSON.parse(output)).not.toThrow();
+		expect(output.endsWith("\n")).toBe(true);
 	});
 });
 
@@ -117,7 +168,62 @@ describe("buildOnce 的真实构建", () => {
 				);
 			}
 		} finally {
-			rmSync(outdir, { recursive: true, force: true });
+			rmSync(outdir, {
+				recursive: true,
+				force: true,
+			});
+		}
+	});
+});
+
+describe("生产构建剔除开发者模式", () => {
+	it("ships neither the developer UI nor the miss collector", async () => {
+		const outdir = mkdtempSync(
+			join(tmpdir(), "build-prod-test-"),
+		);
+		try {
+			await buildOnce(outdir, { production: true });
+			const popupHtml = readFileSync(
+				join(outdir, "popup.html"),
+				"utf8",
+			);
+			// HTML 结构本身被删，而不是靠 CSS 隐藏
+			expect(popupHtml).not.toContain("Developer mode");
+			expect(popupHtml).not.toContain("dev-toggle");
+			expect(popupHtml).not.toContain("dev-panel");
+			expect(popupHtml).not.toContain("build:dev-start");
+			// _locales 里的 dev* 文案也随包剥掉
+			const messages = JSON.parse(
+				readFileSync(
+					join(outdir, "_locales", "en", "messages.json"),
+					"utf8",
+				),
+			) as Record<string, unknown>;
+			expect(messages["devTitle"]).toBeUndefined();
+			expect(messages["devCount"]).toBeUndefined();
+			expect(messages["appName"]).toBeDefined();
+			// 两个 JS 产物里都不应再有采集器的键名 / 导出串：
+			// 这是「代码真的被 tree-shaking 删掉」而不是「只是没有入口」的证据
+			for (const name of ["content.js", "popup.js"]) {
+				const source = readFileSync(
+					join(outdir, name),
+					"utf8",
+				);
+				for (const marker of [
+					"devMode",
+					"missLog",
+					"github-zh-misses",
+					"recordText",
+				]) {
+					// 用布尔断言，失败时不要把 1.6 MB 的产物整段打印出来
+					expect(source.includes(marker)).toBe(false);
+				}
+			}
+		} finally {
+			rmSync(outdir, {
+				recursive: true,
+				force: true,
+			});
 		}
 	});
 });

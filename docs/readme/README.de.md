@@ -40,7 +40,7 @@
 - **Integriertes Wörterbuch**: Die Übersetzungen werden mit der Erweiterung ausgeliefert — nichts wird abgerufen, kein Onlinedienst aufgerufen.
 - **Pro Seite geladen**: Einträge werden nach Modul geroutet, seitenspezifische haben Vorrang vor dem globalen Fallback, und nicht abgedeckter Text bleibt englisch.
 - **Inhalte bleiben unangetastet**: Codeblöcke, Diffs, der Editor, READMEs und Issue-Texte werden als Ganzes übersprungen; übersetzt wird nur die Oberfläche.
-- **Keine Erfassung**: Es werden keine Daten gesammelt oder hochgeladen; der Sammler für verpasste Texte im Entwicklermodus ist standardmäßig aus und schreibt nur lokal.
+- **Keine Erfassung**: Das Store-Paket enthält keinen Sammler; der Entwicklungsbuild (`bun run build`) hat einen optionalen Sammler für verpasste Texte, standardmäßig aus und nur lokal.
 - **Folgt der SPA**: Ein `MutationObserver` übersetzt bei der Turbo-Navigation weiter, ohne Neuladen.
 
 ---
@@ -66,8 +66,8 @@ bun run build
 ## Verwendung
 
 - **Schalter**: ausgeschaltet kehrt die ganze Seite zu Englisch zurück.
-- **Sprache**: folgt standardmäßig dem Browser und lässt sich auch manuell wählen. Vereinfachtes Chinesisch ist die Basis (100 %); 日本語, 繁體中文, 한국어, Español, Français, Deutsch, Português (Brasil / Portugal) und Русский werden nach und nach ergänzt, nicht Übersetztes bleibt englisch.
-- **Entwicklermodus**: standardmäßig aus; aktiviert sammelt er nur lokal verpassten Text, den du kopieren oder leeren kannst.
+- **Sprache**: folgt standardmäßig dem Browser und lässt sich auch manuell wählen. Vereinfachtes Chinesisch (100 %-Basis) und 日本語 sind vollständig übersetzt; die übrigen registrierten Sprachen sind in Arbeit und bleiben im Auswahlfeld verborgen, bis sie fertig sind. Nicht Übersetztes bleibt englisch.
+- **Entwicklermodus** (nur Entwicklungsbuilds; in Store-Paketen nicht enthalten): standardmäßig aus; aktiviert sammelt er nur lokal verpassten Text, den du kopieren oder leeren kannst.
 
 ---
 

@@ -144,6 +144,17 @@ describe("getLocaleMeta", () => {
 		}
 	});
 
+	it("only exposes fully translated locales in the popup", () => {
+		// 当前只有简中基线 + 日语全量译完；其它语言是空骨架。
+		// 真实覆盖率由 check:dict 对着数据强制，这里钉住 popup 的可见集合，
+		// 防止有人把空语言重新标 ready、让选择器出现「选了没反应」的选项。
+		expect(
+			LOCALES.filter((meta) => meta.ready).map(
+				(meta) => meta.id,
+			),
+		).toEqual(["zh-CN", "ja"]);
+	});
+
 	it("uses zh-CN as both baseline and fallback", () => {
 		expect(BASELINE_LOCALE).toBe("zh-CN");
 		expect(FALLBACK_LOCALE).toBe(BASELINE_LOCALE);

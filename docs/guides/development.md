@@ -725,6 +725,10 @@ Added on Mar 6, 2026
 
 ## 开发者模式（漏翻收集）
 
+> **只存在于开发构建（`bun run build`）。** `bun run pack` 的生产包会把 popup 的整段结构、
+> `dev*` 文案与 collector 代码一起剥掉（`tooling/pipeline/build.test.ts` 有反向断言），
+> 所以商店用户看不到这个开关，也不存在「被手动打开」的路径。
+
 popup 底部的「开发者模式」开关**默认关闭**，用于系统性发现漏翻：开启后，content script 在翻译时把未命中词典与规则的文本记录下来（仅本地，无任何网络请求）。逛几页 GitHub 攒一批后，在 popup 一键复制为 JSON，粘贴给 AI 会话批量补词条。
 
 ### 用法
@@ -850,19 +854,20 @@ have been` / `additions` / `and` / `deletions` / `people` 等静态键，加 `to
 
 ## 隐私
 
-- 漏翻收集**默认关闭**，开启前零收集；全程无任何网络请求；
+- 商店包（`bun run pack`）**不含采集器**，`enabled` / `locale` 两项设置是唯一的本地存储；
+- 开发构建的漏翻收集**默认关闭**，开启前零收集；全程无任何网络请求；
 - 收集内容仅存本机 `chrome.storage.local`，不自动上传、不同步、不导出下载；
 - 导出内容可能含页面文本（文件名、仓库名等），复制后请自查再粘贴。
 
 ## 包体与分发
 
 - content script 必须内联全部词典（现在是同步注入、天然无闪烁），所以数据是产物的大头。口径与实测（2026-11，建新语言骨架时）：
-  - **content.js 约 1.57 MiB**（1,643,852 字节；`minify: false`，即不压缩、便于在浏览器里排查漏翻）——复核：`bun run build` 之后取 `(Get-Item dist/content.js).Length`；
+  - **开发构建 content.js 约 1.57 MiB**（1,647,823 字节；`minify: false`，即不压缩、便于在浏览器里排查漏翻）；**生产构建约 1.38 MiB**（1,444,125 字节；`minify: true` 且 collector 已被 tree-shaking 剔除）——复核：分别跑 `bun run build` / `bun run build:prod` 之后取 `(Get-Item dist/content.js).Length`；
   - **词典数据本身**（编译后模块词典 + 规则模板的紧凑 JSON）约 **1.25 MiB**：zh-CN 约 566 KiB（579,743 字节）+ ja 约 711 KiB（728,432 字节）+ 8 个空骨架各约 1.4 KiB（空模块仍保留路由与空词条表）。复核办法：`JSON.stringify(dictForLocale(<id>))` 的 UTF-8 字节数。这个口径不含引擎、调度与收集器代码，也不是磁盘上的某个文件。规则条数对体积敏感：`/settings/security` 那 132 条日期规则（见「为什么账号安全页单独成模块」）在紧凑 JSON 口径下就占约 15 KiB；
   - **规则与键的条数别再手抄**：随词典增长，一律看 `bun run check:dict` 的输出（「N 模块 / N 规范键 / N 条共享规则 / N 条译文」，口径见「稀疏覆盖」一节）。
     上面两个体积同样随词典增长，改动词典后如需引用数字请重新测量；
 - **当前 10 种语言仍全量打包**（无闪烁、零风险）：新语言是空骨架，体积接近 0，大头仍是 zh-CN + ja（content.js 已到 1.57 MiB）。**每多一种全量语言，产物就多约 0.6–0.7 MiB**；等新语言真正积累词条、产物体积开始影响加载时，再考虑按 locale 分发（`chrome.scripting.registerContentScripts` 按语言注册是唯一能保持同步注入、无闪烁的方案，代价是引入 background service worker 与 `scripting` 权限）；**在那之前别把「按语言拆包」当成既定待办**，它会改变词典的加载路径与门禁口径；
-- 发布一律用 `bun run pack` 产出的 zip：仓库根目录下的 `github-i18n-v<版本>.zip`（store 模式、零依赖打包）。
+- 发布一律用 `bun run pack` 产出的 zip：它先跑 `build:prod`（剥离开发者模式、压缩），再打 `github-i18n-v<版本>.zip`（store 模式、零依赖打包）。
 
 ## 已知边界
 

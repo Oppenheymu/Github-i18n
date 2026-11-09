@@ -143,7 +143,13 @@ function applyTextNode(
 	if (translated === null) {
 		// 未命中词典与规则：开发者模式下记录 trimmed 原文
 		// （可翻译判定已滤掉空白 / 非拉丁字母 / 超长，排除容器由调用方整树跳过）
-		if (isTranslatableText(value)) recordText(node, value);
+		if (isTranslatableText(value)) {
+			// 生产包不包含漏翻采集：条件由构建器常量折叠后整段删除，
+			// recordText 的导入也随之被 tree-shaking 剔除。
+			if (process.env.NODE_ENV !== "production") {
+				recordText(node, value);
+			}
+		}
 		return false;
 	}
 	const erased = translated.trim() === "";
@@ -291,15 +297,16 @@ function applyAttrs(
 		if (!isTranslatableText(value)) continue;
 		const translated = translateText(value, view);
 		if (translated === null) {
-			// 未命中任何词条或规则：开发者模式下记录（MissKind 是
-			// 开发者日志的维度，不为按钮文案单开一类，避免 storage 结构跟着变）
-			recordAttr(
-				element,
-				name === "value" || name === "data-disable-with"
-					? "aria-label"
-					: name,
-				normalizeKey(value),
-			);
+			// 未命中任何词条或规则：开发构建才记录（生产包没有采集器）
+			if (process.env.NODE_ENV !== "production") {
+				recordAttr(
+					element,
+					name === "value" || name === "data-disable-with"
+						? "aria-label"
+						: name,
+					normalizeKey(value),
+				);
+			}
 			continue;
 		}
 		const lead = value.slice(

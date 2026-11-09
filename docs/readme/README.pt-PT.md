@@ -40,7 +40,7 @@
 - **Dicionário incluído**: as traduções são distribuídas com a extensão — nada é transferido e nenhum serviço online é chamado.
 - **Carregamento por página**: as entradas são encaminhadas por módulo, as da página específica têm prioridade sobre o fallback global, e o texto não abrangido mantém-se em inglês.
 - **Conteúdo intacto**: blocos de código, diffs, o editor, READMEs e corpos de issues são ignorados por inteiro; só o texto da interface é traduzido.
-- **Zero recolha**: nenhum dado é recolhido ou enviado; o recoletor de falhas do modo de programador vem desligado por omissão e grava apenas localmente.
+- **Zero recolha**: o pacote da loja não contém recoletor; a build de desenvolvimento (`bun run build`) tem um recoletor opcional de falhas, desligado por omissão e apenas local.
 - **Acompanha a SPA**: um `MutationObserver` continua a traduzir durante a navegação do Turbo, sem ser preciso recarregar.
 
 ---
@@ -66,8 +66,8 @@ bun run build
 ## Utilização
 
 - **Interruptor**: desligado, a página inteira volta ao inglês.
-- **Idioma**: segue o navegador por omissão e também pode ser escolhido manualmente. O chinês simplificado é a base (100%); 日本語, 繁體中文, 한국어, Español, Français, Deutsch, Português (Brasil / Portugal) e Русский vão sendo preenchidos à medida que ficam prontos, e o que não está traduzido mantém-se em inglês.
-- **Modo de programador**: desligado por omissão; quando ligado, recolhe apenas no seu computador o texto não traduzido, que pode copiar ou limpar.
+- **Idioma**: segue o navegador por omissão e também pode ser escolhido manualmente. O chinês simplificado (base 100%) e o japonês estão totalmente traduzidos; os restantes idiomas registados estão em preparação e ficam ocultos no seletor até estarem prontos. O que não está traduzido mantém-se em inglês.
+- **Modo de programador** (apenas builds de desenvolvimento; ausente dos pacotes da loja): desligado por omissão; quando ligado, recolhe apenas no seu computador o texto não traduzido, que pode copiar ou limpar.
 
 ---
 

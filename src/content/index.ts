@@ -15,6 +15,7 @@ import {
 	readDevMode,
 	readEnabled,
 	readLocale,
+	watchEnabled,
 	watchLocale,
 	watchToggles,
 } from "../shared/storage.ts";
@@ -46,29 +47,38 @@ const engine = new TranslationEngine({
 });
 
 async function bootstrap(): Promise<void> {
-	[enabled, devMode, selectedLocale] = await Promise.all([
+	[enabled, selectedLocale] = await Promise.all([
 		readEnabled(),
-		readDevMode(),
 		readLocale(),
 	]);
-	await ensureMissLogRevision(MISS_LOG_REVISION);
 	targetLocale = effectiveLocale(
 		selectedLocale,
 		chrome.i18n.getUILanguage(),
 	);
-	setCollectorEnabled(devMode);
+	if (process.env.NODE_ENV !== "production") {
+		devMode = await readDevMode();
+		await ensureMissLogRevision(MISS_LOG_REVISION);
+		setCollectorEnabled(devMode);
+	}
 	// 关闭状态下不启动观察器；等待 popup 切换后经 storage 联动整页刷新
 	if (enabled) engine.start(document.documentElement);
-	// 开发者模式开启时启动漏翻收集与节流落盘
-	if (devMode) startAutoFlush();
+	// 开发者模式开启时启动漏翻收集与节流落盘（生产构建没有这段代码）
+	if (process.env.NODE_ENV !== "production" && devMode)
+		startAutoFlush();
 }
 
-// 开关（翻译 / 开发者）任一变化一律整页刷新：
-// 开启时重建翻译与收集，关闭时还原英文并停止收集（简单可靠）
-watchToggles((key, value) => {
-	const current = key === "enabled" ? enabled : devMode;
-	if (value !== current) location.reload();
-});
+// 开关变化一律整页刷新：开启时重建翻译与收集，关闭时还原英文并停止收集。
+// 生产包只监听 enabled；devMode 监听与开发入口一起被裁掉。
+if (process.env.NODE_ENV === "production") {
+	watchEnabled((value) => {
+		if (value !== enabled) location.reload();
+	});
+} else {
+	watchToggles((key, value) => {
+		const current = key === "enabled" ? enabled : devMode;
+		if (value !== current) location.reload();
+	});
+}
 
 // 目标语言变化同样整页刷新：词典视图按语言构建，重建比增量替换可靠
 watchLocale((next) => {

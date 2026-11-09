@@ -802,6 +802,25 @@ function main(): void {
 		built.push(localeData);
 	}
 
+	// ready 标记 =「是否在 popup 里作为可选项露出」，必须与真实覆盖率一致：
+	// 标了 ready 却没译满，用户会选到「看起来支持、实际不翻」的语言；
+	// 译满了却没标 ready，则该语言永远进不了选择器。两个方向都让门禁红灯。
+	for (const localeData of built) {
+		const complete =
+			localeData.total > 0 &&
+			localeData.translated === localeData.total;
+		if (localeData.locale.ready && !complete) {
+			errors.push(
+				`${localeData.locale.id}：src/dict/locales.ts 标记 ready，但覆盖率只有 ${localeData.translated}/${localeData.total}——上架可见的语言必须 100% 译完，或把 ready 改回 false`,
+			);
+		}
+		if (!localeData.locale.ready && complete) {
+			errors.push(
+				`${localeData.locale.id}：已 ${localeData.translated}/${localeData.total} 全量译完，请在 src/dict/locales.ts 把 ready 改为 true（否则它不会出现在 popup 选择器里）`,
+			);
+		}
+	}
+
 	if (errors.length > 0) {
 		report(errors);
 		return;

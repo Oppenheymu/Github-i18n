@@ -24,6 +24,16 @@
 		"pulls/request-reviewers": "最大 $<count> 名のレビュアーにリクエスト",
 		// チェックサマリー(数値は動的)
 		"pulls/checks-passed": "チェック $<count> 件に合格",
+		// マージボックスのチェックサマリー件数行(1 行が 1 ノード、順序は失敗 → スキップ → 成功)
+		"pulls/checks-status-failing": "失敗 $<count> 件のチェック",
+		"pulls/checks-status-skipped": "スキップ $<count> 件のチェック",
+		"pulls/checks-status-successful": "成功 $<count> 件のチェック",
+		"pulls/checks-status-expected": "待機中 $<count> 件のチェック",
+		"pulls/checks-status-neutral": "ニュートラル $<count> 件のチェック",
+		"pulls/checks-status-failing-skipped": "失敗 $<failing> 件、スキップ $<skipped> 件のチェック",
+		"pulls/checks-status-failing-successful": "失敗 $<failing> 件、成功 $<successful> 件のチェック",
+		"pulls/checks-status-skipped-successful": "スキップ $<skipped> 件、成功 $<successful> 件のチェック",
+		"pulls/checks-status-failing-skipped-successful": "失敗 $<failing> 件、スキップ $<skipped> 件、成功 $<successful> 件のチェック",
 		// マージボックス out-of-date 状態の案内文(ブランチ名とユーザー名は動的)
 		"pulls/merge-latest-changes": "このブランチに $<base> の最新の変更をマージしてください。このマージコミットは $<user> に関連付けられます。",
 		// コードオーナーのレビュー待ち(ユーザー名は動的)

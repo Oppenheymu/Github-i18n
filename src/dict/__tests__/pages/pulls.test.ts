@@ -1363,18 +1363,25 @@ describe("PR 页的推送拒绝横幅与通知订阅原因", () => {
 	});
 });
 
-// 2026-11-09 维护者贴的 PR 页截图 + HTML：合并框上方的 checks 摘要标题与签名要求说明。
+// 2026-11-09 维护者贴的 PR 页实机 HTML（合并框 checks 摘要区）：
+//   `<h3 class="MergeBoxSectionHeading__tjMMZz prc-Heading-…">Some checks were not successful</h3>`
+//   `<p class="fgColor-muted mb-0">1 failing, 4 skipped, 7 successful checks</p>`
 //
-// 维护者右键抓到的 `<button aria-label="Expand checks" …>::after` 是**图标按钮**，
-// 里面本来就没有文字（图标由 `::after` 画），所以「HTML 里什么都没有」不是翻不了，
-// 正文在它的兄弟节点里。标题行是独立整节点；下一行计数
-// `4 skipped, 9 successful checks` 的节点边界没取到（数字与状态词可能被逗号拆成
-// 多段），暂不收——先钉住已确认的这条，别按猜测写规则。
-describe("PR 页 checks 摘要标题与签名要求说明", () => {
-	it("translates the checks summary heading", () => {
+// 两条都是**普通文本节点**：维护者右键抓到的 `<button aria-label="Expand checks" …>`
+// 是图标按钮（里面只有 `::after` 画的图标），摘要在它的兄弟节点里，不是 SVG 也不是
+// 伪元素。标题是独立整节点；计数行**整行就是一个节点**，数字动态，走 rules 的
+// pulls/checks-status-* 各组合（同时出现三种状态的那行实证了顺序：失败 → 跳过 → 成功）。
+describe("PR 页 checks 摘要标题与计数行", () => {
+	it("translates both heading states", () => {
 		expect(
 			translateText("All checks have passed", view),
 		).toBe("所有检查均已通过");
+		expect(
+			translateText(
+				"Some checks were not successful",
+				view,
+			),
+		).toBe("部分检查未成功");
 		// 实机节点带源码缩进与换行：translateText 只查表（返回去掉首尾空白的译文），
 		// 节点自身的空白由 walker 写回时原样保留（render 复刻同一语义）
 		expect(
@@ -1386,6 +1393,53 @@ describe("PR 页 checks 摘要标题与签名要求说明", () => {
 		expect(
 			render(["\n      All checks have passed\n    "]),
 		).toBe("\n      所有检查均已通过\n    ");
+	});
+
+	it("translates the count line through the per-combination rules", () => {
+		// 实机那行（三种状态同时出现，顺序即 rules 里的顺序）
+		expect(
+			translateText(
+				"1 failing, 4 skipped, 7 successful checks",
+				view,
+			),
+		).toBe("失败 1 项、已跳过 4 项、成功 7 项检查");
+		// 双状态组合
+		expect(
+			translateText("4 skipped, 9 successful checks", view),
+		).toBe("已跳过 4 项、成功 9 项检查");
+		expect(
+			translateText("1 failing, 2 successful checks", view),
+		).toBe("失败 1 项、成功 2 项检查");
+		expect(
+			translateText("1 failing, 2 skipped checks", view),
+		).toBe("失败 1 项、已跳过 2 项检查");
+		// 单状态（单数 check 也要命中）
+		expect(
+			translateText("13 successful checks", view),
+		).toBe("成功 13 项检查");
+		expect(translateText("1 successful check", view)).toBe(
+			"成功 1 项检查",
+		);
+		expect(translateText("2 expected checks", view)).toBe(
+			"待运行 2 项检查",
+		);
+		expect(translateText("1 neutral check", view)).toBe(
+			"中性 1 项检查",
+		);
+	});
+
+	it("leaves the combinations of unknown order in english", () => {
+		// expected / neutral 与其他状态**同时出现**时的先后没有实机样张，
+		// 宁可留英文，也不写出把数字与状态对错位的规则
+		expect(
+			translateText(
+				"1 failing, 2 expected, 3 successful checks",
+				view,
+			),
+		).toBeNull();
+		expect(
+			translateText("1 expected, 2 neutral checks", view),
+		).toBeNull();
 	});
 
 	it("translates the verified-signature line as one node", () => {
@@ -1401,7 +1455,7 @@ describe("PR 页 checks 摘要标题与签名要求说明", () => {
 		).toBeNull();
 	});
 
-	it("has japanese entries for both", () => {
+	it("has japanese entries for the heading, the count line and the signature note", () => {
 		const japanese = buildView(
 			"/microsoft/vscode/pull/54",
 			dictForLocale("ja"),
@@ -1410,6 +1464,18 @@ describe("PR 页 checks 摘要标题与签名要求说明", () => {
 		expect(
 			translateText("All checks have passed", japanese),
 		).toBe("すべてのチェックが成功しました");
+		expect(
+			translateText(
+				"Some checks were not successful",
+				japanese,
+			),
+		).toBe("一部のチェックが失敗しました");
+		expect(
+			translateText(
+				"1 failing, 4 skipped, 7 successful checks",
+				japanese,
+			),
+		).toBe("失敗 1 件、スキップ 4 件、成功 7 件のチェック");
 		expect(
 			translateText(
 				"Commits must have verified signatures.",

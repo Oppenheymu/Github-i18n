@@ -201,6 +201,7 @@
 		"No deployments": "暂无部署记录",
 		// —— checks 摘要标题与签名要求说明（2026-11-09 维护者截图 + 实机 HTML）——
 		"All checks have passed": "所有检查均已通过",
+		"Some checks were not successful": "部分检查未成功",
 		"Commits must have verified signatures.": "提交必须具有已验证的签名。",
 		// —— 代码空间警告横幅、侧栏与通知订阅控件（2026-11-02 实机 HTML）——
 		"Pull request warning": "拉取请求警告",

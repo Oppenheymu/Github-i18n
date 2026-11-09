@@ -82,6 +82,50 @@
 					"id": "pulls/checks-passed",
 					"pattern": "^(?<count>\\d+) checks? passed$"
 				},
+				// 合并框 checks 摘要的计数行（2026-11-09 维护者贴的实机 HTML）：
+				// `<p class="fgColor-muted mb-0">1 failing, 4 skipped, 7 successful checks</p>`
+				// ——**整行就是一个文本节点**，数字动态，状态词只在这一行出现，故必须整行换。
+				// 顺序实证：失败 → 跳过 → 成功（同一行三种同时出现即为该顺序）；
+				// expected / neutral 相对其它状态的位置没有实机样张，含它们的组合先不收——
+				// 宁可留英文，也不写出顺序靠猜的规则（拼错会把数字与状态对错位）。
+				// 单状态行各收一条，另外三种组合（失败+跳过、失败+成功、跳过+成功）
+				// 与三状态全在这份 HTML 里可推，一并收；
+				{
+					"id": "pulls/checks-status-failing",
+					"pattern": "^(?<count>\\d+) failing checks?$"
+				},
+				{
+					"id": "pulls/checks-status-skipped",
+					"pattern": "^(?<count>\\d+) skipped checks?$"
+				},
+				{
+					"id": "pulls/checks-status-successful",
+					"pattern": "^(?<count>\\d+) successful checks?$"
+				},
+				{
+					"id": "pulls/checks-status-expected",
+					"pattern": "^(?<count>\\d+) expected checks?$"
+				},
+				{
+					"id": "pulls/checks-status-neutral",
+					"pattern": "^(?<count>\\d+) neutral checks?$"
+				},
+				{
+					"id": "pulls/checks-status-failing-skipped",
+					"pattern": "^(?<failing>\\d+) failing, (?<skipped>\\d+) skipped checks?$"
+				},
+				{
+					"id": "pulls/checks-status-failing-successful",
+					"pattern": "^(?<failing>\\d+) failing, (?<successful>\\d+) successful checks?$"
+				},
+				{
+					"id": "pulls/checks-status-skipped-successful",
+					"pattern": "^(?<skipped>\\d+) skipped, (?<successful>\\d+) successful checks?$"
+				},
+				{
+					"id": "pulls/checks-status-failing-skipped-successful",
+					"pattern": "^(?<failing>\\d+) failing, (?<skipped>\\d+) skipped, (?<successful>\\d+) successful checks?$"
+				},
 				// 合并框 out-of-date 态的指引句（2026-11-01 维护者实机 HTML）：基线
 				// 分支名与合并提交的关联用户都是动态内容
 				{

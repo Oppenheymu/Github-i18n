@@ -21,6 +21,16 @@
 		"pulls/request-reviewers": "请求最多 $<count> 位审查者",
 		// 检查摘要（数字动态）
 		"pulls/checks-passed": "已通过 $<count> 项检查",
+		// 合并框 checks 摘要的计数行（整行一个节点；顺序实证为失败 → 跳过 → 成功）
+		"pulls/checks-status-failing": "失败 $<count> 项检查",
+		"pulls/checks-status-skipped": "已跳过 $<count> 项检查",
+		"pulls/checks-status-successful": "成功 $<count> 项检查",
+		"pulls/checks-status-expected": "待运行 $<count> 项检查",
+		"pulls/checks-status-neutral": "中性 $<count> 项检查",
+		"pulls/checks-status-failing-skipped": "失败 $<failing> 项、已跳过 $<skipped> 项检查",
+		"pulls/checks-status-failing-successful": "失败 $<failing> 项、成功 $<successful> 项检查",
+		"pulls/checks-status-skipped-successful": "已跳过 $<skipped> 项、成功 $<successful> 项检查",
+		"pulls/checks-status-failing-skipped-successful": "失败 $<failing> 项、已跳过 $<skipped> 项、成功 $<successful> 项检查",
 		// 合并框 out-of-date 态指引句（分支名与用户名动态）
 		"pulls/merge-latest-changes": "将 $<base> 的最新更改合并到此分支。此合并提交将关联到 $<user>。",
 		// 代码所有者审查等待（用户名动态）

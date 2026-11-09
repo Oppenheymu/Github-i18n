@@ -387,11 +387,14 @@
 				"This branch has not been deployed",
 				"No deployments",
 				// —— checks 摘要标题与签名要求说明（2026-11-09 维护者截图 + 实机 HTML）——
-				// 摘要区标题行「All checks have passed」独立成节点（截图里与下一行计数
-				// 字号 / 颜色都不同）；下一行的计数（`4 skipped, 9 successful checks`）
-				// 数字与状态词都在同一行，节点边界未取到，暂不收——收到 HTML 后再按
-				// 组合形态走 rules，别先按猜测写模板（组合会写出死规则）
+				// 摘要区标题在 `<h3 class="MergeBoxSectionHeading__tjMMZz prc-Heading-…">` 里，
+				// 是**独立整节点**（2026-11-09 实机 HTML 实证，`Some checks were not
+				// successful` 与「All checks have passed」是同一位置的两种状态）；
+				// 下一行计数（`1 failing, 4 skipped, 7 successful checks`）是它下面
+				// `<p class="fgColor-muted mb-0">` 的**单个文本节点**（真机 HTML 实证），
+				// 数字动态，走 rules 的 pulls/checks-status-* 各组合
 				"All checks have passed",
+				"Some checks were not successful",
 				// 签名要求说明：实机 HTML 是
 				// `<span class="prc-Text-Text-9mHv3" data-component="Text"><div>…</div></span>`，
 				// 文本节点就是 div 里那一句（整节点，句号随节点译出）

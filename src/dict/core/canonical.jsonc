@@ -624,7 +624,20 @@
 				// 相对时间由 `<relative-time>` 自行渲染；`opened` 此前只登记在
 				// pages/issues（议题列表行），PR 路由不命中，故本模块另收一份
 				"opened",
-				"and merged"
+				"and merged",
+				// —— 新版概览页右上角的「预览」下拉菜单（眼睛图标按钮右边的 chevron）——
+				// 触发按钮本身是单词 `Preview`，global 已收，故本块只补菜单项。
+				// 菜单项都是 ActionList 的单节点标签；`View Conversation page` 下面那行
+				// `Temporarily return to the classic view` 是同一项的 description 节点。
+				// 撇号按本仓惯例取直撇号形态，实机若是弯撇号由 aliases 映射到本键
+				//（同 `See what's new` 的既有做法）。
+				"What's new",
+				// 与 pages/agents、pages/dashboard 的既有词条同名同译（那两个模块的路由
+				// 不命中 PR 详情，需在本模块重复登记）
+				"Give feedback",
+				"View Conversation page",
+				"Temporarily return to the classic view",
+				"Turn off Overview preview"
 			]
 		},
 		{

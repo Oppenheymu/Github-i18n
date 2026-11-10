@@ -373,6 +373,12 @@
 		"Try visiting the new home for": "试试这些功能的新位置：",
 		// 时间线事件行的动词碎片（时间由 relative-time 渲染）
 		"opened": "打开于",
-		"and merged": "并合并于"
+		"and merged": "并合并于",
+		// —— 新版概览页右上角的「预览」下拉菜单 ——
+		"What's new": "新增内容",
+		"Give feedback": "提供反馈",
+		"View Conversation page": "查看对话页面",
+		"Temporarily return to the classic view": "暂时返回经典视图",
+		"Turn off Overview preview": "关闭概览预览"
 	}
 }

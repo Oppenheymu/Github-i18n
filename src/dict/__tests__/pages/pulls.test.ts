@@ -2020,3 +2020,74 @@ describe("PR 新版概览页：评论标签页的空态、筛选与排序", () =
 		);
 	});
 });
+
+describe("PR 新版概览页：右上角「预览」下拉菜单", () => {
+	const prPage = buildView(
+		"/microsoft/vscode/pull/1",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	it("translates the trigger button and the whats-new / feedback items", () => {
+		// 触发按钮本身是单词 Preview（global 既有词条），菜单项才缺
+		expect(translateText("Preview", prPage)).toBe("预览");
+		expect(translateText("What's new", prPage)).toBe(
+			"新增内容",
+		);
+		expect(translateText("Give feedback", prPage)).toBe(
+			"提供反馈",
+		);
+		// 按钮文本带首尾空白时同样命中（applyTextNode 保留原空白）
+		expect(translateText(" What's new ", prPage)).toBe(
+			"新增内容",
+		);
+	});
+
+	it("accepts both apostrophe shapes for whats-new", () => {
+		// 截图难辨弯直撇号：规范键取直撇号，弯撇号形态走别名
+		expect(translateText("What’s new", prPage)).toBe(
+			"新增内容",
+		);
+	});
+
+	it("translates the conversation-page item and its description", () => {
+		expect(
+			translateText("View Conversation page", prPage),
+		).toBe("查看对话页面");
+		expect(
+			translateText(
+				"Temporarily return to the classic view",
+				prPage,
+			),
+		).toBe("暂时返回经典视图");
+	});
+
+	it("translates the turn-off item", () => {
+		expect(
+			translateText("Turn off Overview preview", prPage),
+		).toBe("关闭概览预览");
+	});
+
+	it("has japanese entries for the menu", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/1",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("What's new", japanese)).toBe(
+			"新機能",
+		);
+		expect(
+			translateText("View Conversation page", japanese),
+		).toBe("会話ページを表示");
+		expect(
+			translateText(
+				"Temporarily return to the classic view",
+				japanese,
+			),
+		).toBe("一時的にクラシック表示に戻る");
+		expect(
+			translateText("Turn off Overview preview", japanese),
+		).toBe("概要プレビューをオフにする");
+	});
+});

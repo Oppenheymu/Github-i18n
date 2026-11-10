@@ -368,6 +368,12 @@
 		"Try visiting the new home for": "新しい場所はこちら：",
 		// タイムラインのイベント行の動詞断片（時刻は relative-time が描画）
 		"opened": "オープン",
-		"and merged": "マージ"
+		"and merged": "マージ",
+		// —— 新デザイン概要ページ右上の「プレビュー」ドロップダウン ——
+		"What's new": "新機能",
+		"Give feedback": "フィードバックを送る",
+		"View Conversation page": "会話ページを表示",
+		"Temporarily return to the classic view": "一時的にクラシック表示に戻る",
+		"Turn off Overview preview": "概要プレビューをオフにする"
 	}
 }

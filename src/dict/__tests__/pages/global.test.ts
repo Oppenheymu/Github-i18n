@@ -716,6 +716,28 @@ describe("PR 活动侧栏与紧凑相对时间", () => {
 		expect(translateText("Copilot", view)).toBeNull();
 	});
 
+	it("translates the activity empty state and the edit-comment tooltip", () => {
+		expect(translateText("No new activity", view)).toBe(
+			"暂无新活动",
+		);
+		expect(translateText("Edit comment", view)).toBe(
+			"编辑评论",
+		);
+	});
+
+	it("still matches keys when the node carries invisible format characters", () => {
+		// 2026-11-10 维护者贴的 span（`prc-ActionList-ItemLabel`）与词典键逐字相同却
+		// 一直不命中，而同菜单相邻的 `转换为草稿` / `关闭拉取请求` 都已译出——差异只
+		// 可能在码点上（零宽 / 双向隔离符），见 shared/text.ts 的 INVISIBLE_FORMAT
+		expect(
+			translateText("\u200bNo new activity\u200e", view),
+		).toBe("暂无新活动");
+		expect(translateText("Edit\u2060 comment", view)).toBe(
+			"编辑评论",
+		);
+		expect(translateText("Bot\u00ad", view)).toBe("机器人");
+	});
+
 	it("translates compact relative times", () => {
 		// 新界面时间线与提交行实际渲染的样子：缩写单位 + ` ago`
 		expect(translateText("8h ago", view)).toBe("8 小时前");

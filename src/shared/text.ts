@@ -5,12 +5,31 @@
 // DOM（lib 只有 ES2023、types 只有 bun），不能反向 import walker.ts 那条 DOM 链路。
 
 /**
- * 查询键归一：trim 并折叠连续空白为单空格。
+ * 不可见格式字符（零宽、双向控制、软连字符）：整节点精确匹配的天敌。
+ *
+ * 实机线索（2026-11-10 维护者贴的 PR 动作菜单 HTML）：`<span class="prc-ActionList-ItemLabel…">Archive pull request</span>`
+ * 逐字看与词典键完全一致，页面上却一直是英文——同一个菜单里相邻的 `转换为草稿` /
+ * `关闭拉取请求` 都已译出，说明模块加载与路由都没问题，差异只可能落在节点文本的
+ * **码点**上。React / ICU 消息层会往文案里插 ZWSP（U+200B）、WORD JOINER（U+2060）、
+ * 双向隔离符（U+2066–U+2069）这类字符：它们在 HTML 与截图里都不可见，`trim()` 与
+ * `\s` 也都不认，只要混进一个，整句键就永远命中不了，而且从源码里看不出任何异常。
+ *
+ * 剥掉它们对既有词条是恒等变换（规范键里本来就不该有这类字符，门禁会当场报错），
+ * 所以放在归一化里统一处理，文本节点与属性值两条路径都受益。
+ */
+const INVISIBLE_FORMAT =
+	/[\u00ad\u200b-\u200f\u202a-\u202e\u2060-\u2064\u2066-\u2069]/g;
+
+/**
+ * 查询键归一：剥掉不可见格式字符、trim 并折叠连续空白为单空格。
  *
  * 引擎查表前对**节点文本**做这一步，因此规范键（词典的键）必须已经是归一化后的形态：
  * 键里带换行符 / 制表符 / 连续空格时，归一化后的文本永远不等于它 —— 该词条在实机
  * 永不命中，却仍然计入覆盖率分母（2026-09 实例：insights 的过滤说明句）。
  */
 export function normalizeKey(text: string): string {
-	return text.trim().replace(/\s+/g, " ");
+	return text
+		.replace(INVISIBLE_FORMAT, "")
+		.trim()
+		.replace(/\s+/g, " ");
 }

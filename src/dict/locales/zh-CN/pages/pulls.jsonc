@@ -344,6 +344,11 @@
 		"No reviewers": "暂无审查者",
 		"No milestone": "无里程碑",
 		"No linked issues": "无关联议题",
-		"No deployments yet": "尚未部署"
+		"No deployments yet": "尚未部署",
+		// —— 新版概览页第二轮：检查标签页与进行中的检查行 ——
+		"More actions": "更多操作",
+		"Started": "开始于",
+		"This check has started...": "此检查已开始…",
+		"— This check has started...": "— 此检查已开始…"
 	}
 }

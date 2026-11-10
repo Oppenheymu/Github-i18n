@@ -578,7 +578,19 @@
 				"No reviewers",
 				"No milestone",
 				"No linked issues",
-				"No deployments yet"
+				"No deployments yet",
+				// —— 新版概览页第二轮（2026-11-10 维护者截图：检查标签页与进行中的检查行）——
+				// 「…」图标按钮的 tooltip（TooltipV2 的文本节点）
+				"More actions",
+				// 进行中的检查行：`Started <relative-time> — This check has started...`。
+				// `Started` 是相对时间前的**前缀节点**（trim 后即本键，相对时间由
+				// `<relative-time>` 自行渲染）；破折号是否与说明同节点无法从截图确认，
+				// 故两种形态各收一份——破折号单独成节点时是纯符号，引擎本来就不译
+				"Started",
+				"This check has started...",
+				"— This check has started..."
+				// checks 标签页的待处理计数（`5 pending`）：数字动态，不登记静态键，
+				// 走 rules 的 pulls/checks-pending-count
 			]
 		},
 		{

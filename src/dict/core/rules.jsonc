@@ -236,6 +236,12 @@
 				{
 					"id": "pulls/check-coverage-comparison",
 					"pattern": "^Coverage not affected when comparing (?<from>[0-9a-f]{7,40})\\.\\.\\.(?<to>[0-9a-f]{7,40})$"
+				},
+				// checks 标签页的待处理计数（2026-11-10 维护者截图：`5 pending`）。
+				// 只在本页该标签页出现，按整节点匹配；单数形态同形（`1 pending`）
+				{
+					"id": "pulls/checks-pending-count",
+					"pattern": "^(?<count>\\d+) pending$"
 				}
 			]
 		},

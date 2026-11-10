@@ -63,6 +63,8 @@
 		"pulls/check-successful-in": "$<duration> で成功",
 		// codecov のチェック説明（2 つのコミット短縮ハッシュは原文のまま）
 		"pulls/check-coverage-comparison": "$<from>...$<to> を比較してもカバレッジに影響はありません",
+		// checks タブの保留中件数（`5 pending`）
+		"pulls/checks-pending-count": "$<count> 件待機中",
 
 		// —— pages/settings-security（アカウントセキュリティ）——
 		"settings/passkey-delete-confirm": "`$1` のパスキーを削除してもよろしいですか？",

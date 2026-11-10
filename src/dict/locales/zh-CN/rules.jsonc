@@ -60,6 +60,8 @@
 		"pulls/check-successful-in": "成功，用时 $<duration>",
 		// codecov 的检查说明（两个提交短哈希原样带回，三点是原文的省略写法）
 		"pulls/check-coverage-comparison": "对比 $<from>...$<to> 时覆盖率未受影响",
+		// checks 标签页的待处理计数（`5 pending`）
+		"pulls/checks-pending-count": "$<count> 个待处理",
 		// —— 账号安全页（/settings/security）——
 		// 规则 id 与 pattern 见 core/rules.jsonc 的 pages/settings-security 分组：
 		// 密钥名与动态日期由捕获组原样带回（$1 / $<day> / $<year>），

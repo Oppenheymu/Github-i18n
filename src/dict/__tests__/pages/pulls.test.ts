@@ -1797,3 +1797,83 @@ describe("PR 新版概览页：合并框 tabs、评论区与合并队列", () =>
 		).toBe("おなじみの機能をお探しですか？");
 	});
 });
+
+// 2026-11-10 维护者第二张截图（合并框的检查标签页 + 进行中的检查行）：
+// 标签页的 `5 pending`（数字动态）、图标按钮 tooltip `More actions`，以及
+// `Started <relative-time> — This check has started...` 行的前缀与说明。
+// 相对时间由 `<relative-time>` 按浏览器语言自行渲染（截图里已是「刚刚」），
+// 这里只收它前后的两个文本节点。
+describe("PR 新版概览页：检查标签页与进行中的检查行", () => {
+	const prPage = buildView(
+		"/microsoft/vscode/pull/1",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	it("translates the pending count on the checks tab", () => {
+		expect(translateText("5 pending", prPage)).toBe(
+			"5 个待处理",
+		);
+		expect(translateText("1 pending", prPage)).toBe(
+			"1 个待处理",
+		);
+		// 带尾随内容的节点不命中，避免吞掉整行
+		expect(
+			translateText("5 pending checks", prPage),
+		).toBeNull();
+	});
+
+	it("translates the more-actions tooltip", () => {
+		expect(translateText("More actions", prPage)).toBe(
+			"更多操作",
+		);
+	});
+
+	it("renders the started row across the relative time node", () => {
+		const nodes = [
+			"Started ",
+			"刚刚",
+			" — This check has started...",
+		];
+		const rendered = nodes
+			.map((node) => {
+				const translated =
+					translateText(node, prPage) ?? node;
+				const lead = node.slice(
+					0,
+					node.length - node.trimStart().length,
+				);
+				const trail = node.slice(node.trimEnd().length);
+				return `${lead}${translated}${trail}`;
+			})
+			.join("");
+		expect(rendered).toBe("开始于 刚刚 — 此检查已开始…");
+		// 破折号单独成节点时（纯符号，引擎不译）走不带破折号的键
+		expect(
+			translateText("This check has started...", prPage),
+		).toBe("此检查已开始…");
+		expect(
+			translateText("— This check has started...", prPage),
+		).toBe("— 此检查已开始…");
+	});
+
+	it("has japanese entries for the tab count, tooltip and status line", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/1",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("5 pending", japanese)).toBe(
+			"5 件待機中",
+		);
+		expect(translateText("More actions", japanese)).toBe(
+			"その他の操作",
+		);
+		expect(
+			translateText(
+				"— This check has started...",
+				japanese,
+			),
+		).toBe("— このチェックは開始されました…");
+	});
+});

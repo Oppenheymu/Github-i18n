@@ -339,6 +339,11 @@
 		"No reviewers": "レビューアーなし",
 		"No milestone": "マイルストーンなし",
 		"No linked issues": "リンクされたイシューなし",
-		"No deployments yet": "まだデプロイされていません"
+		"No deployments yet": "まだデプロイされていません",
+		// —— 新デザイン概要ページ 第 2 弾：チェックタブと進行中のチェック行 ——
+		"More actions": "その他の操作",
+		"Started": "開始",
+		"This check has started...": "このチェックは開始されました…",
+		"— This check has started...": "— このチェックは開始されました…"
 	}
 }

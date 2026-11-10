@@ -588,9 +588,43 @@
 				// 故两种形态各收一份——破折号单独成节点时是纯符号，引擎本来就不译
 				"Started",
 				"This check has started...",
-				"— This check has started..."
+				"— This check has started...",
 				// checks 标签页的待处理计数（`5 pending`）：数字动态，不登记静态键，
 				// 走 rules 的 pulls/checks-pending-count
+				// —— 新版概览页的「评论」标签页（2026-11-10 维护者截图 + 实机 HTML）——
+				// 空态两段（HTML 实证：`Blankslate.Heading` / `Blankslate.Description`
+				// 各是一个整文本节点）
+				"All comments resolved",
+				"All review comments have been resolved. Nice work!",
+				// 筛选下拉（「全部 / 未解决 / 我的」三个 tab 已有词条）
+				"Show resolved comments",
+				"Show outdated comments",
+				"Show hidden comments",
+				"Show AI and bot comments",
+				"Filter comments by author",
+				// 排序下拉与它的 tooltip。tooltip 是「Sort comments: <当前排序名>」，
+				// 排序名固定五种、且 tooltip 是一整节点，故按五种组合各收一条静态键
+				//（tooltip 里再拆规则会把英文排序名留在中文里）。
+				"Newest first",
+				"Oldest first",
+				"Code order",
+				"Ready for review",
+				"Not ready for review (Draft PR)",
+				"Sort comments: Newest first",
+				"Sort comments: Oldest first",
+				"Sort comments: Code order",
+				"Sort comments: Ready for review",
+				"Sort comments: Not ready for review (Draft PR)",
+				// 评论面板的「搬家」提示是**单数变体**：跟合并框那条（new homes for …
+				// and the …）不是一个句子。前缀节点含 `the`，实测截图里 `the` 未被切成
+				// 独立节点（同合并框那条把 `and the` 收在一个节点里）；两种切法各收一条
+				"Try visiting the new home for the",
+				"Try visiting the new home for",
+				// 时间线事件行的两段动词碎片（` opened <相对时间> and merged <相对时间>`）。
+				// 相对时间由 `<relative-time>` 自行渲染；`opened` 此前只登记在
+				// pages/issues（议题列表行），PR 路由不命中，故本模块另收一份
+				"opened",
+				"and merged"
 			]
 		},
 		{

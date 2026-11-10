@@ -1877,3 +1877,146 @@ describe("PR 新版概览页：检查标签页与进行中的检查行", () => {
 		).toBe("— このチェックは開始されました…");
 	});
 });
+
+// —— 新版概览页的「评论」标签页（2026-11-10 维护者截图 + 实机 HTML）——
+// 证据：评论面板整页截图（「全部 / 未解决 / 我的」tabs 已由既有词条覆盖）、筛选与排序
+// 两个下拉、`Sort comments: Code order` tooltip，以及两段实机 HTML——空态标题与说明
+// 分别是 `Blankslate.Heading` / `Blankslate.Description` 的**整文本节点**；底部「搬家」
+// 提示是**单数变体**（new home for **the** timeline，与合并框那条 new homes for … and the …
+// 不是同一句）；时间线事件行的 DOM 是 ` opened <relative-time> and merged <relative-time>`。
+describe("PR 新版概览页：评论标签页的空态、筛选与排序", () => {
+	const prPage = buildView(
+		"/microsoft/vscode/pull/1",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	/** 按引擎规则拼接多个节点：保留每个节点的首尾空白，未命中的节点原样留下 */
+	function renderNodes(nodes: readonly string[]): string {
+		return nodes
+			.map((node) => {
+				const translated = translateText(node, prPage);
+				if (translated === null) return node;
+				const lead = node.slice(
+					0,
+					node.length - node.trimStart().length,
+				);
+				const trail = node.slice(node.trimEnd().length);
+				return `${lead}${translated}${trail}`;
+			})
+			.join("");
+	}
+
+	it("translates the comments empty state", () => {
+		expect(
+			translateText("All comments resolved", prPage),
+		).toBe("所有评论均已解决");
+		expect(
+			translateText(
+				"All review comments have been resolved. Nice work!",
+				prPage,
+			),
+		).toBe("所有审查评论都已解决，干得漂亮！");
+	});
+
+	it("translates the show/filter menu", () => {
+		expect(
+			translateText("Show resolved comments", prPage),
+		).toBe("显示已解决的评论");
+		expect(
+			translateText("Show outdated comments", prPage),
+		).toBe("显示过时的评论");
+		expect(
+			translateText("Show hidden comments", prPage),
+		).toBe("显示已隐藏的评论");
+		expect(
+			translateText("Show AI and bot comments", prPage),
+		).toBe("显示 AI 与机器人评论");
+		expect(
+			translateText("Filter comments by author", prPage),
+		).toBe("按作者筛选评论");
+	});
+
+	it("translates the sort menu and the tooltip for every sort order", () => {
+		const sorts: ReadonlyArray<readonly [string, string]> =
+			[
+				["Newest first", "最新优先"],
+				["Oldest first", "最早优先"],
+				["Code order", "代码顺序"],
+				["Ready for review", "可审查"],
+				[
+					"Not ready for review (Draft PR)",
+					"不可审查（草稿 PR）",
+				],
+			];
+		for (const [source, target] of sorts) {
+			expect(translateText(source, prPage), source).toBe(
+				target,
+			);
+			// tooltip 是「Sort comments: <当前排序名>」的整节点
+			expect(
+				translateText(`Sort comments: ${source}`, prPage),
+				source,
+			).toBe(`评论排序：${target}`);
+		}
+	});
+
+	it("renders the single-home migration note across its nodes", () => {
+		// 合并框那条是 new homes for … and the …；这条是 new home for **the** timeline
+		const rendered = renderNodes([
+			"Looking for an old friend?",
+			" Try visiting the new home for the ",
+			"timeline",
+		]);
+		expect(rendered).toBe(
+			"在找老朋友？ 试试这些功能的新位置： 时间线",
+		);
+		// 不带 the 的切法也收：两种节点边界都成立
+		expect(
+			translateText(
+				"Try visiting the new home for",
+				prPage,
+			),
+		).toBe("试试这些功能的新位置：");
+	});
+
+	it("translates the timeline event fragments around relative times", () => {
+		expect(translateText(" opened ", prPage)).toBe(
+			"打开于",
+		);
+		expect(translateText(" and merged ", prPage)).toBe(
+			"并合并于",
+		);
+		expect(
+			renderNodes([
+				" opened ",
+				"10 小时前",
+				" and merged ",
+				"2 小时前",
+			]),
+		).toBe(" 打开于 10 小时前 并合并于 2 小时前");
+	});
+
+	it("has japanese entries for the empty state and the menus", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/1",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText("All comments resolved", japanese),
+		).toBe("すべてのコメントが解決済みです");
+		expect(translateText("Code order", japanese)).toBe(
+			"コード順",
+		);
+		expect(
+			translateText("Sort comments: Code order", japanese),
+		).toBe("コメントの並び順：コード順");
+		expect(
+			translateText("Show AI and bot comments", japanese),
+		).toBe("AI とボットのコメントを表示");
+		expect(translateText("and merged", japanese)).toBe(
+			"マージ",
+		);
+	});
+});

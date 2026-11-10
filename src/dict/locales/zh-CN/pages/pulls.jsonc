@@ -349,6 +349,30 @@
 		"More actions": "更多操作",
 		"Started": "开始于",
 		"This check has started...": "此检查已开始…",
-		"— This check has started...": "— 此检查已开始…"
+		"— This check has started...": "— 此检查已开始…",
+		// —— 新版概览页的「评论」标签页：空态、筛选与排序 ——
+		"All comments resolved": "所有评论均已解决",
+		"All review comments have been resolved. Nice work!": "所有审查评论都已解决，干得漂亮！",
+		"Show resolved comments": "显示已解决的评论",
+		"Show outdated comments": "显示过时的评论",
+		"Show hidden comments": "显示已隐藏的评论",
+		"Show AI and bot comments": "显示 AI 与机器人评论",
+		"Filter comments by author": "按作者筛选评论",
+		"Newest first": "最新优先",
+		"Oldest first": "最早优先",
+		"Code order": "代码顺序",
+		"Ready for review": "可审查",
+		"Not ready for review (Draft PR)": "不可审查（草稿 PR）",
+		"Sort comments: Newest first": "评论排序：最新优先",
+		"Sort comments: Oldest first": "评论排序：最早优先",
+		"Sort comments: Code order": "评论排序：代码顺序",
+		"Sort comments: Ready for review": "评论排序：可审查",
+		"Sort comments: Not ready for review (Draft PR)": "评论排序：不可审查（草稿 PR）",
+		// 评论面板的「搬家」提示（单数变体）
+		"Try visiting the new home for the": "试试这些功能的新位置：",
+		"Try visiting the new home for": "试试这些功能的新位置：",
+		// 时间线事件行的动词碎片（时间由 relative-time 渲染）
+		"opened": "打开于",
+		"and merged": "并合并于"
 	}
 }

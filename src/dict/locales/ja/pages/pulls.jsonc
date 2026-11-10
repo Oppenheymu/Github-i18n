@@ -344,6 +344,30 @@
 		"More actions": "その他の操作",
 		"Started": "開始",
 		"This check has started...": "このチェックは開始されました…",
-		"— This check has started...": "— このチェックは開始されました…"
+		"— This check has started...": "— このチェックは開始されました…",
+		// —— 新デザイン概要ページの「コメント」タブ：空状態・絞り込み・並び替え ——
+		"All comments resolved": "すべてのコメントが解決済みです",
+		"All review comments have been resolved. Nice work!": "すべてのレビューコメントが解決されました。お見事です！",
+		"Show resolved comments": "解決済みのコメントを表示",
+		"Show outdated comments": "古いコメントを表示",
+		"Show hidden comments": "非表示のコメントを表示",
+		"Show AI and bot comments": "AI とボットのコメントを表示",
+		"Filter comments by author": "コメントを投稿者で絞り込む",
+		"Newest first": "新しい順",
+		"Oldest first": "古い順",
+		"Code order": "コード順",
+		"Ready for review": "レビュー可能",
+		"Not ready for review (Draft PR)": "レビュー不可（ドラフト PR）",
+		"Sort comments: Newest first": "コメントの並び順：新しい順",
+		"Sort comments: Oldest first": "コメントの並び順：古い順",
+		"Sort comments: Code order": "コメントの並び順：コード順",
+		"Sort comments: Ready for review": "コメントの並び順：レビュー可能",
+		"Sort comments: Not ready for review (Draft PR)": "コメントの並び順：レビュー不可（ドラフト PR）",
+		// コメントパネルの「引っ越し」案内（単数形）
+		"Try visiting the new home for the": "新しい場所はこちら：",
+		"Try visiting the new home for": "新しい場所はこちら：",
+		// タイムラインのイベント行の動詞断片（時刻は relative-time が描画）
+		"opened": "オープン",
+		"and merged": "マージ"
 	}
 }

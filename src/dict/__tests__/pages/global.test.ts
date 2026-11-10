@@ -672,3 +672,99 @@ describe("OAuth 重定向过渡页与字数尾段碎片", () => {
 		).toBe("文字が残っています");
 	});
 });
+
+// —— PR / 议题活动侧栏、分区菜单与紧凑相对时间 ——
+// 证据：2026-11-10 维护者第三批截图（PR 详情页右侧活动栏 + 检查标签页 + 提交行）。
+// 这批组件是站点级的（议题、通告详情页同样渲染），故收在 global 兜底；
+// `Filter activity` / `Alerts` 在 pages/settings、pages/repo-settings 里已有同键同译，
+// 跨模块重复合法（check:view 只在探针上记一条 collision，不改变实际译文）。
+describe("PR 活动侧栏与紧凑相对时间", () => {
+	it("translates the activity side panel shell", () => {
+		expect(
+			translateText(
+				"Activity (since you last interacted)",
+				view,
+			),
+		).toBe("活动（自上次互动以来）");
+		expect(
+			translateText("Since you last interacted", view),
+		).toBe("自上次互动以来");
+		expect(
+			translateText(
+				"Since this pull request was created",
+				view,
+			),
+		).toBe("自创建此拉取请求以来");
+		expect(translateText("Filter activity", view)).toBe(
+			"筛选活动",
+		);
+		expect(translateText("Close side panel", view)).toBe(
+			"关闭侧边栏",
+		);
+	});
+
+	it("translates the section menu, the more-actions menu and the bot label", () => {
+		expect(translateText("Alerts", view)).toBe("警报");
+		expect(translateText("Manage batch", view)).toBe(
+			"管理批次",
+		);
+		expect(translateText("Open selected", view)).toBe(
+			"打开所选项",
+		);
+		expect(translateText("Bot", view)).toBe("机器人");
+		// 产品名不译：菜单里的 `Copilot` 分区保留英文
+		expect(translateText("Copilot", view)).toBeNull();
+	});
+
+	it("translates compact relative times", () => {
+		// 新界面时间线与提交行实际渲染的样子：缩写单位 + ` ago`
+		expect(translateText("8h ago", view)).toBe("8 小时前");
+		expect(translateText("10h ago", view)).toBe(
+			"10 小时前",
+		);
+		expect(translateText("5m ago", view)).toBe("5 分钟前");
+		expect(translateText("30s ago", view)).toBe("30 秒前");
+		expect(translateText("2d ago", view)).toBe("2 天前");
+		expect(translateText("3w ago", view)).toBe("3 周前");
+		expect(translateText("4mo ago", view)).toBe("4 个月前");
+		expect(translateText("1y ago", view)).toBe("1 年前");
+		// 完整单位形态不能被新规则抢走（回归：新规则各匹配一种缩写）
+		expect(translateText("8 hours ago", view)).toBe(
+			"8 小时前",
+		);
+		// 裸缩写是数据值（Actions 指标表的 `1m` 就是一条），收了会误译，
+		// 故刻意不收录——由 actions-metrics 的「保持英文」用例一并把守
+		expect(translateText("1m", view)).toBeNull();
+		expect(translateText("8h", view)).toBeNull();
+	});
+
+	it("has japanese entries and templates", () => {
+		const japanese = buildView(
+			"/microsoft/vscode",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText(
+				"Activity (since you last interacted)",
+				japanese,
+			),
+		).toBe("アクティビティ（最後に操作してから）");
+		expect(
+			translateText("Since you last interacted", japanese),
+		).toBe("最後に操作してから");
+		expect(translateText("Filter activity", japanese)).toBe(
+			"アクティビティを絞り込む",
+		);
+		expect(
+			translateText("Close side panel", japanese),
+		).toBe("サイドパネルを閉じる");
+		expect(translateText("Bot", japanese)).toBe("ボット");
+		expect(translateText("8h ago", japanese)).toBe(
+			"8 時間前",
+		);
+		expect(translateText("4mo ago", japanese)).toBe(
+			"4 か月前",
+		);
+	});
+});

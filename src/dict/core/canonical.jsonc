@@ -9771,7 +9771,27 @@
 				"When you are ready, authenticate using the button below.",
 				"When you are ready, trigger a mailer to verify your identity.",
 				"When your phone is ready, click the button below.",
-				"Contact GitHub Support"
+				"Contact GitHub Support",
+				// —— PR 活动侧栏与「…」菜单（2026-11-10 维护者第三批截图）——
+				// 右侧活动栏顶部的筛选下拉：按钮文案随所选范围变化（`Activity (…)`），
+				// 两个选项各自整节点；`Filter activity` 是侧栏内搜索框的 placeholder
+				// （属性路径），`Close side panel` 是关闭图标的 tooltip（TooltipV2 文本节点）。
+				// 这批组件在议题 / 通告详情页同样渲染，故按站点级组件收在 global 兜底；
+				// 与 pages/settings 的 `Filter activity`、pages/repo-settings 的 `Alerts`
+				// 同键同译（跨模块重复合法，check:view 会在对应探针记一条 collision）。
+				"Activity (since you last interacted)",
+				"Since you last interacted",
+				"Since this pull request was created",
+				"Filter activity",
+				"Close side panel",
+				"Alerts",
+				// 活动栏分区跳转菜单里尚未收录的两项（`Copilot` 是产品名，不译）。
+				// `Manage batch` 在合并队列批次语境下出现，译作「管理批次」。
+				"Manage batch",
+				// 「…」菜单在选中条目时的批量动作
+				"Open selected",
+				// 机器人账号标签（codecov 等 App 评论头部的灰底小标）
+				"Bot"
 			]
 		}
 	]

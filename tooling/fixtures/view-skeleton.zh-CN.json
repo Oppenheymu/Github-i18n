@@ -198,7 +198,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -375,7 +382,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -583,7 +597,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -788,7 +809,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -998,7 +1026,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -1208,7 +1243,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -1456,7 +1498,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -1704,7 +1753,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -1724,6 +1780,10 @@
 				{ "key": "Add", "module": "pages/repo-settings" },
 				{ "key": "Admin", "module": "pages/repo-settings" },
 				{
+					"key": "Alerts",
+					"module": "pages/repo-settings"
+				},
+				{
 					"key": "Branches",
 					"module": "pages/repo-settings"
 				},
@@ -2072,7 +2132,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -2092,6 +2159,10 @@
 				{ "key": "Add", "module": "pages/repo-settings" },
 				{ "key": "Admin", "module": "pages/repo-settings" },
 				{
+					"key": "Alerts",
+					"module": "pages/repo-settings"
+				},
+				{
 					"key": "Branches",
 					"module": "pages/repo-settings"
 				},
@@ -2440,7 +2511,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -2460,6 +2538,10 @@
 				{ "key": "Add", "module": "pages/repo-settings" },
 				{ "key": "Admin", "module": "pages/repo-settings" },
 				{
+					"key": "Alerts",
+					"module": "pages/repo-settings"
+				},
+				{
 					"key": "Branches",
 					"module": "pages/repo-settings"
 				},
@@ -2808,7 +2890,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -3040,7 +3129,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -3272,7 +3368,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -3874,7 +3977,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -4106,7 +4216,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -4122,6 +4239,10 @@
 				{ "key": "Appearance", "module": "pages/settings" },
 				{ "key": "Company", "module": "pages/settings" },
 				{
+					"key": "Filter activity",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Your personal account",
 					"module": "pages/settings"
 				}
@@ -4316,7 +4437,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -4332,6 +4460,10 @@
 				{ "key": "Appearance", "module": "pages/settings" },
 				{ "key": "Company", "module": "pages/settings" },
 				{
+					"key": "Filter activity",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Your personal account",
 					"module": "pages/settings"
 				}
@@ -4526,7 +4658,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -4542,6 +4681,10 @@
 				{ "key": "Appearance", "module": "pages/settings" },
 				{ "key": "Company", "module": "pages/settings" },
 				{
+					"key": "Filter activity",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Your personal account",
 					"module": "pages/settings"
 				}
@@ -4736,7 +4879,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -4759,6 +4909,10 @@
 				},
 				{ "key": "Appearance", "module": "pages/settings" },
 				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Filter activity",
+					"module": "pages/settings"
+				},
 				{
 					"key": "Your personal account",
 					"module": "pages/settings"
@@ -5095,7 +5249,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -5110,6 +5271,10 @@
 				},
 				{ "key": "Appearance", "module": "pages/settings" },
 				{ "key": "Company", "module": "pages/settings" },
+				{
+					"key": "Filter activity",
+					"module": "pages/settings"
+				},
 				{
 					"key": "Your personal account",
 					"module": "pages/settings"
@@ -5305,7 +5470,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -5330,6 +5502,10 @@
 				},
 				{ "key": "Company", "module": "pages/settings" },
 				{
+					"key": "Filter activity",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Included credits",
 					"module": "pages/settings"
 				},
@@ -5825,7 +6001,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -5850,6 +6033,10 @@
 				},
 				{ "key": "Company", "module": "pages/settings" },
 				{
+					"key": "Filter activity",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Included credits",
 					"module": "pages/settings"
 				},
@@ -6345,7 +6532,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -6370,6 +6564,10 @@
 				},
 				{ "key": "Company", "module": "pages/settings" },
 				{
+					"key": "Filter activity",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Included credits",
 					"module": "pages/settings"
 				},
@@ -6865,7 +7063,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -6890,6 +7095,10 @@
 				},
 				{ "key": "Company", "module": "pages/settings" },
 				{
+					"key": "Filter activity",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Included credits",
 					"module": "pages/settings"
 				},
@@ -7385,7 +7594,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -7410,6 +7626,10 @@
 				},
 				{ "key": "Company", "module": "pages/settings" },
 				{
+					"key": "Filter activity",
+					"module": "pages/settings"
+				},
+				{
 					"key": "Included credits",
 					"module": "pages/settings"
 				},
@@ -7905,7 +8125,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -8163,7 +8390,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -8371,7 +8605,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -8592,7 +8833,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -8801,7 +9049,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -9011,7 +9266,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -9340,7 +9602,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -9669,7 +9938,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -9998,7 +10274,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -10363,7 +10646,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -10692,7 +10982,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -10913,7 +11210,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -11134,7 +11438,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -11355,7 +11666,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -11525,7 +11843,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -11695,7 +12020,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -11861,7 +12193,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -12027,7 +12366,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -12232,7 +12578,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -12397,7 +12750,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		},
@@ -12562,7 +12922,14 @@
 				"global/in-a-day",
 				"global/in-a-week",
 				"global/in-a-month",
-				"global/in-a-year"
+				"global/in-a-year",
+				"global/compact-seconds-ago",
+				"global/compact-minutes-ago",
+				"global/compact-hours-ago",
+				"global/compact-days-ago",
+				"global/compact-weeks-ago",
+				"global/compact-months-ago",
+				"global/compact-years-ago"
 			],
 			"notTranslated": []
 		}

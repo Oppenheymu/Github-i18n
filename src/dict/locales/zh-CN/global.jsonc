@@ -513,6 +513,17 @@
 		"When you are ready, authenticate using the button below.": "准备就绪后，点击下方按钮进行身份验证。",
 		"When you are ready, trigger a mailer to verify your identity.": "准备就绪后，点击下方按钮触发邮件以验证你的身份。",
 		"When your phone is ready, click the button below.": "手机准备就绪后，点击下方按钮。",
-		"Contact GitHub Support": "联系 GitHub 支持"
+		"Contact GitHub Support": "联系 GitHub 支持",
+		// PR / 议题活动侧栏（2026-11-10 实机截图）：筛选下拉、侧栏搜索、关闭按钮与分区菜单
+		"Activity (since you last interacted)": "活动（自上次互动以来）",
+		"Since you last interacted": "自上次互动以来",
+		"Since this pull request was created": "自创建此拉取请求以来",
+		"Filter activity": "筛选活动",
+		"Close side panel": "关闭侧边栏",
+		"Alerts": "警报",
+		"Manage batch": "管理批次",
+		"Open selected": "打开所选项",
+		// 机器人账号标签（App 评论头部）
+		"Bot": "机器人"
 	}
 }

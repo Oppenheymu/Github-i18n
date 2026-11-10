@@ -4952,6 +4952,45 @@
 				{
 					"id": "global/in-a-year",
 					"pattern": "^in (?:less than |about )?(?:an? |(?<count>\\d+(?:\\.\\d+)?) )years?$"
+				},
+				// —— relative-time 的**紧凑形态**（2026-11-10 维护者截图：PR 提交行
+				// 「Oppenheymu 8h ago」、codecov 评论头「10h ago」）——
+				// 上面那批 global/{unit}s-ago 只认 `N hours ago` 这种完整单位；
+				// GitHub 新版 React 界面在时间线与提交行把相对时间渲染成
+				// 「8h ago」（单位缩写 + 空格 + ago）。缩写形态不能复用完整单位的
+				// 模板：中文要按单位换词（秒 / 分钟 / 小时…），而模板没有条件分支，
+				// 故一种单位一条规则。`mo` 必须在 `m` 之外单列（`8mo ago` 与
+				// `8m ago` 是两种单位，且 `m` 的 pattern 结构上匹配不到 `mo`）。
+				// 刻意**不**收「裸缩写」（`8h` / `1m`）：Actions 指标表等处的
+				// `1m` 是数据值，收了会把它误译（2026-11-10 由
+				// actions-metrics.test.ts 的「保持英文」用例当场抓出）。
+				{
+					"id": "global/compact-seconds-ago",
+					"pattern": "^(?<count>\\d+(?:\\.\\d+)?)s ago$"
+				},
+				{
+					"id": "global/compact-minutes-ago",
+					"pattern": "^(?<count>\\d+(?:\\.\\d+)?)m ago$"
+				},
+				{
+					"id": "global/compact-hours-ago",
+					"pattern": "^(?<count>\\d+(?:\\.\\d+)?)h ago$"
+				},
+				{
+					"id": "global/compact-days-ago",
+					"pattern": "^(?<count>\\d+(?:\\.\\d+)?)d ago$"
+				},
+				{
+					"id": "global/compact-weeks-ago",
+					"pattern": "^(?<count>\\d+(?:\\.\\d+)?)w ago$"
+				},
+				{
+					"id": "global/compact-months-ago",
+					"pattern": "^(?<count>\\d+(?:\\.\\d+)?)mo ago$"
+				},
+				{
+					"id": "global/compact-years-ago",
+					"pattern": "^(?<count>\\d+(?:\\.\\d+)?)y ago$"
 				}
 			]
 		}

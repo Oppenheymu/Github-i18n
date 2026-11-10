@@ -62,6 +62,12 @@
 		"pulls/check-coverage-comparison": "对比 $<from>...$<to> 时覆盖率未受影响",
 		// checks 标签页的待处理计数（`5 pending`）
 		"pulls/checks-pending-count": "$<count> 个待处理",
+		// checks 标签页的必需检查失败计数与它的 tooltip（`2 required failing` /
+		// `2 required failing checks`）
+		"pulls/checks-required-failing-count": "$<count> 个必需检查失败",
+		"pulls/checks-required-failing-tooltip": "$<count> 个必需检查失败",
+		// 检查行「Failing after <紧凑时长>」：时长原样带回（`1m` 这类紧凑形态不译）
+		"pulls/checks-failing-after": "已持续失败 $<duration>",
 		// —— 账号安全页（/settings/security）——
 		// 规则 id 与 pattern 见 core/rules.jsonc 的 pages/settings-security 分组：
 		// 密钥名与动态日期由捕获组原样带回（$1 / $<day> / $<year>），

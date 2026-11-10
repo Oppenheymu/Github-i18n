@@ -2091,3 +2091,127 @@ describe("PR 新版概览页：右上角「预览」下拉菜单", () => {
 		).toBe("概要プレビューをオフにする");
 	});
 });
+
+describe("PR 新版概览页：审查状态卡与检查标签页", () => {
+	const prPage = buildView(
+		"/microsoft/vscode/pull/1",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	/** 按引擎规则拼接多个节点：保留每个节点的首尾空白，未命中的节点原样留下 */
+	function renderNodes(nodes: readonly string[]): string {
+		return nodes
+			.map((node) => {
+				const translated = translateText(node, prPage);
+				if (translated === null) return node;
+				const lead = node.slice(
+					0,
+					node.length - node.trimStart().length,
+				);
+				const trail = node.slice(node.trimEnd().length);
+				return `${lead}${translated}${trail}`;
+			})
+			.join("");
+	}
+
+	it("translates the review-requirement tooltip", () => {
+		// 进度条上的悬停提示（同一行的「批准 还需 1 个」已是中文）
+		expect(
+			translateText(
+				"Additional review requirement outstanding",
+				prPage,
+			),
+		).toBe("还有未满足的审查要求");
+	});
+
+	it("renders the requested-to-review row across the user link", () => {
+		// 用户是链接节点，文本节点只剩动词短语
+		expect(
+			translateText("has been requested to review", prPage),
+		).toBe("已被请求进行审查");
+		expect(
+			renderNodes([
+				"Oppenheymu",
+				" has been requested to review",
+			]),
+		).toBe("Oppenheymu 已被请求进行审查");
+	});
+
+	it("translates the code-owner explanation line", () => {
+		expect(
+			translateText(
+				"Code owner review required by reviewers with write access.",
+				prPage,
+			),
+		).toBe("需要由具有写权限的审查者进行代码所有者审查。");
+	});
+
+	it("translates the required-checks-failing banner", () => {
+		expect(
+			translateText("Required checks failing", prPage),
+		).toBe("必需检查失败");
+		expect(
+			translateText(
+				"Fix the failing required checks.",
+				prPage,
+			),
+		).toBe("修复失败的必需检查。");
+	});
+
+	it("translates the required-failing count on the checks tab", () => {
+		// 标题旁的计数与同一数字的 tooltip
+		expect(
+			translateText("2 required failing", prPage),
+		).toBe("2 个必需检查失败");
+		expect(
+			translateText("1 required failing", prPage),
+		).toBe("1 个必需检查失败");
+		expect(
+			translateText("2 required failing checks", prPage),
+		).toBe("2 个必需检查失败");
+		// 既有规则不受影响：待处理计数仍只认 `5 pending` 整节点
+		expect(translateText("5 pending", prPage)).toBe(
+			"5 个待处理",
+		);
+	});
+
+	it("translates the failing row frame around the compact duration", () => {
+		// 整节点形态
+		expect(translateText("Failing after 1m", prPage)).toBe(
+			"已持续失败 1m",
+		);
+		// 时长由 <relative-time> 渲染成独立节点时走框架词
+		expect(translateText("Failing after", prPage)).toBe(
+			"已持续失败",
+		);
+		expect(renderNodes(["Failing after ", "2m"])).toBe(
+			"已持续失败 2m",
+		);
+		// 单独的紧凑时长仍然不译（Actions 指标里的数据值，见核心规则说明）
+		expect(translateText("1m", prPage)).toBeNull();
+	});
+
+	it("has japanese entries for the review card and the checks tab", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/1",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText(
+				"Additional review requirement outstanding",
+				japanese,
+			),
+		).toBe("未完了のレビュー要件があります");
+		expect(
+			translateText("Required checks failing", japanese),
+		).toBe("必須チェックが失敗しています");
+		expect(
+			translateText("2 required failing", japanese),
+		).toBe("2 件の必須チェックが失敗しています");
+		expect(
+			translateText("Failing after 1m", japanese),
+		).toBe("1m 経過して失敗しています");
+	});
+});

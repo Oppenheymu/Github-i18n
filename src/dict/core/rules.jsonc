@@ -242,6 +242,25 @@
 				{
 					"id": "pulls/checks-pending-count",
 					"pattern": "^(?<count>\\d+) pending$"
+				},
+				// checks 标签页标题旁的必需检查失败计数（2026-11-10 第三批截图：
+				// `2 required failing`）与同一数字的 tooltip（`2 required failing checks`）。
+				// 两种节点形态各收一条；单数形态同形（`1 required failing`）
+				{
+					"id": "pulls/checks-required-failing-count",
+					"pattern": "^(?<count>\\d+) required failing$"
+				},
+				{
+					"id": "pulls/checks-required-failing-tooltip",
+					"pattern": "^(?<count>\\d+) required failing checks?$"
+				},
+				// 检查行的「Failing after <紧凑时长>」。时长由 <relative-time> 以 `1m` / `2m`
+				// 这类紧凑形态渲染（单独一个 `1m` 节点刻意不译，见核心规则里的说明），
+				// 故这条只换框架词：整节点带时长时走本规则，拆成两个节点时走静态键
+				// `Failing after`。
+				{
+					"id": "pulls/checks-failing-after",
+					"pattern": "^Failing after (?<duration>[0-9.]+[a-z]+)$"
 				}
 			]
 		},

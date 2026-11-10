@@ -65,6 +65,11 @@
 		"pulls/check-coverage-comparison": "$<from>...$<to> を比較してもカバレッジに影響はありません",
 		// checks タブの保留中件数（`5 pending`）
 		"pulls/checks-pending-count": "$<count> 件待機中",
+		// checks タブの必須チェック失敗件数とそのツールチップ
+		"pulls/checks-required-failing-count": "$<count> 件の必須チェックが失敗しています",
+		"pulls/checks-required-failing-tooltip": "$<count> 件の必須チェックが失敗しています",
+		// チェック行「Failing after <コンパクトな時間>」：時間はそのまま戻す
+		"pulls/checks-failing-after": "$<duration> 経過して失敗しています",
 
 		// —— pages/settings-security（アカウントセキュリティ）——
 		"settings/passkey-delete-confirm": "`$1` のパスキーを削除してもよろしいですか？",

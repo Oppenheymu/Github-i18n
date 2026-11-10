@@ -374,6 +374,13 @@
 		"Give feedback": "フィードバックを送る",
 		"View Conversation page": "会話ページを表示",
 		"Temporarily return to the classic view": "一時的にクラシック表示に戻る",
-		"Turn off Overview preview": "概要プレビューをオフにする"
+		"Turn off Overview preview": "概要プレビューをオフにする",
+		// —— レビュー状態カードとチェックタブ ——
+		"Additional review requirement outstanding": "未完了のレビュー要件があります",
+		"has been requested to review": "レビューをリクエストされました",
+		"Code owner review required by reviewers with write access.": "書き込み権限を持つレビューアーによるコードオーナーのレビューが必要です。",
+		"Required checks failing": "必須チェックが失敗しています",
+		"Fix the failing required checks.": "失敗した必須チェックを修正してください。",
+		"Failing after": "失敗が続いています"
 	}
 }

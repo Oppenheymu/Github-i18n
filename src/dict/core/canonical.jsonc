@@ -637,7 +637,21 @@
 				"Give feedback",
 				"View Conversation page",
 				"Temporarily return to the classic view",
-				"Turn off Overview preview"
+				"Turn off Overview preview",
+				// —— 同批截图：审查状态卡与检查标签页（2026-11-10 第三批）——
+				// 批准进度条的 tooltip（`批准 还需 1 个` 已是中文，悬停条本身没词条）
+				"Additional review requirement outstanding",
+				// 审查者行的动态句「<用户> has been requested to review」：用户是链接节点，
+				// 文本节点只剩这个动词短语（同「requested a review from」的既有切法）
+				"has been requested to review",
+				// 审查状态卡的说明行（标题「需要审查」已译）
+				"Code owner review required by reviewers with write access.",
+				// 仅需检查失败时的合并卡标题与说明行
+				"Required checks failing",
+				"Fix the failing required checks.",
+				// 检查行「Failing after <紧凑时长>」拆成两节点时的框架词；
+				// 整节点形态走 rules 的 pulls/checks-failing-after
+				"Failing after"
 			]
 		},
 		{

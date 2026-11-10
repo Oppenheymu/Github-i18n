@@ -379,6 +379,13 @@
 		"Give feedback": "提供反馈",
 		"View Conversation page": "查看对话页面",
 		"Temporarily return to the classic view": "暂时返回经典视图",
-		"Turn off Overview preview": "关闭概览预览"
+		"Turn off Overview preview": "关闭概览预览",
+		// —— 审查状态卡与检查标签页 ——
+		"Additional review requirement outstanding": "还有未满足的审查要求",
+		"has been requested to review": "已被请求进行审查",
+		"Code owner review required by reviewers with write access.": "需要由具有写权限的审查者进行代码所有者审查。",
+		"Required checks failing": "必需检查失败",
+		"Fix the failing required checks.": "修复失败的必需检查。",
+		"Failing after": "已持续失败"
 	}
 }

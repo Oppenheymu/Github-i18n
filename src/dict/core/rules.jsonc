@@ -261,6 +261,11 @@
 				{
 					"id": "pulls/checks-failing-after",
 					"pattern": "^Failing after (?<duration>[0-9.]+[a-z]+)$"
+				},
+				// 评论「已编辑」下拉的标题（`Edited 1 time` / `Edited 2 times`）
+				{
+					"id": "pulls/edited-times",
+					"pattern": "^Edited (?<count>\\d+) times?$"
 				}
 			]
 		},

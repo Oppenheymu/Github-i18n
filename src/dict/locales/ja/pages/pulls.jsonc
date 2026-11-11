@@ -389,6 +389,9 @@
 		// 説明行がリンクで分割されたときの 3 断片（リンク本文は `merge conflicts`）
 		"Resolve the": "マージする前に",
 		"merge conflicts": "マージの競合",
-		"before this can merge.": "を解決してください。"
+		"before this can merge.": "を解決してください。",
+		// —— コメントの「編集済み」ドロップダウン ——
+		"Most recent": "最新",
+		"created": "作成："
 	}
 }

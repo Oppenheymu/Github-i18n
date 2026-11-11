@@ -2290,3 +2290,64 @@ describe("PR 新版概览页：合并冲突卡", () => {
 		);
 	});
 });
+
+describe("PR 评论的「已编辑」下拉", () => {
+	const prPage = buildView(
+		"/microsoft/vscode/pull/1",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	/** 按引擎规则拼接多个节点：保留每个节点的首尾空白，未命中的节点原样留下 */
+	function renderNodes(nodes: readonly string[]): string {
+		return nodes
+			.map((node) => {
+				const translated = translateText(node, prPage);
+				if (translated === null) return node;
+				const lead = node.slice(
+					0,
+					node.length - node.trimStart().length,
+				);
+				const trail = node.slice(node.trimEnd().length);
+				return `${lead}${translated}${trail}`;
+			})
+			.join("");
+	}
+
+	it("translates the edited-count heading", () => {
+		expect(translateText("Edited 1 time", prPage)).toBe(
+			"已编辑 1 次",
+		);
+		expect(translateText("Edited 2 times", prPage)).toBe(
+			"已编辑 2 次",
+		);
+	});
+
+	it("translates the most-recent badge and the created prefix", () => {
+		expect(translateText("Most recent", prPage)).toBe(
+			"最新",
+		);
+		expect(translateText("created", prPage)).toBe("创建于");
+		// 行是 `created` + <relative-time>（相对时间已由 global 规则译出）
+		expect(renderNodes(["created ", "20 分钟前"])).toBe(
+			"创建于 20 分钟前",
+		);
+	});
+
+	it("has japanese entries for the edited dropdown", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/1",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("Edited 1 time", japanese)).toBe(
+			"1 回編集済み",
+		);
+		expect(translateText("Most recent", japanese)).toBe(
+			"最新",
+		);
+		expect(translateText("created", japanese)).toBe(
+			"作成：",
+		);
+	});
+});

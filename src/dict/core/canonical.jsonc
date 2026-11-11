@@ -661,7 +661,12 @@
 				"Resolve the merge conflicts before this can merge.",
 				"Resolve the",
 				"merge conflicts",
-				"before this can merge."
+				"before this can merge.",
+				// —— 评论的「已编辑」下拉（2026-11-11 截图）——
+				// 标题「Edited 1 time」的计数动态，走 rules 的 pulls/edited-times；
+				// 行的「<用户> · created <相对时间>」里 `created` 是独立文本节点
+				"Most recent",
+				"created"
 			]
 		},
 		{

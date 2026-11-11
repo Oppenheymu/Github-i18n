@@ -394,6 +394,9 @@
 		// 说明行被链接拆开时的三段（链接文本是 `merge conflicts`）
 		"Resolve the": "请先解决",
 		"merge conflicts": "合并冲突",
-		"before this can merge.": "，然后才能合并。"
+		"before this can merge.": "，然后才能合并。",
+		// —— 评论的「已编辑」下拉 ——
+		"Most recent": "最新",
+		"created": "创建于"
 	}
 }

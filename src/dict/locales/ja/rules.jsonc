@@ -70,6 +70,8 @@
 		"pulls/checks-required-failing-tooltip": "$<count> 件の必須チェックが失敗しています",
 		// チェック行「Failing after <コンパクトな時間>」：時間はそのまま戻す
 		"pulls/checks-failing-after": "$<duration> 経過して失敗しています",
+		// コメントの「編集済み」ドロップダウンの見出し
+		"pulls/edited-times": "$<count> 回編集済み",
 
 		// —— pages/settings-security（アカウントセキュリティ）——
 		"settings/passkey-delete-confirm": "`$1` のパスキーを削除してもよろしいですか？",

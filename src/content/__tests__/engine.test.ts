@@ -41,6 +41,10 @@ const view: DictView = {
 	entries: new Map([
 		["Star", "星标"],
 		["Fork", "复刻"],
+		[
+			"Add your comment here, be kind",
+			"在这里添加你的评论，请友善",
+		],
 	]),
 	aliases: new Map(),
 	rules: [],
@@ -92,7 +96,11 @@ describe("TranslationEngine 的调度语义", () => {
 			subtree: true,
 			characterData: true,
 			attributes: true,
-			attributeFilter: ["value", "data-disable-with"],
+			attributeFilter: [
+				"value",
+				"data-disable-with",
+				"placeholder",
+			],
 		});
 	});
 
@@ -215,6 +223,42 @@ describe("TranslationEngine 的调度语义", () => {
 		expect(viewCalls()).toBe(afterRewrite);
 	});
 
+	it("re-translates a placeholder the page rewrote", async () => {
+		// 2026-11-11 维护者探针的实机形态：评论框的 textarea 是**排除容器**
+		// （textarea 在 EXCLUDE_SELECTOR 里），但 placeholder 是上游 UI 文案，
+		// walker 会先翻属性再跳过子树。真实页面上它却一直是英文——差别在于上游
+		// 在我们翻完之后又把 placeholder 写回英文，而属性变更只有落在
+		// attributeFilter 里才会产生记录。这条用例锁住「写回 → 重翻」这条闭环
+		const { engine, root, viewCalls } = makeEngine();
+		const box = env.document.createElement("div");
+		const textarea = env.document.createElement("textarea");
+		textarea.setAttribute(
+			"placeholder",
+			"Add your comment here, be kind",
+		);
+		box.appendChild(textarea);
+		root.appendChild(box);
+		engine.start(root);
+		await env.tick();
+		await env.tick();
+		expect(textarea.getAttribute("placeholder")).toBe(
+			"在这里添加你的评论，请友善",
+		);
+		const settled = viewCalls();
+
+		// 上游把 placeholder 改回英文（React 挂载 / 水合后的那次写入）
+		textarea.setAttribute(
+			"placeholder",
+			"Add your comment here, be kind",
+		);
+		await env.tick();
+		await env.tick();
+		expect(textarea.getAttribute("placeholder")).toBe(
+			"在这里添加你的评论，请友善",
+		);
+		expect(viewCalls()).toBeGreaterThan(settled);
+	});
+
 	it("writes nothing for a dictionary entry that maps to itself", async () => {
 		// 「命中 → 写入 → 再命中 → 再写入」会在微任务队列里无限自转：页面不报错
 		// 但卡死。2026-09 的真实事故是 `"ORCID iD": "ORCID iD"` 让 /settings/profile
@@ -288,7 +332,11 @@ describe("TranslationEngine 的调度语义", () => {
 			subtree: true,
 			characterData: true,
 			attributes: true,
-			attributeFilter: ["value", "data-disable-with"],
+			attributeFilter: [
+				"value",
+				"data-disable-with",
+				"placeholder",
+			],
 		});
 
 		// 组件 tick 把 shadow 内文本改回英文——shadow 内部变更不冒泡到

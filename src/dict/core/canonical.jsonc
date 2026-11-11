@@ -666,7 +666,10 @@
 				// 标题「Edited 1 time」的计数动态，走 rules 的 pulls/edited-times；
 				// 行的「<用户> · created <相对时间>」里 `created` 是独立文本节点
 				"Most recent",
-				"created"
+				"created",
+				// 评论框的无障碍标签（2026-11-11 探针实机：
+				// `<textarea aria-label="Markdown value">`）
+				"Markdown value"
 			]
 		},
 		{

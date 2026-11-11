@@ -8,16 +8,30 @@ import { translateTree } from "./walker.ts";
 
 /**
  * light root 与 shadow root 共用的观察配置。
- * attributeFilter 是降噪的核心：只有 value / data-disable-with（按钮类
- * `<input>` 的可见文案，Turbo 快照 / data-disable-with 会把它改回英文）才产生
- * 记录，其余属性（class / style 等）静默。
+ * attributeFilter 是降噪的核心：只有下面这几项（按钮类 `<input>` 的可见文案、
+ * Rails 的 data-disable-with、表单的 placeholder）才产生记录，其余属性
+ * （class / style / aria-label 等）静默。
+ *
+ * `placeholder` 是 2026-11-11 由维护者的控制台探针补进来的：新版 PR 页的评论框
+ * （`div.CommentBoxContainer` 内的 `textarea#_r_iv_`，aria-label="Markdown value"）
+ * 自带 `placeholder="Add your comment here, be kind"`，词典里有词条、同一棵树上
+ * 的文本节点也都翻好了，唯独这个属性一直英文；而**同一页面临时注入**的 textarea
+ * 属性立刻被译。差别只在于真实节点是在我们翻译之后被上游又写回英文的——属性
+ * 变更不在过滤清单里，观察器看不见，于是永远停在英文（文本节点靠 childList /
+ * characterData 记录自然自愈，属性没有这条兜底）。放进来之后上游每次重写都会
+ * 触发一轮重翻；`translateText` 对纯中文返回 null、引擎又有同值不写入守卫，
+ * 不会自我触发。
  */
 const OBSERVE_OPTIONS: MutationObserverInit = {
 	childList: true,
 	subtree: true,
 	characterData: true,
 	attributes: true,
-	attributeFilter: ["value", "data-disable-with"],
+	attributeFilter: [
+		"value",
+		"data-disable-with",
+		"placeholder",
+	],
 };
 
 /** 引擎宿主：由入口注入词典视图来源与开关状态（便于解耦测试） */

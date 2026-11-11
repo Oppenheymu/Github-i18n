@@ -392,6 +392,8 @@
 		"before this can merge.": "を解決してください。",
 		// —— コメントの「編集済み」ドロップダウン ——
 		"Most recent": "最新",
-		"created": "作成："
+		"created": "作成：",
+		// コメントボックスのアクセシブル名
+		"Markdown value": "Markdown の内容"
 	}
 }

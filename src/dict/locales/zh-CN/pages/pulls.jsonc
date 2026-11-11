@@ -397,6 +397,8 @@
 		"before this can merge.": "，然后才能合并。",
 		// —— 评论的「已编辑」下拉 ——
 		"Most recent": "最新",
-		"created": "创建于"
+		"created": "创建于",
+		// 评论框的无障碍标签
+		"Markdown value": "Markdown 内容"
 	}
 }

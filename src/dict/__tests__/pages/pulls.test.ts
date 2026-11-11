@@ -2351,3 +2351,37 @@ describe("PR 评论的「已编辑」下拉", () => {
 		);
 	});
 });
+
+describe("PR 评论框的属性文案", () => {
+	const prPage = buildView(
+		"/microsoft/vscode/pull/1",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	it("keeps the entries for the comment box attributes", () => {
+		// 2026-11-11 探针实机：`<textarea placeholder="Add your comment here, be kind"
+		// aria-label="Markdown value">`——两条都在属性上，靠 walker 的
+		// 「表单控件先翻属性再跳过子树」路径生效
+		expect(
+			translateText(
+				"Add your comment here, be kind",
+				prPage,
+			),
+		).toBe("在这里添加你的评论，请友善");
+		expect(translateText("Markdown value", prPage)).toBe(
+			"Markdown 内容",
+		);
+	});
+
+	it("has japanese entries for the accessible name", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/1",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("Markdown value", japanese)).toBe(
+			"Markdown の内容",
+		);
+	});
+});

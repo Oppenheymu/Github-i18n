@@ -166,7 +166,57 @@
 				"Use Milestones to create collections of Issues and Pull Requests for a particular release or project.",
 				"Create a milestone",
 				// —— 标签页（/labels）的搜索框 placeholder ——
-				"Search all labels"
+				"Search all labels",
+				// —— 议题详情页新版右栏（2026-11-11 维护者截图：
+				// /NapukettoDev/NapukettoQQ/issues/100）——
+				// 详情页与 pages/pulls 的同型侧栏是**两张路由互斥的页面**（issues 与
+				// pull），引擎按页面注入词条，跨模块复用只能各收一份——Lock conversation /
+				// Development / None / Customize / Give feedback 在 pulls 已收，这里再登记
+				// 一遍（同键同译，路由互斥故不会「同键异译」）。
+				// `No one` 是指派人为空时的占位，与「Assign yourself」并列。
+				// `Type` / `Fields` / `Priority` 是议题类型、自定义字段、优先级三个分区标题：
+				// `Type` 与页头搜索按钮的 `Type / to search` 同形，后者靠 kbd 三段结构
+				// 整句回填（applyKbdLabel，命中即返回），单节点查表不参与，故收 `Type`
+				// 不会把页头译成「类型 / 以搜索」。
+				// `Relationships` / `Development` 也是分区标题；Development 说明句在链接处
+				// 拆成 `Create a branch` + ` for this issue or link a pull request.` 两个节点。
+				"No one",
+				"Type",
+				"Fields",
+				"Priority",
+				"Choose an option",
+				"Relationships",
+				"Development",
+				"Create a branch",
+				"for this issue or link a pull request.",
+				"None",
+				"Customize",
+				"You're receiving notifications because you're subscribed to this thread.",
+				"Transfer issue",
+				"Clone issue",
+				"Lock conversation",
+				"Pin issue",
+				"Delete issue",
+				"Give feedback",
+				// —— 评论框与子议题菜单（同一张截图）——
+				// `Draft with Copilot` 是评论框的 Copilot 入口；placeholder 与 pulls 同键同译。
+				// `Create sub-issue` 同时是分体按钮的可见文本与菜单项，`Add existing issue`
+				// 是菜单第二项；`Add artifact` 是分体按钮右侧的独立按钮。
+				"Draft with Copilot",
+				"Add your comment here, be kind",
+				"Create sub-issue",
+				"Add existing issue",
+				"Add artifact",
+				// —— 页脚说明句（拆节点：说明前缀 + 三条链接 + 连接词）——
+				// 截图上逗号画在链接下划线里（`contributing guidelines,` 整条在 `<a>` 内），
+				// 故带逗号与不带逗号两种形态并存：链接边界由上游决定，写死一种会在另一种
+				// 渲染下残留英文。`code of conduct` 后的句号是独立纯符号节点，不收。
+				"Please follow this repository's",
+				"contributing guidelines,",
+				"contributing guidelines",
+				"security policy",
+				"code of conduct",
+				"and"
 			]
 		},
 		{

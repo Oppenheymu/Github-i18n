@@ -369,3 +369,114 @@ describe("议题列表页的实机节点边界", () => {
 		expect(translateText("Reactions", view)).toBe("回应");
 	});
 });
+
+/**
+ * 议题详情页新版右栏、评论框与页脚（2026-11-11 维护者截图：
+ * /NapukettoDev/NapukettoQQ/issues/100）。
+ *
+ * 截图只给视觉，拿不到 HTML，所以节点边界按**同型页**（pages/pulls 的 PR 详情页）
+ * 已登记的形态推断：分区标题与 ActionList 项各是整节点，句子在链接处拆开。
+ * 真机上若哪条落空，先怀疑节点边界而不是译文（见 docs 的「逐页补翻译」）。
+ */
+const DETAIL_NODES: readonly (readonly [string, string])[] =
+	[
+		// —— 右栏：指派人、议题类型、自定义字段、优先级 ——
+		["No one", "无"],
+		["Type", "类型"],
+		["Fields", "字段"],
+		["Priority", "优先级"],
+		["Choose an option", "选择一个选项"],
+		// —— 右栏：关联与开发 ——
+		["Relationships", "关联"],
+		["Development", "开发"],
+		// —— 右栏：通知档位与 ActionList ——
+		["None", "无"],
+		["Customize", "自定义"],
+		[
+			"You're receiving notifications because you're subscribed to this thread.",
+			"你正在接收通知，因为你订阅了此讨论串。",
+		],
+		["Transfer issue", "转移议题"],
+		["Clone issue", "克隆议题"],
+		["Lock conversation", "锁定对话"],
+		["Pin issue", "置顶议题"],
+		["Delete issue", "删除议题"],
+		["Give feedback", "提供反馈"],
+		// —— 评论框与子议题菜单 ——
+		["Draft with Copilot", "使用 Copilot 起草"],
+		[
+			"Add your comment here, be kind",
+			"在这里添加你的评论，请友善",
+		],
+		["Create sub-issue", "创建子议题"],
+		["Add existing issue", "添加现有议题"],
+		["Add artifact", "添加产物"],
+	];
+
+describe("议题详情页的新版右栏与评论框", () => {
+	const detailView = buildView(
+		"/NapukettoDev/NapukettoQQ/issues/100",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	it("routes the detail page to pages/issues", () => {
+		expect(
+			matchModules(
+				"/NapukettoDev/NapukettoQQ/issues/100",
+				dictForLocale("zh-CN").modules,
+			).map((module) => module.name),
+		).toContain("pages/issues");
+	});
+
+	it("translates the sidebar, composer and sub-issue menu", () => {
+		for (const [node, expected] of DETAIL_NODES) {
+			for (const variant of withWhitespace(node)) {
+				expect(
+					translateText(variant, detailView),
+					`节点 ${JSON.stringify(variant)}`,
+				).toBe(expected);
+			}
+		}
+	});
+
+	it("keeps the header search label intact next to the sidebar Type", () => {
+		// 页头的 `Type / to search` 走 kbd 三段整句回填（applyKbdLabel），右栏的
+		// `Type` 走单节点查表：两者同页共存，所以整句键在 issues 视图里仍须命中
+		expect(
+			translateText("Type / to search", detailView),
+		).toBe("输入 / 以搜索");
+		// 整节点语义：更长的英文句子不会因为含 `No one` 就被翻
+		expect(
+			translateText("No one assigned yet", detailView),
+		).toBeNull();
+	});
+
+	it("renders the Development hint across its link nodes", () => {
+		// 链接文本 `Create a branch` 与尾随说明是两个节点，说明节点原文带前导空格
+		expect(
+			renderNodes([
+				"Create a branch",
+				" for this issue or link a pull request.",
+			]),
+		).toBe("创建分支 或为此议题关联拉取请求。");
+	});
+
+	it("renders the footer sentence across its link nodes", () => {
+		// 逗号画在第一个链接的下划线里（实机截图），故 `contributing guidelines,`
+		// 带逗号成键；链接之间的空白与末尾句号是独立节点，保持 ASCII
+		expect(
+			renderNodes([
+				"Please follow this repository's ",
+				"contributing guidelines,",
+				" ",
+				"security policy",
+				" and ",
+				"code of conduct",
+				".",
+			]),
+		).toBe(
+			"请遵循此仓库的 贡献指南， 安全策略 和 行为准则.",
+		);
+	});
+});

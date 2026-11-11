@@ -147,6 +147,46 @@
 		"Use Milestones to create collections of Issues and Pull Requests for a particular release or project.": "マイルストーンを使用して、特定のリリースやプロジェクトのためにイシューとプルリクエストのコレクションを作成します。",
 		"Create a milestone": "マイルストーンを作成",
 		// —— ラベルページ（/labels）の検索ボックス ——
-		"Search all labels": "すべてのラベルを検索"
+		"Search all labels": "すべてのラベルを検索",
+		// —— イシュー詳細ページ新版の右サイドバー（2026-11-11 保守者のスクリーンショット、
+		// 同順は core/canonical.jsonc）——
+		// pages/pulls の同型語と同じ訳（2 ページはルート排他、それぞれ収録）
+		"No one": "担当者なし",
+		"Type": "タイプ",
+		"Fields": "フィールド",
+		"Priority": "優先度",
+		"Choose an option": "オプションを選択",
+		"Relationships": "関連",
+		"Development": "開発",
+		// Development の説明文は「リンク + 後続説明」の 2 ノード（リンク本文は
+		// Create a branch）。日本語は語順の都合で接続形「し、」を後続ノードに置く
+		//（結合結果：「ブランチを作成 し、このイシューにリンクするか、
+		// プルリクエストをリンクします。」）
+		"Create a branch": "ブランチを作成",
+		"for this issue or link a pull request.": "し、このイシューにリンクするか、プルリクエストをリンクします。",
+		"None": "なし",
+		"Customize": "カスタマイズ",
+		"You're receiving notifications because you're subscribed to this thread.": "このスレッドを購読しているため、通知が届いています。",
+		"Transfer issue": "イシューを移転",
+		"Clone issue": "イシューをクローン",
+		"Lock conversation": "会話をロック",
+		"Pin issue": "イシューをピン留め",
+		"Delete issue": "イシューを削除",
+		"Give feedback": "フィードバックを送る",
+		// —— コメント欄とサブイシューメニュー（同じスクリーンショット）——
+		"Draft with Copilot": "Copilot で下書き",
+		"Add your comment here, be kind": "ここにコメントを追加してください。丁寧に",
+		"Create sub-issue": "サブイシューを作成",
+		"Add existing issue": "既存のイシューを追加",
+		"Add artifact": "アーティファクトを追加",
+		// —— フッターの説明文（ノード分割：前置き + 3 リンク + 接続詞）——
+		// 結合結果：「このリポジトリの コントリビューションガイドライン、
+		// セキュリティポリシー および 行動規範.」（末尾の句点は独立した記号ノード）
+		"Please follow this repository's": "このリポジトリの",
+		"contributing guidelines,": "コントリビューションガイドライン、",
+		"contributing guidelines": "コントリビューションガイドライン",
+		"security policy": "セキュリティポリシー",
+		"code of conduct": "行動規範",
+		"and": "および"
 	}
 }

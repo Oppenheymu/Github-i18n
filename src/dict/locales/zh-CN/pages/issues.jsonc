@@ -145,6 +145,45 @@
 		"Use Milestones to create collections of Issues and Pull Requests for a particular release or project.": "使用里程碑为特定的版本或项目创建议题与拉取请求的集合。",
 		"Create a milestone": "创建里程碑",
 		// —— 标签页（/labels）搜索框 ——
-		"Search all labels": "搜索所有标签"
+		"Search all labels": "搜索所有标签",
+		// —— 议题详情页新版右栏（2026-11-11 维护者截图，同序见 core/canonical.jsonc）——
+		// 与 pages/pulls 的同型词条同译（两页路由互斥，各收一份）：Lock conversation /
+		// Development / None / Customize / Give feedback。
+		"No one": "无",
+		"Type": "类型",
+		"Fields": "字段",
+		"Priority": "优先级",
+		"Choose an option": "选择一个选项",
+		"Relationships": "关联",
+		"Development": "开发",
+		// Development 说明句是「链接 + 尾随说明」两节点（链接文本是 Create a branch），
+		// 拼接结果「创建分支 或为此议题关联拉取请求。」（原文前导空格由引擎保留）
+		"Create a branch": "创建分支",
+		"for this issue or link a pull request.": "或为此议题关联拉取请求。",
+		"None": "无",
+		"Customize": "自定义",
+		"You're receiving notifications because you're subscribed to this thread.": "你正在接收通知，因为你订阅了此讨论串。",
+		"Transfer issue": "转移议题",
+		"Clone issue": "克隆议题",
+		"Lock conversation": "锁定对话",
+		"Pin issue": "置顶议题",
+		"Delete issue": "删除议题",
+		"Give feedback": "提供反馈",
+		// —— 评论框与子议题菜单（同一张截图）——
+		"Draft with Copilot": "使用 Copilot 起草",
+		"Add your comment here, be kind": "在这里添加你的评论，请友善",
+		"Create sub-issue": "创建子议题",
+		"Add existing issue": "添加现有议题",
+		"Add artifact": "添加产物",
+		// —— 页脚说明句（拆节点：说明前缀 + 三条链接 + 连接词）——
+		// 带逗号形态对应「逗号在链接内」的实机渲染；无逗号形态留给逗号独立成节点的
+		// 历史形态。拼接结果「请遵循此仓库的 贡献指南， 安全策略 和 行为准则.」
+		// （句号是独立纯符号节点，保持 ASCII）。
+		"Please follow this repository's": "请遵循此仓库的",
+		"contributing guidelines,": "贡献指南，",
+		"contributing guidelines": "贡献指南",
+		"security policy": "安全策略",
+		"code of conduct": "行为准则",
+		"and": "和"
 	}
 }

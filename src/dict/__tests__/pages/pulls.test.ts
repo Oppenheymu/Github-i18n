@@ -2215,3 +2215,78 @@ describe("PR 新版概览页：审查状态卡与检查标签页", () => {
 		).toBe("1m 経過して失敗しています");
 	});
 });
+
+describe("PR 新版概览页：合并冲突卡", () => {
+	const prPage = buildView(
+		"/microsoft/vscode/pull/1",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	/** 按引擎规则拼接多个节点：保留每个节点的首尾空白，未命中的节点原样留下 */
+	function renderNodes(nodes: readonly string[]): string {
+		return nodes
+			.map((node) => {
+				const translated = translateText(node, prPage);
+				if (translated === null) return node;
+				const lead = node.slice(
+					0,
+					node.length - node.trimStart().length,
+				);
+				const trail = node.slice(node.trimEnd().length);
+				return `${lead}${translated}${trail}`;
+			})
+			.join("");
+	}
+
+	it("translates the card title and the resolve button", () => {
+		expect(translateText("Merge conflicts", prPage)).toBe(
+			"合并冲突",
+		);
+		expect(translateText("Resolve conflicts", prPage)).toBe(
+			"解决冲突",
+		);
+	});
+
+	it("translates the whole explanation sentence", () => {
+		expect(
+			translateText(
+				"Resolve the merge conflicts before this can merge.",
+				prPage,
+			),
+		).toBe("请先解决合并冲突，然后才能合并。");
+	});
+
+	it("renders the explanation across the conflicts link", () => {
+		// 实机把链接文本单独成节点（带点线下划线），三段各自查表后语序成立
+		expect(
+			renderNodes([
+				"Resolve the ",
+				"merge conflicts",
+				" before this can merge.",
+			]),
+		).toBe("请先解决 合并冲突 ，然后才能合并。");
+	});
+
+	it("has japanese entries for the conflicts card", () => {
+		const japanese = buildView(
+			"/microsoft/vscode/pull/1",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(translateText("Merge conflicts", japanese)).toBe(
+			"マージの競合",
+		);
+		expect(
+			translateText("Resolve conflicts", japanese),
+		).toBe("競合を解決");
+		expect(
+			translateText(
+				"Resolve the merge conflicts before this can merge.",
+				japanese,
+			),
+		).toBe(
+			"マージする前にマージの競合を解決してください。",
+		);
+	});
+});

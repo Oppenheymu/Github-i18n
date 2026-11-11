@@ -651,7 +651,17 @@
 				"Fix the failing required checks.",
 				// 检查行「Failing after <紧凑时长>」拆成两节点时的框架词；
 				// 整节点形态走 rules 的 pulls/checks-failing-after
-				"Failing after"
+				"Failing after",
+				// —— 同批截图：合并冲突卡（2026-11-11）——
+				"Merge conflicts",
+				"Resolve conflicts",
+				// 说明行。`merge conflicts` 是带点线下划线的链接节点，实机切成
+				// `Resolve the ` + 链接 + ` before this can merge.` 三段；整句也收一份，
+				// 覆盖未拆开的形态。三段拼起来读作「请先解决合并冲突，然后才能合并。」
+				"Resolve the merge conflicts before this can merge.",
+				"Resolve the",
+				"merge conflicts",
+				"before this can merge."
 			]
 		},
 		{

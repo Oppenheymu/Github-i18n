@@ -381,6 +381,14 @@
 		"Code owner review required by reviewers with write access.": "書き込み権限を持つレビューアーによるコードオーナーのレビューが必要です。",
 		"Required checks failing": "必須チェックが失敗しています",
 		"Fix the failing required checks.": "失敗した必須チェックを修正してください。",
-		"Failing after": "失敗が続いています"
+		"Failing after": "失敗が続いています",
+		// —— マージ競合カード ——
+		"Merge conflicts": "マージの競合",
+		"Resolve conflicts": "競合を解決",
+		"Resolve the merge conflicts before this can merge.": "マージする前にマージの競合を解決してください。",
+		// 説明行がリンクで分割されたときの 3 断片（リンク本文は `merge conflicts`）
+		"Resolve the": "マージする前に",
+		"merge conflicts": "マージの競合",
+		"before this can merge.": "を解決してください。"
 	}
 }

@@ -386,6 +386,14 @@
 		"Code owner review required by reviewers with write access.": "需要由具有写权限的审查者进行代码所有者审查。",
 		"Required checks failing": "必需检查失败",
 		"Fix the failing required checks.": "修复失败的必需检查。",
-		"Failing after": "已持续失败"
+		"Failing after": "已持续失败",
+		// —— 合并冲突卡 ——
+		"Merge conflicts": "合并冲突",
+		"Resolve conflicts": "解决冲突",
+		"Resolve the merge conflicts before this can merge.": "请先解决合并冲突，然后才能合并。",
+		// 说明行被链接拆开时的三段（链接文本是 `merge conflicts`）
+		"Resolve the": "请先解决",
+		"merge conflicts": "合并冲突",
+		"before this can merge.": "，然后才能合并。"
 	}
 }

@@ -59,6 +59,9 @@
 		"New with options…": "New with options...",
 		// —— 2026-11-10 实机（新版 PR 概览页右上角「预览」下拉菜单）：撇号弯直没把握
 		// （截图难辨），规范键取直撇号，弯撇号形态走别名双保险（语义相同）。
-		"What’s new": "What's new"
+		"What’s new": "What's new",
+		// —— 2026-11-11 实机（文件编辑器顶栏提交按钮）：省略号弯直没把握（截图难辨），
+		// 规范键取三点形态，单字符省略号形态走别名双保险。
+		"Commit changes…": "Commit changes..."
 	}
 }

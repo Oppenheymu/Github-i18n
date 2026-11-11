@@ -920,6 +920,10 @@
 		"repo/unreleased-commits": "自 $<tag> 以来有 $<count> 个未发布的提交",
 		"repo/create-codespace-on": "在 $<branch> 上创建代码空间",
 		"repo/codespace-usage": "此仓库的代码空间用量由 $<user> 付费。",
+		// 特殊仓库横幅（仓库全名与 README 文件名由捕获组原样带回）
+		"repo/special-repository-banner": "$<repo> 是特殊仓库：$<readme> 将显示在你的公开组织个人资料页上，任何人可见。",
+		// 文件编辑器「签署并提交」弹层的分支单选
+		"repo/commit-directly-to-branch": "直接提交到 $<branch> 分支",
 		"global/now": "刚刚",
 		"global/yesterday": "昨天",
 		// relative-time 的模糊相对形态（2026-10-31 实机 last week，Intl 输出集）

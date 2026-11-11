@@ -9284,7 +9284,38 @@
 				"What are codespaces?",
 				// 代码空间菜单里的预构建入口（2026-11-02 PR 页实机；与 repo-settings 的
 				// `Set up prebuild` 单数形态是两个不同的键，不能合并）
-				"Set up prebuilds"
+				"Set up prebuilds",
+				// —— 文件编辑器与「签署并提交」弹层（2026-11-11 截图，/owner/repo/edit/…）——
+				// 顶栏两个按钮。省略号按本仓惯例取三点形态，单字符省略号走 aliases 双保险
+				"Cancel changes",
+				"Commit changes...",
+				// 编辑器工具栏的四个下拉。`No wrap` / `Soft wrap` / `Spaces` / `Tabs` 同时是
+				// 下拉里的选项名与被选中后按钮上的当前值（同一个节点）；`2` / `4` / `8` 是数据值不译
+				"Line wrap mode",
+				"No wrap",
+				"Soft wrap",
+				"Indent mode",
+				"Spaces",
+				"Tabs",
+				"Indent size",
+				// 特殊仓库横幅。整句单节点走 rules 的 repo/special-repository-banner；
+				// 实机把仓库全名包在 <strong>、README 文件名包在 <code>，拆开时这两个碎片
+				// 负责前后两段（`<code>` 内容按排除规则保留英文文件名）
+				"is a special repository: this",
+				"will appear on your public organization profile, visible to anyone.",
+				// 「签署并提交」弹层。`Commit message` / `Extended description` 与 pages/pulls
+				// 的合并框同键同译（PR 路由与本模块都命中 PR 页，属已知的同键同译冗余）
+				"Sign off and commit changes",
+				"Commit message",
+				"Extended description",
+				"Message and description suggested by Copilot.",
+				// `Commit Email` 的 `Email` 在实机是加粗的独立节点，故两种切法都收；
+				// `Email` 与 pages/profile / settings / org-settings 的同键同译
+				"Commit Email",
+				"Email",
+				"Choose an email address for signing off on this commit",
+				"Create a new branch for this commit and start a pull request",
+				"Learn more about pull requests"
 			]
 		},
 		{

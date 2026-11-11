@@ -4261,6 +4261,19 @@
 				{
 					"id": "repo/codespace-usage",
 					"pattern": "^Codespace usage for this repository is paid for by (?<user>.+?)\\.?$"
+				},
+				// 特殊仓库（`.github`）横幅：仓库全名与 README 文件名都是动态值
+				//（实机形如 `Koishi-CE/.github is a special repository: this README.md
+				// will appear on your public organization profile, visible to anyone.`）。
+				// 整句单节点时走本规则；被 <strong> / <code> 拆开时走静态碎片键
+				{
+					"id": "repo/special-repository-banner",
+					"pattern": "^(?<repo>\\S+) is a special repository: this (?<readme>\\S+) will appear on your public organization profile, visible to anyone\\.$"
+				},
+				// 文件编辑器「签署并提交」弹层的分支单选：分支名动态（默认 `main`）
+				{
+					"id": "repo/commit-directly-to-branch",
+					"pattern": "^Commit directly to the (?<branch>.+) branch$"
 				}
 			]
 		},

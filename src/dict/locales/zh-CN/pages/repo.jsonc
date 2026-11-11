@@ -247,6 +247,30 @@
 		"Manage codespaces": "管理代码空间",
 		"Share a deep link": "分享深层链接",
 		"What are codespaces?": "什么是代码空间？",
-		"Set up prebuilds": "设置预构建"
+		"Set up prebuilds": "设置预构建",
+		// —— 文件编辑器与「签署并提交」弹层 ——
+		"Cancel changes": "取消更改",
+		"Commit changes...": "提交更改…",
+		// 编辑器工具栏的四个下拉（被选中时同一文本也显示在按钮上）
+		"Line wrap mode": "换行模式",
+		"No wrap": "不换行",
+		"Soft wrap": "自动换行",
+		"Indent mode": "缩进方式",
+		"Spaces": "空格",
+		"Tabs": "制表符",
+		"Indent size": "缩进宽度",
+		// 特殊仓库横幅被拆开时的前后两段（名称与文件名保持原样）
+		"is a special repository: this": "是特殊仓库：此",
+		"will appear on your public organization profile, visible to anyone.": "将显示在你的公开组织个人资料页上，任何人可见。",
+		// 「签署并提交」弹层
+		"Sign off and commit changes": "签署并提交更改",
+		"Commit message": "提交信息",
+		"Extended description": "扩展描述",
+		"Message and description suggested by Copilot.": "提交信息与描述由 Copilot 建议。",
+		"Commit Email": "提交邮箱",
+		"Email": "电子邮件",
+		"Choose an email address for signing off on this commit": "选择用于为此提交签署的电子邮件地址",
+		"Create a new branch for this commit and start a pull request": "为此提交创建新分支并发起拉取请求",
+		"Learn more about pull requests": "详细了解拉取请求"
 	}
 }

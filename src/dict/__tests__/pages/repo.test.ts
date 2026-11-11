@@ -729,3 +729,179 @@ describe("仓库页详情对话框与代码空间/发布下拉", () => {
 		);
 	});
 });
+
+describe("文件编辑器与「签署并提交」弹层", () => {
+	/** /owner/repo/edit/<分支>/<路径> 命中的模块视图（pages/repo + global） */
+	const editView = buildView(
+		"/Koishi-CE/.github/edit/main/profile/README.md",
+		dictForLocale("zh-CN"),
+		new Map(Object.entries(dictCore.aliases)),
+	);
+
+	/** 按引擎规则拼接多个节点：保留每个节点的首尾空白，未命中的节点原样留下 */
+	function renderNodes(nodes: readonly string[]): string {
+		return nodes
+			.map((node) => {
+				const translated = translateText(node, editView);
+				if (translated === null) return node;
+				const lead = node.slice(
+					0,
+					node.length - node.trimStart().length,
+				);
+				const trail = node.slice(node.trimEnd().length);
+				return `${lead}${translated}${trail}`;
+			})
+			.join("");
+	}
+
+	it("translates the page-level buttons", () => {
+		expect(translateText("Cancel changes", editView)).toBe(
+			"取消更改",
+		);
+		expect(
+			translateText("Commit changes...", editView),
+		).toBe("提交更改…");
+		// 单字符省略号形态走别名，落同一个译文
+		expect(translateText("Commit changes…", editView)).toBe(
+			"提交更改…",
+		);
+		// 无省略号的旧形态仍由既有词条负责
+		expect(translateText("Commit changes", editView)).toBe(
+			"提交更改",
+		);
+	});
+
+	it("translates the editor toolbar dropdowns", () => {
+		expect(translateText("Line wrap mode", editView)).toBe(
+			"换行模式",
+		);
+		expect(translateText("No wrap", editView)).toBe(
+			"不换行",
+		);
+		expect(translateText("Soft wrap", editView)).toBe(
+			"自动换行",
+		);
+		expect(translateText("Indent mode", editView)).toBe(
+			"缩进方式",
+		);
+		expect(translateText("Spaces", editView)).toBe("空格");
+		expect(translateText("Tabs", editView)).toBe("制表符");
+		expect(translateText("Indent size", editView)).toBe(
+			"缩进宽度",
+		);
+		// 缩进宽度是数据值
+		expect(translateText("8", editView)).toBeNull();
+	});
+
+	it("translates the special-repository banner as a whole node", () => {
+		expect(
+			translateText(
+				"Koishi-CE/.github is a special repository: this README.md will appear on your public organization profile, visible to anyone.",
+				editView,
+			),
+		).toBe(
+			"Koishi-CE/.github 是特殊仓库：README.md 将显示在你的公开组织个人资料页上，任何人可见。",
+		);
+	});
+
+	it("renders the special-repository banner across its split nodes", () => {
+		// 仓库全名在 <strong>、README.md 在 <code>（code 内文本被排除，保持英文）
+		expect(
+			renderNodes([
+				" is a special repository: this ",
+				"README.md",
+				" will appear on your public organization profile, visible to anyone.",
+			]),
+		).toBe(
+			" 是特殊仓库：此 README.md 将显示在你的公开组织个人资料页上，任何人可见。",
+		);
+	});
+
+	it("translates the sign-off dialog", () => {
+		expect(
+			translateText(
+				"Sign off and commit changes",
+				editView,
+			),
+		).toBe("签署并提交更改");
+		expect(translateText("Commit message", editView)).toBe(
+			"提交信息",
+		);
+		expect(
+			translateText("Extended description", editView),
+		).toBe("扩展描述");
+		expect(
+			translateText(
+				"Message and description suggested by Copilot.",
+				editView,
+			),
+		).toBe("提交信息与描述由 Copilot 建议。");
+		// `Commit Email` 的 `Email` 在实机是加粗独立节点
+		expect(translateText("Commit Email", editView)).toBe(
+			"提交邮箱",
+		);
+		expect(translateText("Email", editView)).toBe(
+			"电子邮件",
+		);
+		expect(
+			translateText(
+				"Choose an email address for signing off on this commit",
+				editView,
+			),
+		).toBe("选择用于为此提交签署的电子邮件地址");
+		expect(
+			translateText(
+				"Create a new branch for this commit and start a pull request",
+				editView,
+			),
+		).toBe("为此提交创建新分支并发起拉取请求");
+		expect(
+			translateText(
+				"Learn more about pull requests",
+				editView,
+			),
+		).toBe("详细了解拉取请求");
+	});
+
+	it("translates the branch radio through its dynamic branch name", () => {
+		expect(
+			translateText(
+				"Commit directly to the main branch",
+				editView,
+			),
+		).toBe("直接提交到 main 分支");
+		// 非默认分支同样命中
+		expect(
+			translateText(
+				"Commit directly to the release/2.x branch",
+				editView,
+			),
+		).toBe("直接提交到 release/2.x 分支");
+	});
+
+	it("has japanese entries for the editor and the dialog", () => {
+		const japaneseEdit = buildView(
+			"/Koishi-CE/.github/edit/main/profile/README.md",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText("Commit changes...", japaneseEdit),
+		).toBe("変更をコミット…");
+		expect(translateText("Soft wrap", japaneseEdit)).toBe(
+			"ソフト折り返し",
+		);
+		expect(
+			translateText(
+				"Sign off and commit changes",
+				japaneseEdit,
+			),
+		).toBe("サインオフして変更をコミット");
+		expect(
+			translateText(
+				"Commit directly to the main branch",
+				japaneseEdit,
+			),
+		).toBe("main ブランチに直接コミット");
+	});
+});

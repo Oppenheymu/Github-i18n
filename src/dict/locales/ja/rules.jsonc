@@ -929,6 +929,10 @@
 		"repo/unreleased-commits": "$<tag> 以降に未リリースのコミットが $<count> 件",
 		"repo/create-codespace-on": "$<branch> でコードスペースを作成",
 		"repo/codespace-usage": "このリポジトリのコードスペースの使用料は $<user> が支払います。",
+		// 特別なリポジトリのバナー
+		"repo/special-repository-banner": "$<repo> は特別なリポジトリです：$<readme> は組織の公開プロフィールに表示され、誰でも閲覧できます。",
+		// ファイルエディターの「サインオフしてコミット」ダイアログのブランチ選択
+		"repo/commit-directly-to-branch": "$<branch> ブランチに直接コミット",
 
 		// —— global（全ページ共通）——
 		"global/now": "たった今",

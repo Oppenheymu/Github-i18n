@@ -258,6 +258,27 @@
 		"Manage codespaces": "コードスペースを管理",
 		"Share a deep link": "ディープリンクを共有",
 		"What are codespaces?": "コードスペースとは？",
-		"Set up prebuilds": "プリビルドを設定"
+		"Set up prebuilds": "プリビルドを設定",
+		// —— ファイルエディターと「サインオフしてコミット」ダイアログ ——
+		"Cancel changes": "変更をキャンセル",
+		"Commit changes...": "変更をコミット…",
+		"Line wrap mode": "折り返しモード",
+		"No wrap": "折り返しなし",
+		"Soft wrap": "ソフト折り返し",
+		"Indent mode": "インデントモード",
+		"Spaces": "スペース",
+		"Tabs": "タブ",
+		"Indent size": "インデント幅",
+		"is a special repository: this": "は特別なリポジトリです：この",
+		"will appear on your public organization profile, visible to anyone.": "は組織の公開プロフィールに表示され、誰でも閲覧できます。",
+		"Sign off and commit changes": "サインオフして変更をコミット",
+		"Commit message": "コミットメッセージ",
+		"Extended description": "拡張説明",
+		"Message and description suggested by Copilot.": "メッセージと説明は Copilot が提案したものです。",
+		"Commit Email": "コミットメール",
+		"Email": "メールアドレス",
+		"Choose an email address for signing off on this commit": "このコミットへのサインオフに使うメールアドレスを選択してください",
+		"Create a new branch for this commit and start a pull request": "このコミット用の新しいブランチを作成してプルリクエストを開始",
+		"Learn more about pull requests": "プルリクエストの詳細を見る"
 	}
 }

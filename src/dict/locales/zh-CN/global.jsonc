@@ -429,6 +429,17 @@
 		"Forgot password?": "忘记密码？",
 		"Create an account": "创建账户",
 		"Remember me": "记住我",
+		// —— 登录页第三方登录与通行密钥（2026-11-14 实机采集 /login）——
+		"Continue with Google": "继续使用 Google",
+		"Continue with Apple": "继续使用 Apple",
+		"Continue with passkey": "继续使用通行密钥",
+		"To login using passkeys, ensure that JavaScript is enabled in your browser.": "如要使用通行密钥登录，请确保浏览器中已启用 JavaScript。",
+		"Enable JavaScript to use your passkey.": "启用 JavaScript 才能使用通行密钥。",
+		"Sign in with a passkey": "使用通行密钥登录",
+		"New to GitHub?": "第一次使用 GitHub？",
+		// —— 设备登录成功页 /login/device/success ——
+		"Congratulations, you're all set!": "恭喜，一切就绪！",
+		"Your device is now connected.": "你的设备现已连接。",
 		// —— 未登录对话页底部的注册引导 ——
 		"Sign up for free": "免费注册",
 		"to subscribe to this conversation on GitHub": "以订阅 GitHub 上关于此对话的动态",

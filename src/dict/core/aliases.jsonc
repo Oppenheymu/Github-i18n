@@ -62,6 +62,10 @@
 		"What’s new": "What's new",
 		// —— 2026-11-11 实机（文件编辑器顶栏提交按钮）：省略号弯直没把握（截图难辨），
 		// 规范键取三点形态，单字符省略号形态走别名双保险。
-		"Commit changes…": "Commit changes..."
+		"Commit changes…": "Commit changes...",
+		// —— 2026-11-14 实机（设备登录成功页 /login/device/success，维护者截图，
+		// 登录态才渲染）：撇号弯直没把握（截图难辨），规范键取直撇号，
+		// 弯撇号形态走别名双保险（语义相同）。
+		"Congratulations, you’re all set!": "Congratulations, you're all set!"
 	}
 }

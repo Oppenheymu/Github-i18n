@@ -790,3 +790,103 @@ describe("PR 活动侧栏与紧凑相对时间", () => {
 		);
 	});
 });
+
+// —— 登录页第三方登录与设备成功页 ——
+// 证据：2026-11-14 实机（未登录访问 /login/device/success 被 302 到 /login，
+// 落地页整页节点采集）+ 维护者截图（设备成功页 /login/device/success，
+// 登录态才渲染）。两类页面都没有专属模块，全靠 global 兜底。
+describe("登录页第三方登录与设备成功页", () => {
+	it("translates the passkey buttons and hints on the login page", () => {
+		expect(
+			translateText("Continue with Google", view),
+		).toBe("继续使用 Google");
+		expect(translateText("Continue with Apple", view)).toBe(
+			"继续使用 Apple",
+		);
+		expect(
+			translateText("Continue with passkey", view),
+		).toBe("继续使用通行密钥");
+		expect(
+			translateText("Sign in with a passkey", view),
+		).toBe("使用通行密钥登录");
+		// 实机节点带首尾空格，靠 normalizeKey 的 trim 命中
+		expect(
+			translateText(
+				" To login using passkeys, ensure that JavaScript is enabled in your browser. ",
+				view,
+			),
+		).toBe(
+			"如要使用通行密钥登录，请确保浏览器中已启用 JavaScript。",
+		);
+		expect(
+			translateText(
+				"\n        Enable JavaScript to use your passkey.\n",
+				view,
+			),
+		).toBe("启用 JavaScript 才能使用通行密钥。");
+		// 注册引导：`New to GitHub?` 节点带换行缩进，链接节点 `Create an account` 另收
+		expect(
+			translateText(
+				"\n            New to GitHub?\n              ",
+				view,
+			),
+		).toBe("第一次使用 GitHub？");
+	});
+
+	it("translates the device login success page", () => {
+		expect(
+			translateText("Your device is now connected.", view),
+		).toBe("你的设备现已连接。");
+		// 截图难辨撇号弯直：直撇号是规范键，弯撇号走 aliases，两形态同译文
+		expect(
+			translateText(
+				"Congratulations, you're all set!",
+				view,
+			),
+		).toBe("恭喜，一切就绪！");
+		expect(
+			translateText(
+				"Congratulations, you’re all set!",
+				view,
+			),
+		).toBe("恭喜，一切就绪！");
+	});
+
+	it("keeps bare brand names as user content", () => {
+		// 只有带上下文的短语收录（`Continue with Google` 等）；裸品牌词不收
+		expect(translateText("Google", view)).toBeNull();
+		expect(translateText("Apple", view)).toBeNull();
+	});
+
+	it("has japanese entries", () => {
+		const japanese = buildView(
+			"/microsoft/vscode",
+			dictForLocale("ja"),
+			new Map(Object.entries(dictCore.aliases)),
+		);
+		expect(
+			translateText("Continue with Google", japanese),
+		).toBe("Google で続行");
+		expect(
+			translateText("Continue with passkey", japanese),
+		).toBe("パスキーで続行");
+		expect(
+			translateText("Sign in with a passkey", japanese),
+		).toBe("パスキーでサインイン");
+		expect(translateText("New to GitHub?", japanese)).toBe(
+			"GitHub は初めてご利用ですか？",
+		);
+		expect(
+			translateText(
+				"Congratulations, you're all set!",
+				japanese,
+			),
+		).toBe("おめでとうございます。すべて準備できました！");
+		expect(
+			translateText(
+				"Your device is now connected.",
+				japanese,
+			),
+		).toBe("デバイスが接続されました。");
+	});
+});

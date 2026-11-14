@@ -9830,6 +9830,27 @@
 				"Forgot password?",
 				"Create an account",
 				"Remember me",
+				// —— 登录页第三方登录与通行密钥（2026-11-14 实机：未登录访问
+				// /login/device/success 被 302 到 /login，落地页整页节点采集）——
+				// 按钮文案（Google / Apple 是品牌名，带上下文短语可收；裸品牌词不收）
+				"Continue with Google",
+				"Continue with Apple",
+				"Continue with passkey",
+				// passkey 区块的说明句（首句实机节点带首尾空格，键为 normalizeKey
+				// 后的形态）；Banner 提示句
+				"To login using passkeys, ensure that JavaScript is enabled in your browser.",
+				"Enable JavaScript to use your passkey.",
+				"Sign in with a passkey",
+				// 注册引导（节点为 `\n New to GitHub?\n `，trim 后即本键；
+				// `Create an account` 链接上方已收）
+				"New to GitHub?",
+				// —— 设备登录成功页 /login/device/success（2026-11-14 维护者截图，
+				// 登录态才渲染：未登录 302 回 /login）——
+				// 标题与说明各一节点（渲染字号分立）；撇号码点截图不可辨，
+				// 直撇号做规范键、弯撇号 ’ 走 aliases（先例：notifications 的
+				// watching 提示句）
+				"Congratulations, you're all set!",
+				"Your device is now connected.",
 				// —— 未登录对话页底部的注册引导 ——
 				"Sign up for free",
 				"to subscribe to this conversation on GitHub",

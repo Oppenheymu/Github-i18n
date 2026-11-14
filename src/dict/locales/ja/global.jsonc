@@ -425,6 +425,18 @@
 		"Create an account": "アカウントを作成",
 		"Remember me": "ログイン状態を保持する",
 
+		// —— ログインページのサードパーティログインとパスキー（2026-11-14 実機収集 /login）——
+		"Continue with Google": "Google で続行",
+		"Continue with Apple": "Apple で続行",
+		"Continue with passkey": "パスキーで続行",
+		"To login using passkeys, ensure that JavaScript is enabled in your browser.": "パスキーでログインするには、ブラウザーで JavaScript が有効になっていることをご確認ください。",
+		"Enable JavaScript to use your passkey.": "パスキーを使用するには、JavaScript を有効にしてください。",
+		"Sign in with a passkey": "パスキーでサインイン",
+		"New to GitHub?": "GitHub は初めてご利用ですか？",
+		// —— デバイスログイン成功ページ /login/device/success ——
+		"Congratulations, you're all set!": "おめでとうございます。すべて準備できました！",
+		"Your device is now connected.": "デバイスが接続されました。",
+
 		// —— 未ログインの会話ページ下部の登録案内 ——
 		"Sign up for free": "無料でサインアップ",
 		"to subscribe to this conversation on GitHub": "GitHub でこの会話を購読するには",

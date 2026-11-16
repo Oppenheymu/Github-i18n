@@ -21,7 +21,7 @@
         "pack": "bun run build:prod && bun tooling/pipeline/pack.ts"
     },
     "devDependencies": {
-        "@biomejs/biome": "^2.6.5",
+        "@biomejs/biome": "^2.6.7",
         "@types/bun": "^1.4.4",
         "@types/chrome": "^0.3.7",
         "happy-dom": "^21.0.4",
